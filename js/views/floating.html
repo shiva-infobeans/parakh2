@@ -1,0 +1,90 @@
+
+
+
+<div class="oj-web-applayout-max-width oj-web-applayout-content  ">
+    <div class="oj-flex oj-row">
+          <nav class="container"  > 
+    
+              <a href="#" class="buttons" tooltip="Ratebuddy" id="abc">
+                 
+              </a>
+    
+    <a href="#" class="buttons" tooltip="Feedback"></a>
+    
+    <a href="#" class="buttons" tooltip="Send equest"></a>
+
+    <a class="buttons"  href="#"></a>
+
+  </nav>
+        
+        <div class="floating-item-container">
+
+            <div class="button-container">
+                <a href="#" class="btn btn-float">
+                    <i class="zmdi zmdi-star"></i>
+                </a>
+            </div>
+            <div class="black-overlay" id="overlay"></div>
+
+            <div class="modal oj-lg-12 oj-sm-12 oj-md-12 oj-flex-items">  
+                <a href="#" class="close">
+                    <i class="zmdi zmdi-close"></i>     
+                </a>   
+
+                <div class="modal-content ">
+                    <div class="modal-header oj-lg-12 oj-sm-12 oj-md-12 oj-flex-items">
+                        <i class="zmdi zmdi-star "></i> 
+                        Rate Buddy  
+                    </div>
+
+                    <div class="search-wrapper oj-lg-12 oj-sm-12 oj-md-12 oj-flex-items">
+
+<!--
+-->                        <form id="form1">
+
+                            <input placeholder="Search..." class="srch" type="search" id="search_field"
+                                   data-bind="ojComponent: {
+                                    component: 'ojInputSearch',
+                                    value: keyword,
+                                    options: tags,
+                                    rootAttributes: {style:'max-width: 30em'}}">
+                            
+<!--                                                    <div>
+                                                        <br/>
+                                                        <span id="keyword" data-bind="text: ko.toJSON(keyword)"></span>
+                                                    </div>-->
+                        </form>
+<!--                             <div class="ui-widget">
+                                <label for="tags">Tags: </label>
+                                <input id="tags"/>
+                             </div> -->
+                    </div>
+                    <div class="Searcherror" id="error1">  </div>
+
+                    <div class="comment-wrapper oj-lg-12 oj-sm-12 oj-md-12 oj-flex-items  oj.RequiredValidator">
+                        <div class="area">  
+                            <textarea id="text"  
+                                      data-bind="ojComponent: {component: 'ojTextArea', 
+                                     value: value,
+                                     placeholder: 'Type your reason here..'}"></textarea>
+
+                            <img class="imgModal" src="css/images/green-button.png" alt=""/>
+                            <span class="modalText">+1  </span>   
+                              <div class="Texterror" id="error2"> </div>
+                            
+                            <input id="submit" type="submit"  class="modal-submit" value="send"
+                                   data-bind="click: buttonClick, 
+                      ojComponent: {component: 'ojButton', label: 'Submit'}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    </div>
+
+
+

@@ -1,0 +1,48 @@
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<div id="vtabs" class="max-width profile-page oj-margin"
+     data-bind="ojComponent:{component: 'ojTabs', 
+                            orientation: 'vertical',
+                            selected: 0}">
+
+    <ul class="profile-ul pos-relative">
+        <div class="transbox"></div>
+        <li class="profile-tabs profile-font-tabs selectedTab"><span><i class="zmdi zmdi-account-add"></i> About Me</span></li>
+        <li class="profile-tabs profile-font-tabs selectedTab"><span><i class="zmdi zmdi-trending-up"></i> 
+                +<span data-bind="text: plus"></span></span></li>
+        <li class="profile-tabs profile-font-tabs selectedTab"><span><i class="zmdi zmdi-trending-down"></i> 
+                -<span data-bind="text: minus"></span></span></li>
+        <li class="profile-tabs profile-font-tabs selectedTab"><span><i class="zmdi zmdi-comment-alt-text"></i> Feedback</span></li>
+    </ul>
+
+    <div id="tabs-1" class="color-white oj-margin-horizontal pos-relative">
+        <div class="transbox"></div>
+        <div class="profile-page-overflow">
+        <p class="profile-tab1-data"> <i class="zmdi zmdi-account"></i> <span data-bind="text: myname"></span></p>
+        <h1><span data-bind="text: email"></span></h1>
+        <p></p>
+        <p></p>
+        </div>
+    </div>
+    <div id="tabs-2" class="color-white oj-margin-horizontal pos-relative">
+        <div class="transbox"></div>
+        <div class="profile-page-overflow">
+           
+            <p>Vertical Tab 2.</p>
+            <p>Vertical Tab 2.</p>
+            <p>Vertical Tab 2.</p>
+        </div>
+    </div>
+    <div id="tabs-3" class="color-white oj-margin-horizontal pos-relative">
+        <div class="transbox"></div>
+        <p>Vertical Tab 3.</p>
+    </div>
+
+    <div id="tabs-4" class="color-white oj-margin-horizontal pos-relative">
+        <div class="transbox"></div>
+        <p>Vertical Disabled panel. 4</p>
+    </div>
+</div>

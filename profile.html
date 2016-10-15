@@ -1,0 +1,82 @@
+<html>
+    <head>
+        <title>PARAKH-DEV</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-signin-client_id" content="791490125018-lcfs9ha89efjtp09v5u8q38ls05hhinl.apps.googleusercontent.com">
+        <link rel="icon" type="image/jpg" href="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/External-link-03-10x10.svg/2000px-External-link-03-10x10.svg.png" />
+        <link href="css/libs/oj/v2.1.0/alta/oj-alta-min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/custom.css" rel="stylesheet" type="text/css"/>
+        <link href="css/common.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+<!--        <script>
+            // parakh user data web service url: http://dev.parakh.com/parakh-new/v1/index.php/getUserByEmail/shiva.shirbhate@infobeans.com;
+            //global variables
+            var teamMemberId = -10;
+            var name ="";
+            function person(email,name,pic){
+                this.email = email;
+                this.name = name;
+                this.pic = pic;
+                return this;
+            }
+            var email = "";
+            var profilePic = "https://lh6.googleusercontent.com/-131yApYhswk/AAAAAAAAAAI/AAAAAAAAAAA/APaXHhTuxvV1aILgUzpbSL_d6_GGpn1BXw/s96-c/photo.jpg";
+            function onSignIn(googleUser) {
+                var profile = googleUser.getBasicProfile();
+                email = profile.getEmail();
+                profilePic = profile.getImageUrl();
+                name = profile.getName();
+                console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+                
+            }
+        </script>-->
+         <script>
+            // parakh user data web service url: http://dev.parakh.com/parakh-new/v1/index.php/getUserByEmail/shiva.shirbhate@infobeans.com;
+            //global variables
+            var teamMemberId = -10;
+            var name = "";
+            function person(email, name, pic) {
+                this.email = email;
+                this.name = name;
+                this.pic = pic;
+                return this;
+            }
+            var email = "";
+            var profilePic = "https://lh6.googleusercontent.com/-131yApYhswk/AAAAAAAAAAI/AAAAAAAAAAA/APaXHhTuxvV1aILgUzpbSL_d6_GGpn1BXw/s96-c/photo.jpg";
+            function onSignIn(googleUser) {
+                setTimeout(function () {
+                    var profile = googleUser.getBasicProfile();
+                    email = profile.getEmail();
+                    profilePic = profile.getImageUrl();
+                    name = profile.getName();
+                    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+                }, 500);
+                var profile = googleUser.getBasicProfile();
+                email = profile.getEmail();
+                profilePic = profile.getImageUrl();
+                name = profile.getName();
+                console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+
+            }
+        </script>
+    </head>
+    <body class="background">
+        <header>
+            <div data-bind="ojModule:{name: 'header',params: new person(email,name,profilePic)}"></div>
+        </header>
+        <section>
+            <!--            <div data-bind="ojModule:{name: 'giveRatings'}"></div>-->
+            <div data-bind="ojModule:{name: 'personProfile',params: new person(email,name,profilePic)}"></div>
+            <!--<div data-bind="ojModule:{name: 'ratings'}"></div>-->
+        </section>
+        <footer>
+            <div class="footer" data-bind="ojModule:{name:'footer'}"></div>
+        </footer>
+        <div class="g-signin2" style="display: none" data-onsuccess="onSignIn"></div>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <script src="js/libs/require/require.js" data-main="js/main"></script>
+    </body>
+</html>
+
+

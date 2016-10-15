@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Parakh-Login </title>
+        <link rel="icon" type="image/jpg" href="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/External-link-03-10x10.svg/2000px-External-link-03-10x10.svg.png" />
+        <meta name="google-signin-client_id" content="791490125018-lcfs9ha89efjtp09v5u8q38ls05hhinl.apps.googleusercontent.com">
+        <script src="https://apis.google.com/js/platform.js?onload=callBackFunction" async defer></script>
+        <link href="css/login.css" rel="stylesheet" type="text/css"/>
+        <script>
+
+            function signinOnclick() {
+                var auth2;
+                gapi.load('auth2', function () {
+                    /**
+                     * Retrieve the singleton for the GoogleAuth library and set up the
+                     * client.
+                     */
+
+                    gapi.auth2.getAuthInstance({
+                        client_id: '791490125018-lcfs9ha89efjtp09v5u8q38ls05hhinl.apps.googleusercontent.com'
+                    }).attachClickHandler('my-signin2', {}, onSuccess, onFailure);
+                    function onSuccess(user) {
+                        setTimeout(function(){
+                            window.location = window.location.href+"dashboard.html";
+                        },500);
+                        
+                    }
+                    ;
+                    /**
+                     * Handle sign-in failures.
+                     */
+                    var onFailure = function (error) {
+                        console.log(error);
+                    };
+
+                });
+                /**
+                 * Handle successful sign-ins.
+                 */
+
+            }
+
+
+            function callBackFunction() {
+                renderButton();
+                signinOnclick();
+
+            }
+            function renderButton() {
+                gapi.signin2.render('my-signin2', {
+                    'scope': 'profile email',
+                    'width': 340,
+                    'height': 60,
+                    'longtitle': true,
+                    'theme': 'dark'
+                });
+            }
+
+        </script>
+        <style>
+            #login-Background{
+                position:absolute;
+                top:0px;
+                left:0px;
+                width:100%;
+                height:100%;
+                z-index:-1;
+            }
+        </style>
+        <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js'></script>
+        <script>
+            //Add images
+            var images = ['images/parakh.jpg', 'images/parakh2.jpg'];
+            var thisImage = images[Math.floor(Math.random() * images.length)];
+            //setting the path
+            $(document).ready(function () {
+                $("#login-background").css("background", "url('" + thisImage + "') no-repeat fixed 0 0 /cover");
+            });
+        </script>
+
+    </head>
+    <body id="login-background">
+        <img class="login-btn" src="images/sign-in-with-google.png" id="my-signin2"/>
+        <div  class="login-logo">
+            <img src="images/login-logo.png"/>
+        </div>
+    </body>
+</html>
