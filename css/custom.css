@@ -122,9 +122,10 @@ body{
 }
 /*Profile page css*/
 .profile-tabs{
-    padding: 50px;
+    padding: 35px;
     text-align: center;
     border-bottom: 1px solid #85D44B;
+    border-left: none;
     cursor: pointer;
 }
 .profile-font-tabs{
@@ -160,7 +161,7 @@ ul li.selectedTab div {
     border:none;
 }
 div.profile-page{
-    height: 623px;
+    height: 535px;
 }
 div.oj-tabs-panel.oj-tabs-selected{
     background: none;
