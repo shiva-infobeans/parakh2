@@ -34,7 +34,6 @@ class dbmodule
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
             $query = "select u.*,rt.name as role_name from users as u, role_type as rt where google_email = :email AND u.role_id = rt.id";
-
             
             $profile_data = $this->con->prepare($query); 
             $profile_data->execute(array(':email'=>$email));
@@ -313,6 +312,151 @@ class dbmodule
         }else{
             return false;
         }
+    }//end of fun
+
+    /* *
+     * get 10 Ranking list
+     * */
+    function get_ranking_list() {
+     
+        $result = array();
+              $query = "SELECT MAX(r.created_date) as date,r.user_id,u.google_name,u.google_picture_link as image,
+                           sum(case when r.rating = 1 then 1  end) as pluscount,
+                           sum(case when r.rating = 0 then 1  end) as minuscount
+                           from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 
+                           group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC LIMIT 10";
+            $ranking_data = $this->con->prepare($query);
+            $ranking_data->execute();
+            $data = $ranking_data->fetchAll((PDO::FETCH_ASSOC));
+            return $data;
+            /*$rating = '';
+            $name = '';
+            $data = '';
+            $flag = 'FALSE';
+            while ($row = $ranking_data->fetch((PDO::FETCH_ASSOC))) {
+                
+                switch ($row['pluscount']) {
+                    case $row['pluscount'] > 25:
+                          $position = $row['pluscount'] + 10;
+                        break;
+                    case $row['pluscount'] > 5 & $row['pluscount'] < 25:
+                        $position = $row['pluscount'] + 5;
+                        break;
+                    default:
+                        $position = $row['pluscount'] + 2;
+                        break;
+                }
+                /*if ($row['user_id'] == $login_user_id) {
+                    $flag = 'TRUE';
+                    $rating .= "{'y':" . $row['pluscount'] . ",'color':'#0075a0'}" . ",";
+                } else {
+                    $rating.= $row['pluscount'] . ',';
+                }                $profile_pic = ($row['image'] != '') ? $row['image'] . "" : 'https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg';
+                $image = $profile_pic . '?size=40';
+                $fname = $row['google_name'];
+                $name.="'$fname'" . ',';
+                
+                $data.= "{y:$position, marker: {symbol: 'url($image)'}}" . ',';
+            }
+        
+            $result['ratings'] = rtrim($rating, ',');
+            $result['name'] = rtrim($name, ",");
+            $result['data'] = rtrim($data, ',');
+        
+            return $result;*/
+    }
+
+    /* *
+     * get 3 reset Ratings list
+     * */
+    function get_recent_ratings() {
+         
+        $MonthFirstDate = date('Y-m-01');
+        $query = "SELECT r.user_id,u.google_name,u.google_picture_link,u.designation,if(c.comment_text <> '',c.comment_text,w.description) AS description"
+                . " FROM rating as r LEFT JOIN work AS w ON (w.id =r.work_id)"
+                . " LEFT JOIN comment AS c on (c.request_id = r.request_id) JOIN users AS u ON (u.id = r.user_id) WHERE description <> '' AND r.rating <> 0 ORDER BY r.created_date DESC LIMIT 3";
+        $rank_data = $this->con->prepare($query);
+        $rank_data->execute();
+        $row = $rank_data->fetchAll((PDO::FETCH_ASSOC));
+        
+        return $row;
+    }
+
+    /* *
+     * get User rank_position .
+     * */
+    function get_my_rank_position($login_user_id) {
+
+        $query ="SELECT MAX(r.created_date) as date, r.user_id,u.google_name,u.google_picture_link as image,
+                       sum(case when r.rating = 1 then 1  end) as pluscount,
+                       sum(case when r.rating = 0 then 1  end) as minuscount
+                       from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0
+                       group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC";
+        $rank_data = $this->con->prepare($query);
+        $rank_data->execute();
+        $row = $rank_data->fetchAll((PDO::FETCH_ASSOC));
+        $login_user_rank_position = array_search($login_user_id, array_column($row, 'user_id'));
+        $result = array();
+        $result['my_rank'] = $login_user_rank_position+1;
+        $result['total_user_count'] = $this->get_all_members_cnt()['totalusercnt'];
+        return $result;
+    }
+
+    /* *
+     * get All Member count.
+     * */
+    function get_all_members_cnt() {
+        
+        $query = "SELECT count(*) as totalusercnt FROM users WHERE status <> 0";
+        $user_data = $this->con->prepare($query);
+        $user_data->execute();
+        $row = $user_data->fetch((PDO::FETCH_ASSOC));
+        if (isset($row) && !empty($row)) {
+            return $row;
+        }
+        
+    }
+
+    /* *
+     * get User feedback by id.
+     * */
+    function get_feedback_by_id($user_id) {
+        
+        $query = "SELECT feedback.feedback_to as feedback_to,feedback.feedback_from as feedback_from,feedback.id as id,feedback.feedback_description as description,feedback.created_date as created_date,user.google_name as given_by_name FROM feedback AS feedback LEFT JOIN users AS user ON user.id = feedback.feedback_from WHERE feedback.feedback_to= :user_id AND (feedback.response_parent=0 OR feedback.response_parent is NULL) ORDER BY feedback.created_date desc ";
+                    
+        $user_list = $this->con->prepare($query);
+        $user_list->execute(array(':user_id' => $user_id));
+        $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
+        return $row;
+        
+    }
+
+    /* *
+     * Add Feedback in database
+     * */
+    function addFeedback($data)
+    {
+        $dateTime = new \DateTime();
+        $created_date = $modified_date = $dateTime->format("Y-m-d H:i:s");
+
+        $feedback_insert_query = "INSERT INTO feedback(feedback_to, feedback_description, feedback_from, response_parent, created_date, modified_date) VALUES(:feedback_to,:feedback_description,:feedback_from,:response_parent,:created_date,:modified_date)";
+        try {
+            $feedback_insert = $this->con->prepare($feedback_insert_query);
+            $feedback_insert->execute(array(
+                ':feedback_to' => $data['feedback_to'],
+                ':feedback_description' => $data['feedback_description'],
+                ':feedback_from' => $data['feedback_from'],
+                ':created_date' => $created_date,
+                ':modified_date' => $modified_date,
+                ':response_parent' => ''
+                ));
+        }
+        catch (PDOException $e) {
+            echo 'Connection failed: ' . $e->getMessage();
+            exit;
+        }
+        return $work_last_insert = $this->con->lastInsertId();
+        
     }//end of fun
     
 } //end of class

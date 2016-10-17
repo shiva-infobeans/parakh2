@@ -7,7 +7,7 @@
 /**
  * topRanks module
  */
-define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart'
+define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'ojs/ojmodel'
 ], function (oj, ko) {
     /**
      * The view model for the main content view template
@@ -16,9 +16,57 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart'
         var initial = NAME.charAt(0) + NAME.charAt(NAME.lastIndexOf(" ") + 1);
         return initial;
     }
-    function topRanksContentViewModel() {
+    function Rankers1(x1, y1, z1, name1) {
+        var ranker = new Object();
+        ranker.x = x1;
+        ranker.y = parseInt(y1);
+        ranker.z = z1;
+        ranker.Member = name1;
+        ranker.label = nameFunction(name1);
+        return ranker;
+    }
+
+    function topRanksContentViewModel(person) {
         var self = this;
         //console.log(nameFunction("SHIVA SHIRBHATE"));
+        self.data12 = ko.observableArray([]);
+        self.bubbleSeriesValue = ko.observableArray();
+        self.bubbleSeries = ko.observableArray([
+            {name: "Series 1", displayInLegend: 'off', items: []},
+            {name: "Series 2", displayInLegend: 'off', items: []},
+            {name: "Series 3", displayInLegend: 'off', items: []},
+            {name: "Series 4", displayInLegend: 'off', items: []},
+            {name: "Series 5", displayInLegend: 'off', items: []},
+            {name: "Series 6", displayInLegend: 'off', items: []},
+            {name: "Series 7", displayInLegend: 'off', items: []},
+            {name: "Series 8", displayInLegend: 'off', items: []},
+            {name: "Series 9", displayInLegend: 'off', items: []},
+            {name: "Series 10", displayInLegend: 'off', items: []}
+        ]);
+        var rate = oj.Model.extend({
+            url: "http://dev.parakh.com/parakh-new/v1/index.php/getRankingList/"
+                    //parse: parseTask
+        });
+        var rateTask = new rate();
+        rateTask.fetch({
+            headers: {secret: 'parakh-revamp-local-key-2016'},
+            success: function (res) {
+                var data1 = res['attributes']['data'];
+                for (var counter = 0; counter < data1.length; counter++) {
+                    self.data12.push(Rankers1((10 - counter), data1[counter]['pluscount'], (90 - (counter * 5)), data1[counter]['google_name']));
+                }
+                //console.log(self.data12()[0].label);
+                for (var i = 0; i < self.data12().length; i++) {
+                    self.bubbleSeries()[i].items.push({
+                        x: self.data12()[i].x, y: self.data12()[i].y, z: self.data12()[i].z, label: self.data12()[i].label, labelPosition: 'auto',
+                        shortDesc: "&lt;b&gt;" + self.data12()[i].Member + "&lt;/b&gt;" + "&lt;br/&gt;Total +1 ratings: " + self.data12()[i].y + "&lt;br/&gt;"
+                    });
+                }
+                console.log(self.bubbleSeries()[0]);
+                //console.log(self.bubbleSeries());
+                self.bubbleSeriesValue(self.bubbleSeries());
+            }
+        });
         var data = [
             {x: 10, y: 40, z: 90, Member: "Mahender Devangan", label: nameFunction("Mahender Devangan"), labelPosition: 'auto'},
             {x: 9, y: 35, z: 85, Member: "SHIVA SHIRBHATE", label: nameFunction("SHIVA SHIRBHATE"), labelPosition: 'auto'},
@@ -31,25 +79,15 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart'
             {x: 2, y: 8, z: 50, Member: "SHIVA SHIRBHATE", label: "Group i", labelPosition: 'auto'},
             {x: 1, y: 7, z: 45, Member: "SHIVA SHIRBHATE", label: "Group k", labelPosition: 'auto'}
         ];
+        //data = self.data12();
         /* basic chart data */
-        self.bubbleSeries = [
-            {name: "Series 1", displayInLegend: 'off', items: []},
-            {name: "Series 2", displayInLegend: 'off', items: []},
-            {name: "Series 3", displayInLegend: 'off', items: []},
-            {name: "Series 4", displayInLegend: 'off', items: []},
-            {name: "Series 5", displayInLegend: 'off', items: []},
-            {name: "Series 6", displayInLegend: 'off', items: []},
-            {name: "Series 7", displayInLegend: 'off', items: []},
-            {name: "Series 8", displayInLegend: 'off', items: []},
-            {name: "Series 9", displayInLegend: 'off', items: []},
-            {name: "Series 10", displayInLegend: 'off', items: []}
-        ];
-        for (var i = 0; i < data.length; i++) {
-            self.bubbleSeries[i].items.push({
-                x: data[i].x, y: data[i].y, z: data[i].z, label: data[i].label, labelPosition: 'auto',
-                shortDesc: "&lt;b&gt;"+data[i].Member + "&lt;/b&gt;"+"&lt;br/&gt;Total +1 ratings: " + data[i].y + "&lt;br/&gt;"
-            });
-        }
+
+//        for (var i = 0; i < data.length; i++) {
+//            self.bubbleSeries[i].items.push({
+//                x: data[i].x, y: data[i].y, z: data[i].z, label: data[i].label, labelPosition: 'auto',
+//                shortDesc: "&lt;b&gt;" + data[i].Member + "&lt;/b&gt;" + "&lt;br/&gt;Total +1 ratings: " + data[i].y + "&lt;br/&gt;"
+//            });
+//        }
         var bubbleGroups = ["MEMBER"];
         this.bubbleGroupsValue = ko.observableArray(bubbleGroups);
         /* chart axes */
@@ -97,7 +135,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart'
                 }
             };
         });
-        this.bubbleSeriesValue = ko.observableArray(self.bubbleSeries);
+
     }
 
 

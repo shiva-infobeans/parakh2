@@ -42,7 +42,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.teamImage = ko.observable();
         self.teamName = ko.observable();
         self.teamDesig = ko.observable();
-
+        self.data1 = ko.observableArray([]);
         //modal for rating +1
         setTimeout(function () {
             self.handleOpen = $(".star").click(function () {
@@ -96,10 +96,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             $("#index1").ready(function () {
                 var AlphaIndexes = [];
                 var alphaCounter = 0; // counter for letters present in indexer
-                for (var index = 0; index < self.members().length; index++) {
-                    
-                    if (self.members()[index]['myName'].charAt(0) != AlphaIndexes[alphaCounter - 1]) {
-                        AlphaIndexes[alphaCounter++] = self.members()[index]['myName'].charAt(0);
+                for (var index = 0; index < self.myTeam().length; index++) {
+
+                    if (self.myTeam()[index]['myName'].charAt(0) != AlphaIndexes[alphaCounter - 1]) {
+                        AlphaIndexes[alphaCounter++] = self.myTeam()[index]['myName'].charAt(0);
                     }
                 }
                 $("#index1 span").each(function (i, data) {
@@ -131,9 +131,15 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             success: function () {
 //                     console.log(getUser['attributes']['data']);
                 var data = getUser.attributes['data'];
+                data = data.sort(function (a, b) {
+//                   console.log(a['google_name'] +" "+ b['google_name']);
+                    return (a['user_name'] > b['user_name']) - (a['user_name'] < b['user_name']);
+                });
                 for (var counter1 = 0; counter1 < data.length; counter1++) {
                     self.myTeam.push(new leadTeam(data[counter1]));
                 }
+                self.data1(self.myTeam());
+
             }
 
         });
@@ -168,14 +174,15 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     success: function (res) {
 //                        console.log('userId');
                         var data = task.attributes['data'];
-                        for (var counter1 = 0; counter1 < data.length; counter1++) {
-                            self.members.push(new teamMember(data[counter1]));
-                        }
-                        self.data2(self.members());
                         data = data.sort(function (a, b) {
 //                   console.log(a['google_name'] +" "+ b['google_name']);
                             return (a['google_name'] > b['google_name']) - (a['google_name'] < b['google_name']);
                         });
+                        for (var counter1 = 0; counter1 < data.length; counter1++) {
+                            self.members.push(new teamMember(data[counter1]));
+                        }
+                        self.data2(self.members());
+
                     }
                 });
             }
@@ -197,11 +204,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             self.members.push(self.data2()[counter]);
                         }
                     }
-                    if (0 == self.members().length) {
-                        self.noMembers("No Members To Show");
-                    } else {
-                        self.noMembers("");
-                    }
                 }
             }
             setTimeout(function () {
@@ -210,6 +212,37 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 });
                 self.handleOKClose = $("#okButton").click(function () {
                     $("#modalDialog1").ojDialog("close");
+                });
+            }, 500);
+        };
+        self.arrangeIndex1 = function (data, event) {
+            if (event.target.tagName == 'A') {
+                var value = event.target.href;
+
+                value = value.substr(value.lastIndexOf('/') + 1);
+                var temp_data = [];
+
+                self.myTeam([]);
+                if (value == "ALL") {
+                    self.myTeam([]);
+                    self.myTeam(self.data1());
+                } else {
+                    var temp_data = [];
+                    self.members([]);
+                    for (var counter = 0; counter < self.data1().length; counter++) {
+                        if (self.data1()[counter]['myName'].charAt(0) == value) {
+                            self.myTeam.push(self.data1()[counter]);
+                        }
+                    }
+                }
+            }
+            setTimeout(function () {
+                self.handleOpen = $(".starTeam").click(function () {
+                    $("#modalDialog2").ojDialog("open");
+                });
+
+                self.handleOKClose = $("#okButton").click(function () {
+                    $("#modalDialog2").ojDialog("close");
                 });
             }, 500);
         };

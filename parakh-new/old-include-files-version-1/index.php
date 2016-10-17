@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Step 1: Require the Slim Framework using Composer's autoloader
  *
@@ -206,8 +207,7 @@ $app->post('/updateProfile', function ($request, $response) {
     $post_data['user_id'] = filter_var($data['user_id'], FILTER_SANITIZE_NUMBER_INT);
     $post_data['mob']   = filter_var($data['mob'], FILTER_SANITIZE_NUMBER_INT);     
     $post_data['des'] = filter_var($data['des'], FILTER_SANITIZE_STRING);
-    $db = new dbmodule();
-      
+    
     if($db->isValidUser( $post_data['user_id'] )){
         if($post_data['des'] != "" ){
             //Creating a dbmodule object
@@ -321,6 +321,133 @@ $app->get('/hello[/{name}]', function ($request, $response, $args) {
     $response->write("Hello, " . $args['name']);
     return $response;
 })->setArgument('name', 'World!');
+
+
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getRankingList/
+ * Parameters: none
+ * 
+ * Method: GET
+ * */    
+$app->get('/getRankingList[/]', function ($request, $response, $args) {
+    $response_data = array();
+    
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    $result = $db->get_ranking_list();
+    if($result != 0){
+        $response_data = makeResponse('false',$result);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3001));
+    }    
+    $response->withJson($response_data);
+    return $response;
+});
+
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getRecentRatingingList/<loginUserId>
+ * Parameters: none
+ * 
+ * Method: GET
+ * */    
+$app->get('/getRecentRatingingList[/{loginUserId}]', function ($request, $response, $args) {
+    $response_data = array();
+    
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    $result = $db->get_recent_ratings();
+    if($result != 0){
+        $response_data = makeResponse('false',$result);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3001));
+    }    
+    $response->withJson($response_data);
+    return $response;
+});
+
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getMyRank/<loginUserId>
+ * Parameters: none
+ * 
+ * Method: GET
+ * */    
+$app->get('/getMyRank[/{loginUserId}]', function ($request, $response, $args) {
+    $response_data = array();
+    
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    $result = $db->get_my_rank_position($args['loginUserId']);
+    if($result != 0){
+        $response_data = makeResponse('false',$result);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3001));
+    }    
+    $response->withJson($response_data);
+    return $response;
+});
+
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getFeedbackById/<userId>
+ * Parameters: none
+ * 
+ * Method: GET
+ * */    
+$app->get('/getFeedbackById[/{userId}]', function ($request, $response, $args) {
+    $response_data = array();
+    
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    $result = $db->get_feedback_by_id($args['userId']);
+    if($result != 0){
+        $response_data = makeResponse('false',$result);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3001));
+    }    
+    $response->withJson($response_data);
+    return $response;
+});
+
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/addFeedback
+ * Parameters: 
+ * feedback_from User id who is giving rating
+ * feedback_to User id to whom rating is given
+ * feedback_description comment
+ * Method: POST
+ * */    
+$app->post('/addFeedback', function ($request, $response) {
+    $response_data = [];
+    $data = $request->getParsedBody();
+    $post_data = [];
+    $post_data['feedback_from'] = filter_var($data['feedback_from'], FILTER_SANITIZE_NUMBER_INT);
+    $post_data['feedback_to']   = filter_var($data['feedback_to'], FILTER_SANITIZE_NUMBER_INT);
+    $post_data['feedback_description'] = filter_var($data['feedback_description'], FILTER_SANITIZE_STRING);
+    if($post_data['feedback_from'] > 0 && $post_data['feedback_to'] > 0){
+        //Creating a dbmodule object
+        $db = new dbmodule();
+        // Check Is valid user
+        if($db->isValidUser( $post_data['feedback_from'] )){
+            // Check user is belong to your team
+            if($db->isInMyTeam($post_data['feedback_from'], $post_data['feedback_to'])){
+                $result = $db->addFeedback($post_data);
+                if($result != ""){
+                    $response_data = makeResponse('false',$result);
+                }else{
+                    $response_data = makeResponse('true',get_site_error(3008));
+                }
+            }else{
+                $response_data = makeResponse('true',get_site_error(3006));
+            }
+        }else{
+            $response_data = makeResponse('true',get_site_error(3002));
+        }
+    }else{
+       $response_data = makeResponse('true',get_site_error(3008)); 
+    }    
+    $response->withJson($response_data);
+    return $response;
+    
+});
 
 /**
  * Step 4: Run the Slim application

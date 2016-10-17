@@ -345,12 +345,12 @@ $app->get('/getRankingList[/]', function ($request, $response, $args) {
 });
 
 /* *
- * URL: http://localhost/parakh-new/v1/index.php/getRecentRatingingList/<loginUserId>
+ * URL: http://localhost/parakh-new/v1/index.php/getRecentRatingingList/
  * Parameters: none
  * 
  * Method: GET
  * */    
-$app->get('/getRecentRatingingList[/{loginUserId}]', function ($request, $response, $args) {
+$app->get('/getRecentRatingingList[/]', function ($request, $response, $args) {
     $response_data = array();
     
     //Creating a dbmodule object
@@ -380,7 +380,7 @@ $app->get('/getMyRank[/{loginUserId}]', function ($request, $response, $args) {
     if($result != 0){
         $response_data = makeResponse('false',$result);
     }else{
-        $response_data = makeResponse('true',get_site_error(3001));
+        $response_data = makeResponse('true',get_site_error(3002));
     }    
     $response->withJson($response_data);
     return $response;
@@ -401,7 +401,7 @@ $app->get('/getFeedbackById[/{userId}]', function ($request, $response, $args) {
     if($result != 0){
         $response_data = makeResponse('false',$result);
     }else{
-        $response_data = makeResponse('true',get_site_error(3001));
+        $response_data = makeResponse('true',get_site_error(3002));
     }    
     $response->withJson($response_data);
     return $response;
@@ -427,16 +427,71 @@ $app->post('/addFeedback', function ($request, $response) {
         $db = new dbmodule();
         // Check Is valid user
         if($db->isValidUser( $post_data['feedback_from'] )){
-            // Check user is belong to your team
-            if($db->isInMyTeam($post_data['feedback_from'], $post_data['feedback_to'])){
-                $result = $db->addFeedback($post_data);
-                if($result != ""){
-                    $response_data = makeResponse('false',$result);
-                }else{
-                    $response_data = makeResponse('true',get_site_error(3008));
-                }
+            $result = $db->addFeedback($post_data);
+            if($result != ""){
+                $response_data = makeResponse('false',$result);
             }else{
-                $response_data = makeResponse('true',get_site_error(3006));
+                $response_data = makeResponse('true',get_site_error(3008));
+            }
+        }else{
+            $response_data = makeResponse('true',get_site_error(3002));
+        }
+    }else{
+       $response_data = makeResponse('true',get_site_error(3008)); 
+    }    
+    $response->withJson($response_data);
+    return $response;
+    
+});
+
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getAllTeamMembers/<userId>
+ * Parameters: none
+ * 
+ * Method: GET
+ * */    
+$app->get('/getAllTeamMembers[/{userId}]', function ($request, $response, $args) {
+    $response_data = array();
+    //Creating a dbmodule object
+    
+    $db = new dbmodule();
+    $result = $db->get_all_team_members($args['userId']);
+    if($result != 0){
+        $response_data = makeResponse('false',$result);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3002));
+    }    
+    $response->withJson($response_data);
+    return $response;
+});
+
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/addFeedbackResponce
+ * Parameters: 
+ * login_user_id User id who is giving rating
+ * feedback_to User id to whom rating is given
+ * feedback_desc comment
+ * Feedback_id feedbcak id
+ * Method: POST
+ * */    
+$app->post('/addFeedbackResponce', function ($request, $response) {
+    $response_data = [];
+    $data = $request->getParsedBody();
+    $post_data = [];
+    $post_data['login_user_id'] = filter_var($data['login_user_id'], FILTER_SANITIZE_NUMBER_INT);
+    $post_data['feedback_to'] = filter_var($data['feedback_to'], FILTER_SANITIZE_NUMBER_INT);
+    $post_data['feedback_desc'] = filter_var($data['feedback_desc'], FILTER_SANITIZE_STRING);
+    $post_data['feedback_id'] = filter_var($data['feedback_id'], FILTER_SANITIZE_NUMBER_INT);
+    if($post_data['login_user_id'] > 0 && $post_data['feedback_to'] > 0){
+        //Creating a dbmodule object
+        $db = new dbmodule();
+        // Check Is valid user
+        if($db->isValidUser( $post_data['login_user_id'] )){
+            $result = $db->feedbackResponseSave($post_data);
+            if($result != ""){
+                $response_data = makeResponse('false',$result);
+            }else{
+                $response_data = makeResponse('true',get_site_error(3008));
             }
         }else{
             $response_data = makeResponse('true',get_site_error(3002));

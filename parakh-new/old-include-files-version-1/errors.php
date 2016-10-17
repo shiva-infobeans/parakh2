@@ -51,6 +51,12 @@ switch ($error_code) {
         'error' => 'Invalid parameter for profile create'
         );
         break;
+    case 3008:
+        return array(
+        'code' => '3004',
+        'error' => 'Invalid parameter for Feedback'
+        );
+        break;
     case "blue":
         echo "Your favorite color is blue!";
         break;

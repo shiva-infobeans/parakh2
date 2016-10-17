@@ -56,13 +56,13 @@ class dbmodule
     {
         if (!filter_var($lead_id, FILTER_VALIDATE_INT) === false) {
             $employeeList = array();
-            $query = 'SELECT uh.user_id,u.google_name,u.designation,u.google_picture_link,u.google_email FROM user_hierarchy uh left join users u on u.id = uh.user_id ' .
+            $query = 'SELECT uh.user_id,u.google_name,u.google_email,u.mobile_number,u.designation,u.google_picture_link,u.google_email FROM user_hierarchy uh left join users u on u.id = uh.user_id ' .
                     'WHERE manager_id = :id  AND u.status <> 0 group by user_id';
             $user_data = $this->con->prepare($query);
             $user_data->execute(array(':id' => $lead_id));
             while ($row = $user_data->fetch((PDO::FETCH_ASSOC))) {
                 $membresInfo = array();
-                $membresInfo = array('user_id' => $row['user_id'], 'user_name' => $row['google_name'],'designation' => $row['designation'],'picture' => $row['google_picture_link'],'email' => $row['google_email']);
+                $membresInfo = array('user_id' => $row['user_id'], 'user_name' => $row['google_name'],'designation' => $row['designation'],'picture' => $row['google_picture_link'],'email' => $row['google_email'],'mobile_number' => $row['mobile_number']);
                 $employeeList[] = $membresInfo;
                 $this->getUserByLead($row['user_id']);
             }
@@ -98,7 +98,7 @@ class dbmodule
             if (!empty($this->my_team_id)) {
                 $condition = "id NOT IN ($this->my_team_id)  AND";
             }
-            $query = "SELECT `id`,`google_name`,`designation`,`google_picture_link` FROM users WHERE $condition id <>:id AND id <> 1 AND status <> 0 ORDER BY google_name";
+            $query = "SELECT `id`,`google_name`,`google_email`,`mobile_number`,`designation`,`google_picture_link` FROM users WHERE $condition id <>:id AND id <> 1 AND status <> 0 ORDER BY google_name";
             $user_list = $this->con->prepare($query);
             $user_list->execute(array(':id' => $lead_id));
             $employeeList = $user_list->fetchAll((PDO::FETCH_ASSOC));
@@ -317,56 +317,26 @@ class dbmodule
     /* *
      * get 10 Ranking list
      * */
-    function get_ranking_list() {
-     
-        $result = array();
-              $query = "SELECT MAX(r.created_date) as date,r.user_id,u.google_name,u.google_picture_link as image,
-                           sum(case when r.rating = 1 then 1  end) as pluscount,
-                           sum(case when r.rating = 0 then 1  end) as minuscount
-                           from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 
-                           group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC LIMIT 10";
-            $ranking_data = $this->con->prepare($query);
-            $ranking_data->execute();
-            $rating = '';
-            $name = '';
-            $data = '';
-            $flag = 'FALSE';
-            while ($row = $ranking_data->fetch((PDO::FETCH_ASSOC))) {
-                
-                switch ($row['pluscount']) {
-                    case $row['pluscount'] > 25:
-                          $position = $row['pluscount'] + 10;
-                        break;
-                    case $row['pluscount'] > 5 & $row['pluscount'] < 25:
-                        $position = $row['pluscount'] + 5;
-                        break;
-                    default:
-                        $position = $row['pluscount'] + 2;
-                        break;
-                }
-                /*if ($row['user_id'] == $login_user_id) {
-                    $flag = 'TRUE';
-                    $rating .= "{'y':" . $row['pluscount'] . ",'color':'#0075a0'}" . ",";
-                } else {
-                    $rating.= $row['pluscount'] . ',';
-                }*/
-                $profile_pic = ($row['image'] != '') ? $row['image'] . "" : 'https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg';
-                $image = $profile_pic . '?size=40';
-                $fname = $row['google_name'];
-                $name.="'$fname'" . ',';
-                
-                $data.= "{y:$position, marker: {symbol: 'url($image)'}}" . ',';
-            }
-        
-            $result['ratings'] = rtrim($rating, ',');
-            $result['name'] = rtrim($name, ",");
-            $result['data'] = rtrim($data, ',');
-        
-            return $result;
-    }
+function get_ranking_list() {
+    
+       $result = array();
+             $query = "SELECT MAX(r.created_date) as date,r.user_id,u.google_name,u.google_picture_link as image,
+                          sum(case when r.rating = 1 then 1  end) as pluscount,
+                          sum(case when r.rating = 0 then 1  end) as minuscount
+                          from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 
+                          group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC LIMIT 10";
+           $ranking_data = $this->con->prepare($query);
+           $ranking_data->execute();
+           $rating = '';
+           $name = '';
+           $data = '';
+           $flag = 'FALSE';
+           $data = $ranking_data->fetchAll((PDO::FETCH_ASSOC));
+           return $data;
+   }
 
     /* *
-     * get 3 reset Ratings list
+     * get 3 recent Ratings list
      * */
     function get_recent_ratings() {
          
@@ -457,5 +427,44 @@ class dbmodule
         return $work_last_insert = $this->con->lastInsertId();
         
     }//end of fun
+
+    /* *
+     * get get_all_team_members except given id (self id)
+     * */
+    function get_all_team_members($user_id) {
+        if($user_id){
+            $query = "SELECT id, google_name, mobile_number, designation, google_picture_link FROM users WHERE id <>:id AND id <> 1 AND status <> 0 ORDER BY google_name";
+
+            $user_list = $this->con->prepare($query);
+            $user_list->execute(array(':id' => $user_id));
+            $employeeList = $user_list->fetchAll((PDO::FETCH_ASSOC));
+            return $employeeList;
+        } else {
+            return 0;
+        }
+    }
+
+    /* *
+     * save feedback responce
+     * */
+    function feedbackResponseSave($data) {
+        
+        $dateTime = new \DateTime();
+        $created_date = $modified_date = $dateTime->format("Y-m-d H:i:s");
+        
+        $feedback_insert_query = "INSERT INTO feedback(feedback_to, feedback_description, feedback_from, response_parent, created_date, modified_date) VALUES(:feedback_to,:feedback_description,:feedback_from,:response_parent,:created_date,:modified_date)";
+                                                     
+        $feedback_insert = $this->con->prepare($feedback_insert_query);
+        $feedback_insert->execute(array(':feedback_to' => $data['feedback_to'],
+            ':feedback_description' => $data['feedback_desc'],
+            ':feedback_from' => $data['login_user_id'],
+            ':response_parent' => $data['feedback_id'],
+            ':created_date' => $created_date,
+            ':modified_date' => $modified_date,
+            ));
+            
+        return true;
+        
+    }
     
 } //end of class
