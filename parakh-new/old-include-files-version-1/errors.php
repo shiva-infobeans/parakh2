@@ -45,6 +45,12 @@ switch ($error_code) {
         'error' => 'Member is not belong to you team'
         );
         break;
+    case 3007:
+        return array(
+        'code' => '3007',
+        'error' => 'Invalid parameter for profile create'
+        );
+        break;
     case "blue":
         echo "Your favorite color is blue!";
         break;
@@ -56,5 +62,6 @@ switch ($error_code) {
         'code' => '0000',
         'error' => 'Unhandled error'
         );
-}      
+}
+       
 }

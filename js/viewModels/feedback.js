@@ -24,7 +24,7 @@ define(['ojs/ojcore', 'knockout','ojs/ojmodel'
         self.name2 = "ABHINAV SHRIVASTAVA";
         self.designation2 = "Practice head";
         self.comment2 = "You got +1 by Abhinav Shrivastava";
-        self.image3 = "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ6J33chcZ_OWZIrD7SBJXIf_BK2ypC4Wq94jE9gCYSS_Gj2Zok9g";
+        self.image3 = "https://lh6.googleusercontent.com/-HQ_vIGvk7Po/AAAAAAAAAAI/AAAAAAAAAB0/25YNHGaDVLI/photo.jpg";
         self.name3 = "ABHINAV SHRIVASTAVA";
         self.designation3 = "Practice head";
         self.comment3 = "You got +1 by Abhinav Shrivastava";

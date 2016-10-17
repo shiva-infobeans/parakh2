@@ -10,6 +10,7 @@ class dbmodule
 {
     //Database connection link
     private $con;
+    private $my_team_id;
  
     //Class constructor
     function __construct()
@@ -32,7 +33,8 @@ class dbmodule
     function getUserByEmail($email)
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
-            $query = "select * from users where google_email = :email";
+            $query = "select u.*,rt.name as role_name from users as u, role_type as rt where google_email = :email AND u.role_id = rt.id";
+
             
             $profile_data = $this->con->prepare($query); 
             $profile_data->execute(array(':email'=>$email));
@@ -71,14 +73,50 @@ class dbmodule
         }
     }//end of fun
     
+    function joinArray($item,$key)
+    {
+        if(trim($this->my_team_id) == ""){
+            $this->my_team_id = $item['user_id'];
+        }else{
+            $this->my_team_id = $this->my_team_id.", ".$item['user_id'];
+        }    
+    }
+    
+    /* *
+     * get all the users other then user present under lead
+     * */    
+    function getOtherTeamMembers($lead_id)
+    {
+        if (!filter_var($lead_id, FILTER_VALIDATE_INT) === false) {
+            $employeeList = array();
+            $team_members = $this->getUserByLead($lead_id);
+            if(count($team_members) > 0){
+                $this->my_team_id = "";
+                array_walk($team_members,array($this, 'joinArray'));
+            }
+            
+            $condition = '';
+            if (!empty($this->my_team_id)) {
+                $condition = "id NOT IN ($this->my_team_id)  AND";
+            }
+            $query = "SELECT `id`,`google_name`,`designation`,`google_picture_link` FROM users WHERE $condition id <>:id AND id <> 1 AND status <> 0 ORDER BY google_name";
+            $user_list = $this->con->prepare($query);
+            $user_list->execute(array(':id' => $lead_id));
+            $employeeList = $user_list->fetchAll((PDO::FETCH_ASSOC));
+            return $employeeList;
+        }else{
+            return 0;
+        }        
+    }//end of fun
+    
     function isInMyTeam($user_id,$member_id)
     {   
         $query = 'SELECT uh.user_id FROM user_hierarchy uh left join users u on u.id = uh.user_id ' .
                 'WHERE manager_id = :id AND uh.user_id = :mem_id AND u.status <> 0 group by user_id';
         $user_data = $this->con->prepare($query);
         $user_data->execute(array(':id' => $user_id,':mem_id' => $member_id));
-        $row = $user_data->fetchALL((PDO::FETCH_ASSOC));
-        if(isset($row['id'])){
+        $row = $user_data->fetch((PDO::FETCH_ASSOC));
+        if(isset($row['user_id'])){
             return true;
         }else{
             return false;
@@ -238,7 +276,27 @@ class dbmodule
         return $query_result;       
     }//end of fun
     
+
+     /**
+     * Update profile
+     * @param type $data
+     * @return type
+     */
+    function createProfile($data)
+    {
+        $data['c_d'] = date('Y-m-d H:i:s');
+        $query = "INSERT INTO users (role_id,google_id, google_name, google_email, google_picture_link,created_date)
+                 VALUES(:r_d,:g_d,:g_n,:g_e,:g_p_l,:c_d)";
+        $profile_data = $this->con->prepare($query);
+        $query_result = $profile_data->execute(array(':r_d' => $data['r_d'],':g_d' => $data['g_d'],':g_n' => $data['g_n'],':g_n' => $data['g_e'],':g_p_l' => $data['g_p_l'],':c_d' => $data['c_d']));
+        return $query_result;         
+    }//end of fun
     
+     /**
+     * Check user is valid or not
+     * @param type $id
+     * @return bool
+     */
     function isValidUser($id)
     {
         if(!filter_var($id, FILTER_VALIDATE_INT) === false){
