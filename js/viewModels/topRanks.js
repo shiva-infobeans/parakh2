@@ -26,8 +26,65 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
         return ranker;
     }
 
+    function teamMember(data) {
+        var member = this;
+        member.name = data['google_name'];
+        member.userId = data['id'];
+        member.pic = data['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data['google_picture_link'];
+        member.designation = data['designation'];
+        member.role_name = data['role_name'];
+        member.google_id = data['google_id'];
+
+        return member;
+    }
+
     function topRanksContentViewModel(person) {
         var self = this;
+
+
+        self.members = ko.observableArray([]);
+        self.userId = ko.observable();
+        this.myRank = ko.observable();
+        this.totalMembers = ko.observable();
+        self.loginUserId = ko.observable();
+        self.name = ko.observable();
+        var user = oj.Model.extend({
+            url: getUserByEmail + person['email']
+        });
+        var getDetails = new user();
+        getDetails.fetch({
+            headers: {secret: secret},
+            success: function (result) {
+                console.log(result['attributes']['data']['id']);
+                self.loginUserId(result['attributes']['data']['id']);
+                var getRank = oj.Model.extend(
+                        {
+                            url: getMyRank + self.loginUserId(),
+                        });
+                var memberRank = new getRank();
+                memberRank.fetch({
+                    headers: {secret: secret},
+                    success: function () {
+                        // console.log(memberRank['attributes']['data']);
+                        //console.log(memberRank['attributes']['data']['my_rank']==false?'-':memberRank['attributes']['data']['my_rank']);
+                        //console.log(memberRank['attributes']['data']['total_user_count']);      
+                        self.myRank(memberRank['attributes']['data']['my_rank']);
+                        self.totalMembers(memberRank['attributes']['data']['total_user_count']);
+                    }
+                });
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
         //console.log(nameFunction("SHIVA SHIRBHATE"));
         self.data12 = ko.observableArray([]);
         self.bubbleSeriesValue = ko.observableArray();

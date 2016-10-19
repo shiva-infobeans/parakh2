@@ -206,7 +206,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     font-size: 25px;
 }
 .profile-rating-circle{
-    margin: 20px 50px;
+    margin: 0 50px 20px;
     height: 35px;
     width: 35px;
     border:3px solid;
@@ -317,16 +317,16 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 /*Edit profile */
 /*edit profile modal*/
- /*scroll bar in all the pages*/
+/*scroll bar in all the pages*/
 *::-webkit-scrollbar {
     width: 12px;
 }
- 
+
 *::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
     border-radius: 10px;
 }
- 
+
 *::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-color: #fff;

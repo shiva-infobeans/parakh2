@@ -7,80 +7,115 @@
 /**
  * members module
  */
-define(['ojs/ojcore', 'knockout','ojs/ojmodel', 'ojs/ojtable', 'ojs/ojcollectiontabledatasource'
+define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 'ojs/ojcomponentcore', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojtable', 'ojs/ojdialog', 'ojs/ojmodel'
 ], function (oj, ko) {
     /**
      * The view model for the main content view template
      */
-    function membersContentViewModel() {
+    function dataComment(comment1, commenter1, commentDate1) {
+        var com = this; // this is for object of this function
+        com.comment = comment1;
+        com.commenter = commenter1;
+        com.commentDate = commentDate1.substring(0, commentDate1.indexOf(' '));
+        return com;
+    }
+    function membersContentViewModel(person) {
         var self = this;
-        
-        
-   //     http://api.parakh.com/v1/index.php/getUserByLead/<lead_id>
-        
-        var TaskRecord = oj.Model.extend({
-                        url: "http://dev.parakh.com/services",
-                        //parse: parseTask
-                        });
-        var task = new TaskRecord();
-        task.fetch({
-          success: function(res) {
-              
-//              var selectedIdsArray = [];
-//                $("input:checkbox").each(function() {
-//        var $this = $(this);
-//                if ($this.is(":checked")) {
-//        selectedIdsArray.push($this.attr("id"));
-//        }
-              //name, id, role_id, g_id, designation, email
-              console.log(
-                task.attributes['data']['google_name']+" "+
-                task.attributes['data']['role_id']+" "+
-                task.attributes['data']['google_id']+" "+
-                task.attributes['data']['designation']+" "+ 
-                task.attributes['data']['google_email']);
-            self.FFF.push(new data(
-                task.attributes['data']['google_name'],
-                task.attributes['data']['role_id'],
-                task.attributes['data']['google_id'],
-                task.attributes['data']['designation'],
-                task.attributes['data']['google_email']));
-            console.log(task.attributes);
-          }
+        var windowLocation = window.location;
+        var id = windowLocation.search.substring(windowLocation.search.indexOf("=") + 1, windowLocation.search.length);
+        self.id = ko.observable(0);
+        console.log(id);
+        if (id) {
+            self.id(id);
+        } else {
+            window.location = "rateBuddy.html";
+        }
+        var abc = "Not Assigned";
+        this.designation = ko.observable(abc);
+        this.NoCommentsP = ko.observable();
+        this.NoCommentsN = ko.observable();
+        this.commentDataPositive = ko.observableArray([]);
+        this.commentDataNegative = ko.observableArray([]);
+        this.plus = ko.observable();
+        this.minus = ko.observable();
+        this.myNumber = ko.observable();
+        this.pic = ko.observable();
+        this.myname = ko.observable();
+        this.email = ko.observable();
+        this.UserId = ko.observable();
+        this.shortName = ko.observable();
+//service for id of the user.
+        var userIdSearch = oj.Model.extend({
+            url: getUserByEmail + person['email']
         });
-        
-        
-        
-        
+        var userRecord = new userIdSearch();
+        userRecord.fetch({
+            headers: {secret: secret},
+            success: function (res) {
+
+                var TaskRecord = oj.Model.extend({
+                    url: getOtherTeamMembers + userRecord.attributes['data']['id']
+                });
+                var task = new TaskRecord();
+                task.fetch({
+                    headers: {secret: secret},
+                    success: function () {
+                        var data = task.attributes['data'];
+                        var index;
+                        for (index = 0; index < data.length; index++) {
+                            if (data[index]["id"] == self.id()){
+                                self.UserId(data[index]["id"]);
+                                self.myname(data[index]['google_name']);
+                                self.shortName(data[index]['google_name'].substring(0,data[index]['google_name'].indexOf(" ")));
+                                self.email(data[index]['google_email']);
+                                var image =data[index]['google_picture_link'];
+                                self.pic(image);
+                                self.designation(data[index]['designation']);
+                                var num = data[index]['mobile_number'] == "" ? "NO NUMBER" : "+91-" + data[index]['mobile_number'];
+                                self.myNumber(num);
+                                break;
+                            }
+                        }
+                        var rate = oj.Model.extend({
+                            url: getRatingByUser + self.id(),
+                            //parse: parseTask
+                        });
+                        var rateTask = new rate();
+                        rateTask.fetch({
+                            headers: {secret: 'parakh-revamp-local-key-2016'},
+                            success: function (res) {
+                                var plus = 0;
+                                var minus = 0;
+                                var data = res['attributes']['data'];
+                                for (var i = 0; i < data.length; i++) {
+                                    if (data[i]['rating'] == 0) {
+                                        minus++;
+                                        var ab = new dataComment(data[i]['description'], data[i]['given_by_name'], data[i]['created_date']);
+                                        self.commentDataNegative.push(ab);
+                                    } else {
+                                        if (data[i]['rating'] == 1)
+                                            plus++;
+                                        var ab = new dataComment(data[i]['description'], data[i]['given_by_name'], data[i]['created_date']);
+                                        self.commentDataPositive.push(ab);
+                                    }
+                                }
+                                if (self.commentDataNegative().length == 0) {
+                                    self.NoCommentsN("No Ratings Available ...!!");
+                                }
+                                if (self.commentDataPositive().length == 0) {
+                                    self.NoCommentsP("No Ratings Available ...!!");
+                                }
+                                self.plus(plus);
+                                self.minus(minus);
+                            }
+                        });
+                    }
+                });
+
+            }
+        });
+
     }
 
     return membersContentViewModel;
 });
-///////////////////////////////////////////////////study this part/////////////////////////
-
-//        //self.serviceURL = 'https://data-api-lucasjellema.apaas.em2.oraclecloud.com/departments';
-//        self.serviceURL = 'http://dev.parakh.com/services/';
-//        self.DeptCol = ko.observable(); // DeptCol is an observable so when its data is in (from the REST service), the datasource is triggered
-//        self.datasource = ko.observable(); // datasource is an observable so when it is triggered/refreshed, the table component is triggered
-//        
-//        function parseRESTDBDepartment(response) {
-//            alert("1"+response);
-//            return {DepartmentId: response['DEPARTMENT_ID'], DepartmentName: response['DEPARTMENT_NAME'], Location: "Zoetermeer"};
-//        }
-//
-//// think of this as a single record in the DB, or a single row in your table
-//        var Department = oj.Model.extend({
-//            parse: parseRESTDBDepartment,
-//            idAttribute: 'DepartmentId'
-//        });
-//
-//// this defines our collection and what models it will hold
-//        var DeptCollection = oj.Collection.extend({
-//            url: self.serviceURL,
-//            model: new Department(),
-//            comparator: "DepartmentId",
-//            header:{secret:'parakh-revamp-local-key-2016'}
-//        });
-//
-//        self.DeptCol(new DeptCollection());
-//        self.datasource(new oj.CollectionTableDataSource(self.DeptCol()));

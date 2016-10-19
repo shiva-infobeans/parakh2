@@ -24,14 +24,14 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel'
         self.myMinusRatings =ko.observable();
         
         var TaskRecord = oj.Model.extend({
-            url: "http://dev.parakh.com/parakh-new/v1/index.php/getRatingByUser/" + userId,
+            url: getRatingByUser + userId,
             //parse: parseTask
         });
         
         var task = new TaskRecord();
         
         task.fetch({
-            headers: {secret: 'parakh-revamp-local-key-2016'},
+            headers: {secret: secret},
             success: function (res) {
                 var plus =0;
                 var minus =0;

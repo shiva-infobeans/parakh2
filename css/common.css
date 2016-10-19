@@ -489,9 +489,9 @@ body{
     color: #fff !important;
     cursor: pointer !important;
     font-size: 24px;
-    height: 50px;
+    height: 48px;
     margin-left: -120px;
-    margin-top: 25px;
+    margin-top: 24px;
     outline: medium none;
     width: 38%;
     float: left !important;
@@ -555,8 +555,8 @@ body{
     color: #fff !important;
     cursor: pointer !important;
     font-size: 24px;
-    height: 50px;
-    margin-top: 25px;
+    height: 48px;
+    margin-top: 24px;
     outline: medium none;
     width: 38%;
     float: left !important;
@@ -629,4 +629,37 @@ body{
     /* margin-top: -11px; */
     background-color: #333;
     cursor: pointer;
+}
+/*top 10 ranks page side section*/
+.rankBlock{
+    color:#fff !important ;
+}
+
+.headingRank{
+    color: #fff !important;
+    font-weight: normal;
+    font-size: 28px;
+    text-align: center;
+    padding-bottom: 20px;
+    padding-top: 25px;
+    border-bottom: 4px solid #78A95A;
+}
+.rankText{
+   text-align: center;
+    font-size: 60px;
+    padding-top: 55px;
+    padding-bottom: 71px;
+    font-weight: bolder;
+}
+.countBlock{
+    margin-bottom: 54px;
+}
+#tabs-container .oj-tabs-nav{
+   margin-left: 12px;
+}
+.tabIcon{
+    color:green;  
+}
+#tabs-container .oj-tabs-tab.oj-selected {
+    border-color: green;
 }

@@ -14,6 +14,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
      */
     function floatingContentViewModel() {
         var self = this;
+//        open popUp on click and close on cross click
           setTimeout(function () {
             self.handleOpen = $(".rateFloat").click(function () {
                 $("#modalDialog3").ojDialog("open");

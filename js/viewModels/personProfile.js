@@ -72,7 +72,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         $.ajax({
                             headers: {secret: 'parakh-revamp-local-key-2016'},
                             method: 'POST',
-                            url: 'http://dev.parakh.com/parakh-new/v1/index.php/updateProfile',
+                            url: updateProfile,
                             data: {user_id: self.id(), mob: self.myNumber(), des: self.designation()},
                             success: function () {
                                 $("#open-modal").fadeOut();
@@ -91,12 +91,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
 //service for id of the user.
 
                 var TaskRecord = oj.Model.extend({
-                    url: "http://dev.parakh.com/parakh-new/v1/index.php/getUserByEmail/" + person['email'],
+                    url: getUserByEmail + person['email'],
                     //parse: parseTask
                 });
                 var task = new TaskRecord();
                 task.fetch({
-                    headers: {secret: 'parakh-revamp-local-key-2016'},
+                    headers: {secret: secret},
                     success: function () {
                         abc = task.attributes['data']['designation'];
                         self.id(task.attributes['data']['id']);
@@ -104,12 +104,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         var num = task.attributes['data']['mobile_number'] == "" ? "NO NUMBER" : "+91-" + task.attributes['data']['mobile_number'];
                         self.myNumber(num);
                         var rate = oj.Model.extend({
-                            url: "http://dev.parakh.com/parakh-new/v1/index.php/getRatingByUser/" + self.id(),
+                            url: getRatingByUser + self.id(),
                             //parse: parseTask
                         });
                         var rateTask = new rate();
                         rateTask.fetch({
-                            headers: {secret: 'parakh-revamp-local-key-2016'},
+                            headers: {secret: secret},
                             success: function (res) {
                                 var plus = 0;
                                 var minus = 0;
@@ -138,7 +138,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         });
                     }
                 });
-
             }
             return dialogModel;
         });

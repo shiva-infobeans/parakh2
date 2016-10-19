@@ -366,7 +366,7 @@ function get_ranking_list() {
         $row = $rank_data->fetchAll((PDO::FETCH_ASSOC));
         $login_user_rank_position = array_search($login_user_id, array_column($row, 'user_id'));
         $result = array();
-        $result['my_rank'] = $login_user_rank_position+1;
+        $result['my_rank'] = (is_bool($login_user_rank_position)==false)?$login_user_rank_position+1:'-';
         $result['total_user_count'] = $this->get_all_members_cnt()['totalusercnt'];
         return $result;
     }

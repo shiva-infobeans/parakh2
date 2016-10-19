@@ -32,35 +32,25 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout'
     }
     function myTeamContentViewModel(person) {
         var self = this;
-        var id = 113; // for now its static data passes for testing.... and replace it with leadId
+        
         self.members = ko.observableArray([]);
         self.data2 = ko.observable();
         self.userId = ko.observable();
-        self.noMembers = ko.observable("");
         self.picture = ko.observable("");
         self.myname12 = ko.observable("");
         self.plus = ko.observable("");
         self.minus = ko.observable("1");
-        self.memberName = ko.observable("");
-        self.fullName = ko.observable("");
-        self.memberDesignation = ko.observable("");
-        self.memberEmail = ko.observable("");
-        self.memberNumber = ko.observable("");
-        self.NoCommentsP = ko.observable("");
-        self.commentDataPositive = ko.observableArray([]);
-        self.commentDataNegative = ko.observableArray([]);
-        self.NoCommentsN = ko.observable("");
-        self.memberId = ko.observable();
+        
         var user = oj.Model.extend({
-            url: "http://dev.parakh.com/parakh-new/v1/index.php/getUserByEmail/" + person['email']
+            url: getUserByEmail + person['email']
         });
         var getId = new user();
         getId.fetch({
-            headers: {secret: 'parakh-revamp-local-key-2016'},
+            headers: {secret: secret},
             success: function (res) {
                 self.userId(res['attributes']['data']['id']);
                 var TaskRecord = oj.Model.extend({
-                    url: "http://dev.parakh.com/parakh-new/v1/index.php/getOtherTeamMembers/" + self.userId()
+                    url: getOtherTeamMembers + self.userId()
                 });
                 var task = new TaskRecord();
                 task.fetch({
@@ -125,66 +115,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout'
                 }
                 // modal for view profile
                 setTimeout(function () {
-                    $(".view").on("click", function () {
-                        self.picture("");
-                        self.myname12("");
-                        self.plus("");
-                        self.minus("");
-                        self.memberName("");
-                        self.fullName("");
-                        self.memberDesignation("");
-                        self.memberEmail("");
-                        self.memberNumber("");
-                        self.NoCommentsP("");
-                        self.commentDataPositive([]);
-                        self.commentDataNegative([]);
-                        self.NoCommentsN("");
-                        self.memberId("");
-                        $("#open-modal12").fadeIn();
-                        $("#open-modal12").addClass('open');
-                        var nm = $(this).attr("myname12").substring(0, $(this).attr("myname12").indexOf(" "));
-                        self.memberName(nm);
-                        self.picture($(this).attr("picture1"));
-                        self.fullName($(this).attr("myname12"));
-                        self.memberDesignation($(this).attr("memberDesig"));
-                        self.memberId($(this).attr("memberID"));
-                        ////////////////////////
-                        var rate = oj.Model.extend({
-                            url: "http://dev.parakh.com/parakh-new/v1/index.php/getRatingByUser/" + self.memberId(),
-                            //parse: parseTask
-                        });
-                        var rateTask = new rate();
-                        rateTask.fetch({
-                            headers: {secret: 'parakh-revamp-local-key-2016'},
-                            success: function (res) {
-                                var plus = 0;
-                                var minus = 0;
-                                var data = res['attributes']['data'];
-                                for (var i = 0; i < data.length; i++) {
-                                    if (data[i]['rating'] == 0) {
-                                        minus++;
-                                        var ab = new dataComment(data[i]['description'], data[i]['given_by_name'], data[i]['created_date']);
-                                        self.commentDataNegative.push(ab);
-                                    } else {
-                                        if (data[i]['rating'] == 1)
-                                            plus++;
-                                        var ab = new dataComment(data[i]['description'], data[i]['given_by_name'], data[i]['created_date']);
-                                        self.commentDataPositive.push(ab);
-                                    }
-                                }
-                                if (self.commentDataNegative().length == 0) {
-                                    self.NoCommentsN("No Ratings Available ...!!");
-                                }
-                                if (self.commentDataPositive().length == 0) {
-                                    self.NoCommentsP("No Ratings Available ...!!");
-                                }
-                                self.plus(plus);
-                                self.minus(minus);
-                            }
-                        });
-
-                        /////////////////////////
-                    });
+                    
                     $("#close").on("click", function () {
                         $("#open-modal12").fadeOut();
                         $("#open-modal12").removeClass('open');
@@ -206,66 +137,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout'
 // modal for view profile
 //variables
         setTimeout(function () {
-            $(".view").on("click", function () {
-                self.picture("");
-                self.myname12("");
-                self.plus("");
-                self.minus("");
-                self.memberName("");
-                self.fullName("");
-                self.memberDesignation("");
-                self.memberEmail("");
-                self.memberNumber("");
-                self.NoCommentsP("");
-                self.commentDataPositive([]);
-                self.commentDataNegative([]);
-                self.NoCommentsN("");
-                self.memberId("");
-                $("#open-modal12").fadeIn();
-                $("#open-modal12").addClass('open');
-                var nm = $(this).attr("myname12").substring(0, $(this).attr("myname12").indexOf(" "));
-                self.memberName(nm);
-                self.picture($(this).attr("picture1"));
-                self.fullName($(this).attr("myname12"));
-                self.memberDesignation($(this).attr("memberDesig"));
-                self.memberId($(this).attr("memberID"));
-                ////////////////////////
-                var rate = oj.Model.extend({
-                    url: "http://dev.parakh.com/parakh-new/v1/index.php/getRatingByUser/" + self.memberId(),
-                    //parse: parseTask
-                });
-                var rateTask = new rate();
-                rateTask.fetch({
-                    headers: {secret: 'parakh-revamp-local-key-2016'},
-                    success: function (res) {
-                        var plus = 0;
-                        var minus = 0;
-                        var data = res['attributes']['data'];
-                        for (var i = 0; i < data.length; i++) {
-                            if (data[i]['rating'] == 0) {
-                                minus++;
-                                var ab = new dataComment(data[i]['description'], data[i]['given_by_name'], data[i]['created_date']);
-                                self.commentDataNegative.push(ab);
-                            } else {
-                                if (data[i]['rating'] == 1)
-                                    plus++;
-                                var ab = new dataComment(data[i]['description'], data[i]['given_by_name'], data[i]['created_date']);
-                                self.commentDataPositive.push(ab);
-                            }
-                        }
-                        if (self.commentDataNegative().length == 0) {
-                            self.NoCommentsN("No Ratings Available ...!!");
-                        }
-                        if (self.commentDataPositive().length == 0) {
-                            self.NoCommentsP("No Ratings Available ...!!");
-                        }
-                        self.plus(plus);
-                        self.minus(minus);
-                    }
-                });
-
-                /////////////////////////
-            });
+           
             $("#close").on("click", function () {
                 $("#open-modal12").fadeOut();
                 $("#open-modal12").removeClass('open');

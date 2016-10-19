@@ -1,7 +1,83 @@
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 
-<h1>members</h1>
+
+<div class="oj-web-applayout-max-width oj-web-applayout-content section1">
+    <div class="oj-flex oj-row">
+        <div class="oj-lg-12 oj-md-12 oj-sm-12  oj-flex-item oj-col profile-text oj-flex oj-padding oj-margin">
+            <span class="oj-flex-bar-end oj-padding oj-margin color-white"><span data-bind="text: shortName"></span>'s Profile</span>
+        </div>
+    </div>
+</div>
+<div class="oj-web-applayout-max-width oj-web-applayout-content">
+    <div class="oj-flex oj-row">
+        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding">
+            <img data-bind="attr: {src: pic}" class="oj-margin profile-pic" />
+            <div class="oj-padding oj-margin left">
+                <h2 data-bind="text :myname" class="color-white myname-profile">  </h2>
+                <p> <span class="color-white" data-bind="text: designation"></span> </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="vtabs" class="max-width profile-page oj-margin-top"
+     data-bind="ojComponent:{component: 'ojTabs', 
+                            orientation: 'vertical',
+                            selected: 0}">
+
+
+    <ul class="profile-ul pos-relative">
+        <div class="transbox"></div>
+        <li class="profile-tabs profile-font-tabs selectedTab"><span><i class="zmdi zmdi-account-add"></i> About Me</span></li>
+        <li class="profile-tabs profile-font-tabs selectedTab"><span><i class="zmdi zmdi-trending-up"></i> 
+                +<span data-bind="text: plus"></span></span>
+        </li>
+        <li class="profile-tabs profile-font-tabs selectedTab"><span><i class="zmdi zmdi-trending-down"></i> 
+                -<span data-bind="text: minus"></span></span></li>
+        <li class="profile-tabs profile-font-tabs selectedTab"><span><i class="zmdi zmdi-comment-alt-text"></i> Feedback</span></li>
+    </ul>
+
+    <div id="tabs-1" class="color-white oj-margin-horizontal pos-relative">
+        <div class="transbox"></div>
+        <div class="profile-page-overflow">
+            <p class="profile-tab1-data"> <i class="zmdi zmdi-account"></i> <span data-bind="text: myname"></span></p>
+            <p class="profile-tab1-data"> <i class="zmdi zmdi-case"></i> <span  data-bind="text: designation"></span></p>
+            <p class="profile-tab1-data"> <i class="zmdi zmdi-email"></i> <span data-bind="text: email"></span></p>
+            <p class="profile-tab1-data"> <i class="zmdi zmdi-phone"></i> <span data-bind="text: myNumber"></span></p>
+        </div>
+    </div>
+    <div id="tabs-2" class="color-white oj-margin-horizontal pos-relative">
+        <div class="transbox"></div>
+
+        <div class="profile-page-overflow pos-relative">
+            <div class="transline"></div>
+            <div class="noComments" data-bind="text: NoCommentsP"></div>
+            <div class="rating-comment" data-bind="foreach: commentDataPositive">
+                <div class="profile-rating-circle circle-green"></div>
+                <div class="rating-info">
+                    <p class="comment"><span data-bind="text: comment"></span></p>
+                    <p class="commenter"><span data-bind="text: commenter"></span></p>
+                    <p class="commented-date"><span data-bind="text: commentDate"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="tabs-3" class="color-white oj-margin-horizontal pos-relative">
+        <div class="transbox"></div>
+        <div class="profile-page-overflow">
+            <div class="noComments" data-bind="text: NoCommentsN"></div>
+            <div class="rating-comment" data-bind="foreach: commentDataNegative">
+                <div class="profile-rating-circle circle-red"></div>
+                <div class="rating-info">
+                    <p class="comment"><span data-bind="text: comment"></span></p>
+                    <p class="commenter"><span data-bind="text: commenter"></span></p>
+                    <p class="commented-date"><span data-bind="text: commentDate"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="tabs-4" class="color-white oj-margin-horizontal pos-relative">
+        <div class="transbox"></div>
+        <p>Vertical Disabled panel. 4</p>
+    </div>
+</div>

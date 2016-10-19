@@ -25,7 +25,6 @@ define(['ojs/ojcore', 'knockout', 'jquery'
                         console.log(window.location);
                         window.location = "http://" + window.location.hostname;
                     }, 2000);
-
                 });
             }
         }

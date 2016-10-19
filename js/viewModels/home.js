@@ -26,21 +26,21 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel'
         this.myPlusRatings = ko.observable(0);
         this.myMinusRatings = ko.observable(0);
         var TaskRecord = oj.Model.extend({
-            url: "http://dev.parakh.com/parakh-new/v1/index.php/getUserByEmail/" + person['email'],
+            url: getUserByEmail + person['email'],
             //parse: parseTask
         });
         var task = new TaskRecord();
         task.fetch({
-            headers: {secret: 'parakh-revamp-local-key-2016'},
+            headers: {secret: secret},
             success: function () {
                 self.id(task.attributes['data']['id']);
                 var personRating = oj.Model.extend({
-                    url: "http://dev.parakh.com/parakh-new/v1/index.php/getRatingByUser/" + self.id(),
+                    url: getRatingByUser + self.id(),
                     //parse: parseTask
                 });
                 var record = new personRating();
                 record.fetch({
-                    headers: {secret: 'parakh-revamp-local-key-2016'},
+                    headers: {secret: secret},
                     success: function () {
                         var plus = 0;
                         var dayP=0;
