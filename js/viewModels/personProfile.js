@@ -15,14 +15,16 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 var com = this; // this is for object of this function
                 com.comment = comment1;
                 com.commenter = commenter1;
-                com.commentDate = commentDate1.substring(0,commentDate1.indexOf(' '));
+                com.commentDate = commentDate1.substring(0, commentDate1.indexOf(' '));
                 return com;
             }
             function dialogModel(person) {
                 var self = this;
+                this.feedback = ko.observable("GOOD WORK...  keep it up!!");
                 this.pic = person['pic'];
                 this.commentDataPositive = ko.observableArray([]);
                 this.commentDataNegative = ko.observableArray([]);
+                self.moreLess = ko.observable("More");
                 this.plus = ko.observable();
                 this.minus = ko.observable();
                 this.myNumber = ko.observable();
@@ -80,9 +82,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                 var num = self.myNumber() == "" ? "NO NUMBER" : "+91-" + self.myNumber();
                                 self.myNumber(num);
                                 self.successful("User Details Updated Successfully !!");
-                                setTimeout(function(){
+                                setTimeout(function () {
                                     self.successful("");
-                                },5000);
+                                }, 5000);
                             }
                         });
                     }
@@ -138,6 +140,32 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         });
                     }
                 });
+                setTimeout(function () {
+                    $(".more-feedback").on('click', function () {
+
+                        if (self.moreLess() == "More") {
+                            $(this).parent().removeClass("open");
+                            $(this).children("span:first").children("i:first").removeClass("zmdi-caret-down");
+                            $(this).children("span:first").children("i:first").addClass("zmdi-caret-up");
+                            $(this).parent().prev().removeClass("hide");
+                            self.moreLess("Less");
+
+
+                            //open the hidden section
+                            $(this).parent().parent().parent().addClass('open-more');
+                            //$(this).addClass('open-more');
+                        } else {
+                            $(this).parent().addClass("open");
+                            $(this).children("span:first").children("i:first").removeClass("zmdi-caret-up");
+                            $(this).children("span:first").children("i:first").addClass("zmdi-caret-down");
+                            $(this).parent().prev().addClass("hide");
+                            self.moreLess("More");
+                            //close the hidden section
+                            $(this).parent().parent().parent().removeClass('open-more');
+                        }
+                    });
+                }, 500);
+
             }
             return dialogModel;
         });

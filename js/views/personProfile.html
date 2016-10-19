@@ -31,7 +31,7 @@
 <div id="vtabs" class="max-width profile-page oj-margin-top"
      data-bind="ojComponent:{component: 'ojTabs', 
                             orientation: 'vertical',
-                            selected: 0}">
+                            selected: 2}">
 
 
     <ul class="profile-ul pos-relative">
@@ -71,8 +71,8 @@
             <div class="noComments" data-bind="text: NoCommentsN"></div>
             <div class="rating-comment" data-bind="foreach: commentDataNegative">
                 <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative">
-                        <div class="profile-rating-circle circle-red">
-                            <div class="transline"></div>
+                    <div class="profile-rating-circle circle-red">
+                        <div class="transline"></div>
                     </div>
                     <div class="rating-info">
                         <p class="comment"><span data-bind="text: comment"></span></p>
@@ -85,11 +85,108 @@
     </div>
 
     <div id="tabs-3" class="color-white oj-margin-horizontal pos-relative">
-        <div class="transbox"></div>
-        
-        
-        
-        <p>Vertical Disabled panel. 4</p>
+
+        <div class="colcount oj-xl-5 oj-lg-5 oj-md-12 oj-sm-12 oj-margin-horizontal">
+            <div class="transbox"></div>
+            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12">
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12">
+                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 center">
+                        <img src="http://www.mpi-marburg.mpg.de/employee_images/47122" class="profile-feedback-pic border-color-green pos-relative" />
+                    </div>
+                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 comment-box">
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item color-white feedback-data pos-relative">
+                            <div class="transbox border-color-green"></div>
+                            <p class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 color-white center"><strong>Abhinav Shrivastava</strong></p>
+                            <p class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 center">Practice Head</p>
+                            <p class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 center">2016-06-09</p>
+                            <p class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-margin left">
+                                <span data-bind="text: feedback"></span>
+                            </p>
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-bar oj-padding-horizontal">
+                                <div class="hide border-color-green">
+
+                                </div>
+                                <div class="open oj-flex-bar-end">
+                                    <span class="oj-flex-bar-end oj-margin-horizontal oj-padding-horizontal more-feedback">
+                                        <span class="color-green"><i class="zmdi zmdi-caret-down zmdi-hc-3x"></i> </span>
+                                        <a class=" color-white"> <span data-bind="text: moreLess"></span></a></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="colcount oj-xl-5 oj-lg-5 oj-md-12 oj-sm-12 oj-margin-horizontal">
+            <div class="transbox"></div>
+            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12">
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12">
+                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 center">
+                        <img src="http://www.mpi-marburg.mpg.de/employee_images/47122" class="profile-feedback-pic border-color-green pos-relative" />
+                    </div>
+                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 comment-box">
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item color-white feedback-data pos-relative">
+                            <div class="transbox border-color-green"></div>
+                            <p class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 color-white center"><strong>Abhinav Shrivastava</strong></p>
+                            <p class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 center">Practice Head</p>
+                            <p class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 center">2016-06-09</p>
+                            <p class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-margin left">
+                                <span data-bind="text: feedback"></span>
+                            </p>
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-bar oj-padding-horizontal oj-flex">
+                                <div class="hide border-color-green">
+
+                                </div>
+                                <div class="open oj-flex-bar-end">
+                                    <span class="oj-flex-bar-end oj-margin-horizontal oj-padding-horizontal more-feedback">
+                                        <span class="color-green"><i class="zmdi zmdi-caret-down zmdi-hc-3x"></i> </span>
+                                        <a class=" color-white"> <span data-bind="text: moreLess"></span></a></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="colcount oj-xl-5 oj-lg-5 oj-md-12 oj-sm-12 oj-margin-horizontal">
+            <div class="transbox"></div>
+            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12">
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12">
+                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 center">
+                        <img src="http://www.mpi-marburg.mpg.de/employee_images/47122" class="profile-feedback-pic border-color-green pos-relative" />
+                    </div>
+                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 comment-box">
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item color-white feedback-data pos-relative">
+                            <div class="transbox border-color-green"></div>
+                            <p class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 color-white center"><strong>Abhinav Shrivastava</strong></p>
+                            <p class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 center">Practice Head</p>
+                            <p class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 center">2016-06-09</p>
+                            <p class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-margin left">
+                                <span data-bind="text: feedback"></span>
+                            </p>
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-bar oj-padding-horizontal oj-flex">
+                                <div class="hide border-color-green">
+
+                                </div>
+                                <div class="open oj-flex-bar-end">
+                                    <span class="oj-flex-bar-end oj-margin-horizontal oj-padding-horizontal more-feedback">
+                                        <span class="color-green"><i class="zmdi zmdi-caret-down zmdi-hc-3x"></i> </span>
+                                        <a class=" color-white"> <span data-bind="text: moreLess"></span></a></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
     </div>
     <div id="tabs-4" class="color-white oj-margin-horizontal pos-relative">
         <div class="transbox"></div>
@@ -102,6 +199,7 @@
     </div>
 
 </div>
+
 
 <div class="edit-modal" id="open-modal">
     <div id="close"></div>
