@@ -70,7 +70,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         self.mobileError("");
                         //user_id, mob, des
                         $.ajax({
-                            headers: {secret: 'parakh-revamp-local-key-2016'},
+                            headers: {secret: secret},
                             method: 'POST',
                             url: updateProfile,
                             data: {user_id: self.id(), mob: self.myNumber(), des: self.designation()},

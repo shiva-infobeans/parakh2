@@ -19,8 +19,7 @@ requirejs.config({
         'css': 'libs/require-css/css.min',
         'customElements': 'libs/webcomponents/CustomElements.min',
         'proj4': 'libs/proj4js/dist/proj4',
-        'accordin': 'libs/customLib',
-        'configuration': 'libs/customLib/custom'
+        'accordin': 'libs/customLib'
     },
     // Shim configurations for modules that do not expose AMD
     shim: {
@@ -64,7 +63,7 @@ requirejs.config({
  * For a listing of which JET component modules are required for each component, see the specific component
  * demo pages in the JET cookbook.
  */
-require(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodule', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojtoolbar', 'ojs/ojmenu', 'ojs/ojinputtext', 'ojs/ojdialog', 'configuration'], // add additional JET component modules as needed
+require(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodule', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojtoolbar', 'ojs/ojmenu', 'ojs/ojinputtext', 'ojs/ojdialog'], // add additional JET component modules as needed
         function (oj, ko, $) // this callback gets executed when all required modules are loaded
         {
             function call() {

@@ -34,7 +34,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'ojs/ojcollectiontreedatasource
         
         self.email =  "abhijeet.dange@infobeans.com";
         var TaskRecord = oj.Model.extend({
-                        url: "http://dev.parakh.com/parakh-new/v1/index.php/getUserByEmail/"+self.email,
+                        url: getUserByEmail +self.email,
                         //parse: parseTask
                         });
         var task = new TaskRecord();

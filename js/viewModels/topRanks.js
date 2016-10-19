@@ -41,7 +41,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
     function topRanksContentViewModel(person) {
         var self = this;
 
-
         self.members = ko.observableArray([]);
         self.userId = ko.observable();
         this.myRank = ko.observable();
@@ -76,15 +75,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
         });
 
 
-
-
-
-
-
-
-
-
-
         //console.log(nameFunction("SHIVA SHIRBHATE"));
         self.data12 = ko.observableArray([]);
         self.bubbleSeriesValue = ko.observableArray();
@@ -101,12 +91,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
             {name: "Series 10", displayInLegend: 'off', items: []}
         ]);
         var rate = oj.Model.extend({
-            url: "http://dev.parakh.com/parakh-new/v1/index.php/getRankingList/"
+            url: getRankingList
                     //parse: parseTask
         });
         var rateTask = new rate();
         rateTask.fetch({
-            headers: {secret: 'parakh-revamp-local-key-2016'},
+            headers: {secret: secret},
             success: function (res) {
                 var data1 = res['attributes']['data'];
                 for (var counter = 0; counter < data1.length; counter++) {

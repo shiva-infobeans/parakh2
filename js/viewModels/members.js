@@ -82,7 +82,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                         });
                         var rateTask = new rate();
                         rateTask.fetch({
-                            headers: {secret: 'parakh-revamp-local-key-2016'},
+                            headers: {secret: secret},
                             success: function (res) {
                                 var plus = 0;
                                 var minus = 0;

@@ -30,12 +30,12 @@ define(['ojs/ojcore', 'knockout','ojs/ojmodel'
         self.comment3 = "You got +1 by Abhinav Shrivastava";
 
         var TaskRecord = oj.Model.extend({
-            url: "http://dev.parakh.com/parakh-new/v1/index.php/getUserByEmail/" + person['email'],
+            url: getUserByEmail + person['email'],
             //parse: parseTask
         });
         var task = new TaskRecord();
         task.fetch({
-            headers: {secret: 'parakh-revamp-local-key-2016'},
+            headers: {secret: secret},
             success: function () {
                 abc = task.attributes['data']['designation'];
                 self.id(task.attributes['data']['id']);

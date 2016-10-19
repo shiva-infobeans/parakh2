@@ -82,7 +82,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         });
         var getId = new user();
         getId.fetch({
-            headers: {secret: 'parakh-revamp-local-key-2016'},
+            headers: {secret: secret},
             success: function (res) {
                 self.userId(res['attributes']['data']['id']);
                 var TaskRecord = oj.Model.extend({
@@ -90,7 +90,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 });
                 var task = new TaskRecord();
                 task.fetch({
-                    headers: {secret: 'parakh-revamp-local-key-2016'},
+                    headers: {secret: secret},
                     success: function (res) {
                         var data = task.attributes['data'];
                         data = data.sort(function (a, b) {
@@ -197,7 +197,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             } else {
 
                 $.ajax({
-                    headers: {secret: 'parakh-revamp-local-key-2016'},
+                    headers: {secret: secret},
                     method: 'POST',
                     url: rateOtherMember,
                     data: {user_id: self.userId(), for_id: self.for_id(), rating: (1), desc: self.desc()},
@@ -240,7 +240,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 return false;
             } else {
                 $.ajax({
-                    headers: {secret: 'parakh-revamp-local-key-2016'},
+                    headers: {secret: secret},
                     method: 'POST',
                     url: addRating,
                     data: {from_id: self.lead_id(), to_id: self.myId(), rating: self.p(), desc: self.desc()},

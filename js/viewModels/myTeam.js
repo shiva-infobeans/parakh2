@@ -54,7 +54,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout'
                 });
                 var task = new TaskRecord();
                 task.fetch({
-                    headers: {secret: 'parakh-revamp-local-key-2016'},
+                    headers: {secret: secret},
                     success: function (res) {
                         var data = task.attributes['data'];
                         for (var counter1 = 0; counter1 < data.length; counter1++) {

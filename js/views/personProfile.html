@@ -51,9 +51,10 @@
         <div class="profile-page-overflow pos-relative">
             <div class="noComments" data-bind="text: NoCommentsP"></div>
             <div class="rating-comment" data-bind="foreach: commentDataPositive">
-                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item">
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item pos-relative">
                     <div class="profile-rating-circle circle-green">
-                         <!--circle-green-->
+                        <!--circle-green-->
+                        <div class="transline"></div>
                     </div>
                     <div class="rating-info">
                         <p class="comment"><span data-bind="text: comment"></span></p>
@@ -69,11 +70,15 @@
         <div class="profile-page-overflow">
             <div class="noComments" data-bind="text: NoCommentsN"></div>
             <div class="rating-comment" data-bind="foreach: commentDataNegative">
-                <div class="profile-rating-circle circle-red"></div>
-                <div class="rating-info">
-                    <p class="comment"><span data-bind="text: comment"></span></p>
-                    <p class="commenter"><span data-bind="text: commenter"></span></p>
-                    <p class="commented-date"><span data-bind="text: commentDate"></span></p>
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative">
+                        <div class="profile-rating-circle circle-red">
+                            <div class="transline"></div>
+                    </div>
+                    <div class="rating-info">
+                        <p class="comment"><span data-bind="text: comment"></span></p>
+                        <p class="commenter"><span data-bind="text: commenter"></span></p>
+                        <p class="commented-date"><span data-bind="text: commentDate"></span></p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -81,6 +86,9 @@
 
     <div id="tabs-3" class="color-white oj-margin-horizontal pos-relative">
         <div class="transbox"></div>
+        
+        
+        
         <p>Vertical Disabled panel. 4</p>
     </div>
     <div id="tabs-4" class="color-white oj-margin-horizontal pos-relative">
@@ -92,7 +100,7 @@
             <p class="profile-tab1-data"> <i class="zmdi zmdi-phone"></i> <span data-bind="text: myNumber"></span></p>
         </div>
     </div>
-    
+
 </div>
 
 <div class="edit-modal" id="open-modal">
