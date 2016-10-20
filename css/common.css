@@ -696,3 +696,35 @@ body{
     font-size: 22px;
     text-align: center;
 }
+#ojDialogWrapper-modalDialog3  .oj-dialog-content {
+    background-color: #fff !important;
+}
+.modal-submit3{
+    background-color: #ff6241 !important;
+    color: #fff !important;
+    cursor: pointer !important;
+    font-size: 24px;
+    height: 48px;
+    margin-top: 45px;
+    outline: medium none;
+    width: 38%;
+    float: left !important;
+    margin-left: -165px;
+}
+/*#tabs ul li:last-child {
+    display:none;
+}*/
+.searchImage{
+   width: 30px;
+    border-radius: 50%;
+    margin-top: 5px;
+}
+.autoName{
+   margin-top: -3px;
+    line-height: 40px;
+}
+.imgSearch{
+    height: 30px;
+    width: 42px;
+    float: left;
+}
