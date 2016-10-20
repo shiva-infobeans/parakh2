@@ -82,11 +82,11 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel'
                                     diff /= (24 * 60 * 60 * 1000); //convert miliseconds into days
                                     if (diff < 7) {
                                         dayP++;
-                                        console.log(dayP);
+                             //           console.log(dayP);
                                     }
                                     if (diff < 30) {
                                         monthP++;
-                                        console.log(monthP);
+                                   //     console.log(monthP);
                                     }
                                     plus++;
                                 }
