@@ -7,7 +7,7 @@
 
             <a href="#" class="buttons rateFloat" title="Rate Buddy " id="abc"><i class="zmdi zmdi-star floatIcons"></i></a>
 
-            <a href="#" class="buttons" title=" Send Feedback "><i class="zmdi zmdi-comment-text-alt floatIcons"></i></a>
+            <a href="#" class="buttons feedBackFloat" title=" Send Feedback "><i class="zmdi zmdi-comment-text-alt floatIcons"></i></a>
 
             <a href="#" class="buttons" title="Send Request"><i class="zmdi zmdi-plus-1 floatIcons"></i></a>
 
@@ -17,7 +17,7 @@
 
     </div>
 </div>
-
+<!--Rate buddy using floating button modal(popUp)-->
 <div id="dialogWrapper">
     <div style="display:none" id="modalDialog3"  title="Rate Buddy"
          data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide'}">
@@ -52,7 +52,7 @@
                               data-bind="ojComponent: {component: 'ojTextArea', 
                                      value: desc, 
                                      placeholder: 'Type your reason here..'}"></textarea>
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" data-bind="text:textError"></div>
+                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" data-bind="text:textError"></div>
                     <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" ></div>
                 </div>
                 <div class="imgArea1">
@@ -71,12 +71,42 @@
 
         </div>
     </div>
-    </div>    
+</div>    
 
 
-
-
-
-
-
-
+<!--feedaback modal in floating button-->
+<div id="dialogWrapper12">
+    <div style="display:none" id="modalDialog9" title="Feedback" 
+         data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide'}">
+        <div class="oj-dialog-body">
+            <div class="searchArea">
+                <label for="combobox"></label>
+                <ul id="browsers" style="display: none">
+                    <!-- ko foreach: browsers -->
+                    <li data-bind="attr: {'oj-data-value': value}">
+                        <img data-bind="attr: {'src': searchPic}" width="25" />
+                        <span data-bind="text: label"></span>
+                    </li>
+                    <!-- /ko -->   
+                </ul>
+                <input id="combobox2"
+                       data-bind="ojComponent: {component: 'ojCombobox',
+                            placeholder:'search',
+                              list: 'browsers',
+                              value: value,     
+                              rootAttributes: {style:'max-width:20em'}}"/>
+            </div>
+            <div class="area">
+                <div class="areaContent">
+                    <textarea id="text-area" class="textArea2" aria-label="ojTextArea component no visible label"
+                              data-bind="ojComponent: {component: 'ojTextArea', 
+                                     value: desc, 
+                                     placeholder: 'Type your feedback here..'}"></textarea>
+                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" data-bind="text:textError"></div>
+                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" ></div>
+                </div>
+            </div>
+            <button class="modal-submit1" data-bind="click: feedbackModal" > Submit </button>
+        </div>
+    </div>
+</div>                              
