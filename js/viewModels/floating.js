@@ -117,14 +117,15 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         }
         this.browsers = ko.observableArray([]);
         this.value = ko.observable();
-
-        self.floatModal = function () {
-            if (self.desc() == '' || self.desc() == null) {
-                self.textError("Please Provide a reason for your rating");
-                return false;
-            } else {
-                console.log(self.userIdFloat());
-                console.log(self.value()[0]);
+        
+          self.floatModal = function () {
+              console.log(self.value());
+              if (self.desc() == '' || self.desc() == null || self.value() == '' || self.value() == null) {
+                        self.textError("Please Provide a reason for your rating");
+                        return false;
+                    } else {
+                  console.log(self.userIdFloat());
+                  console.log(self.value()[0]);
 //                console.log(self.rating());
                 console.log(self.desc());
                 $.ajax({
