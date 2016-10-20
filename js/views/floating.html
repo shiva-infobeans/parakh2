@@ -31,8 +31,8 @@
                     <ul id="browsers" style="display: none">
                         <!-- ko foreach: browsers -->
                         <li data-bind="attr: {'oj-data-value': value}">
-                            <img data-bind="attr: {'src': searchPic}" width="25" />
-                            <span data-bind="text: label"></span>
+                            <span class="imgSearch">  <img data-bind="attr: {'src': searchPic}" class="searchImage" /> </span>
+                            <span data-bind="text: label" class="autoName"></span>
                         </li>
                         <!-- /ko -->   
                     </ul>
@@ -67,7 +67,7 @@
 
                 </div>
             </div>
-            <button class="modal-submit1" data-bind="click: floatModal" > Submit </button>
+            <button class="modal-submit3" data-bind="click: floatModal" > Submit </button>
 
         </div>
     </div>

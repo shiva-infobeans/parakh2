@@ -44,12 +44,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.teamDesig = ko.observable();
         self.data1 = ko.observableArray([]);
         this.value = ko.observable();
-        var lead_id = 5; //static id for team lead 
+        //  var lead_id = 5; //static id for team lead 
         self.myTeam = ko.observableArray([]);
         self.myId = ko.observable();
         self.desc = ko.observable();
         self.textError = ko.observable();
-        self.lead_id = ko.observable(5);
+        self.lead_id = ko.observable(); //static
         self.members = ko.observableArray([]);
         self.data2 = ko.observable();
         self.userId = ko.observable();
@@ -60,23 +60,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.textError = ko.observable();
 
 
-        var teamUser = oj.Model.extend({
-            url: getUserByLead + lead_id
-        });
-        var getUser = new teamUser();
-        getUser.fetch({
-            headers: {secret: secret},
-            success: function () {
-                var data = getUser.attributes['data'];
-                data = data.sort(function (a, b) {
-                    return (a['user_name'] > b['user_name']) - (a['user_name'] < b['user_name']);
-                });
-                for (var counter1 = 0; counter1 < data.length; counter1++) {
-                    self.myTeam.push(new leadTeam(data[counter1]));
-                }
-                self.data1(self.myTeam());
-            }
-        });
+
+        //user
         var user = oj.Model.extend({
             url: getUserByEmail + person['email']
         });
@@ -85,6 +70,39 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             headers: {secret: secret},
             success: function (res) {
                 self.userId(res['attributes']['data']['id']);
+                self.lead_id(res['attributes']['data']['id']);
+                console.log(res['attributes']['data']['id']);
+                self.role_name(res['attributes']['data']['role_name']);
+                console.log(res['attributes']['data']['role_name']);
+
+                if (self.role_name() === 'Team Member') {
+
+                    $('#tabs ul li:last-child').hide();
+
+                } else {
+
+                    $('#tabs ul li:last-child').addClass('abc').show();
+                    //lead id user
+                    var teamUser = oj.Model.extend({
+                        url: getUserByLead + self.lead_id(),
+                    });
+                    var getUser = new teamUser();
+                    getUser.fetch({
+                        headers: {secret: secret},
+                        success: function () {
+                            var data = getUser.attributes['data'];
+                            data = data.sort(function (a, b) {
+                                return (a['user_name'] > b['user_name']) - (a['user_name'] < b['user_name']);
+                            });
+                            for (var counter1 = 0; counter1 < data.length; counter1++) {
+                                self.myTeam.push(new leadTeam(data[counter1]));
+                            }
+                            self.data1(self.myTeam());
+                        }
+                    });
+
+
+                }
                 var TaskRecord = oj.Model.extend({
                     url: getOtherTeamMembers + self.userId()
                 });
@@ -102,6 +120,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         self.data2(self.members());
                     }
                 });
+
             }
         });
         self.arrangeIndex = function (data, event) {
@@ -253,9 +272,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         //lead team 
         setTimeout(function () {
             $(".viewProfile").on('click', function () {
-                console.log($(this).attr("myTeamId"));
+                //  console.log($(this).attr("myTeamId"));
                 var link = "memberProfile.html?id=" + $(this).attr("myTeamId");
-                console.log(link);
+                //    console.log(link);
                 window.location = link;
             });
 
@@ -264,7 +283,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 var alphaCounter = 0; // counter for letters present in indexer
 
                 for (var index = 0; index < self.members().length; index++) {
-                    console.log("here : " + index);
+                    //    console.log("here : " + index);
                     if (self.members()[index]['name'].charAt(0) != AlphaIndexes[alphaCounter - 1]) {
                         AlphaIndexes[alphaCounter++] = self.members()[index]['name'].charAt(0);
                     }
