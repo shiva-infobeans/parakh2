@@ -102,7 +102,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         
           self.floatModal = function () {
               console.log(self.value());
-              if (self.desc() == '' || self.desc() == null) {
+              if (self.desc() == '' || self.desc() == null || self.value() == '' || self.value() == null) {
                         self.textError("Please Provide a reason for your rating");
                         return false;
                     } else {
