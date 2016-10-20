@@ -1,41 +1,82 @@
          
 <div class="oj-web-applayout-max-width oj-web-applayout-content  ">
     <div class="oj-flex oj-row">
-        
 
-<nav class="container"> 
-    
-     <a href="#" class="buttons rateFloat" title="Ratebuddy" id="abc"><i class="zmdi zmdi-star floatIcons"></i></a>
-                 
-    <a href="#" class="buttons" title="Feedback"><i class="zmdi zmdi-comment-text-alt floatIcons"></i>
-</a>
-    
-    <a href="#" class="buttons" title="Send request"><i class="zmdi zmdi-plus-1 floatIcons"></i></a>
 
-    <a class="buttons btn1"  href="#" > <i class="zmdi zmdi-plus floatingIcons"></i> </a>
+        <nav class="container"> 
 
-  </nav>
+            <a href="#" class="buttons rateFloat" title="Rate Buddy " id="abc"><i class="zmdi zmdi-star floatIcons"></i></a>
+
+            <a href="#" class="buttons" title=" Send Feedback "><i class="zmdi zmdi-comment-text-alt floatIcons"></i></a>
+
+            <a href="#" class="buttons" title="Send Request"><i class="zmdi zmdi-plus-1 floatIcons"></i></a>
+
+            <a class="buttons btn1"  href="#" > <i class="zmdi zmdi-plus floatingIcons"></i> </a>
+
+        </nav>
+
     </div>
-    </div>
+</div>
 
 <div id="dialogWrapper">
-  <div style="display:none" id="modalDialog3" title="Modal Dialog" 
-       data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide'}">
-     <div class="oj-dialog-body">
-       The dialog window can be moved, resized and closed with the 'x' icon.
-       Arbitrary content can be added to the the oj-dialog-body and oj-dialog-footer sections.
-     </div>
-     <div class="oj-dialog-footer">
-        <button id="okButton" data-bind="ojComponent: {component: 'ojButton', label: 'OK'}"> </button>
-      </div>
-  </div>
+    <div style="display:none" id="modalDialog3"  title="Rate Buddy"
+         data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide'}">
+        <div class="oj-dialog-body">
 
-</div>    
-       
+            <div class="searchArea">
+
+                <form id="form1">
+
+                    <label for="combobox"></label>
+                    <ul id="browsers" style="display: none">
+                        <!-- ko foreach: browsers -->
+                        <li data-bind="attr: {'oj-data-value': value}">
+                            <img data-bind="attr: {'src': searchPic}" width="25" />
+                            <span data-bind="text: label"></span>
+                        </li>
+                        <!-- /ko -->   
+                    </ul>
+                    <input id="combobox2"
+                           data-bind="ojComponent: {component: 'ojCombobox',
+                            placeholder:'search',
+                              list: 'browsers',
+                              value: value,
+                              rootAttributes: {style:'max-width:20em'}}"/>
+                </form>
+
+            </div>
+
+            <div class="area">
+                <div class="areaContent">
+                    <textarea id="text-area" class="textArea2" aria-label="ojTextArea component no visible label"
+                              data-bind="ojComponent: {component: 'ojTextArea', 
+                                     value: desc, 
+                                     placeholder: 'Type your reason here..'}"></textarea>
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" data-bind="text:textError"></div>
+                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" ></div>
+                </div>
+                <div class="imgArea1">
+                    <div class="pos-relative">
+                        <img class="modalImage" src="css/images/green-button.png" alt=""/>
+                        <div class="mText1">
+                            +1
+                        </div>
+                    </div>
+                </div>
+                <div>
+
+                </div>
+            </div>
+            <button class="modal-submit1" data-bind="click: floatModal" > Submit </button>
+
+        </div>
+    </div>
+    </div>    
 
 
-        
-        
-        
-    
+
+
+
+
+
 
