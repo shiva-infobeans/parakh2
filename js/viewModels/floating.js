@@ -93,6 +93,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             item.label = data[counter1]['google_name'];
                             item.searchPic = data[counter1]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data[counter1]['google_picture_link'];
                             self.browsers.push(item);
+                            self.browsers1.push(item);
                         }
                     }
                 });
@@ -107,7 +108,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     headers: {secret: secret},
                     method: 'POST',
                     url: addFeedback,
-                    data: {feedback_from: self.userIdFloat(), feedback_to: self.value()[0], feedback_description: self.desc()},
+                    data: {feedback_from: self.userIdFloat(), feedback_to: self.value1()[0], feedback_description: self.desc()},
                     success: function () {
                         $("#modalDialog9").ojDialog("close");
                         self.value('');
@@ -117,32 +118,25 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         }
         this.browsers = ko.observableArray([]);
         this.value = ko.observable();
-        
+        this.browsers1 = ko.observableArray([]);
+        this.value1 = ko.observable();
           self.floatModal = function () {
-              console.log(self.value());
               if (self.desc() == '' || self.desc() == null || self.value() == '' || self.value() == null) {
                         self.textError("Please Provide a reason for your rating");
                         return false;
                     } else {
-                  console.log(self.userIdFloat());
-                  console.log(self.value()[0]);
-//                console.log(self.rating());
-                console.log(self.desc());
                 $.ajax({
                     headers: {secret: secret},
                     method: 'POST',
                     url: rateOtherMember,
-                    data: {user_id: self.userIdFloat(), for_id: self.value()[0], rating: (1), desc: self.desc()},
+                    data: {user_id: self.userIdFloat(), for_id: self.value()[0],rating:1, desc: self.desc()},
                     success: function () {
-                        console.log('ratingDone');
                         $("#modalDialog3").ojDialog("close");
                         self.value('');
                     }
                 });
             }
         }
-
-
     }
     return floatingContentViewModel;
 });

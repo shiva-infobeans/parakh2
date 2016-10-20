@@ -712,7 +712,7 @@ body{
     text-align: center;
 }
 
-#ojDialogWrapper-modalDialog3  .oj-dialog-content {
+#ojDialogWrapper-modalDialog3  .oj-dialog-content,#ojDialogWrapper-modalDialog9  .oj-dialog-content  {
     background-color: #fff !important;
 }
 .modal-submit3{
@@ -725,7 +725,7 @@ body{
     outline: medium none;
     width: 38%;
     float: left !important;
-    margin-left: -165px;
+    margin-left: -120px;
 }
 /*#tabs ul li:last-child {
     display:none;
