@@ -143,26 +143,38 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 setTimeout(function () {
                     $(".more-feedback").on('click', function () {
 
-                        if (self.moreLess() == "More") {
-                            $(this).parent().removeClass("open");
-                            $(this).children("span:first").children("i:first").removeClass("zmdi-caret-down");
-                            $(this).children("span:first").children("i:first").addClass("zmdi-caret-up");
-                            $(this).parent().prev().removeClass("hide");
-                            self.moreLess("Less");
 
-
-                            //open the hidden section
-                            $(this).parent().parent().parent().addClass('open-more');
-                            //$(this).addClass('open-more');
-                        } else {
-                            $(this).parent().addClass("open");
-                            $(this).children("span:first").children("i:first").removeClass("zmdi-caret-up");
-                            $(this).children("span:first").children("i:first").addClass("zmdi-caret-down");
-                            $(this).parent().prev().addClass("hide");
+                        //console.log($(this).parent().parent().prev().children(".transition").addClass("open-more"));
+                        if ($(this).parent().parent().prev(".transition").hasClass("open-more")) {
+                            console.log($(this).parent().parent().prev(".transition").removeClass("open-more"));
+                            console.log($(this).parent().parent().prev(".transition").children(":first").addClass("hide"));
                             self.moreLess("More");
-                            //close the hidden section
-                            $(this).parent().parent().parent().removeClass('open-more');
+                        } else {
+                            console.log($(this).parent().parent().prev(".transition").children(":first").removeClass("hide"));
+                            console.log($(this).parent().parent().prev(".transition").addClass("open-more"));
+                            console.log($(this).parent().parent().prev(".transition").children(":first").attr("class"));
+                            self.moreLess("Less");
                         }
+//                        if (self.moreLess() == "More") {
+//                            $(this).parent().removeClass("open");
+//                            $(this).children("span:first").children("i:first").removeClass("zmdi-caret-down");
+//                            $(this).children("span:first").children("i:first").addClass("zmdi-caret-up");
+//                            $(this).parent().prev().removeClass("hide");
+//                            self.moreLess("Less");
+//
+//
+//                            //open the hidden section
+//                            $(this).parent().parent().parent().addClass('open-more');
+//                            //$(this).addClass('open-more');
+//                        } else {
+//                            $(this).parent().addClass("open");
+//                            $(this).children("span:first").children("i:first").removeClass("zmdi-caret-up");
+//                            $(this).children("span:first").children("i:first").addClass("zmdi-caret-down");
+//                            $(this).parent().prev().addClass("hide");
+//                            self.moreLess("More");
+//                            //close the hidden section
+//                            $(this).parent().parent().parent().removeClass('open-more');
+//                        }
                     });
                 }, 500);
 
