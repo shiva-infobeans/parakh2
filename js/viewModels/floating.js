@@ -144,7 +144,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 headers: {secret: secret},
                 method: 'POST',
                 url: rateOtherMember,
-                data: {user_id: self.userIdFloat(), for_id: self.value1()[0], rating: 1, desc: self.desc()},
+                data: {user_id: self.userIdFloat(), for_id: self.value()[0], rating: 1, desc: self.desc()},
                 success: function () {
                     $("#modalDialog3").ojDialog("close");
                     self.value('');
