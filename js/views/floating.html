@@ -35,10 +35,12 @@
                 </ul>
                 <input id="combobox9"
                        data-bind="ojComponent: {component: 'ojCombobox',
-                            placeholder:'search',
+                            placeholder:'Search team member',
                               list: 'browsers1',
                               value: value1,     
                               rootAttributes: {style:'max-width:20em'}}"/>
+                  <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" data-bind="text: searchError"></div>
+   
             </div>
             <div class="area">
                 <div class="areaContent">
@@ -47,7 +49,7 @@
                                      value: desc, 
                                      placeholder: 'Type your feedback here..'}"></textarea>
                     <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" data-bind="text:textError"></div>
-                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" ></div>
+                  
                 </div>
             </div>
             <button class="modal-submit1" data-bind="click: feedbackModal" > Submit </button>
@@ -78,10 +80,11 @@
                     </ul>
                     <input id="combobox2"
                            data-bind="ojComponent: {component: 'ojCombobox',
-                            placeholder:'search',
+                            placeholder:'Search team member',
                               list: 'browsers',
                               value: value,
                               rootAttributes: {style:'max-width:20em'}}"/>
+                      <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" data-bind="text: searchError"></div>
                 </form>
 
             </div>

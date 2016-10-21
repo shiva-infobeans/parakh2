@@ -41,6 +41,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 self.desc('');
                 self.textError('');
                 self.value([]);
+                self.searchError("");
             });
 
             self.handleOKClose = $("#okButton").click(function () {
@@ -50,7 +51,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 $("#modalDialog9").ojDialog("open");
                 self.desc('');
                 self.textError('');
-                self.value([]);
+                self.value1([]);
+                self.searchError("");
+
             });
 
             self.handleOKClose = $("#okButton").click(function () {
@@ -67,6 +70,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.for_id = ko.observable();
         self.desc = ko.observable();
         self.textError = ko.observable();
+        self.searchError = ko.observable();
         var userFloat = oj.Model.extend({
             url: getUserByEmail + person['email']
         });
@@ -99,43 +103,54 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 });
             }
         });
-        self.feedbackModal = function(){
-            if (self.desc() == '' || self.desc() == null) {
-                self.textError("Please Provide a feedback for your rating");
+        self.feedbackModal = function () {
+            if (self.value1() == '' || self.value1() == null) {
+                self.searchError("This field cannot be empty");
                 return false;
-            } else {
-                $.ajax({
-                    headers: {secret: secret},
-                    method: 'POST',
-                    url: addFeedback,
-                    data: {feedback_from: self.userIdFloat(), feedback_to: self.value1()[0], feedback_description: self.desc()},
-                    success: function () {
-                        $("#modalDialog9").ojDialog("close");
-                        self.value('');
-                    }
-                });
             }
+            if (self.desc() == '' || self.desc() == null) {
+                self.searchError("");
+                self.textError("Please provide a reson for rating.");
+                return false;
+            }
+            $.ajax({
+                headers: {secret: secret},
+                method: 'POST',
+                url: addFeedback,
+                data: {feedback_from: self.userIdFloat(), feedback_to: self.value1()[0], feedback_description: self.desc()},
+                success: function () {
+                    $("#modalDialog9").ojDialog("close");
+                    self.value('');
+                }
+            });
+
         }
         this.browsers = ko.observableArray([]);
         this.value = ko.observable();
         this.browsers1 = ko.observableArray([]);
         this.value1 = ko.observable();
-          self.floatModal = function () {
-              if (self.desc() == '' || self.desc() == null || self.value() == '' || self.value() == null) {
-                        self.textError("Please Provide a reason for your rating");
-                        return false;
-                    } else {
-                $.ajax({
-                    headers: {secret: secret},
-                    method: 'POST',
-                    url: rateOtherMember,
-                    data: {user_id: self.userIdFloat(), for_id: self.value()[0],rating:1, desc: self.desc()},
-                    success: function () {
-                        $("#modalDialog3").ojDialog("close");
-                        self.value('');
-                    }
-                });
+        self.floatModal = function () {
+            if (self.value() == '' || self.value() == null) {
+                self.searchError("This field cannot be empty");
+                return false;
             }
+            if (self.desc() == '' || self.desc() == null) {
+                self.searchError("");
+                self.textError("Please provide a reson for rating.");
+                return false;
+            }
+
+            $.ajax({
+                headers: {secret: secret},
+                method: 'POST',
+                url: rateOtherMember,
+                data: {user_id: self.userIdFloat(), for_id: self.value1()[0], rating: 1, desc: self.desc()},
+                success: function () {
+                    $("#modalDialog3").ojDialog("close");
+                    self.value('');
+                }
+            });
+
         }
     }
     return floatingContentViewModel;
