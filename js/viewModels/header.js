@@ -29,7 +29,7 @@ define(['ojs/ojcore', 'knockout', 'jquery'
             }
         }
         this.pic = person['pic'];
-        this.memberName = person['name'];
+        this.memberName = "My Profile";
 
         $(function () {
             setTimeout(function () {

@@ -19,11 +19,24 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
         com.commentDate = commentDate1.substring(0, commentDate1.indexOf(' '));
         return com;
     }
+    function dataFeedback(data){
+                var feedbackObj = new Object();
+                feedbackObj.name = data['given_by_name'];
+                feedbackObj.moreLess = "More";
+                feedbackObj.feedbackId= data['id'];
+                feedbackObj.feedbackDescription= data['description'];
+                feedbackObj.feedbackdesignation = "Test";
+                feedbackObj.feedbackImage = "http://www.mpi-marburg.mpg.de/employee_images/47122";
+                
+                feedbackObj.feedbackDate = data['created_date'];
+                return feedbackObj;
+            }
     function membersContentViewModel(person) {
         var self = this;
         var windowLocation = window.location;
         var id = windowLocation.search.substring(windowLocation.search.indexOf("=") + 1, windowLocation.search.length);
         self.id = ko.observable(0);
+        self.feedbackContent = ko.observableArray([]);
         console.log(id);
         if (id) {
             self.id(id);
@@ -52,7 +65,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
         userRecord.fetch({
             headers: {secret: secret},
             success: function (res) {
-
+                
                 var TaskRecord = oj.Model.extend({
                     url: getOtherTeamMembers + userRecord.attributes['data']['id']
                 });
@@ -76,6 +89,22 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                                 break;
                             }
                         }
+                        //feedback for the user
+                        var feedbackApi = oj.Model.extend({
+                            url: getFeedbackById+114
+                        });
+                        var apiObj = new feedbackApi();
+                        apiObj.fetch({
+                            headers: {secret: secret},
+                            success: function (res) {
+                                var data = res['attributes']['data'];
+                                for(var index =0; index < data.length;index++){
+                                    self.feedbackContent.push(new dataFeedback(data[index]));
+                                }
+                            }
+                        });
+                        
+                        //calculate ratings of the user;
                         var rate = oj.Model.extend({
                             url: getRatingByUser + self.id(),
                             //parse: parseTask

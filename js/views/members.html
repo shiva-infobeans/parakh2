@@ -27,25 +27,16 @@
 
     <ul class="profile-ul pos-relative">
         <div class="transbox"></div>
-        <li class="profile-tabs profile-font-tabs selectedTab"><span><i class="zmdi zmdi-account-add"></i> About Me</span></li>
         <li class="profile-tabs profile-font-tabs selectedTab"><span><i class="zmdi zmdi-trending-up"></i> 
                 +<span data-bind="text: plus"></span></span>
         </li>
         <li class="profile-tabs profile-font-tabs selectedTab"><span><i class="zmdi zmdi-trending-down"></i> 
                 -<span data-bind="text: minus"></span></span></li>
         <li class="profile-tabs profile-font-tabs selectedTab"><span><i class="zmdi zmdi-comment-alt-text"></i> Feedback</span></li>
+        <li class="profile-tabs profile-font-tabs selectedTab"><span><i class="zmdi zmdi-account-add"></i> About Me</span></li>
     </ul>
 
     <div id="tabs-1" class="color-white oj-margin-horizontal pos-relative">
-        <div class="transbox"></div>
-        <div class="profile-page-overflow">
-            <p class="profile-tab1-data"> <i class="zmdi zmdi-account"></i> <span data-bind="text: myname"></span></p>
-            <p class="profile-tab1-data"> <i class="zmdi zmdi-case"></i> <span  data-bind="text: designation"></span></p>
-            <p class="profile-tab1-data"> <i class="zmdi zmdi-email"></i> <span data-bind="text: email"></span></p>
-            <p class="profile-tab1-data"> <i class="zmdi zmdi-phone"></i> <span data-bind="text: myNumber"></span></p>
-        </div>
-    </div>
-    <div id="tabs-2" class="color-white oj-margin-horizontal pos-relative">
         <div class="transbox"></div>
 
         <div class="profile-page-overflow pos-relative">
@@ -61,7 +52,7 @@
             </div>
         </div>
     </div>
-    <div id="tabs-3" class="color-white oj-margin-horizontal pos-relative">
+    <div id="tabs-2" class="color-white oj-margin-horizontal pos-relative">
         <div class="transbox"></div>
         <div class="profile-page-overflow">
             <div class="noComments" data-bind="text: NoCommentsN"></div>
@@ -76,8 +67,17 @@
         </div>
     </div>
 
+    <div id="tabs-3" class="color-white oj-margin-horizontal pos-relative">
+        
+        
+    </div>
     <div id="tabs-4" class="color-white oj-margin-horizontal pos-relative">
         <div class="transbox"></div>
-        <p>Vertical Disabled panel. 4</p>
+        <div class="profile-page-overflow">
+            <p class="profile-tab1-data"> <i class="zmdi zmdi-account"></i> <span data-bind="text: myname"></span></p>
+            <p class="profile-tab1-data"> <i class="zmdi zmdi-case"></i> <span  data-bind="text: designation"></span></p>
+            <p class="profile-tab1-data"> <i class="zmdi zmdi-email"></i> <span data-bind="text: email"></span></p>
+            <p class="profile-tab1-data"> <i class="zmdi zmdi-phone"></i> <span data-bind="text: myNumber"></span></p>
+        </div>
     </div>
 </div>

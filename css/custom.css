@@ -299,21 +299,25 @@ div.oj-tabs-panel.oj-tabs-selected{
     transition: height .3s linear !important;
     height:300px;
 }
+.feedbackSection{
+    overflow-x: auto;
+    overflow-y: no-content;
+    height:100%;
+}
 .colcount{
-    float:left;
-
-    /*         -webkit-column-count: 2;  
-             Chrome, Safari, Opera 
+    /*float:left;*/
+             -webkit-column-count: 2;  
+             /*Chrome, Safari, Opera*/ 
             -moz-column-count: 2;  
-            Firefox 
+            /*Firefox*/ 
             column-count: 2;
         
             -webkit-column-gap: 40px;  
-            Chrome, Safari, Opera 
+            /*Chrome, Safari, Opera*/ 
             -moz-column-gap: 40px;  
-            Firefox 
+            /*Firefox*/ 
             column-gap: 40px;
-    */
+    
 
 }
 /*rate buddy page ui*/

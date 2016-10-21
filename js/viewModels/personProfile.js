@@ -18,9 +18,22 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 com.commentDate = commentDate1.substring(0, commentDate1.indexOf(' '));
                 return com;
             }
+            function dataFeedback(data) {
+                var feedbackObj = new Object();
+                feedbackObj.name = data['given_by_name'];
+                feedbackObj.moreLess = "More";
+                feedbackObj.feedbackId = data['id'];
+                feedbackObj.feedbackDescription = data['description'];
+                feedbackObj.feedbackdesignation = "Test";
+                feedbackObj.feedbackImage = "http://www.mpi-marburg.mpg.de/employee_images/47122";
+
+                feedbackObj.feedbackDate = data['created_date'];
+                return feedbackObj;
+            }
             function dialogModel(person) {
                 var self = this;
                 this.feedback = ko.observable("GOOD WORK...  keep it up!!");
+                this.feedbackContent = ko.observableArray([]);
                 this.pic = person['pic'];
                 this.commentDataPositive = ko.observableArray([]);
                 this.commentDataNegative = ko.observableArray([]);
@@ -105,6 +118,22 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         self.designation(abc);
                         var num = task.attributes['data']['mobile_number'] == "" ? "NO NUMBER" : "+91-" + task.attributes['data']['mobile_number'];
                         self.myNumber(num);
+                        //feedback for the user
+//                        var feedbackApi = oj.Model.extend({
+//                            url: getFeedbackById+114
+//                        });
+//                        var apiObj = new feedbackApi();
+//                        apiObj.fetch({
+//                            headers: {secret: secret},
+//                            success: function (res) {
+//                                var data = res['attributes']['data'];
+//                                for(var index =0; index < data.length;index++){
+//                                    self.feedbackContent.push(new dataFeedback(data[index]));
+//                                }
+//                            }
+//                        });
+//                        
+                        //calculate ratings of the user;
                         var rate = oj.Model.extend({
                             url: getRatingByUser + self.id(),
                             //parse: parseTask
@@ -141,40 +170,30 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     }
                 });
                 setTimeout(function () {
+
+                    //(.more-feedback);
+                    console.log($(this).parent().attr("class"));
+//                            $(this).click(function () {
+//                        $(this).slideToggle("slow", function () {
+//                            // Animation complete.
+//                        });
+//                    });
+
                     $(".more-feedback").on('click', function () {
-
-
-                        //console.log($(this).parent().parent().prev().children(".transition").addClass("open-more"));
                         if ($(this).parent().parent().prev(".transition").hasClass("open-more")) {
-                            console.log($(this).parent().parent().prev(".transition").removeClass("open-more"));
-                            console.log($(this).parent().parent().prev(".transition").children(":first").addClass("hide"));
-                            self.moreLess("More");
+                            $(this).parent().parent().prev(".transition").removeClass("open-more");
+                            $(this).parent().parent().prev(".transition").children(":first").addClass("hide");
+                            $(this).parent().children(":first-child").addClass("hide");
+                            $(this).parent().children(":nth-child(2)").addClass("hide");
+                            $(this).val("Less");
                         } else {
-                            console.log($(this).parent().parent().prev(".transition").children(":first").removeClass("hide"));
-                            console.log($(this).parent().parent().prev(".transition").addClass("open-more"));
-                            console.log($(this).parent().parent().prev(".transition").children(":first").attr("class"));
-                            self.moreLess("Less");
+                            $(this).parent().parent().prev(".transition").children(":first").removeClass("hide");
+                            $(this).parent().parent().prev(".transition").addClass("open-more");
+                            $(this).parent().parent().prev(".transition").children(":first").attr("class");
+                            $(this).parent().children(":first-child").removeClass("hide");
+                            $(this).parent().children(":nth-child(2)").removeClass("hide");
+                            $(this).val("More");
                         }
-//                        if (self.moreLess() == "More") {
-//                            $(this).parent().removeClass("open");
-//                            $(this).children("span:first").children("i:first").removeClass("zmdi-caret-down");
-//                            $(this).children("span:first").children("i:first").addClass("zmdi-caret-up");
-//                            $(this).parent().prev().removeClass("hide");
-//                            self.moreLess("Less");
-//
-//
-//                            //open the hidden section
-//                            $(this).parent().parent().parent().addClass('open-more');
-//                            //$(this).addClass('open-more');
-//                        } else {
-//                            $(this).parent().addClass("open");
-//                            $(this).children("span:first").children("i:first").removeClass("zmdi-caret-up");
-//                            $(this).children("span:first").children("i:first").addClass("zmdi-caret-down");
-//                            $(this).parent().prev().addClass("hide");
-//                            self.moreLess("More");
-//                            //close the hidden section
-//                            $(this).parent().parent().parent().removeClass('open-more');
-//                        }
                     });
                 }, 500);
 
