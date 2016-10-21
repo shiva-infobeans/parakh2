@@ -72,7 +72,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 self.userId(res['attributes']['data']['id']);
                 self.lead_id(res['attributes']['data']['id']);
                 self.role_name(res['attributes']['data']['role_name']);
-
+                
                 if (self.role_name() === 'Team Member') {
 
                     $('#tabs ul li:last-child').hide();
@@ -287,12 +287,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             }
         }
         //submit for feedback
-        self.submitModal = function () {
+        self.submitFeedback = function () {
             if (self.desc() == '' || self.desc() == null) {
-                self.textError("Please Provide a reason for your rating");
+                self.textError("Please Provide your feedback");
                 return false;
             } else {
-
                 $.ajax({
                     headers: {secret: secret},
                     method: 'POST',

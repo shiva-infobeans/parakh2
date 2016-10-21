@@ -16,8 +16,8 @@ and open the template in the editor.
         <div id="tabs" data-bind="ojComponent:{component: 'ojTabs'}" class="buddyTab">
             <!-- tab bar -->
             <ul>
-                <li class="buddyTab1"><i class="zmdi zmdi-accounts tabIcon"></i></li>
-                <li class="buddyTab2"><i class="zmdi zmdi-account tabIcon"></i></li>
+                <li class="buddyTab1" title="ICC Team"><i class="zmdi zmdi-accounts tabIcon"></i></li>
+                <li class="buddyTab2" title="My Team"><i class="zmdi zmdi-account tabIcon"></i></li>
             </ul>
             <!-- tab contents -->
             <div id="tabs-1">
@@ -242,42 +242,8 @@ and open the template in the editor.
     </div>
 </div>
 
-<!--
-<div id="dialogWrapper8" >
-    <div style="display:none" id="modalDialog8" title="Rate Buddy"
-         data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide'}">
-
-        <div class="oj-dialog-body">
-            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex oj-flex-item oj-padding">
-                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                    <img class="profile border-color-white" data-bind="attr: {src: image}"/>
-
-                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                        <h4><strong><span data-bind="text: myname"  ></span></strong></h4>
-                        <h5><span data-bind="text: myDesignation"></span></h5>
-                    </div>
-                    <div class="area">
-                        <div class="areaContent">
-                            <textarea id="text-area8" class="textArea2" aria-label="ojTextArea component no visible label"
-                                      data-bind=" ojComponent: {component: 'ojTextArea', 
-                                     value: desc, 
-                                     placeholder: 'Type your feedback here..'}"></textarea>   
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" data-bind="text:textError"></div>
-                        </div>                      
-                    </div>
-                    <div>
-                        <button class="modal-submit1"  data-bind="click: submitModal"> Submit </button>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-</div>-->
-
 <div id="dialogWrapper8">
-    <div style="display:none" id="modalDialog8" title="Modal Dialog" 
+    <div style="display:none" id="modalDialog8" title="Send Feedback" 
          data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide'}">
         <div class="oj-dialog-body">
             <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex oj-flex-item oj-padding">
@@ -298,7 +264,7 @@ and open the template in the editor.
                         </div>                      
                     </div>
                     <div>
-                        <button class="modal-submit1"  data-bind="click: submitModal"> Submit </button>
+                        <button class="modal-submit1"  data-bind="click: submitFeedback"> Submit </button>
                     </div>
                 </div>
 
