@@ -57,6 +57,8 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
         this.email = ko.observable();
         this.UserId = ko.observable();
         this.shortName = ko.observable();
+        this.minusSign = ko.observable('-');
+        this.plusSign = ko.observable('+');
 //service for id of the user.
         var userIdSearch = oj.Model.extend({
             url: getUserByEmail + person['email']
@@ -136,6 +138,18 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                                 }
                                 self.plus(plus);
                                 self.minus(minus);
+                                if(self.plus() == 0){
+                                    self.plusSign("");
+                                }
+                                else{
+                                    self.plusSign("+");
+                                }
+                                if(self.minus() == 0){
+                                    self.minusSign("");
+                                }
+                                else{
+                                    self.minusSign("-");
+                                }
                             }
                         });
                     }

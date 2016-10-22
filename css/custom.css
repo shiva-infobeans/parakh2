@@ -168,9 +168,9 @@ div.oj-tabs-panel.oj-tabs-selected{
     border:none;
 }
 .profile-tab1-data{
-    display:flex; 
-    padding-top:12px;
-    padding-bottom: 12px;
+    display: flex;
+    padding-top: 7px;
+    padding-bottom: 7px;
 }
 .profile-tab1-data:not(:last-child){
     border-bottom: 1px solid rgba(119,168,89,0.3) !important;
