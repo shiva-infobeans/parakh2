@@ -18,22 +18,37 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 com.commentDate = commentDate1.substring(0, commentDate1.indexOf(' '));
                 return com;
             }
-            function dataFeedback(data) {
+            function dataFeedback(myId,data) {
                 var feedbackObj = new Object();
                 feedbackObj.name = data['given_by_name'];
-                feedbackObj.moreLess = "More";
                 feedbackObj.feedbackId = data['id'];
                 feedbackObj.feedbackDescription = data['description'];
-                feedbackObj.feedbackdesignation = "Test";
-                feedbackObj.feedbackImage = "http://www.mpi-marburg.mpg.de/employee_images/47122";
-
-                feedbackObj.feedbackDate = data['created_date'];
+                feedbackObj.feedbackdesignation = data['designation'];
+                feedbackObj.replies = ko.observableArray();
+                feedbackObj.feedbackImage = data['google_picture_link'];
+                // 2nd myId with rtoId change it when view profile page;
+                var data_reply =data['reply'] ;
+                for(var c=0;c<data_reply.length;c++){
+                    feedbackObj.replies.push(new feedbackRepliesData(myId, myId,feedbackObj.feedbackId,data_reply[c]));
+                }
+                feedbackObj.feedbackDate = data['created_date'].substring(0, data['created_date'].indexOf(" "));
                 return feedbackObj;
+            }
+            function feedbackRepliesData(lid,rtoId,fid,data){
+                var freplies = new Object();
+                freplies.login_id = lid;
+                freplies.freply_to = rtoId; 
+                freplies.feedback_id = fid;
+                freplies.reply_name = data['from_name'];//display name
+                freplies.reply_desc = data['description'];//display desc
+                freplies.reply_date = data['created_date'].substring(0, data['created_date'].indexOf(" "));// display date
+                return freplies;
             }
             function dialogModel(person) {
                 var self = this;
                 this.feedback = ko.observable("GOOD WORK...  keep it up!!");
-                this.feedbackContent = ko.observableArray([]);
+                this.feedbackContent1 = ko.observableArray([]);
+                this.feedbackContent2 = ko.observableArray([]);
                 this.pic = person['pic'];
                 this.commentDataPositive = ko.observableArray([]);
                 this.commentDataNegative = ko.observableArray([]);
@@ -75,7 +90,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 //////////////////// edit profile page
                 self.buttonClick = function () {
                     if (self.designation() == '' || self.designation() == null) {//validation for input not null or not empty
-                        //console.log('should not be null : 123'); //show error message here!!!!
                         self.desigError("Field Must Not Be Empty");
                     } else {
                         if (self.myNumber() != "") {
@@ -121,20 +135,26 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         var num = task.attributes['data']['mobile_number'] == "" ? "NO NUMBER" : "+91-" + task.attributes['data']['mobile_number'];
                         self.myNumber(num);
                         //feedback for the user
-//                        var feedbackApi = oj.Model.extend({
-//                            url: getFeedbackById+114
-//                        });
-//                        var apiObj = new feedbackApi();
-//                        apiObj.fetch({
-//                            headers: {secret: secret},
-//                            success: function (res) {
-//                                var data = res['attributes']['data'];
-//                                for(var index =0; index < data.length;index++){
-//                                    self.feedbackContent.push(new dataFeedback(data[index]));
-//                                }
-//                            }
-//                        });
-//                        
+                        var feedbackApi = oj.Model.extend({
+                            url: getFeedbackById + 114
+                        });
+                        var apiObj = new feedbackApi();
+                        apiObj.fetch({
+                            headers: {secret: secret},
+                            success: function (res) {
+                                var data = res['attributes']['data'];
+                                var index;
+                                for (index = 0; index < data.length; index++) {
+                                    if (index % 2 == 0) {
+                                        self.feedbackContent1.push(new dataFeedback(114,data[index]));
+                                    } else {
+                                        self.feedbackContent2.push(new dataFeedback(114,data[index]));
+                                    }
+                                    break;
+                                }
+                            }
+                        });
+
                         //calculate ratings of the user;
                         var rate = oj.Model.extend({
                             url: getRatingByUser + self.id(),
@@ -182,31 +202,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     }
                 });
                 setTimeout(function () {
-
-                    //(.more-feedback);
-                    console.log($(this).parent().attr("class"));
-//                            $(this).click(function () {
-//                        $(this).slideToggle("slow", function () {
-//                            // Animation complete.
-//                        });
-//                    });
-
-                    $(".more-feedback").on('click', function () {
-                        if ($(this).parent().parent().prev(".transition").hasClass("open-more")) {
-                            $(this).parent().parent().prev(".transition").removeClass("open-more");
-                            $(this).parent().parent().prev(".transition").children(":first").addClass("hide");
-                            $(this).parent().children(":first-child").addClass("hide");
-                            $(this).parent().children(":nth-child(2)").addClass("hide");
-                            $(this).val("Less");
-                        } else {
-                            $(this).parent().parent().prev(".transition").children(":first").removeClass("hide");
-                            $(this).parent().parent().prev(".transition").addClass("open-more");
-                            $(this).parent().parent().prev(".transition").children(":first").attr("class");
-                            $(this).parent().children(":first-child").removeClass("hide");
-                            $(this).parent().children(":nth-child(2)").removeClass("hide");
-                            $(this).val("More");
-                        }
+                    $('.openDiv').click(function () {
+                        $(this).parent().prev('.open-more').slideToggle();
                     });
+
                 }, 500);
 
             }
