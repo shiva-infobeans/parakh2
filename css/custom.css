@@ -31,6 +31,14 @@ body{
     max-width: 1170px;
     width: 100% !important;
 }
+.max-width:after, .max-width:before{
+    content:'';
+    display:table;
+}
+.max-width:after{
+    clear:both
+ 
+}
 .footer{
     position: absolute;
     background-color:#689F39;
