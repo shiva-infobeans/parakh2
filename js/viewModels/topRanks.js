@@ -47,6 +47,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
         this.totalMembers = ko.observable();
         self.loginUserId = ko.observable();
         self.name = ko.observable();
+        self.noRank = ko.observable();
         var user = oj.Model.extend({
             url: getUserByEmail + person['email']
         });
@@ -54,7 +55,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
         getDetails.fetch({
             headers: {secret: secret},
             success: function (result) {
-                console.log(result['attributes']['data']['id']);
                 self.loginUserId(result['attributes']['data']['id']);
                 var getRank = oj.Model.extend(
                         {
@@ -64,10 +64,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
                 memberRank.fetch({
                     headers: {secret: secret},
                     success: function () {
-                        // console.log(memberRank['attributes']['data']);
-                        //console.log(memberRank['attributes']['data']['my_rank']==false?'-':memberRank['attributes']['data']['my_rank']);
-                        //console.log(memberRank['attributes']['data']['total_user_count']);      
                         self.myRank(memberRank['attributes']['data']['my_rank']);
+                        if(self.myRank() == "-"){
+                            self.noRank("You have not yet received +1 rating.");
+                        }
+                        else{
+                            self.noRank("");
+                        }
                         self.totalMembers(memberRank['attributes']['data']['total_user_count']);
                     }
                 });
@@ -75,7 +78,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
         });
 
 
-        //console.log(nameFunction("SHIVA SHIRBHATE"));
         self.data12 = ko.observableArray([]);
         self.bubbleSeriesValue = ko.observableArray();
         self.bubbleSeries = ko.observableArray([
@@ -102,15 +104,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
                 for (var counter = 0; counter < data1.length; counter++) {
                     self.data12.push(Rankers1((10 - counter), data1[counter]['pluscount'], (90 - (counter * 5)), data1[counter]['google_name']));
                 }
-                //console.log(self.data12()[0].label);
                 for (var i = 0; i < self.data12().length; i++) {
                     self.bubbleSeries()[i].items.push({
                         x: self.data12()[i].x, y: self.data12()[i].y, z: self.data12()[i].z, label: self.data12()[i].label, labelPosition: 'auto',
                         shortDesc: "&lt;b&gt;" + self.data12()[i].Member + "&lt;/b&gt;" + "&lt;br/&gt;Total +1 ratings: " + self.data12()[i].y + "&lt;br/&gt;"
                     });
                 }
-                console.log(self.bubbleSeries()[0]);
-                //console.log(self.bubbleSeries());
                 self.bubbleSeriesValue(self.bubbleSeries());
             }
         });
@@ -126,15 +125,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
             {x: 2, y: 8, z: 50, Member: "SHIVA SHIRBHATE", label: "Group i", labelPosition: 'auto'},
             {x: 1, y: 7, z: 45, Member: "SHIVA SHIRBHATE", label: "Group k", labelPosition: 'auto'}
         ];
-        //data = self.data12();
-        /* basic chart data */
-
-//        for (var i = 0; i < data.length; i++) {
-//            self.bubbleSeries[i].items.push({
-//                x: data[i].x, y: data[i].y, z: data[i].z, label: data[i].label, labelPosition: 'auto',
-//                shortDesc: "&lt;b&gt;" + data[i].Member + "&lt;/b&gt;" + "&lt;br/&gt;Total +1 ratings: " + data[i].y + "&lt;br/&gt;"
-//            });
-//        }
+        
         var bubbleGroups = ["MEMBER"];
         this.bubbleGroupsValue = ko.observableArray(bubbleGroups);
         /* chart axes */
