@@ -67,7 +67,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
             success: function (res) {
                 
                 var TaskRecord = oj.Model.extend({
-                    url: getOtherTeamMembers + userRecord.attributes['data']['id']
+                    url: getAllTeamMembers + userRecord.attributes['data']['id']
                 });
                 var task = new TaskRecord();
                 task.fetch({
