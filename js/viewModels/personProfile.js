@@ -52,6 +52,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 this.successful("");
                 this.designation = ko.observable(abc);
                 self.desigError = ko.observable();
+                this.minusSign = ko.observable('-');
+                this.plusSign = ko.observable('+');
                 ///////////open modal
                 self.tempararyNumber = ko.observable();
                 self.openModal = function () {
@@ -165,6 +167,16 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                 }
                                 self.plus(plus);
                                 self.minus(minus);
+                                if (self.plus() == 0) {
+                                    self.plusSign("");
+                                } else {
+                                    self.plusSign("+");
+                                }
+                                if (self.minus() == 0) {
+                                    self.minusSign("");
+                                } else {
+                                    self.minusSign("-");
+                                }
                             }
                         });
                     }
