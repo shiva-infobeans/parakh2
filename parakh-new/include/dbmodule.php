@@ -386,19 +386,29 @@ function get_ranking_list() {
         
     }
 
-    /* *
-     * get User feedback by id.
-     * */
-    function get_feedback_by_id($user_id) {
-        
-        $query = "SELECT feedback.feedback_to as feedback_to,feedback.feedback_from as feedback_from,feedback.id as id,feedback.feedback_description as description,feedback.created_date as created_date,user.google_name as given_by_name FROM feedback AS feedback LEFT JOIN users AS user ON user.id = feedback.feedback_from WHERE feedback.feedback_to= :user_id AND (feedback.response_parent=0 OR feedback.response_parent is NULL) ORDER BY feedback.created_date desc ";
-                    
-        $user_list = $this->con->prepare($query);
-        $user_list->execute(array(':user_id' => $user_id));
-        $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
-        return $row;
-        
-    }
+   /* *
+    * get User feedback by id.
+    * */
+   function get_feedback_by_id($user_id) {
+       
+       $query = "SELECT feedback.feedback_to as feedback_to,feedback.feedback_from as feedback_from,feedback.id as id,feedback.feedback_description as description,feedback.created_date as created_date,user.google_name as given_by_name,user.designation, user.google_picture_link  FROM feedback AS feedback LEFT JOIN users AS user ON user.id = feedback.feedback_from WHERE feedback.feedback_to= :user_id AND (feedback.response_parent=0 OR feedback.response_parent is NULL) ORDER BY feedback.created_date desc ";
+                   
+       $user_list = $this->con->prepare($query);
+       $user_list->execute(array(':user_id' => $user_id));
+       $rows = $user_list->fetchAll((PDO::FETCH_ASSOC));
+       foreach($rows as $key=>$row){
+           //echo $row['id']; die;
+           $query2 = "SELECT response.id as replay_id,response.feedback_from as replay_from,user.google_name as from_name,response.feedback_description as description,response.created_date as created_date FROM feedback AS response  LEFT JOIN users AS user ON user.id = response.feedback_from  where response.response_parent =:user_id";
+           
+           $replay2 = $this->con->prepare($query2);
+           $replay2->execute(array(':user_id' => $row['id']));
+           $replys = $replay2->fetchAll((PDO::FETCH_ASSOC));
+           //print_r($replys);
+           $rows[$key]['reply'] = $replys;
+       }
+       return $rows;
+   }
+// code for web service updated
 
     /* *
      * Add Feedback in database
