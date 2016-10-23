@@ -263,9 +263,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 /* feedback section css */
 .feedbackDiv{
-    margin-top: -90px;
-    padding-top: 100px;
-    height: 200px;
+    height: 500px;
     -webkit-transition: height .1s linear;   
     -moz-transition: height .1s linear;   
     -ms-transition: height .1s linear;   
@@ -278,14 +276,6 @@ div.oj-tabs-panel.oj-tabs-selected{
     border-radius: 50%;
     z-index: 10;
 }
-.transition{
-    height: 0px;
-    -webkit-transition: height .1s linear;   
-    -moz-transition: height .1s linear;   
-    -ms-transition: height .1s linear;   
-    -o-transition: height .1s linear;   
-    transition: height .1s linear;
-}
 .color-green{
     color: #85D44B !important;
 }
@@ -296,16 +286,36 @@ div.oj-tabs-panel.oj-tabs-selected{
     margin-left: 5px;
     color: #FFF;
 }
+.replyName{
+    margin-top:5px;
+    margin-bottom: 5px;
+}
+.replyComent:nth-child(odd){
+    margin-left: 2px;
+    border-left: 5px solid #ff0000;
+    padding:5px;
+}
+.replyComent:nth-child(even){
+    margin-left: 2px;
+    border-left: 5px solid #00ff00;
+    padding:5px;
+}
 .more-feedback a span{
     margin-top: 10px !important;
 }
+.overflow-feedback-reply{
+    max-height: 300px;
+    min-height: 150px;
+    overflow: auto;
+}
 .open-more{
-    -webkit-transition: height .3s linear !important;   
+/*    -webkit-transition: height .3s linear !important;   
     -moz-transition: height .3s linear !important;
     -ms-transition: height .3s linear !important;
     -o-transition: height .3s linear !important;
     transition: height .3s linear !important;
-    height:300px;
+    height:150px;*/
+    /*display: none;*/
 }
 .feedbackSection{
     overflow-x: auto;

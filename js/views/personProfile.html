@@ -112,17 +112,17 @@
 
                             <span data-bind="text: feedbackDescription"></span>
                         </div>
-                        <div class="open-more border-color-green oj-margin oj-flex">
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item open-more border-color-green oj-margin oj-flex overflow-feedback-reply">
 
                             <!--repeat here-->
                             <!--ko foreach: replies-->
-                            <div class="oj-row oj-flex">
-                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item">
+                            <div class="oj-row oj-flex oj-margin-top oj-margin-bottom">
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item replyName">
                                     <span data-bind="text: reply_name"></span>
                                 </div>
-                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex-bar">
-                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12"><span data-bind="text: reply_desc"></span></div>
-                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-bar-end"><span data-bind="text: reply_date"></span></div>
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex replyComent">
+                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item"><span data-bind="text: reply_desc"></span></div>
+                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex-bar"><span class="oj-flex-bar-end" data-bind="text: reply_date"></span></div>
                                 </div>
 
                             </div>
@@ -140,7 +140,6 @@
                             <span class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-bar openDiv flex-bar-end">
                                 More
                             </span>
-
                         </div>
                     </div>
                     <!--/ko-->
