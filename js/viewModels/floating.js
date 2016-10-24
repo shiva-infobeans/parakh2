@@ -50,6 +50,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 $("#modalDialog3").ojDialog("close");
             });
         }, 500);
+        
+        
 
 
         self.member = ko.observableArray([]);

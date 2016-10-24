@@ -59,8 +59,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.desc = ko.observable();
         self.textError = ko.observable();
 
-
-
         //user
         var user = oj.Model.extend({
             url: getUserByEmail + person['email']
@@ -74,7 +72,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 console.log(res['attributes']['data']['id']);
                 self.role_name(res['attributes']['data']['role_name']);
                 console.log(res['attributes']['data']['role_name']);
-
                 if (self.role_name() === 'Team Member') {
 
                     $('#tabs ul li:last-child').hide();
@@ -209,6 +206,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.myname($(this).attr("myname"));
             self.myDesignation($(this).attr("myDesignation"));
         });
+
         self.submitModal = function () {
             if (self.desc() == '' || self.desc() == null) {
                 self.textError("Please Provide a reason for your rating");
@@ -343,8 +341,31 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 $("#modalDialog2").ojDialog("close");
             });
 
+            $(".zmdi").click(function () {
+                $(".zmdi").removeClass('oj-tabs-title-active');
+                $(this).addClass('oj-tabs-title-active');
+            });
+
+//            $("li:nth-child(1)").hover(
+//                    function () {
+//                        $(this).append($("<span class='hoverTab'> ICC Team </span>"));
+//
+//                    }, function () {
+//                $(this).find("span:last").remove();
+//            }
+//            );
+//            $("li:nth-child(2)").hover(
+//                    function () {
+//                        $(this).append($("<span class='hoverTab'> My Team </span>"));
+//
+//                    }, function () {
+//                $(this).find("span:last").remove();
+//            }
+//            );
 
         }, 600);
+
+
     }
     return myTeamContentViewModel;
 });

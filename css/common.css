@@ -467,6 +467,7 @@ body{
     width: 90px;
     text-decoration: none;
     text-align: center;
+    background-color: grey;
 }
 .buddyTab2{
     font-size: 35px;
@@ -474,6 +475,7 @@ body{
     width: 90px;
     text-decoration: none;
     text-align: center;
+      background-color: grey;
 }
 
 .buddyHeader {
@@ -657,11 +659,10 @@ body{
 #tabs-container .oj-tabs-nav{
    margin-left: 12px;
 }
-.tabIcon{
-    color:green;  
-}
+
 #tabs-container .oj-tabs-tab.oj-selected {
-    border-color: green;
+   border-color: green;
+    border-radius: 3px #fff !important;
 }
 .searchArea{
    margin-bottom: 55px;
@@ -709,7 +710,7 @@ body{
     outline: medium none;
     width: 38%;
     float: left !important;
-    margin-left: -165px;
+    margin-left:-115px;
 }
 /*#tabs ul li:last-child {
     display:none;
@@ -727,4 +728,55 @@ body{
     height: 30px;
     width: 42px;
     float: left;
+}
+ #combobox2 input .oj-combobox-arrow {
+    opacity: 0;
+}
+#tabs-container .oj-tabs-title {
+    color: #000;
+}
+#tabs-container .oj-tabs-title-active {
+    color: green;
+}
+#ui-id-4 .oj-hover{
+   text-decoration: none !important;
+    
+}
+.hoverTab1{
+  background-color: #fffff0;
+    border-radius: 2px;
+    color: #000;
+    font-size: 13px;
+    left: 12px;
+    margin-top: 12px;
+    padding: 12px;
+    position: absolute;
+    top: -60px;
+    display:none;
+    text-decoration: none !important;
+}
+.oj-tabs-horizontal > .oj-tabs-nav-root .oj-tabs-tab{
+    position: static;
+}
+.hoverTab2{
+  background-color: #fffff0;
+    border-radius: 2px;
+    color: #000;
+    font-size: 13px;
+    left: 110px;
+    margin-top: 12px;
+    padding: 12px;
+    position: absolute;
+    top: -60px;
+    display:none;  
+    text-decoration: none !important;
+}
+.buddyTab1 :hover .hoverTab1{
+    display: block;
+}
+.buddyTab2 :hover .hoverTab2{
+    display: block;
+}
+#tabs ul li i{
+    text-decoration: none !important;
 }
