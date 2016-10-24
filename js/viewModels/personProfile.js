@@ -18,8 +18,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 com.commentDate = commentDate1.substring(0, commentDate1.indexOf(' '));
                 return com;
             }
-            function dataFeedback(myId,data) {
+            function dataFeedback(myId, data) {
                 var feedbackObj = new Object();
+                feedbackObj.myId = myId;
+                feedbackObj.feedbackfrom = data['feedback_from'];
                 feedbackObj.name = data['given_by_name'];
                 feedbackObj.feedbackId = data['id'];
                 feedbackObj.feedbackDescription = data['description'];
@@ -27,29 +29,34 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 feedbackObj.replies = ko.observableArray();
                 feedbackObj.feedbackImage = data['google_picture_link'];
                 // 2nd myId with rtoId change it when view profile page;
-                var data_reply =data['reply'] ;
-                for(var c=0;c<data_reply.length;c++){
-                    feedbackObj.replies.push(new feedbackRepliesData(myId, myId,feedbackObj.feedbackId,data_reply[c]));
+                var data_reply = data['reply'];
+                for (var c = 0; c < data_reply.length; c++) {
+                    feedbackObj.replies.push(new feedbackRepliesData(myId, myId, feedbackObj.feedbackId, data_reply[c]));
                 }
                 feedbackObj.feedbackDate = data['created_date'].substring(0, data['created_date'].indexOf(" "));
                 return feedbackObj;
             }
-            function feedbackRepliesData(lid,rtoId,fid,data){
+            function feedbackRepliesData(lid, rtoId, fid, data) {
                 var freplies = new Object();
                 freplies.login_id = lid;
-                freplies.freply_to = rtoId; 
+                freplies.freply_to = rtoId;
                 freplies.feedback_id = fid;
                 freplies.reply_name = data['from_name'];//display name
                 freplies.reply_desc = data['description'];//display desc
                 freplies.reply_date = data['created_date'].substring(0, data['created_date'].indexOf(" "));// display date
                 return freplies;
             }
+
             function dialogModel(person) {
                 var self = this;
+
+                this.pic = person['pic'];
+                this.myname = person['name'];
+                this.email = person['email'];
+                var abc = "Not Assigned";
                 this.feedback = ko.observable("GOOD WORK...  keep it up!!");
                 this.feedbackContent1 = ko.observableArray([]);
                 this.feedbackContent2 = ko.observableArray([]);
-                this.pic = person['pic'];
                 this.commentDataPositive = ko.observableArray([]);
                 this.commentDataNegative = ko.observableArray([]);
                 self.moreLess = ko.observable("More");
@@ -58,9 +65,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 this.myNumber = ko.observable();
                 this.NoCommentsN = ko.observable(""); // for negative comment
                 this.NoCommentsP = ko.observable(""); // for positive comment
-                this.myname = person['name'];
-                this.email = person['email'];
-                var abc = "Not Assigned";
                 self.id = ko.observable(0);
                 self.mobileError = ko.observable();
                 this.successful = ko.observable("S");
@@ -69,55 +73,65 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 self.desigError = ko.observable();
                 this.minusSign = ko.observable('-');
                 this.plusSign = ko.observable('+');
+                //open feedback close feedback
+                setTimeout(function () {
+                    $('.openDiv').click(function () {
+                        $(this).parent().prev('.open-more').slideToggle();
+                        if ($(this).prev().children("span").hasClass("hide")) {
+                            $(this).prev().children("span").removeClass("hide");
+                            $(this).children("span").children("span").children("i").addClass("zmdi-caret-up");
+                            $(this).children("span").children("span").children("i").removeClass("zmdi-caret-down");
+                            $(this).children("span").children("span:nth-child(2)").html("Less");
+                        } else {
+                            $(this).children("span").children("span:nth-child(2)").html("More");
+                            $(this).children("span").children("span").children("i").removeClass("zmdi-caret-up");
+                            $(this).children("span").children("span").children("i").addClass("zmdi-caret-down");
+                            $(this).prev().children("span").addClass("hide");
+                        }
+                    });
+                    $('.submitRespond').on('click', function () {
+                        var id = $(this).attr("loginUserId");
+                        var feedback_to = $(this).attr("feedback_to");
+                        var responseDesc = $(this).parent().next("span").children("input");
+                        var fid = $(this).attr("feedbackId");
+                        var appendChild = this;
+                        var sysDate = new Date();
+                        var dateString = sysDate.toJSON().toString().substr(0, 10);
+                        
+                        $.ajax({
+                            headers: {secret: secret},
+                            method: 'POST',
+                            url: addFeedbackResponse,
+                            data: {login_user_id: id, feedback_to: feedback_to, feedback_desc: responseDesc.val(), feedback_id: fid},
+                            success: function () {
+                                $(appendChild).parent().parent().parent().prev().append(
+                                        '<div class="oj-row oj-flex oj-margin-top oj-margin-bottom oj-margin-horizontal oj-padding-horizontal">'+
+                                        '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item replyName">' +
+                                        '<span>' + self.myname + '</span>' +
+                                        '</div>' +
+                                        '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex replyComent">' +
+                                        '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item"><span>' + responseDesc.val() + '</span></div>' +
+                                        '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex-bar"><span class="oj-flex-bar-end">' + dateString + '</span></div>' +
+                                        '</div>'+
+                                        '</div>'
+                                        );
+                                responseDesc.val("");
+                            }
+                        });
+                    });
+
+                }, 500);
+
+
                 ///////////open modal
                 self.tempararyNumber = ko.observable();
-                self.openModal = function () {
-                    $("#open-modal").fadeIn();
-                    $("#open-modal").addClass('open');
-                    self.tempararyNumber(self.myNumber()); // store number temparary for observable
-                    if (self.myNumber() == "NO NUMBER") {
-                        self.myNumber("");
-                    } else {
-                        var numberTrim = self.myNumber();
-                        self.myNumber(numberTrim.substr(numberTrim.indexOf("-") + 1), numberTrim.length);
-                    }
-                };
+
                 self.closeModal = function () {
                     $("#open-modal").fadeOut();
                     $("#open-modal").removeClass('open');
                     self.myNumber(self.tempararyNumber());
                 };
                 //////////////////// edit profile page
-                self.buttonClick = function () {
-                    if (self.designation() == '' || self.designation() == null) {//validation for input not null or not empty
-                        self.desigError("Field Must Not Be Empty");
-                    } else {
-                        if (self.myNumber() != "") {
-                            if (10 != self.myNumber().length || isNaN(self.myNumber())) {
-                                self.mobileError("Enter Correct Mobile Number");
-                                return;
-                            }
-                        }
-                        self.mobileError("");
-                        //user_id, mob, des
-                        $.ajax({
-                            headers: {secret: secret},
-                            method: 'POST',
-                            url: updateProfile,
-                            data: {user_id: self.id(), mob: self.myNumber(), des: self.designation()},
-                            success: function () {
-                                $("#open-modal").fadeOut();
-                                $("#open-modal").removeClass('open');
-                                var num = self.myNumber() == "" ? "NO NUMBER" : "+91-" + self.myNumber();
-                                self.myNumber(num);
-                                self.successful("User Details Updated Successfully !!");
-                                setTimeout(function () {
-                                    self.successful("");
-                                }, 5000);
-                            }
-                        });
-                    }
-                }
 
 //service for id of the user.
 
@@ -131,12 +145,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     success: function () {
                         abc = task.attributes['data']['designation'];
                         self.id(task.attributes['data']['id']);
+                        self.myname
                         self.designation(abc);
                         var num = task.attributes['data']['mobile_number'] == "" ? "NO NUMBER" : "+91-" + task.attributes['data']['mobile_number'];
                         self.myNumber(num);
                         //feedback for the user
                         var feedbackApi = oj.Model.extend({
-                            url: getFeedbackById + 114
+                            url: getFeedbackById + self.id()
                         });
                         var apiObj = new feedbackApi();
                         apiObj.fetch({
@@ -146,11 +161,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                 var index;
                                 for (index = 0; index < data.length; index++) {
                                     if (index % 2 == 0) {
-                                        self.feedbackContent1.push(new dataFeedback(114,data[index]));
+                                        self.feedbackContent1.push(new dataFeedback(self.id(), data[index]));
                                     } else {
-                                        self.feedbackContent2.push(new dataFeedback(114,data[index]));
+                                        self.feedbackContent2.push(new dataFeedback(self.id(), data[index]));
                                     }
-                                    break;
                                 }
                             }
                         });
@@ -201,13 +215,52 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         });
                     }
                 });
-                setTimeout(function () {
-                    $('.openDiv').click(function () {
-                        $(this).parent().prev('.open-more').slideToggle();
-                    });
 
-                }, 500);
 
+
+                self.buttonClick = function () {
+                    if (self.designation() == '' || self.designation() == null) {//validation for input not null or not empty
+                        self.desigError("Field Must Not Be Empty");
+                    } else {
+                        if (self.myNumber() != "") {
+                            if (10 != self.myNumber().length || isNaN(self.myNumber())) {
+                                self.mobileError("Enter Correct Mobile Number");
+                                return;
+                            }
+                        }
+                        self.mobileError("");
+                        //user_id, mob, des
+                        $.ajax({
+                            headers: {secret: secret},
+                            method: 'POST',
+                            url: updateProfile,
+                            data: {user_id: self.id(), mob: self.myNumber(), des: self.designation()},
+                            success: function () {
+                                $("#open-modal").fadeOut();
+                                $("#open-modal").removeClass('open');
+                                var num = self.myNumber() == "" ? "NO NUMBER" : "+91-" + self.myNumber();
+                                self.myNumber(num);
+                                self.successful("User Details Updated Successfully !!");
+                                setTimeout(function () {
+                                    self.successful("");
+                                }, 5000);
+                            }
+                        });
+                    }
+                }
+
+                self.openModal = function () {
+                    $("#open-modal").fadeIn();
+                    $("#open-modal").addClass('open');
+                    self.tempararyNumber(self.myNumber()); // store number temparary for observable
+                    if (self.myNumber() == "NO NUMBER") {
+                        self.myNumber("");
+                    } else {
+                        var numberTrim = self.myNumber();
+                        self.myNumber(numberTrim.substr(numberTrim.indexOf("-") + 1), numberTrim.length);
+                    }
+                };
             }
+
             return dialogModel;
         });

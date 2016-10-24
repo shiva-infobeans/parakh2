@@ -305,7 +305,6 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 .overflow-feedback-reply{
     max-height: 300px;
-    min-height: 150px;
     overflow: auto;
 }
 .open-more{
@@ -314,8 +313,43 @@ div.oj-tabs-panel.oj-tabs-selected{
     -ms-transition: height .3s linear !important;
     -o-transition: height .3s linear !important;
     transition: height .3s linear !important;
-    height:150px;*/
-    /*display: none;*/
+    */
+    height:150px;
+    display: none;
+}
+.feedbackHeight{
+    margin-top: 60px;
+    height: 85%;
+}
+.heightContent{
+   margin-top: -10px;
+    margin-bottom: 50px;
+    margin-left: -2px;
+}
+.replyBox div span:nth-child(1) button{
+    margin-left:15px;
+    background-color: transparent;
+    border: none;
+    color:#fff;
+    outline: none;
+}
+.replyBox div span:nth-child(2) input[type="text"]{
+    background-color: transparent;
+    width: 100%;
+    outline-color: #fff;
+    color:#fff;
+    border-radius: 5px;
+    height: 25px;
+}
+.replyBox div span button i{
+    font-size: 25px;
+}
+.replyBox div span:nth-child(2) input[type="text"]{
+}
+.replyBox div:nth-child(2) span{
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 18px;
 }
 .feedbackSection{
     overflow-x: auto;
