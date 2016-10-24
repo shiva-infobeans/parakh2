@@ -69,9 +69,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             success: function (res) {
                 self.userId(res['attributes']['data']['id']);
                 self.lead_id(res['attributes']['data']['id']);
-                console.log(res['attributes']['data']['id']);
                 self.role_name(res['attributes']['data']['role_name']);
-                console.log(res['attributes']['data']['role_name']);
+                
                 if (self.role_name() === 'Team Member') {
 
                     $('#tabs ul li:last-child').hide();
@@ -146,6 +145,34 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 });
 
             }
+            // feedback...
+            self.handleOpen = $(".feedbackBuddy").click(function () {
+                $("#modalDialog8").ojDialog("open");
+                self.desc('');
+                self.textError('');
+            });
+
+            self.handleOKClose = $("#okButton").click(function () {
+                $("#modalDialog8").ojDialog("close");
+            });
+            // feedbackLead...
+            self.handleOpen = $(".feedbackBuddyLead").click(function () {
+                $("#modalDialog8").ojDialog("open");
+                self.desc('');
+                self.textError('');
+            });
+
+            self.handleOKClose = $("#okButton").click(function () {
+                $("#modalDialog8").ojDialog("close");
+            });
+            self.handleOpen = $(".feedbackBuddyLead").click(function () {
+                $("#modalDialog8").ojDialog("open");
+            });
+
+            self.handleOKClose = $("#okButton").click(function () {
+                $("#modalDialog8").ojDialog("close");
+            });
+            //rateBuddy...
             self.handleOpen = $(".star").click(function () {
                 $("#modalDialog1").ojDialog("open");
                 self.desc('');
@@ -154,6 +181,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.handleOKClose = $("#okButton").click(function () {
                 $("#modalDialog1").ojDialog("close");
             });
+
+
         };
         self.arrangeIndex1 = function (data, event) {
             if (event.target.tagName == 'A') {
@@ -173,18 +202,34 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         }
                     }
                 }
-                $(".viewProfile").on('click', function () {
-                    console.log($(this).attr("myTeamId"));
-                    var link = "memberProfile.html?id=" + $(this).attr("myTeamId");
-                    console.log(link);
-                    window.location = link;
+                // feedback...
+                self.handleOpen = $(".feedbackBuddy").click(function () {
+                    $("#modalDialog8").ojDialog("open");
+                    self.desc('');
+                    self.textError('');
                 });
 
+                self.handleOKClose = $("#okButton").click(function () {
+                    $("#modalDialog8").ojDialog("close");
+                });
+                // feedbackLead...
+                self.handleOpen = $(".feedbackBuddyLead").click(function () {
+                    $("#modalDialog8").ojDialog("open");
+                    self.desc('');
+                    self.textError('');
+                });
+
+                self.handleOKClose = $("#okButton").click(function () {
+                    $("#modalDialog8").ojDialog("close");
+                });
+                //view profile...
+                $(".viewProfile").on('click', function () {
+                    var link = "memberProfile.html?id=" + $(this).attr("myTeamId");
+                    window.location = link;
+                });
             }
             $(".viewProfile").on('click', function () {
-                console.log($(this).attr("myTeamId"));
                 var link = "memberProfile.html?id=" + $(this).attr("myTeamId");
-                console.log(link);
                 window.location = link;
             });
             self.handleOpen = $(".starTeam").click(function () {
@@ -200,13 +245,28 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 $("#modalDialog2").ojDialog("close");
             });
         };
+        //rateBuddy
         $("body").on('click', '.rateBuddy', function () {
             self.for_id($(this).attr("id"));
             self.image($(this).attr("image"));
             self.myname($(this).attr("myname"));
             self.myDesignation($(this).attr("myDesignation"));
         });
-
+        //feedbackLead
+        $("body").on('click', '.feedbackBuddyLead', function () {
+            self.for_id($(this).attr("myTeamId"));
+            self.image($(this).attr("teamImage"));
+            self.myname($(this).attr("teamName"));
+            self.myDesignation($(this).attr("teamDesig"));
+        });
+        //feedback...
+        $("body").on('click', '.feedbackBuddy', function () {
+            self.for_id($(this).attr("id"));
+            self.image($(this).attr("image"));
+            self.myname($(this).attr("myname"));
+            self.myDesignation($(this).attr("myDesignation"));
+        });
+        //submit for rate buddy
         self.submitModal = function () {
             if (self.desc() == '' || self.desc() == null) {
                 self.textError("Please Provide a reason for your rating");
@@ -224,8 +284,43 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 });
             }
         }
+        //submit for feedback
+        self.submitFeedback = function () {
+            if (self.desc() == '' || self.desc() == null) {
+                self.textError("Please Provide your feedback");
+                return false;
+            } else {
+                $.ajax({
+                    headers: {secret: secret},
+                    method: 'POST',
+                    url: addFeedback,
+                    data: {feedback_from: self.userId(), feedback_to: self.for_id(), feedback_description: self.desc()},
+                    success: function () {
+                        
+                        $("#modalDialog8").ojDialog("close");
+                    }
+                });
+            }
+        }
 //        +1/-1 from team lead/manager 
         $("body").on('click', '.rateMyTeam', function () {
+            self.teamImage($(this).attr("teamImage"));
+            self.myId($(this).attr("myTeamId"));
+            self.teamName($(this).attr("teamName"));
+            self.teamDesig($(this).attr("teamDesig"));
+
+        });
+
+        //feedback...
+        $("body").on('click', '.feedbackBuddy', function () {
+            self.teamImage($(this).attr("teamImage"));
+            self.myId($(this).attr("myTeamId"));
+            self.teamName($(this).attr("teamName"));
+            self.teamDesig($(this).attr("teamDesig"));
+
+        });
+        //feedbackLead
+        $("body").on('click', '.feedbackBuddyLead', function () {
             self.teamImage($(this).attr("teamImage"));
             self.myId($(this).attr("myTeamId"));
             self.teamName($(this).attr("teamName"));
@@ -270,16 +365,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         //lead team 
         setTimeout(function () {
             $(".viewProfile").on('click', function () {
-                //  console.log($(this).attr("myTeamId"));
                 var link = "memberProfile.html?id=" + $(this).attr("myTeamId");
-                //    console.log(link);
                 window.location = link;
             });
 
             $("#index").ready(function () {
                 var AlphaIndexes = [];
                 var alphaCounter = 0; // counter for letters present in indexer
-
                 for (var index = 0; index < self.members().length; index++) {
                     //    console.log("here : " + index);
                     if (self.members()[index]['name'].charAt(0) != AlphaIndexes[alphaCounter - 1]) {
@@ -340,28 +432,30 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.handleOKClose = $("#okButton").click(function () {
                 $("#modalDialog2").ojDialog("close");
             });
-
-            $(".zmdi").click(function () {
-                $(".zmdi").removeClass('oj-tabs-title-active');
-                $(this).addClass('oj-tabs-title-active');
+            // feedback...
+            self.handleOpen = $(".feedbackBuddy").click(function () {
+                $("#modalDialog8").ojDialog("open");
+                self.desc('');
+                self.textError('');
             });
 
-//            $("li:nth-child(1)").hover(
-//                    function () {
-//                        $(this).append($("<span class='hoverTab'> ICC Team </span>"));
-//
-//                    }, function () {
-//                $(this).find("span:last").remove();
-//            }
-//            );
-//            $("li:nth-child(2)").hover(
-//                    function () {
-//                        $(this).append($("<span class='hoverTab'> My Team </span>"));
-//
-//                    }, function () {
-//                $(this).find("span:last").remove();
-//            }
-//            );
+            self.handleOKClose = $("#okButton").click(function () {
+                $("#modalDialog8").ojDialog("close");
+            });
+            // feedbackLead...
+            self.handleOpen = $(".feedbackBuddyLead").click(function () {
+                $("#modalDialog8").ojDialog("open");
+                self.desc('');
+                self.textError('');
+            });
+
+            self.handleOKClose = $("#okButton").click(function () {
+                $("#modalDialog8").ojDialog("close");
+            });
+            $(".zmdi").click(function () {
+               $(".zmdi").removeClass('oj-tabs-title-active');
+               $(this).addClass('oj-tabs-title-active');
+           });
 
         }, 600);
 

@@ -34,24 +34,33 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
     function floatingContentViewModel(person) {
         var self = this;
 
-//         this.browsers = ko.observableArray([
-//            {value: 'internet-explorer', label: 'Internet Explorer'},
-//        ]);
 
         setTimeout(function () {
             self.handleOpen = $(".rateFloat").click(function () {
                 $("#modalDialog3").ojDialog("open");
-                 self.desc('');
-                 self.textError('');
-                 self.value([]);
+                self.desc('');
+                self.textError('');
+                self.value([]);
+                self.searchError("");
             });
 
             self.handleOKClose = $("#okButton").click(function () {
                 $("#modalDialog3").ojDialog("close");
             });
+            self.handleOpen = $(".feedBackFloat").click(function () {
+                $("#modalDialog9").ojDialog("open");
+                self.desc('');
+                self.textError('');
+                self.value1([]);
+                self.searchError("");
+
+            });
+
+            self.handleOKClose = $("#okButton").click(function () {
+                $("#modalDialog9").ojDialog("close");
+            });
         }, 500);
-        
-        
+
 
 
         self.member = ko.observableArray([]);
@@ -61,6 +70,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.for_id = ko.observable();
         self.desc = ko.observable();
         self.textError = ko.observable();
+        self.searchError = ko.observable();
         var userFloat = oj.Model.extend({
             url: getUserByEmail + person['email']
         });
@@ -68,7 +78,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         getFloatId.fetch({
             headers: {secret: secret},
             success: function (result) {
-//                console.log(result['attributes']['data']['id']);
                 self.userIdFloat(result['attributes']['data']['id']);
 
                 var getSearchUser = oj.Model.extend(
@@ -80,53 +89,69 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 floatMember.fetch({
                     headers: {secret: secret},
                     success: function () {
-//                        console.log( floatMember['attributes']['data']);
                         var data = floatMember.attributes['data'];
                         for (var counter1 = 0; counter1 < data.length; counter1++) {
-//                            console.log(new autoSearch(data[counter1]));
                             self.searchUser.push(new autoSearch(data[counter1]));
                             var item = new Object();
                             item.value = data[counter1]['id'];
                             item.label = data[counter1]['google_name'];
                             item.searchPic = data[counter1]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data[counter1]['google_picture_link'];
                             self.browsers.push(item);
+                            self.browsers1.push(item);
                         }
-                  
                     }
                 });
             }
         });
-        this.browsers =ko.observableArray([
-          
-          
-        ]);
+        self.feedbackModal = function () {
+            if (self.value1() == '' || self.value1() == null) {
+                self.searchError("This field cannot be empty");
+                return false;
+            }
+            if (self.desc() == '' || self.desc() == null) {
+                self.searchError("");
+                self.textError("Please provide a reson for rating.");
+                return false;
+            }
+            $.ajax({
+                headers: {secret: secret},
+                method: 'POST',
+                url: addFeedback,
+                data: {feedback_from: self.userIdFloat(), feedback_to: self.value1()[0], feedback_description: self.desc()},
+                success: function () {
+                    $("#modalDialog9").ojDialog("close");
+                    self.value('');
+                }
+            });
+
+        }
+        this.browsers = ko.observableArray([]);
         this.value = ko.observable();
-        
-          self.floatModal = function () {
-              console.log(self.value());
-              if (self.desc() == '' || self.desc() == null || self.value() == '' || self.value() == null) {
-                        self.textError("Please Provide a reason for your rating");
-                        return false;
-                    } else {
-                  console.log(self.userIdFloat());
-                  console.log(self.value()[0]);
-//                console.log(self.rating());
-                  console.log(self.desc());        
+        this.browsers1 = ko.observableArray([]);
+        this.value1 = ko.observable();
+        self.floatModal = function () {
+            if (self.value() == '' || self.value() == null) {
+                self.searchError("This field cannot be empty");
+                return false;
+            }
+            if (self.desc() == '' || self.desc() == null) {
+                self.searchError("");
+                self.textError("Please provide a reson for rating.");
+                return false;
+            }
+
             $.ajax({
                 headers: {secret: secret},
                 method: 'POST',
                 url: rateOtherMember,
-                data: {user_id:  self.userIdFloat(), for_id: self.value()[0], rating: (1), desc: self.desc()},
+                data: {user_id: self.userIdFloat(), for_id: self.value()[0], rating: 1, desc: self.desc()},
                 success: function () {
-                    console.log('ratingDone');
-                     $("#modalDialog3").ojDialog("close");
-                      self.value('');
+                    $("#modalDialog3").ojDialog("close");
+                    self.value('');
                 }
             });
-        }
-        }
 
-
+        }
     }
     return floatingContentViewModel;
 });

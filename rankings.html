@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>PARAKH</title>
+        <title id='parakhtitle'></title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta id="meta" name="google-signin-client_id" content="">
@@ -56,6 +56,7 @@ and open the template in the editor.
 <!--            <div data-bind="ojModule:{name: 'ratings'}"></div>-->
             <!--<div data-bind="ojModule:{name: 'viewModel',params: new person(email,name,profilePic)}"></div>-->
 
+        <div data-bind="ojModule: {name:'floating', params: new person(email, name,profilePic)}"></div>
         </section>
         <footer>
             <div class="footer" data-bind="ojModule:{name:'footer'}"></div>

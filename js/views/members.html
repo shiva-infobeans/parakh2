@@ -27,16 +27,191 @@
 
     <ul class="profile-ul pos-relative">
         <div class="transbox"></div>
-        <li class="profile-tabs profile-font-tabs selectedTab"><span><i class="zmdi zmdi-account-add"></i> About Me</span></li>
-        <li class="profile-tabs profile-font-tabs selectedTab"><span><i class="zmdi zmdi-trending-up"></i> 
-                +<span data-bind="text: plus"></span></span>
+        <li class="profile-tabs profile-font-tabs selectedTab" title="Positive Rating"><span><i class="zmdi zmdi-trending-up"></i> 
+                <span data-bind='text: plusSign'></span><span data-bind="text: plus"></span></span>
         </li>
-        <li class="profile-tabs profile-font-tabs selectedTab"><span><i class="zmdi zmdi-trending-down"></i> 
-                -<span data-bind="text: minus"></span></span></li>
+        <li class="profile-tabs profile-font-tabs selectedTab" title="Negative Rating"><span><i class="zmdi zmdi-trending-down"></i> 
+                <span data-bind='text: minusSign'></span><span data-bind="text: minus"></span></span></li>
         <li class="profile-tabs profile-font-tabs selectedTab"><span><i class="zmdi zmdi-comment-alt-text"></i> Feedback</span></li>
+        <li class="profile-tabs profile-font-tabs selectedTab"><span><i class="zmdi zmdi-account"></i> About</span></li>
     </ul>
 
     <div id="tabs-1" class="color-white oj-margin-horizontal pos-relative">
+        <div class="transbox"></div>
+        <div class="profile-page-overflow pos-relative">
+            <div class="noComments" data-bind="text: NoCommentsP"></div>
+            <div class="rating-comment" data-bind="foreach: commentDataPositive">
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item pos-relative">
+                    <div class="profile-rating-circle circle-green">
+                        <!--circle-green-->
+                        <div class="transline"></div>
+                    </div>
+                    <div class="rating-info">
+                        <p class="comment"><span data-bind="text: comment"></span></p>
+                        <p class="commenter"><span data-bind="text: commenter"></span></p>
+                        <p class="commented-date"><span data-bind="text: commentDate"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="tabs-2" class="color-white oj-margin-horizontal pos-relative">
+        <div class="transbox"></div>
+        <div class="profile-page-overflow">
+            <div class="noComments" data-bind="text: NoCommentsN"></div>
+            <div class="rating-comment" data-bind="foreach: commentDataNegative">
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative">
+                    <div class="profile-rating-circle circle-red">
+                        <div class="transline"></div>
+                    </div>
+                    <div class="rating-info">
+                        <p class="comment"><span data-bind="text: comment"></span></p>
+                        <p class="commenter"><span data-bind="text: commenter"></span></p>
+                        <p class="commented-date"><span data-bind="text: commentDate"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="tabs-3" class="color-white oj-margin-horizontal pos-relative">
+       <div class="feedbackSection">
+            <div class="transbox"></div>
+            <div class="oj-row oj-flex">
+                <div class="oj-xl-6 oj-lg-6 oj-md-12 oj-sm-12 oj-flex-item oj-flex">
+
+                    <!--repeat block-->
+                    <!--ko foreach: feedbackContent1-->
+                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding heightContent">
+                        <div class="transbox border-color-green feedbackHeight"></div>
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                            <img data-bind="attr: {src: feedbackImage}"  alt="" class="profile-feedback-pic"/>
+                        </div>
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+
+                            <span data-bind="text: name"></span>
+                        </div>
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+
+                            <span data-bind="text: feedbackdesignation"></span>
+                        </div>
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+
+                            <span data-bind="text: feedbackDate"></span>
+                        </div>
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin">
+
+                            <span data-bind="text: feedbackDescription"></span>
+                        </div>
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item open-more border-color-green oj-flex overflow-feedback-reply">
+
+                            <!--repeat here-->
+                            <!--ko foreach: replies-->
+                            <div class="oj-row oj-flex oj-margin-top oj-margin-bottom oj-margin-horizontal oj-padding-horizontal">
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item replyName">
+                                    <span data-bind="text: reply_name"></span>
+                                </div>
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex replyComent">
+                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item"><span data-bind="text: reply_desc"></span></div>
+                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex-bar"><span class="oj-flex-bar-end" data-bind="text: reply_date"></span></div>
+                                </div>
+                            </div>
+                            <!--/ko-->
+                            <!--repeat end-->
+                        </div>
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-margin replyBox">
+                            <div class="oj-xl-9 oj-lg-9 oj-md-9 oj-sm-9 oj-flex-item oj-flex"> 
+                                <span class="hide oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item">
+
+                                    <button  class="submitRespond" data-bind="attr:{loginUserId: myId,feedback_to: feedbackfrom,feedbackId: feedbackId}">
+                                        <i class="zmdi zmdi-mail-reply"></i>
+                                    </button>
+                                </span>
+                                <span class="hide oj-xl-9 oj-lg-9 oj-md-9 oj-sm-9 oj-flex-item">
+                                    <input class="respondDescription border-color-white" type="text"/>
+                                </span>
+                            </div>
+                            <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item openDiv flex-bar">
+                                <span class="flex-bar-end">
+                                    <span><i class="zmdi zmdi-caret-down"></i></span>
+                                    <span>More</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/ko-->
+                    <!--repeat end-->
+
+                </div>
+                <div class="oj-xl-6 oj-lg-6 oj-md-12 oj-sm-12 oj-flex-item ">
+                    <!--repeat block-->
+                    <!--ko foreach: feedbackContent2-->
+                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding heightContent">
+                        <div class="transbox border-color-green feedbackHeight"></div>
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                            <img data-bind="attr: {src: feedbackImage}"  alt="" class="profile-feedback-pic"/>
+                        </div>
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+
+                            <span data-bind="text: name"></span>
+                        </div>
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+
+                            <span data-bind="text: feedbackdesignation"></span>
+                        </div>
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+
+                            <span data-bind="text: feedbackDate"></span>
+                        </div>
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin">
+
+                            <span data-bind="text: feedbackDescription"></span>
+                        </div>
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item open-more border-color-green oj-flex overflow-feedback-reply">
+
+                            <!--repeat here-->
+                            <!--ko foreach: replies-->
+                            <div class="oj-row oj-flex oj-margin-top oj-margin-bottom oj-margin-horizontal oj-padding-horizontal">
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item replyName">
+                                    <span data-bind="text: reply_name"></span>
+                                </div>
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex replyComent">
+                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item"><span data-bind="text: reply_desc"></span></div>
+                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex-bar"><span class="oj-flex-bar-end" data-bind="text: reply_date"></span></div>
+                                </div>
+                            </div>
+                            <!--/ko-->
+                            <!--repeat end-->
+                        </div>
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-margin replyBox">
+                            <div class="oj-xl-9 oj-lg-9 oj-md-9 oj-sm-9 oj-flex-item oj-flex"> 
+                                <span class="hide oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item">
+
+                                    <button  class="submitRespond" data-bind="attr:{loginUserId: myId,feedback_to: feedbackfrom,feedbackId: feedbackId}">
+                                        <i class="zmdi zmdi-mail-reply"></i>
+                                    </button>
+                                </span>
+                                <span class="hide oj-xl-9 oj-lg-9 oj-md-9 oj-sm-9 oj-flex-item">
+                                    <input class="respondDescription border-color-white" type="text"/>
+                                </span>
+                            </div>
+                            <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item openDiv flex-bar">
+                                <span class="flex-bar-end">
+                                    <span><i class="zmdi zmdi-caret-down"></i></span>
+                                    <span>More</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/ko-->
+                    <!--repeat end-->
+                </div>
+
+            </div>
+        </div>
+        
+    </div>
+    <div id="tabs-4" class="color-white oj-margin-horizontal pos-relative">
         <div class="transbox"></div>
         <div class="profile-page-overflow">
             <p class="profile-tab1-data"> <i class="zmdi zmdi-account"></i> <span data-bind="text: myname"></span></p>
@@ -44,40 +219,5 @@
             <p class="profile-tab1-data"> <i class="zmdi zmdi-email"></i> <span data-bind="text: email"></span></p>
             <p class="profile-tab1-data"> <i class="zmdi zmdi-phone"></i> <span data-bind="text: myNumber"></span></p>
         </div>
-    </div>
-    <div id="tabs-2" class="color-white oj-margin-horizontal pos-relative">
-        <div class="transbox"></div>
-
-        <div class="profile-page-overflow pos-relative">
-            <div class="transline"></div>
-            <div class="noComments" data-bind="text: NoCommentsP"></div>
-            <div class="rating-comment" data-bind="foreach: commentDataPositive">
-                <div class="profile-rating-circle circle-green"></div>
-                <div class="rating-info">
-                    <p class="comment"><span data-bind="text: comment"></span></p>
-                    <p class="commenter"><span data-bind="text: commenter"></span></p>
-                    <p class="commented-date"><span data-bind="text: commentDate"></span></p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="tabs-3" class="color-white oj-margin-horizontal pos-relative">
-        <div class="transbox"></div>
-        <div class="profile-page-overflow">
-            <div class="noComments" data-bind="text: NoCommentsN"></div>
-            <div class="rating-comment" data-bind="foreach: commentDataNegative">
-                <div class="profile-rating-circle circle-red"></div>
-                <div class="rating-info">
-                    <p class="comment"><span data-bind="text: comment"></span></p>
-                    <p class="commenter"><span data-bind="text: commenter"></span></p>
-                    <p class="commented-date"><span data-bind="text: commentDate"></span></p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="tabs-4" class="color-white oj-margin-horizontal pos-relative">
-        <div class="transbox"></div>
-        <p>Vertical Disabled panel. 4</p>
     </div>
 </div>

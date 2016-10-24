@@ -16,8 +16,14 @@ var getMyRank = baseUrl+"/getMyRank/";
 var rateOtherMember = baseUrl+"/rateOtherMember";
 var addRating = baseUrl+"/addRating";
 var getAllTeamMembers = baseUrl+"/getAllTeamMembers/";
+var addFeedback = baseUrl +"/addFeedback";
+var getFeedbackById = baseUrl +"/getFeedbackById/";
+var addFeedbackResponse = baseUrl +"/addFeedbackResponce";
 var secret = 'parakh-revamp-local-key-2016';
 
 //updates for google client id and parakh logo (favicon) 
 document.getElementById('meta').content = "791490125018-lcfs9ha89efjtp09v5u8q38ls05hhinl.apps.googleusercontent.com";
 document.getElementById('favicon').href = "images/favicon.ico";
+
+// Parakh title in title bar of the browser
+document.getElementById('parakhtitle').innerHTML= "Parakh- The Review System";

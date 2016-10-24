@@ -19,12 +19,43 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
         com.commentDate = commentDate1.substring(0, commentDate1.indexOf(' '));
         return com;
     }
+    function dataFeedback(myId, data) {
+        var feedbackObj = new Object();
+        feedbackObj.myId = myId;
+        feedbackObj.feedbackfrom = data['feedback_from'];
+        feedbackObj.name = data['given_by_name'];
+        feedbackObj.feedbackId = data['id'];
+        feedbackObj.feedbackDescription = data['description'];
+        feedbackObj.feedbackdesignation = data['designation'];
+        feedbackObj.replies = ko.observableArray();
+        feedbackObj.feedbackImage = data['google_picture_link'];
+        // 2nd myId with rtoId change it when view profile page;
+        var data_reply = data['reply'];
+        for (var c = 0; c < data_reply.length; c++) {
+            feedbackObj.replies.push(new feedbackRepliesData(myId, feedbackObj.feedbackfrom, data_reply[c]));
+        }
+        feedbackObj.feedbackDate = data['created_date'].substring(0, data['created_date'].indexOf(" "));
+        return feedbackObj;
+    }
+    function feedbackRepliesData(lid, rtoId, data) {
+        var freplies = new Object();
+        freplies.login_id = lid;
+        freplies.freply_to = rtoId;
+        freplies.reply_name = data['from_name'];
+        freplies.reply_desc = data['description'];//display desc
+        freplies.reply_date = data['created_date'].substring(0, data['created_date'].indexOf(" "));// display date
+        return freplies;
+    }
     function membersContentViewModel(person) {
         var self = this;
         var windowLocation = window.location;
         var id = windowLocation.search.substring(windowLocation.search.indexOf("=") + 1, windowLocation.search.length);
         self.id = ko.observable(0);
-        console.log(id);
+        self.myselfId = ko.observable();
+        self.myselfName = ko.observable();
+        self.feedbackContent1 = ko.observableArray([]);
+        self.feedbackContent2 = ko.observableArray([]);
+     
         if (id) {
             self.id(id);
         } else {
@@ -36,6 +67,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
         this.NoCommentsN = ko.observable();
         this.commentDataPositive = ko.observableArray([]);
         this.commentDataNegative = ko.observableArray([]);
+        
         this.plus = ko.observable();
         this.minus = ko.observable();
         this.myNumber = ko.observable();
@@ -44,6 +76,8 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
         this.email = ko.observable();
         this.UserId = ko.observable();
         this.shortName = ko.observable();
+        this.minusSign = ko.observable('-');
+        this.plusSign = ko.observable('+');
 //service for id of the user.
         var userIdSearch = oj.Model.extend({
             url: getUserByEmail + person['email']
@@ -52,9 +86,10 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
         userRecord.fetch({
             headers: {secret: secret},
             success: function (res) {
-
+                self.myselfId( userRecord.attributes['data']['id']);
+                self.myselfName(userRecord.attributes['data']['google_name']);
                 var TaskRecord = oj.Model.extend({
-                    url: getOtherTeamMembers + userRecord.attributes['data']['id']
+                    url: getAllTeamMembers + userRecord.attributes['data']['id']
                 });
                 var task = new TaskRecord();
                 task.fetch({
@@ -63,12 +98,12 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                         var data = task.attributes['data'];
                         var index;
                         for (index = 0; index < data.length; index++) {
-                            if (data[index]["id"] == self.id()){
+                            if (data[index]["id"] == self.id()) {
                                 self.UserId(data[index]["id"]);
                                 self.myname(data[index]['google_name']);
-                                self.shortName(data[index]['google_name'].substring(0,data[index]['google_name'].indexOf(" ")));
+                                self.shortName(data[index]['google_name'].substring(0, data[index]['google_name'].indexOf(" ")));
                                 self.email(data[index]['google_email']);
-                                var image =data[index]['google_picture_link'];
+                                var image = data[index]['google_picture_link'];
                                 self.pic(image);
                                 self.designation(data[index]['designation']);
                                 var num = data[index]['mobile_number'] == "" ? "NO NUMBER" : "+91-" + data[index]['mobile_number'];
@@ -76,6 +111,27 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                                 break;
                             }
                         }
+                       //feedback for the user
+                        var feedbackApi = oj.Model.extend({
+                            url: getFeedbackById + self.UserId()
+                        });
+                        var apiObj = new feedbackApi();
+                        apiObj.fetch({
+                            headers: {secret: secret},
+                            success: function (res) {
+                                var data = res['attributes']['data'];
+                                var index;
+                                for (index = 0; index < data.length; index++) {
+                                    if (index % 2 == 0) {
+                                        self.feedbackContent1.push(new dataFeedback(self.myselfId(), data[index]));
+                                    } else {
+                                        self.feedbackContent2.push(new dataFeedback(self.myselfId(), data[index]));
+                                    }
+                                }
+                            }
+                        });
+
+                        //calculate ratings of the user;
                         var rate = oj.Model.extend({
                             url: getRatingByUser + self.id(),
                             //parse: parseTask
@@ -107,6 +163,16 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                                 }
                                 self.plus(plus);
                                 self.minus(minus);
+                                if (self.plus() == 0) {
+                                    self.plusSign("");
+                                } else {
+                                    self.plusSign("+");
+                                }
+                                if (self.minus() == 0) {
+                                    self.minusSign("");
+                                } else {
+                                    self.minusSign("-");
+                                }
                             }
                         });
                     }
@@ -114,6 +180,52 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
 
             }
         });
+        setTimeout(function () {
+            $('.openDiv').click(function () {
+                $(this).parent().prev('.open-more').slideToggle();
+                if ($(this).prev().children("span").hasClass("hide")) {
+                    $(this).prev().children("span").removeClass("hide");
+                    $(this).children("span").children("span").children("i").addClass("zmdi-caret-up");
+                    $(this).children("span").children("span").children("i").removeClass("zmdi-caret-down");
+                    $(this).children("span").children("span:nth-child(2)").html("Less");
+                } else {
+                    $(this).children("span").children("span:nth-child(2)").html("More");
+                    $(this).children("span").children("span").children("i").removeClass("zmdi-caret-up");
+                    $(this).children("span").children("span").children("i").addClass("zmdi-caret-down");
+                    $(this).prev().children("span").addClass("hide");
+                }
+            });
+            $('.submitRespond').on('click', function () {
+                var id = $(this).attr("loginUserId");
+                var feedback_to = $(this).attr("feedback_to");
+                var responseDesc = $(this).parent().next("span").children("input"); //desc respond
+                var fid = $(this).attr("feedbackId");
+                var appendChild = this;
+                var sysDate = new Date();
+                var dateString = sysDate.toJSON().toString().substr(0, 10);
+
+                $.ajax({
+                    headers: {secret: secret},
+                    method: 'POST',
+                    url: addFeedbackResponse,
+                    data: {login_user_id: id, feedback_to: feedback_to, feedback_desc: responseDesc.val(), feedback_id: fid},
+                    success: function () {
+                        $(appendChild).parent().parent().parent().prev().append(
+                                '<div class="oj-row oj-flex oj-margin-top oj-margin-bottom oj-margin-horizontal oj-padding-horizontal">' +
+                                '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item replyName">' +
+                                '<span>' + self.myselfName() + '</span>' +
+                                '</div>' +
+                                '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex replyComent">' +
+                                '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item"><span>' + responseDesc.val() + '</span></div>' +
+                                '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex-bar"><span class="oj-flex-bar-end">' + dateString + '</span></div>' +
+                                '</div>' +
+                                '</div>'
+                                );
+                        responseDesc.val("");
+                    }
+                });
+            });
+        }, 500);
 
     }
 

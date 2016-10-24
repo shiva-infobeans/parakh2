@@ -7,7 +7,7 @@ and open the template in the editor.
 <div class="max-width">
     <div class="oj-flex oj-row">
         <div class="oj-lg-12 oj-md-12 oj-sm-12  oj-flex-item oj-col profile-text oj-flex oj-margin">
-            <span class="oj-flex-bar-end oj-margin color-white">Rankings</span>
+            <span class="oj-flex-bar-end oj-margin color-white">Ranking</span>
         </div>
     </div>
     <hr />
@@ -39,7 +39,7 @@ and open the template in the editor.
                 </h3>
                 <div class="rankText" data-bind="text: totalMembers"></div>
             </div>
-            <div class="pos-relative box-shadow">
+            <div class="pos-relative box-shadow" data-bind="attr: {title: noRank}">
                 <div class="transbox"></div>
              <h3 class="headingRank">
                   My Rank

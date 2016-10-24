@@ -31,6 +31,14 @@ body{
     max-width: 1170px;
     width: 100% !important;
 }
+.max-width:after, .max-width:before{
+    content:'';
+    display:table;
+}
+.max-width:after{
+    clear:both
+ 
+}
 .footer{
     position: absolute;
     background-color:#689F39;
@@ -168,9 +176,9 @@ div.oj-tabs-panel.oj-tabs-selected{
     border:none;
 }
 .profile-tab1-data{
-    display:flex; 
-    padding-top:12px;
-    padding-bottom: 12px;
+    display: flex;
+    padding-top: 7px;
+    padding-bottom: 7px;
 }
 .profile-tab1-data:not(:last-child){
     border-bottom: 1px solid rgba(119,168,89,0.3) !important;
@@ -254,58 +262,115 @@ div.oj-tabs-panel.oj-tabs-selected{
     z-index: -1;
 }
 /* feedback section css */
+.feedbackDiv{
+    height: 500px;
+    -webkit-transition: height .1s linear;   
+    -moz-transition: height .1s linear;   
+    -ms-transition: height .1s linear;   
+    -o-transition: height .1s linear;   
+    transition: height .1s linear;
+}
 .profile-feedback-pic{
     height:75px;
     width: 75px;
     border-radius: 50%;
     z-index: 10;
 }
-.feedback-data{
-    margin-top: -32px;
-    padding-top: 45px;
-    height: 200px;
-    -webkit-transition: height .1s linear;   
-    -moz-transition: height .1s linear;   
-    -ms-transition: height .1s linear;   
-    -o-transition: height .1s linear;   
-    transition: height .1s linear;
-}
 .color-green{
     color: #85D44B !important;
 }
+
 .more-feedback a{
     text-decoration: underline;
     cursor: pointer;
     margin-left: 5px;
     color: #FFF;
 }
-.more-feedback i{
-    margin-top: -10px;
+.replyName{
+    margin-top:5px;
+    margin-bottom: 5px;
+}
+.replyComent:nth-child(odd){
+    margin-left: 2px;
+    border-left: 5px solid #ff0000;
+    padding:5px;
+}
+.replyComent:nth-child(even){
+    margin-left: 2px;
+    border-left: 5px solid #00ff00;
+    padding:5px;
+}
+.more-feedback a span{
+    margin-top: 10px !important;
+}
+.overflow-feedback-reply{
+    max-height: 300px;
+    overflow: auto;
 }
 .open-more{
-    -webkit-transition: height .1s linear;   
-    -moz-transition: height .1s linear;   
-    -ms-transition: height .1s linear;   
-    -o-transition: height .1s linear;   
-    transition: height .1s linear;
-    height:500px;
+/*    -webkit-transition: height .3s linear !important;   
+    -moz-transition: height .3s linear !important;
+    -ms-transition: height .3s linear !important;
+    -o-transition: height .3s linear !important;
+    transition: height .3s linear !important;
+    */
+    height:150px;
+    display: none;
+}
+.feedbackHeight{
+    margin-top: 60px;
+    height: 85%;
+}
+.heightContent{
+   margin-top: -10px;
+    margin-bottom: 50px;
+    margin-left: -2px;
+}
+.replyBox div span:nth-child(1) button{
+    margin-left:15px;
+    background-color: transparent;
+    border: none;
+    color:#fff;
+    outline: none;
+}
+.replyBox div span:nth-child(2) input[type="text"]{
+    background-color: transparent;
+    width: 100%;
+    outline-color: #fff;
+    color:#fff;
+    border-radius: 5px;
+    height: 25px;
+}
+.replyBox div span button i{
+    font-size: 25px;
+}
+.replyBox div span:nth-child(2) input[type="text"]{
+}
+.replyBox div:nth-child(2) span{
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 18px;
+}
+.feedbackSection{
+    overflow-x: auto;
+    overflow-y: no-content;
+    height:100%;
 }
 .colcount{
     /*float:left;*/
+             -webkit-column-count: 2;  
+             /*Chrome, Safari, Opera*/ 
+            -moz-column-count: 2;  
+            /*Firefox*/ 
+            column-count: 2;
+        
+            -webkit-column-gap: 40px;  
+            /*Chrome, Safari, Opera*/ 
+            -moz-column-gap: 40px;  
+            /*Firefox*/ 
+            column-gap: 40px;
+    
 
-         -webkit-column-count: 2;  
-         /*Chrome, Safari, Opera*/ 
-        -moz-column-count: 2;  
-        /*Firefox*/ 
-        column-count: 2;
-    
-        -webkit-column-gap: 40px;  
-        /*Chrome, Safari, Opera*/ 
-        -moz-column-gap: 40px;  
-        /*Firefox*/ 
-        column-gap: 40px;
-    
-    
 }
 /*rate buddy page ui*/
 .rateBuddy-page-icons{
@@ -395,9 +460,8 @@ div.oj-tabs-panel.oj-tabs-selected{
     z-index: 10;
     display: none;
 }
-.open{
-    display:block !important;
-}
+
+
 .heading-modal{
     font-size:22px;
     color:#363636;
