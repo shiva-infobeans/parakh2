@@ -20,12 +20,14 @@ define(['ojs/ojcore', 'knockout', 'jquery'
             function signOut() {
                 var auth2 = gapi.auth2.getAuthInstance();
                 auth2.signOut().then(function () {
-                    console.log('User signed out.');
                     setTimeout(function () {
                         console.log(window.location);
                         window.location = "http://" + window.location.hostname;
                     }, 1000);
                 });
+                setCookie("email","",0);
+                setCookie("name","",0);
+                setCookie("picture","",0);
             }
         }
         this.mypic = person['pic'];
@@ -41,8 +43,6 @@ define(['ojs/ojcore', 'knockout', 'jquery'
                 });
             }, 500);
         });
-
     }
-
     return headerContentViewModel;
 });
