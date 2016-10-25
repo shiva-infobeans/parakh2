@@ -18,13 +18,21 @@
                      */
 
                     gapi.auth2.getAuthInstance({
-                        client_id: '791490125018-lcfs9ha89efjtp09v5u8q38ls05hhinl.apps.googleusercontent.com'
+                        client_id: clientId
                     }).attachClickHandler('my-signin2', {}, onSuccess, onFailure);
                     function onSuccess(user) {
-                        setTimeout(function(){
-                            window.location = window.location.href+"dashboard.html";
-                        },500);
+                        console.log(user.getBasicProfile());
+                        var email = user.getBasicProfile().U3;
+                        var pic = user.getBasicProfile().Paa;
+                        var name = user.getBasicProfile().ig;
+                        setCookie("email",email,1);
+                        setCookie("name",name,1);
+                        setCookie("picture",pic,1);
                         
+                        setTimeout(function () {
+                            window.location = window.location.href + "dashboard.html";
+                        }, 500);
+
                     }
                     ;
                     /**
@@ -56,7 +64,12 @@
                     'theme': 'dark'
                 });
             }
-
+            function setCookie(cname, cvalue, exdays) {
+                var d = new Date();
+                d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+                var expires = "expires=" + d.toUTCString();
+                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+            }
         </script>
         <style>
             #login-Background{
