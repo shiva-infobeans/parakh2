@@ -52,14 +52,14 @@
     </head>
     <body class="background">
         <header>
-            <div data-bind="ojModule:{name: 'header',params: new person(email,name,profilePic)}"></div>
+            <div data-bind="ojModule:{name: 'header',params:  myInfo"></div>
         </header>
         <section>
             <!--            <div data-bind="ojModule:{name: 'giveRatings'}"></div>-->
-            <div data-bind="ojModule:{name: 'personProfile',params: new person(email,name,profilePic)}"></div>
+            <div data-bind="ojModule:{name: 'personProfile',params:  myInfo"></div>
             <!--<div data-bind="ojModule:{name: 'ratings'}"></div>-->
         </section>
-        <div data-bind="ojModule: {name:'floating', params: new person(email, name,profilePic)}"></div>
+        <div data-bind="ojModule: {name:'floating', params:  myInfo"></div>
         <footer>
             <div class="footer" data-bind="ojModule:{name:'footer'}"></div>
         </footer>
