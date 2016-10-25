@@ -28,7 +28,7 @@ define(['ojs/ojcore', 'knockout', 'jquery'
                 });
             }
         }
-        this.pic = person['pic'];
+        this.mypic = person['pic'];
         this.memberName = "My Profile";
 
         $(function () {
