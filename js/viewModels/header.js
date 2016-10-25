@@ -32,17 +32,16 @@ define(['ojs/ojcore', 'knockout', 'jquery'
         }
         this.mypic = person['pic'];
         this.memberName = "My Profile";
-        console.log("PERSON DATA" + person);
-        $(function () {
-            setTimeout(function () {
-                var pgurl = window.location.href.substr(window.location.href.lastIndexOf("/") + 1);
-                $("#forActive ul li a").each(function () {
-                    if ($(this).attr("href") == pgurl || $(this).attr("href") == '') {
-                        $(this).parent().addClass("active");
-                    }
-                });
-            }, 500);
+        var pgurl = window.location.href.substr(window.location.href.lastIndexOf("/") + 1);
+        setTimeout(function(){
+            $("#forActive ul li a").each(function () {
+            if ($(this).attr("href") == pgurl || $(this).attr("href") == '') {
+                $(this).parent().addClass("active");
+            }
         });
+        },500);
+        
+        
     }
     return headerContentViewModel;
 });
