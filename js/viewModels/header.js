@@ -35,30 +35,12 @@ define(['ojs/ojcore', 'knockout', 'jquery'
         var pgurl = window.location.href.substr(window.location.href.lastIndexOf("/") + 1);
 
         setTimeout(function () {
-
-        }, 500);
-               
-        /*$(document).ready(function () {
             $("#forActive ul li a").each(function () {
-                console.log("Working...");
                 if ($(this).attr("href") == pgurl || $(this).attr("href") == '') {
                     $(this).parent().addClass("active");
                 }
             });
-        });
-        */
+        }, 500);          
     }
-    
-    jQuery(document).ready(function () {
-           alert(jQuery('#forActive').html());
-            /*$("#forActive ul li a").each(function () {
-                console.log("Working...");
-                if ($(this).attr("href") == pgurl || $(this).attr("href") == '') {
-                    $(this).parent().addClass("active");
-                }
-            });*/
-            alert('is here???');
-        });
-    
     return headerContentViewModel;
 });
