@@ -10,68 +10,79 @@
         <link href="css/custom.css" rel="stylesheet" type="text/css"/>
         <link href="css/common.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
-<!--        <script>
+        <!--        <script>
+                    // parakh user data web service url: http://dev.parakh.com/parakh-new/v1/index.php/getUserByEmail/shiva.shirbhate@infobeans.com;
+                    //global variables
+                    var teamMemberId = -10;
+                    var name ="";
+                    function person(email,name,pic){
+                        this.email = email;
+                        this.name = name;
+                        this.pic = pic;
+                        return this;
+                    }
+                    var email = "";
+                    var profilePic = "https://lh6.googleusercontent.com/-131yApYhswk/AAAAAAAAAAI/AAAAAAAAAAA/APaXHhTuxvV1aILgUzpbSL_d6_GGpn1BXw/s96-c/photo.jpg";
+                    function onSignIn(googleUser) {
+                        var profile = googleUser.getBasicProfile();
+                        email = profile.getEmail();
+                        profilePic = profile.getImageUrl();
+                        name = profile.getName();
+                        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+                        
+                    }
+                </script>-->
+        <script>
             // parakh user data web service url: http://dev.parakh.com/parakh-new/v1/index.php/getUserByEmail/shiva.shirbhate@infobeans.com;
             //global variables
-            var teamMemberId = -10;
-            var name ="";
-            function person(email,name,pic){
-                this.email = email;
-                this.name = name;
-                this.pic = pic;
-                return this;
+
+            var email = getCookie("email");
+            var name = getCookie("name");
+            var profilePic = getCookie("picture");
+            var myInfo;
+            if (document.cookie.indexOf("email") >= 0 && document.cookie.indexOf("name") >= 0 && document.cookie.indexOf("pic") >= 0) {
+                myInfo = new person(email, name, profilePic);
+            } else {
+                console.log("error");
+                setTimeout(function(){
+                    window.location = "http://" + window.location.hostname;
+                },500);
             }
-            var email = "";
-            var profilePic = "https://lh6.googleusercontent.com/-131yApYhswk/AAAAAAAAAAI/AAAAAAAAAAA/APaXHhTuxvV1aILgUzpbSL_d6_GGpn1BXw/s96-c/photo.jpg";
-            function onSignIn(googleUser) {
-                var profile = googleUser.getBasicProfile();
-                email = profile.getEmail();
-                profilePic = profile.getImageUrl();
-                name = profile.getName();
-                console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-                
-            }
-        </script>-->
-         <script>
-            // parakh user data web service url: http://dev.parakh.com/parakh-new/v1/index.php/getUserByEmail/shiva.shirbhate@infobeans.com;
-            //global variables
-            var teamMemberId = -10;
-            var name = "";
+
+
             function person(email, name, pic) {
                 this.email = email;
                 this.name = name;
                 this.pic = pic;
                 return this;
             }
-            var email = "";
-            var profilePic = "https://lh6.googleusercontent.com/-131yApYhswk/AAAAAAAAAAI/AAAAAAAAAAA/APaXHhTuxvV1aILgUzpbSL_d6_GGpn1BXw/s96-c/photo.jpg";
-            function onSignIn(googleUser) {
-                setTimeout(function () {
-                    var profile = googleUser.getBasicProfile();
-                    email = profile.getEmail();
-                    profilePic = profile.getImageUrl();
-                    name = profile.getName();
-                    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-                }, 500);
-                var profile = googleUser.getBasicProfile();
-                email = profile.getEmail();
-                profilePic = profile.getImageUrl();
-                name = profile.getName();
-                console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
 
+            function getCookie(cname) {
+                var name = cname + "=";
+                var ca = document.cookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
             }
         </script>
     </head>
     <body class="background">
         <header>
-            <div data-bind="ojModule:{name: 'header',params: new person(email,name,profilePic)}"></div>
+            <div data-bind="ojModule:{name: 'header',params: myInfo}"></div>
         </header>
         <section>
             <!--            <div data-bind="ojModule:{name: 'giveRatings'}"></div>-->
-            <div data-bind="ojModule:{name: 'members',params: new person(email,name,profilePic)}"></div>
+            <div data-bind="ojModule:{name: 'members',params: myInfo}"></div>
             <!--<div data-bind="ojModule:{name: 'ratings'}"></div>-->
         </section>
-        <div data-bind="ojModule: {name:'floating', params: new person(email, name,profilePic)}"></div>
+        <div data-bind="ojModule: {name:'floating', params: myInfo}"></div>
         <footer>
             <div class="footer" data-bind="ojModule:{name:'footer'}"></div>
         </footer>
