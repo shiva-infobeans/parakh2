@@ -70,10 +70,7 @@ require(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodule', 'ojs/ojknockout', '
 
             }
             $(document).ready(function () {
-                setTimeout(function () {
-                    ko.applyBindings(new call());
-                }, 100);
-
+                ko.applyBindings(new call());
             });
 
         }

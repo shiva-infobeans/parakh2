@@ -172,10 +172,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                                                 self.feedbackContent2.push(new dataFeedback(self.myselfId(), data[index]));
                                             }
                                         }
-
-
                                         /// open feedback more option
-
                                         $('.openDiv').click(function () {
                                             $(this).parent().prev('.open-more').slideToggle();
                                             if ($(this).prev().children("span").hasClass("hide")) {
@@ -190,9 +187,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                                                 $(this).prev().children("span").addClass("hide");
                                             }
                                         });
-
-
-
+                                        //send the respond to the feedback;
                                         $('.submitRespond').on('click', function () {
                                             var id = $(this).attr("loginUserId");
                                             var feedback_to = $(this).attr("feedback_to");
@@ -223,24 +218,14 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                                                 }
                                             });
                                         });
-
-
-
                                     }
                                 });
                             }
                         });
-
                     }
                 });
-
             }
         });
-        setTimeout(function () {
-
-
-        }, 500);
-
     }
 
     return membersContentViewModel;
