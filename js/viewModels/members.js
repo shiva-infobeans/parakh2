@@ -55,19 +55,11 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
         self.myselfName = ko.observable();
         self.feedbackContent1 = ko.observableArray([]);
         self.feedbackContent2 = ko.observableArray([]);
-     
-        if (id) {
-            self.id(id);
-        } else {
-            window.location = "rateBuddy.html";
-        }
-        var abc = "Not Assigned";
         this.designation = ko.observable(abc);
         this.NoCommentsP = ko.observable();
         this.NoCommentsN = ko.observable();
         this.commentDataPositive = ko.observableArray([]);
         this.commentDataNegative = ko.observableArray([]);
-        
         this.plus = ko.observable();
         this.minus = ko.observable();
         this.myNumber = ko.observable();
@@ -78,6 +70,14 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
         this.shortName = ko.observable();
         this.minusSign = ko.observable('-');
         this.plusSign = ko.observable('+');
+
+
+        if (id) {
+            self.id(id);
+        } else {
+            window.location = "rateBuddy.html";
+        }
+        var abc = "Not Assigned";
 //service for id of the user.
         var userIdSearch = oj.Model.extend({
             url: getUserByEmail + person['email']
@@ -86,7 +86,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
         userRecord.fetch({
             headers: {secret: secret},
             success: function (res) {
-                self.myselfId( userRecord.attributes['data']['id']);
+                self.myselfId(userRecord.attributes['data']['id']);
                 self.myselfName(userRecord.attributes['data']['google_name']);
                 var TaskRecord = oj.Model.extend({
                     url: getAllTeamMembers + userRecord.attributes['data']['id']
@@ -111,25 +111,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                                 break;
                             }
                         }
-                       //feedback for the user
-                        var feedbackApi = oj.Model.extend({
-                            url: getFeedbackById + self.UserId()
-                        });
-                        var apiObj = new feedbackApi();
-                        apiObj.fetch({
-                            headers: {secret: secret},
-                            success: function (res) {
-                                var data = res['attributes']['data'];
-                                var index;
-                                for (index = 0; index < data.length; index++) {
-                                    if (index % 2 == 0) {
-                                        self.feedbackContent1.push(new dataFeedback(self.myselfId(), data[index]));
-                                    } else {
-                                        self.feedbackContent2.push(new dataFeedback(self.myselfId(), data[index]));
-                                    }
-                                }
-                            }
-                        });
+
 
                         //calculate ratings of the user;
                         var rate = oj.Model.extend({
@@ -173,58 +155,90 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                                 } else {
                                     self.minusSign("-");
                                 }
+                                //feedback for the user
+                                var feedbackApi = oj.Model.extend({
+                                    url: getFeedbackById + self.UserId()
+                                });
+                                var apiObj = new feedbackApi();
+                                apiObj.fetch({
+                                    headers: {secret: secret},
+                                    success: function (res) {
+                                        var data = res['attributes']['data'];
+                                        var index;
+                                        for (index = 0; index < data.length; index++) {
+                                            if (index % 2 == 0) {
+                                                self.feedbackContent1.push(new dataFeedback(self.myselfId(), data[index]));
+                                            } else {
+                                                self.feedbackContent2.push(new dataFeedback(self.myselfId(), data[index]));
+                                            }
+                                        }
+
+
+                                        /// open feedback more option
+
+                                        $('.openDiv').click(function () {
+                                            $(this).parent().prev('.open-more').slideToggle();
+                                            if ($(this).prev().children("span").hasClass("hide")) {
+                                                $(this).prev().children("span").removeClass("hide");
+                                                $(this).children("span").children("span").children("i").addClass("zmdi-caret-up");
+                                                $(this).children("span").children("span").children("i").removeClass("zmdi-caret-down");
+                                                $(this).children("span").children("span:nth-child(2)").html("Less");
+                                            } else {
+                                                $(this).children("span").children("span:nth-child(2)").html("More");
+                                                $(this).children("span").children("span").children("i").removeClass("zmdi-caret-up");
+                                                $(this).children("span").children("span").children("i").addClass("zmdi-caret-down");
+                                                $(this).prev().children("span").addClass("hide");
+                                            }
+                                        });
+
+
+
+                                        $('.submitRespond').on('click', function () {
+                                            var id = $(this).attr("loginUserId");
+                                            var feedback_to = $(this).attr("feedback_to");
+                                            var responseDesc = $(this).parent().next("span").children("input"); //desc respond
+                                            var fid = $(this).attr("feedbackId");
+                                            var appendChild = this;
+                                            var sysDate = new Date();
+                                            var dateString = sysDate.toJSON().toString().substr(0, 10);
+
+                                            $.ajax({
+                                                headers: {secret: secret},
+                                                method: 'POST',
+                                                url: addFeedbackResponse,
+                                                data: {login_user_id: id, feedback_to: feedback_to, feedback_desc: responseDesc.val(), feedback_id: fid},
+                                                success: function () {
+                                                    $(appendChild).parent().parent().parent().prev().append(
+                                                            '<div class="oj-row oj-flex oj-margin-top oj-margin-bottom oj-margin-horizontal oj-padding-horizontal">' +
+                                                            '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item replyName">' +
+                                                            '<span>' + self.myselfName() + '</span>' +
+                                                            '</div>' +
+                                                            '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex replyComent">' +
+                                                            '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item"><span>' + responseDesc.val() + '</span></div>' +
+                                                            '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex-bar"><span class="oj-flex-bar-end">' + dateString + '</span></div>' +
+                                                            '</div>' +
+                                                            '</div>'
+                                                            );
+                                                    responseDesc.val("");
+                                                }
+                                            });
+                                        });
+
+
+
+                                    }
+                                });
                             }
                         });
+
                     }
                 });
 
             }
         });
         setTimeout(function () {
-            $('.openDiv').click(function () {
-                $(this).parent().prev('.open-more').slideToggle();
-                if ($(this).prev().children("span").hasClass("hide")) {
-                    $(this).prev().children("span").removeClass("hide");
-                    $(this).children("span").children("span").children("i").addClass("zmdi-caret-up");
-                    $(this).children("span").children("span").children("i").removeClass("zmdi-caret-down");
-                    $(this).children("span").children("span:nth-child(2)").html("Less");
-                } else {
-                    $(this).children("span").children("span:nth-child(2)").html("More");
-                    $(this).children("span").children("span").children("i").removeClass("zmdi-caret-up");
-                    $(this).children("span").children("span").children("i").addClass("zmdi-caret-down");
-                    $(this).prev().children("span").addClass("hide");
-                }
-            });
-            $('.submitRespond').on('click', function () {
-                var id = $(this).attr("loginUserId");
-                var feedback_to = $(this).attr("feedback_to");
-                var responseDesc = $(this).parent().next("span").children("input"); //desc respond
-                var fid = $(this).attr("feedbackId");
-                var appendChild = this;
-                var sysDate = new Date();
-                var dateString = sysDate.toJSON().toString().substr(0, 10);
 
-                $.ajax({
-                    headers: {secret: secret},
-                    method: 'POST',
-                    url: addFeedbackResponse,
-                    data: {login_user_id: id, feedback_to: feedback_to, feedback_desc: responseDesc.val(), feedback_id: fid},
-                    success: function () {
-                        $(appendChild).parent().parent().parent().prev().append(
-                                '<div class="oj-row oj-flex oj-margin-top oj-margin-bottom oj-margin-horizontal oj-padding-horizontal">' +
-                                '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item replyName">' +
-                                '<span>' + self.myselfName() + '</span>' +
-                                '</div>' +
-                                '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex replyComent">' +
-                                '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item"><span>' + responseDesc.val() + '</span></div>' +
-                                '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex-bar"><span class="oj-flex-bar-end">' + dateString + '</span></div>' +
-                                '</div>' +
-                                '</div>'
-                                );
-                        responseDesc.val("");
-                    }
-                });
-            });
+
         }, 500);
 
     }
