@@ -73,6 +73,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 self.desigError = ko.observable();
                 this.minusSign = ko.observable('-');
                 this.plusSign = ko.observable('+');
+                ///////////open modal
+                self.tempararyNumber = ko.observable();
                 //open feedback close feedback
                 setTimeout(function () {
                     $('.openDiv').click(function () {
@@ -115,7 +117,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                         '</div>'+
                                         '</div>'
                                         );
-                                responseDesc.val("");
+                                responseDesc.val("");  
                             }
                         });
                     });
@@ -123,14 +125,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 }, 500);
 
 
-                ///////////open modal
-                self.tempararyNumber = ko.observable();
 
-                self.closeModal = function () {
-                    $("#open-modal").fadeOut();
-                    $("#open-modal").removeClass('open');
-                    self.myNumber(self.tempararyNumber());
-                };
                 //////////////////// edit profile page
 
 //service for id of the user.
@@ -215,9 +210,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         });
                     }
                 });
+                // close modal
+                self.closeModal = function () {
+                    $("#open-modal").fadeOut();
+                    $("#open-modal").removeClass('open');
+                    self.myNumber(self.tempararyNumber());
+                };
 
-
-
+                // submit edit profile modal for edit profile...
                 self.buttonClick = function () {
                     if (self.designation() == '' || self.designation() == null) {//validation for input not null or not empty
                         self.desigError("Field Must Not Be Empty");
