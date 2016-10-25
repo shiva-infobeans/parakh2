@@ -25,14 +25,14 @@ define(['ojs/ojcore', 'knockout', 'jquery'
                         window.location = "http://" + window.location.hostname;
                     }, 1000);
                 });
-                setCookie("email","",0);
-                setCookie("name","",0);
-                setCookie("picture","",0);
             }
+            setCookie("email", "", 0);
+            setCookie("name", "", 0);
+            setCookie("picture", "", 0);
         }
         this.mypic = person['pic'];
         this.memberName = "My Profile";
-
+        console.log("PERSON DATA" + person);
         $(function () {
             setTimeout(function () {
                 var pgurl = window.location.href.substr(window.location.href.lastIndexOf("/") + 1);
