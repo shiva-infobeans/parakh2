@@ -20,11 +20,19 @@ body{
 .navigationlist{
     float:right;
 }
-.navigationlist ul *,.people-logo2 *,.cross-top *,.check-icon *,.close-icon *{
+.navigationlist ul *,.cross-top *,.check-icon *,.close-icon *{
+    color:#fff;
+}
+.people-logo2 *{
     color:#000;
+}
+#forActive ul *{
+    color:rgba(255,255,255,0.6);
+    font-size: 18px;
 }
 .border-fix{
     border-bottom: none;
+    background-color: #689F39;
 }
 .nav1 li{
     float: right;
@@ -36,7 +44,7 @@ body{
     color:#333;
 }
 .nav1 li:hover *{
-    color:green !important;
+    color:#fff !important;
     text-decoration:none !important;
 }
 .header-padding{

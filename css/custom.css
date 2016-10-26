@@ -50,10 +50,11 @@ body{
 }
 /*header section start*/
 .active *{
-    color: #006325 !important;
+    color: #fff !important;
+    font-weight: bold;
 }
 .active{
-    border-bottom: 4px solid #006325;
+    border-bottom: 4px solid #fff;
 }
 /*header section end*/
 .showup{
