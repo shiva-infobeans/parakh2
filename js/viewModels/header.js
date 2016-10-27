@@ -16,19 +16,16 @@ define(['ojs/ojcore', 'knockout', 'jquery'
     function headerContentViewModel(person) {
         var self = this;
         self.signout = function () {
-            signOut();
-            function signOut() {
-                var auth2 = gapi.auth2.getAuthInstance();
-                auth2.signOut().then(function () {
-                    setTimeout(function () {
-                        console.log(window.location);
-                        window.location = "http://" + window.location.hostname;
-                    }, 1000);
-                });
-            }
             setCookie("email", "", 0);
             setCookie("name", "", 0);
             setCookie("picture", "", 0);
+            window.location = "http://" + window.location.hostname;
+            function setCookie(cname, cvalue, exdays) {
+                var d = new Date();
+                d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+                var expires = "expires=" + d.toUTCString();
+                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+            }
         }
         this.mypic = person['pic'];
         this.memberName = "My Profile";
@@ -40,7 +37,14 @@ define(['ojs/ojcore', 'knockout', 'jquery'
                     $(this).parent().addClass("active");
                 }
             });
-        }, 500);          
+            $(".openCloseNotify").on('click', function () {
+                    $('.notification').toggle();
+            });
+
+//            $('body').click(function (e) {
+//                    $('.notification').addClass('hide');
+//            });
+        }, 500);
     }
     return headerContentViewModel;
 });

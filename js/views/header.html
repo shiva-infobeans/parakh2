@@ -1,6 +1,6 @@
 <!-- Header content will be loaded -->
 
-<div class="oj-panel border-fix">
+<div class="background-fix">
     <div class="oj-web-applayout-max-width oj-web-applayout-content ">
         <div class="oj-web-applayout-header-title">
             <div class="oj-row oj-flex box">
@@ -13,13 +13,20 @@
                             <li title="More"><a href="#"><i class="zmdi zmdi-more-vert zmdi"></i> </a></li>
                             <li title="Sign out"><a href="#" id="signOut" data-bind="click: signout"><i class="zmdi zmdi-power  zmdi-hc-lg"></i></a></li>
                             <li><a href="profile.html" data-bind="attr: {title: memberName}"><img data-bind="attr: {src: mypic}" class="home-profile-pic" /></a></li>
-                            <li title="Notification" class="pos-relative">
-                                <div class="abc">
-                                    <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-6">
-                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12">
-                                            <h5>aslkdfj</h5>
-                                            <h6>aslkdfj</h6>
-                                            <h6>aslkdfj</h6>
+                            <li title="Notification" class="pos-relative openCloseNotify">
+                                <div class="notification">
+                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex">
+                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item notification-padding">
+                                            <h4 class="center color-black">Notifications</h4>
+                                        </div>
+                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex notification-overflow oj-padding notification-background">
+                                            <!--repeat block for notifications -->
+                                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex notification-content oj-margin-top oj-margin-bottom">
+                                                <div class="oj-xl-2 oj-lg-2 oj-md-2 oj-sm-2 oj-flex-item"><span class="color-black"><i class="color-black zmdi zmdi-plus-1"></i></span></div>
+                                                <div class="oj-xl-10 oj-lg-10 oj-md-10 oj-sm-10 oj-flex-item color-black">
+                                                    hello shiva you got 100 +1
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

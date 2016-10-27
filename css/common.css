@@ -30,8 +30,7 @@ body{
     color:rgba(255,255,255,0.6);
     font-size: 18px;
 }
-.border-fix{
-    border-bottom: none;
+.background-fix{
     background-color: #689F39;
 }
 .nav1 li{
