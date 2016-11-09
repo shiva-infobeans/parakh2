@@ -103,8 +103,8 @@ $app->get('/getRequests[/{lead_id}]', function ($request, $response, $args) {
     $response_data = array();
     
     $response = '{"error":"false", "data":[
-    {"name":"John Doe1", "pic":"https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSdEUn8yZ2J0GpUBLSzVQ_qRvn9eQWihaoEB3Rsigg19UQlCY1b","message":"asldkfj as;dflkj as;dlkfj asldkjf kjskdfj ksdfiasy dfuyasy dfuasyd fu", "designation":"Trainee Software Engg.","date":"6016-12-02"},
-    {"name":"John Doe2", "pic":"https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSdEUn8yZ2J0GpUBLSzVQ_qRvn9eQWihaoEB3Rsigg19UQlCY1b","message":"asldkfj as;dflkj as;dlkfj asldkjf kjskdfj ksdfiasy dfuyasy dfuasyd fu", "designation":"Trainee Software Engg.","date":"6016-12-02"},
+    {type:"pending", "name":"John Doe1", "pic":"https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSdEUn8yZ2J0GpUBLSzVQ_qRvn9eQWihaoEB3Rsigg19UQlCY1b","message":"asldkfj as;dflkj as;dlkfj asldkjf kjskdfj ksdfiasy dfuyasy dfuasyd fu", "designation":"Trainee Software Engg.","date":"6016-12-02"},
+    {type:"approved", "name":"John Doe2", "pic":"https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSdEUn8yZ2J0GpUBLSzVQ_qRvn9eQWihaoEB3Rsigg19UQlCY1b","message":"asldkfj as;dflkj as;dlkfj asldkjf kjskdfj ksdfiasy dfuyasy dfuasyd fu", "designation":"Trainee Software Engg.","date":"6016-12-02"},
     {"name":"John Doe3", "pic":"https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSdEUn8yZ2J0GpUBLSzVQ_qRvn9eQWihaoEB3Rsigg19UQlCY1b","message":"asldkfj as;dflkj as;dlkfj asldkjf kjskdfj ksdfiasy dfuyasy dfuasyd fu", "designation":"Trainee Software Engg.","date":"6016-12-02"},
     {"name":"John Doe4", "pic":"https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSdEUn8yZ2J0GpUBLSzVQ_qRvn9eQWihaoEB3Rsigg19UQlCY1b","message":"asldkfj as;dflkj as;dlkfj asldkjf kjskdfj ksdfiasy dfuyasy dfuasyd fu", "designation":"Trainee Software Engg.","date":"6016-12-02"},
     {"name":"John Doe5", "pic":"https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSdEUn8yZ2J0GpUBLSzVQ_qRvn9eQWihaoEB3Rsigg19UQlCY1b","message":"asldkfj as;dflkj as;dlkfj asldkjf kjskdfj ksdfiasy dfuyasy dfuasyd fu", "designation":"Trainee Software Engg.","date":"6016-12-02"}
