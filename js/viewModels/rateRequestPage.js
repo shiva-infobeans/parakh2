@@ -12,6 +12,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
     /**
      * The view model for the main content view template
      */
+    function request(){
+        var req = Object();
+        req.smsg = data['message'].subString(0,20);
+    }
     function rateRequestPageContentViewModel(person) {
         var self = this;
         var smsg = "a;slkdfja;l asdlkf la;sdj fl;askjd flajs dfl;j asdf";
