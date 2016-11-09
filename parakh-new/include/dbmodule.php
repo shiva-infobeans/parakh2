@@ -586,6 +586,26 @@ function get_ranking_list() {
             return $request_last_insert;
         }
            
-    }
+    }//end of fun
+    
+    // Get all the requests available for any user
+    function getTeamMembersRequest($user_id = null)
+    {
+        if (isset($user_id)) {
+           $query = "SELECT user.google_name,user.google_picture_link, request.id as request_id, request.to_id,request.from_id,request.status, request.for_id, description, work.created_date, request_for, work.id AS work_id "
+                   . "FROM work AS work LEFT JOIN request AS request ON work.id = request.work_id "
+                   . "LEFT JOIN  users AS user ON IF( work.user_id = work.for_id, request.from_id = user.id, request.for_id = user.id ) WHERE request.to_id = " . $user_id . " "
+                   . "ORDER BY work.id DESC";
+           $user_list = $this->con->prepare($query);
+           $user_list->execute();
+           $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
+           return $row;
+           /*if(count($row) > 0){
+            return $row;
+           }else{
+               return 0;
+           }*/
+       }       
+    }//end of fun
     
 } //end of class

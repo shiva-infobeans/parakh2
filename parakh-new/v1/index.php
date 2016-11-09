@@ -625,6 +625,33 @@ $app->post('/requestForOne', function ($request, $response) {
 });
 
 
+
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getTeamMembersRequest/<userId>
+ * Parameters: user id
+ * 
+ * Method: GET
+ * */    
+$app->get('/getTeamMembersRequest[/{userId}]', function ($request, $response, $args) {
+    $response_data = array();
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    
+    if($db->isValidUser( $args['userId'] )){
+        $result = $db->getTeamMembersRequest($args['userId']);
+        if($result != 0){
+            $response_data = makeResponse('false',$result);
+        }else{
+            $response_data = makeResponse('true',get_site_error(3009));
+        }    
+        $response->withJson($response_data);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3002));
+    }    
+    return $response;
+});
+
+
 /**
  * Step 4: Run the Slim application
  *
