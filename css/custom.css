@@ -57,6 +57,7 @@ body{
     width: 290px;
     border-radius: 10px;
     border:1px solid;
+    z-index: 1;
 }
 .notification-overflow{
     max-height: 200px;
@@ -71,7 +72,6 @@ body{
 .notification-content div:first-child{
     display: table-cell;
     vertical-align: middle;
-    width: 100%;
 }
 .notification-content div:nth-child(2){
     display: table-cell;
@@ -102,8 +102,44 @@ body{
     top: -10px;
     left: 44%;
 }
+.notif-count{
+    position: absolute;
+    top:-10px;
+    left:10px;
+    border:3px solid #49900C;
+    background-color: #DFF5CF;
+    border-radius: 50%;
+    padding: 2px;
+    height: 30px;
+    width: 30px;
+    font-size: 12px;
+}
+.notif-count span{
+    margin-top: 4px;
+    float: left;
+    margin-left: 4px;
+    color:#000 !important;
+}
 .notification-padding{
     padding: 0.8571rem 0.8571rem 0.8571rem 0.8571rem;
+}
+.color-plus{
+    background-color:#01C854;
+}
+.color-minus{
+    background-color:#F34334;
+}
+.color-check{
+    background-color:#01B0FF;
+}
+.color-close{
+    background-color:#EC6748;
+}
+.color-feedback{
+    background-color:#009985;
+}
+.color-response{
+    background-color:#8F6E5F;
 }
 .active *{
     color: #fff !important;
@@ -601,4 +637,20 @@ div.oj-tabs-panel.oj-tabs-selected{
     top: 0px;
     left: 0px;
     height: 100%;
+}
+/*rate me page ui components with request*/
+#tabs-container-request .oj-tabs-conveyor.oj-conveyorbelt-item{
+    text-align: center !important;
+    width: 100% !important;
+}
+#tabs-container-request ul li.oj-selected{
+    border-top: none;
+    border-bottom: 5px solid #6BA034;
+}
+#tabs-container-request .oj-tabs-title{
+    text-decoration: none;
+    color:#000;
+}
+#tabs-container-request ul li.oj-selected .oj-tabs-title{
+        color:#689F39;
 }

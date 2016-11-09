@@ -7,7 +7,7 @@
 /**
  * test1 module
  */
-define(['ojs/ojcore', 'knockout','ojs/ojmodel'
+define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'ojs/ojtabs', 'ojs/ojconveyorbelt'
 ], function (oj, ko) {
     /**
      * The view model for the main content view template
@@ -15,36 +15,35 @@ define(['ojs/ojcore', 'knockout','ojs/ojmodel'
 
     function test1ContentViewModel(person) {
         var self = this;
-        self.id= ko.observable();
-        self.image1 = "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ_19Goz1xYBq9yP1P-VhvxouqqdbiY3uvyfRz5hY26fSTOWaEu";
-        self.name1 = "ABHINAV SHRIVASTAVA";
-        self.designation1 = "Practice head";
-        self.comment1 = "You got +1 by Abhinav Shrivastava";
-        self.image2 = "http://previews.123rf.com/images/gmast3r/gmast3r1504/gmast3r150400166/38548354-profile-icon-male-hispanic-avatar-portrait-casual-Stock-Vector.jpg";
-        self.name2 = "ABHINAV SHRIVASTAVA";
-        self.designation2 = "Practice head";
-        self.comment2 = "You got +1 by Abhinav Shrivastava";
-        self.image3 = "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ6J33chcZ_OWZIrD7SBJXIf_BK2ypC4Wq94jE9gCYSS_Gj2Zok9g";
-        self.name3 = "ABHINAV SHRIVASTAVA";
-        self.designation3 = "Practice head";
-        self.comment3 = "You got +1 by Abhinav Shrivastava";
+        var smsg = "a;slkdfja;l asdlkf la;sdj fl;askjd flajs dfl;j asdf";
+        var lmsg = "aslkd fja;sdlkf a;sldkjf as;ldfj alsdfja sld;fja sl;dfj alsjdf la;sjd flasj dfl;jas dflja sdlfjasl df asdf jaslk;dfj laksjdf l;asjd fl;ajsdf lasdj flkasjdfioasyfias jfkjjas fkasdhf asiuodyf asf aslkd fja;sdlkf a;sldkjf as;ldfj alsdfja sld;fja sl;dfj alsjdf la;sjd flasj dfl;jas dflja sdlfjasl df asdf jaslk;dfj laksjdf l;asjd fl;ajsdf lasdj flkasjdfioasyfias jfkjjas fkasdhf asiuodyf asf aslkd fja;sdlkf a;sldkjf as;ldfj alsdfja sld;fja sl;dfj alsjdf la;sjd flasj dfl;jas dflja sdlfjasl df asdf jaslk;dfj laksjdf l;asjd fl;ajsdf lasdj flkasjdfioasyfias jfkjjas fkasdhf asiuodyf asf";
+        self.requestDescription = ko.observable(smsg);
+        self.lrequestDescription = ko.observable(lmsg);
+        setTimeout(function () {
+            $('.openDiv').click(function () {
+                $(this).parent().prev('.open-more').slideToggle();
+                if ($(this).parent().prev().prev().children('span').text() == smsg) {
+                    $(this).children("span").children("span").children("i").addClass("zmdi-caret-up");
+                    $(this).children("span").children("span").children("i").removeClass("zmdi-caret-down");
+                    $(this).children("span").children("span:nth-child(2)").html("Less");
+                    $(this).parent().prev().prev().addClass("hide");
+                    $(this).parent().prev().prev().children('span').text(lmsg);
+                } else {
+                    if ($(this).parent().prev().prev().children('span').text() == lmsg) {
+                        $(this).children("span").children("span:nth-child(2)").html("More");
+                        $(this).children("span").children("span").children("i").removeClass("zmdi-caret-up");
+                        $(this).children("span").children("span").children("i").addClass("zmdi-caret-down");
+                        $(this).parent().prev().prev().removeClass("hide");
+                        $(this).parent().prev().prev().children('span').text(smsg);
+                    }
+                }
 
-        var TaskRecord = oj.Model.extend({
-            url: getUserByEmail + person['email'],
-            //parse: parseTask
-        });
-        var task = new TaskRecord();
-        task.fetch({
-            headers: {secret: secret},
-            success: function () {
-                abc = task.attributes['data']['designation'];
-                self.id(task.attributes['data']['id']);
-                self.designation(self.id());
-            }
-        });
-
+            });
+        }, 500);
 
     }
+    $(document).ready(function () {
 
+    });
     return test1ContentViewModel;
 });

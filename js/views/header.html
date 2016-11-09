@@ -13,24 +13,31 @@
                             <li title="More"><a href="#"><i class="zmdi zmdi-more-vert zmdi"></i> </a></li>
                             <li title="Sign out"><a href="#" id="signOut" data-bind="click: signout"><i class="zmdi zmdi-power  zmdi-hc-lg"></i></a></li>
                             <li><a href="profile.html" data-bind="attr: {title: memberName}"><img data-bind="attr: {src: mypic}" class="home-profile-pic" /></a></li>
-                            <li title="Notification" class="pos-relative openCloseNotify">
-                                <div class="notification">
+                            <li class="pos-relative openCloseNotify">
+                                <div class="notif-count"><span data-bind="text: notifCount"></span></div>
+                                <div class="notification hide">
                                     <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex">
                                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item notification-padding">
                                             <h4 class="center color-black">Notifications</h4>
                                         </div>
                                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex notification-overflow oj-padding notification-background">
-                                            <!--repeat block for notifications -->
+                                            <!--repeat block for notification -->
+                                            <!-- ko foreach: notif -->
                                             <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex notification-content oj-margin-top oj-margin-bottom">
-                                                <div class="oj-xl-2 oj-lg-2 oj-md-2 oj-sm-2 oj-flex-item"><span class="color-black"><i class="color-black zmdi zmdi-plus-1"></i></span></div>
-                                                <div class="oj-xl-10 oj-lg-10 oj-md-10 oj-sm-10 oj-flex-item color-black">
-                                                    hello shiva you got 100 +1
+                                                <div class="oj-xl-2 oj-lg-2 oj-md-2 oj-sm-2 oj-flex-item">
+                                                    <span class="color-black " data-bind="html: element,style:{'background-color':backColor}">
+                                                        <!--<i class="color-black zmdi zmdi-plus-1"></i>-->
+                                                        
+                                                    </span></div>
+                                                <div class="oj-xl-10 oj-lg-10 oj-md-10 oj-sm-10 oj-flex-item color-black" data-bind="text: notificationComment">
+                                                    
                                                 </div>
                                             </div>
+                                            <!-- /ko -->
                                         </div>
                                     </div>
                                 </div>
-                                <a href="#"><i class="zmdi zmdi-notifications  zmdi-hc-lg"></i></a></li>
+                                <a href="#" title="Notification"><i class="zmdi zmdi-notifications  zmdi-hc-lg"></i></a></li>
                         </ul>
                     </div>
                     <div class="navigationlist" id="forActive">

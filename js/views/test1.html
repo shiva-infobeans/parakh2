@@ -1,38 +1,96 @@
-<div class="oj-web-applayout-content max-width  color-white pos-relative oj-margin-bottom oj-margin-top bottom-feedback">
-    <div class="transbox max-width box-shadow border-transbox"></div>
-    <div class="oj-flex showup">
-        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex">
-            
-            <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-12 oj-flex oj-flex-item oj-padding border-right">
-                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                    <img class="profile border-color-green" data-bind="attr: {src:image1}" />
-                </div>
-                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                    <h4 data-bind="text: name1"></h4>
-                    <h5 data-bind="text: designation1"></h5>
-                    <h5 data-bind="text: comment1"></h5>
-                </div>
-            </div>
-            
-            <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-12 oj-flex oj-flex-item  oj-padding border-right">
-                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                    <img class="profile border-color-green" data-bind="attr: {src:image2}" />
-                </div>
-                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                    <h4 data-bind="text: name2"></h4>
-                    <h5 data-bind="text: designation2"></h5>
-                    <h5 data-bind="text: comment2"></h5>
-                </div>
-            </div>
-            
-            <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-12 oj-flex oj-flex-item oj-padding">
-                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                    <img class="profile border-color-green" data-bind="attr: {src:image3}" />
-                </div>
-                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                    <h4 data-bind="text: name3"></h4>
-                    <h5 data-bind="text: designation3"></h5>
-                    <h5 data-bind="text: comment3"></h5>
+<div class="max-width">
+    <div class="oj-flex">
+        <div class="oj-flex-item oj-xl-6 oj-lg-6 oj-md-12 oh-sm-12">
+            <div class="pos-relative oj-margin-top">
+                <div class="transbox"></div>
+                <div id="tabs-container-request">
+                    <div id="tabs" data-bind="ojComponent:{component: 'ojTabs'}">
+                        <!-- tab bar -->
+                        <ul class="oj-flex">
+                            <li class="oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6 oj-flex-item"><span>Pending Request</span></li>
+                            <li class="oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6 oj-flex-item"><span>Rejected Request</span></li>
+                        </ul>
+
+                        <!-- tab contents -->
+                        <div id="tabs-1">
+                            <!--repeat block starts here-->
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding heightContent">
+                                <div class="transbox border-color-green feedbackHeight"></div>
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                                    <img src="https://d3q6qq2zt8nhwv.cloudfront.net/m/1_extra_1aeplf03.jpg                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      "  alt="" class="profile-feedback-pic"/>
+                                </div>
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                                            
+                                    <span>Kanupriya Manchanda</span>
+                                </div>
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+
+                                    <span>Team Lead</span>
+                                </div>
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+
+                                    <span>dd-mm-yyyy</span>
+                                </div>
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin">
+
+                                    <span data-bind="text: requestDescription"></span>
+                                </div>
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item open-more oj-flex overflow-feedback-reply">
+                                    <span data-bind="text: lrequestDescription"></span>
+                                </div>
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-margin replyBox">
+
+                                    <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item openDiv flex-bar">
+                                        <span class="flex-bar-end">
+                                            <span><i class="zmdi zmdi-caret-down"></i></span>
+                                            <span>More</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--repeat block ends here-->
+                        </div>
+                        <div id="tabs-2">
+                            <!--repeat block starts here-->
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding heightContent">
+                                <div class="transbox border-color-green feedbackHeight"></div>
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                                    <img src="https://d3q6qq2zt8nhwv.cloudfront.net/m/1_extra_1aeplf03.jpg"  alt="" class="profile-feedback-pic"/>
+                                </div>
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+
+                                    <span>Kanupriya Manchanda</span>
+                                </div>
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+
+                                    <span>Team Lead</span>
+                                </div>
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+
+                                    <span>dd-mm-yyyy</span>
+                                </div>
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin">
+
+                                    <span data-bind="text: requestDescription"></span>
+                                </div>
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item open-more oj-flex overflow-feedback-reply">
+                                    <span data-bind="text: lrequestDescription"></span>
+                                </div>
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-margin replyBox">
+
+                                    <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item openDiv flex-bar">
+                                        <span class="flex-bar-end">
+                                            <span><i class="zmdi zmdi-caret-down"></i></span>
+                                            <span>More</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--repeat block ends here-->
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
