@@ -19,6 +19,8 @@ var getAllTeamMembers = baseUrl+"/getAllTeamMembers/";
 var addFeedback = baseUrl +"/addFeedback";
 var getFeedbackById = baseUrl +"/getFeedbackById/";
 var addFeedbackResponse = baseUrl +"/addFeedbackResponce";
+var getAllLeads = baseUrl +"/getAllLeads/";
+var requestForOne  = baseUrl +"/requestForOne";
 var notify = baseUrl+"/notifications/";
 var secret = 'parakh-revamp-local-key-2016';
 
