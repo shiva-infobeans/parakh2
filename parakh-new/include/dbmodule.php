@@ -344,7 +344,7 @@ function get_ranking_list() {
         $MonthFirstDate = date('Y-m-01');
         $query = "SELECT r.user_id,u.google_name,u.google_picture_link,u.designation,if(c.comment_text <> '',c.comment_text,w.description) AS description"
                 . " FROM rating as r LEFT JOIN work AS w ON (w.id =r.work_id)"
-                . " LEFT JOIN comment AS c on (c.request_id = r.request_id) JOIN users AS u ON (u.id = r.user_id) WHERE description <> '' AND r.rating <> 0 ORDER BY r.created_date DESC LIMIT 3";
+                . " LEFT JOIN comment AS c on (c.request_id = r.request_id) JOIN users AS u ON (u.id = r.user_id) WHERE description <> '' AND r.rating <> 0 ORDER BY r.created_date DESC LIMIT 4";
         $rank_data = $this->con->prepare($query);
         $rank_data->execute();
         $row = $rank_data->fetchAll((PDO::FETCH_ASSOC));

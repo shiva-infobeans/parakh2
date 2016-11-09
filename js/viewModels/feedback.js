@@ -16,18 +16,14 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel'
         var self = this;
         self.id = ko.observable();
         self.designation = ko.observable();
+        self.image0 = ko.observable();
+        self.name0 = ko.observable();
         self.image1 = ko.observable();
         self.name1 = ko.observable();
-        self.designation1 = ko.observable();
-        self.comment1 = ko.observable()
         self.image2 = ko.observable();
         self.name2 = ko.observable();
-        self.designation2 = ko.observable();
-        self.comment2 = ko.observable();
         self.image3 = ko.observable();
         self.name3 = ko.observable();
-        self.designation3 = ko.observable();
-        self.comment3 = ko.observable();
 //         get members who get +1 recently
         var rec = oj.Model.extend({
             url: getRecentRankingList
@@ -37,20 +33,18 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel'
             headers: {secret: secret},
             success: function () {
 //                assgning values to the varibles.
-                self.name1(data.attributes['data'][0]['google_name']);
-                self.image1(data.attributes['data'][0]['google_picture_link']);
-                self.designation1(data.attributes['data'][0]['designation']);
-                self.comment1(data.attributes['data'][0]['description']);
+                self.name0(data.attributes['data'][0]['google_name']);
+                self.image0(data.attributes['data'][0]['google_picture_link']);
 
-                self.name2(data.attributes['data'][1]['google_name']);
-                self.image2(data.attributes['data'][1]['google_picture_link']);
-                self.designation2(data.attributes['data'][1]['designation']);
-                self.comment2(data.attributes['data'][1]['description']);
 
-                self.name3(data.attributes['data'][2]['google_name']);
-                self.image3(data.attributes['data'][2]['google_picture_link']);
-                self.designation3(data.attributes['data'][2]['designation']);
-                self.comment3(data.attributes['data'][2]['description']);
+                self.name1(data.attributes['data'][1]['google_name']);
+                self.image1(data.attributes['data'][1]['google_picture_link']);
+
+                self.name2(data.attributes['data'][2]['google_name']);
+                self.image2(data.attributes['data'][2]['google_picture_link']);
+
+                self.name3(data.attributes['data'][3]['google_name']);
+                self.image3(data.attributes['data'][3]['google_picture_link']);
 
             }
         });
