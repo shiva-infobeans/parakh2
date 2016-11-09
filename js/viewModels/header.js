@@ -105,5 +105,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
             });
         }, 500);
     }
+
     return headerContentViewModel;
 });

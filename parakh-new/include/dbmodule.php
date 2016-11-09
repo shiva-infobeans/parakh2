@@ -152,7 +152,7 @@ class dbmodule
         $data['work_title'] = "System generated";
         $data['desc'] = $data['desc'];
         
-        $dateTime = new \DateTime();
+        $dateTime = new \DateTime(null, new DateTimeZone('Asia/Kolkata'));
         $created_date = $modified_date = $dateTime->format("Y-m-d H:i:s");
         $login_user_id = $data['from_id'];
         $workdate = '';
@@ -170,7 +170,7 @@ class dbmodule
             ':request_for' => $data['rating'],
             ':created_date' => $created_date,
             ':modified_date' => $modified_date,
-            ':work_date' => $workdate));
+            ':work_date' => $created_date));
         $work_last_insert = $this->con->lastInsertId();
         
         $request_insert_query = "INSERT INTO request(from_id, to_id, status, work_id, created_date, modified_date, show_request)
@@ -217,7 +217,7 @@ class dbmodule
      */
     function rateOtherMember($data)
     {
-        $dateTime = new \DateTime();
+        $dateTime = new \DateTime(null, new DateTimeZone('Asia/Kolkata'));
         $created_date = $modified_date = $dateTime->format("Y-m-d H:i:s");
         $login_user_id = $data['user_id'];
         $data['comment'] = $data['desc'];
@@ -234,7 +234,8 @@ class dbmodule
             ':for_id' => $data['for_id'],
             ':created_date' => $created_date,
             ':modified_date' => $modified_date,
-            ':work_date' => ''));
+            ':work_date' => $modified_date));
+
         $work_last_insert = $this->con->lastInsertId();
         $request_insert_query = "INSERT INTO request(from_id, to_id, status, work_id, created_date, modified_date, show_request)
                                  VALUES(:from_id,:to_id,:status,:work_id,:created_date,:modified_date,:show_request)";
@@ -386,7 +387,25 @@ function get_ranking_list() {
         
     }
 
-   /* *
+
+
+    /* *
+     * get User feedback by id.
+     * */
+/*    function get_feedback_by_id($user_id) {
+        
+        $query = "SELECT feedback.feedback_to as feedback_to,feedback.feedback_from as feedback_from,feedback.id as id,feedback.feedback_description as description,feedback.created_date as created_date,user.google_name as given_by_name FROM feedback AS feedback LEFT JOIN users AS user ON user.id = feedback.feedback_from WHERE feedback.feedback_to= :user_id AND (feedback.response_parent=0 OR feedback.response_parent is NULL) ORDER BY feedback.created_date desc ";
+                    
+        $user_list = $this->con->prepare($query);
+        $user_list->execute(array(':user_id' => $user_id));
+        $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
+        return $row;
+        
+    }*/
+
+
+
+/* *
     * get User feedback by id.
     * */
    function get_feedback_by_id($user_id) {
@@ -408,14 +427,15 @@ function get_ranking_list() {
        }
        return $rows;
    }
-// code for web service updated
+
+
 
     /* *
      * Add Feedback in database
      * */
     function addFeedback($data)
     {
-        $dateTime = new \DateTime();
+        $dateTime = new \DateTime(null, new DateTimeZone('Asia/Kolkata'));
         $created_date = $modified_date = $dateTime->format("Y-m-d H:i:s");
 
         $feedback_insert_query = "INSERT INTO feedback(feedback_to, feedback_description, feedback_from, response_parent, created_date, modified_date) VALUES(:feedback_to,:feedback_description,:feedback_from,:response_parent,:created_date,:modified_date)";
@@ -427,7 +447,7 @@ function get_ranking_list() {
                 ':feedback_from' => $data['feedback_from'],
                 ':created_date' => $created_date,
                 ':modified_date' => $modified_date,
-                ':response_parent' => ''
+                ':response_parent' => null   
                 ));
         }
         catch (PDOException $e) {
@@ -459,7 +479,7 @@ function get_ranking_list() {
      * */
     function feedbackResponseSave($data) {
         
-        $dateTime = new \DateTime();
+        $dateTime = new \DateTime(null, new DateTimeZone('Asia/Kolkata'));
         $created_date = $modified_date = $dateTime->format("Y-m-d H:i:s");
         
         $feedback_insert_query = "INSERT INTO feedback(feedback_to, feedback_description, feedback_from, response_parent, created_date, modified_date) VALUES(:feedback_to,:feedback_description,:feedback_from,:response_parent,:created_date,:modified_date)";
@@ -475,6 +495,97 @@ function get_ranking_list() {
             
         return true;
         
+    }
+    
+    /* *
+     * Return details of all the managers and leads
+     * */    
+    function getAllLeads($user_id)
+    {
+        if($user_id){
+            $leadList = [];
+            $query = "SELECT * FROM user_hierarchy WHERE user_id = :id ";
+            $user_list = $this->con->prepare($query);
+            $user_list->execute(array(':id' => $user_id));
+            $leadList = $user_list->fetchAll((PDO::FETCH_ASSOC));
+            
+            if (isset($leadList) && !empty($leadList)) {
+                foreach ($leadList as $key => $val) {
+                    $user_query = "SELECT google_name,google_picture_link "
+                            . "FROM users WHERE id = :id";
+                    $manager_name = $this->con->prepare($user_query);
+                    $manager_name->execute(array(':id' => $val['manager_id']));
+                    $manager_name = $manager_name->fetch((PDO::FETCH_ASSOC));
+                    
+                    $leadList[$key]['manager_name'] = $manager_name['google_name'];
+                    $leadList[$key]['google_picture_link'] = $manager_name['google_picture_link'];
+                    
+                    $role_query = "SELECT name FROM role_type "
+                            . "WHERE id = :role_type_id";
+                    $role_name = $this->con->prepare($role_query);
+                    $role_name->execute(array(':role_type_id' => $val['role_type_id']));
+                    $role_name = $role_name->fetch((PDO::FETCH_ASSOC));
+                    $leadList[$key]['role_name'] = $role_name['name'];
+                }
+                return $leadList;
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }        
+    }
+    
+    
+    /* *
+     * Use to add user request for one to lead or manager
+     * */    
+    function requestForOne($data)
+    {
+        $dateTime = new \DateTime(null, new DateTimeZone('Asia/Kolkata'));
+        $created_date = $modified_date = $dateTime->format("Y-m-d H:i:s");
+        $pending = 0;
+       
+        $data['work_title'] = "System generated"; // default value of work title
+        $data['rating'] = 1; // default for request made by user to lead or manager
+        
+        $work_insert_query = "INSERT INTO work "
+                . "(user_id,for_id,title,description,created_by,created_date,"
+                . "modified_date,request_for, work_date)
+                VALUES(:user_id,:for_id,:work_title,:work_description,
+                :created_by,:created_date,:modified_date,:request_for,:work_date)";
+        $work_insert = $this->con->prepare($work_insert_query);
+        
+        $work_insert->execute(array(':user_id' => $data['u_id'],
+            ':for_id' => $data['l_id'],
+            ':work_title' => $data['work_title'],
+            ':work_description' => $data['desc'],
+            ':created_by' => $data['u_id'],
+            ':created_date' => $created_date,
+            ':modified_date' => $modified_date,
+            ':request_for' => $data['rating'],
+            ':work_date' => $created_date));
+        $work_last_insert = $this->con->lastInsertId();
+        
+        if (isset($data['l_id']) && !empty($data['l_id']) && ($data['l_id'] != -1)) {
+            $request_insert_query = "INSERT INTO request(from_id,for_id,to_id,status,"
+                    . "work_id,created_date,modified_date)
+                    VALUES(:from_id,:for_id,:to_id,:status,:work_id,:created_date,:modified_date)";
+            $request_insert = $this->con->prepare($request_insert_query);
+            $request_insert->execute(array(':from_id' => $data['u_id'],
+                ':for_id' => '',
+                ':to_id' => $data['l_id'],
+                ':status' => $pending,
+                ':work_id' => $work_last_insert,
+                ':created_date' => $created_date,
+                ':modified_date' => $modified_date));
+            $request_last_insert = $this->con->lastInsertId();
+            /*if (!empty($data)) {
+                notifyRequestToManager($data);
+            }*/
+            return $request_last_insert;
+        }
+           
     }
     
 } //end of class

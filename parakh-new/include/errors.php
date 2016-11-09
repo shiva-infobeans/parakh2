@@ -53,8 +53,20 @@ switch ($error_code) {
         break;
     case 3008:
         return array(
-        'code' => '3004',
+        'code' => '3008',
         'error' => 'Invalid parameter for Feedback'
+        );
+        break;
+    case 3009:
+        return array(
+        'code' => '3009',
+        'error' => 'Invalid user or no record found'
+        );
+        break;
+    case 3010:
+        return array(
+        'code' => '3010',
+        'error' => 'Invalid parameter for request'
         );
         break;
     case "blue":

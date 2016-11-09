@@ -31,11 +31,20 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         return searchUser;
     }
 
+    function requestSearch(data){
+        var autoSearchLead = new Object();
+        autoSearchLead.autoSearcUserId = data['user_id'];
+        autoSearchLead.autoSearchLeadMId = data['manager_id'];
+        autoSearchLead.autoSearchLeadName = data['manager_name'];
+        autoSearchLead.autoSearchLeadPic = data['google_picture_link'] ;
+        autoSearchLead.autoSearchLeadRole = data['role_name'];
+           return autoSearchLead;
+    }
     function floatingContentViewModel(person) {
         var self = this;
-
-
+        
         setTimeout(function () {
+            //rate other team member modal from floating button 
             self.handleOpen = $(".rateFloat").click(function () {
                 $("#modalDialog3").ojDialog("open");
                 self.desc('');
@@ -47,6 +56,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.handleOKClose = $("#okButton").click(function () {
                 $("#modalDialog3").ojDialog("close");
             });
+            
+            //give feedback to other team member modal from floating button 
             self.handleOpen = $(".feedBackFloat").click(function () {
                 $("#modalDialog9").ojDialog("open");
                 self.desc('');
@@ -59,18 +70,31 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.handleOKClose = $("#okButton").click(function () {
                 $("#modalDialog9").ojDialog("close");
             });
+            
+            //request for +1 rating modal from floating button to his respective lead or manager  
+               self.handleOpen = $(".requestFloat").click(function () {
+                $("#modalDialogRequest").ojDialog("open");
+                self.desc('');
+                self.textError('');
+                self.value2([]);
+                self.searchError("");
+
+            });
+            self.handleOKClose = $("#okButton").click(function () {
+                $("#modalDialogRequest").ojDialog("close");
+            });
         }, 500);
-
-
 
         self.member = ko.observableArray([]);
         self.searchUser = ko.observableArray([]);
+        self.autoSearchLead = ko.observableArray([]);
         self.searchId = ko.observable();
         self.userIdFloat = ko.observable();
         self.for_id = ko.observable();
         self.desc = ko.observable();
         self.textError = ko.observable();
         self.searchError = ko.observable();
+        
         var userFloat = oj.Model.extend({
             url: getUserByEmail + person['email']
         });
@@ -79,7 +103,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             headers: {secret: secret},
             success: function (result) {
                 self.userIdFloat(result['attributes']['data']['id']);
-
+             //   console.log(result['attributes']['data']['id']);
                 var getSearchUser = oj.Model.extend(
                         {
                             url: getAllTeamMembers + self.userIdFloat(),
@@ -103,6 +127,43 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 });
             }
         });
+        //auto search for respective team lead or manager
+           var userFloat = oj.Model.extend({
+            url: getUserByEmail + person['email']
+        });
+        var getFloatId = new userFloat();
+        getFloatId.fetch({
+            headers: {secret: secret},
+            success: function (result) {
+                self.userIdFloat(result['attributes']['data']['id']);
+               // console.log(result['attributes']['data']['id']);
+          var getautoSearchLead = oj.Model.extend(
+                        {
+                            url:  getAllLeads + self.userIdFloat(),
+                        });
+       var teamLeadSearch = new getautoSearchLead();
+        teamLeadSearch.fetch({
+               headers: {secret: secret},
+             success: function () {
+                  var data = teamLeadSearch.attributes['data'];
+                //  console.log(teamLeadSearch.attributes['data']);
+                    for (var counter2 = 0; counter2 < data.length; counter2++) {
+                        self.autoSearchLead.push(new requestSearch(data[counter2])); 
+                           var item1 = new Object();
+                            item1.value = data[counter2]['manager_id'];
+                          //  console.log(data[counter2]['manager_id']) ;
+                            item1.label = data[counter2]['manager_name'];
+                            item1.autoSearchLeadPic = data[counter2]['google_picture_link'];
+                            item1.autoSearchLeadRole = data[counter2]['role_name'];
+                            self.browsers2.push(item1);
+                    }
+             }
+        });
+         }
+        });
+        
+        
+        
         self.feedbackModal = function () {
             if (self.value1() == '' || self.value1() == null) {
                 self.searchError("This field cannot be empty");
@@ -128,7 +189,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         this.browsers = ko.observableArray([]);
         this.value = ko.observable();
         this.browsers1 = ko.observableArray([]);
-        this.value1 = ko.observable();
+        this.value1 = ko.observable(); 
+        this.browsers2 = ko.observableArray([]);
+        this.value2 = ko.observable();
+        
+         this.sucessMsg = ko.observable("S");
+                this.sucessMsg("");
+                
         self.floatModal = function () {
             if (self.value() == '' || self.value() == null) {
                 self.searchError("This field cannot be empty");
@@ -152,6 +219,40 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             });
 
         }
-    }
+       
+        
+        //send request for +1 ratings ajax call
+          self.requestModal = function () {
+            if (self.value2() == '' || self.value2() == null) {
+                self.searchError("This field cannot be empty");
+                return false;
+            }
+            if (self.desc() == '' || self.desc() == null) {
+                self.searchError("");
+                self.textError("Please provide a reason for your request.");
+                return false;
+            }
+            $.ajax({
+                headers: {secret: secret},
+                method: 'POST',
+                url: requestForOne,
+                data: {u_id: self.userIdFloat(), l_id: self.value2()[0],desc: self.desc()},
+                success: function () {
+                    console.log('request sent');
+                    $("#modalDialogRequest").ojDialog("close");
+                    $("#sucess").show();
+                     self.sucessMsg("Your Request has been sent !!");
+                                setTimeout(function () {
+                                     $("#sucess").hide();
+                                    self.sucessMsg("");
+                                }, 3000);
+                    self.value2('');
+                  
+                }
+            });
+
+        }
+        
+        }
     return floatingContentViewModel;
 });

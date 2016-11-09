@@ -1,12 +1,11 @@
  
 <!-- people section starts -->
-<div class="oj-web-applayout-max-width oj-web-applayout-content section1 oj-margin-top">
-    <div class="oj-row oj-flex">
-
-        <div class="oj-lg-1 oj-md-12 oj-sm-12 oj-panel oj-flex-item people-logo1">
+<div class="oj-web-applayout-max-width oj-web-applayout-content section1 oj-margin-top oj-margin-bottom">
+    <div class="oj-row oj-flex-bar">
+        <div class="oj-lg-1 oj-md-12 oj-sm-12 oj-panel oj-flex-item oj-col people-logo1 oj-flex-bar-end">
             <a href="javascript:void(0);" > <i class="zmdi zmdi-account  zmdi-hc-lg"></i></a>
         </div>
-        <div class="oj-lg-1 oj-md-12 oj-sm-12 oj-panel oj-flex-item people-logo2">
+        <div class="oj-lg-1 oj-md-12 oj-sm-12 oj-panel oj-flex-item oj-col people-logo2">
             <a href="javascript:void(0);"> <i class="zmdi zmdi-accounts zmdi-hc-lg "></i></a>
         </div>
     </div>
@@ -37,79 +36,97 @@
                     <div class="overflow-wrapper">
                         <span class="slide">
 
-                            <div class="slider-item">
+                            <div class="slider-item" id="hideSlider1">
 
                                 <div class="slider-text">
                                     <p>
                                         Your performance for this week...
                                     </p>
                                 </div>
-                                <div class="green-button">
+                                <div class="green-button" id="hidegreenBtn1">
                                     <div class="border-right"><img src="css/images/green-button.png" alt=""/></div>
                                     <div class="btn-text-green">
                                         +<span data-bind="text: dayPlusRatings"></span>
+                                        
                                     </div>
                                 </div>
 
-                                <div class="red-button">
+                                <div class="red-button" id="hideredBtn1">
                                     <img src="css/images/red-button.png" alt=""/>
                                     <div class="btn-text-red">
                                         -<span data-bind="text: dayMinusRatings"></span>
+                                         
+                                        
                                     </div>
                                 </div>
                             </div> 
-
+                            <div class="sliderScreen" data-bind="text: sliderText1">
+                            </div>
+                               <img class="sliderSmiley" id="smiley1" src="../css/images/sliderScreen.png" alt="slider image"/>
                         </span>
-
+ 
+                        
                         <!--SLIDER 2ND-->
                         <span class="slide">
 
-                            <div class="slider-item">
+                            <div class="slider-item"  id="hideSlider2">
                                 <div class="slider-text">
                                     <p>
                                         Your performance for this month...
                                     </p>
                                 </div>
-                                <div class="green-button">
+                                <div class="green-button"  id="hidegreenBtn2">
                                     <div class="border-right"><img src="css/images/green-button.png" alt=""/></div>
                                     <div class="btn-text-green">
                                         +<span data-bind="text: monthPlusRatings"></span>
+                                          
                                     </div>
                                 </div>
 
-                                <div class="red-button">
+                                <div class="red-button"  id="hideredBtn2">
                                     <img src="css/images/red-button.png" alt=""/>
                                     <div class="btn-text-red">
                                         -<span data-bind="text: monthMinusRatings"></span>
+                                        
                                     </div>
                                 </div>
                             </div> 
+                            <div class="sliderScreen" data-bind="text: sliderText2">  
+                            </div>
+                            <img class="sliderSmiley" id="smiley2" src="../css/images/sliderScreen.png" alt="slider image"/>
 
                         </span>
                         <!--SLIDER 3RD-->
                         <span class="slide">
 
-                            <div class="slider-item">
+                            <div class="slider-item"  id="hideSlider3">
                                 <div class="slider-text">
                                     <p>
                                         Your performance up to now...
                                     </p>
                                 </div>
-                                <div class="green-button">
+                                <div class="green-button" id="hidegreenBtn3">
                                     <div class="border-right"><img src="css/images/green-button.png" alt=""/></div>
                                     <div class="btn-text-green">
                                         +<span data-bind="text: myPlusRatings"></span>
+                                          
                                     </div>
                                 </div>
 
-                                <div class="red-button">
+                                <div class="red-button"  id="hideredBtn3">
                                     <img src="css/images/red-button.png" alt=""/>
                                     <div class="btn-text-red">
                                         -<span data-bind="text: myMinusRatings"></span>
+                                         
                                     </div>
                                 </div>
                             </div> 
-
+                            <div class="sliderScreen" data-bind="text: sliderText3">
+                            </div>
+                         
+                                <img class="sliderSmiley" id="smiley3" src="../css/images/sliderScreen.png" alt="slider image"/>
+                            
+                             
                         </span>
 
                     </div>

@@ -1,17 +1,22 @@
          
+    <div class="oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-col profile-text oj-flex">
+            <span id="sucess" class="sucessMsg" data-bind="text: sucessMsg"></span>
+        </div>
+
+
+
 <div class="oj-web-applayout-max-width oj-web-applayout-content  ">
     <div class="oj-flex oj-row">
 
-
         <nav class="container"> 
 
-            <a href="#" class="buttons rateFloat" title="Rate Buddy "><i class="zmdi zmdi-star floatIcons"></i></a>
+            <a href="#" class="buttons rateFloat" title="Rate Buddy"><i class="zmdi zmdi-star floatIcons"></i></a>
 
-            <a href="#" class="buttons feedBackFloat" title=" Send Feedback "><i class="zmdi zmdi-comment-text-alt floatIcons"></i></a>
+            <a href="#" class="buttons feedBackFloat" title="Send Feedback"><i class="zmdi zmdi-comment-text-alt floatIcons"></i></a>
 
-            <a href="#" class="buttons" title="Send Request"><i class="zmdi zmdi-plus-1 floatIcons"></i></a>
+            <a href="#" class="buttons requestFloat" title="Send Request"><i class="zmdi zmdi-plus-1 floatIcons"></i></a>
 
-            <a class="buttons btn1"  href="#" > <i class="zmdi zmdi-plus floatingIcons"></i> </a>
+            <a class="buttons abcd btn1"  href="#" > <i class="zmdi zmdi-plus floatingIcons"></i> </a>
 
         </nav>
 
@@ -33,7 +38,7 @@
                     </li>
                     <!-- /ko -->   
                 </ul>
-                <input id="combobox9"
+                <input id="combobox9" 
                        data-bind="ojComponent: {component: 'ojCombobox',
                             placeholder:'Search team member',
                               list: 'browsers1',
@@ -44,7 +49,7 @@
             </div>
             <div class="area">
                 <div class="areaContent">
-                    <textarea id="text-area9" class="textArea2" aria-label="ojTextArea component no visible label"
+                    <textarea id="text-area9" class="textArea-feedback" aria-label="ojTextArea component no visible label"
                               data-bind="ojComponent: {component: 'ojTextArea', 
                                      value: desc, 
                                      placeholder: 'Type your feedback here..'}"></textarea>
@@ -111,6 +116,52 @@
                 </div>
             </div>
             <button class="modal-submit3" data-bind="click: floatModal" > Submit </button>
+
+        </div>
+    </div>
+</div>    
+
+<!--Request for +1 modal from floating button-->
+
+
+<div id="dialogWrapper">
+    <div style="display:none" id="modalDialogRequest"  title="Send Request"
+         data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide'}">
+        <div class="oj-dialog-body">
+            
+            <div class="searchArea">
+
+                    <label for="combobox"></label>
+                    <ul id="browsers2" style="display: none">
+                        <!-- ko foreach: browsers2 -->
+                        <li data-bind="attr: {'oj-data-value': value}">
+                            <span class="imgSearch">  <img data-bind="attr: {'src': autoSearchLeadPic}" class="searchImage" /> </span>
+                            <span data-bind="text: label"  class="autoName"></span>
+                                <span>&ndash;</span>
+                            <span data-bind="text: autoSearchLeadRole"  class="searchLead"></span>
+                        </li> 
+                        <!-- /ko -->   
+                    </ul>
+                    <input id="combobox3"
+                           data-bind="ojComponent: {component: 'ojCombobox',
+                            placeholder:'Search',
+                                 list: 'browsers2',
+                              value: value2,
+                              rootAttributes: {style:'max-width:20em'}}"/>
+                      <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" data-bind="text: searchError"></div>
+            </div>
+ 
+              <div class="area">
+                <div class="areaContent">
+                    <textarea id="text-area10" class="textArea-feedback" aria-label="ojTextArea component no visible label"
+                              data-bind="ojComponent: {component: 'ojTextArea', 
+                                     value: desc, 
+                                     placeholder: 'Type your reason here..'}"></textarea>
+                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" data-bind="text:textError"></div>
+                  
+                </div>
+            
+            <button class="modal-submitRequest" data-bind="click: requestModal" > Submit </button>
 
         </div>
     </div>

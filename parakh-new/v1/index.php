@@ -537,6 +537,71 @@ $app->post('/addFeedbackResponce', function ($request, $response) {
     
 });
 
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getAllLeads/<userId>
+ * Parameters: user id
+ * 
+ * Method: GET
+ * */    
+$app->get('/getAllLeads[/{userId}]', function ($request, $response, $args) {
+    $response_data = array();
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    
+    if($db->isValidUser( $args['userId'] )){
+        $result = $db->getAllLeads($args['userId']);
+        if($result != 0){
+            $response_data = makeResponse('false',$result);
+        }else{
+            $response_data = makeResponse('true',get_site_error(3009));
+        }    
+        $response->withJson($response_data);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3002));
+    }    
+    return $response;
+});
+
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/requestForOne
+ * Parameters: 
+ * u_id User id who is giving rating
+ * l_id Manager or Lead id to whom user is requesting
+ * desc comment
+ * Method: POST
+ * Content-Type: application/x-www-form-urlencoded
+ * */    
+$app->post('/requestForOne', function ($request, $response) {
+    $response_data = [];
+    $data = $request->getParsedBody();
+    $post_data = [];
+    $post_data['u_id'] = filter_var($data['u_id'], FILTER_SANITIZE_NUMBER_INT);
+    $post_data['l_id']   = filter_var($data['l_id'], FILTER_SANITIZE_NUMBER_INT);
+    $post_data['desc'] = filter_var($data['desc'], FILTER_SANITIZE_STRING);
+    
+    if($post_data['u_id'] > 0 && $post_data['l_id'] > 0){
+        //Creating a dbmodule object
+        $db = new dbmodule();
+        // Check Is valid user
+        if($db->isValidUser( $post_data['u_id'] )){
+            $result = $db->requestForOne($post_data);
+            if($result != ""){
+                $response_data = makeResponse('false',$result);
+            }else{
+                $response_data = makeResponse('true',get_site_error(3010));
+            }
+        }else{
+            $response_data = makeResponse('true',get_site_error(3002));
+        }
+    }else{
+       $response_data = makeResponse('true',get_site_error(3010)); 
+    }    
+    $response->withJson($response_data);
+    return $response;
+    
+});
+
+
 /**
  * Step 4: Run the Slim application
  *

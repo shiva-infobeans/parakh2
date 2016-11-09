@@ -25,6 +25,11 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel'
 
         this.myPlusRatings = ko.observable(0);
         this.myMinusRatings = ko.observable(0);
+
+        self.sliderText1 = ko.observable();
+        self.sliderText2 = ko.observable();
+        self.sliderText3 = ko.observable();
+
         var TaskRecord = oj.Model.extend({
             url: getUserByEmail + person['email'],
             //parse: parseTask
@@ -43,8 +48,8 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel'
                     headers: {secret: secret},
                     success: function () {
                         var plus = 0;
-                        var dayP=0;
-                        var monthP=0;
+                        var dayP = 0;
+                        var monthP = 0;
                         var today = new Date();
                         var dd = today.getDate();
                         var mm = today.getMonth() + 1; //January is 0!
@@ -61,6 +66,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel'
                         var monthN = 0;
                         var data = record['attributes']['data'];
                         for (var i = 0; i < data.length; i++) {
+
                             if (data[i]['rating'] == 0) {
 
                                 var createDate = data[i]['created_date'].substr(0, data[i]['created_date'].indexOf(' '));
@@ -82,24 +88,70 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel'
                                     diff /= (24 * 60 * 60 * 1000); //convert miliseconds into days
                                     if (diff < 7) {
                                         dayP++;
-                             //           console.log(dayP);
+                                        //           console.log(dayP);
                                     }
                                     if (diff < 30) {
                                         monthP++;
-                                   //     console.log(monthP);
+                                        //     console.log(monthP);
                                     }
                                     plus++;
                                 }
                             }
                         }
-                        self.myPlusRatings(plus); // over all ratings
-                        self.myMinusRatings(minus);
-                        
+
                         self.dayPlusRatings(dayP); // Ratings in this week
                         self.dayMinusRatings(dayN);
-                        
+                        if (self.dayPlusRatings() == 0 && self.dayMinusRatings() == 0) {
+                            self.sliderText1("You have not been rated this week!!");
+                            $('#hideSlider1').hide();
+                            $('#hidegreenBtn1').hide();
+                            $('#hideredBtn1').hide();
+                            $('#smiley1').show();
+                        } else {
+
+                            $('#hideSlider1').show();
+                            $('#hidegreenBtn1').show();
+                            $('#hideredBtn1').show();
+                            $('#smiley1').hide();
+                        }
+
+
                         self.monthPlusRatings(monthP); //ratings in this Month
                         self.monthMinusRatings(monthN);
+
+                        if (self.monthPlusRatings() == 0 && self.monthMinusRatings() == 0) {
+                            self.sliderText2("You have not been rated this month!!");
+                            $('#hideSlider2').hide();
+                            $('#hidegreenBtn2').hide();
+                            $('#hideredBtn2').hide();
+                            $('#smiley2').show();
+                        } else {
+
+                            $('#hideSlider2').show();
+                            $('#hidegreenBtn2').show();
+                            $('#hideredBtn2').show();
+                            $('#smiley2').hide();
+                        }
+
+
+                        self.myPlusRatings(plus); // over all ratings
+                        self.myMinusRatings(minus);
+                        if (self.myPlusRatings() == 0 && self.myMinusRatings() == 0) {
+                            self.sliderText3("You have not been rated yet!!");
+                            $('#hideSlider3').hide();
+                            $('#hidegreenBtn3').hide();
+                            $('#hideredBtn3').hide();
+                            $('#smiley3').show();
+                        } else {
+
+                            $('#hideSlider3').show();
+                            $('#hidegreenBtn3').show();
+                            $('#hideredBtn3').show();
+                            $('#smiley3').hide();
+                        }
+
+
+
                     }
                 });
             }
