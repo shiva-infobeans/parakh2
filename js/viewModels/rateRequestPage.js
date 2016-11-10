@@ -7,7 +7,7 @@
 /**
  * rateRequestPage module
  */
-define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojmodel', , 'ojs/ojtabs', 'ojs/ojconveyorbelt'
+define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojmodel', 'ojs/ojinputtext', 'ojs/ojtabs', 'ojs/ojconveyorbelt'
 ], function (oj, ko) {
     /**
      * The view model for the main content view template
@@ -29,20 +29,34 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         req.name = data['google_name'];
         req.designation = data['designation'];
         req.date = dateformat(data['created_date']);
-        req.request_id = data['request_id'];
         return req;
     }
+
+
+
     function rateRequestPageContentViewModel(person) {
         var self = this;
         self.userId = ko.observable();
-        self.requestRejected = ko.observableArray();
+        self.lead_id = ko.observable();
+        self.role_name = ko.observable();
+        self.lead_name = ko.observable();
+        self.lead_pic = ko.observable();
+        self.lead_id = ko.observable();
+        self.manager_name = ko.observable();
+        self.manager_pic = ko.observable();
+        self.manager_id = ko.observable();
+        self.desc = ko.observable();
+        self.desc1 = ko.observable();
+        self.textError = ko.observable();
+        self.textError1 = ko.observable();
+        this.sucessMsg = ko.observable("S");
+        this.sucessMsg("");
+
         self.requestRejectedMember = ko.observableArray();
         self.requestPendingMember = ko.observableArray();
         self.requestPendingLead = ko.observableArray();
+        self.requestRejectedLead = ko.observableArray();
         self.role = ko.observable();
-
-
-
 
 
 //        self.pic = "http://www.freeiconspng.com/uploads/blank-face-person-icon-7.png";
@@ -51,8 +65,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 //        self.feedbackdesignation = ko.observable("designation");
 //        self.feedbackDescription = ko.observable("descrioption 123 asdf asdf");
 //        self.feedbackDate = ko.observable("date here");
-
-
         var user = oj.Model.extend({
             url: getUserByEmail + person['email']
         });
@@ -61,6 +73,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             headers: {secret: secret},
             success: function (res) {
                 self.userId(res['attributes']['data']['id']);
+                self.role_name(res['attributes']['data']['role_name']);
                 self.role(res['attributes']['data']['role_name']);
 
                 var requestUrl = oj.Model.extend({
@@ -93,17 +106,39 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             var data1 = res['attributes']['data'];
                             for (var i = 0; i < data1.length; i++) {
                                 if (data1[i]['status'] == 0) {
-                                console.log(data1[i]);
                                     self.requestPendingLead.push(new request(data1[i]));
                                 }
                                 if (data1[i]['status'] == 1) {
-                                console.log(data1[i]);
-                                    self.requestRejected.push(new request(data1[i]));
+                                    console.log(data1[i]);
+                                    
                                 }
                             }
                         }
                     });
                 }
+                if (self.role_name() === 'Team Member') {
+                    $('#rateTab2').hide();
+
+                } else {
+                    $('#rateTab2').show();
+                    $('#hideLead').hide();
+                }
+                var lead = oj.Model.extend({
+                    url: getAllLeads + self.userId(),
+                });
+                var getnewLead = new lead();
+                getnewLead.fetch({
+                    headers: {secret: secret},
+                    success: function (result) {
+                        var data = result['attributes']['data'];
+                        self.lead_name(result['attributes']['data'][0]['manager_name']);
+                        self.lead_pic(result['attributes']['data'][0]['google_picture_link']);
+                        self.lead_id(result['attributes']['data'][0]['manager_id']);
+                        self.manager_name(result['attributes']['data'][1]['manager_name']);
+                        self.manager_pic(result['attributes']['data'][1]['google_picture_link']);
+                        self.manager_id(result['attributes']['data'][1]['manager_id']);
+                    }
+                });
             }
         });
 
@@ -150,6 +185,52 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
             });
         }, 500);
+        //send request for +1 ratings ajax call
+        self.requestManager = function () {
+            if (self.desc() == '' || self.desc() == null) {
+                self.textError("Please provide a reason for your request.");
+                return false;
+            }
+            $.ajax({
+                headers: {secret: secret},
+                method: 'POST',
+                url: requestForOne,
+                data: {u_id: self.userId(), l_id: self.manager_id(), desc: self.desc()},
+                success: function () {
+                    self.desc('');
+                    self.textError('');
+                    $("#sucessRate").show();
+                    self.sucessMsg("Your Request is sent.");
+                    setTimeout(function () {
+                        $("#sucessRate").hide();
+                        self.sucessMsg("");
+                    }, 3000);
+                }
+            });
+        }
+        self.requestLead = function () {
+            if (self.desc1() == '' || self.desc1() == null) {
+                self.textError1("Please provide a reason for your request.");
+                return false;
+            }
+            $.ajax({
+                headers: {secret: secret},
+                method: 'POST',
+                url: requestForOne,
+                data: {u_id: self.userId(), l_id: self.lead_id(), desc: self.desc1()},
+                success: function () {
+                    self.desc1('');
+                    self.textError1('');
+                    $("#sucessRate").show();
+                    self.sucessMsg("Your Request is sent.");
+                    setTimeout(function () {
+                        $("#sucessRate").hide();
+                        self.sucessMsg("");
+                    }, 3000);
+                }
+            });
+        }
+
 
     }
 

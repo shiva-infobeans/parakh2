@@ -3,80 +3,97 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-
-
 <div class="max-width">
-
     <div id="tabs-container1">
         <div class="oj-flex oj-row">
-            <div class="oj-lg-12 oj-md-12 oj-sm-12  oj-flex-item oj-col profile-text oj-flex oj-padding oj-margin">
-                <span class="oj-flex-bar-end oj-padding oj-margin color-white">Rate Me</span>
+            <div class="oj-lg-12 oj-md-12 oj-sm-12  oj-flex-item oj-col profile-text oj-flex oj-margin">
+                <span class="oj-margin oj-padding color-white">&nbsp;</span>
+                <span id="sucessRate" class="sucessMsgRate" data-bind="text: sucessMsg"> </span>
             </div>
         </div>
-        <div id="tabs" data-bind="ojComponent:{component: 'ojTabs', selected: 1}" class="buddyTab">
+        <div id="tabs1" data-bind="ojComponent:{component: 'ojTabs'}" class="buddyTab">
             <!-- tab bar -->
             <ul>
-                <li class="buddyTab1 " > <i class=" oj-tabs-title-active zmdi zmdi-plus-1 tabIcon"></i>
-                    <div class="hoverTab1"> Send Request </div>
+                <li class="buddyTab3 " id="rateTab1"> 
+                    <img id="rate1Active" src="../../images/+1-icon-active.png" alt=""/>
+                    <img id="rate1Inactive" src="../../images/+1-icon.png" alt=""/>
+                    <div class="hoverTabRequest1"> Send Request </div>
                 </li>
-                <li class="buddyTab2" ><i class="zmdi zmdi-check-all tabIcon"></i>
-                    <div class="hoverTab2"> Requests </div>
+                <li class="buddyTab4" id="rateTab2"> 
+                    <img id="rate2Inactive" src="../../images/request-approval.png" alt=""/>     
+                    <img id="rate2Active" class="rate2Active" src="../../images/request-approval-active.png" alt=""/>
+                    <div class="hoverTabRequest2"> Requests </div>
                 </li>
             </ul>
             <!-- tab contents -->
             <div id="tabs-3">
                 <hr>
                 <div class="oj-flex oj-row ">
-                    <div class=" oj-xl-6 oj-lg-6 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-margin-top oj-margin-bottom pos-relative transboxRequest ">
+                    <div class=" oj-xl-6 oj-lg-6 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-margin-top pos-relative transboxRequest ">
                         <div class="transbox"></div>
                         <div class="oj-flex oj-row">
-                            <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-flex-bar-middle">
+                            <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex-bar-middle">
                                 <div class="requestHeading">
                                     Send Request
                                 </div> 
                             </div>
-                            <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-margin-top oj-margin-bottom ">
-                                <div class="oj-xl-9 oj-lg-9 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-flex-bar-center-absolute requestCOntent pos-relative">
+                            <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding ">
+                                <div class="oj-xl-9 oj-lg-9 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-flex-bar-center-absolute requestCOntent pos-relative" id="hideLead">
                                     <div class="transbox"></div>
                                     <div class="oj-flex oj-row ">
-                                        <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-flex-bar-middle">
-                                            <img class="profile border-color-white" src="../../images/warning-icon-24.png" alt=""/>
+                                        <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center" >
+                                            <img class="profile border-color-white" data-bind="attr:{src: manager_pic}">
 
                                         </div>
-                                        <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-flex-bar-middle">
-
-                                            Abhinav Shrivastava 
-
+                                        <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item  center" data-bind="text: manager_name">
 
                                         </div>
-                                        <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-flex-bar-middle">
+                                        <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-top center">
                                             Manager
-
                                         </div>
+                                        <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-top center">
+                                            <textarea id="text-area" class="textArea-request"  aria-label="ojTextArea component no visible label"
+                                                      data-bind="ojComponent: {component: 'ojTextArea', 
+                                                            value: desc, 
+                                                         placeholder: 'Type your request here..'}"></textarea>
+                                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" data-bind="text:textError"></div>
+                                        </div>
+                                        <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-top center">
+                                            <button class="modal-submitRequest1" data-bind="click: requestManager" > Submit </button>
+                                        </div>
+
                                     </div>     
                                 </div>
                             </div>
-                            <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-margin-top oj-margin-bottom">
+                            <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding ">
                                 <div class="oj-xl-9 oj-lg-9 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-flex-bar-center-absolute requestCOntent pos-relative">
                                     <div class="transbox"></div>
                                     <div class="oj-flex oj-row">
-                                        <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-flex-bar-middle">
-                                            <img class="profile border-color-white" src="../../images/warning-icon-24.png" alt=""/>
+                                        <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
+                                            <img class="profile border-color-white" data-bind="attr:{src: lead_pic}">
                                         </div>
-                                        <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-flex-bar-middle">
-                                            Abhinav Shrivastava 
+                                        <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item  center"  data-bind="text: lead_name">
 
                                         </div>
-                                        <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-flex-bar-middle">
-                                            Manager
-
+                                        <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-top center">
+                                            Team Lead 
+                                        </div>
+                                        <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-top center">
+                                            <textarea id="text-area" class="textArea-request"  aria-label="ojTextArea component no visible label"
+                                                      data-bind="ojComponent: {component: 'ojTextArea', 
+                                                            value: desc1, 
+                                                         placeholder: 'Type your request here..'}"></textarea>
+                                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" data-bind="text:textError1"></div>
+                                        </div>
+                                        <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-top center">
+                                            <button class="modal-submitRequest1" data-bind="click: requestLead" > Submit </button>
                                         </div>
                                     </div>   
                                 </div>     
                             </div>
                         </div>
                     </div>
-                    <div class=" oj-xl-6 oj-lg-6 oj-md-12 oj-sm-12 oj-flex-item oj-margin-bottom pos-relative oj-margin-start oj-margin-top">
+                    <div class=" oj-xl-6 oj-lg-6 oj-md-12 oj-sm-12 oj-flex-item oj-margin-bottom pos-relative oj-margin-start  oj-margin-top ">
                         <div class="transbox"></div>
                         <div class="oj-flex oj-row">
                             <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item ">
@@ -84,12 +101,11 @@ and open the template in the editor.
                                 <div class="pos-relative ">
 
                                     <div id="tabs-container-request">
-                                        <div id="tabs" data-bind="ojComponent:{component: 'ojTabs'}">
+                                        <div id="tabs2" data-bind="ojComponent:{component: 'ojTabs'}">
                                             <!-- tab bar -->
-                                            <ul class="oj-flex pos-relative ">
-                                                <div class="transbox"></div>
-                                                <li class="oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6 oj-flex-item color-darkGray"><span>Pending Request</span></li>
-                                                <li class="oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6 oj-flex-item color-darkGray"><span>Declined Request</span></li>
+                                            <ul class="oj-flex">
+                                                <li class="oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6 oj-flex-item"><span>Pending Request</span></li>
+                                                <li class="oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6 oj-flex-item"><span>Rejected Request</span></li>
                                             </ul>
 
                                             <!-- tab contents -->
@@ -178,10 +194,6 @@ and open the template in the editor.
                                         </div>
                                     </div>
                                 </div>
-
-
-
-
                             </div>
                         </div>
                     </div>
@@ -199,9 +211,9 @@ and open the template in the editor.
                                 </div> 
                             </div>
                             <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-margin-top oj-margin-bottom requestAlignment">
-                                 <!--ko foreach:  requestPendingLead-->
+                                <!--ko foreach:  requestPendingLead-->
                                 <div class="oj-xl-9 oj-lg-9 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding oj-flex-bar-center-absolute">
-                                    <div class="transbox border-color-yellow feedbackHeight"></div>
+                                    <div class="transbox border-color-green feedbackHeight"></div>
                                     <div class="oj-flex oj-row">
                                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center  oj-margin-top oj-margin-bottom">
                                             <img data-bind="attr: {src:pic}" alt="" class="profile-feedback-pic "/>
@@ -232,7 +244,7 @@ and open the template in the editor.
                                         </div>
                                     </div>
                                 </div>
-                                 <!--/ko-->
+                                <!--/ko-->
                             </div>
                         </div>
                     </div>
@@ -241,7 +253,7 @@ and open the template in the editor.
                         <div class="oj-flex oj-row">
                             <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item ">
 
-
+                                abc
                             </div>
                         </div>
                     </div>
