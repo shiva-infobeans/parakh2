@@ -573,7 +573,7 @@ function get_ranking_list() {
                     VALUES(:from_id,:for_id,:to_id,:status,:work_id,:created_date,:modified_date)";
             $request_insert = $this->con->prepare($request_insert_query);
             $request_insert->execute(array(':from_id' => $data['u_id'],
-                ':for_id' => '',
+                ':for_id' => $data['u_id'],
                 ':to_id' => $data['l_id'],
                 ':status' => $pending,
                 ':work_id' => $work_last_insert,

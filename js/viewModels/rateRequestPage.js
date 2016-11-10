@@ -29,25 +29,28 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         req.name = data['google_name'];
         req.designation = data['designation'];
         req.date = dateformat(data['created_date']);
+        req.request_id = data['request_id'];
         return req;
     }
     function rateRequestPageContentViewModel(person) {
         var self = this;
         self.userId = ko.observable();
         self.requestRejected = ko.observableArray();
-        self.requestPending = ko.observableArray();
+        self.requestRejectedMember = ko.observableArray();
+        self.requestPendingMember = ko.observableArray();
+        self.requestPendingLead = ko.observableArray();
+        self.role = ko.observable();
 
 
-        
 
 
 
-        self.pic = "http://www.freeiconspng.com/uploads/blank-face-person-icon-7.png";
-        self.feedbackImage = ko.observable("https://pixabay.com/static/uploads/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png");
-        self.name = "Shiva Shirbhate";
-        self.feedbackdesignation = ko.observable("designation");
-        self.feedbackDescription = ko.observable("descrioption 123 asdf asdf");
-        self.feedbackDate = ko.observable("date here");
+//        self.pic = "http://www.freeiconspng.com/uploads/blank-face-person-icon-7.png";
+//        self.feedbackImage = ko.observable("https://pixabay.com/static/uploads/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png");
+//        self.name = "Shiva Shirbhate";
+//        self.feedbackdesignation = ko.observable("designation");
+//        self.feedbackDescription = ko.observable("descrioption 123 asdf asdf");
+//        self.feedbackDate = ko.observable("date here");
 
 
         var user = oj.Model.extend({
@@ -58,9 +61,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             headers: {secret: secret},
             success: function (res) {
                 self.userId(res['attributes']['data']['id']);
+                self.role(res['attributes']['data']['role_name']);
 
                 var requestUrl = oj.Model.extend({
-                    url: getRequests + self.userId()
+                    url: getRequests + self.userId() // get all the pending requests send by user to lead/manager
                 });
                 var requestFetch = new requestUrl();
                 requestFetch.fetch({
@@ -69,14 +73,37 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         var data1 = res['attributes']['data'];
                         for (var i = 0; i < data1.length; i++) {
                             if (data1[i]['status'] == 0) {
-                                self.requestPending.push(new request(data1[i]));
+                                self.requestPendingMember.push(new request(data1[i]));
                             }
                             if (data1[i]['status'] == 1) {
-                                self.requestRejected.push(new request(data1[i]));
+                                self.requestRejectedMember.push(new request(data1[i]));
                             }
                         }
                     }
                 });
+                // for lead or manager
+                if (self.role() != "Team Member") {
+                    var requestUrl1 = oj.Model.extend({
+                        url: getRequests + self.userId() // get all pending requests for the lead to approve or reject.
+                    });
+                    var requestFetch1 = new requestUrl1();
+                    requestFetch1.fetch({
+                        headers: {secret: secret},
+                        success: function (res) {
+                            var data1 = res['attributes']['data'];
+                            for (var i = 0; i < data1.length; i++) {
+                                if (data1[i]['status'] == 0) {
+                                console.log(data1[i]);
+                                    self.requestPendingLead.push(new request(data1[i]));
+                                }
+                                if (data1[i]['status'] == 1) {
+                                console.log(data1[i]);
+                                    self.requestRejected.push(new request(data1[i]));
+                                }
+                            }
+                        }
+                    });
+                }
             }
         });
 
@@ -84,23 +111,21 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             $(".approveDisapprove").on('click', function () {
                 console.log($(this).attr('type'));
                 console.log($(this).attr('id1'));
-                var descriptionChange = $(this).parent().prev().children().children('#text-area20').val() =="" ? 
-                $(this).parent().prev().children().children('#text-area20').val() : $(this).attr('desc');
-                
-                
+                var descriptionChange = $(this).parent().prev().children().children('#text-area20').val() == "" ?
+                        $(this).parent().prev().children().children('#text-area20').val() : $(this).attr('desc');
                 var removeHtml = $(this);
-                removeHtml.parent().parent().html("");
-                    
+                removeHtml.parent().parent().parent().html("");
+
                 return false;
                 $.ajax({
-                            headers: {secret: secret},
-                            method: 'POST',
-                            url: addFeedbackResponse,
-                            data: {login_user_id: id, feedback_to: feedback_to, feedback_desc: descriptionChange},
-                            success: function () {
-                                responseDesc.val("");  
-                            }
-                        });
+                    headers: {secret: secret},
+                    method: 'POST',
+                    url: addFeedbackResponse,
+                    data: {login_user_id: id, feedback_to: feedback_to, feedback_desc: descriptionChange},
+                    success: function () {
+                        responseDesc.val("");
+                    }
+                });
             });
             $('.openDiv').click(function () {
 

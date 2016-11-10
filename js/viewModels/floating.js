@@ -239,6 +239,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 data: {u_id: self.userIdFloat(), l_id: self.value2()[0],desc: self.desc()},
                 success: function () {
                     console.log('request sent');
+                    console.log(self.userIdFloat());
+                    console.log(self.value2()[0]);
+                    console.log(self.desc());
                     $("#modalDialogRequest").ojDialog("close");
                     $("#sucess").show();
                      self.sucessMsg("Your Request has been sent !!");

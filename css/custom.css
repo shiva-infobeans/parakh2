@@ -690,3 +690,9 @@ border: 1px solid #fff;
 .requestAlignment{
     margin:0px auto;
 }
+.color-darkGray{
+    color: #424242;
+}
+.border-color-yellow{
+    border:3px solid #fee123;
+}
