@@ -3,11 +3,23 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/var/www/html/ParakhDev/js/viewModels/personProfile.js</file>
             <file>file:/var/www/html/ParakhDev/css/custom.css</file>
             <file>file:/var/www/html/ParakhDev/js/views/floating.html</file>
             <file>file:/var/www/html/ParakhDev/js/viewModels/rateRequestPage.js</file>
             <file>file:/var/www/html/ParakhDev/js/views/rateRequestPage.html</file>
+=======
+            <file>file:/var/www/html/devparakh/dev/dev/css/common.css</file>
+            <file>file:/var/www/html/devparakh/dev/dev/js/libs/customLib/mainPageJs.js</file>
+            <file>file:/var/www/html/devparakh/dev/dev/js/viewModels/rateRequestPage.js</file>
+            <file>file:/var/www/html/devparakh/dev/dev/js/viewModels/myTeam1.js</file>
+            <file>file:/var/www/html/devparakh/dev/dev/js/views/floating.html</file>
+            <file>file:/var/www/html/devparakh/dev/dev/css/custom.css</file>
+            <file>file:/var/www/html/devparakh/dev/dev/js/viewModels/floating.js</file>
+            <file>file:/var/www/html/devparakh/dev/dev/js/views/rateRequestPage.html</file>
+            <file>file:/var/www/html/devparakh/dev/dev/js/views/myTeam1.html</file>
+>>>>>>> 68312f13b6df1c7a652af862e92ba85792c0fc93
         </group>
     </open-files>
 </project-private>
