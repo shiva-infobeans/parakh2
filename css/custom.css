@@ -265,7 +265,7 @@ ul li.selectedTab div {
     border:none;
 }
 div.profile-page{
-    height: 600px;
+    /*height: 600px;*/
 }
 div.oj-tabs-panel.oj-tabs-selected{
     background: none;
@@ -298,12 +298,12 @@ div.oj-tabs-panel.oj-tabs-selected{
     margin:40px 10px 10px 10px;
 }
 .profile-page-overflow{
-    position: absolute;
+    /*position: absolute;*/
     top:0;
     left:0;
     right:0;
     bottom:0;
-    overflow-y: auto;
+    /*overflow-y: auto;*/
 }
 .myname-profile{
     font-weight: 600;

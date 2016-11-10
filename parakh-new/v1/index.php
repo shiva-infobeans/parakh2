@@ -464,39 +464,6 @@ $app->get('/getAllTeamMembers[/{userId}]', function ($request, $response, $args)
     $response->withJson($response_data);
     return $response;
 });
-#mycode notify
-/* *
- * URL: http://localhost/parakh-new/v1/index.php/notifications/<userId>
- * Parameters: none
- * 
- * Method: GET
- * */    
-$app->get('/notifications[/{userId}]', function ($request, $response, $args) {
-    $response_data = array();
-    //Creating a dbmodule object
-    $response = '{"error":"false", "data":[
-    {"notifyType":"positive", "comment":"Doe"},
-    {"notifyType":"negative", "comment":"Smith"},
-    {"notifyType":"feedback", "comment":"Jones1"},
-    {"notifyType":"response-one-approve", "comment":"Jones2"},
-    {"notifyType":"response-one-reject", "comment":"Jones3"},
-    {"notifyType":"response-feedback", "comment":"Jones4"}
-]}';
-/*    
-    $db = new dbmodule();
-    $result = $db->get_all_team_members($args['userId']);
-    if($result != 0){
-        $response_data = makeResponse('false',$result);
-    }else{
-        $response_data = makeResponse('true',get_site_error(3002));
-    }    
-    $response->withJson($response_data);
-*/
-    return $response;
-});
-#mycode end notify
-
-
 
 /* *
  * URL: http://localhost/parakh-new/v1/index.php/addFeedbackResponce
@@ -599,6 +566,32 @@ $app->post('/requestForOne', function ($request, $response) {
     $response->withJson($response_data);
     return $response;
     
+});
+
+
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getTeamMembersRequest/<userId>
+ * Parameters: user id
+ * 
+ * Method: GET
+ * */    
+$app->get('/getTeamMembersRequest[/{userId}]', function ($request, $response, $args) {
+    $response_data = array();
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    
+    if($db->isValidUser( $args['userId'] )){
+        $result = $db->getTeamMembersRequest($args['userId']);
+        if($result != 0){
+            $response_data = makeResponse('false',$result);
+        }else{
+            $response_data = makeResponse('true',get_site_error(3009));
+        }    
+        $response->withJson($response_data);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3002));
+    }    
+    return $response;
 });
 
 
