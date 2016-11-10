@@ -38,13 +38,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.requestPending = ko.observableArray();
 
 
+        
 
 
 
-
-
+        self.pic = "http://www.freeiconspng.com/uploads/blank-face-person-icon-7.png";
         self.feedbackImage = ko.observable("https://pixabay.com/static/uploads/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png");
-        self.name = ko.observable("asldkfjlasdf lasjd fas");
+        self.name = "Shiva Shirbhate";
         self.feedbackdesignation = ko.observable("designation");
         self.feedbackDescription = ko.observable("descrioption 123 asdf asdf");
         self.feedbackDate = ko.observable("date here");
@@ -84,17 +84,20 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             $(".approveDisapprove").on('click', function () {
                 console.log($(this).attr('type'));
                 console.log($(this).attr('id1'));
+                var descriptionChange = $(this).parent().prev().children().children('#text-area20').val() =="" ? 
+                $(this).parent().prev().children().children('#text-area20').val() : $(this).attr('desc');
+                
                 
                 var removeHtml = $(this);
-                console.log(removeHtml.parent().parent().html(""));
+                removeHtml.parent().parent().html("");
+                    
                 return false;
                 $.ajax({
                             headers: {secret: secret},
                             method: 'POST',
                             url: addFeedbackResponse,
-                            data: {login_user_id: id, feedback_to: feedback_to, feedback_desc: responseDesc.val(), feedback_id: fid},
+                            data: {login_user_id: id, feedback_to: feedback_to, feedback_desc: descriptionChange},
                             success: function () {
-                               
                                 responseDesc.val("");  
                             }
                         });

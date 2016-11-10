@@ -685,10 +685,8 @@ border: 1px solid #fff;
 .textArea-requests{
     border:2px solid #6BA034;
     background:none;
-    margin-left:10px;
-    margin-right:10px;
     color:#fff;
 }
 .requestAlignment{
-    
+    margin:0px auto;
 }
