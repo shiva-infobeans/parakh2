@@ -678,3 +678,15 @@ width: 25px;
 border-radius: 50%;
 border: 1px solid #fff;
 }
+#tabs-4 hr{
+    width: 100%;
+}
+/*for request send by the user and accept/reject by lead/manager*/
+.textArea-requests{
+    border:2px solid #6BA034;
+    background:none;
+    color:#fff;
+}
+.requestAlignment{
+    margin:0px auto;
+}

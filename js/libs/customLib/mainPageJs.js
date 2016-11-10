@@ -22,6 +22,7 @@ var addFeedbackResponse = baseUrl +"/addFeedbackResponce";
 var getAllLeads = baseUrl +"/getAllLeads/";
 var requestForOne  = baseUrl +"/requestForOne";
 var notify = baseUrl+"/notifications/";
+var getRequests = baseUrl+"/getTeamMembersRequest/";
 var secret = 'parakh-revamp-local-key-2016';
 
 //updates for google client id and parakh logo (favicon) 
