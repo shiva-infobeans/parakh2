@@ -216,7 +216,7 @@ and open the template in the editor.
                             </div>
                             <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-margin-top oj-margin-bottom requestAlignment">
                                 <!--ko foreach:  requestPendingLead-->
-                                <div class="oj-xl-9 oj-lg-9 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding oj-flex-bar-center-absolute">
+                                <div class="oj-xl-9 oj-lg-9 oj-md-12 oj-sm-12 pos-relative oj-margin oj-flex-bar-center-absolute requestApproveDiv">
                                     <div class="transbox border-color-green feedbackHeight"></div>
                                     <div class="oj-flex oj-row">
                                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center  oj-margin-top oj-margin-bottom">
@@ -243,8 +243,8 @@ and open the template in the editor.
                                      placeholder: 'Type your reason here..'}"></textarea>
                                         </div>
                                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex  oj-margin-top">
-                                            <button class="oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6 oj-flex-item oj-padding approveDisapprove" data-bind="attr:{requestId: request_id,type:'1',desc: lComment,userId: userID,to_id:from_id}"><i class="zmdi zmdi-check"></i></button>
-                                            <button class="oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6 oj-flex-item oj-padding approveDisapprove"  data-bind="attr:{requestId: request_id,type:'0',desc: lComment,userId: userID,to_id:from_id}">  <i class="zmdi zmdi-close"></i></button>
+                                            <button class="approveDisapprove" data-bind="attr:{requestId: request_id,type:'1',desc: lComment,userId: userID,to_id:from_id}"><i class="zmdi zmdi-check"></i></button>
+                                            <button class="approveDisapprove"  data-bind="attr:{requestId: request_id,type:'0',desc: lComment,userId: userID,to_id:from_id}">  <i class="zmdi zmdi-close"></i></button>
                                         </div>
                                     </div>
                                 </div>

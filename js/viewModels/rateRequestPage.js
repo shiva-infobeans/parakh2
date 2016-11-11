@@ -159,12 +159,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 var descriptionChange = $(this).parent().prev().children().children('#text-area20').val() == "" ?
                         $(this).parent().prev().children().children('#text-area20').val() : $(this).attr('desc');
                 var to_id = $(this).attr('to_id');
-//                console.log(requestId);
-//                console.log(type);
-//                console.log(descriptionChange);
-//                console.log(to_id);
-//                console.log(userId);
-
                 var removeHtml = $(this);
                 $.ajax({
                     headers: {secret: secret},
