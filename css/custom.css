@@ -239,6 +239,7 @@ ul.profile-ul{
     padding: 0px !important;
     margin-left: 10px !important;
     margin-right: 10px !important;
+    height:600px;
 }
 ul li.selectedTab div a.oj-tabs-gen-a.oj-tabs-anchor {
     color:#fff !important;

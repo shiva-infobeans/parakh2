@@ -147,12 +147,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                headers: {secret: secret},
              success: function () {
                   var data = teamLeadSearch.attributes['data'];
-                  console.log(teamLeadSearch.attributes['data']);
                     for (var counter2 = 0; counter2 < data.length; counter2++) {
                         self.autoSearchLead.push(new requestSearch(data[counter2])); 
                            var item1 = new Object();
                             item1.value = data[counter2]['manager_id'];
-                          //  console.log(data[counter2]['manager_id']) ;
                             item1.label = data[counter2]['manager_name'];
                             item1.autoSearchLeadPic = data[counter2]['google_picture_link'];
                             item1.autoSearchLeadRole = data[counter2]['role_name'];

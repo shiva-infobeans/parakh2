@@ -42,9 +42,11 @@ var self = this;
         self.lead_name = ko.observable();
         self.lead_pic = ko.observable();
         self.lead_id = ko.observable();
+        self.lead_role = ko.observable();
         self.manager_name = ko.observable();
         self.manager_pic = ko.observable();
         self.manager_id = ko.observable();
+        self.manager_role = ko.observable();
         self.desc = ko.observable();
         self.desc1 = ko.observable();
         self.textError = ko.observable();
@@ -89,9 +91,13 @@ var self = this;
                                         self.lead_name(result['attributes']['data'][0]['manager_name']);
                                         self.lead_pic(result['attributes']['data'][0]['google_picture_link']);
                                         self.lead_id(result['attributes']['data'][0]['manager_id']);
+                                        self.lead_role(result['attributes']['data'][0]['role_name']);
+                                      // console.log(result['attributes']['data'][0]['role_name']);
                                         self.manager_name(result['attributes']['data'][1]['manager_name']);
                                         self.manager_pic(result['attributes']['data'][1]['google_picture_link']);
                                         self.manager_id(result['attributes']['data'][1]['manager_id']);
+                                        self.manager_role(result['attributes']['data'][1]['role_name']);
+                                        //console.log(result['attributes']['data'][1]['role_name']);
                                 }
                         });
                 }
