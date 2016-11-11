@@ -69,6 +69,18 @@ switch ($error_code) {
         'error' => 'Invalid parameter for request'
         );
         break;
+    case 3011:
+        return array(
+        'code' => '3011',
+        'error' => 'Invalid request details'
+        );
+        break;
+    case 3012:
+        return array(
+        'code' => '3012',
+        'error' => 'Invalid parameters'
+        );
+        break;
     case "blue":
         echo "Your favorite color is blue!";
         break;

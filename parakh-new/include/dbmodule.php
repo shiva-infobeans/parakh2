@@ -11,19 +11,33 @@ class dbmodule
     //Database connection link
     private $con;
     private $my_team_id;
- 
+    public $site_name = '';
+    public $site_url = '';
+    public $manager_email = '';
+    public $manager_name = '';
+    public $from_email = '';
+    public $from_name = '';
+
+    
     //Class constructor
     function __construct()
     {
         //Getting the DbConnect.php file
         require_once dirname(__FILE__) . '/dbconnect.php';
- 
+        require_once dirname(__FILE__) . '/config.php';
+        
         //Creating a DbConnect object to connect to the database
         $db = new dbconnect();
  
         //Initializing our connection link of this class
         //by calling the method connect of DbConnect class
         $this->con = $db->connect();
+        $this->site_name = SITE_NAME;
+        $this->site_url = SITE_URL;
+        $this->manager_email = MANAGER_EMAIL;
+        $this->manager_name = MANAGER_NAME;
+        $this->from_email = FROM_EMAIL;
+        $this->from_name = FROM_NAME;
     }
     
     
@@ -196,6 +210,8 @@ class dbmodule
             ':created_date' => $created_date,
             ':modified_date' => $modified_date,
             ':show_rating' => $show));
+        $rating_last_insert = "";
+        $rating_last_insert = $this->con->lastInsertId();
         
         if (isset($data['comment']) && !empty($data['comment'])) {
             $comment_insert_query = "INSERT INTO comment(request_id, comment_text, by_id, created_date, modified_date)
@@ -207,8 +223,106 @@ class dbmodule
                 ':created_date' => $created_date,
                 ':modified_date' => $modified_date));
         }
+        // send email notifiction to user
+        if($rating_last_insert){
+            $email_data = [];
+            $user_data = $this->getEmailById($data['to_id']);
+            $temp_data = $this->getEmailTemplateByCode('PRKE01');
+            $email_data['to']['email'] = $user_data['google_email'];
+            $email_data['to']['name'] = $user_data['google_name'];
+            $email_data['subject'] = $temp_data['subject'];
+            $this->getParakhLink();
+            $rating = ($data['rating'] == 0)? '-1' : 1;
+            $vars = array(
+                "{username}" => $email_data['to']['name'],
+                "{rating}" => $rating,
+                "{parakh}" => $this->getParakhLink(),
+            );
+            $message = strtr($temp_data['content'], $vars);
+            $email_data['message'] = $message;           
+            $this->send_notification($email_data);
+            
+            // send notification to manager
+            //{member} has received a {rating} rating by {lead} for "{comment}".
+            $email_data_l = [];
+            $user_data_l = $this->getEmailById($data['from_id']);
+            $temp_data_l = $this->getEmailTemplateByCode('PRKE21');
+            $email_data_l['to']['email'] = $this->manager_email;
+            //$email_data_l['to']['email'] = 'abhijeet.dange@infobeans.com';
+            $email_data_l['to']['name'] = $this->manager_name;
+            $email_data_l['subject'] = $temp_data_l['subject'];
+            $rating = ($data['rating'] == 0)? '-1' : 1;
+            $vars = array(
+                "{member}" => $email_data['to']['name'],
+                "{rating}" => $rating,
+                "{lead}" => $user_data_l['google_name'],
+                "{comment}" => $data['desc'],
+            );
+            $message = strtr($temp_data_l['content'], $vars);
+            $email_data_l['message'] = $message;           
+            $this->send_notification($email_data_l);
+        }
         return true;
     }//end of fun
+    
+        
+    function getParakhLink()
+    {
+        return '<a href="'.$this->site_url.'" >'.$this->site_name.'</a>';
+    }
+    
+    function getEmailById($id)
+    {
+        if($id){
+            $query = "SELECT google_email,google_name FROM users WHERE id = :id";
+            $profile_data = $this->con->prepare($query);
+            $query_result = $profile_data->execute(array(':id' => $id));
+            $row = $profile_data->fetch((PDO::FETCH_ASSOC));
+            return $row;
+        }
+    }
+
+    function getEmailTemplateByCode($id)
+    {
+        if($id != ""){
+            $query = "SELECT * FROM email_templates WHERE code = :id";
+            $profile_data = $this->con->prepare($query);
+            $query_result = $profile_data->execute(array(':id' => $id));
+            $row = $profile_data->fetch((PDO::FETCH_ASSOC));
+            return $row;
+        }
+    }
+   
+    function testemail()
+    {
+            $email_data = $user_data = [];
+            $user_data = $this->getEmailById(5);
+            $temp_data = $this->getEmailTemplateByCode('PRKE01');
+            $email_data['to']['email'] = $user_data['google_email'];
+            $email_data['to']['name'] = $user_data['google_name'];
+            $email_data['subject'] = $temp_data['subject'];
+            $this->getParakhLink();
+            $vars = array(
+                "{username}" => $email_data['to']['name'],
+                "{Parakh}" => $this->getParakhLink(),
+            );
+            
+            $message = strtr($temp_data['content'], $vars);
+            $email_data['message'] = $message;
+           
+            $this->send_notification($email_data);
+    }
+    
+    /**
+     * Send email notification
+     */
+    function send_notification($email_data)
+    {
+        require_once 'notifications.php';
+        send_mail($email_data);
+        
+    }//end of fun
+    
     
     /**
      * Update profile
@@ -260,6 +374,47 @@ class dbmodule
             ':created_date' => $created_date,
             ':modified_date' => $modified_date,
             ':show_rating' => '2'));
+        $rating_last_insert = "";
+        $rating_last_insert = $this->con->lastInsertId();
+        if($rating_last_insert){
+            $email_data = [];
+            $user_data = $this->getEmailById($data['for_id']);
+            $temp_data = $this->getEmailTemplateByCode('PRKE01');
+            $email_data['to']['email'] = $user_data['google_email'];
+            $email_data['to']['name'] = $user_data['google_name'];
+            $email_data['subject'] = $temp_data['subject'];
+            $this->getParakhLink();
+            $rating = 1;
+            $vars = array(
+                "{username}" => $email_data['to']['name'],
+                "{rating}" => $rating,
+                "{parakh}" => $this->getParakhLink(),
+            );
+            $message = strtr($temp_data['content'], $vars);
+            $email_data['message'] = $message;           
+            $this->send_notification($email_data);
+            
+            // send notification to manager
+            //{member} has received a {rating} rating by {lead} for "{comment}".
+            $email_data_l = [];
+            $user_data_l = $this->getEmailById($data['for_id']);
+            $temp_data_l = $this->getEmailTemplateByCode('PRKE21');
+            $email_data_l['to']['email'] = $this->manager_email;
+            //$email_data_l['to']['email'] = 'abhijeet.dange@infobeans.com';
+            $email_data_l['to']['name'] = $this->manager_name;
+            $email_data_l['subject'] = $temp_data_l['subject'];
+            $rating = ($data['rating'] == 0)? '-1' : 1;
+            $vars = array(
+                "{member}" => $email_data['to']['name'],
+                "{rating}" => $rating,
+                "{lead}" => $user_data_l['google_name'],
+                "{comment}" => $data['desc'],
+            );
+            $message = strtr($temp_data_l['content'], $vars);
+            $email_data_l['message'] = $message;           
+            $this->send_notification($email_data_l);
+            
+        }
         return true;
     }//end for fun
     
@@ -454,7 +609,45 @@ function get_ranking_list() {
             echo 'Connection failed: ' . $e->getMessage();
             exit;
         }
-        return $work_last_insert = $this->con->lastInsertId();
+        $work_last_insert = $this->con->lastInsertId();
+        if($work_last_insert){
+            $email_data = [];
+            $user_data = $this->getEmailById($data['feedback_to']);
+            $from_data = $this->getEmailById($data['feedback_from']);
+            $temp_data = $this->getEmailTemplateByCode('PRKE05');
+            $email_data['to']['email'] = $user_data['google_email'];
+            $email_data['to']['name'] = $user_data['google_name'];
+            $email_data['subject'] = $temp_data['subject'];
+            $this->getParakhLink();
+            
+            $vars = array(
+                "{username}" => $email_data['to']['name'],
+                "{member}" => $from_data['google_name'],
+                "{parakh}" => $this->getParakhLink(),
+                "{feedback}" => $data['feedback_description'],
+            );
+            $message = strtr($temp_data['content'], $vars);
+            $email_data['message'] = $message;           
+            $this->send_notification($email_data);
+            
+            // send notification to manager
+            $email_data_l = [];
+            $temp_data_l = $this->getEmailTemplateByCode('PRKE22');
+            $email_data_l['to']['email'] = $this->manager_email;
+            
+            $email_data_l['to']['name'] = $this->manager_name;
+            $email_data_l['subject'] = $temp_data_l['subject'];
+            
+            $vars = array(
+                "{member}" => $email_data['to']['name'],
+                "{lead}" => $from_data['google_name'],
+                "{feedback}" => $data['feedback_description'],
+            );
+            $message = strtr($temp_data_l['content'], $vars);
+            $email_data_l['message'] = $message;           
+            $this->send_notification($email_data_l);
+        }
+        return $work_last_insert;
         
     }//end of fun
 
@@ -592,9 +785,13 @@ function get_ranking_list() {
     function getTeamMembersRequest($user_id = null)
     {
         if (isset($user_id)) {
-           $query = "SELECT user.google_name,user.google_picture_link, request.id as request_id, request.to_id,request.from_id,request.status, request.for_id, description, work.created_date, request_for, work.id AS work_id "
+           $query = "SELECT user.google_name,user.google_picture_link,user.designation,request.id as request_id, "
+                   . "request.to_id,request.from_id,request.status, request.for_id, description, "
+                   . "work.created_date, request_for, work.id AS work_id "
                    . "FROM work AS work LEFT JOIN request AS request ON work.id = request.work_id "
-                   . "LEFT JOIN  users AS user ON IF( work.user_id = work.for_id, request.from_id = user.id, request.for_id = user.id ) WHERE request.to_id = " . $user_id . " "
+                   . "LEFT JOIN  users AS user "
+                   . "ON IF( work.user_id = work.for_id, request.from_id = user.id, "
+                   . "request.for_id = user.id ) WHERE request.to_id = " . $user_id . " "
                    . "ORDER BY work.id DESC";
            $user_list = $this->con->prepare($query);
            $user_list->execute();
@@ -606,6 +803,194 @@ function get_ranking_list() {
                return 0;
            }*/
        }       
+    }//end of fun()
+    
+    function getUserPendingRequest($user_id,$status = 0)
+    {
+        if (isset($user_id)) {
+            $cnd = '';
+            if ($status != '')
+                $cnd = " AND request.status = " . $status;
+            $query = "select user.google_name,user.id as lead_id, "
+                    . "user.google_picture_link, user.designation,role.name as role_name, "
+                    . "request.to_id,request.from_id,description,"
+                    . "work.created_date,request_for,rating, request.status "
+                    . "from work as work left join "
+                    . "request as request on work.id = request.work_id left join "
+                    . "rating as rating on work.id=rating.work_id left join  "
+                    . "users as user on request.to_id=user.id left join "
+                    . "role_type as role on role.id = user.role_id "
+                    . "where work.created_by = " . $user_id . $cnd . " order by work.id desc";
+            $user_list = $this->con->prepare($query);
+            $user_list->execute();
+            $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
+            return $row;
+        }
+    }//end of fun
+    
+    
+    
+    // fun to approve or denied the request
+    function requestDecision($data)
+    {
+        if($data['st'] == 1){
+            return $this->acceptRequest($data);
+        }
+        if($data['st'] == 0){
+            return $this->rejectRequest($data);
+        }
+    }//end of fun
+    
+    
+    function rejectRequest($data)
+    {
+        $dateTime = new \DateTime(null, new DateTimeZone('Asia/Kolkata'));
+        $created_date = $modified_date = $dateTime->format("Y-m-d H:i:s");
+        $id = $data['rq_id'];
+        $sql = "Update request SET show_request='1',status = '1', modified_date = '" . $modified_date . "' WHERE id = '" . $id . "'";
+        $query = $this->con->prepare($sql);
+        $data2 = $query->execute();
+        $this->unread_request($id);
+        $comment_insert_query = "INSERT INTO comment(request_id, comment_text, by_id, created_date, modified_date)
+                                 VALUES(:request_id,:comment_text,:by_id,:created_date,:modified_date)";
+        $comment_insert = $this->con->prepare($comment_insert_query);
+        $comment_insert->execute(array(':request_id' => $id,
+            ':comment_text' => $data['desc'],
+            ':by_id' => $data['u_id'],
+            ':created_date' => $created_date,
+            ':modified_date' => $modified_date));
+        //notifyRequestStatus($data, "decline");
+        return true;        
+    }//end of fun
+    
+    
+    function acceptRequest($data)
+    {
+
+        $dateTime = new \DateTime(null, new DateTimeZone('Asia/Kolkata'));
+        $created_date = $modified_date = $dateTime->format("Y-m-d H:i:s");
+        
+        $show = 1;
+        $status = 2;
+        
+        $rating_inst = $this->get_rating_detail($data['rq_id']);
+        $comment_inst = $this->get_comment_detail($data['rq_id']);
+        $request_data = $this->get_request_detail($data['rq_id']);
+        
+        
+        $login_user_id = $data['u_id'];
+        if (empty($rating_inst)) {
+            $rating_insert_query = "INSERT INTO rating(request_id, work_id, user_id, rating, given_by, created_date, modified_date, show_rating)
+                                    VALUES(:request_id,:work_id,:user_id,:rating,:given_by,:created_date,:modified_date,:show_rating)";
+            $rating_insert = $this->con->prepare($rating_insert_query);
+            $rating_insert->execute(array(':request_id' => $data['rq_id'],
+                ':work_id' => $request_data['work_id'],
+                ':user_id' => $data['to_id'],
+                ':rating' => $data['st'],
+                ':given_by' => $login_user_id,
+                ':created_date' => $created_date,
+                ':modified_date' => $modified_date,
+                ':show_rating' => $show));
+        } else {
+            $rate = $data['rating'];
+            $sql = "Update rating SET show_rating ='" . $show . "',rating = $rate,"
+                    . "modified_date = '" .$modified_date. "' WHERE "
+                    . "request_id = '" . $data['rq_id'] . "'";
+            $query = $this->con->prepare($sql);
+            $data2 = $query->execute();
+        }
+        if (empty($comment_inst)) {
+            $comment_insert_query = "INSERT INTO comment(request_id, comment_text, by_id, created_date, modified_date)
+                                    VALUES(:request_id,:comment_text,:by_id,:created_date,:modified_date)";
+            $comment_insert = $this->con->prepare($comment_insert_query);
+            $comment_insert->execute(array(':request_id' => $data['rq_id'],
+                ':comment_text' => $data['desc'],
+                ':by_id' => $data['u_id'],
+                ':created_date' => $created_date,
+                ':modified_date' => $modified_date));
+        } else {
+            $update_comment = "Update comment SET comment_text ='".$data['desc']."', modified_date = '".$modified_date."' WHERE request_id = '" . $data['rq_id'] . "'";
+            $query_comment = $this->con->prepare($update_comment);
+            $comment_update_data = $query_comment->execute();
+        }
+        $sql = "Update work SET description='".$data['desc']."' WHERE id = '" .$request_data['work_id']. "'";
+        $query = $this->con->prepare($sql);
+        $data2 = $query->execute();
+        //notifyRequestStatus($data, "approve");
+        $sql = "Update request SET show_request ='".$show."',status = '".$status."', "
+                ."modified_date = '".$modified_date."' WHERE id = '".$data['rq_id']."'";
+        $query = $this->con->prepare($sql);
+        $data2 = $query->execute();
+        return true;   
+    }//end of fun
+    
+    function unread_request($request_id = null) 
+    {
+        $query = "UPDATE request SET read_status = '1' WHERE id = :id";
+        $update_status = $this->con->prepare($query);
+        $update_status = $update_status->execute(array(':id' => $request_id));
+        return $update_status;
+    }    
+    
+    function get_rating_detail($request_id)
+    {
+        $query = "SELECT * FROM rating WHERE request_id = :request_id";
+        $status = $this->con->prepare($query);
+        $status->execute(array(':request_id' => $request_id));
+        $row = $status->fetch((PDO::FETCH_ASSOC));
+        return $row;
+    }//end of fun
+    
+    function get_request_detail($request_id)
+    {
+        $query = "SELECT * FROM request WHERE id = :request_id";
+        $status = $this->con->prepare($query);
+        $status->execute(array(':request_id' => $request_id));
+        $row = $status->fetch((PDO::FETCH_ASSOC));
+        return $row;
+    }//end of fun
+    
+    
+    function get_comment_detail($request_id)
+    {
+        $query = "SELECT * FROM comment WHERE request_id = :request_id";
+        $status = $this->con->prepare($query);
+        $status->execute(array(':request_id' => $request_id));
+        $row = $status->fetch((PDO::FETCH_ASSOC));
+        return $row;    
+    }
+    
+    
+    function getRecentActivity($user_id)
+    {
+        $query = "SELECT * FROM (SELECT r.user_id AS user_id,re.for_id,
+                     re.status,r.given_by AS given_by,u.google_name AS ratedby,
+                     u1.google_name AS rated_to,IF(r.rating = 1, '+1', '-1') AS rating,
+                     u.google_picture_link,u1.google_picture_link AS for_picture,
+                     r.modified_date AS created_date FROM rating AS r
+                     JOIN request re ON re.id = r.request_id JOIN users AS u ON u.id = r.user_id
+                     JOIN users AS u1 ON u1.id = r.given_by
+                     WHERE r.user_id = :user_id OR r.given_by = :user_id
+                     AND re.for_id IS NULL
+                     UNION 
+                     SELECT re.to_id,re.for_id,re.status,re.from_id,u.google_name,u1.google_name AS ratedby,
+                     IF(re.status = 1, 'declined', 'approved') AS rating,u.google_picture_link,
+                     u1.google_picture_link AS for_picture,re.modified_date AS created_date
+                     FROM `request` AS re JOIN users AS u ON (u.id = re.to_id)
+                     JOIN users AS u1 ON u1.id = re.for_id WHERE re.for_id = :user_id
+                     OR re.to_id = :user_id ORDER BY created_date DESC) AS d
+                     WHERE status <> 0 AND (user_id <> for_id OR for_id IS NULL)ORDER BY d.created_date DESC
+                     ";                     
+            $user_list = $this->con->prepare($query);
+            $user_list->execute(array(':user_id' => $user_id));
+            $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
+            return $row;        
+    }//end of fun
+    
+    //
+    function getPendingRequest($user_id = null)
+    {
+      return 0;  
     }//end of fun
     
 } //end of class

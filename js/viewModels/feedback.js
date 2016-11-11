@@ -33,18 +33,21 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel'
             headers: {secret: secret},
             success: function () {
 //                assgning values to the varibles.
+                var img0 = data.attributes['data'][0]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][0]['google_picture_link'];
                 self.name0(data.attributes['data'][0]['google_name']);
-                self.image0(data.attributes['data'][0]['google_picture_link']);
+                self.image0(img0);
 
-
+                var img1 = data.attributes['data'][1]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][1]['google_picture_link'];
                 self.name1(data.attributes['data'][1]['google_name']);
-                self.image1(data.attributes['data'][1]['google_picture_link']);
-
+                self.image1(img1);
+                
+                var img2 = data.attributes['data'][2]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][2]['google_picture_link'];
                 self.name2(data.attributes['data'][2]['google_name']);
-                self.image2(data.attributes['data'][2]['google_picture_link']);
+                self.image2(img2);
 
+                var img3 = data.attributes['data'][3]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][3]['google_picture_link'];
                 self.name3(data.attributes['data'][3]['google_name']);
-                self.image3(data.attributes['data'][3]['google_picture_link']);
+                self.image3(img3);
 
             }
         });

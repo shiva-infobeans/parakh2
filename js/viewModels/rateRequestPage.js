@@ -25,7 +25,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         var req = Object();
         req.sComment = data['description'].substring(0, 20);
         req.lComment = data['description'];
-        req.pic = data['google_picture_link'];
+        req.request_id = data['request_id'];
+        req.pic = data['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data['google_picture_link'];
         req.name = data['google_name'];
         req.designation = data['designation'];
         req.date = dateformat(data['created_date']);
@@ -77,7 +78,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 self.role(res['attributes']['data']['role_name']);
 
                 var requestUrl = oj.Model.extend({
-                    url: getRequests + self.userId() // get all the pending requests send by user to lead/manager
+                    url: getUserPendingRequest + self.userId() + "/0" // get all the pending requests send by user to lead/manager
                 });
                 var requestFetch = new requestUrl();
                 requestFetch.fetch({
@@ -97,7 +98,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 // for lead or manager
                 if (self.role() != "Team Member") {
                     var requestUrl1 = oj.Model.extend({
-                        url: getRequests + self.userId() // get all pending requests for the lead to approve or reject.
+                        url: getTeamMembersRequest + self.userId() // get all pending requests for the lead to approve or reject.
                     });
                     var requestFetch1 = new requestUrl1();
                     requestFetch1.fetch({
@@ -108,10 +109,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 if (data1[i]['status'] == 0) {
                                     self.requestPendingLead.push(new request(data1[i]));
                                 }
-                                if (data1[i]['status'] == 1) {
-                                    console.log(data1[i]);
-                                    
-                                }
+//                                if (data1[i]['status'] == 1) {
+//                                    console.log(data1[i]);
+//                                    
+//                                }
                             }
                         }
                     });
@@ -132,10 +133,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     success: function (result) {
                         var data = result['attributes']['data'];
                         self.lead_name(result['attributes']['data'][0]['manager_name']);
-                        self.lead_pic(result['attributes']['data'][0]['google_picture_link']);
+                        
+                        self.lead_pic(result['attributes']['data'][0]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : result['attributes']['data'][0]['google_picture_link']);
                         self.lead_id(result['attributes']['data'][0]['manager_id']);
                         self.manager_name(result['attributes']['data'][1]['manager_name']);
-                        self.manager_pic(result['attributes']['data'][1]['google_picture_link']);
+                        self.manager_pic(result['attributes']['data'][1]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : result['attributes']['data'][1]['google_picture_link']);
                         self.manager_id(result['attributes']['data'][1]['manager_id']);
                     }
                 });
@@ -144,13 +146,16 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
         setTimeout(function () {
             $(".approveDisapprove").on('click', function () {
-                console.log($(this).attr('type'));
-                console.log($(this).attr('id1'));
                 var descriptionChange = $(this).parent().prev().children().children('#text-area20').val() == "" ?
                         $(this).parent().prev().children().children('#text-area20').val() : $(this).attr('desc');
+                var requestId = $(this).attr('requestId');
+                var type = $(this).attr('type');
+                console.log(requestId);
+                console.log(type);
+                console.log(descriptionChange);
                 var removeHtml = $(this);
-                removeHtml.parent().parent().parent().html("");
-
+                console.log(removeHtml.parent().parent().parent().attr('class'));
+                removeHtml.parent().parent().parent().remove();
                 return false;
                 $.ajax({
                     headers: {secret: secret},
