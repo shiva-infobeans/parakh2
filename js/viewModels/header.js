@@ -16,11 +16,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
         var obj = new Object();
         obj.backColor = '';
         var type1 = 'abc';
-        if (type == 'positive') {
+        if (type == '+1') {
             type1 = "zmdi-plus-1";
             obj.backColor = '#01C854';
         }
-        if (type == 'negative') {
+        if (type == '-1') {
             type1 = "zmdi-neg-1";
             obj.backColor = '#F34334';
         }
@@ -28,11 +28,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
             type1 = "zmdi-comment-alt-text";
             obj.backColor = '#009985';
         }
-        if (type == 'response-one-approve') {
+        if (type == 'approved') {
             type1 = "zmdi-check";
             obj.backColor = '#01B0FF';
         }
-        if (type == 'response-one-reject') {
+        if (type == 'declined') {
             type1 = "zmdi-close";
             obj.backColor = '#EC6748';
         }
@@ -81,7 +81,33 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
                     success: function (res) {
                         var data = res['attributes']['data'];
                         for (var c = 0; c < data.length; c++) {
-                            self.notif.push(new notificationContent(data[c]['notifyType'], data[c]['comment']));
+                            var notificationData = new Object();
+                            
+                            if (data[c]['rating'] == '+1') {
+                                notificationData.type = "+1";
+                                notificationData.comment = data[c]['ratedby']+" rated you +1";
+                            }
+                            if (data[c]['rating'] == '-1') {
+                                notificationData.type = "-1";
+                                notificationData.comment = data[c]['ratedby']+" rated you -1";
+                            }
+                            if (data[c]['rating'] == 'feedback') {
+                                notificationData.type = "feedback";
+                                notificationData.comment = data[c]['ratedby']+" gave you feedback";
+                            }
+                            if (data[c]['rating'] == 'approved') {
+                                notificationData.type = "approved";
+                                notificationData.comment = data[c]['ratedby']+" approved your request";
+                            }
+                            if (data[c]['rating'] == 'declined') {
+                                notificationData.type = "declined";
+                                notificationData.comment = data[c]['ratedby']+" decliened your request";
+                            }
+                            if (data[c]['rating'] == 'response-feedback') {
+                                notificationData.type = "response-feedback";
+                                notificationData.comment = data[c]['ratedby']+" responded on your feedback";
+                            }
+                            self.notif.push(new notificationContent(notificationData.type, notificationData.comment));
                         }
                     }
                 });
@@ -94,9 +120,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
                 }
             });
             $(".openCloseNotify a, notif-count").on('click', function () {
-                if($('.notification').hasClass('hide')){
+                if ($('.notification').hasClass('hide')) {
                     $('.notification').removeClass('hide');
-                }else{
+                } else {
                     $('.notification').addClass('hide');
                 }
                 self.notifCount("");

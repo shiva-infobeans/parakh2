@@ -94,29 +94,6 @@ $app->get('/getUserByLead[/{lead_id}]', function ($request, $response, $args) {
 });
 
 /* *
- * URL: http://localhost/parakh-new/v1/index.php/getRequests/<lead_id>
- * Parameters: none
- * 
- * Method: GET
- * */    
-$app->get('/getRequests[/{lead_id}]', function ($request, $response, $args) {
-    $response_data = array();
-    
-    $response = '{"error":"false", "data":[
-    {"type":"pending", "name":"John Doe1", "pic":"https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSdEUn8yZ2J0GpUBLSzVQ_qRvn9eQWihaoEB3Rsigg19UQlCY1b","message":"asldkfj as;dflkj as;dlkfj asldkjf kjskdfj ksdfiasy dfuyasy dfuasyd fu", "designation":"Trainee Software Engg.","date":"6016-12-02"},
-    {"type":"approved", "name":"John Doe2", "pic":"https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSdEUn8yZ2J0GpUBLSzVQ_qRvn9eQWihaoEB3Rsigg19UQlCY1b","message":"asldkfj as;dflkj as;dlkfj asldkjf kjskdfj ksdfiasy dfuyasy dfuasyd fu", "designation":"Trainee Software Engg.","date":"6016-12-02"},
-    {"type":"pending", "name":"John Doe3", "pic":"https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSdEUn8yZ2J0GpUBLSzVQ_qRvn9eQWihaoEB3Rsigg19UQlCY1b","message":"asldkfj as;dflkj as;dlkfj asldkjf kjskdfj ksdfiasy dfuyasy dfuasyd fu", "designation":"Trainee Software Engg.","date":"6016-12-02"},
-    {"type":"approved","name":"John Doe4", "pic":"https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSdEUn8yZ2J0GpUBLSzVQ_qRvn9eQWihaoEB3Rsigg19UQlCY1b","message":"asldkfj as;dflkj as;dlkfj asldkjf kjskdfj ksdfiasy dfuyasy dfuasyd fu", "designation":"Trainee Software Engg.","date":"6016-12-02"},
-    {"type":"approved", "name":"John Doe5", "pic":"https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSdEUn8yZ2J0GpUBLSzVQ_qRvn9eQWihaoEB3Rsigg19UQlCY1b","message":"asldkfj as;dflkj as;dlkfj asldkjf kjskdfj ksdfiasy dfuyasy dfuasyd fu", "designation":"Trainee Software Engg.","date":"6016-12-02"}
-    
-]}';
-    
-    
-    return $response;
-    
-});
-
-/* *
  * URL: http://localhost/parakh-new/v1/index.php/getOtherTeamMembers/<user_id>
  * Parameters: none
  * 
@@ -194,7 +171,6 @@ $app->post('/addRating', function ($request, $response) {
             // Check user is belong to your team
             if($db->isInMyTeam($post_data['from_id'], $post_data['to_id'])){
                 $result = $db->addRating($post_data);
-
                 if($result != ""){
                     $response_data = makeResponse('false',$result);
                 }else{
@@ -616,6 +592,134 @@ $app->get('/getTeamMembersRequest[/{userId}]', function ($request, $response, $a
     }    
     return $response;
 });
+
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getPendingRequest/<userId>
+ * Parameters: user id
+ * 
+ * Method: GET
+ * */    
+$app->get('/getPendingRequest[/{userId}]', function ($request, $response, $args) {
+    $response_data = array();
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    
+    if($db->isValidUser( $args['userId'] )){
+        $result = $db->getPendingRequest($args['userId']);
+        if($result != 0){
+            $response_data = makeResponse('false',$result);
+        }else{
+            $response_data = makeResponse('true',get_site_error(3009));
+        }    
+        $response->withJson($response_data);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3002));
+    }    
+    return $response;
+});
+
+
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/requestDecision
+ * Parameters: 
+ * u_id: user id
+ * rq_id: request id
+ * st: status
+ * desc: comment
+ * to_id: user for whom taking that decision
+ * Method: POST
+ * Content-Type: application/x-www-form-urlencoded
+ * */    
+$app->post('/requestDecision', function ($request, $response) {
+    $response_data = [];
+    $data = $request->getParsedBody();
+    $post_data = [];
+    $post_data['to_id'] = filter_var($data['to_id'], FILTER_SANITIZE_NUMBER_INT);
+    $post_data['u_id'] = filter_var($data['u_id'], FILTER_SANITIZE_NUMBER_INT);
+    $post_data['rq_id'] = filter_var($data['rq_id'], FILTER_SANITIZE_NUMBER_INT);
+    $post_data['st']   = filter_var($data['st'], FILTER_SANITIZE_NUMBER_INT);
+    $post_data['desc'] = filter_var($data['desc'], FILTER_SANITIZE_STRING);
+    
+    if($post_data['u_id'] > 0 && $post_data['rq_id'] > 0){
+        //Creating a dbmodule object
+        $db = new dbmodule();
+        // Check Is valid user
+        if($db->isValidUser( $post_data['u_id'] )){
+            $result = $db->requestDecision($post_data);
+            if($result != ""){
+                $response_data = makeResponse('false',$result);
+            }else{
+                $response_data = makeResponse('true',get_site_error(3012));
+            }
+        }else{
+            $response_data = makeResponse('true',get_site_error(3002));
+        }
+    }else{
+       $response_data = makeResponse('true',get_site_error(3012)); 
+    }    
+    $response->withJson($response_data);
+    return $response;
+    
+});
+
+
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getRecentActivity/<userId>
+ * Parameters: user id
+ * 
+ * Method: GET
+ * */    
+$app->get('/getRecentActivity[/{userId}]', function ($request, $response, $args) {
+    $response_data = array();
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    
+    if($db->isValidUser( $args['userId'] )){
+        $result = $db->getRecentActivity($args['userId']);
+        if($result != 0){
+            $response_data = makeResponse('false',$result);
+        }else{
+            $response_data = makeResponse('true',get_site_error(3009));
+        }    
+        $response->withJson($response_data);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3002));
+    }    
+    return $response;
+});
+
+$app->get('/testemail', function ($request, $response, $args) {
+    $db = new dbmodule();
+    $db->testemail();
+    return "testing....";
+});
+
+
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getUserPendingRequest/<userId>/<status>
+ * Parameters: user id, status
+ * 
+ * Method: GET
+ * */    
+$app->get('/getUserPendingRequest[/{userId}/{status}]', function ($request, $response, $args) {
+    $response_data = array();
+    //Creating a dbmodule object
+    $db = new dbmodule();
+
+    if($db->isValidUser( $args['userId'] )){
+        $result = $db->getUserPendingRequest($args['userId'],$args['status']);
+        if($result != 0){
+            $response_data = makeResponse('false',$result);
+        }else{
+            $response_data = makeResponse('true',get_site_error(3009));
+        }    
+        $response->withJson($response_data);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3002));
+    }    
+    return $response;
+});
+
 
 
 /**
