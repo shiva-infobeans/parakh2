@@ -1047,7 +1047,7 @@ body{
 .transboxRequest{
    position: relative;
    margin-left: -12px;
-   height: 810px;
+  min-height: 810px;
 
 }
 .requestHeading{

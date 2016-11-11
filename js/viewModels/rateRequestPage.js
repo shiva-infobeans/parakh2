@@ -34,9 +34,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         req.userID = userid;
         return req;
     }
-
-
-
     function rateRequestPageContentViewModel(person) {
         var self = this;
         self.userId = ko.observable();
@@ -56,7 +53,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.textError1 = ko.observable();
         this.sucessMsg = ko.observable("S");
         this.sucessMsg("");
-
         self.requestRejectedMember = ko.observableArray();
         self.requestPendingMember = ko.observableArray();
         self.requestPendingLead = ko.observableArray();
@@ -68,6 +64,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         var user = oj.Model.extend({
             url: getUserByEmail + person['email']
         });
+
         var getId = new user();
         getId.fetch({
             headers: {secret: secret},
@@ -131,51 +128,28 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     $('#rateTab2').show();
                     $('#hideLead').hide();
                 }
-                        var lead = oj.Model.extend({
-                        url: getAllLeads + self.userId(),
-                        });
-                        var getnewLead = new lead();
-                        getnewLead.fetch({
-                        headers: {secret: secret},
-                                success: function (result) {
-                                var data = result['attributes']['data'];
-                                        self.lead_name(result['attributes']['data'][0]['manager_name']);
-                                        self.lead_pic(result['attributes']['data'][0]['google_picture_link']);
-                                        self.lead_id(result['attributes']['data'][0]['manager_id']);
-                                        self.lead_role(result['attributes']['data'][0]['role_name']);
-                                      // console.log(result['attributes']['data'][0]['role_name']);
-                                        self.manager_name(result['attributes']['data'][1]['manager_name']);
-                                        self.manager_pic(result['attributes']['data'][1]['google_picture_link']);
-                                        self.manager_id(result['attributes']['data'][1]['manager_id']);
-                                        self.manager_role(result['attributes']['data'][1]['role_name']);
-                                        //console.log(result['attributes']['data'][1]['role_name']);
-                                }
-                        });
-                }
+                var lead = oj.Model.extend({
+                    url: getAllLeads + self.userId(),
+                });
+                var getnewLead = new lead();
+                getnewLead.fetch({
+                    headers: {secret: secret},
+                    success: function (result) {
+                        var data = result['attributes']['data'];
+                        self.lead_name(result['attributes']['data'][0]['manager_name']);
+                        self.lead_pic(result['attributes']['data'][0]['google_picture_link']);
+                        self.lead_id(result['attributes']['data'][0]['manager_id']);
+                        self.lead_role(result['attributes']['data'][0]['role_name']);
+                        // console.log(result['attributes']['data'][0]['role_name']);
+                        self.manager_name(result['attributes']['data'][1]['manager_name']);
+                        self.manager_pic(result['attributes']['data'][1]['google_picture_link']);
+                        self.manager_id(result['attributes']['data'][1]['manager_id']);
+                        self.manager_role(result['attributes']['data'][1]['role_name']);
+                        //console.log(result['attributes']['data'][1]['role_name']);
+                    }
+                });
+            }
         });
-        var smsg = "a;slkdfja;l asdlkf la;sdj fl;askjd flajs dfl;j asdf";
-        var lmsg = "aslkd fja;sdlkf a;sldkjf as;ldfj alsdfja sld;fja sl;dfj alsjdf la;sjd flasj dfl;jas dflja sdlfjasl df asdf jaslk;dfj laksjdf l;asjd fl;ajsdf lasdj flkasjdfioasyfias jfkjjas fkasdhf asiuodyf asf aslkd fja;sdlkf a;sldkjf as;ldfj alsdfja sld;fja sl;dfj alsjdf la;sjd flasj dfl;jas dflja sdlfjasl df asdf jaslk;dfj laksjdf l;asjd fl;ajsdf lasdj flkasjdfioasyfias jfkjjas fkasdhf asiuodyf asf aslkd fja;sdlkf a;sldkjf as;ldfj alsdfja sld;fja sl;dfj alsjdf la;sjd flasj dfl;jas dflja sdlfjasl df asdf jaslk;dfj laksjdf l;asjd fl;ajsdf lasdj flkasjdfioasyfias jfkjjas fkasdhf asiuodyf asf";
-        self.requestDescription = ko.observable(smsg);
-        self.lrequestDescription = ko.observable(lmsg);
-        var requestUrl = oj.Model.extend({
-        url: getRequests + self.userId()
-        });
-        var requestFetch = new requestUrl();
-        requestFetch.fetch({
-        headers: {secret: secret},
-                success: function (res) {
-                var data1 = res['attributes']['data'];
-                        for (var i = 0; i < data1.length; i++) {
-                if (data1[i]['status'] == 0) {
-                self.requestPending.push(new request(data1[i]));
-                }
-                if (data1[i]['status'] == 1) {
-                self.requestRejected.push(new request(data1[i]));
-                }
-                }
-                }
-        });
-
         setTimeout(function () {
 
             $(".approveDisapprove").on('click', function () {
@@ -194,6 +168,17 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     data: {u_id: userId, rq_id: requestId, st: type, desc: descriptionChange, to_id: to_id},
                     success: function () {
                         removeHtml.parent().parent().parent().remove();
+                        $("#sucessRate").show();
+                        if (type == 0) {
+
+                            self.sucessMsg("Rating request decliened.");
+                        } else {
+                            self.sucessMsg("Rating request approved");
+                        }
+                        setTimeout(function () {
+                            $("#sucessRate").hide();
+                            self.sucessMsg("");
+                        }, 3000);
                     }
                 });
             });
