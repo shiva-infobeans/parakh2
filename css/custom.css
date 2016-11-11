@@ -60,7 +60,7 @@ body{
     z-index: 1;
 }
 .notification-overflow{
-    max-height: 200px;
+    max-height: 290px;
     min-height: 80px;
     overflow-y: auto;
     border-bottom-left-radius: 10px;
