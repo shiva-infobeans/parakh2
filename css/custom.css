@@ -100,7 +100,7 @@ body{
     border-right: 16px solid transparent;
     position: absolute;
     top: -10px;
-    left: 44%;
+    left: 46%;
 }
 .notif-count{
     position: absolute;
@@ -442,6 +442,9 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 .replyBox div span:nth-child(2) input[type="text"]{
 }
+.openDiv span span:nth-child(2){
+    cursor: pointer;
+}
 .replyBox div:nth-child(2) span{
     margin-left: 10px;
     cursor: pointer;
@@ -695,4 +698,7 @@ border: 1px solid #fff;
 }
 .border-color-yellow{
     border:3px solid #fee123;
+}
+.border-color-red{
+    border:3px solid #bc3a2f;
 }

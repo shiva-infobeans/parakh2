@@ -112,38 +112,40 @@ and open the template in the editor.
                                             <div id="tabs-12">
                                                 <!--repeat block starts here-->
                                                 <!-- ko foreach: requestPendingMember -->
-                                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding heightContent">
-                                                    <div class="transbox border-color-green feedbackHeight"></div>
-                                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
-                                                        <img data-bind="attr: {src:pic}" alt="" class="profile-feedback-pic"/>
-                                                    </div>
-                                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                                                <div class="oj-xl-9 oj-lg-9 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding heightContent oj-flex-bar-center-absolute">
+                                                    <div class="transbox border-color-yellow feedbackHeight"></div>
+                                                    <div class="oj-flex oj-row">
+                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                                                            <img data-bind="attr: {src:pic}" alt="" class="profile-feedback-pic"/>
+                                                        </div>
+                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
 
-                                                        <span data-bind="text: name"></span>
-                                                    </div>
-                                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                                                            <span class="color-white" data-bind="text: name"></span>
+                                                        </div>
+                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
 
-                                                        <span data-bind="text: designation"></span>
-                                                    </div>
-                                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                                                            <span class="color-white" data-bind="text: designation"></span>
+                                                        </div>
+                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
 
-                                                        <span data-bind="text:date"></span>
-                                                    </div>
-                                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin">
+                                                            <span class="color-white" data-bind="text:date"></span>
+                                                        </div>
+                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin">
 
-                                                        <span data-bind="text: sComment"></span>
-                                                    </div>
-                                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item open-more oj-flex overflow-feedback-reply">
-                                                        <span data-bind="text: lComment"></span>
-                                                    </div>
-                                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-margin replyBox">
+                                                            <span class="color-white" data-bind="text: sComment"></span>
+                                                        </div>
+                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item open-more oj-flex overflow-feedback-reply oj-margin">
+                                                            <span class="color-white" data-bind="text: lComment"></span>
+                                                        </div>
+                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-margin replyBox">
 
-                                                        <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item openDiv flex-bar">
-                                                            <span class="flex-bar-end">
-                                                                <span><i class="zmdi zmdi-caret-down"></i></span>
-                                                                <span>More</span>
-                                                                <span class="hide" data-bind="text: lComment"></span>
-                                                            </span>
+                                                            <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item openDiv flex-bar">
+                                                                <span class="flex-bar-end">
+                                                                    <span><i class="zmdi zmdi-caret-down color-white"></i></span>
+                                                                    <span class="color-white">More</span>
+                                                                    <span class="hide color-white" data-bind="text: lComment"></span>
+                                                                </span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -153,38 +155,40 @@ and open the template in the editor.
                                             <div id="tabs-13">
                                                 <!--repeat block starts here-->
                                                 <!-- ko foreach: requestRejectedMember-->
-                                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding heightContent">
-                                                    <div class="transbox border-color-green feedbackHeight"></div>
-                                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
-                                                        <img data-bind="attr: {src:pic}" alt="" class="profile-feedback-pic"/>
-                                                    </div>
-                                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                                                <div class="oj-xl-9 oj-lg-9 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding heightContent oj-flex-bar-center-absolute">
+                                                    <div class="transbox border-color-red feedbackHeight"></div>
+                                                    <div class="oj-flex oj-row">
+                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                                                            <img data-bind="attr: {src:pic}" alt="" class="profile-feedback-pic"/>
+                                                        </div>
+                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
 
-                                                        <span data-bind="text: name"></span>
-                                                    </div>
-                                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                                                            <span data-bind="text: name"></span>
+                                                        </div>
+                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
 
-                                                        <span data-bind="text: designation"></span>
-                                                    </div>
-                                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                                                            <span data-bind="text: designation"></span>
+                                                        </div>
+                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
 
-                                                        <span data-bind="text:date"></span>
-                                                    </div>
-                                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin">
+                                                            <span data-bind="text:date"></span>
+                                                        </div>
+                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin">
 
-                                                        <span data-bind="text: sComment"></span>
-                                                    </div>
-                                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item open-more oj-flex overflow-feedback-reply">
-                                                        <span data-bind="text: lComment"></span>
-                                                    </div>
-                                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-margin replyBox">
+                                                            <span data-bind="text: sComment"></span>
+                                                        </div>
+                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item open-more oj-flex overflow-feedback-reply oj-margin">
+                                                            <span data-bind="text: lComment"></span>
+                                                        </div>
+                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-margin replyBox">
 
-                                                        <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item openDiv flex-bar">
-                                                            <span class="flex-bar-end">
-                                                                <span><i class="zmdi zmdi-caret-down"></i></span>
-                                                                <span>More</span>
-                                                                <span class="hide" data-bind="text: lComment"></span>
-                                                            </span>
+                                                            <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item openDiv flex-bar">
+                                                                <span class="flex-bar-end">
+                                                                    <span><i class="zmdi zmdi-caret-down"></i></span>
+                                                                    <span>More</span>
+                                                                    <span class="hide" data-bind="text: lComment"></span>
+                                                                </span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -239,8 +243,8 @@ and open the template in the editor.
                                      placeholder: 'Type your reason here..'}"></textarea>
                                         </div>
                                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex  oj-margin-top">
-                                            <button class="oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6 oj-flex-item oj-padding approveDisapprove" data-bind="attr:{requestId: request_id,type:'1',desc: lComment}"><i class="zmdi zmdi-check"></i></button>
-                                            <button class="oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6 oj-flex-item oj-padding approveDisapprove"  data-bind="attr:{requestId: request_id,type:'0',desc: lComment}">  <i class="zmdi zmdi-close"></i></button>
+                                            <button class="oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6 oj-flex-item oj-padding approveDisapprove" data-bind="attr:{requestId: request_id,type:'1',desc: lComment,userId: userID,to_id:from_id}"><i class="zmdi zmdi-check"></i></button>
+                                            <button class="oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6 oj-flex-item oj-padding approveDisapprove"  data-bind="attr:{requestId: request_id,type:'0',desc: lComment,userId: userID,to_id:from_id}">  <i class="zmdi zmdi-close"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -253,7 +257,7 @@ and open the template in the editor.
                         <div class="oj-flex oj-row">
                             <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item ">
 
-                                
+
                             </div>
                         </div>
                     </div>

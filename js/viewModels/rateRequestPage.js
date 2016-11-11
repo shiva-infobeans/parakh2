@@ -21,7 +21,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         date = dd + "-" + mm + "-" + yy;
         return date;
     }
-    function request(data) {
+    function request(data, userid) {
         var req = Object();
         req.sComment = data['description'].substring(0, 20);
         req.lComment = data['description'];
@@ -29,7 +29,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         req.pic = data['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data['google_picture_link'];
         req.name = data['google_name'];
         req.designation = data['designation'];
+        req.from_id = data['from_id'];
         req.date = dateformat(data['created_date']);
+        req.userID = userid;
         return req;
     }
 
@@ -61,11 +63,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
 
 //        self.pic = "http://www.freeiconspng.com/uploads/blank-face-person-icon-7.png";
-//        self.feedbackImage = ko.observable("https://pixabay.com/static/uploads/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png");
-//        self.name = "Shiva Shirbhate";
-//        self.feedbackdesignation = ko.observable("designation");
-//        self.feedbackDescription = ko.observable("descrioption 123 asdf asdf");
-//        self.feedbackDate = ko.observable("date here");
         var user = oj.Model.extend({
             url: getUserByEmail + person['email']
         });
@@ -87,10 +84,22 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         var data1 = res['attributes']['data'];
                         for (var i = 0; i < data1.length; i++) {
                             if (data1[i]['status'] == 0) {
-                                self.requestPendingMember.push(new request(data1[i]));
+                                self.requestPendingMember.push(new request(data1[i], self.userId()));
                             }
+                        }
+                    }
+                });
+                var requestUrl = oj.Model.extend({
+                    url: getUserPendingRequest + self.userId() + "/1" // get all the pending requests send by user to lead/manager
+                });
+                var requestFetch = new requestUrl();
+                requestFetch.fetch({
+                    headers: {secret: secret},
+                    success: function (res) {
+                        var data1 = res['attributes']['data'];
+                        for (var i = 0; i < data1.length; i++) {
                             if (data1[i]['status'] == 1) {
-                                self.requestRejectedMember.push(new request(data1[i]));
+                                self.requestRejectedMember.push(new request(data1[i], self.userId()));
                             }
                         }
                     }
@@ -107,12 +116,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             var data1 = res['attributes']['data'];
                             for (var i = 0; i < data1.length; i++) {
                                 if (data1[i]['status'] == 0) {
-                                    self.requestPendingLead.push(new request(data1[i]));
+                                    self.requestPendingLead.push(new request(data1[i], self.userId()));
                                 }
-//                                if (data1[i]['status'] == 1) {
-//                                    console.log(data1[i]);
-//                                    
-//                                }
                             }
                         }
                     });
@@ -133,7 +138,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     success: function (result) {
                         var data = result['attributes']['data'];
                         self.lead_name(result['attributes']['data'][0]['manager_name']);
-                        
+
                         self.lead_pic(result['attributes']['data'][0]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : result['attributes']['data'][0]['google_picture_link']);
                         self.lead_id(result['attributes']['data'][0]['manager_id']);
                         self.manager_name(result['attributes']['data'][1]['manager_name']);
@@ -145,46 +150,51 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         });
 
         setTimeout(function () {
+
             $(".approveDisapprove").on('click', function () {
-                var descriptionChange = $(this).parent().prev().children().children('#text-area20').val() == "" ?
-                        $(this).parent().prev().children().children('#text-area20').val() : $(this).attr('desc');
+
+                var userId = $(this).attr('userId');
                 var requestId = $(this).attr('requestId');
                 var type = $(this).attr('type');
-                console.log(requestId);
-                console.log(type);
-                console.log(descriptionChange);
+                var descriptionChange = $(this).parent().prev().children().children('#text-area20').val() == "" ?
+                        $(this).parent().prev().children().children('#text-area20').val() : $(this).attr('desc');
+                var to_id = $(this).attr('to_id');
+//                console.log(requestId);
+//                console.log(type);
+//                console.log(descriptionChange);
+//                console.log(to_id);
+//                console.log(userId);
+
                 var removeHtml = $(this);
-                console.log(removeHtml.parent().parent().parent().attr('class'));
-                removeHtml.parent().parent().parent().remove();
-                return false;
                 $.ajax({
                     headers: {secret: secret},
                     method: 'POST',
-                    url: addFeedbackResponse,
-                    data: {login_user_id: id, feedback_to: feedback_to, feedback_desc: descriptionChange},
+                    url: requestDecision,
+                    data: {u_id: userId, rq_id: requestId, st: type, desc: descriptionChange, to_id: to_id},
                     success: function () {
-                        responseDesc.val("");
+                        removeHtml.parent().parent().parent().remove();
                     }
                 });
             });
             $('.openDiv').click(function () {
-
-                $(this).parent().prev('.open-more').slideToggle();
+                //console.log($(this).children("span").children("span:nth-child(2)").html());
                 if ($(this).children("span").children("span:nth-child(2)").html() == "More") {
-                    $(this).children("span").children("span").children("i").addClass("zmdi-caret-up");
-                    $(this).children("span").children("span").children("i").removeClass("zmdi-caret-down");
-                    $(this).children("span").children("span:nth-child(2)").html("Less");
                     $(this).parent().prev().prev().addClass("hide");
+                    $(this).children("span").children("span:nth-child(2)").html("Less");
+                    $(this).children("span").children("span").children("i").removeClass("zmdi-caret-down");
+                    $(this).children("span").children("span").children("i").addClass("zmdi-caret-up");
                     var lmsg = $(this).children("span").children("span:nth-child(3)").text();
                     $(this).parent().prev().prev().children('span').text(lmsg);
+                    $(this).parent().prev('.open-more').slideToggle();
                 } else {
                     if ($(this).children("span").children("span:nth-child(2)").html() == "Less") {
+                        $(this).parent().prev('.open-more').slideToggle();
                         $(this).children("span").children("span:nth-child(2)").html("More");
                         $(this).children("span").children("span").children("i").removeClass("zmdi-caret-up");
                         $(this).children("span").children("span").children("i").addClass("zmdi-caret-down");
-                        $(this).parent().prev().prev().removeClass("hide");
                         var smsg = $(this).children("span").children("span:nth-child(3)").text().substring(0, 20);
                         $(this).parent().prev().prev().children('span').text(smsg);
+                        $(this).parent().prev().prev().removeClass("hide");
                     }
                 }
 
