@@ -29,11 +29,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
             obj.backColor = '#009985';
         }
         if (type == 'approved') {
-            type1 = "zmdi-check";
+            type1 = "zmdi-check checkIconNotify";
             obj.backColor = '#01B0FF';
         }
         if (type == 'declined') {
-            type1 = "zmdi-close";
+            type1 = "zmdi-close closeIconNotify";
             obj.backColor = '#EC6748';
         }
         if (type == 'response-feedback') {
@@ -82,30 +82,50 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
                         var data = res['attributes']['data'];
                         for (var c = 0; c < data.length; c++) {
                             var notificationData = new Object();
-                            
+
                             if (data[c]['rating'] == '+1') {
                                 notificationData.type = "+1";
-                                notificationData.comment = data[c]['ratedby']+" rated you +1";
+                                if (self.userId() == data[c]['given_by']) {
+//                                    you rated --- +1 ratedby
+                                    notificationData.comment = "You rated " + data[c]['ratedby'] + " +1";
+
+                                } else {
+                                    notificationData.comment = data[c]['rated_to'] + " rated you +1";
+                                }
                             }
                             if (data[c]['rating'] == '-1') {
                                 notificationData.type = "-1";
-                                notificationData.comment = data[c]['ratedby']+" rated you -1";
+                                if (self.userId() == data[c]['given_by']) {
+                                    notificationData.comment = "You rated " + data[c]['ratedby'] + " -1";
+
+                                } else {
+                                    notificationData.comment = data[c]['rated_to'] + " rated you -1";
+                                }
                             }
                             if (data[c]['rating'] == 'feedback') {
                                 notificationData.type = "feedback";
-                                notificationData.comment = data[c]['ratedby']+" gave you feedback";
+                                notificationData.comment = data[c]['ratedby'] + " gave you feedback";
                             }
                             if (data[c]['rating'] == 'approved') {
                                 notificationData.type = "approved";
-                                notificationData.comment = data[c]['ratedby']+" approved your request";
+                                if (self.userId() == data[c]['given_by']) {
+                                    notificationData.comment = data[c]['ratedby'] + " approved your request";
+
+                                } else {
+                                    notificationData.comment = "You approved " + data[c]['rated_to'] + "'s request";
+                                }
                             }
                             if (data[c]['rating'] == 'declined') {
                                 notificationData.type = "declined";
-                                notificationData.comment = data[c]['ratedby']+" decliened your request";
+                                if (self.userId() == data[c]['given_by']) {
+                                    notificationData.comment = data[c]['ratedby'] + " declined your request";
+                                } else {
+                                    notificationData.comment = "You declined " + data[c]['rated_to'] + "'s request";
+                                }
                             }
                             if (data[c]['rating'] == 'response-feedback') {
                                 notificationData.type = "response-feedback";
-                                notificationData.comment = data[c]['ratedby']+" responded on your feedback";
+                                notificationData.comment = data[c]['ratedby'] + " responded on your feedback";
                             }
                             self.notif.push(new notificationContent(notificationData.type, notificationData.comment));
                         }

@@ -722,3 +722,13 @@ border: 1px solid #fff;
 .requestApproveDiv{
     padding: 4px;
 }
+/* fixes */
+.closeIconNotify{
+    margin-left: 8px !important;
+}
+.checkIconNotify{
+    margin-left: 7px !important;
+}
+.colorDarkGreen{
+    color:#689F39 !important;
+}
