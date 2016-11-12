@@ -58,6 +58,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.role_name = ko.observable();
         self.desc = ko.observable();
         self.textError = ko.observable();
+        self.sucessMsg = ko.observable();
 
 
 
@@ -72,7 +73,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 self.userId(res['attributes']['data']['id']);
                 self.lead_id(res['attributes']['data']['id']);
                 self.role_name(res['attributes']['data']['role_name']);
-                
+
                 if (self.role_name() === 'Team Member') {
 
                     $('#tabs ul li:last-child').hide();
@@ -282,6 +283,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     data: {user_id: self.userId(), for_id: self.for_id(), rating: (1), desc: self.desc()},
                     success: function () {
                         $("#modalDialog1").ojDialog("close");
+                        $("#sucess").show();
+                        self.sucessMsg("Member rated successfully!");
+                        setTimeout(function () {
+                            $("#sucess").hide();
+                            self.sucessMsg("");
+                        }, 3000);
                     }
                 });
             }
@@ -298,8 +305,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     url: addFeedback,
                     data: {feedback_from: self.userId(), feedback_to: self.for_id(), feedback_description: self.desc()},
                     success: function () {
-                        
                         $("#modalDialog8").ojDialog("close");
+                        self.sucessMsg("Feedback is sent!");
+                        setTimeout(function () {
+                            $("#sucess").hide();
+                            self.sucessMsg("");
+                        }, 3000);
                     }
                 });
             }
@@ -360,6 +371,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     data: {from_id: self.lead_id(), to_id: self.myId(), rating: self.p(), desc: self.desc()},
                     success: function () {
                         $("#modalDialog2").ojDialog("close");
+                        self.sucessMsg("Member rated successfully!");
+                        setTimeout(function () {
+                            $("#sucess").hide();
+                            self.sucessMsg("");
+                        }, 3000);
                     }
                 });
             }
@@ -455,9 +471,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 $("#modalDialog8").ojDialog("close");
             });
             $(".zmdi").click(function () {
-               $(".zmdi").removeClass('oj-tabs-title-active');
-               $(this).addClass('oj-tabs-title-active');
-           });
+                $(".zmdi").removeClass('oj-tabs-title-active');
+                $(this).addClass('oj-tabs-title-active');
+            });
 
         }, 600);
     }
