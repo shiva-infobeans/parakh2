@@ -34,6 +34,10 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel','jquery', 'ojs/ojknockout', 'ojs
         self.name1hover = ko.observable();
         self.name2hover = ko.observable();
         self.name3hover = ko.observable();
+        self.project0hover = ko.observable();
+        self.project1hover = ko.observable();
+        self.project2hover = ko.observable();
+        self.project3hover = ko.observable();
 //         get members who get +1 recently
         var rec = oj.Model.extend({
             url: getRecentRankingList
@@ -46,21 +50,25 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel','jquery', 'ojs/ojknockout', 'ojs
                 var img0 = data.attributes['data'][0]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][0]['google_picture_link'];
                 self.name0(data.attributes['data'][0]['google_name'].substr(0,data.attributes['data'][0]['google_name'].indexOf(' ')));
                 self.name0hover(data.attributes['data'][0]['google_name']);
+                self.project0hover(data.attributes['data'][0]['project_name']);
                 self.image0(img0);
 
                 var img1 = data.attributes['data'][1]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][1]['google_picture_link'];
                 self.name1(data.attributes['data'][1]['google_name'].substr(0,data.attributes['data'][1]['google_name'].indexOf(' ')));
                 self.name1hover(data.attributes['data'][1]['google_name']);
+                self.project1hover(data.attributes['data'][1]['project_name']);
                 self.image1(img1);
                 
                 var img2 = data.attributes['data'][2]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][2]['google_picture_link'];
                 self.name2(data.attributes['data'][2]['google_name'].substr(0,data.attributes['data'][2]['google_name'].indexOf(' ')));
                 self.name2hover(data.attributes['data'][2]['google_name']);
+                self.project2hover(data.attributes['data'][2]['project_name']);
                 self.image2(img2);
 
                 var img3 = data.attributes['data'][3]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][3]['google_picture_link'];
                 self.name3(data.attributes['data'][3]['google_name'].substr(0,data.attributes['data'][3]['google_name'].indexOf(' ')));
                 self.name3hover(data.attributes['data'][3]['google_name']);
+                self.project3hover(data.attributes['data'][3]['project_name']);
                 self.image3(img3);
 
             }
