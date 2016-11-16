@@ -44,7 +44,7 @@ and open the template in the editor.
                         <h4 data-bind="text: name2"></h4>
                     </div>
                 </div>
-                
+
             </div>
 
             <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-12 oj-flex oj-flex-item  oj-padding border-right">
@@ -56,8 +56,66 @@ and open the template in the editor.
                         <h4 data-bind="text: name3"></h4>
                     </div>
                 </div>
-                
+
             </div>
         </div>
+    </div>
+</div>
+
+<div class="max-width">
+    <div id="filmStripDiv" style="margin: 20px;">
+        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex">
+            <div id="filmStrip" 
+                 aria-label="Set of chemicals" 
+                 data-bind="ojComponent: {
+           component: 'ojFilmStrip',
+           arrowPlacement: 'adjacent', 
+           arrowVisibility: 'auto'
+               }">
+                <!-- ko foreach: teamRecentOne -->
+                <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-12 oj-flex oj-flex-item oj-padding border-right filmstrip-item" 
+                     data-bind="style: {
+             display: getItemInitialDisplay($index())}">
+                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
+                            <img class="profile border-color-green" data-bind="attr: {src:img}" />
+                        </div>
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
+                            <h4 data-bind="text: name"></h4>
+                        </div>
+                    </div>
+                </div>
+                <!-- /ko -->
+            </div>
+        </div>
+    </div> <!-- end filmStripDiv -->
+</div>
+
+<div class="max-width">
+    <div id="filmstrip-navarrows-example">
+        <div id="filmStripDiv" class="oj-panel" style="margin: 20px;">
+            <div id="filmStrip" 
+                 aria-label="Set of chemicals" 
+                 data-bind="ojComponent: {
+           component: 'ojFilmStrip', 
+           arrowPlacement: currentNavArrowPlacement, 
+           arrowVisibility: currentNavArrowVisibility}">
+                <!-- ko foreach: chemicals -->
+                <div class="oj-panel" 
+                     data-bind="style: {
+             display: getItemInitialDisplay($index())}">
+                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
+                            <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQpFZqA2QPIYY2H8sCQWV-5FbCTto47LuFEqblGhQFqxM_c-tRKEYO09A" class="profile border-color-green" />
+                        </div>
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
+                            <h4 data-bind="text: name"></h4>
+                            <h4 data-bind="text: img"></h4>
+                        </div>
+                    </div>
+                </div>
+                <!-- /ko -->
+            </div>
+        </div> <!-- end filmStripDiv -->
     </div>
 </div>
