@@ -13,7 +13,7 @@
             </ul>
             <!-- tab contents -->
                <div id="tabs-5">
-                   <hr>
+                   <hr class="home-hr">
 <div class="oj-flex max-width">
     <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal oj-padding-horizontal">
         <h2  class="slider-heading">
@@ -27,16 +27,13 @@
         <div class="oj-col oj-sm-12 oj-md-12 oj-lg-12 oj-xl-12 oj-flex-item oj-panel slider-color slide ">
 
             <div id="slider-wrapper">
-<!--                <div class="inner-wrapper" >
+                <div class="inner-wrapper" id="inner-wrapper" >
                     <input checked type="radio" name="slide" class="control" id="Slide1"/>
                     <label for="Slide1" id="s1"></label>
                     <input type="radio" name="slide" class="control" id="Slide2" />
                     <label for="Slide2" id="s2"></label>
                     <input type="radio" name="slide" class="control" id="Slide3" />
                     <label for="Slide3" id="s3"></label>
-
-                    SLIDER 1ST
-
                     <div class="overflow-wrapper">
                         <span class="slide">
 
@@ -47,7 +44,8 @@
                                         Your performance for this week...
                                     </p>
                                 </div>
-                                <div class="green-button" id="hidegreenBtn1">
+                                <div class="green-button" id="hidegreenBtn1" data-bind="">
+                                      
                                     <div class="border-right"><img src="css/images/green-button.png" alt=""/></div>
                                     <div class="btn-text-green">
                                         +<span data-bind="text: dayPlusRatings"></span>
@@ -56,6 +54,7 @@
                                 </div>
 
                                 <div class="red-button" id="hideredBtn1">
+                                   
                                     <img src="css/images/red-button.png" alt=""/>
                                     <div class="btn-text-red">
                                         -<span data-bind="text: dayMinusRatings"></span>
@@ -134,9 +133,9 @@
                         </span>
 
                     </div>
-                </div>-->
+                </div>
                 
-                    <div class="sliderScreen-NoRatings">
+                    <div class="sliderScreen-NoRatings" id="noRatingsScreen">
                         You have not been rated yet !!
                         <div><img class="sliderSmiley-NoRatings"  src="../css/images/sliderScreen.png" alt="slider image"/></div>
                             </div>
@@ -183,7 +182,9 @@
                 <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center ">
                    
                     <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center hoverContent0">
-                        <img class="profile border-color-green" data-bind="attr: {src:image0}"/>
+                        <a href="#">
+                             <img class="profile border-color-green" data-bind="attr: {src:image0}"/>
+                        </a>
                           <div class ="recentInfo0">
                             <div class="text-hover" data-bind="text: name0hover"></div>
                             <div class="text-hover"> project name </div>
@@ -198,7 +199,9 @@
             <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-12 oj-flex oj-flex-item oj-padding border-right-recent">
                 <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
                     <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center hoverContent1">
-                        <img class="profile border-color-green" data-bind="attr: {src:image1}" />
+                        <a href="#">
+                             <img class="profile border-color-green" data-bind="attr: {src:image1}"/>
+                        </a>
                            <div class ="recentInfo1">
                                <div class="text-hover" data-bind="text: name1hover"></div>
                                <div class="text-hover"> project name </div>
@@ -212,7 +215,9 @@
             <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-12 oj-flex oj-flex-item  oj-padding border-right-recent">
                 <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
                     <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center hoverContent2">
-                        <img class="profile border-color-green" data-bind="attr: {src:image2}" />
+                      <a href="#">
+                             <img class="profile border-color-green" data-bind="attr: {src:image2}"/>
+                        </a>
                        <div class ="recentInfo2">
                              <div class="text-hover" data-bind="text: name2hover"></div>
                              <div class="text-hover"> project name </div>
@@ -228,7 +233,9 @@
             <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-12 oj-flex oj-flex-item  oj-padding border-right-recent">
                 <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
                     <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center hoverContent3">
-                        <img class="profile border-color-green" data-bind="attr: {src:image3}" />
+                       <a href="#">
+                             <img class="profile border-color-green" data-bind="attr: {src:image3}"/>
+                        </a>
                           <div class ="recentInfo3">
                             <div class="text-hover" data-bind="text: name3hover"></div>
                             <div class="text-hover"> project name </div>

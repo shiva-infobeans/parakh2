@@ -166,6 +166,7 @@ body{
 .red-button{
     float:right;
     position:relative;
+    cursor: pointer;
 }
 .red-button img{
     margin:0px 90px;
@@ -449,7 +450,7 @@ body{
 #ojDialogWrapper-modalDialog1.oj-dialog  {
     overflow: hidden;
     width: 556px;
-    height: 505px;
+    height: 535px;
     box-sizing: border-box;
     display: -webkit-flex;
     display: flex;
@@ -1306,12 +1307,20 @@ body{
     color: #000;
 }
 .sliderScreen-NoRatings{
-    color: #fff !important;
+   color: #fff !important;
     font-family: nameHeading;
-    font-size: 62px;
+    font-size: 68px;
     text-align: center;
+    margin-top: 50px;
 }
 .sliderSmiley-NoRatings{
-    border: 0 none;
+   color: #fff !important;
+    font-family: nameHeading;
     text-align: center;
+}
+.home-hr{
+    margin-top: 15px;
+    margin-left: 13px;
+    border: solid #d6dfe6;
+    border-width: 1px 0 0;
 }
