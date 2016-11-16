@@ -780,6 +780,27 @@ $app->post('/resetNotifCount', function ($request, $response) {
 });
 
 
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getTopFourRankForCurrentMonth/
+ * Parameters: 
+ * 
+ * Method: GET
+ * */    
+$app->get('/getTopFourRankForCurrentMonth[/]', function ($request, $response, $args) {
+    $response_data = array();
+    
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    $result = $db->get_top_ranker_for_current_month();
+    if($result != 0){
+        $response_data = makeResponse('false',$result);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3001));
+    }    
+    $response->withJson($response_data);
+    return $response;
+});
+
 /**
  * Step 4: Run the Slim application
  *
