@@ -12,10 +12,16 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
         function (oj, ko, $)
         {
             function dataComment(comment1, commenter1, commentDate1) {
+                commentDate1 = new Date(commentDate1);
+                //commentDate1 = commentDate1.toDateString();
+                var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June",
+                  "July", "Aug", "Sep", "Oct", "Nov", "Dec"
+                ];
+
                 var com = this; // this is for object of this function
                 com.comment = comment1;
                 com.commenter = commenter1;
-                com.commentDate = commentDate1.substring(0, commentDate1.indexOf(' '));
+                com.commentDate = commentDate1.getDate() + ' ' + monthNames[commentDate1.getMonth()] + ' ' + commentDate1.getFullYear();
                 return com;
             }
             function dataFeedback(myId, data) {
