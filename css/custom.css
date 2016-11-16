@@ -215,6 +215,7 @@ body{
     border-right:3px solid rgba(136,212,75,0.5);
     margin-top:10px;
     margin-bottom:10px;
+    cursor: pointer;
 }
 .border-right-recent{
     border-right:1px solid rgba(136,212,75,0.5);
