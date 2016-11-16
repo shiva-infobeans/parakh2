@@ -20,7 +20,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         member.designation = data['designation'];
         member.role_name = data['role_name'];
         member.google_id = data['google_id'];
-
+        getOtherTeamMembers + data['id'];
+        member.plus = data['pluscount'];
+        member.minus = data['minuscount'];
         return member;
     }
     function leadTeam(data) {
@@ -30,6 +32,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         myTeam.myDesign = data['designation'];
         myTeam.myEmail = data['email'];
         myTeam.myPic = data['picture'] == "" ? 'images/warning-icon-24.png' : data['picture'];
+        myTeam.plus = data['pluscount'];
+        myTeam.minus = data['minuscount'];
         return myTeam;
     }
 
@@ -59,9 +63,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.desc = ko.observable();
         self.textError = ko.observable();
         self.sucessMsg = ko.observable();
-
-
-
+        
         //user
         var user = oj.Model.extend({
             url: getUserByEmail + person['email']

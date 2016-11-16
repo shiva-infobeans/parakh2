@@ -52,7 +52,7 @@ class dbmodule
             $profile_data = $this->con->prepare($query); 
             $profile_data->execute(array(':email'=>$email));
             $row = $profile_data->fetch((PDO::FETCH_ASSOC));
-                        
+
             if(isset($row) && !empty($row)){
                 return $row;
             }else{
@@ -76,7 +76,29 @@ class dbmodule
             $user_data->execute(array(':id' => $lead_id));
             while ($row = $user_data->fetch((PDO::FETCH_ASSOC))) {
                 $membresInfo = array();
-                $membresInfo = array('user_id' => $row['user_id'], 'user_name' => $row['google_name'],'designation' => $row['designation'],'picture' => $row['google_picture_link'],'email' => $row['google_email'],'mobile_number' => $row['mobile_number']);
+                $query_rank = "SELECT MAX(r.created_date) as date,
+                    sum(case when r.rating = 1 then 1  end) as pluscount,
+                    sum(case when r.rating = 0 then 1  end) as minuscount
+                    from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 
+                    and u.id=:id group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC LIMIT 10";
+                $user_rank = $this->con->prepare($query_rank);
+                $user_rank->execute(array(':id' => $row['user_id']));
+                $userRank = $user_rank->fetchAll((PDO::FETCH_ASSOC));
+                if(isset($userRank[0]['pluscount']) && !empty($userRank[0]['pluscount']))
+                {
+                    $userRank[0]['pluscount'] = "+".$userRank[0]['pluscount'];
+                }else
+                {
+                    $userRank[0]['pluscount'] = 0;
+                }
+                if(isset($userRank[0]['minuscount']) && !empty($userRank[0]['minuscount']))
+                {
+                    $userRank[0]['minuscount'] = "-".$userRank[0]['minuscount'];
+                }else
+                {
+                    $userRank[0]['minuscount'] = 0;
+                }
+                $membresInfo = array('user_id' => $row['user_id'], 'user_name' => $row['google_name'],'designation' => $row['designation'],'picture' => $row['google_picture_link'],'email' => $row['google_email'],'mobile_number' => $row['mobile_number'],'pluscount' => $userRank[0]['pluscount'],'minuscount' => $userRank[0]['minuscount']);
                 $employeeList[] = $membresInfo;
                 $this->getUserByLead($row['user_id']);
             }
@@ -98,29 +120,55 @@ class dbmodule
     /* *
      * get all the users other then user present under lead
      * */    
-    function getOtherTeamMembers($lead_id)
-    {
-        if (!filter_var($lead_id, FILTER_VALIDATE_INT) === false) {
-            $employeeList = array();
-            $team_members = $this->getUserByLead($lead_id);
-            if(count($team_members) > 0){
-                $this->my_team_id = "";
-                array_walk($team_members,array($this, 'joinArray'));
+    function getOtherTeamMembers($lead_id) {
+       if (!filter_var($lead_id, FILTER_VALIDATE_INT) === false) {
+           $employeeList = array();
+           $team_members = $this->getUserByLead($lead_id);
+           if (count($team_members) > 0) {
+               $this->my_team_id = "";
+               array_walk($team_members, array($this, 'joinArray'));
+           }
+
+           $condition = '';
+           if (!empty($this->my_team_id)) {
+               $condition = "id NOT IN ($this->my_team_id)  AND";
+           }
+           $query = "SELECT `id`,`google_name`,`google_email`,`mobile_number`,`designation`,`google_picture_link` FROM users WHERE $condition id <>:id AND id <> 1 AND status <> 0 ORDER BY google_name";
+           $user_list = $this->con->prepare($query);
+           $user_list->execute(array(':id' => $lead_id));
+           $employeeList = $user_list->fetchAll((PDO::FETCH_ASSOC));
+
+            for($y=0;$y<count($employeeList);$y++)
+            {
+                $query_rank = "SELECT MAX(r.created_date) as date,
+                    sum(case when r.rating = 1 then 1  end) as pluscount,
+                    sum(case when r.rating = 0 then 1  end) as minuscount
+                    from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 
+                    and u.id=:id group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC LIMIT 10";
+                $user_rank = $this->con->prepare($query_rank);
+                $user_rank->execute(array(':id' => $employeeList[$y]['id']));
+                $userRank = $user_rank->fetchAll((PDO::FETCH_ASSOC));
+                if(isset($userRank[0]['pluscount']) && !empty($userRank[0]['pluscount']))
+                {
+                    $employeeList[$y]['pluscount'] = "+".$userRank[0]['pluscount'];
+                }else
+                {
+                    $employeeList[$y]['pluscount'] = 0;
+                }
+                if(isset($userRank[0]['minuscount']) && !empty($userRank[0]['minuscount']))
+                {
+                    $employeeList[$y]['minuscount'] = "-".$userRank[0]['minuscount'];
+                }else
+                {
+                    $employeeList[$y]['minuscount'] = 0;
+                }
             }
-            
-            $condition = '';
-            if (!empty($this->my_team_id)) {
-                $condition = "id NOT IN ($this->my_team_id)  AND";
-            }
-            $query = "SELECT `id`,`google_name`,`google_email`,`mobile_number`,`designation`,`google_picture_link` FROM users WHERE $condition id <>:id AND id <> 1 AND status <> 0 ORDER BY google_name";
-            $user_list = $this->con->prepare($query);
-            $user_list->execute(array(':id' => $lead_id));
-            $employeeList = $user_list->fetchAll((PDO::FETCH_ASSOC));
-            return $employeeList;
-        }else{
-            return 0;
-        }        
-    }//end of fun
+
+           return $employeeList;
+       } else {
+           return 0;
+       }
+   }//end of fun
     
     function isInMyTeam($user_id,$member_id)
     {   
@@ -261,6 +309,18 @@ class dbmodule
             $message = strtr($temp_data_l['content'], $vars);
             $email_data_l['message'] = $message;           
             $this->send_notification($email_data_l);
+
+            /*update msg read count*/
+            $query = "SELECT msg_read from users where id=".$data['to_id'];
+            $user_list = $this->con->prepare($query);
+            $user_list->execute();
+            $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
+            if(isset($row) && !empty($row))
+            {
+                $query = "UPDATE users set msg_read=".($row[0]['msg_rea']+1)." where id=".$data['to_id'];
+                $user_list = $this->con->prepare($query);
+                $user_list->execute();
+            }
         }
         return true;
     }//end of fun
@@ -413,7 +473,18 @@ class dbmodule
             $message = strtr($temp_data_l['content'], $vars);
             $email_data_l['message'] = $message;           
             $this->send_notification($email_data_l);
-            
+
+            /*update msg read count*/
+            $query = "SELECT msg_read from users where id=".$data['for_id'];
+            $user_list = $this->con->prepare($query);
+            $user_list->execute();
+            $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
+            if(isset($row) && !empty($row))
+            {
+                $query = "UPDATE users set msg_read=".($row[0]['msg_rea']+1)." where id=".$data['for_id'];
+                $user_list = $this->con->prepare($query);
+                $user_list->execute();
+            }
         }
         return true;
     }//end for fun
@@ -614,17 +685,17 @@ function get_ranking_list() {
             $email_data = [];
             $user_data = $this->getEmailById($data['feedback_to']);
             $from_data = $this->getEmailById($data['feedback_from']);
-            $temp_data = $this->getEmailTemplateByCode('PRKE05');
+            $temp_data = $this->getEmailTemplateByCode('PRKE22');
             $email_data['to']['email'] = $user_data['google_email'];
             $email_data['to']['name'] = $user_data['google_name'];
             $email_data['subject'] = $temp_data['subject'];
             $this->getParakhLink();
             
             $vars = array(
-                "{username}" => $email_data['to']['name'],
-                "{member}" => $from_data['google_name'],
-                "{parakh}" => $this->getParakhLink(),
-                "{feedback}" => $data['feedback_description'],
+                "{Username}" => $email_data['to']['name'],
+                "{Member}" => $from_data['google_name'],
+                "{Parakh}" => $this->getParakhLink(),
+                "{Feedback}" => $data['feedback_description'],
             );
             $message = strtr($temp_data['content'], $vars);
             $email_data['message'] = $message;           
@@ -639,13 +710,26 @@ function get_ranking_list() {
             $email_data_l['subject'] = $temp_data_l['subject'];
             
             $vars = array(
-                "{member}" => $email_data['to']['name'],
-                "{lead}" => $from_data['google_name'],
-                "{feedback}" => $data['feedback_description'],
+                "{Member}" => $email_data['to']['name'],
+                "{Lead}" => $from_data['google_name'],
+                "{Feedback}" => $data['feedback_description'],
             );
             $message = strtr($temp_data_l['content'], $vars);
             $email_data_l['message'] = $message;           
             $this->send_notification($email_data_l);
+
+
+            /*update msg read count*/
+            $query = "SELECT msg_read from users where id=".$data['feedback_to'];
+            $user_list = $this->con->prepare($query);
+            $user_list->execute();
+            $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
+            if(isset($row) && !empty($row))
+            {
+                $query = "UPDATE users set msg_read=".($row[0]['msg_rea']+1)." where id=".$data['feedback_to'];
+                $user_list = $this->con->prepare($query);
+                $user_list->execute();
+            }
         }
         return $work_last_insert;
         
@@ -656,11 +740,36 @@ function get_ranking_list() {
      * */
     function get_all_team_members($user_id) {
         if($user_id){
-            $query = "SELECT id, google_name, mobile_number, designation, google_picture_link FROM users WHERE id <>:id AND id <> 1 AND status <> 0 ORDER BY google_name";
-
+            $query = "SELECT id, google_name, google_email, mobile_number, designation, google_picture_link FROM users WHERE id <>:id AND id <> 1 AND status <> 0 ORDER BY google_name";
             $user_list = $this->con->prepare($query);
             $user_list->execute(array(':id' => $user_id));
             $employeeList = $user_list->fetchAll((PDO::FETCH_ASSOC));
+            
+            for($y=0;$y<count($employeeList);$y++)
+            {
+                $query_rank = "SELECT MAX(r.created_date) as date,r.user_id,u.google_name,u.google_picture_link as image,
+                    sum(case when r.rating = 1 then 1  end) as pluscount,
+                    sum(case when r.rating = 0 then 1  end) as minuscount
+                    from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 
+                    and u.id=:id group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC LIMIT 10";
+                $user_rank = $this->con->prepare($query_rank);
+                $user_rank->execute(array(':id' => $employeeList[$y]['id']));
+                $userRank = $user_rank->fetchAll((PDO::FETCH_ASSOC));
+                if(isset($userRank[0]['pluscount']) && !empty($userRank[0]['pluscount']))
+                {
+                    $employeeList[$y]['pluscount'] = $userRank[0]['pluscount'];
+                }else
+                {
+                    $employeeList[$y]['pluscount'] = 0;
+                }
+                if(isset($userRank[0]['minuscount']) && !empty($userRank[0]['minuscount']))
+                {
+                    $employeeList[$y]['minuscount'] = $userRank[0]['minuscount'];
+                }else
+                {
+                    $employeeList[$y]['minuscount'] = 0;
+                }
+            }
             return $employeeList;
         } else {
             return 0;
@@ -686,6 +795,50 @@ function get_ranking_list() {
             ':modified_date' => $modified_date,
             ));
             
+        /*send email to user when decline*/
+        if(isset($data['feedback_desc']) && !empty($data['feedback_desc'])){
+            $email_data = [];
+            $user_data = $this->getEmailById($data['login_user_id']);
+            $temp_data = $this->getEmailTemplateByCode('PRKE05');
+            $email_data['to']['email'] = $user_data['google_email'];
+            $email_data['to']['name'] = $user_data['google_name'];
+            $email_data['subject'] = $temp_data['subject'];
+
+            $vars = array(
+                "{Username}" => $user_data['google_name'],
+                "{Parakh}" => $this->getParakhLink(),
+                "{Member}" => $user_data['google_name'],
+                "{Comment}" => '"'.$data['feedback_desc'].'"'
+            );
+
+            $message = strtr($temp_data['content'], $vars);
+            $email_data['message'] = $message;           
+            $this->send_notification($email_data);
+
+            // // send notification to manager
+            if($this->manager_email!=$user_data['google_email']){
+                $email_data_l = [];
+                $email_data_l['to']['email'] = $this->manager_email;
+                $email_data_l['to']['name'] = $this->manager_name;
+                $email_data_l['subject'] = $temp_data_l['subject'];
+
+                $message = strtr($temp_data['content'], $vars);
+                $email_data_l['message'] = $message;           
+                $this->send_notification($email_data_l);
+            }
+
+            /*update msg read count*/
+            $query = "SELECT msg_read from users where id=".$data['feedback_to'];
+            $user_list = $this->con->prepare($query);
+            $user_list->execute();
+            $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
+            if(isset($row) && !empty($row))
+            {
+                $query = "UPDATE users set msg_read=".($row[0]['msg_rea']+1)." where id=".$data['feedback_to'];
+                $user_list = $this->con->prepare($query);
+                $user_list->execute();
+            }
+        }
         return true;
         
     }
@@ -776,6 +929,47 @@ function get_ranking_list() {
             /*if (!empty($data)) {
                 notifyRequestToManager($data);
             }*/
+            
+            $email_data = [];
+            $user_data = $this->getEmailById($data['l_id']);
+            $temp_data = $this->getEmailTemplateByCode('PRKE13');
+            $email_data['to']['email'] = $user_data['google_email'];
+            $email_data['to']['name'] = $user_data['google_name'];
+            $email_data['subject'] = $temp_data['subject'];
+
+            $vars = array(
+                "{Username}" => $user_data['google_name'],
+                "{Parakh}" => $this->getParakhLink(),
+            );
+
+            $message = strtr($temp_data['content'], $vars);
+            $email_data['message'] = $message;
+            $this->send_notification($email_data);
+
+            // // send notification to manager
+            if($this->manager_email!=$user_data['google_email']){
+                $email_data_l = [];
+                $email_data_l['to']['email'] = $this->manager_email;
+                $email_data_l['to']['name'] = $this->manager_name;
+                $email_data_l['subject'] = $temp_data_l['subject'];
+
+                $message = strtr($temp_data['content'], $vars);
+                $email_data_l['message'] = $message;           
+                $this->send_notification($email_data_l);
+            }
+
+            /*update msg read count*/
+            $query = "SELECT msg_read from users where id=".$data['u_id'];
+            $user_list = $this->con->prepare($query);
+            $user_list->execute();
+            $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
+            if(isset($row) && !empty($row))
+            {
+                $query = "UPDATE users set msg_read=".($row[0]['msg_rea']+1)." where id=".$data['u_id'];
+                $user_list = $this->con->prepare($query);
+                $user_list->execute();
+            }
+
             return $request_last_insert;
         }
            
@@ -820,7 +1014,7 @@ function get_ranking_list() {
                     . "rating as rating on work.id=rating.work_id left join  "
                     . "users as user on request.to_id=user.id left join "
                     . "role_type as role on role.id = user.role_id "
-                    . "where work.created_by = " . $user_id . $cnd . " order by work.id desc";
+                    . "where work.created_by = " . $user_id . $cnd . " order by work.modified_date desc";
             $user_list = $this->con->prepare($query);
             $user_list->execute();
             $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
@@ -851,6 +1045,7 @@ function get_ranking_list() {
         $query = $this->con->prepare($sql);
         $data2 = $query->execute();
         $this->unread_request($id);
+        $comment_inst = $this->get_comment_detail($data['rq_id']);
         $comment_insert_query = "INSERT INTO comment(request_id, comment_text, by_id, created_date, modified_date)
                                  VALUES(:request_id,:comment_text,:by_id,:created_date,:modified_date)";
         $comment_insert = $this->con->prepare($comment_insert_query);
@@ -860,6 +1055,53 @@ function get_ranking_list() {
             ':created_date' => $created_date,
             ':modified_date' => $modified_date));
         //notifyRequestStatus($data, "decline");
+
+        /*send email to user when decline*/
+        $email_data = [];
+        $user_data = $this->getEmailById($data['u_id']);
+        $temp_data = $this->getEmailTemplateByCode('PRKE04');
+        $email_data['to']['email'] = $user_data['google_email'];
+        $email_data['to']['name'] = $user_data['google_name'];
+        $email_data['subject'] = $temp_data['subject'];
+
+        $vars = array(
+            "{Username}" => $user_data['google_name'],
+            "{Parakh}" => $this->getParakhLink(),
+        );
+
+        $message = strtr($temp_data['content'], $vars);
+        $email_data['message'] = $message;           
+        $this->send_notification($email_data);
+
+        // // send notification to manager
+        if($this->manager_email!=$user_data['google_email']){
+            $email_data_l = [];
+            $email_data_l['to']['email'] = $this->manager_email;
+            $email_data_l['to']['name'] = $this->manager_name;
+            $email_data_l['subject'] = $temp_data_l['subject'];
+
+            $message = strtr($temp_data['content'], $vars);
+            $email_data_l['message'] = $message;           
+            $this->send_notification($email_data_l);
+        }
+
+        $update__work_ = "Update work SET description ='".$data['desc']."', modified_date = '".$modified_date."' WHERE id = '" . $id . "'";
+        $work_update = $this->con->prepare($update_comment);
+        $work_update->execute();
+
+
+        /*update msg read count*/
+        $query = "SELECT msg_read from users where id=".$data['to_id'];
+        $user_list = $this->con->prepare($query);
+        $user_list->execute();
+        $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
+        if(isset($row) && !empty($row))
+        {
+            $query = "UPDATE users set msg_read=".($row[0]['msg_rea']+1)." where id=".$data['to_id'];
+            $user_list = $this->con->prepare($query);
+            $user_list->execute();
+        }
+
         return true;        
     }//end of fun
     
@@ -876,7 +1118,7 @@ function get_ranking_list() {
         $rating_inst = $this->get_rating_detail($data['rq_id']);
         $comment_inst = $this->get_comment_detail($data['rq_id']);
         $request_data = $this->get_request_detail($data['rq_id']);
-        
+        $email = false;
         
         $login_user_id = $data['u_id'];
         if (empty($rating_inst)) {
@@ -891,6 +1133,7 @@ function get_ranking_list() {
                 ':created_date' => $created_date,
                 ':modified_date' => $modified_date,
                 ':show_rating' => $show));
+            $email = true;
         } else {
             $rate = $data['rating'];
             $sql = "Update rating SET show_rating ='" . $show . "',rating = $rate,"
@@ -898,6 +1141,7 @@ function get_ranking_list() {
                     . "request_id = '" . $data['rq_id'] . "'";
             $query = $this->con->prepare($sql);
             $data2 = $query->execute();
+            $email = true;
         }
         if (empty($comment_inst)) {
             $comment_insert_query = "INSERT INTO comment(request_id, comment_text, by_id, created_date, modified_date)
@@ -921,6 +1165,51 @@ function get_ranking_list() {
                 ."modified_date = '".$modified_date."' WHERE id = '".$data['rq_id']."'";
         $query = $this->con->prepare($sql);
         $data2 = $query->execute();
+        /*send email to user when accept*/
+        if($email)
+        {
+
+            $email_data = [];
+            $user_data = $this->getEmailById($data['u_id']);
+            $temp_data = $this->getEmailTemplateByCode('PRKE03');
+            $email_data['to']['email'] = $user_data['google_email'];
+            $email_data['to']['name'] = $user_data['google_name'];
+            $email_data['subject'] = $temp_data['subject'];
+
+            $vars = array(
+                "{Username}" => $user_data['google_name'],
+                "{Parakh}" => $this->getParakhLink(),
+            );
+
+            $message = strtr($temp_data['content'], $vars);
+            $email_data['message'] = $message;           
+            $this->send_notification($email_data);
+
+            // // send notification to manager
+            if($this->manager_email!=$user_data['google_email']){
+                $email_data_l = [];
+                $email_data_l['to']['email'] = $this->manager_email;
+                $email_data_l['to']['name'] = $this->manager_name;
+                $email_data_l['subject'] = $temp_data_l['subject'];
+
+                $message = strtr($temp_data['content'], $vars);
+                $email_data_l['message'] = $message;           
+                $this->send_notification($email_data_l);
+            }
+
+            /*update msg read count*/
+            $query = "SELECT msg_read from users where id=".$data['to_id'];
+            $user_list = $this->con->prepare($query);
+            $user_list->execute();
+            $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
+            if(isset($row) && !empty($row))
+            {
+                $query = "UPDATE users set msg_read=".($row[0]['msg_rea']+1)." where id=".$data['to_id'];
+                $user_list = $this->con->prepare($query);
+                $user_list->execute();
+            }
+        }
+
         return true;   
     }//end of fun
     
@@ -984,9 +1273,58 @@ function get_ranking_list() {
             $user_list = $this->con->prepare($query);
             $user_list->execute(array(':user_id' => $user_id));
             $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
+
+            /*query for feedback*/
+            $query1 = "SELECT feedback.feedback_to as user_id,feedback.feedback_to as for_id, 3 as status,'response-feedback' as rating,feedback_from as given_by,users.google_name as rated_to,google_picture_link, feedback.created_date  from users join feedback on feedback.feedback_to = users.id where feedback.feedback_to = :user_id"; 
+            $user_list1 = $this->con->prepare($query1);
+            $user_list1->execute(array(':user_id' => $user_id));
+            $row1 = $user_list1->fetchAll((PDO::FETCH_ASSOC));
+            for ($p=0;$p<count($row1);$p++) { 
+                $query2 = "SELECT id,google_name,google_picture_link from users where users.id = :user_id"; 
+                $user_list2 = $this->con->prepare($query2);
+                $user_list2->execute(array(':user_id' => $row1[$p]['given_by']));
+                $row2 = $user_list2->fetchAll((PDO::FETCH_ASSOC));
+                $row1[$p]['for_picture'] = $row2[0]['google_picture_link'];
+                $row1[$p]['ratedby'] = $row2[0]['google_name'];
+                $row[] = $row1[$p];
+            }
+
+            /*query for feedback response*/
+            $query3 = "SELECT feedback.feedback_from as user_id,feedback.feedback_from as for_id, 3 as status,'feedback' as rating,feedback_to as given_by,users.google_name as rated_to,google_picture_link, feedback.created_date  from users join feedback on feedback.feedback_from = users.id where feedback.feedback_from = :user_id"; 
+            $user_list3 = $this->con->prepare($query3);
+            $user_list3->execute(array(':user_id' => $user_id));
+            $row3 = $user_list3->fetchAll((PDO::FETCH_ASSOC));
+            for ($t=0;$t<count($row3);$t++) { 
+                $query4 = "SELECT id,google_name,google_picture_link from users where users.id = :user_id"; 
+                $user_list4 = $this->con->prepare($query4);
+                $user_list4->execute(array(':user_id' => $row3[$t]['given_by']));
+                $row4 = $user_list4->fetchAll((PDO::FETCH_ASSOC));
+                $row3[$p]['for_picture'] = $row4[0]['google_picture_link'];
+                $row3[$p]['ratedby'] = $row4[0]['google_name'];
+                $row[] = $row3[$p];
+            }
+            usort($row, function($a, $b) {
+                if($a['created_date']==$b['created_date']) return 0;
+                return $a['created_date'] < $b['created_date']?1:-1;
+                //return strtotime($a['created_date']) - strtotime($b['created_date']);
+            });
+//echo "<pre>";print_r($row);
             return $row;        
     }//end of fun
     
+
+    function sortFunction( $a, $b ) {
+        return strtotime($a["created_by"]) - strtotime($b["created_by"]);
+    }
+
+    /*function to return unread notification count*/
+    function get_count_for_unread_notification($user_id){
+        $query = "SELECT msg_read FROM users where id =:user_id";                     
+        $user_list = $this->con->prepare($query);
+        $user_list->execute(array(':user_id' => $user_id));
+        $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
+        return $row; 
+    }
     //
     function getPendingRequest($user_id = null)
     {
