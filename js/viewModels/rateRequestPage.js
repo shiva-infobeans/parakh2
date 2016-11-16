@@ -123,10 +123,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 }
                 if (self.role_name() === 'Team Member') {
                     $('#rateTab2').hide();
-
                 } else {
                     $('#rateTab2').show();
                     $('#hideLead').hide();
+                    
                 }
                 var lead = oj.Model.extend({
                     url: getAllLeads + self.userId(),
@@ -251,9 +251,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 }
             });
         }
-
-
     }
-
     return rateRequestPageContentViewModel;
 });

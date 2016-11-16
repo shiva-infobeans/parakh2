@@ -721,6 +721,51 @@ $app->get('/getUserPendingRequest[/{userId}/{status}]', function ($request, $res
 });
 
 
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getRecentActivityCount/<userId>
+ * Parameters: user id
+ * 
+ * Method: GET
+ * */    
+$app->get('/getRecentActivityCount[/{userId}]', function ($request, $response, $args) {
+    $response_data = array();
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    
+    if($db->isValidUser( $args['userId'] )){
+        $result = $db->getRecentActivityCount($args['userId']);
+        if($result != 0){
+            $response_data = makeResponse('false',$result);
+        }else{
+            $response_data = makeResponse('true',get_site_error(3009));
+        }    
+        $response->withJson($response_data);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3002));
+    }    
+    return $response;
+});
+
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getCountForUnreadNotification/
+ * Parameters: none
+ * 
+ * Method: GET
+ * */    
+$app->get('/getCountForUnreadNotification[/{userId}]', function ($request, $response, $args) {
+    $response_data = array();
+    
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    $result = $db->get_count_for_unread_notification($args['userId']);
+    if($result != 0){
+        $response_data = makeResponse('false',$result);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3001));
+    }    
+    $response->withJson($response_data);
+    return $response;
+});
 
 /**
  * Step 4: Run the Slim application
