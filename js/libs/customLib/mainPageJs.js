@@ -25,6 +25,8 @@ var notify = baseUrl+"/getRecentActivity/";
 var getTeamMembersRequest = baseUrl+"/getTeamMembersRequest/";
 var getUserPendingRequest = baseUrl+"/getUserPendingRequest/";
 var requestDecision = baseUrl+"/requestDecision";
+var notificationCount = baseUrl+"/getCountForUnreadNotification/";
+var resetNotifCount = baseUrl+"/resetNotifCount";
 
 
 var secret = 'parakh-revamp-local-key-2016';

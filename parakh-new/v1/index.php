@@ -742,6 +742,44 @@ $app->get('/getCountForUnreadNotification[/{userId}]', function ($request, $resp
     return $response;
 });
 
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/resetNotifCount
+ * Parameters: 
+ * u_id: user id
+ * 
+ * Method: POST
+ * Content-Type: application/x-www-form-urlencoded
+ * */    
+$app->post('/resetNotifCount', function ($request, $response) {
+    $response_data = [];
+    $data = $request->getParsedBody();
+    $post_data = [];
+    $post_data['userId'] = filter_var($data['userId'], FILTER_SANITIZE_NUMBER_INT);
+    
+    
+    if($post_data['userId'] > 0 ){
+        //Creating a dbmodule object
+        $db = new dbmodule();
+        // Check Is valid user
+        if($db->isValidUser( $post_data['userId'] )){
+            $result = $db->resetNotifCount($post_data);
+            if($result != ""){
+                $response_data = makeResponse('false',$result);
+            }else{
+                $response_data = makeResponse('true',get_site_error(3012));
+            }
+        }else{
+            $response_data = makeResponse('true',get_site_error(3002));
+        }
+    }else{
+       $response_data = makeResponse('true',get_site_error(3012)); 
+    }    
+    $response->withJson($response_data);
+    return $response;
+    
+});
+
+
 /**
  * Step 4: Run the Slim application
  *

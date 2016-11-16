@@ -48,7 +48,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
         var self = this;
         self.notif = ko.observableArray();
         self.userId = ko.observable();
-        self.notifCount = ko.observable("10");
+        self.notifCount = ko.observable();
         self.signout = function () {
             setCookie("email", "", 0);
             setCookie("name", "", 0);
@@ -131,6 +131,21 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
                         }
                     }
                 });
+                var getNotification = oj.Model.extend({
+                    url: notificationCount + self.userId()
+                });
+                var getNotifyId = new getNotification();
+                getNotifyId.fetch({
+                    headers: {secret: secret},
+                    success: function (res) {
+                        console.log(res['attributes']['data'][0]['msg_read']);
+                        if (res['attributes']['data'][0]['msg_read'] == 0) {
+                            $('.notif-count').hide();
+                        } else {
+                            self.notifCount(res['attributes']['data'][0]['msg_read']);
+                        }
+                    }
+                });
             }
         });
         setTimeout(function () {
@@ -139,14 +154,23 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
                     $(this).parent().addClass("active");
                 }
             });
-            $(".openCloseNotify a, notif-count").on('click', function () {
+            $(".openCloseNotify a, .notif-count").on('click', function () {
                 if ($('.notification').hasClass('hide')) {
                     $('.notification').removeClass('hide');
                 } else {
                     $('.notification').addClass('hide');
                 }
-                self.notifCount("");
-                $('.notif-count').hide();
+
+                $.ajax({
+                    headers: {secret: secret},
+                    method: 'POST',
+                    url: resetNotifCount,
+                    data: {userId: self.userId()},
+                    success: function () {
+                        self.notifCount("");
+                        $('.notif-count').hide();
+                    }
+                });
 
             });
         }, 500);
