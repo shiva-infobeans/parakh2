@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 //links for webservice;
-var baseUrl = "http://dev.parakh.com/parakh-new/v1/index.php";
+var baseUrl = "http://dev.parakh.com/parakh2/parakh-new/v1/index.php";
 var getUserByEmail = baseUrl+"/getUserByEmail/";
 var getUserByLead = baseUrl+"/getUserByLead/";
 var getOtherTeamMembers = baseUrl+"/getOtherTeamMembers/";
@@ -25,6 +25,8 @@ var notify = baseUrl+"/getRecentActivity/";
 var getTeamMembersRequest = baseUrl+"/getTeamMembersRequest/";
 var getUserPendingRequest = baseUrl+"/getUserPendingRequest/";
 var requestDecision = baseUrl+"/requestDecision";
+var notificationCount = baseUrl+"/getCountForUnreadNotification/";
+var resetNotifCount = baseUrl+"/resetNotifCount";
 
 
 var secret = 'parakh-revamp-local-key-2016';
