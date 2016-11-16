@@ -23,7 +23,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
     }
     function request(data, userid) {
         var req = Object();
-        req.sComment = data['description'].substring(0, 20);
+        if (data['description'].length > 100) {
+            req.sComment = data['description'].substring(0, 100) + "...";
+        } else {
+            req.sComment = data['description'];
+        }
         req.lComment = data['description'];
         req.request_id = data['request_id'];
         req.pic = data['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data['google_picture_link'];
@@ -51,14 +55,16 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.desc1 = ko.observable();
         self.textError = ko.observable();
         self.textError1 = ko.observable();
-        this.sucessMsg = ko.observable("S");
+        this.sucessMsg = ko.observable("");
         this.sucessMsg("");
         self.requestRejectedMember = ko.observableArray();
         self.requestPendingMember = ko.observableArray();
         self.requestPendingLead = ko.observableArray();
         self.requestRejectedLead = ko.observableArray();
         self.role = ko.observable();
-
+        self.noPendingRequest = ko.observable("No Pending Requests.");
+        self.noRejectRequest = ko.observable("No Declined Requests.");
+        self.noLeadPendingRequest = ko.observable("No Pending Requests.");
 
 //        self.pic = "http://www.freeiconspng.com/uploads/blank-face-person-icon-7.png";
         var user = oj.Model.extend({
@@ -86,6 +92,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 self.requestPendingMember.push(new request(data1[i], self.userId()));
                             }
                         }
+                        if (self.requestPendingMember().length != 0) {
+                            self.noPendingRequest("");
+                        }
                     }
                 });
                 var requestUrl = oj.Model.extend({
@@ -101,6 +110,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 self.requestRejectedMember.push(new request(data1[i], self.userId()));
                             }
                         }
+                        if (self.requestRejectedMember().length != 0) {
+                            self.noRejectRequest("");
+                        }
+
                     }
                 });
                 // for lead or manager
@@ -117,6 +130,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 if (data1[i]['status'] == 0) {
                                     self.requestPendingLead.push(new request(data1[i], self.userId()));
                                 }
+                            }
+                            if (self.requestPendingLead().length != 0) {
+                                self.noLeadPendingRequest("");
                             }
                         }
                     });
@@ -141,10 +157,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         self.lead_id(result['attributes']['data'][0]['manager_id']);
                         self.lead_role(result['attributes']['data'][0]['role_name']);
                         // console.log(result['attributes']['data'][0]['role_name']);
+                        if(result['attributes']['data'].length == 2){
                         self.manager_name(result['attributes']['data'][1]['manager_name']);
                         self.manager_pic(result['attributes']['data'][1]['google_picture_link']);
                         self.manager_id(result['attributes']['data'][1]['manager_id']);
                         self.manager_role(result['attributes']['data'][1]['role_name']);
+                    }
                         //console.log(result['attributes']['data'][1]['role_name']);
                     }
                 });
@@ -153,12 +171,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         setTimeout(function () {
 
             $(".approveDisapprove").on('click', function () {
-
+                
                 var userId = $(this).attr('userId');
                 var requestId = $(this).attr('requestId');
                 var type = $(this).attr('type');
-                var descriptionChange = $(this).parent().prev().children().children('#text-area20').val() == "" ?
-                        $(this).parent().prev().children().children('#text-area20').val() : $(this).attr('desc');
+                var descHTML = $(this).parent().prev().children().children('#text-area20');
+                var descriptionChange = (descHTML.val() != "") ?
+                        descHTML.val() : $(this).attr('descComment');
                 var to_id = $(this).attr('to_id');
                 var removeHtml = $(this);
                 $.ajax({
@@ -198,12 +217,18 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         $(this).children("span").children("span:nth-child(2)").html("More");
                         $(this).children("span").children("span").children("i").removeClass("zmdi-caret-up");
                         $(this).children("span").children("span").children("i").addClass("zmdi-caret-down");
-                        var smsg = $(this).children("span").children("span:nth-child(3)").text().substring(0, 20);
+                        var smsg = $(this).children("span").children("span:nth-child(3)").text().substring(0, 100) + "...";
                         $(this).parent().prev().prev().children('span').text(smsg);
                         $(this).parent().prev().prev().removeClass("hide");
                     }
                 }
 
+            });
+            $(".openDiv").each(function () {
+                //console.log();
+                if ($(this).children().children("span:nth-child(3)").text().length <= 100) {
+                    $(this).addClass('hide');
+                }
             });
         }, 500);
         //send request for +1 ratings ajax call

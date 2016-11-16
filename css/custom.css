@@ -393,12 +393,13 @@ div.oj-tabs-panel.oj-tabs-selected{
     margin-top:5px;
     margin-bottom: 5px;
 }
-.replyComent:nth-child(odd){
+
+.open-more > div > .replyComent:nth-child(odd) {
     margin-left: 2px;
     border-left: 5px solid #ff0000;
     padding:5px;
 }
-.replyComent:nth-child(even){
+.open-more > div > .replyComent:nth-child(even) {
     margin-left: 2px;
     border-left: 5px solid #00ff00;
     padding:5px;
@@ -453,7 +454,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     cursor: pointer;
 }
 .replyBox div:nth-child(2) span{
-    margin-left: 10px;
+    margin-left: 15px;
     cursor: pointer;
     font-size: 18px;
 }
@@ -662,31 +663,31 @@ div.oj-tabs-panel.oj-tabs-selected{
     color:#000;
 }
 #tabs-container-request ul li.oj-selected .oj-tabs-title{
-        color:#689F39;
+    color:#689F39;
 }
 .background-fix {
-background-color: #689F39;
+    background-color: #689F39;
 }
 #forActive li a {
-padding-right: 5px;
+    padding-right: 5px;
 }
 #forActive ul * {
-color: rgba(255,255,255,0.6);
-font-size: 18px;
+    color: rgba(255,255,255,0.6);
+    font-size: 18px;
 }
 .nav1 li:hover * {
-color: #fff !important;
-text-decoration: none !important;
+    color: #fff !important;
+    text-decoration: none !important;
 }
 
 .navigationlist ul *, .cross-top *, .check-icon *, .close-icon * {
-color: #fff;
+    color: #fff;
 }
 .home-profile-pic {
-height: 25px;
-width: 25px;
-border-radius: 50%;
-border: 1px solid #fff;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    border: 1px solid #fff;
 }
 #tabs-4 hr{
     width: 100%;
@@ -720,11 +721,66 @@ border: 1px solid #fff;
 }
 .approveDisapprove{
     border: medium none;
-    margin-bottom: -10px;
+    margin-bottom: -15px;
     padding: 10px;
     font-size: 30px;
     width: 50%;
 }
 .requestApproveDiv{
     padding: 4px;
+}
+/* fixes */
+.closeIconNotify{
+    margin-left: 8px !important;
+}
+.checkIconNotify{
+    margin-left: 7px !important;
+}
+.colorDarkGreen{
+    color:#689F39 !important;
+}
+.Moreless-fix{
+    font-size: 35px !important;
+    left: 295px;
+    position: absolute;
+    top: -12px;
+}
+.divTextRateMe .oj-textarea{
+    max-width: 100% !important;
+}
+.NorequestMsg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 50%;
+    width: 100%;
+}
+.NorequestMsgAlignment{
+    margin-top: 350px;
+    font-size: 35px;
+    min-height: 50%;
+}
+.feedbackMoreFix{
+    font-size: 35px !important;
+    position: absolute;
+    top: -8px;
+    left: -20px;
+}
+
+.filmstrip-item {
+    box-sizing: border-box;
+    width: 150px;
+    height: 150px;
+    margin: 5px;
+    text-align: center;
+    font-weight: bold;
+    color: #333;
+}
+
+.arrow-controls {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 20px;
 }

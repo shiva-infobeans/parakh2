@@ -81,11 +81,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         $(this).parent().prev('.open-more').slideToggle();
                         if ($(this).prev().children("span").hasClass("hide")) {
                             $(this).prev().children("span").removeClass("hide");
+                            console.log($(this).children("span").children("span").children("i").attr('class'));
                             $(this).children("span").children("span").children("i").addClass("zmdi-caret-up");
                             $(this).children("span").children("span").children("i").removeClass("zmdi-caret-down");
                             $(this).children("span").children("span:nth-child(2)").html("Less");
                         } else {
                             $(this).children("span").children("span:nth-child(2)").html("More");
+                            console.log($(this).children("span").children("span").children("i").attr('class'));
                             $(this).children("span").children("span").children("i").removeClass("zmdi-caret-up");
                             $(this).children("span").children("span").children("i").addClass("zmdi-caret-down");
                             $(this).prev().children("span").addClass("hide");

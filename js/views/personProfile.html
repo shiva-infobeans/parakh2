@@ -42,7 +42,7 @@
         <li class="profile-tabs profile-font-tabs selectedTab" title="Negative Rating"><span><i class="zmdi zmdi-trending-down"></i> 
                 <span data-bind='text: minusSign'></span><span data-bind="text: minus"></span></span></li>
         <li class="profile-tabs profile-font-tabs selectedTab"><span><i class="zmdi zmdi-comment-alt-text"></i> Feedback</span></li>
-        <li class="profile-tabs profile-font-tabs selectedTab"><span><i class="zmdi zmdi-account-add"></i> About Me</span></li>
+        <li class="profile-tabs profile-font-tabs selectedTab"><span><i class="zmdi zmdi-account"></i> About Me</span></li>
     </ul>
 
     <div id="tabs-1" class="color-white oj-margin-horizontal pos-relative">
@@ -91,125 +91,129 @@
 
                     <!--repeat block-->
                     <!--ko foreach: feedbackContent1-->
-                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding heightContent">
+                    <div class="oj-xl-9 oj-lg-9 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding heightContent oj-flex-bar-center-absolute">
                         <div class="transbox border-color-green feedbackHeight"></div>
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
-                            <img data-bind="attr: {src: feedbackImage}"  alt="" class="profile-feedback-pic"/>
-                        </div>
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
-
-                            <span data-bind="text: name"></span>
-                        </div>
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
-
-                            <span data-bind="text: feedbackdesignation"></span>
-                        </div>
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
-
-                            <span data-bind="text: feedbackDate"></span>
-                        </div>
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin">
-
-                            <span data-bind="text: feedbackDescription"></span>
-                        </div>
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item open-more border-color-green oj-flex overflow-feedback-reply">
-
-                            <!--repeat here-->
-                            <!--ko foreach: replies-->
-                            <div class="oj-row oj-flex oj-margin-top oj-margin-bottom oj-margin-horizontal oj-padding-horizontal">
-                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item replyName">
-                                    <span data-bind="text: reply_name"></span>
-                                </div>
-                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex replyComent">
-                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item"><span data-bind="text: reply_desc"></span></div>
-                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex-bar"><span class="oj-flex-bar-end" data-bind="text: reply_date"></span></div>
-                                </div>
+                        <div class="oj-flex oj-row">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                                <img data-bind="attr: {src: feedbackImage}"  alt="" class="profile-feedback-pic"/>
                             </div>
-                            <!--/ko-->
-                            <!--repeat end-->
-                        </div>
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-margin replyBox">
-                            <div class="oj-xl-9 oj-lg-9 oj-md-9 oj-sm-9 oj-flex-item oj-flex"> 
-                                <span class="hide oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
 
-                                    <button  class="submitRespond" data-bind="attr:{loginUserId: myId,feedback_to: feedbackfrom,feedbackId: feedbackId}">
-                                        <i class="zmdi zmdi-mail-reply"></i>
-                                    </button>
-                                </span>
-                                <span class="hide oj-xl-9 oj-lg-9 oj-md-9 oj-sm-9 oj-flex-item">
-                                    <input class="respondDescription border-color-white" type="text" />
-
-                                </span>
+                                <span data-bind="text: name"></span>
                             </div>
-                            <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item openDiv flex-bar">
-                                <span class="flex-bar-end">
-                                    <span><i class="zmdi zmdi-caret-down"></i></span>
-                                    <span>More</span>
-                                </span>
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+
+                                <span data-bind="text: feedbackdesignation"></span>
+                            </div>
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+
+                                <span data-bind="text: feedbackDate"></span>
+                            </div>
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin">
+
+                                <span data-bind="text: feedbackDescription"></span>
+                            </div>
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item open-more oj-flex overflow-feedback-reply oj-margin oj-padding">
+
+                                <!--repeat here-->
+                                <!--ko foreach: replies-->
+                                <div class="oj-row oj-flex oj-margin-top oj-margin-bottom oj-margin-horizontal oj-padding-horizontal">
+                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item replyName">
+                                        <span data-bind="text: reply_name"></span>
+                                    </div>
+                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex replyComent">
+                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item"><span data-bind="text: reply_desc"></span></div>
+                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex-bar"><span class="oj-flex-bar-end" data-bind="text: reply_date"></span></div>
+                                    </div>
+                                </div>
+                                <!--/ko-->
+                                <!--repeat end-->
+                            </div>
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-margin replyBox">
+                                <div class="oj-xl-9 oj-lg-9 oj-md-9 oj-sm-9 oj-flex-item oj-flex"> 
+                                    <span class="hide oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item">
+
+                                        <button  class="submitRespond" data-bind="attr:{loginUserId: myId,feedback_to: feedbackfrom,feedbackId: feedbackId}">
+                                            <i class="zmdi zmdi-mail-reply"></i>
+                                        </button>
+                                    </span>
+                                    <span class="hide oj-xl-9 oj-lg-9 oj-md-9 oj-sm-9 oj-flex-item oj-margin-bottom">
+                                        <input class="respondDescription border-color-white" type="text" />
+
+                                    </span>
+                                </div>
+                                <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item openDiv flex-bar">
+                                    <span class="oj-flex-bar-end pos-relative">
+                                        <span class="feedbackMoreFix"><i class="zmdi zmdi-caret-down"></i></span>
+                                        <span>More</span>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <!--/ko-->
                     <!--repeat end-->
-
                 </div>
                 <div class="oj-xl-6 oj-lg-6 oj-md-12 oj-sm-12 oj-flex-item ">
                     <!--repeat block-->
                     <!--ko foreach: feedbackContent2-->
-                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding heightContent">
+                    <div class="oj-xl-9 oj-lg-9 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding heightContent oj-flex-bar-center-absolute">
                         <div class="transbox border-color-green feedbackHeight"></div>
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
-                            <img data-bind="attr: {src: feedbackImage}"  alt="" class="profile-feedback-pic"/>
-                        </div>
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
-
-                            <span data-bind="text: name"></span>
-                        </div>
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
-
-                            <span data-bind="text: feedbackdesignation"></span>
-                        </div>
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
-
-                            <span data-bind="text: feedbackDate"></span>
-                        </div>
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin">
-
-                            <span data-bind="text: feedbackDescription"></span>
-                        </div>
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item open-more border-color-green oj-flex overflow-feedback-reply">
-
-                            <!--repeat here-->
-                            <!--ko foreach: replies-->
-                            <div class="oj-row oj-flex oj-margin-top oj-margin-bottom oj-margin-horizontal oj-padding-horizontal">
-                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item replyName">
-                                    <span data-bind="text: reply_name"></span>
-                                </div>
-                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex replyComent">
-                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item"><span data-bind="text: reply_desc"></span></div>
-                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex-bar"><span class="oj-flex-bar-end" data-bind="text: reply_date"></span></div>
-                                </div>
+                        <div class="oj-row oj-flex">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                                <img data-bind="attr: {src: feedbackImage}"  alt="" class="profile-feedback-pic"/>
                             </div>
-                            <!--/ko-->
-                            <!--repeat end-->
-                        </div>
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-margin replyBox">
-                            <div class="oj-xl-9 oj-lg-9 oj-md-9 oj-sm-9 oj-flex-item oj-flex"> 
-                                <span class="hide oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
 
-                                    <button  class="submitRespond" data-bind="attr:{loginUserId: myId,feedback_to: feedbackfrom,feedbackId: feedbackId}">
-                                        <i class="zmdi zmdi-mail-reply"></i>
-                                    </button>
-                                </span>
-                                <span class="hide oj-xl-9 oj-lg-9 oj-md-9 oj-sm-9 oj-flex-item">
-                                    <input class="respondDescription border-color-white" type="text"/>
-                                </span>
+                                <span data-bind="text: name"></span>
                             </div>
-                            <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item openDiv flex-bar">
-                                <span class="flex-bar-end">
-                                    <span><i class="zmdi zmdi-caret-down"></i></span>
-                                    <span>More</span>
-                                </span>
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+
+                                <span data-bind="text: feedbackdesignation"></span>
+                            </div>
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+
+                                <span data-bind="text: feedbackDate"></span>
+                            </div>
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin">
+
+                                <span data-bind="text: feedbackDescription"></span>
+                            </div>
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item open-more oj-flex overflow-feedback-reply oj-margin">
+
+                                <!--repeat here-->
+                                <!--ko foreach: replies-->
+                                <div class="oj-row oj-flex oj-margin-top oj-margin-bottom oj-margin-horizontal oj-padding-horizontal">
+                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item replyName">
+                                        <span data-bind="text: reply_name"></span>
+                                    </div>
+                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex replyComent">
+                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item"><span data-bind="text: reply_desc"></span></div>
+                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex-bar"><span class="oj-flex-bar-end" data-bind="text: reply_date"></span></div>
+                                    </div>
+                                </div>
+                                <!--/ko-->
+                                <!--repeat end-->
+                            </div>
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-margin replyBox">
+                                <div class="oj-xl-9 oj-lg-9 oj-md-9 oj-sm-9 oj-flex-item oj-flex"> 
+                                    <span class="hide oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item">
+
+                                        <button  class="submitRespond" data-bind="attr:{loginUserId: myId,feedback_to: feedbackfrom,feedbackId: feedbackId}">
+                                            <i class="zmdi zmdi-mail-reply"></i>
+                                        </button>
+                                    </span>
+                                    <span class="hide oj-xl-9 oj-lg-9 oj-md-9 oj-sm-9 oj-flex-item oj-margin-bottom">
+                                        <input class="respondDescription border-color-white" type="text" />
+
+                                    </span>
+                                </div>
+                                <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item openDiv flex-bar">
+                                    <span class="oj-flex-bar-end pos-relative">
+                                        <span class="feedbackMoreFix"><i class="zmdi zmdi-caret-down"></i></span>
+                                        <span>More</span>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>

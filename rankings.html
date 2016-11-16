@@ -11,51 +11,11 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta id="meta" name="google-signin-client_id" content="">
         <link rel="icon" id="favicon" type="image/jpg" href="" />
-        <script src="js/libs/customLib/mainPageJs.js" type="text/javascript"></script>
         <link href="css/libs/oj/v2.1.0/alta/oj-alta-min.css" rel="stylesheet" type="text/css"/>
         <link href="css/custom.css" rel="stylesheet" type="text/css"/>
         <link href="css/common.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
-        <script>
-            // parakh user data web service url: http://dev.parakh.com/parakh-new/v1/index.php/getUserByEmail/shiva.shirbhate@infobeans.com;            
-            //global variables
-            var email = getCookie("email");
-            var name = getCookie("name");
-            var profilePic = getCookie("picture");
-            var myInfo;
-            if (document.cookie.indexOf("email") >= 0 && document.cookie.indexOf("name") >= 0 && document.cookie.indexOf("pic") >= 0) {
-                myInfo = new person(email, name, profilePic);
-            } else {
-                console.log("error");
-                setTimeout(function () {
-                    window.location = "http://" + window.location.hostname;
-                }, 500);
-            }
-
-
-            function person(email, name, pic) {
-                this.email = email;
-                this.name = name;
-                this.pic = pic;
-                return this;
-            }
-
-            function getCookie(cname) {
-                var name = cname + "=";
-                var ca = document.cookie.split(';');
-                for (var i = 0; i < ca.length; i++) {
-                    var c = ca[i];
-                    while (c.charAt(0) == ' ') {
-                        c = c.substring(1);
-                    }
-                    if (c.indexOf(name) == 0) {
-                        return c.substring(name.length, c.length);
-                    }
-                }
-                return "";
-            }
-        </script>
-        </script>
+        
     </head>
     <body class="background">
         <header>
@@ -73,7 +33,9 @@ and open the template in the editor.
             <div class="footer" data-bind="ojModule:{name:'footer'}"></div>
         </footer>
         <div class="g-signin2" style="display: none" data-onsuccess="onSignIn"></div>
+        <script src="js/libs/customLib/mainPageJs.js" type="text/javascript"></script>
         <script src="js/libs/require/require.js" data-main="js/main"></script>
+        <script src="js/libs/customLib/custom.js" type="text/javascript"></script>
     </body>
 </html>
 

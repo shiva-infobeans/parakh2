@@ -161,7 +161,7 @@ body{
 .green-button img{
     width: 200px;
     margin:0px 100px;
-   
+
 }
 .red-button{
     float:right;
@@ -170,7 +170,7 @@ body{
 .red-button img{
     margin:0px 90px;
     width: 200px;
-     
+
 }
 
 #slider-wrapper {
@@ -300,7 +300,7 @@ body{
 
 .slide  {
     float: left;
-   
+
 }
 .edit-btn{
     margin-top:18px;
@@ -369,7 +369,7 @@ body{
     margin: 20px auto 0;
     position: relative;
     -webkit-transition: all  0.80s ease-out;
-  transition: all 0.30s ease-out;
+    transition: all 0.30s ease-out;
 }
 
 .buttons:active, 
@@ -455,11 +455,11 @@ body{
     display: flex;
     -webkit-flex-direction: column;
     flex-direction: column;
-/*    top: 175px !important;
-    left: 613px !important;*/
+    /*    top: 175px !important;
+        left: 613px !important;*/
 }
 #ojDialogWrapper-modalDialog8.oj-dialog,#ojDialogWrapper-modalDialog2.oj-dialog{
-     overflow: hidden;
+    overflow: hidden;
     width: 556px;
     height: 513px;
     box-sizing: border-box;
@@ -467,8 +467,8 @@ body{
     display: flex;
     -webkit-flex-direction: column;
     flex-direction: column;
-/*    top: 175px !important;
-    left: 613px !important;*/
+    /*    top: 175px !important;
+        left: 613px !important;*/
 }
 
 #ojDialogWrapper-modalDialog9.oj-dialog,#ojDialogWrapper-modalDialog3.oj-dialog,#ojDialogWrapper-modalDialogRequest.oj-dialog{
@@ -480,8 +480,8 @@ body{
     display: flex;
     -webkit-flex-direction: column;
     flex-direction: column;
-    top: 175px !important;
-    left: 613px !important;
+    /*    top: 175px !important;
+        left: 613px !important;*/
 }
 .buddyTab{
     margin-top: -78px;
@@ -501,8 +501,8 @@ body{
     width: 90px;
     text-decoration: none;
     text-align: center;
-     background-color: grey;
-      color:green;
+    background-color: grey;
+    color:green;
 }
 
 .buddyHeader {
@@ -531,7 +531,7 @@ body{
     filter: progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color=#6f6d6d);
 }
 .areaFloat{
- width: 385px;
+    width: 385px;
     height: 148px;
     border: solid 1px #dcdcdc;
     margin-left: 17px;
@@ -547,7 +547,7 @@ body{
     margin-left: 21px;
 }
 .area-Feedback {
-   width: 465px;
+    width: 465px;
     height: 162px;
     border: solid 1px #dcdcdc;
     margin-left: 17px;
@@ -682,7 +682,7 @@ body{
     border-bottom: 4px solid #78A95A;
 }
 .rankText{
-   text-align: center;
+    text-align: center;
     font-size: 60px;
     padding-top: 55px;
     padding-bottom: 71px;
@@ -692,7 +692,7 @@ body{
     margin-bottom: 20px;
 }
 #tabs-container .oj-tabs-nav{
-   margin-left: 12px;
+    margin-left: 12px;
 }
 .tabIcon{
     color:green;  
@@ -701,7 +701,7 @@ body{
     border-color: green;
 }
 .searchArea{
-     margin-bottom: 51px;
+    margin-bottom: 51px;
     margin-top: 23px;
     text-align: center;
 }
@@ -711,7 +711,7 @@ body{
 #ojDialogWrapper-modalDialog2 .oj-dialog-close-icon,
 #ojDialogWrapper-modalDialog1 .oj-dialog-close-icon,
 #ojDialogWrapper-modalDialogRequest .oj-dialog-close-icon{
-   background-color: grey;
+    background-color: grey;
     border-color: transparent;
     border-radius: 2px;
     border-style: solid;
@@ -721,9 +721,9 @@ body{
     font-size: 27px;
     margin-right: -8px;
     margin-top: -6px;
-   padding: 15px;
+    padding: 15px;
 }
- .oj-dialog-header-close-wrapper {
+.oj-dialog-header-close-wrapper {
     margin: -8px;
     padding: 0;
 }
@@ -736,13 +736,13 @@ body{
 #ojDialogWrapper-modalDialog8 .oj-dialog-title::before,
 #ojDialogWrapper-modalDialog3 .oj-dialog-title::before
 { 
-  background-repeat: no-repeat;
-   background-size: 15px 15px;
-   content: "";
-   display: inline-block;
-   height: 24px;
-   width: 40px;
-  
+    background-repeat: no-repeat;
+    background-size: 15px 15px;
+    content: "";
+    display: inline-block;
+    height: 24px;
+    width: 40px;
+
 }
 #ojDialogWrapper-modalDialogRequest .oj-dialog-title::before{
     background-size: 23px 23px;
@@ -753,19 +753,19 @@ body{
     background-repeat: no-repeat;
     background-image: url("../css/images/request.png");
     background-position: 10px 3px;
-    
+
 }
 #ojDialogWrapper-modalDialog3 .oj-dialog-title::before{
-   background-image: url("../css/images/star_1.png");
-   background-position: 15px 8px;
+    background-image: url("../css/images/star_1.png");
+    background-position: 15px 8px;
 }
 #ojDialogWrapper-modalDialog9 .oj-dialog-title::before,
 #ojDialogWrapper-modalDialog8 .oj-dialog-title::before
 {
-   background-image: url("../css/images/feedback-icon.png");
-   background-position: 15px 9px;
-   background-size: 15px 15px;
-     
+    background-image: url("../css/images/feedback-icon.png");
+    background-position: 15px 9px;
+    background-size: 15px 15px;
+
 }
 #ojDialogWrapper-modalDialog9 .oj-dialog-title,#ojDialogWrapper-modalDialog8 .oj-dialog-title,#ojDialogWrapper-modalDialogRequest .oj-dialog-title {
     font-size: 22px;
@@ -779,7 +779,7 @@ body{
     background-color: #fff !important;
 }
 .modal-submit3{
-  background-color: #ff6241 !important;
+    background-color: #ff6241 !important;
     color: #fff !important;
     cursor: pointer !important;
     font-size: 24px;
@@ -794,13 +794,13 @@ body{
     display:none;
 }*/
 .searchImage{
-   width: 30px;
+    width: 30px;
     border-radius: 50%;
     margin-top: 5px;
 }
 .autoName{
-   margin-top: -3px;
-   line-height: 44px;
+    margin-top: -3px;
+    line-height: 44px;
 }
 .imgSearch{
     height: 30px;
@@ -815,13 +815,13 @@ body{
     border-radius: 7px;   
 }
 #tabs-container .oj-tabs-title {
-   color: #000;
+    color: #000;
 }
 #tabs-container .oj-tabs-title-active {
-   color: green;
+    color: green;
 }
 #ui-id-4 .oj-hover{
-  text-decoration: none !important; 
+    text-decoration: none !important; 
 }
 #oj-combobox-input-combobox3.oj-combobox-input,
 #oj-combobox-input-combobox2.oj-combobox-input,
@@ -829,42 +829,42 @@ body{
     background-color: #f0f0f0;
 }
 #ojChoiceId_combobox3.oj-combobox,#ojChoiceId_combobox2.oj-combobox,#ojChoiceId_combobox9.oj-combobox{
-        max-width:25em !important;
+    max-width:25em !important;
 }
 .hoverTab1{
- background-color: #fffff0;
-   border-radius: 2px;
-   color: #000;
-   font-size: 13px;
-   left: 12px;
-   margin-top: 12px;
-   padding: 12px;
-   position: absolute;
-   top: -60px;
-   display:none;
-   text-decoration: none !important;
+    background-color: #fffff0;
+    border-radius: 2px;
+    color: #000;
+    font-size: 13px;
+    left: 12px;
+    margin-top: 12px;
+    padding: 12px;
+    position: absolute;
+    top: -60px;
+    display:none;
+    text-decoration: none !important;
 }
 .oj-tabs-horizontal > .oj-tabs-nav-root .oj-tabs-tab{
-   position: static;
+    position: static;
 }
 .hoverTab2{
- background-color: #fffff0;
-   border-radius: 2px;
-   color: #000;
-   font-size: 13px;
-   left: 110px;
-   margin-top: 12px;
-   padding: 12px;
-   position: absolute;
-   top: -60px;
-   display:none;  
-   text-decoration: none !important;
+    background-color: #fffff0;
+    border-radius: 2px;
+    color: #000;
+    font-size: 13px;
+    left: 110px;
+    margin-top: 12px;
+    padding: 12px;
+    position: absolute;
+    top: -60px;
+    display:none;  
+    text-decoration: none !important;
 }
 .buddyTab1 :hover .hoverTab1{
-   display: block;
+    display: block;
 }
 .buddyTab2 :hover .hoverTab2{
-   display: block;
+    display: block;
 }
 .hoverTab5 {
     background-color: #E7FCD5;
@@ -907,14 +907,14 @@ body{
     padding: 8px;
     position: absolute;
     top: -38px;
-     display: none; 
+    display: none; 
     text-decoration: none !important;
 }
 .buddyTab3 :hover .hoverTabRequest1{
-   display: block;
+    display: block;
 }
 .hoverTabRequest2{
-   background-color: #fffff0;
+    background-color: #fffff0;
     border-radius: 2px;
     color: #000;
     font-size: 13px;
@@ -922,14 +922,14 @@ body{
     padding: 8px;
     position: absolute;
     top: -38px;
-     display: none; 
+    display: none; 
     text-decoration: none !important;
 }
 .buddyTab4 :hover .hoverTabRequest2{
-   display: block;
+    display: block;
 }
 .buddyTab3:hover:before  {
-   content: "";
+    content: "";
     border-top: 10px solid #fffff0;
     border-left: 16px solid transparent;
     border-right: 16px solid transparent;
@@ -939,7 +939,7 @@ body{
     color: #fffff0;
 }
 .buddyTab4:hover:before  {
-   content: "";
+    content: "";
     border-top: 10px solid #fffff0;
     border-left: 16px solid transparent;
     border-right: 16px solid transparent;
@@ -981,8 +981,8 @@ body{
     width: 90px;
     text-decoration: none;
     text-align: center;
-     background-color: grey;
-      color:green;
+    background-color: grey;
+    color:green;
 }
 .buddyTab1:hover:before  {
     content: "";
@@ -1025,7 +1025,7 @@ body{
     color: #fffff0;
 }
 #tabs ul li i{
-   text-decoration: none !important;
+    text-decoration: none !important;
 }
 #tabs3 ul li i{
    text-decoration: none !important;
@@ -1036,7 +1036,7 @@ body{
     width: 463px;
 }
 .textArea-feedbackFloat{
-   height: 146px;
+    height: 146px;
     border: none;
     width: 383px;
 }
@@ -1048,7 +1048,7 @@ body{
     padding-bottom: 8px;
 }
 .sliderScreen{
-   color: #fff !important;
+    color: #fff !important;
     font-family: nameHeading;
     font-size: 62px;
     margin-left: 33px;
@@ -1068,7 +1068,7 @@ body{
     color:#fff;
 }
 .modal-submitRequest{
-   background-color: #ff6241 !important;
+    background-color: #ff6241 !important;
     color: #fff !important;
     cursor: pointer !important;
     font-size: 24px;
@@ -1080,9 +1080,9 @@ body{
     margin-left: -140px;
 }
 .searchLead{
-     margin-top: -3px;
-   line-height: 44px;
-   word-spacing: -3px;
+    margin-top: -3px;
+    line-height: 44px;
+    word-spacing: -3px;
 }
 
 
@@ -1090,11 +1090,24 @@ body{
     background-color:#E7FCD5;
     color: #000;
     top: 138px;
-  left: 500PX;
+    left: 620px;
     position: absolute;
     border-radius: 5px;
     font-size: 16px;
-        padding-top: 14px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+.sucessMsgMyteam{
+    background-color:#E7FCD5;
+    color: #000;
+    top: 50px;
+    left: 620px;
+    position: absolute;
+    border-radius: 5px;
+    font-size: 16px;
+    padding-top: 14px;
     padding-bottom: 14px;
     padding-left: 50px;
     padding-right: 50px;
@@ -1109,7 +1122,7 @@ body{
     padding-left: 50px;
     padding-right: 50px; 
     margin: 0px auto;
-    
+
 }
 #sucess{
     display:none;
@@ -1118,9 +1131,9 @@ body{
     display:none;
 }
 .transboxRequest{
-   position: relative;
-   margin-left: -12px;
-  min-height: 810px;
+    position: relative;
+    margin-left: -12px;
+    min-height: 810px;
 
 }
 .requestHeading{
@@ -1131,7 +1144,7 @@ body{
 .requestCOntent{
     border: solid 1px green;
     color:#fff;
-   
+
 }
 .modal-submitRequest1 {
     background-color: #ff6241 !important;
@@ -1146,7 +1159,7 @@ body{
     float: left !important;
     margin-left: 110px;
     border: 1px solid orangered;
-     -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color=#6f6d6d)";
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color=#6f6d6d)";
     -moz-box-shadow: 3px 3px 3px #6f6d6d;
     -webkit-box-shadow: 3px 3px 3px #6f6d6d;
     box-shadow: 3px 3px 3px #6f6d6d;
@@ -1158,7 +1171,7 @@ body{
     width: 309px;
     outline: none;
     border: 1px solid green;
-       color: #fff !important;
+    color: #fff !important;
     background: none;
     resize: none;
     margin-left: -29px;
