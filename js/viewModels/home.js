@@ -220,9 +220,9 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                     document.getElementsByName("slide")[0].checked = true;
                     document.getElementsByName("slide")[1].checked = false;
                     document.getElementsByName("slide")[2].checked = false;
-                    document.getElementsByName("slide")[3].checked = true;
-                    document.getElementsByName("slide")[4].checked = false;
-                    document.getElementsByName("slide")[5].checked = false;
+                    document.getElementsByName("slide1")[0].checked = true;
+                    document.getElementsByName("slide1")[1].checked = false;
+                    document.getElementsByName("slide1")[2].checked = false;
 
                     counter = 0;
                 }
@@ -230,18 +230,18 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                     document.getElementsByName("slide")[0].checked = false;
                     document.getElementsByName("slide")[1].checked = true;
                     document.getElementsByName("slide")[2].checked = false;
-                    document.getElementsByName("slide")[3].checked = false;
-                    document.getElementsByName("slide")[4].checked = true;
-                    document.getElementsByName("slide")[5].checked = false;
+                    document.getElementsByName("slide1")[0].checked = false;
+                    document.getElementsByName("slide1")[1].checked = true;
+                    document.getElementsByName("slide1")[2].checked = false;
 
                 }
                 if (counter % 3 == 2) {
                     document.getElementsByName("slide")[0].checked = false;
                     document.getElementsByName("slide")[1].checked = false;
                     document.getElementsByName("slide")[2].checked = true;
-                    document.getElementsByName("slide")[3].checked = false;
-                    document.getElementsByName("slide")[4].checked = false;
-                    document.getElementsByName("slide")[5].checked = true;
+                    document.getElementsByName("slide1")[0].checked = false;
+                    document.getElementsByName("slide1")[1].checked = false;
+                    document.getElementsByName("slide1")[2].checked = true;
 
                 }
                 counter++;

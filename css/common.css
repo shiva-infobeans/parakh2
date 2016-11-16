@@ -181,7 +181,7 @@ body{
     width: 780px;
 
 }
-.slide:hover{
+.slide:hover,.slide1:hover{
     text-decoration: none;
 }
 #s1, #s12 {
@@ -284,7 +284,7 @@ body{
     height: 100%;
 }
 
-.slide  {
+.slide,.slide1  {
     float: left;
 
 }
