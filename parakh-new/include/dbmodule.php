@@ -572,7 +572,7 @@ class dbmodule {
     function get_recent_ratings() {
 
         $MonthFirstDate = date('Y-m-01');
-        $query = "SELECT r.user_id,u.google_name,u.google_picture_link,u.designation,if(c.comment_text <> '',c.comment_text,w.description) AS description"
+        $query = "SELECT r.user_id,u.google_name,u.google_picture_link,u.project_name,u.designation,if(c.comment_text <> '',c.comment_text,w.description) AS description"
                 . " FROM rating as r LEFT JOIN work AS w ON (w.id =r.work_id)"
                 . " LEFT JOIN comment AS c on (c.request_id = r.request_id) JOIN users AS u ON (u.id = r.user_id) WHERE description <> '' AND r.rating <> 0 ORDER BY r.created_date DESC LIMIT 4";
         $rank_data = $this->con->prepare($query);
@@ -1292,31 +1292,27 @@ class dbmodule {
             $row[] = $row1[$p];
         }
 
-        /* query for feedback response */
-        $query3 = "SELECT feedback.feedback_from as user_id,feedback.feedback_from as for_id, 3 as status,'feedback' as rating,feedback_to as given_by,users.google_name as rated_to,google_picture_link, feedback.created_date  from users join feedback on feedback.feedback_from = users.id where feedback.feedback_from = :user_id";
-        $user_list3 = $this->con->prepare($query3);
-        $user_list3->execute(array(':user_id' => $user_id));
-        $row3 = $user_list3->fetchAll((PDO::FETCH_ASSOC));
-        for ($t = 0; $t < count($row3); $t++) {
-            $query4 = "SELECT id,google_name,google_picture_link from users where users.id = :user_id";
-            $user_list4 = $this->con->prepare($query4);
-            $user_list4->execute(array(':user_id' => $row3[$t]['given_by']));
-            $row4 = $user_list4->fetchAll((PDO::FETCH_ASSOC));
-            $row3[$p]['for_picture'] = $row4[0]['google_picture_link'];
-            $row3[$p]['ratedby'] = $row4[0]['google_name'];
-            $row[] = $row3[$p];
-        }
-        usort($row, function($a, $b) {
-            if ($a['created_date'] == $b['created_date'])
-                return 0;
-            return $a['created_date'] < $b['created_date'] ? 1 : -1;
-            //return strtotime($a['created_date']) - strtotime($b['created_date']);
-        });
-//echo "<pre>";print_r($row);
-        return $row;
-    }
-
-//end of fun
+            /*query for feedback response*/
+            $query3 = "SELECT feedback.feedback_from as user_id,feedback.feedback_from as for_id, 3 as status,'feedback' as rating,feedback_to as given_by,users.google_name as rated_to,google_picture_link, feedback.created_date  from users join feedback on feedback.feedback_from = users.id where feedback.feedback_from = :user_id"; 
+            $user_list3 = $this->con->prepare($query3);
+            $user_list3->execute(array(':user_id' => $user_id));
+            $row3 = $user_list3->fetchAll((PDO::FETCH_ASSOC));
+            for ($t=0;$t<count($row3);$t++) { 
+                $query4 = "SELECT id,google_name,google_picture_link from users where users.id = :user_id"; 
+                $user_list4 = $this->con->prepare($query4);
+                $user_list4->execute(array(':user_id' => $row3[$t]['given_by']));
+                $row4 = $user_list4->fetchAll((PDO::FETCH_ASSOC));
+                $row3[$p]['for_picture'] = $row4[0]['google_picture_link'];
+                $row3[$p]['ratedby'] = $row4[0]['google_name'];
+                $row[] = $row3[$p];
+            }
+            usort($row, function($a, $b) {
+                if($a['created_date']==$b['created_date']) return 0;
+                return $a['created_date'] < $b['created_date']?1:-1;
+            });
+            return $row;        
+    }//end of fun
+    
 
     function sortFunction($a, $b) {
         return strtotime($a["created_by"]) - strtotime($b["created_by"]);
