@@ -139,10 +139,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 }
                 if (self.role_name() === 'Team Member') {
                     $('#rateTab2').hide();
-
                 } else {
                     $('#rateTab2').show();
                     $('#hideLead').hide();
+                    
                 }
                 var lead = oj.Model.extend({
                     url: getAllLeads + self.userId(),
@@ -157,10 +157,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         self.lead_id(result['attributes']['data'][0]['manager_id']);
                         self.lead_role(result['attributes']['data'][0]['role_name']);
                         // console.log(result['attributes']['data'][0]['role_name']);
+                        if(result['attributes']['data'].length == 2){
                         self.manager_name(result['attributes']['data'][1]['manager_name']);
                         self.manager_pic(result['attributes']['data'][1]['google_picture_link']);
                         self.manager_id(result['attributes']['data'][1]['manager_id']);
                         self.manager_role(result['attributes']['data'][1]['role_name']);
+                    }
                         //console.log(result['attributes']['data'][1]['role_name']);
                     }
                 });
@@ -169,12 +171,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         setTimeout(function () {
 
             $(".approveDisapprove").on('click', function () {
-
+                
                 var userId = $(this).attr('userId');
                 var requestId = $(this).attr('requestId');
                 var type = $(this).attr('type');
-                var descriptionChange = $(this).parent().prev().children().children('#text-area20').val() == "" ?
-                        $(this).parent().prev().children().children('#text-area20').val() : $(this).attr('desc');
+                var descHTML = $(this).parent().prev().children().children('#text-area20');
+                var descriptionChange = (descHTML.val() != "") ?
+                        descHTML.val() : $(this).attr('descComment');
                 var to_id = $(this).attr('to_id');
                 var removeHtml = $(this);
                 $.ajax({
@@ -273,9 +276,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 }
             });
         }
-
-
     }
-
     return rateRequestPageContentViewModel;
 });

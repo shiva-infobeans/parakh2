@@ -741,6 +741,7 @@ function get_ranking_list() {
     function get_all_team_members($user_id) {
         if($user_id){
             $query = "SELECT id, google_name, google_email, mobile_number, designation, google_picture_link FROM users WHERE id <>:id AND id <> 1 AND status <> 0 ORDER BY google_name";
+
             $user_list = $this->con->prepare($query);
             $user_list->execute(array(':id' => $user_id));
             $employeeList = $user_list->fetchAll((PDO::FETCH_ASSOC));

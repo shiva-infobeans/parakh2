@@ -16,7 +16,7 @@ and open the template in the editor.
             <ul>
                 <li class="buddyTab3 " id="rateTab1"> 
                     <img id="rate1Active" src="../../images/+1-icon-active.png" alt=""/>
-                    <img id="rate1Inactive" src="../../images/+1-icon.png" alt=""/>
+                    <img id="rate1Inactive" class="rate1Inactive" src="../../images/+1-icon.png" alt=""/>
                     <div class="hoverTabRequest1"> Send Request </div>
                 </li>
                 <li class="buddyTab4" id="rateTab2"> 
@@ -111,7 +111,7 @@ and open the template in the editor.
                                             <!-- tab contents -->
                                             <div id="tabs-12" class="pos-relative">
                                                 <div class="oj-flex center NorequestMsg NorequestMsgAlignment">
-                                                    <div class ="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item cetner">
+                                                    <div class ="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
                                                         <span class="errorText NorequestMsgAlignment" data-bind="text: noPendingRequest"></span>
                                                     </div>
                                                 </div>
@@ -135,7 +135,7 @@ and open the template in the editor.
 
                                                             <span class="color-white" data-bind="text:date"></span>
                                                         </div>
-                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-top">
+                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-top oj-margin-horizontal">
 
                                                             <span class="color-white" data-bind="text: sComment"></span>
                                                         </div>
@@ -259,8 +259,8 @@ and open the template in the editor.
                                      placeholder: 'Type your reason here..'}"></textarea>
                                         </div>
                                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex  oj-margin-top">
-                                            <button class="approveDisapprove" data-bind="attr:{requestId: request_id,type:'1',desc: lComment,userId: userID,to_id:from_id}"><i class="zmdi zmdi-check"></i></button>
-                                            <button class="approveDisapprove"  data-bind="attr:{requestId: request_id,type:'0',desc: lComment,userId: userID,to_id:from_id}">  <i class="zmdi zmdi-close"></i></button>
+                                            <button class="approveDisapprove" data-bind="attr:{requestId: request_id,type:'1',descComment: lComment,userId: userID,to_id:from_id}"><i class="zmdi zmdi-check"></i></button>
+                                            <button class="approveDisapprove"  data-bind="attr:{requestId: request_id,type:'0',descComment: lComment,userId: userID,to_id:from_id}">  <i class="zmdi zmdi-close"></i></button>
                                         </div>
                                     </div>
                                 </div>

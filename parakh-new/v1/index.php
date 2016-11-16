@@ -722,8 +722,8 @@ $app->get('/getUserPendingRequest[/{userId}/{status}]', function ($request, $res
 
 
 /* *
- * URL: http://localhost/parakh-new/v1/index.php/getCountForUnreadNotification/{userId}
- * Parameters: none
+ * URL: http://localhost/parakh-new/v1/index.php/getCountForUnreadNotification/
+ * Parameters: UserId
  * 
  * Method: GET
  * */    

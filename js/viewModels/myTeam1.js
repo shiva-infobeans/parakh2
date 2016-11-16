@@ -472,10 +472,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.handleOKClose = $("#okButton").click(function () {
                 $("#modalDialog8").ojDialog("close");
             });
-            $(".zmdi").click(function () {
-                $(".zmdi").removeClass('oj-tabs-title-active');
-                $(this).addClass('oj-tabs-title-active');
-            });
+            $(".tabIcon").click(function () {
+               $(".tabIcon").removeClass('oj-tabs-title-active');
+               $(this).addClass('oj-tabs-title-active');
+           });
 
         }, 600);
     }
