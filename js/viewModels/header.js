@@ -138,7 +138,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
                 getNotifyId.fetch({
                     headers: {secret: secret},
                     success: function (res) {
-                        console.log(res['attributes']['data'][0]['msg_read']);
                         if (res['attributes']['data'][0]['msg_read'] == 0) {
                             $('.notif-count').hide();
                         } else {
