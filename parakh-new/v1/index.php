@@ -200,17 +200,25 @@ $app->post('/addRating', function ($request, $response) {
  * Method: POST
  * */    
 $app->post('/updateProfile', function ($request, $response) {
+    $db = new dbmodule();
     $response_data = [];
     $data = $request->getParsedBody();
     $post_data = [];
     $post_data['user_id'] = filter_var($data['user_id'], FILTER_SANITIZE_NUMBER_INT);
     $post_data['mob']   = filter_var($data['mob'], FILTER_SANITIZE_NUMBER_INT);     
-    $post_data['des'] = filter_var($data['des'], FILTER_SANITIZE_STRING);
+    $post_data['des'] = filter_var($data['desc'], FILTER_SANITIZE_STRING);
+    $post_data['skills'] = filter_var($data['skills'], FILTER_SANITIZE_STRING);
+    $post_data['associate_with_infobeans'] = filter_var($data['associate_with_infobeans'], FILTER_SANITIZE_STRING);
+    $post_data['projects'] = filter_var($data['projects'], FILTER_SANITIZE_STRING); 
+    $post_data['interests'] = filter_var($data['interests'], FILTER_SANITIZE_STRING);
+    $post_data['location'] = filter_var($data['location'], FILTER_SANITIZE_STRING); 
+    $post_data['skills'] = implode(",",$data['skills']);
+    $post_data['projects'] = implode(",",$data['projects']);
+    $post_data['interests'] = implode(",",$data['interests']);
     
     if($db->isValidUser( $post_data['user_id'] )){
         if($post_data['des'] != "" ){
             //Creating a dbmodule object
-            $db = new dbmodule();
             $result = $db->updateProfile($post_data);
 
             if($result != ""){
@@ -779,6 +787,27 @@ $app->post('/resetNotifCount', function ($request, $response) {
     
 });
 
+
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getTopFourRankForCurrentMonth/
+ * Parameters: 
+ * 
+ * Method: GET
+ * */    
+$app->get('/getTopFourRankForCurrentMonth[/]', function ($request, $response, $args) {
+    $response_data = array();
+    
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    $result = $db->get_top_ranker_for_current_month();
+    if($result != 0){
+        $response_data = makeResponse('false',$result);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3001));
+    }    
+    $response->withJson($response_data);
+    return $response;
+});
 
 /**
  * Step 4: Run the Slim application

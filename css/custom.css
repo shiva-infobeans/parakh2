@@ -289,22 +289,27 @@ div.oj-tabs-panel.oj-tabs-selected{
     border-bottom: 1px solid rgba(119,168,89,0.3) !important;
 }
 .profile-tab1-data:nth-child(1) i{
-    font-size: 85px;
-    margin: 24px;
-
+    font-size: 50px;
+    margin: 20px 0px 0px 30px;
+    color: yellow;
 }
+.about-label{color: yellow;width: 240px;}
+.about-text{margin-left:200px !important;width: 240px;}
+.about-edit{color:white !important;font-size:20px !important;margin-top:30px !important;}
 .profile-tab1-data:not(:nth-child(1)) i{
-    font-size: 70px;
-    margin: 20px;
+    font-size: 50px;
+    margin: 20px 0px 0px 30px;
     padding-bottom: 10px;
+    color: yellow;
 }
 .profile-tab1-data:first-child span{
     font-size: 24px;
-    margin:50px 10px 10px 10px;
+    margin:30px 25px 10px 10px;
+    width: 240px;
 }
 .profile-tab1-data:not(:first-child) span{
     font-size: 24px;
-    margin:40px 10px 10px 10px;
+    margin:30px 25px 10px 10px;
 }
 .profile-page-overflow{
     /*position: absolute;*/
