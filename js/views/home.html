@@ -1,8 +1,8 @@
 
 <div class="max-width">
-    <div id="tabs-container" class="oj-margin-top oj-margin-bottom">
-        <div id="tabs3" data-bind="ojComponent:{component: 'ojTabs'}" >
-            <!-- tab bar -->
+  <div id="tabs-container" class="oj-margin-top oj-margin-bottom">
+      <div id="tabs3" data-bind="ojComponent:{component: 'ojTabs'}" >
+           <!-- tab bar -->
             <ul>
                 <li class="buddyTab5 " ><i class="oj-tabs-title-active zmdi zmdi-account tabIcon"></i>
                     <div class="hoverTab5"> My <br> Performance </div>
@@ -68,60 +68,18 @@
                             </div> 
                             <div class="sliderScreen" data-bind="text: sliderText1">
                             </div>
-                        </div>
+                               <img class="sliderSmiley" id="smiley1" src="../css/images/sliderScreen.png" alt="slider image"/>
+                        </span>
+ 
+                        
+                        SLIDER 2ND
+                        <span class="slide">
 
-                        <!-- side box with some dummy text-->
-                        <!--        <div class="oj-col oj-sm-12 oj-md-12  oj-lg-3 oj-flex-item oj-panel side-box ">
-                                    <div class="cross-top">
-                                        <a href="javascript:void(0);">   <i class="zmdi zmdi-close"></i> </a>
-                                    </div>
+                            <div class="slider-item" id="hideSlider2">
+                                <div class="slider-text">
                                     <p>
-                                        some dummy text goes here....
+                                        Your performance for this month...
                                     </p>
-                                    <p>
-                                        some dummy text goes here....
-                                    </p>
-                        
-                                    <div class="right-wrong-icon">
-                                        <a class="check-icon verticalbar" href="#">  <i class="zmdi zmdi-check"></i> </a>
-                        
-                                        <a class="close-icon" href="#"> <i class="zmdi zmdi-close"></i> </a>
-                        
-                                    </div>
-                                </div>-->
-
-                    </div>
-                </div>
-                <div class="oj-web-applayout-content max-width  color-white pos-relative oj-margin-bottom oj-margin-top bottom-feedback">
-                    <div class="oj-flex">
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex ">
-                            <h3><strong class=" color-white">Recent +1 Ratings</strong></h3> 
-                        </div>
-                    </div>
-                </div>
-                <div class="oj-web-applayout-content max-width  color-white pos-relative oj-margin-bottom oj-margin-top bottom-feedback">
-                    <div class="transbox max-width box-shadow border-transbox"></div>
-
-                    <div class="oj-flex showup">
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex">
-                            <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-12 oj-flex oj-flex-item oj-padding border-right-recent">
-
-                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center ">
-
-                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center hoverContent0">
-                                        <a href="#">
-                                            <img class="profile border-color-green" data-bind="attr: {src:image0}"/>
-                                        </a>
-                                        <div class ="recentInfo0">
-                                            <div class="text-hover" data-bind="text: name0hover"></div>
-                                            <div class="text-hover" data-bind="text: project0hover"> project name </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                                        <h4 data-bind="text: name0"></h4>
-                                    </div>
-                                </div>
                                 </div>
                                   <a  href="profile.html" >
                                 <div class="green-button"  id="hidegreenBtn2">
@@ -144,98 +102,75 @@
                             </div> 
                             <div class="sliderScreen" data-bind="text: sliderText2">  
                             </div>
-                            <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-12 oj-flex oj-flex-item oj-padding border-right-recent">
-                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center hoverContent1">
-                                        <a href="#">
-                                            <img class="profile border-color-green" data-bind="attr: {src:image1}"/>
-                                        </a>
-                                        <div class ="recentInfo1">
-                                            <div class="text-hover" data-bind="text: name1hover"></div>
-                                            <div class="text-hover" data-bind="text: project1hover"> project name </div>
-                                        </div>
-                                    </div>
-                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                                        <h4 data-bind="text: name1"></h4>
+                            <img class="sliderSmiley" id="smiley2" src="../css/images/sliderScreen.png" alt="slider image"/>
+
+                        </span>
+                        SLIDER 3RD
+                        <span class="slide">
+
+                            <div class="slider-item"  id="hideSlider3">
+                                <div class="slider-text">
+                                    <p>
+                                        Your performance up to now...
+                                    </p>
+                                </div>
+                                <a  href="profile.html" >
+                                <div class="green-button" id="hidegreenBtn3">
+                                    <div class="border-right"><img src="css/images/green-button.png" alt=""/></div>
+                                    <div class="btn-text-green">
+                                        +<span data-bind="text: myPlusRatings"></span>
+                                          
                                     </div>
                                 </div>
-                            </div>
-                            <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-12 oj-flex oj-flex-item  oj-padding border-right-recent">
-                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center hoverContent2">
-                                        <a href="#">
-                                            <img class="profile border-color-green" data-bind="attr: {src:image2}"/>
-                                        </a>
-                                        <div class ="recentInfo2">
-                                            <div class="text-hover" data-bind="text: name2hover"></div>
-                                            <div class="text-hover" data-bind="text: project2hover"> project name </div>
-                                        </div>
-                                    </div>
-                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                                        <h4 data-bind="text: name2"></h4>
+                                    </a>
+                                 <a  href="profile.html?id=1">
+                                <div class="red-button"  id="hideredBtn3">
+                                    <img src="css/images/red-button.png" alt=""/>
+                                    <div class="btn-text-red">
+                                        -<span data-bind="text: myMinusRatings"></span>
+                                         
                                     </div>
                                 </div>
-
+                                    </a>
+                            </div> 
+                            <div class="sliderScreen" data-bind="text: sliderText3">
                             </div>
+                         
+                                <img class="sliderSmiley" id="smiley3" src="../css/images/sliderScreen.png" alt="slider image"/>
+                            
+                             
+                        </span>
 
-                            <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-12 oj-flex oj-flex-item  oj-padding border-right-recent">
-                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center hoverContent3">
-                                        <a href="#">
-                                            <img class="profile border-color-green" data-bind="attr: {src:image3}"/>
-                                        </a>
-                                        <div class ="recentInfo3">
-                                            <div class="text-hover" data-bind="text: name3hover"></div>
-                                            <div class="text-hover" data-bind="text: project3hover"> project name </div>
-                                        </div>
-                                    </div>
-                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                                        <h4 data-bind="text: name3"></h4>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
                     </div>
                 </div>
+                
+                    <div class="sliderScreen-NoRatings" id="noRatingsScreen">
+                        You have not been rated yet !!
+                        <div><img class="sliderSmiley-NoRatings"  src="../css/images/sliderScreen.png" alt="slider image"/></div>
+                            </div>
+                              
             </div>
-            <div id="tabs-6">
-                <hr class="home-hr">
-                <div class="oj-flex max-width">
-                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal oj-padding-horizontal">
-                        <h2  class="slider-heading">
-                            Hello <span data-bind="text: memberName"></span>
-                        </h2> 
-                    </div>
-                </div>
-                <!-- slider section starts -->
-                <div class="oj-web-applayout-max-width oj-web-applayout-content ">
-                    <div class="oj-flex oj-row sliderPos">
-                        <div class="oj-col oj-sm-12 oj-md-12 oj-lg-12 oj-xl-12 oj-flex-item oj-panel slider-color slide ">
+        </div>
 
-                            <div id="slider-wrapper1">
-                                <div class="inner-wrapper" id="inner-wrapper1" >
-                                    <input checked type="radio" name="slide1" class="control" id="Slide12"/>
-                                    <label for="Slide12" id="s12"></label>
-                                    <input type="radio" name="slide1" class="control" id="Slide22" />
-                                    <label for="Slide22" id="s22"></label>
-                                    <input type="radio" name="slide1" class="control" id="Slide32" />
-                                    <label for="Slide32" id="s32"></label>
-                                    <div class="overflow-wrapper">
-                                        <div class="slide1">
+        <!-- side box with some dummy text-->
+<!--        <div class="oj-col oj-sm-12 oj-md-12  oj-lg-3 oj-flex-item oj-panel side-box ">
+            <div class="cross-top">
+                <a href="javascript:void(0);">   <i class="zmdi zmdi-close"></i> </a>
+            </div>
+            <p>
+                some dummy text goes here....
+            </p>
+            <p>
+                some dummy text goes here....
+            </p>
 
-                                            <div class="slider-item" id="hideSlider12">
+            <div class="right-wrong-icon">
+                <a class="check-icon verticalbar" href="#">  <i class="zmdi zmdi-check"></i> </a>
 
-                                                <div class="slider-text">
-                                                    <p>
-                                                        My Team’s Performance for this week…
-                                                    </p>
-                                                </div>
-                                                <div class="green-button" id="hidegreenBtn12" data-bind="">
+                <a class="close-icon" href="#"> <i class="zmdi zmdi-close"></i> </a>
 
-                                                    <div class="border-right"><img src="css/images/green-button.png" alt=""/></div>
-                                                    <div class="btn-text-green">
-                                                        +<span data-bind="text: dayPlusRatings"></span>
+            </div>
+        </div>-->
 
     </div>
 </div>
@@ -280,27 +215,9 @@
                                <div class="text-hover" data-bind="text: name1hover"></div>
                                <div class="text-hover" data-bind="text: project1hover"> project name </div>
                         </div>
-
-                        <!-- side box with some dummy text-->
-                        <!--        <div class="oj-col oj-sm-12 oj-md-12  oj-lg-3 oj-flex-item oj-panel side-box ">
-                                    <div class="cross-top">
-                                        <a href="javascript:void(0);">   <i class="zmdi zmdi-close"></i> </a>
-                                    </div>
-                                    <p>
-                                        some dummy text goes here....
-                                    </p>
-                                    <p>
-                                        some dummy text goes here....
-                                    </p>
-                        
-                                    <div class="right-wrong-icon">
-                                        <a class="check-icon verticalbar" href="#">  <i class="zmdi zmdi-check"></i> </a>
-                        
-                                        <a class="close-icon" href="#"> <i class="zmdi zmdi-close"></i> </a>
-                        
-                                    </div>
-                                </div>-->
-
+                    </div>
+                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
+                        <h4 data-bind="text: name1"></h4>
                     </div>
                 </div>
             </div>
@@ -315,87 +232,37 @@
                              <div class="text-hover" data-bind="text: project2hover"> project name </div>
                         </div>
                     </div>
-                </div>
-                <div class="oj-web-applayout-content max-width  color-white pos-relative oj-margin-bottom oj-margin-top bottom-feedback">
-                    <div class="transbox max-width box-shadow border-transbox"></div>
-
-                    <div class="oj-flex showup">
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex">
-                            <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-12 oj-flex oj-flex-item oj-padding border-right-recent">
-
-                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center ">
-
-                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center hoverContent0">
-                                        <a href="#">
-                                            <img class="profile border-color-green" data-bind="attr: {src:image0}"/>
-                                        </a>
-                                        <div class ="recentInfo0">
-                                            <div class="text-hover" data-bind="text: name0hover"></div>
-                                            <div class="text-hover" data-bind="text: project0hover"> project name </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                                        <h4 data-bind="text: name0"></h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-12 oj-flex oj-flex-item oj-padding border-right-recent">
-                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center hoverContent1">
-                                        <a href="#">
-                                            <img class="profile border-color-green" data-bind="attr: {src:image1}"/>
-                                        </a>
-                                        <div class ="recentInfo1">
-                                            <div class="text-hover" data-bind="text: name1hover"></div>
-                                            <div class="text-hover" data-bind="text: project1hover"> project name </div>
-                                        </div>
-                                    </div>
-                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                                        <h4 data-bind="text: name1"></h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-12 oj-flex oj-flex-item  oj-padding border-right-recent">
-                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center hoverContent2">
-                                        <a href="#">
-                                            <img class="profile border-color-green" data-bind="attr: {src:image2}"/>
-                                        </a>
-                                        <div class ="recentInfo2">
-                                            <div class="text-hover" data-bind="text: name2hover"></div>
-                                            <div class="text-hover" data-bind="text: project2hover"> project name </div>
-                                        </div>
-                                    </div>
-                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                                        <h4 data-bind="text: name2"></h4>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-12 oj-flex oj-flex-item  oj-padding border-right-recent">
-                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center hoverContent3">
-                                        <a href="#">
-                                            <img class="profile border-color-green" data-bind="attr: {src:image3}"/>
-                                        </a>
-                                        <div class ="recentInfo3">
-                                            <div class="text-hover" data-bind="text: name3hover"></div>
-                                            <div class="text-hover" data-bind="text: project3hover"> project name </div>
-                                        </div>
-                                    </div>
-                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                                        <h4 data-bind="text: name3"></h4>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
+                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
+                        <h4 data-bind="text: name2"></h4>
                     </div>
                 </div>
+                
+            </div>
 
+            <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-12 oj-flex oj-flex-item  oj-padding border-right-recent">
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
+                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center hoverContent3">
+                        <a data-bind="attr: {href: link3}">
+                             <img class="profile border-color-green" data-bind="attr: {src:image3}"/>
+                        </a>
+                          <div class ="recentInfo3">
+                            <div class="text-hover" data-bind="text: name3hover"></div>
+                            <div class="text-hover" data-bind="text: project3hover"> project name </div>
+                        </div>
+                    </div>
+                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
+                        <h4 data-bind="text: name3"></h4>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </div>
+</div>
+  </div>
+            <div id="tabs-6">
+                hello shivangi 
+            </div>
+  </div>
+  </div>
 </div>
