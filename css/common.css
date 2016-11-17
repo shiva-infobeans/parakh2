@@ -435,7 +435,7 @@ body{
 #ojDialogWrapper-modalDialog1.oj-dialog  {
     overflow: hidden;
     width: 556px;
-    height: 535px;
+    height: 541px;
     box-sizing: border-box;
     display: -webkit-flex;
     display: flex;
@@ -447,7 +447,7 @@ body{
 #ojDialogWrapper-modalDialog8.oj-dialog,#ojDialogWrapper-modalDialog2.oj-dialog{
     overflow: hidden;
     width: 556px;
-    height: 513px;
+    height: 541px;
     box-sizing: border-box;
     display: -webkit-flex;
     display: flex;
@@ -862,11 +862,11 @@ body{
     padding: 12px;
     position: absolute;
     top: -72px;
-     display: none; 
+    display: none; 
     text-decoration: none !important;
 }
 .buddyTab5 :hover .hoverTab5{
-   display: block;
+    display: block;
 }
 .hoverTab6 {
     background-color: #E7FCD5;
@@ -878,11 +878,11 @@ body{
     padding: 12px;
     position: absolute;
     top: -72px;
-     display: none; 
+    display: none; 
     text-decoration: none !important;
 }
 .buddyTab6 :hover .hoverTab6{
-   display: block;
+    display: block;
 }
 .hoverTabRequest1{
     background-color: #fffff0;
@@ -949,8 +949,8 @@ body{
     width: 90px;
     text-decoration: none;
     text-align: center;
-     background-color: grey;
-      color:green;
+    background-color: grey;
+    color:green;
 }
 .buddyTab5{
     font-size: 40px;
@@ -991,7 +991,7 @@ body{
     color: #fffff0;
 }
 .buddyTab5:hover:before  {
-  content: "";
+    content: "";
     border-top: 9px solid #E7FCD5;
     border-left: 13px solid transparent;
     border-right: 13px solid transparent;
@@ -1001,7 +1001,7 @@ body{
     color: #fffff0;
 }
 .buddyTab6:hover:before  {
-   content: "";
+    content: "";
     border-top: 9px solid #E7FCD5;
     border-left: 13px solid transparent;
     border-right: 13px solid transparent;
@@ -1014,7 +1014,7 @@ body{
     text-decoration: none !important;
 }
 #tabs3 ul li i{
-   text-decoration: none !important;
+    text-decoration: none !important;
 }
 .textArea-feedback{
     height: 157px;
@@ -1178,128 +1178,130 @@ body{
     display:none;
 }
 .recentInfo0{
-   background-color: #E7FCD5;
+    background-color: #E7FCD5;
     border-radius: 5px;
     display: block;
-    left: 66px;
     position: absolute;
-    top: -22px;
+    bottom: 125px;
     visibility: hidden;
     color: #000;
     padding-top: 22px;
     padding-bottom: 22px;
-    padding-left: 27px;
-    padding-right: 27px;
+    padding-left: 25px;
+    margin: 0px auto;
+    padding-right: 25px;
+    left: 74px;
 }
 .recentInfo1{
-   background-color: #E7FCD5;
+    background-color: #E7FCD5;
     border-radius: 5px;
     display: block;
-/*    left: 86px;*/
+    left: 353px;
     padding-top: 22px;
     padding-bottom: 22px;
     padding-left: 27px;
     padding-right: 27px;
     position: absolute;
-    top: -22px;
-    visibility: hidden;
+    bottom: 125px;
+    visibility: hidden; 
     color: #000;
-    margin-left: 64px;
+    /* margin-left: 64px; */
 }
 .recentInfo2{
-   background-color: #E7FCD5;
+    background-color: #E7FCD5;
     border-radius: 5px;
     display: block;
-    /*left: 106px;*/
     padding-top: 22px;
     padding-bottom: 22px;
     padding-left: 27px;
     padding-right: 27px;
     position: absolute;
-    top: -22px;
-    visibility: hidden;
+    bottom: 128px;
+    visibility: hidden; 
     color: #000;
-    margin-left: 52px;
+    /* left: 58px; */
+    margin-left: 45px;
 }
 .recentInfo3{
-   background-color: #E7FCD5;
+    background-color: #E7FCD5;
     border-radius: 5px;
     display: block;
-    /*left: 1266px;*/
+    /* left: 126px; */
     padding-top: 22px;
     padding-bottom: 22px;
     padding-left: 27px;
     padding-right: 27px;
     position: absolute;
-    top: -22px;
-    visibility: hidden;
+    bottom: 125px;
+    visibility: hidden; 
     color: #000;
-    margin-left: 52px;
+    margin-left: 65px;
 }
 .hoverContent0:hover .recentInfo0{
-  visibility: visible !important;
+    visibility: visible !important;
 }
 .hoverContent1:hover .recentInfo1{
-  visibility: visible !important;
+    visibility: visible !important;
 }
 .hoverContent2:hover .recentInfo2{
-  visibility: visible !important;
+    visibility: visible !important;
 }
 .hoverContent3:hover .recentInfo3{
-  visibility: visible !important;
+    visibility: visible !important;
 }
-.recentInfo0:before  {
+.recentInfo0:after  {
     content: "";
     border-top: 11px solid #E7FCD5;
     border-left: 11px solid transparent;
     border-right: 11px solid transparent;
     position: absolute;
-    top: 74px;
+    bottom: -11px;
+    left: 60px;
+    color: #fffff0;
+    margin: 0px auto;
+}
+.recentInfo1:after  {
+    content: "";
+    border-top: 11px solid #E7FCD5;
+    border-left: 11px solid transparent;
+    border-right: 11px solid transparent;
+    position: absolute;
+    bottom: -11px;
     left: 67px;
     color: #fffff0;
 }
-.recentInfo1:before  {
-   content: "";
-    border-top: 11px solid #E7FCD5;
-    border-left: 11px solid transparent;
-    border-right: 11px solid transparent;
-    position: absolute;
-    top: 74px;
-    left: 60px;
-    color: #fffff0;
-}
-.recentInfo2:before  {
-   content: "";
-    border-top: 11px solid #E7FCD5;
-    border-left: 11px solid transparent;
-    border-right: 11px solid transparent;
-    position: absolute;
-    top: 74px;
-   left: 60px;
-    color: #fffff0;
-}
-.recentInfo3:before  {
+.recentInfo2:after  {
     content: "";
     border-top: 11px solid #E7FCD5;
     border-left: 11px solid transparent;
     border-right: 11px solid transparent;
     position: absolute;
-    top: 74px;
-   left: 67px;
+    bottom: -11px;
+    /* left: 60px; */
+    color: #fffff0;
+}
+.recentInfo3:after  {
+    content: "";
+    border-top: 11px solid #E7FCD5;
+    border-left: 11px solid transparent;
+    border-right: 11px solid transparent;
+    position: absolute;
+    bottom: -11px;
+    left: 67px;
     color: #fffff0;
 }
 .text-hover{
     color: #000;
 }
 .sliderScreen-NoRatings{
-   color: #fff !important;
+    color: #fff !important;
     font-family: nameHeading;
     font-size: 68px;
     text-align: center;
     margin-top: 50px;
 }
 .sliderSmiley-NoRatings{
-   color: #fff !important;
+    color: #fff !important;
     font-family: nameHeading;
     text-align: center;
 }
@@ -1308,4 +1310,47 @@ body{
     margin-left: 13px;
     border: solid #d6dfe6;
     border-width: 1px 0 0;
+}
+.View-Other-about{
+    padding: 21px;
+    font-size: 23px;
+    border-bottom: 1px solid #689F39;
+}
+.text-about{
+    display: block;
+    margin-left: 43px;
+    width: 100%;
+    color: yellow;
+    font-size: 22px;
+    font-weight: bolder;
+}
+.textInfo{
+    color: yellow;
+    margin-left: 36px;
+}
+.about-icons{
+    font-size: 38px !important;
+    color: yellow;
+}
+.icon-div{
+    float: left;
+    width: 40px;
+}
+.heightCol{
+    line-height: 42px;
+}
+.heightCol2{
+    line-height: 48px;
+}
+.heightCol5{
+    line-height: 27px;
+}
+.tabHeight{
+    height:700px;
+}
+.tabHeightNew{
+    height: 352px;
+}
+.tabMinHeight{
+    min-height:700px !important;
 }

@@ -6,7 +6,6 @@
             <img data-bind="attr: {src: pic}" class="oj-margin profile-pic" />
             <div class="oj-padding oj-margin left">
                 <h2 data-bind="text :myname" class="color-white myname-profile">  </h2>
-                <p> <span class="color-white" data-bind="text: designation"></span> </p>
             </div>
         </div>
     </div>
@@ -18,18 +17,18 @@
                             selected: 0}">
 
 
-    <ul class="profile-ul pos-relative">
+    <ul class="profile-ul pos-relative" id="ulTab">
         <div class="transbox"></div>
         <li class="profile-tabs profile-font-tabs selectedTab" title="Positive Rating"><span><i class="zmdi zmdi-trending-up"></i> 
                 <span data-bind='text: plusSign'></span><span data-bind="text: plus"></span></span>
         </li>
-        <li class="profile-tabs profile-font-tabs selectedTab" title="Negative Rating"><span><i class="zmdi zmdi-trending-down"></i> 
+        <li class="profile-tabs profile-font-tabs selectedTab" id="negetiveTab" title="Negative Rating"><span><i class="zmdi zmdi-trending-down"></i> 
                 <span data-bind='text: minusSign'></span><span data-bind="text: minus"></span></span></li>
-        <li class="profile-tabs profile-font-tabs selectedTab"><span><i class="zmdi zmdi-comment-alt-text"></i> Feedback</span></li>
+        <li class="profile-tabs profile-font-tabs selectedTab" id="feedbackTab"><span><i class="zmdi zmdi-comment-alt-text"></i> Feedback</span></li>
         <li class="profile-tabs profile-font-tabs selectedTab"><span><i class="zmdi zmdi-account"></i> About</span></li>
     </ul>
 
-    <div id="tabs-1" class="color-white oj-margin-horizontal pos-relative">
+    <div id="tabs-1" class="color-white oj-margin-horizontal pos-relative tabMinHeight">
         <div class="transbox"></div>
         <div class="profile-page-overflow pos-relative">
             <div class="noComments" data-bind="text: NoCommentsP"></div>
@@ -48,14 +47,14 @@
             </div>
         </div>
     </div>
-    <div id="tabs-2" class="color-white oj-margin-horizontal pos-relative">
+    <div id="tabs-2" class="color-white oj-margin-horizontal pos-relative tabMinHeight">
         <div class="transbox"></div>
         <div class="profile-page-overflow">
             <div class="noComments" data-bind="text: NoCommentsN"></div>
             <div class="rating-comment" data-bind="foreach: commentDataNegative">
                 <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative">
                     <div class="profile-rating-circle circle-red">
-                        <div class="transline"></div>
+                        <div class="transline-red"></div>
                     </div>
                     <div class="rating-info">
                         <p class="comment"><span data-bind="text: comment"></span></p>
@@ -67,8 +66,8 @@
         </div>
     </div>
 
-    <div id="tabs-3" class="color-white oj-margin-horizontal pos-relative">
-       <div class="feedbackSection">
+    <div id="tabs-3" class="color-white oj-margin-horizontal pos-relative tabMinHeight">
+        <div class="feedbackSection">
             <div class="transbox"></div>
             <div class="oj-row oj-flex">
                 <div class="oj-xl-6 oj-lg-6 oj-md-12 oj-sm-12 oj-flex-item oj-flex">
@@ -202,15 +201,85 @@
 
             </div>
         </div>
-        
+
     </div>
-    <div id="tabs-4" class="color-white oj-margin-horizontal pos-relative">
+    <div id="tabs-4" class="color-white oj-margin-horizontal pos-relative tabMinHeight">
         <div class="transbox"></div>
         <div class="profile-page-overflow">
-            <p class="profile-tab1-data"> <i class="zmdi zmdi-account"></i> <span data-bind="text: myname"></span></p>
-            <p class="profile-tab1-data"> <i class="zmdi zmdi-case"></i> <span  data-bind="text: designation"></span></p>
-            <p class="profile-tab1-data"> <i class="zmdi zmdi-email"></i> <span data-bind="text: email"></span></p>
-            <p class="profile-tab1-data"> <i class="zmdi zmdi-phone"></i> <span data-bind="text: myNumber"></span></p>
+            <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                    <span class="icon-div"><i class="zmdi zmdi-email about-icons"></i></span>
+                    <span class="text-about heightCol"> Email</span>
+                </div>
+                <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-6 oj-flex-item">
+                    <span data-bind="text: email"></span> 
+                </div>
+
+            </div>
+            <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                    <span class="icon-div"><i class="zmdi zmdi-case about-icons"></i> </span> 
+                    <span class="text-about heightCol2">Designation</span>
+                </div>
+                <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-6 oj-flex-item">
+                    <span  data-bind="text: designation"></span>
+                </div>
+            </div>
+            <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                    <span class="icon-div"><i class="zmdi zmdi-pin about-icons"></i> </span>
+                    <span class="text-about heightCol">Location</span>
+                </div>
+                <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-6 oj-flex-item">
+                    <span></span>
+                </div>
+            </div>
+            <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                    <span class="icon-div"><i class="zmdi zmdi-graduation-cap about-icons"></i> </span>
+                    <span class="text-about heightCol">Skills</span>
+                </div>
+                <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-6 oj-flex-item">
+                    <span></span>
+                </div>
+            </div>
+            <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                    <span class="icon-div"><i class="zmdi zmdi-time-interval about-icons"></i>  </span>
+                    <span class="text-about heightCol5">Associated with <br> Infobeans since</span>
+                   
+                </div>
+                <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-6 oj-flex-item">
+                    <span></span>
+                </div>
+            </div>
+            <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                    <span class="icon-div"><i class="zmdi zmdi-file-text about-icons"></i></span>
+                    <span class="text-about heightCol">Project(s)</span>
+                </div>
+                <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-6 oj-flex-item">
+                    <span></span>
+                </div>
+            </div>
+            <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                    <span class="icon-div"><i class="zmdi zmdi-favorite about-icons"></i></span>
+                    <span class="text-about heightCol"> Interests</span>
+                </div>
+                <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-6 oj-flex-item">
+                    <span></span>
+                </div>
+            </div>
+            <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                    <span class="icon-div"><i class="zmdi zmdi-phone about-icons"></i></span>
+                    <span class="text-about heightCol"> Phone</span>
+                </div>
+                <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-6 oj-flex-item">
+                    <span data-bind="text: myNumber"></span>
+                </div>
+            </div>
         </div>
     </div>
 </div>

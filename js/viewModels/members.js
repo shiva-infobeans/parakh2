@@ -70,7 +70,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
         this.shortName = ko.observable();
         this.minusSign = ko.observable('-');
         this.plusSign = ko.observable('+');
-
+        self.roleName = ko.observable();
 
         if (id) {
             self.id(id);
@@ -86,8 +86,23 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
         userRecord.fetch({
             headers: {secret: secret},
             success: function (res) {
+                self.roleName(userRecord.attributes['data']['role_name']);
+                console.log(userRecord.attributes['data']['role_name']);
                 self.myselfId(userRecord.attributes['data']['id']);
                 self.myselfName(userRecord.attributes['data']['google_name']);
+                 
+                 //view others profile restrictions
+                   if (self.roleName() === 'Team Member') {
+                    $('#negetiveTab').hide();
+                    $('#feedbackTab').hide();
+                    $( "#ulTab").addClass("tabHeightNew");
+                } else {
+                    $('#negetiveTab').show();
+                    $('#feedbackTab').show();
+                     $("#ulTab").addClass("tabHeight");
+                }
+                
+                
                 var TaskRecord = oj.Model.extend({
                     url: getAllTeamMembers + userRecord.attributes['data']['id']
                 });
@@ -111,8 +126,6 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                                 break;
                             }
                         }
-
-
                         //calculate ratings of the user;
                         var rate = oj.Model.extend({
                             url: getRatingByUser + self.id(),
