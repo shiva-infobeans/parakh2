@@ -495,9 +495,9 @@ class dbmodule {
      * @return type
      */
     function updateProfile($data) {
-        $query = "UPDATE users SET designation = :des,mobile_number = :mob WHERE id = :id";
+        $query = "UPDATE users SET designation = :des, skills = :skills, interests = :interests, projects = :projects, associate_with_infobeans = :associate_with_infobeans, mobile_number = :mob WHERE id = :id";
         $update_profile_data = $this->con->prepare($query);
-        $query_result = $update_profile_data->execute(array(':des' => $data['des'], ':mob' => $data['mob'], ':id' => $data['user_id']));
+        $query_result = $update_profile_data->execute(array(':des' => $data['des'], ':skills' => $data['skills'], ':projects' => $data['projects'], ':interests' => $data['interests'], ':associate_with_infobeans' => $data['associate_with_infobeans'], ':mob' => $data['mob'], ':id' => $data['user_id']));
         return $query_result;
     }
 
