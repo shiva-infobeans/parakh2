@@ -822,6 +822,7 @@ class dbmodule {
             // // send notification to manager
             if ($this->manager_email != $user_data['google_email']) {
                 $email_data_l = [];
+                $temp_data_l = $this->getEmailTemplateByCode('PRKE05');
                 $email_data_l['to']['email'] = $this->manager_email;
                 $email_data_l['to']['name'] = $this->manager_name;
                 $email_data_l['subject'] = $temp_data_l['subject'];
@@ -829,6 +830,7 @@ class dbmodule {
                 $message = strtr($temp_data['content'], $vars);
                 $email_data_l['message'] = $message;
                 $this->send_notification($email_data_l);
+                print_r($email_data_l);die;
             }
 
             /* update msg read count */
