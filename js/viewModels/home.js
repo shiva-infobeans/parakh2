@@ -90,24 +90,12 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
         self.sliderText2 = ko.observable();
         self.sliderText3 = ko.observable();
 
-        //slider +1 performance
-        self.chemicals = [
-            {name: 'Hydrogen'},
-            {name: 'Helium'},
-            {name: 'Lithium'},
-            {name: 'Beryllium'},
-            {name: 'Boron'},
-            {name: 'Carbon'},
-            {name: 'Carbon'},
-            {name: 'Carbon'},
-            {name: 'Carbon'},
-            {name: 'Carbon'},
-            {name: 'Carbon'},
-            {name: 'Carbon'},
-            {name: 'Carbon'}
-        ];
-        self.chemical_clone = ko.observableArray();
-
+        self.teamMembers = ko.observableArray();
+        self.addteamMembers = function (obj) {
+            self.teamMembers.push(obj);
+            
+            $('#filmStrip').ojFilmStrip("refresh");
+        }
         self.currentNavArrowPlacement = ko.observable("adjacent");
         self.currentNavArrowVisibility = ko.observable("auto");
 
@@ -126,7 +114,6 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 self.id(task1.attributes['data']['id']);
                 var weekUrl = oj.Model.extend({
                     url: getRecentRankingList
-                            //parse: parseTask
                 });
                 var fetchWeek = new weekUrl();
                 fetchWeek.fetch({
@@ -135,11 +122,10 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                         for (var c = 0; c < result['attributes']['data'].length; c++) {
                             var obj = new Object();
                             obj.name = result['attributes']['data'][c]['google_name'];
-                            self.chemical_clone.push(obj);
+                            self.addteamMembers(obj);
                         }
                         var monthUrl = oj.Model.extend({
                             url: getRecentRankingList
-                                    //parse: parseTask
                         });
                         var monthFetch = new monthUrl();
                         monthFetch.fetch({
@@ -148,11 +134,10 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                                 for (var c = 0; c < res2['attributes']['data'].length; c++) {
                                     var obj = new Object();
                                     obj.name = res2['attributes']['data'][c]['google_name'];
-                                    self.chemical_clone.push(obj);
+                                    self.addteamMembers(obj);
                                 }
                                 var yearUrl = oj.Model.extend({
                                     url: getRecentRankingList
-                                            //parse: parseTask
                                 });
                                 var yearFetch = new yearUrl();
                                 yearFetch.fetch({
@@ -161,9 +146,8 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                                         for (var c = 0; c < res3['attributes']['data'].length; c++) {
                                             var obj = new Object();
                                             obj.name = res3['attributes']['data'][c]['google_name'];
-                                            self.chemical_clone.push(obj);
+                                            self.addteamMembers(obj);
                                         }
-                                        console.log(self.chemical_clone());
                                     }
                                 });
                             }
