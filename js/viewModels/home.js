@@ -7,7 +7,7 @@
 /**
  * home module
  */
-define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojtabs', 'ojs/ojconveyorbelt'
+define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojtabs', 'ojs/ojfilmstrip'
 ], function (oj, ko) {
     /**
      * The view model for the main content view template
@@ -89,6 +89,92 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
         self.sliderText1 = ko.observable();
         self.sliderText2 = ko.observable();
         self.sliderText3 = ko.observable();
+
+        //slider +1 performance
+        self.chemicals = [
+            {name: 'Hydrogen'},
+            {name: 'Helium'},
+            {name: 'Lithium'},
+            {name: 'Beryllium'},
+            {name: 'Boron'},
+            {name: 'Carbon'},
+            {name: 'Carbon'},
+            {name: 'Carbon'},
+            {name: 'Carbon'},
+            {name: 'Carbon'},
+            {name: 'Carbon'},
+            {name: 'Carbon'},
+            {name: 'Carbon'}
+        ];
+        self.chemical_clone = ko.observableArray();
+
+        self.currentNavArrowPlacement = ko.observable("adjacent");
+        self.currentNavArrowVisibility = ko.observable("auto");
+
+        getItemInitialDisplay = function (index)
+        {
+            return index < 4 ? '' : 'none';
+        };
+        var recentMemberURL = oj.Model.extend({
+            url: getUserByEmail + person['email']
+                    //parse: parseTask
+        });
+        var task1 = new recentMemberURL();
+        task1.fetch({
+            headers: {secret: secret},
+            success: function () {
+                self.id(task1.attributes['data']['id']);
+                var weekUrl = oj.Model.extend({
+                    url: getRecentRankingList
+                            //parse: parseTask
+                });
+                var fetchWeek = new weekUrl();
+                fetchWeek.fetch({
+                    headers: {secret: secret},
+                    success: function (result) {
+                        for (var c = 0; c < result['attributes']['data'].length; c++) {
+                            var obj = new Object();
+                            obj.name = result['attributes']['data'][c]['google_name'];
+                            self.chemical_clone.push(obj);
+                        }
+                        var monthUrl = oj.Model.extend({
+                            url: getRecentRankingList
+                                    //parse: parseTask
+                        });
+                        var monthFetch = new monthUrl();
+                        monthFetch.fetch({
+                            headers: {secret: secret},
+                            success: function (res2) {
+                                for (var c = 0; c < res2['attributes']['data'].length; c++) {
+                                    var obj = new Object();
+                                    obj.name = res2['attributes']['data'][c]['google_name'];
+                                    self.chemical_clone.push(obj);
+                                }
+                                var yearUrl = oj.Model.extend({
+                                    url: getRecentRankingList
+                                            //parse: parseTask
+                                });
+                                var yearFetch = new yearUrl();
+                                yearFetch.fetch({
+                                    headers: {secret: secret},
+                                    success: function (res3) {
+                                        for (var c = 0; c < res3['attributes']['data'].length; c++) {
+                                            var obj = new Object();
+                                            obj.name = res3['attributes']['data'][c]['google_name'];
+                                            self.chemical_clone.push(obj);
+                                        }
+                                        console.log(self.chemical_clone());
+                                    }
+                                });
+                            }
+                        });
+
+                    }
+                });
+            }
+        });
+        //slider performance +1 end
+
 
         var TaskRecord = oj.Model.extend({
             url: getUserByEmail + person['email'],
@@ -214,40 +300,40 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
             }
         });
         var counter = 1;//automatic slider counter
-        
-            setInterval(function () {
-                if (counter % 3 == 0) {
-                    document.getElementsByName("slide")[0].checked = true;
-                    document.getElementsByName("slide")[1].checked = false;
-                    document.getElementsByName("slide")[2].checked = false;
-                    document.getElementsByName("slide1")[0].checked = true;
-                    document.getElementsByName("slide1")[1].checked = false;
-                    document.getElementsByName("slide1")[2].checked = false;
 
-                    counter = 0;
-                }
-                if (counter % 3 == 1) {
-                    document.getElementsByName("slide")[0].checked = false;
-                    document.getElementsByName("slide")[1].checked = true;
-                    document.getElementsByName("slide")[2].checked = false;
-                    document.getElementsByName("slide1")[0].checked = false;
-                    document.getElementsByName("slide1")[1].checked = true;
-                    document.getElementsByName("slide1")[2].checked = false;
+        setInterval(function () {
+            if (counter % 3 == 0) {
+                document.getElementsByName("slide")[0].checked = true;
+                document.getElementsByName("slide")[1].checked = false;
+                document.getElementsByName("slide")[2].checked = false;
+                document.getElementsByName("slide1")[0].checked = true;
+                document.getElementsByName("slide1")[1].checked = false;
+                document.getElementsByName("slide1")[2].checked = false;
 
-                }
-                if (counter % 3 == 2) {
-                    document.getElementsByName("slide")[0].checked = false;
-                    document.getElementsByName("slide")[1].checked = false;
-                    document.getElementsByName("slide")[2].checked = true;
-                    document.getElementsByName("slide1")[0].checked = false;
-                    document.getElementsByName("slide1")[1].checked = false;
-                    document.getElementsByName("slide1")[2].checked = true;
+                counter = 0;
+            }
+            if (counter % 3 == 1) {
+                document.getElementsByName("slide")[0].checked = false;
+                document.getElementsByName("slide")[1].checked = true;
+                document.getElementsByName("slide")[2].checked = false;
+                document.getElementsByName("slide1")[0].checked = false;
+                document.getElementsByName("slide1")[1].checked = true;
+                document.getElementsByName("slide1")[2].checked = false;
 
-                }
-                counter++;
+            }
+            if (counter % 3 == 2) {
+                document.getElementsByName("slide")[0].checked = false;
+                document.getElementsByName("slide")[1].checked = false;
+                document.getElementsByName("slide")[2].checked = true;
+                document.getElementsByName("slide1")[0].checked = false;
+                document.getElementsByName("slide1")[1].checked = false;
+                document.getElementsByName("slide1")[2].checked = true;
 
-            }, 6000)
-        
+            }
+            counter++;
+
+        }, 6000)
+
 
         setTimeout(function () {
             $(".tabIcon").click(function () {
