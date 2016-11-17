@@ -15,7 +15,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 commentDate1 = new Date(commentDate1);
                 //commentDate1 = commentDate1.toDateString();
                 var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June",
-                  "July", "Aug", "Sep", "Oct", "Nov", "Dec"
+                    "July", "Aug", "Sep", "Oct", "Nov", "Dec"
                 ];
 
                 var com = this; // this is for object of this function
@@ -79,6 +79,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 self.desigError = ko.observable();
                 this.minusSign = ko.observable('-');
                 this.plusSign = ko.observable('+');
+                self.selectedTab = ko.observable(0);
+                var windowLocation = window.location;
+                var id = windowLocation.search.substring(windowLocation.search.indexOf("=") + 1, windowLocation.search.length);
+
+                if (id == "1") {
+                    self.selectedTab(1);
+                }
+
                 ///////////open modal
                 self.tempararyNumber = ko.observable();
                 //open feedback close feedback
@@ -107,7 +115,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         var appendChild = this;
                         var sysDate = new Date();
                         var dateString = sysDate.toJSON().toString().substr(0, 10);
-                        
+
                         $.ajax({
                             headers: {secret: secret},
                             method: 'POST',
@@ -115,17 +123,17 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                             data: {login_user_id: id, feedback_to: feedback_to, feedback_desc: responseDesc.val(), feedback_id: fid},
                             success: function () {
                                 $(appendChild).parent().parent().parent().prev().append(
-                                        '<div class="oj-row oj-flex oj-margin-top oj-margin-bottom oj-margin-horizontal oj-padding-horizontal">'+
+                                        '<div class="oj-row oj-flex oj-margin-top oj-margin-bottom oj-margin-horizontal oj-padding-horizontal">' +
                                         '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item replyName">' +
                                         '<span>' + self.myname + '</span>' +
                                         '</div>' +
                                         '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex replyComent">' +
                                         '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item"><span>' + responseDesc.val() + '</span></div>' +
                                         '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex-bar"><span class="oj-flex-bar-end">' + dateString + '</span></div>' +
-                                        '</div>'+
+                                        '</div>' +
                                         '</div>'
                                         );
-                                responseDesc.val("");  
+                                responseDesc.val("");
                             }
                         });
                     });

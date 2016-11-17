@@ -38,6 +38,12 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
         self.project1hover = ko.observable();
         self.project2hover = ko.observable();
         self.project3hover = ko.observable();
+        self.link0 = ko.observable();
+        self.link1 = ko.observable();
+        self.link2 = ko.observable();
+        self.link3 = ko.observable();
+        self.vieMyProfile = ko.observable();
+      
 //         get members who get +1 recently
         var rec = oj.Model.extend({
             url: getRecentRankingList
@@ -52,25 +58,47 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 self.name0hover(data.attributes['data'][0]['google_name']);
                 self.project0hover(data.attributes['data'][0]['project_name']);
                 self.image0(img0);
+                 var person0 = "memberProfile.html?id="+data.attributes['data'][0]['user_id']; 
+                self.link0(person0);
 
                 var img1 = data.attributes['data'][1]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][1]['google_picture_link'];
                 self.name1(data.attributes['data'][1]['google_name'].substr(0, data.attributes['data'][1]['google_name'].indexOf(' ')));
                 self.name1hover(data.attributes['data'][1]['google_name']);
                 self.project1hover(data.attributes['data'][1]['project_name']);
                 self.image1(img1);
+                 var person1 = "memberProfile.html?id="+data.attributes['data'][1]['user_id']; 
+                self.link1(person1);
 
                 var img2 = data.attributes['data'][2]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][2]['google_picture_link'];
                 self.name2(data.attributes['data'][2]['google_name'].substr(0, data.attributes['data'][2]['google_name'].indexOf(' ')));
                 self.name2hover(data.attributes['data'][2]['google_name']);
                 self.project2hover(data.attributes['data'][2]['project_name']);
                 self.image2(img2);
+                 var person2 = "memberProfile.html?id="+data.attributes['data'][2]['user_id']; 
+                self.link2(person2);
 
                 var img3 = data.attributes['data'][3]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][3]['google_picture_link'];
                 self.name3(data.attributes['data'][3]['google_name'].substr(0, data.attributes['data'][3]['google_name'].indexOf(' ')));
                 self.name3hover(data.attributes['data'][3]['google_name']);
                 self.project3hover(data.attributes['data'][3]['project_name']);
                 self.image3(img3);
+                var person3 = "memberProfile.html?id="+data.attributes['data'][3]['user_id']; 
+                self.link3(person3);
+                
+                
 
+            }
+        });
+        var profile = oj.Model.extend({
+            url: getUserByEmail + person['email']
+        });
+        var viewProfile = new profile();
+        viewProfile.fetch({
+            headers: {secret: secret},
+            success: function (res) {
+               var view = "profile.html?id="+viewProfile.attributes['data']['id']; 
+                self.vieMyProfile(view);
+               
             }
         });
 
@@ -214,7 +242,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
             }
         });
         var counter = 1;//automatic slider counter
-        if (self.myPlusRatings() != 0 && self.myMinusRatings() != 0) {
+      
             setInterval(function () {
                 if (counter % 3 == 0) {
                     document.getElementsByName("slide")[0].checked = true;
@@ -238,7 +266,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 counter++;
 
             }, 6000)
-        }
+        
 
         setTimeout(function () {
             $(".tabIcon").click(function () {

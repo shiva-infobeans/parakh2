@@ -233,7 +233,7 @@ body{
 }
 /*Profile page css*/
 .profile-tabs{
-    padding: 46px 35px 47px 35px;
+   padding: 60px 37px 59px 44px;
     border-bottom: 1px solid #85D44B;
     border-left: none;
     cursor: pointer;
@@ -246,7 +246,7 @@ ul.profile-ul{
     padding: 0px !important;
     margin-left: 10px !important;
     margin-right: 10px !important;
-    height:600px;
+    /*height:700px;*/
 }
 ul li.selectedTab div a.oj-tabs-gen-a.oj-tabs-anchor {
     color:#fff !important;
@@ -273,7 +273,7 @@ ul li.selectedTab div {
     border:none;
 }
 div.profile-page{
-    /*height: 600px;*/
+/*    height: 600px;*/
 }
 div.oj-tabs-panel.oj-tabs-selected{
     background: none;
@@ -317,6 +317,8 @@ div.oj-tabs-panel.oj-tabs-selected{
 .myname-profile{
     font-weight: 600;
     font-size: 25px;
+    margin-top: 22px;
+    margin-left: -8px;
 }
 .profile-rating-circle{
     margin: 0 50px 20px;
