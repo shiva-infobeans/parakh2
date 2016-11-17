@@ -742,7 +742,7 @@ class dbmodule {
 
     function get_all_team_members($user_id) {
         if ($user_id) {
-            $query = "SELECT id, google_name, google_email, mobile_number, designation, google_picture_link FROM users WHERE id <>:id AND id <> 1 AND status <> 0 ORDER BY google_name";
+            $query = "SELECT id, google_name, google_email, mobile_number, designation, google_picture_link,location,skills,interests,associate_with_infobeans,primary_project FROM users WHERE id <>:id AND id <> 1 AND status <> 0 ORDER BY google_name";
 
             $user_list = $this->con->prepare($query);
             $user_list->execute(array(':id' => $user_id));
@@ -822,6 +822,7 @@ class dbmodule {
             // // send notification to manager
             if ($this->manager_email != $user_data['google_email']) {
                 $email_data_l = [];
+                $temp_data_l = $this->getEmailTemplateByCode('PRKE05');
                 $email_data_l['to']['email'] = $this->manager_email;
                 $email_data_l['to']['name'] = $this->manager_name;
                 $email_data_l['subject'] = $temp_data_l['subject'];
@@ -829,6 +830,7 @@ class dbmodule {
                 $message = strtr($temp_data['content'], $vars);
                 $email_data_l['message'] = $message;
                 $this->send_notification($email_data_l);
+                print_r($email_data_l);die;
             }
 
             /* update msg read count */
