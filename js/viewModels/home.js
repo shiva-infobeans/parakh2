@@ -56,7 +56,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 var img0 = data.attributes['data'][0]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][0]['google_picture_link'];
                 self.name0(data.attributes['data'][0]['google_name'].substr(0, data.attributes['data'][0]['google_name'].indexOf(' ')));
                 self.name0hover(data.attributes['data'][0]['google_name']);
-                self.project0hover(data.attributes['data'][0]['project_name']);
+                self.project0hover(data.attributes['data'][0]['projects']);
                 self.image0(img0);
                  var person0 = "memberProfile.html?id="+data.attributes['data'][0]['user_id']; 
                 self.link0(person0);
@@ -64,7 +64,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 var img1 = data.attributes['data'][1]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][1]['google_picture_link'];
                 self.name1(data.attributes['data'][1]['google_name'].substr(0, data.attributes['data'][1]['google_name'].indexOf(' ')));
                 self.name1hover(data.attributes['data'][1]['google_name']);
-                self.project1hover(data.attributes['data'][1]['project_name']);
+                self.project1hover(data.attributes['data'][1]['projects']);
                 self.image1(img1);
                  var person1 = "memberProfile.html?id="+data.attributes['data'][1]['user_id']; 
                 self.link1(person1);
@@ -72,7 +72,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 var img2 = data.attributes['data'][2]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][2]['google_picture_link'];
                 self.name2(data.attributes['data'][2]['google_name'].substr(0, data.attributes['data'][2]['google_name'].indexOf(' ')));
                 self.name2hover(data.attributes['data'][2]['google_name']);
-                self.project2hover(data.attributes['data'][2]['project_name']);
+                self.project2hover(data.attributes['data'][2]['projects']);
                 self.image2(img2);
                  var person2 = "memberProfile.html?id="+data.attributes['data'][2]['user_id']; 
                 self.link2(person2);
@@ -80,7 +80,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 var img3 = data.attributes['data'][3]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][3]['google_picture_link'];
                 self.name3(data.attributes['data'][3]['google_name'].substr(0, data.attributes['data'][3]['google_name'].indexOf(' ')));
                 self.name3hover(data.attributes['data'][3]['google_name']);
-                self.project3hover(data.attributes['data'][3]['project_name']);
+                self.project3hover(data.attributes['data'][3]['projects']);
                 self.image3(img3);
                 var person3 = "memberProfile.html?id="+data.attributes['data'][3]['user_id']; 
                 self.link3(person3);
@@ -196,45 +196,45 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                             self.dayMinusRatings(dayN);
                             if (self.dayPlusRatings() == 0 && self.dayMinusRatings() == 0) {
                                 self.sliderText1("You have not been rated this week!!");
-                                $('#hideSlider1').hide();
-                                $('#hidegreenBtn1').hide();
-                                $('#hideredBtn1').hide();
-                                $('#smiley1').show();
+                                $('#hideSlider1,#hideSlider12').hide();
+                                $('#hidegreenBtn1,#hidegreenBtn12').hide();
+                                $('#hideredBtn1,#hideredBtn12').hide();
+                                $('#smiley1,#smiley12').show();
                             } else {
 
-                                $('#hideSlider1').show();
-                                $('#hidegreenBtn1').show();
-                                $('#hideredBtn1').show();
-                                $('#smiley1').hide();
+                                $('#hideSlider1,#hideSlider12').show();
+                                $('#hidegreenBtn1,#hidegreenBtn12').show();
+                                $('#hideredBtn1,#hideredBtn12').show();
+                                $('#smiley1,#smiley12').hide();
                             }
                             self.monthPlusRatings(monthP); //ratings in this Month
                             self.monthMinusRatings(monthN);
 
                             if (self.monthPlusRatings() == 0 && self.monthMinusRatings() == 0) {
                                 self.sliderText2("You have not been rated this month!!");
-                                $('#hideSlider2').hide();
-                                $('#hidegreenBtn2').hide();
-                                $('#hideredBtn2').hide();
-                                $('#smiley2').show();
+                                $('#hideSlider2,#hideSlider22').hide();
+                                $('#hidegreenBtn2,#hidegreenBtn22').hide();
+                                $('#hideredBtn2,#hideredBtn22').hide();
+                                $('#smiley2,#smiley22').show();
                             } else {
-                                $('#hideSlider2').show();
-                                $('#hidegreenBtn2').show();
-                                $('#hideredBtn2').show();
-                                $('#smiley2').hide();
+                                $('#hideSlider2,#hideSlider22').show();
+                                $('#hidegreenBtn2,#hidegreenBtn22').show();
+                                $('#hideredBtn2,#hideredBtn22').show();
+                                $('#smiley2,#smiley22').hide();
                             }
                             self.myPlusRatings(plus); // over all ratings
                             self.myMinusRatings(minus);
                             if (self.myPlusRatings() == 0 && self.myMinusRatings() == 0) {
                                 self.sliderText3("You have not been rated yet!!");
-                                $('#hideSlider3').hide();
-                                $('#hidegreenBtn3').hide();
-                                $('#hideredBtn3').hide();
-                                $('#smiley3').show();
+                                $('#hideSlider3,#hideSlider32').hide();
+                                $('#hidegreenBtn3,#hidegreenBtn32').hide();
+                                $('#hideredBtn3,#hideredBtn32').hide();
+                                $('#smiley3,#smiley32').show();
                             } else {
-                                $('#hideSlider3').show();
-                                $('#hidegreenBtn3').show();
-                                $('#hideredBtn3').show();
-                                $('#smiley3').hide();
+                                $('#hideSlider3,#hideSlider32').show();
+                                $('#hidegreenBtn3,#hidegreenBtn32').show();
+                                $('#hideredBtn3,#hideredBtn32').show();
+                                $('#smiley3,#smiley32').hide();
                             }
                         }
                     }
@@ -248,6 +248,9 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                     document.getElementsByName("slide")[0].checked = true;
                     document.getElementsByName("slide")[1].checked = false;
                     document.getElementsByName("slide")[2].checked = false;
+                    document.getElementsByName("slide1")[0].checked = true;
+                    document.getElementsByName("slide1")[1].checked = false;
+                    document.getElementsByName("slide1")[2].checked = false;
 
                     counter = 0;
                 }
@@ -255,12 +258,18 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                     document.getElementsByName("slide")[0].checked = false;
                     document.getElementsByName("slide")[1].checked = true;
                     document.getElementsByName("slide")[2].checked = false;
+                    document.getElementsByName("slide1")[0].checked = false;
+                    document.getElementsByName("slide1")[1].checked = true;
+                    document.getElementsByName("slide1")[2].checked = false;
 
                 }
                 if (counter % 3 == 2) {
                     document.getElementsByName("slide")[0].checked = false;
                     document.getElementsByName("slide")[1].checked = false;
                     document.getElementsByName("slide")[2].checked = true;
+                    document.getElementsByName("slide1")[0].checked = false;
+                    document.getElementsByName("slide1")[1].checked = false;
+                    document.getElementsByName("slide1")[2].checked = true;
 
                 }
                 counter++;

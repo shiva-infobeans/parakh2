@@ -8,7 +8,7 @@
  * personProfile module
  */
 
-define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 'ojs/ojcomponentcore', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojmodel'],
+define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 'ojs/ojcomponentcore', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojmodel', 'ojs/ojselectcombobox', 'ojs/ojdatetimepicker'],
         function (oj, ko, $)
         {
             function dataComment(comment1, commenter1, commentDate1) {
@@ -69,6 +69,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 this.plus = ko.observable();
                 this.minus = ko.observable();
                 this.myNumber = ko.observable();
+                this.skills = ko.observable();
+                this.interests = ko.observable();
+                this.projects = ko.observable();
+                this.location = ko.observable();
+                this.associate_with_infobeans = ko.observable();
                 this.NoCommentsN = ko.observable(""); // for negative comment
                 this.NoCommentsP = ko.observable(""); // for positive comment
                 self.id = ko.observable(0);
@@ -140,8 +145,29 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
 
                 }, 500);
 
-
-
+                //update profile submit button ajax call
+                self.updateProfile = function () {
+                    // if (self.desc() == '' || self.desc() == null) {
+                    //     self.textError("Please provide a reason for your request.");
+                    //     return false;
+                    // }
+                    $.ajax({
+                        headers: {secret: secret},
+                        method: 'POST',
+                        url: updateProfile,
+                        data: {user_id: self.id(),desc: self.designation(),location: self.location(),skills: self.skills(),associate_with_infobeans: self.associate_with_infobeans(),projects: self.projects(),interests: self.interests(),mob: self.myNumber(),mob: self.myNumber()},
+                        success: function () {
+                            // self.desc('');
+                            // self.textError('');
+                            // $("#sucessRate").show();
+                            // self.sucessMsg("Your Request is sent.");
+                            // setTimeout(function () {
+                            //     $("#sucessRate").hide();
+                            //     self.sucessMsg("");
+                            // }, 3000);
+                        }
+                    });
+                }
                 //////////////////// edit profile page
 
 //service for id of the user.
@@ -160,6 +186,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         self.designation(abc);
                         var num = task.attributes['data']['mobile_number'] == "" ? "NO NUMBER" : "+91-" + task.attributes['data']['mobile_number'];
                         self.myNumber(num);
+                        self.skills(task.attributes['data']['skills']);
+                        self.location(task.attributes['data']['location']);
+                        self.interests(task.attributes['data']['interests']);
+                        self.projects(task.attributes['data']['projects']);
+                        self.associate_with_infobeans(task.attributes['data']['associate_with_infobeans']);
                         //feedback for the user
                         var feedbackApi = oj.Model.extend({
                             url: getFeedbackById + self.id()

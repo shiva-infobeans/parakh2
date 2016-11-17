@@ -495,9 +495,9 @@ class dbmodule {
      * @return type
      */
     function updateProfile($data) {
-        $query = "UPDATE users SET designation = :des,mobile_number = :mob WHERE id = :id";
+        $query = "UPDATE users SET designation = :des, skills = :skills, interests = :interests, projects = :projects, associate_with_infobeans = :associate_with_infobeans, mobile_number = :mob WHERE id = :id";
         $update_profile_data = $this->con->prepare($query);
-        $query_result = $update_profile_data->execute(array(':des' => $data['des'], ':mob' => $data['mob'], ':id' => $data['user_id']));
+        $query_result = $update_profile_data->execute(array(':des' => $data['des'], ':skills' => $data['skills'], ':projects' => $data['projects'], ':interests' => $data['interests'], ':associate_with_infobeans' => $data['associate_with_infobeans'], ':mob' => $data['mob'], ':id' => $data['user_id']));
         return $query_result;
     }
 
@@ -742,7 +742,7 @@ class dbmodule {
 
     function get_all_team_members($user_id) {
         if ($user_id) {
-            $query = "SELECT id, google_name, google_email, mobile_number, designation, google_picture_link FROM users WHERE id <>:id AND id <> 1 AND status <> 0 ORDER BY google_name";
+            $query = "SELECT id, google_name, google_email, mobile_number, designation, google_picture_link,location,skills,interests,associate_with_infobeans,primary_project FROM users WHERE id <>:id AND id <> 1 AND status <> 0 ORDER BY google_name";
 
             $user_list = $this->con->prepare($query);
             $user_list->execute(array(':id' => $user_id));
@@ -822,6 +822,7 @@ class dbmodule {
             // // send notification to manager
             if ($this->manager_email != $user_data['google_email']) {
                 $email_data_l = [];
+                $temp_data_l = $this->getEmailTemplateByCode('PRKE05');
                 $email_data_l['to']['email'] = $this->manager_email;
                 $email_data_l['to']['name'] = $this->manager_name;
                 $email_data_l['subject'] = $temp_data_l['subject'];
@@ -829,6 +830,7 @@ class dbmodule {
                 $message = strtr($temp_data['content'], $vars);
                 $email_data_l['message'] = $message;
                 $this->send_notification($email_data_l);
+                print_r($email_data_l);die;
             }
 
             /* update msg read count */
@@ -1331,6 +1333,20 @@ class dbmodule {
     //
     function getPendingRequest($user_id = null) {
         return 0;
+    }
+
+    /*get top four ranker of current month*/
+    function get_top_ranker_for_current_month(){
+
+        $query_rank = "SELECT r.created_date as date,r.user_id,u.google_name,u.google_picture_link as image,
+                    sum(case when r.rating = 1 then 1  end) as pluscount,
+                    sum(case when r.rating = 0 then 1  end) as minuscount
+                    from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 AND MONTH(date) = MONTH(CURDATE())
+                    AND YEAR(date) = YEAR(CURDATE())
+                    group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC LIMIT 10";
+                $user_rank = $this->con->prepare($query_rank);
+                $user_rank->execute(array(':id' => $employeeList[$y]['id']));
+                $userRank = $user_rank->fetchAll((PDO::FETCH_ASSOC));
     }
 
 //end of fun

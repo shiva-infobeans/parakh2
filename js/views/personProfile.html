@@ -221,10 +221,109 @@
     <div id="tabs-4" class="color-white oj-margin-horizontal pos-relative">
         <div class="transbox"></div>
         <div class="profile-page-overflow">
-            <p class="profile-tab1-data"> <i class="zmdi zmdi-account"></i> <span data-bind="text: myname"></span></p>
-            <p class="profile-tab1-data"> <i class="zmdi zmdi-case"></i> <span  data-bind="text: designation"></span></p>
-            <p class="profile-tab1-data"> <i class="zmdi zmdi-email"></i> <span data-bind="text: email"></span></p>
-            <p class="profile-tab1-data"> <i class="zmdi zmdi-phone"></i> <span data-bind="text: myNumber"></span></p>
+            <p class="profile-tab1-data"> 
+                <i class="zmdi zmdi-email"></i>
+                <span class='about-label'>Email : </span> 
+                <span data-bind="text: email" class="about-text"></span>
+            </p>
+
+            <p class="profile-tab1-data"> 
+                <i class="zmdi zmdi-case"></i><span class='about-label'>Designation : </span>  
+                <span  data-bind="text: designation" class="about-text"></span>
+                <input type="text" name="email" data-bind="value: designation">
+                <i class="zmdi zmdi-edit about-edit"></i>
+                <i class="zmdi zmdi-check about-edit"></i>
+                <i class="zmdi zmdi-minus-circle-outline about-edit"></i>
+            </p>
+
+            <p class="profile-tab1-data"> 
+                <i class="zmdi zmdi-pin"></i>
+                <span class='about-label'>Location : </span> 
+                <span data-bind="text: location" class="about-text"></span>
+                <select data-bind="ojComponent: {component: 'ojSelect',value: location,}" class="selector">
+                    <option value="Indore">Indore</option>
+                    <option value="Pune">Pune</option>
+                </select>
+                <i class="zmdi zmdi-edit about-edit"></i>
+                <a href="javascript:void(0)" data-bind="click: updateProfile"><i class="zmdi zmdi-check about-edit"></i></a>
+                <i class="zmdi zmdi-minus-circle-outline about-edit"></i>
+            </p>
+
+            <p class="profile-tab1-data"> 
+                <i class="zmdi zmdi-account"></i>
+                <span class='about-label'>Skills : </span> 
+                <span data-bind="text: skills" class="about-text"></span>
+                <select data-bind="ojComponent: {component: 'ojSelect',multiple: true,value: skills}" class="selector">
+                    <option value="PHP">PHP</option>
+                    <option value="HTML">HTML</option>
+                    <option value="CSS">CSS</option>
+                    <option value="WordPress">WordPress</option>
+                    <option value="Joomla">Joomla</option>
+                    <option value="Drupal">Drupal</option>
+                    <option value="Dot Net">Dot Net</option>
+                    <option value="Javasccript">Javasccript</option>
+                    <option value="JQuery">JQuery</option>
+                    <option value="C">C</option>
+                    <option value="C++">C++</option>
+                    <option value="MySql">MySql</option>
+                </select>    
+                <i class="zmdi zmdi-edit about-edit"></i>
+                <i class="zmdi zmdi-check about-edit"></i>
+                <i class="zmdi zmdi-minus-circle-outline about-edit"></i>
+            </p>
+
+            <p class="profile-tab1-data"> 
+                <i class="zmdi zmdi-account"></i>
+                <span class='about-label'>Associated with Infobeans Since : </span> 
+                <span data-bind="text: associate_with_infobeans" class="about-text"></span>
+                <input type="text" name="email" data-bind="ojComponent:{component:'ojInputDate', value: associate_with_infobeans,
+                  datePicker: {changeMonth: 'yes', changeYear: 'yes'},
+                  converter: {type:'datetime', options: {year: 'numeric', month: 'long', day: 'numeric'}}}">
+                <i class="zmdi zmdi-edit about-edit"></i>
+                <i class="zmdi zmdi-check about-edit"></i>
+                <i class="zmdi zmdi-minus-circle-outline about-edit"></i>
+            </p>
+
+            <p class="profile-tab1-data"> 
+                <i class="zmdi zmdi-file"></i>
+                <span class='about-label'>Project(s) : </span> 
+                <span data-bind="text: projects" class="about-text"></span>
+                <select data-bind="ojComponent: {component: 'ojSelect',multiple: true,value: projects}" class="selector">
+                    <option value="ICC-Safe">ICC-Safe</option>
+                    <option value="Parakh">Parakh</option>
+                    <option value="NetAPP">NetAPP</option>
+                    <option value="Erata">Erata</option>
+                    <option value="CMS">CMS</option>
+                </select> 
+                <i class="zmdi zmdi-edit about-edit"></i>
+                <i class="zmdi zmdi-check about-edit"></i>
+                <i class="zmdi zmdi-minus-circle-outline about-edit"></i>
+            </p>
+
+            <p class="profile-tab1-data"> 
+                <i class="zmdi zmdi-account"></i>
+                <span class='about-label'>Intersets : </span>
+                <span data-bind="text: interests" class="about-text"></span>
+                <select data-bind="ojComponent: {component: 'ojSelect',multiple: true,value: interests}" class="selector">
+                    <option value="Music">Music</option>
+                    <option value="Dancing">Dancing</option>
+                    <option value="Painting">Painting</option>
+                    <option value="Traveling">Traveling</option>
+                </select>
+                <i class="zmdi zmdi-edit about-edit"></i>
+                <i class="zmdi zmdi-check about-edit"></i>
+                <i class="zmdi zmdi-minus-circle-outline about-edit"></i>
+            </p>
+
+            <p class="profile-tab1-data"> 
+                <i class="zmdi zmdi-phone"></i>
+                <span class='about-label'>Phone : </span> 
+                <span data-bind="text: myNumber" class="about-text"></span>
+                <input type="text" name="email" data-bind="value: myNumber">
+                <i class="zmdi zmdi-edit about-edit"></i>
+                <i class="zmdi zmdi-check about-edit"></i>
+                <i class="zmdi zmdi-minus-circle-outline about-edit"></i>
+            </p>
         </div>
     </div>
 
