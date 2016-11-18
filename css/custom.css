@@ -634,7 +634,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 /*indexer function*/
 .hide{
-    display:none !important;
+    display:none;
 }
 
 /*dialog wrapper in rate buddy page for view member's profile*/

@@ -210,7 +210,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                                             self.addteamMembers(obj);
                                         }
                                         var yearUrl = oj.Model.extend({
-                                            url: getRecentRankingList
+                                            url: getRankingList
                                         });
                                         var yearFetch = new yearUrl();
                                         yearFetch.fetch({
@@ -221,7 +221,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                                                     obj.personLink = "memberProfile.html?id=" + res3['attributes']['data'][c]['user_id'];
                                                     obj.name = res3['attributes']['data'][c]['google_name'];
                                                     obj.nameS = res3['attributes']['data'][c]['google_name'].substring(0,obj.name.indexOf(" "));
-                                                    obj.image = res3['attributes']['data'][c]['google_picture_link'];
+                                                    obj.image = res3['attributes']['data'][c]['image'];
                                                     obj.projects = res3['attributes']['data'][c]['projects'];
                                                     self.addteamMembers(obj);
                                                 }
