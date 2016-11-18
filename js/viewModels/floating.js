@@ -180,12 +180,18 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 success: function () {
                     $("#modalDialog9").ojDialog("close");
                     self.value('');
-                     $("#sucess").show();
+                    $("#sucess").show();
                     self.sucessMsg("Feedback is sent!");
                     setTimeout(function () {
                         $("#sucess").hide();
                         self.sucessMsg("");
                     }, 3000);
+                },
+                beforeSend: function () {
+                    $(".modal-submitRequest").children("img").css("visibility","visible");
+                },
+                complete: function () {
+                    $(".modal-submitRequest").children("img").css("visibility","hidden");
                 }
             });
 
@@ -219,12 +225,18 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 success: function () {
                     $("#modalDialog3").ojDialog("close");
                     self.value('');
-                     $("#sucess").show();
+                    $("#sucess").show();
                     self.sucessMsg("Member rated successfully!");
                     setTimeout(function () {
                         $("#sucess").hide();
                         self.sucessMsg("");
                     }, 3000);
+                },
+                beforeSend: function () {
+                    $(".modal-submitRequest").children("img").css("visibility","visible");
+                },
+                complete: function () {
+                    $(".modal-submitRequest").children("img").css("visibility","hidden");
                 }
             });
 
@@ -232,7 +244,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
 
         //send request for +1 ratings ajax call
-        self.requestModal = function () {
+        self.requestModal = function (event) {
+
+
             if (self.value2() == '' || self.value2() == null) {
                 self.searchError("This field cannot be empty");
                 return false;
@@ -248,10 +262,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 url: requestForOne,
                 data: {u_id: self.userIdFloat(), l_id: self.value2()[0], desc: self.desc()},
                 success: function () {
-                    console.log('request sent');
-                    console.log(self.userIdFloat());
-                    console.log(self.value2()[0]);
-                    console.log(self.desc());
                     $("#modalDialogRequest").ojDialog("close");
                     $("#sucess").show();
                     self.sucessMsg("Your request is sent!");
@@ -261,7 +271,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     }, 3000);
                     self.value2('');
 
+                },
+                beforeSend: function () {
+                    $("#ajaxLoader").show();
+                },
+                complete: function () {
+                    $("#ajaxLoader").hide();
                 }
+
             });
 
         }

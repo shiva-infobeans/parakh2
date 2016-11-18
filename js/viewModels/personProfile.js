@@ -184,7 +184,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         self.id(task.attributes['data']['id']);
                         self.myname
                         self.designation(abc);
-                        var num = task.attributes['data']['mobile_number'] == "" ? "NO NUMBER" : "+91-" + task.attributes['data']['mobile_number'];
+                       // var num = task.attributes['data']['mobile_number'] == "" ? "NO NUMBER" : "+91-" + task.attributes['data']['mobile_number'];
+                        var num = "9405349099" == "" ? "NO NUMBER" : "+91-" + "9405349099";
                         self.myNumber(num);
                         self.skills(task.attributes['data']['skills']);
                         self.location(task.attributes['data']['location']);
@@ -307,6 +308,36 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         self.myNumber(numberTrim.substr(numberTrim.indexOf("-") + 1), numberTrim.length);
                     }
                 };
+                // edit interests
+                self.openInterest = function(){
+                    
+                }
+                self.updateInterest = function(){
+                    
+                }
+                self.interestRevert = function(){
+                    
+                }
+                var editVariable;
+                // edit number here......
+                self.openNumber = function(){
+                    //$("#editNumberBox").show();
+                    editVariable = self.myNumber().substring(self.myNumber().indexOf("-")+1, self.myNumber().length);
+                    self.tempararyNumber(self.myNumber().substring(self.myNumber().indexOf("-")+1, self.myNumber().length));
+                    self.tempararyNumber();    
+                }
+                self.updateNumber = function(){
+                    //$("#editNumberBox").hide();
+                    self.tempararyNumber(self.myNumber().substring(self.myNumber().indexOf("-")+1, self.myNumber().length));
+                    self.myNumber("+91"+self.tempararyNumber());
+                    //ajax call here.
+                }
+                self.numberEditRevert = function(){
+                    //$("#editNumberBox").hide();
+                    self.tempararyNumber(self.myNumber().substring(self.myNumber().indexOf("-")+1, self.myNumber().length));
+                    self.myNumber("+91"+editVariable);    
+                    
+                }
             }
 
             return dialogModel;

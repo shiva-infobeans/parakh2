@@ -88,18 +88,18 @@
                     <div class="oj-xl-9 oj-lg-9 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding heightContent oj-flex-bar-center-absolute">
                         <div class="transbox border-color-green feedbackHeight"></div>
                         <div class="oj-flex oj-row">
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
                                 <img data-bind="attr: {src: feedbackImage}"  alt="" class="profile-feedback-pic"/>
                             </div>
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top">
 
                                 <span data-bind="text: name"></span>
                             </div>
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top">
 
                                 <span data-bind="text: feedbackdesignation"></span>
                             </div>
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top">
 
                                 <span data-bind="text: feedbackDate"></span>
                             </div>
@@ -154,18 +154,18 @@
                     <div class="oj-xl-9 oj-lg-9 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding heightContent oj-flex-bar-center-absolute">
                         <div class="transbox border-color-green feedbackHeight"></div>
                         <div class="oj-row oj-flex">
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
                                 <img data-bind="attr: {src: feedbackImage}"  alt="" class="profile-feedback-pic"/>
                             </div>
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top">
 
                                 <span data-bind="text: name"></span>
                             </div>
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top">
 
                                 <span data-bind="text: feedbackdesignation"></span>
                             </div>
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top">
 
                                 <span data-bind="text: feedbackDate"></span>
                             </div>
@@ -310,19 +310,19 @@
                     <option value="Painting">Painting</option>
                     <option value="Traveling">Traveling</option>
                 </select>
-                <i class="zmdi zmdi-edit about-edit"></i>
-                <i class="zmdi zmdi-check about-edit"></i>
-                <i class="zmdi zmdi-minus-circle-outline about-edit"></i>
+                <i data-bind="click: openInterest" class="zmdi zmdi-edit about-edit"></i>
+                <i data-bind="click: updateInterest" class="zmdi zmdi-check about-edit"></i>
+                <i data-bind="click: interestRevert" class="zmdi zmdi-minus-circle-outline about-edit"></i>
             </p>
 
             <p class="profile-tab1-data"> 
                 <i class="zmdi zmdi-phone"></i>
                 <span class='about-label'>Phone : </span> 
                 <span data-bind="text: myNumber" class="about-text"></span>
-                <input type="text" name="email" data-bind="value: myNumber">
-                <i class="zmdi zmdi-edit about-edit"></i>
-                <i class="zmdi zmdi-check about-edit"></i>
-                <i class="zmdi zmdi-minus-circle-outline about-edit"></i>
+                <input id="editNumberBox" type="text" name="email" data-bind="value: tempararyNumber">
+                <i data-bind="click: openNumber" class="zmdi zmdi-edit about-edit"></i>
+                <i data-bind="click: updateNumber" class="zmdi zmdi-check about-edit"></i>
+                <i data-bind="click: numberEditRevert" class="zmdi zmdi-minus-circle-outline about-edit"></i>
             </p>
         </div>
     </div>

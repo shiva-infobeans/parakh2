@@ -479,7 +479,7 @@ class dbmodule {
             $user_list->execute();
             $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
             if (isset($row) && !empty($row)) {
-                $query = "UPDATE users set msg_read=" . ($row[0]['msg_rea'] + 1) . " where id=" . $data['for_id'];
+                $query = "UPDATE users set msg_read=" . ($row[0]['msg_read'] + 1) . " where id=" . $data['for_id'];
                 $user_list = $this->con->prepare($query);
                 $user_list->execute();
             }
