@@ -743,7 +743,7 @@ class dbmodule {
     function get_all_team_members($user_id) {
         if ($user_id) {
             $query = "SELECT id, google_name, google_email, mobile_number, designation, google_picture_link,location,skills,interests,associate_with_infobeans,primary_project FROM users WHERE id <>:id AND id <> 1 AND status <> 0 ORDER BY google_name";
-
+            
             $user_list = $this->con->prepare($query);
             $user_list->execute(array(':id' => $user_id));
             $employeeList = $user_list->fetchAll((PDO::FETCH_ASSOC));
@@ -1336,17 +1336,76 @@ class dbmodule {
     }
 
     /*get top four ranker of current month*/
-    function get_top_ranker_for_current_month(){
+    function get_top_four_ranker_for_current_month(){
 
         $query_rank = "SELECT r.created_date as date,r.user_id,u.google_name,u.google_picture_link as image,
                     sum(case when r.rating = 1 then 1  end) as pluscount,
                     sum(case when r.rating = 0 then 1  end) as minuscount
-                    from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 AND MONTH(date) = MONTH(CURDATE())
-                    AND YEAR(date) = YEAR(CURDATE())
+                    from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 AND MONTH(r.created_date) = MONTH(CURDATE())
+                    AND YEAR(r.created_date) = YEAR(CURDATE())
                     group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC LIMIT 10";
                 $user_rank = $this->con->prepare($query_rank);
                 $user_rank->execute(array(':id' => $employeeList[$y]['id']));
                 $userRank = $user_rank->fetchAll((PDO::FETCH_ASSOC));
+                return $userRank;
+    }
+
+    /*get top ranker of project wise*/
+    function get_top_rankers_project_wise($manager_id){
+
+        $query_rank = "SELECT MAX(r.created_date) as date,r.user_id,u.google_name,u.google_picture_link as image,u.projects,u.primary_project,
+                    sum(case when r.rating = 1 then 1  end) as pluscount,
+                    sum(case when r.rating = 0 then 1  end) as minuscount
+                    from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 
+                    and u.id in (SELECT user_id from user_hierarchy where manager_id = :manager_id) AND MONTH(r.created_date) = MONTH(CURDATE())
+                    AND YEAR(r.created_date) = YEAR(CURDATE()) AND u.primary_project!='' group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC";
+                $user_rank = $this->con->prepare($query_rank);
+                $user_rank->execute(array(':manager_id' => $manager_id));
+                $userRank = $user_rank->fetchAll((PDO::FETCH_ASSOC));
+                $totalUserRank = array();
+                for ($k=0;$k<count($userRank);$k++) { 
+                    if(!in_array($userRank[$k]['primary_project'],$totalUserRank))
+                    {
+                        $totalUserRank[$k]['project_name'] = $userRank[$k]['primary_project'];
+                        $totalUserRank[$k]['plus'] = ($userRank[$k]['pluscount']!='')?$userRank[$k]['pluscount']:0;
+                        $totalUserRank[$k]['minus'] = ($userRank[$k]['minuscount']!='')?$userRank[$k]['minuscount']:0;
+                    }
+                }
+                return $totalUserRank;
+    }
+
+    /*get top ranker of calendar wise*/
+    function get_top_rankers_calendar_wise($lead_id){
+
+        $totalUserRank = array();
+        /*Query to fetch plus and minus week wise*/
+        $query_rank_week_wise = "SELECT sum(case when r.rating = 1 then 1  end) as pluscount,sum(case when r.rating = 0 then 1  end) as minuscount FROM rating as r WHERE created_date > DATE_SUB(NOW(), INTERVAL 1 WEEK) AND user_id in (select user_id from user_hierarchy where manager_id =:lead_id) ";
+        $user_rank_week = $this->con->prepare($query_rank_week_wise);
+        $user_rank_week->execute(array(':lead_id' => $lead_id));
+        $userRankWeek = $user_rank_week->fetchAll((PDO::FETCH_ASSOC));
+        for ($k=0;$k<count($userRankWeek);$k++) { 
+            $totalUserRank['week']['plus'] = ($userRankWeek[$k]['pluscount']!='')?$userRankWeek[$k]['pluscount']:0;
+            $totalUserRank['week']['minus'] = ($userRankWeek[$k]['minuscount']!='')?$userRankWeek[$k]['minuscount']:0;
+        }
+        /*Query to fetch plus and minus month wise*/
+        $query_rank_month_wise = "SELECT sum(case when r.rating = 1 then 1  end) as pluscount,   sum(case when r.rating = 0 then 1  end) as minuscount FROM rating as r WHERE created_date > DATE_SUB(NOW(), INTERVAL 1 MONTH) AND user_id in (select user_id from user_hierarchy where manager_id =:lead_id) ";
+        $user_rank_month = $this->con->prepare($query_rank_month_wise);
+        $user_rank_month->execute(array(':lead_id' => $lead_id));
+        $userRankMonth = $user_rank_month->fetchAll((PDO::FETCH_ASSOC));
+        for ($k=0;$k<count($userRankMonth);$k++) { 
+            $totalUserRank['month']['plus'] = ($userRankMonth[$k]['pluscount']!='')?$userRankMonth[$k]['pluscount']:0;
+            $totalUserRank['month']['minus'] = ($userRankMonth[$k]['minuscount']!='')?$userRankMonth[$k]['minuscount']:0;
+        }
+        /*Query to fetch plus and minus till today*/
+        $query_rank_till_now_wise = "SELECT sum(case when r.rating = 1 then 1  end) as pluscount,sum(case when r.rating = 0 then 1  end) as minuscount FROM rating as r";
+        $user_rank_till_now = $this->con->prepare($query_rank_till_now_wise);
+        $user_rank_till_now->execute();
+        $userRankTillNow = $user_rank_till_now->fetchAll((PDO::FETCH_ASSOC));
+        for ($k=0;$k<count($userRankTillNow);$k++) { 
+            $totalUserRank['till_now']['plus'] = ($userRankTillNow[$k]['pluscount']!='')?$userRankTillNow[$k]['pluscount']:0;
+            $totalUserRank['till_now']['minus'] = ($userRankTillNow[$k]['minuscount']!='')?$userRankTillNow[$k]['minuscount']:0;
+        }
+        return $totalUserRank;
     }
 
 //end of fun
