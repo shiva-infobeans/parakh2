@@ -94,6 +94,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.desc = ko.observable();
         self.textError = ko.observable();
         self.searchError = ko.observable();
+        self.role_name = ko.observable();
 
         var userFloat = oj.Model.extend({
             url: getUserByEmail + person['email']
@@ -103,7 +104,16 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             headers: {secret: secret},
             success: function (result) {
                 self.userIdFloat(result['attributes']['data']['id']);
-                //   console.log(result['attributes']['data']['id']);
+                   self.role_name(result['attributes']['data']['role_name']);
+                   
+                      if (self.role_name() === 'Team Member') {
+                    $('#hideFeedbackFloat').hide();
+                  
+                } else {
+                    $('#hideFeedbackFloat').show();
+                 
+                }
+                
                 var getSearchUser = oj.Model.extend(
                         {
                             url: getAllTeamMembers + self.userIdFloat(),

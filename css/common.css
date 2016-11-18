@@ -352,7 +352,7 @@ body{
     display: block;
     width: 62px;
     height: 62px;
-    margin: 20px auto 0;
+    margin: 10px auto 0;
     position: relative;
     -webkit-transition: all  0.80s ease-out;
     transition: all 0.30s ease-out;
@@ -370,6 +370,9 @@ body{
     height: 45px;
     margin: 20px auto 0;
     opacity: 0;
+/*    display:none;*/
+/*     -webkit-transition: display  0.80s !important;
+    transition: display 0.30s !important;*/
     -webkit-transform: translateY(50px);
     -ms-transform: translateY(50px);
     transform: translateY(50px);
@@ -379,10 +382,13 @@ body{
 
 .buttons:not(:last-child) {
     opacity: 1;
+    /*display:block;*/
+/*     -webkit-transition: display  0.80s !important;
+    transition: display 0.30s !important;*/
     -webkit-transform: none;
     -ms-transform: none;
     transform: none;
-    margin: 15px auto 0;
+    margin: 7px auto 0;
 }
 
 /*Unessential styling for sliding up buttons at differnt speeds*/ 
@@ -1312,7 +1318,7 @@ body{
     border-width: 1px 0 0;
 }
 .View-Other-about{
-    padding: 21px;
+    padding: 22px;
     font-size: 23px;
     border-bottom: 1px solid #689F39;
 }
@@ -1320,7 +1326,7 @@ body{
     display: block;
     margin-left: 43px;
     width: 100%;
-    color: yellow;
+    color: #F9E81F;
     font-size: 22px;
     font-weight: bolder;
 }
@@ -1330,7 +1336,7 @@ body{
 }
 .about-icons{
     font-size: 38px !important;
-    color: yellow;
+    color: #F9E81F;
 }
 .icon-div{
     float: left;
@@ -1343,7 +1349,7 @@ body{
     line-height: 48px;
 }
 .heightCol5{
-    line-height: 27px;
+    line-height: 22px;
 }
 .tabHeight{
     height:700px;

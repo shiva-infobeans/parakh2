@@ -71,6 +71,12 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
         this.minusSign = ko.observable('-');
         this.plusSign = ko.observable('+');
         self.roleName = ko.observable();
+        self.location = ko.observable();
+        self.skills = ko.observable();
+        self.project = ko.observable();
+        self.interest = ko.observable();
+        self.associated = ko.observable();
+        
 
         if (id) {
             self.id(id);
@@ -118,6 +124,11 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                                 self.myname(data[index]['google_name']);
                                 self.shortName(data[index]['google_name'].substring(0, data[index]['google_name'].indexOf(" ")));
                                 self.email(data[index]['google_email']);
+                                 self.location(data[index]["location"]);
+                                 self.skills(data[index]["skills"]);
+                                 self.project(data[index]["primary_project"]);
+                                 self.interest(data[index]["interests"]);
+                                 self.associated(data[index]["associate_with_infobeans"]);
                                 var image = data[index]['google_picture_link'];
                                 self.pic(image);
                                 self.designation(data[index]['designation']);
