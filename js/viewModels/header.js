@@ -148,18 +148,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
             }
         });
         setTimeout(function () {
+
             $("#forActive ul li a").each(function () {
                 if ($(this).attr("href") == pgurl || $(this).attr("href") == '') {
                     $(this).parent().addClass("active");
                 }
             });
             $(".openCloseNotify a, .notif-count").on('click', function () {
-                if ($('.notification').hasClass('hide')) {
-                    $('.notification').removeClass('hide');
-                } else {
-                    $('.notification').addClass('hide');
-                }
-
+                
                 $.ajax({
                     headers: {secret: secret},
                     method: 'POST',
@@ -172,8 +168,36 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
                 });
 
             });
+
+            
+
         }, 500);
+
+        /*hide show notification*/
+        $(document).mouseup(function (e)
+        {
+            var container = $(".notification");
+            if (!container.is(e.target) && container.has(e.target).length === 0) 
+            {
+                if($(e.target).attr('class')!='zmdi zmdi-notifications  zmdi-hc-lg' && $('.notification').css('display')=='block'){
+                    $(".notification").css('display','none');
+                }
+            }
+
+        });
+
+        $(document).ready(function(){
+            $('#notificationOpen').on('click',function(){
+                if($('.notification').css('display')== 'none'){
+                    $(".notification").css('display','block');
+                }else
+                {
+                    $(".notification").css('display','none');
+                }
+            });
+        });
     }
 
+    
     return headerContentViewModel;
 });
