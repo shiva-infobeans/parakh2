@@ -1339,14 +1339,15 @@ class dbmodule {
     function get_top_ranker_for_current_month(){
 
         $query_rank = "SELECT r.created_date as date,r.user_id,u.google_name,u.google_picture_link as image,
-                    sum(case when r.rating = 1 then 1  end) as pluscount,
-                    sum(case when r.rating = 0 then 1  end) as minuscount
-                    from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 AND MONTH(date) = MONTH(CURDATE())
-                    AND YEAR(date) = YEAR(CURDATE())
-                    group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC LIMIT 10";
+                   sum(case when r.rating = 1 then 1  end) as pluscount,
+                   sum(case when r.rating = 0 then 1  end) as minuscount
+                   from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 AND MONTH(r.created_date) = MONTH(CURDATE())
+                   AND YEAR(r.created_date) = YEAR(CURDATE())
+                   group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC LIMIT 4";
                 $user_rank = $this->con->prepare($query_rank);
-                $user_rank->execute(array(':id' => $employeeList[$y]['id']));
+                $user_rank->execute();
                 $userRank = $user_rank->fetchAll((PDO::FETCH_ASSOC));
+                return $userRank;
     }
 
 //end of fun

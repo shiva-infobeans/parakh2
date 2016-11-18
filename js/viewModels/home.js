@@ -43,7 +43,14 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
         self.link2 = ko.observable();
         self.link3 = ko.observable();
         self.vieMyProfile = ko.observable();
-
+        self.roleName = ko.observable();
+        self.leadPlusWeek = ko.observable();
+        self.leadPlusmonth = ko.observable();
+        self.leadPlustill = ko.observable();
+        self.leadMinusWeek = ko.observable();
+        self.leadMinusmonth = ko.observable();
+        self.leadMinustill = ko.observable();
+        
 //         get members who get +1 recently
         var rec = oj.Model.extend({
             url: getRecentRankingList
@@ -86,6 +93,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 self.link3(person3);
             }
         });
+
         var profile = oj.Model.extend({
             url: getUserByEmail + person['email']
         });
@@ -128,63 +136,6 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
         {
             return index < 4 ? '' : 'none';
         };
-        var recentMemberURL = oj.Model.extend({
-            url: getUserByEmail + person['email']
-                    //parse: parseTask
-        });
-        var task1 = new recentMemberURL();
-        task1.fetch({
-            headers: {secret: secret},
-            success: function () {
-                self.id(task1.attributes['data']['id']);
-                var weekUrl = oj.Model.extend({
-                    url: getRecentRankingList
-                });
-                var fetchWeek = new weekUrl();
-                fetchWeek.fetch({
-                    headers: {secret: secret},
-                    success: function (result) {
-                        for (var c = 0; c < result['attributes']['data'].length; c++) {
-                            var obj = new Object();
-                            obj.name = result['attributes']['data'][c]['google_name'];
-                            self.addteamMembers(obj);
-                        }
-                        var monthUrl = oj.Model.extend({
-                            url: getRecentRankingList
-                        });
-                        var monthFetch = new monthUrl();
-                        monthFetch.fetch({
-                            headers: {secret: secret},
-                            success: function (res2) {
-                                for (var c = 0; c < res2['attributes']['data'].length; c++) {
-                                    var obj = new Object();
-                                    obj.name = res2['attributes']['data'][c]['google_name'];
-                                    self.addteamMembers(obj);
-                                }
-                                var yearUrl = oj.Model.extend({
-                                    url: getRecentRankingList
-                                });
-                                var yearFetch = new yearUrl();
-                                yearFetch.fetch({
-                                    headers: {secret: secret},
-                                    success: function (res3) {
-                                        for (var c = 0; c < res3['attributes']['data'].length; c++) {
-                                            var obj = new Object();
-                                            obj.name = res3['attributes']['data'][c]['google_name'];
-                                            self.addteamMembers(obj);
-                                        }
-                                    }
-                                });
-                            }
-                        });
-
-                    }
-                });
-            }
-        });
-
-
-
 
         var TaskRecord = oj.Model.extend({
             url: getUserByEmail + person['email'],
@@ -195,6 +146,29 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
             headers: {secret: secret},
             success: function () {
                 self.id(task.attributes['data']['id']);
+                self.roleName(task.attributes['data']['id']);
+                //lead /member service for +1 count and -1 count
+                var rec = oj.Model.extend({
+                    url: leadMangerSlider + self.id()
+                });
+                var data = new rec();
+                data.fetch({
+                    headers: {secret: secret},
+                    success: function () {
+                        if (self.roleName() == "Manager") {
+                            
+                        } else {
+                            self.leadPlusWeek("+1");
+                            self.leadPlusmonth("+2");
+                            self.leadPlustill("+3");
+                            self.leadMinusWeek("-4");
+                            self.leadMinusmonth("-5");
+                            self.leadMinustill("-6");
+                        }
+                    }
+                });// end of the performance slider
+
+                /// +1 performance slider 2nd tab start here
                 var personRating = oj.Model.extend({
                     url: getRatingByUser + self.id(),
                     //parse: parseTask
@@ -203,6 +177,64 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 record.fetch({
                     headers: {secret: secret},
                     success: function () {
+                        var weekUrl = oj.Model.extend({
+                            url: getRecentRankingList
+                        });
+                        var fetchWeek = new weekUrl();
+                        fetchWeek.fetch({
+                            headers: {secret: secret},
+                            success: function (result) {
+                                for (var c = 0; c < result['attributes']['data'].length; c++) {
+                                    var obj = new Object();
+                                    obj.name = result['attributes']['data'][c]['google_name'];
+                                    obj.nameS = result['attributes']['data'][c]['google_name'].substring(0,obj.name.indexOf(" "));
+                                    obj.image = result['attributes']['data'][c]['google_picture_link'];
+                                    obj.projects = result['attributes']['data'][c]['projects'];
+                                    obj.personLink = "memberProfile.html?id=" + result['attributes']['data'][c]['user_id'];
+                                    self.addteamMembers(obj);
+                                }
+                                var monthUrl = oj.Model.extend({
+                                    url: getTopFourRankForCurrentMonth
+                                });
+                                var monthFetch = new monthUrl();
+                                monthFetch.fetch({
+                                    headers: {secret: secret},
+                                    success: function (res2) {
+                                        for (var c = 0; c < res2['attributes']['data'].length; c++) {
+                                            var obj = new Object();
+                                            obj.name = res2['attributes']['data'][c]['google_name'];
+                                            obj.nameS = res2['attributes']['data'][c]['google_name'].substring(0,obj.name.indexOf(" "));
+                                            obj.image = res2['attributes']['data'][c]['image'];
+                                            obj.projects = res2['attributes']['data'][c]['projects'];
+                                            obj.personLink = "memberProfile.html?id=" + res2['attributes']['data'][c]['user_id'];
+                                            self.addteamMembers(obj);
+                                        }
+                                        var yearUrl = oj.Model.extend({
+                                            url: getRecentRankingList
+                                        });
+                                        var yearFetch = new yearUrl();
+                                        yearFetch.fetch({
+                                            headers: {secret: secret},
+                                            success: function (res3) {
+                                                for (var c = 0; c < res3['attributes']['data'].length; c++) {
+                                                    var obj = new Object();
+                                                    obj.personLink = "memberProfile.html?id=" + res3['attributes']['data'][c]['user_id'];
+                                                    obj.name = res3['attributes']['data'][c]['google_name'];
+                                                    obj.nameS = res3['attributes']['data'][c]['google_name'].substring(0,obj.name.indexOf(" "));
+                                                    obj.image = res3['attributes']['data'][c]['google_picture_link'];
+                                                    obj.projects = res3['attributes']['data'][c]['projects'];
+                                                    self.addteamMembers(obj);
+                                                }
+                                            }
+                                        });
+                                    }
+                                });
+
+                            }
+                        }); /// +1 performance slider 2nd tab end here.
+
+
+                        /// rating calculation start here
                         var plus = 0;
                         var dayP = 0;
                         var monthP = 0;
@@ -305,6 +337,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                                 $('#smiley3,#smiley32').hide();
                             }
                         }
+                        /// rating calculation end here
                     }
                 });
             }
