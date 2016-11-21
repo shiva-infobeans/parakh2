@@ -88,18 +88,18 @@
                     <div class="oj-xl-9 oj-lg-9 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding heightContent oj-flex-bar-center-absolute">
                         <div class="transbox border-color-green feedbackHeight"></div>
                         <div class="oj-flex oj-row">
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
                                 <img data-bind="attr: {src: feedbackImage}"  alt="" class="profile-feedback-pic"/>
                             </div>
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top">
 
                                 <span data-bind="text: name"></span>
                             </div>
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top">
 
                                 <span data-bind="text: feedbackdesignation"></span>
                             </div>
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top">
 
                                 <span data-bind="text: feedbackDate"></span>
                             </div>
@@ -154,18 +154,18 @@
                     <div class="oj-xl-9 oj-lg-9 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding heightContent oj-flex-bar-center-absolute">
                         <div class="transbox border-color-green feedbackHeight"></div>
                         <div class="oj-row oj-flex">
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
                                 <img data-bind="attr: {src: feedbackImage}"  alt="" class="profile-feedback-pic"/>
                             </div>
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top">
 
                                 <span data-bind="text: name"></span>
                             </div>
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top">
 
                                 <span data-bind="text: feedbackdesignation"></span>
                             </div>
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top">
 
                                 <span data-bind="text: feedbackDate"></span>
                             </div>
@@ -278,51 +278,48 @@
                 <span data-bind="text: associate_with_infobeans" class="about-text"></span>
                 <input type="text" name="email" data-bind="ojComponent:{component:'ojInputDate', value: associate_with_infobeans,
                   datePicker: {changeMonth: 'yes', changeYear: 'yes'},
-                  converter: {type:'datetime', options: {year: 'numeric', month: 'long', day: 'numeric'}}}">
-                <i class="zmdi zmdi-edit about-edit"></i>
-                <i class="zmdi zmdi-check about-edit"></i>
-                <i class="zmdi zmdi-minus-circle-outline about-edit"></i>
+                  converter: {type:'datetime', options: { day: 'numeric', month: 'long',year: 'numeric'}}}">
+                <i data-bind="click: openDate" class="zmdi zmdi-edit about-edit"></i>
+                <i data-bind="click: updateDate" class="zmdi zmdi-check about-edit"></i>
+                <i data-bind="click: dateRevert" class="zmdi zmdi-minus-circle-outline about-edit"></i>
             </p>
 
             <p class="profile-tab1-data"> 
                 <i class="zmdi zmdi-file"></i>
                 <span class='about-label'>Project(s) : </span> 
                 <span data-bind="text: projects" class="about-text"></span>
-                <select data-bind="ojComponent: {component: 'ojSelect',multiple: true,value: projects}" class="selector">
-                    <option value="ICC-Safe">ICC-Safe</option>
-                    <option value="Parakh">Parakh</option>
-                    <option value="NetAPP">NetAPP</option>
-                    <option value="Erata">Erata</option>
-                    <option value="CMS">CMS</option>
+                <select id="selectProjects" data-bind="ojComponent: {component: 'ojSelect',multiple: true,value: projects}" class="selector">
+                    <!--ko foreach: projectOptions-->
+                    <option data-bind="attr: {value: name},text: name"></option>
+                    <!--/ko-->
                 </select> 
-                <i class="zmdi zmdi-edit about-edit"></i>
-                <i class="zmdi zmdi-check about-edit"></i>
-                <i class="zmdi zmdi-minus-circle-outline about-edit"></i>
+                <i data-bind="click: openProjects" class="zmdi zmdi-edit about-edit" ></i>
+                <i data-bind="click: updateProjects" class="zmdi zmdi-check about-edit"></i>
+                <i data-bind="click: projectsRevert" class="zmdi zmdi-minus-circle-outline about-edit"></i>
             </p>
 
             <p class="profile-tab1-data"> 
                 <i class="zmdi zmdi-account"></i>
-                <span class='about-label'>Intersets : </span>
+                <span class='about-label'>Interests : </span>
                 <span data-bind="text: interests" class="about-text"></span>
-                <select data-bind="ojComponent: {component: 'ojSelect',multiple: true,value: interests}" class="selector">
-                    <option value="Music">Music</option>
-                    <option value="Dancing">Dancing</option>
-                    <option value="Painting">Painting</option>
-                    <option value="Traveling">Traveling</option>
+                <select id="selectInterests" data-bind="ojComponent: {component: 'ojSelect',multiple: true,value: interests}" class="selector">
+                    <!--ko foreach: interestsOptions-->
+                    <option data-bind="attr: {value: name},text: name"></option>
+                    <!--/ko-->
                 </select>
-                <i class="zmdi zmdi-edit about-edit"></i>
-                <i class="zmdi zmdi-check about-edit"></i>
-                <i class="zmdi zmdi-minus-circle-outline about-edit"></i>
+                <i data-bind="click: openInterest" class="zmdi zmdi-edit about-edit"></i>
+                <i data-bind="click: updateInterest" class="zmdi zmdi-check about-edit"></i>
+                <i data-bind="click: interestRevert" class="zmdi zmdi-minus-circle-outline about-edit"></i>
             </p>
 
             <p class="profile-tab1-data"> 
                 <i class="zmdi zmdi-phone"></i>
                 <span class='about-label'>Phone : </span> 
                 <span data-bind="text: myNumber" class="about-text"></span>
-                <input type="text" name="email" data-bind="value: myNumber">
-                <i class="zmdi zmdi-edit about-edit"></i>
-                <i class="zmdi zmdi-check about-edit"></i>
-                <i class="zmdi zmdi-minus-circle-outline about-edit"></i>
+                <input id="editNumberBox" type="text" name="email" data-bind="value: temporaryNumber">
+                <i data-bind="click: openNumber" class="zmdi zmdi-edit about-edit"></i>
+                <i data-bind="click: updateNumber" class="zmdi zmdi-check about-edit"></i>
+                <i data-bind="click: numberEditRevert" class="zmdi zmdi-minus-circle-outline about-edit"></i>
             </p>
         </div>
     </div>
