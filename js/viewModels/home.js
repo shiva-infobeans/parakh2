@@ -7,7 +7,7 @@
 /**
  * home module
  */
-define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojtabs', 'ojs/ojfilmstrip'
+define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojtabs', 'ojs/ojfilmstrip', 'ojs/ojpagingcontrol'
 ], function (oj, ko) {
     /**
      * The view model for the main content view template
@@ -50,7 +50,6 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
         self.leadMinusWeek = ko.observable();
         self.leadMinusmonth = ko.observable();
         self.leadMinustill = ko.observable();
-        
 //         get members who get +1 recently
         var rec = oj.Model.extend({
             url: getRecentRankingList
@@ -67,7 +66,6 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 self.image0(img0);
                 var person0 = "memberProfile.html?id=" + data.attributes['data'][0]['user_id'];
                 self.link0(person0);
-                
                 var img1 = data.attributes['data'][1]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][1]['google_picture_link'];
                 self.name1(data.attributes['data'][1]['google_name'].substr(0, data.attributes['data'][1]['google_name'].indexOf(' ')));
                 self.name1hover(data.attributes['data'][1]['google_name']);
@@ -75,7 +73,6 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 self.image1(img1);
                 var person1 = "memberProfile.html?id=" + data.attributes['data'][1]['user_id'];
                 self.link1(person1);
-
                 var img2 = data.attributes['data'][2]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][2]['google_picture_link'];
                 self.name2(data.attributes['data'][2]['google_name'].substr(0, data.attributes['data'][2]['google_name'].indexOf(' ')));
                 self.name2hover(data.attributes['data'][2]['google_name']);
@@ -83,7 +80,6 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 self.image2(img2);
                 var person2 = "memberProfile.html?id=" + data.attributes['data'][2]['user_id'];
                 self.link2(person2);
-
                 var img3 = data.attributes['data'][3]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][3]['google_picture_link'];
                 self.name3(data.attributes['data'][3]['google_name'].substr(0, data.attributes['data'][3]['google_name'].indexOf(' ')));
                 self.name3hover(data.attributes['data'][3]['google_name']);
@@ -93,7 +89,6 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 self.link3(person3);
             }
         });
-
         var profile = oj.Model.extend({
             url: getUserByEmail + person['email']
         });
@@ -103,40 +98,52 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
             success: function (res) {
                 var view = "profile.html?id=" + viewProfile.attributes['data']['id'];
                 self.vieMyProfile(view);
-
             }
         });
-
         this.memberName = person['name'].substr(0, person['name'].indexOf(' '));
         this.id = ko.observable();
-
         this.dayPlusRatings = ko.observable(0); //for this week
         this.dayMinusRatings = ko.observable(0);
-
         this.monthPlusRatings = ko.observable(0); //for this month
         this.monthMinusRatings = ko.observable(0);
-
         this.myPlusRatings = ko.observable(0);
         this.myMinusRatings = ko.observable(0);
-
         self.sliderText1 = ko.observable();
         self.sliderText2 = ko.observable();
         self.sliderText3 = ko.observable();
-
         self.teamMembers = ko.observableArray();
+        //pagination slider for manager start
+        self.projects = ko.observableArray([]);
+        self.addProject = function (obj) {
+            self.projects.push(obj);
+            $('#filmStrip2').ojFilmStrip("refresh");
+        }
+        self.pagingModel = null;
+        getItemInitialDisplay1 = function (index)
+        {
+            return index < 1 ? '' : 'none';
+        };
+        getPagingModel = function ()
+        {
+            if (!self.pagingModel)
+            {
+                var filmStrip = $("#filmStrip2");
+                var pagingModel = filmStrip.ojFilmStrip("getPagingModel");
+                self.pagingModel = pagingModel;
+            }
+            return self.pagingModel;
+        };// pagination slider for manager end
+
         self.addteamMembers = function (obj) {
             self.teamMembers.push(obj);
-
             $('#filmStrip').ojFilmStrip("refresh");
         }
         self.currentNavArrowPlacement = ko.observable("adjacent");
         self.currentNavArrowVisibility = ko.observable("auto");
-
         getItemInitialDisplay = function (index)
         {
             return index < 4 ? '' : 'none';
         };
-
         var TaskRecord = oj.Model.extend({
             url: getUserByEmail + person['email'],
             //parse: parseTask
@@ -146,27 +153,88 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
             headers: {secret: secret},
             success: function () {
                 self.id(task.attributes['data']['id']);
-                self.roleName(task.attributes['data']['id']);
+                self.roleName(task.attributes['data']['role_name']);
                 //lead /member service for +1 count and -1 count
-                var rec = oj.Model.extend({
-                    url: leadMangerSlider + self.id()
-                });
-                var data = new rec();
-                data.fetch({
-                    headers: {secret: secret},
-                    success: function () {
-                        if (self.roleName() == "Manager") {
+                if (self.roleName() == "Manager") {
+                    $("#slider-wrapper1").hide();
+                    var leadSlide = oj.Model.extend({
+                        url: getTopRankersProjectWise + self.id()
+                    });
+
+
+                    var leadSlideFetch = new leadSlide();
+                    leadSlideFetch.fetch({
+                        headers: {secret: secret},
+                        success: function (result) {
+                            //console.log(result['attributes']['data']);
                             
-                        } else {
-                            self.leadPlusWeek("+1");
-                            self.leadPlusmonth("+2");
-                            self.leadPlustill("+3");
-                            self.leadMinusWeek("-4");
-                            self.leadMinusmonth("-5");
-                            self.leadMinustill("-6");
+                            var data = result['attributes']['data'];
+                            for (var c = 0; c < data.length; c++) {
+                                var obj = new Object();
+                                var dat= data[0].split(",");
+                                obj.name = dat[0];
+                                obj.plus = dat[1] == 0 ? 0 : "+" + dat[1];
+                                obj.minus = dat[2] == 0 ? 0 : "+" + dat[2];
+                                self.addProject(obj);
+                                if (dat[1]==0 && dat[2]==0)
+                                {
+                                    $("#srno" + c + " .slider-item").hide();
+                                    $("#emptyTxt" + c).show();
+                                }
+                            }
+
                         }
+                    });
+                } else {
+                    $("#filmStripDiv2").hide();
+                    if (self.roleName() == "Lead") {
+                        var leadSlide = oj.Model.extend({
+                            url: getTopRankersCalendarWise + self.id()
+                        });
+                        var leadSlideFetch = new leadSlide();
+                        leadSlideFetch.fetch({
+                            headers: {secret: secret},
+                            success: function (result) {
+                                self.leadPlusWeek(result['attributes']['data']['week']['plus']);
+                                self.leadPlusmonth(result['attributes']['data']['month']['plus']);
+                                self.leadPlustill(result['attributes']['data']['till_now']['plus']);
+                                self.leadMinusWeek(result['attributes']['data']['week']['minus']);
+                                self.leadMinusmonth(result['attributes']['data']['month']['minus']);
+                                self.leadMinustill(result['attributes']['data']['till_now']['minus']);
+                            }
+                        });
+                    } else {
+                        var getLeadUrl = oj.Model.extend({
+                            url: getAllLeads + self.id()
+                        });
+                        var getLeadFetch = new getLeadUrl();
+                        getLeadFetch.fetch({
+                            headers: {secret: secret},
+                            success: function (res) {
+                                var mylead = res['attributes']['data'][0]['manager_id'];
+
+                                console.log(getTopRankersCalendarWise + mylead);
+                                var leadSlide = oj.Model.extend({
+                                    url: getTopRankersCalendarWise + mylead
+                                });
+                                var leadSlideFetch = new leadSlide();
+                                leadSlideFetch.fetch({
+                                    headers: {secret: secret},
+                                    success: function (result) {
+                                        self.leadPlusWeek(result['attributes']['data']['week']['plus']);
+                                        self.leadPlusmonth(result['attributes']['data']['month']['plus']);
+                                        self.leadPlustill(result['attributes']['data']['till_now']['plus']);
+                                        self.leadMinusWeek(result['attributes']['data']['week']['minus']);
+                                        self.leadMinusmonth(result['attributes']['data']['month']['minus']);
+                                        self.leadMinustill(result['attributes']['data']['till_now']['minus']);
+                                    }
+                                });
+
+                            }
+                        });
                     }
-                });// end of the performance slider
+
+                }
 
                 /// +1 performance slider 2nd tab start here
                 var personRating = oj.Model.extend({
@@ -187,7 +255,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                                 for (var c = 0; c < result['attributes']['data'].length; c++) {
                                     var obj = new Object();
                                     obj.name = result['attributes']['data'][c]['google_name'];
-                                    obj.nameS = result['attributes']['data'][c]['google_name'].substring(0,obj.name.indexOf(" "));
+                                    obj.nameS = result['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
                                     obj.image = result['attributes']['data'][c]['google_picture_link'];
                                     obj.projects = result['attributes']['data'][c]['projects'];
                                     obj.personLink = "memberProfile.html?id=" + result['attributes']['data'][c]['user_id'];
@@ -203,7 +271,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                                         for (var c = 0; c < res2['attributes']['data'].length; c++) {
                                             var obj = new Object();
                                             obj.name = res2['attributes']['data'][c]['google_name'];
-                                            obj.nameS = res2['attributes']['data'][c]['google_name'].substring(0,obj.name.indexOf(" "));
+                                            obj.nameS = res2['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
                                             obj.image = res2['attributes']['data'][c]['image'];
                                             obj.projects = res2['attributes']['data'][c]['projects'];
                                             obj.personLink = "memberProfile.html?id=" + res2['attributes']['data'][c]['user_id'];
@@ -220,7 +288,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                                                     var obj = new Object();
                                                     obj.personLink = "memberProfile.html?id=" + res3['attributes']['data'][c]['user_id'];
                                                     obj.name = res3['attributes']['data'][c]['google_name'];
-                                                    obj.nameS = res3['attributes']['data'][c]['google_name'].substring(0,obj.name.indexOf(" "));
+                                                    obj.nameS = res3['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
                                                     obj.image = res3['attributes']['data'][c]['image'];
                                                     obj.projects = res3['attributes']['data'][c]['projects'];
                                                     self.addteamMembers(obj);
@@ -229,7 +297,6 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                                         });
                                     }
                                 });
-
                             }
                         }); /// +1 performance slider 2nd tab end here.
 
@@ -288,7 +355,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                         }
                         self.myPlusRatings(plus); // over all ratings
                         self.myMinusRatings(minus);
-                        if (self.myPlusRatings() == 0 && self.myMinusRatings() == 0) {
+                        if (self.myPlusRatings() == 0 && self.myMinusRatings() == 0) {                                                                              
                             $('#inner-wrapper').hide();
                             $('#noRatingsScreen').show();
                         } else {
@@ -309,7 +376,6 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                             }
                             self.monthPlusRatings(monthP); //ratings in this Month
                             self.monthMinusRatings(monthN);
-
                             if (self.monthPlusRatings() == 0 && self.monthMinusRatings() == 0) {
                                 self.sliderText2("You have not been rated this month!!");
                                 $('#hideSlider2').hide();
@@ -342,7 +408,8 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 });
             }
         });
-        var counter = 1;//automatic slider counter
+
+        var counter = 1; //automatic slider counter
 
         setInterval(function () {
             if (counter % 3 == 0) {
@@ -352,7 +419,6 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 document.getElementsByName("slide1")[0].checked = true;
                 document.getElementsByName("slide1")[1].checked = false;
                 document.getElementsByName("slide1")[2].checked = false;
-
                 counter = 0;
             }
             if (counter % 3 == 1) {
@@ -362,7 +428,6 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 document.getElementsByName("slide1")[0].checked = false;
                 document.getElementsByName("slide1")[1].checked = true;
                 document.getElementsByName("slide1")[2].checked = false;
-
             }
             if (counter % 3 == 2) {
                 document.getElementsByName("slide")[0].checked = false;
@@ -371,10 +436,14 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 document.getElementsByName("slide1")[0].checked = false;
                 document.getElementsByName("slide1")[1].checked = false;
                 document.getElementsByName("slide1")[2].checked = true;
-
             }
             counter++;
 
+            if ($("#filmStrip").find("#ui-id-9").attr("style") == "visibility: hidden;")
+               $( "#filmStrip" ).ojFilmStrip( "option", "currentItem", 1 );
+            else {
+                $("#filmStrip").find("#ui-id-9").click();
+            }
         }, 6000)
 
 
@@ -384,7 +453,6 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 $(this).addClass('oj-tabs-title-active');
             });
         }, 500);
-
     }
 
     return homeContentViewModel;

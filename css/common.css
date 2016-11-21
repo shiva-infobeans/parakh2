@@ -153,6 +153,14 @@ body{
     position: absolute;
     top: 55px;
 }
+.btn-text-red1{
+    color: #fff;
+    font-size: 50px;
+    font-weight: normal;
+    left: 10px;
+    position: absolute;
+    top: 55px;
+}
 .green-button{
     float:left;
 
@@ -171,7 +179,10 @@ body{
 .red-button img{
     margin:0px 90px;
     width: 200px;
-
+}
+.red-button1 img{
+    margin:0px 70px;
+    width: 200px;
 }
 
 #slider-wrapper, #slider-wrapper1 {

@@ -29,6 +29,8 @@ var notificationCount = baseUrl+"/getCountForUnreadNotification/";
 var leadMangerSlider = baseUrl+"/getCountForUnreadNotification/";  // remove this url
 var getTopFourRankForCurrentMonth = baseUrl+"/getTopFourRankForCurrentMonth/";  
 var resetNotifCount = baseUrl+"/resetNotifCount";
+var getTopRankersCalendarWise = baseUrl+"/getTopRankersCalendarWise/";
+var getTopRankersProjectWise = baseUrl+"/getTopRankersProjectWise/";
 
 
 var secret = 'parakh-revamp-local-key-2016';

@@ -195,13 +195,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         $("#sucess").hide();
                         self.sucessMsg("");
                     }, 3000);
-                },
-                beforeSend: function () {
-                    $(".modal-submitRequest").children("img").css("visibility","visible");
-                },
-                complete: function () {
-                    $(".modal-submitRequest").children("img").css("visibility","hidden");
                 }
+//                beforeSend: function () {
+//                    $(".modal-submitRequest").children("img").css("visibility","visible");
+//                },
+//                complete: function () {
+//                    $(".modal-submitRequest").children("img").css("visibility","hidden");
+//                }
             });
 
         }
@@ -240,13 +240,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         $("#sucess").hide();
                         self.sucessMsg("");
                     }, 3000);
-                },
-                beforeSend: function () {
-                    $(".modal-submitRequest").children("img").css("visibility","visible");
-                },
-                complete: function () {
-                    $(".modal-submitRequest").children("img").css("visibility","hidden");
                 }
+//                beforeSend: function () {
+//                    $(".modal-submitRequest").children("img").css("visibility","visible");
+//                },
+//                complete: function () {
+//                    $(".modal-submitRequest").children("img").css("visibility","hidden");
+//                }
             });
 
         }
@@ -280,13 +280,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     }, 3000);
                     self.value2('');
 
-                },
-                beforeSend: function () {
-                    $("#ajaxLoader").show();
-                },
-                complete: function () {
-                    $("#ajaxLoader").hide();
                 }
+//                beforeSend: function () {
+//                    $("#ajaxLoader").show();
+//                },
+//                complete: function () {
+//                    $("#ajaxLoader").hide();
+//                }
 
             });
 
