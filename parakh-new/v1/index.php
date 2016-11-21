@@ -208,16 +208,26 @@ $app->post('/updateProfile', function ($request, $response) {
     $post_data['mob']   = filter_var($data['mob'], FILTER_SANITIZE_NUMBER_INT);     
     $post_data['des'] = filter_var($data['desc'], FILTER_SANITIZE_STRING);
     $post_data['skills'] = filter_var($data['skills'], FILTER_SANITIZE_STRING);
-    $post_data['associate_with_infobeans'] = filter_var($data['associate_with_infobeans'], FILTER_SANITIZE_STRING);
+    $post_data['associate_with_infobeans'] = filter_var($data['date'], FILTER_SANITIZE_STRING);
     $post_data['projects'] = filter_var($data['projects'], FILTER_SANITIZE_STRING); 
+    $post_data['primary_project'] = filter_var($data['primary_project'], FILTER_SANITIZE_STRING); 
     $post_data['interests'] = filter_var($data['interests'], FILTER_SANITIZE_STRING);
     $post_data['location'] = filter_var($data['location'], FILTER_SANITIZE_STRING); 
-    $post_data['skills'] = implode(",",$data['skills']);
-    $post_data['projects'] = implode(",",$data['projects']);
-    $post_data['interests'] = implode(",",$data['interests']);
-    
+    if(is_array($data['location'])){
+        $post_data['location'] = implode(",",$data['location']);
+    }
+    if(is_array($data['desc'])){
+        $post_data['des'] = implode(",",$data['desc']);
+    }
+    if(is_array($data['projects'])){
+        $post_data['projects'] = implode(",",$data['projects']);
+    }
+    if(is_array($data['interests'])){
+        $post_data['interests'] = implode(",",$data['interests']);
+    }
     if($db->isValidUser( $post_data['user_id'] )){
-        if($post_data['des'] != "" ){
+        if(!is_numeric(str_replace('+91', '',$post_data['mob'])))
+        {
             //Creating a dbmodule object
             $result = $db->updateProfile($post_data);
 
@@ -227,7 +237,7 @@ $app->post('/updateProfile', function ($request, $response) {
                 $response_data = makeResponse('true',get_site_error(3005));
             }
         }else{
-           $response_data = makeResponse('true',get_site_error(3005)); 
+           $response_data = makeResponse('true',get_site_error(3013)); 
         }
     }else{
         $response_data = makeResponse('true',get_site_error(3002));
@@ -851,6 +861,71 @@ $app->get('/getTopRankersCalendarWise[/{leadId}]', function ($request, $response
     return $response;
 });
 
+
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getAllProjects/
+ * Parameters: 
+ * 
+ * Method: GET
+ * */    
+$app->get('/getAllProjects[/]', function ($request, $response, $args) {
+    $response_data = array();
+    
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    $result = $db->get_all_projects();
+    if($result != 0){
+        $response_data = makeResponse('false',$result);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3001));
+    }    
+    $response->withJson($response_data);
+    return $response;
+});
+
+
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getAllInterests/
+ * Parameters: 
+ * 
+ * Method: GET
+ * */    
+$app->get('/getAllInterests[/]', function ($request, $response, $args) {
+    $response_data = array();
+    
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    $result = $db->get_all_interests();
+    if($result != 0){
+        $response_data = makeResponse('false',$result);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3001));
+    }    
+    $response->withJson($response_data);
+    return $response;
+});
+
+
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getAllDesignations/
+ * Parameters: 
+ * 
+ * Method: GET
+ * */    
+$app->get('/getAllDesignations[/]', function ($request, $response, $args) {
+    $response_data = array();
+    
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    $result = $db->get_all_designations();
+    if($result != 0){
+        $response_data = makeResponse('false',$result);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3001));
+    }    
+    $response->withJson($response_data);
+    return $response;
+});
 /**
  * Step 4: Run the Slim application
  *
