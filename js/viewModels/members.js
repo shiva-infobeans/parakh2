@@ -73,17 +73,21 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
         self.roleName = ko.observable();
         self.location = ko.observable();
         self.skills = ko.observable();
-        self.project = ko.observable();
+        self.primary_project = ko.observable();
+        self.past_project = ko.observable();
         self.interest = ko.observable();
         self.associated = ko.observable();
+        self.myLead = ko.observable();
+        self.myManager = ko.observable();
         
-
         if (id) {
             self.id(id);
         } else {
             window.location = "rateBuddy.html";
         }
         var abc = "Not Assigned";
+            
+            
 //service for id of the user.
         var userIdSearch = oj.Model.extend({
             url: getUserByEmail + person['email']
@@ -92,23 +96,36 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
         userRecord.fetch({
             headers: {secret: secret},
             success: function (res) {
+                
                 self.roleName(userRecord.attributes['data']['role_name']);
                 console.log(userRecord.attributes['data']['role_name']);
                 self.myselfId(userRecord.attributes['data']['id']);
+                console.log(userRecord.attributes['data']['id']);
                 self.myselfName(userRecord.attributes['data']['google_name']);
                  
-                 //view others profile restrictions
-                   if (self.roleName() === 'Team Member') {
-                    $('#negetiveTab').hide();
-                    $('#feedbackTab').hide();
-                    $( "#ulTab").addClass("tabHeightNew");
-                } else {
+                 if(self.id() == self.myselfId()){
+                       window.location = "profile.html";
+                 }
+
+                  var getLead = oj.Model.extend(
+                        {
+                            url: getAllLeads +  self.id(),
+                        });
+                var getmyLead = new getLead();
+                getmyLead.fetch({
+                    headers: {secret: secret},
+                    success: function () {
+                       self.myLead(getmyLead['attributes']['data'][0]['manager_id']); 
+                        self.myManager(getmyLead['attributes']['data'][1]['manager_id']);                           
+                    if(self.myselfId() === self.myLead() || self.myselfId() === self.myManager() ){
                     $('#negetiveTab').show();
                     $('#feedbackTab').show();
-                     $("#ulTab").addClass("tabHeight");
-                }
-                
-                
+                    $("#ulTab").addClass("tabHeight");
+                    $("#ulTab").removeClass("tabHeightNew");
+                } 
+                    }
+                });
+                  
                 var TaskRecord = oj.Model.extend({
                     url: getAllTeamMembers + userRecord.attributes['data']['id']
                 });
@@ -119,14 +136,15 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                         var data = task.attributes['data'];
                         var index;
                         for (index = 0; index < data.length; index++) {
-                            if (data[index]["id"] == self.id()) {
+                            if (data[index]["id"] == self.id()) {                             
                                 self.UserId(data[index]["id"]);
                                 self.myname(data[index]['google_name']);
                                 self.shortName(data[index]['google_name'].substring(0, data[index]['google_name'].indexOf(" ")));
                                 self.email(data[index]['google_email']);
                                  self.location(data[index]["location"]);
                                  self.skills(data[index]["skills"]);
-                                 self.project(data[index]["primary_project"]);
+                                 self.primary_project(data[index]["primary_project"]);
+                                 self.past_project(data[index]["projects"]);
                                  self.interest(data[index]["interests"]);
                                  self.associated(data[index]["associate_with_infobeans"]);
                                 var image = data[index]['google_picture_link'];

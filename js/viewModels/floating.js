@@ -111,7 +111,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                   
                 } else {
                     $('#hideFeedbackFloat').show();
-                 
                 }
                 
                 var getSearchUser = oj.Model.extend(

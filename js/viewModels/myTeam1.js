@@ -345,7 +345,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.p = ko.observable(1);
 
         // +1 rating on green button 
-        self.image1 = ko.observable(src = "css/images/green-button.png")
+        self.image1 = ko.observable(src = "css/images/green-button.png");
         self.image2 = ko.observable(src = "css/images/disable.png");
         this.plusOne = function () {
             self.p(1);
@@ -472,10 +472,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.handleOKClose = $("#okButton").click(function () {
                 $("#modalDialog8").ojDialog("close");
             });
+            
             $(".tabIcon").click(function () {
                $(".tabIcon").removeClass('oj-tabs-title-active');
                $(this).addClass('oj-tabs-title-active');
            });
+            
 
         }, 600);
     }

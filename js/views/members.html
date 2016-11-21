@@ -17,7 +17,7 @@
                             selected: 0}">
 
 
-    <ul class="profile-ul pos-relative" id="ulTab">
+    <ul class="profile-ul pos-relative tabHeightNew" id="ulTab">
         <div class="transbox"></div>
         <li class="profile-tabs profile-font-tabs selectedTab" title="Positive Rating"><span><i class="zmdi zmdi-trending-up"></i> 
                 <span data-bind='text: plusSign'></span><span data-bind="text: plus"></span></span>
@@ -256,10 +256,19 @@
             <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
                 <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
                     <span class="icon-div"><i class="zmdi zmdi-file-text about-icons"></i></span>
-                    <span class="text-about heightCol">Project(s)</span>
+                    <span class="text-about heightCol">Primary Project</span>
                 </div>
                 <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-6 oj-flex-item">
-                    <span data-bind="text: project"></span>
+                    <span data-bind="text: primary_project"></span>
+                </div>
+            </div>
+               <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                    <span class="icon-div"><i class="zmdi zmdi-file-text about-icons"></i></span>
+                    <span class="text-about heightCol"> Past Project(s)</span>
+                </div>
+                <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-6 oj-flex-item">
+                    <span data-bind="text: past_project"></span>
                 </div>
             </div>
             <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">

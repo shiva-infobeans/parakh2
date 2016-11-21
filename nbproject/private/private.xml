@@ -4,11 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/var/www/html/devparakh/dev/dev/css/common.css</file>
-            <file>file:/var/www/html/devparakh/dev/dev/js/views/home.html</file>
-            <file>file:/var/www/html/devparakh/dev/dev/js/viewModels/home.js</file>
-            <file>file:/var/www/html/devparakh/dev/dev/js/views/floating.html</file>
+            <file>file:/var/www/html/devparakh/dev/dev/js/viewModels/personProfile.js</file>
+            <file>file:/var/www/html/devparakh/dev/dev/js/views/personProfile.html</file>
             <file>file:/var/www/html/devparakh/dev/dev/css/custom.css</file>
-            <file>file:/var/www/html/devparakh/dev/dev/js/viewModels/floating.js</file>
             <file>file:/var/www/html/devparakh/dev/dev/js/viewModels/members.js</file>
             <file>file:/var/www/html/devparakh/dev/dev/js/views/members.html</file>
         </group>

@@ -437,7 +437,6 @@ body{
     color: #fff;
 }
 
-
 #ojDialogWrapper-modalDialog1.oj-dialog  {
     overflow: hidden;
     width: 556px;
@@ -558,7 +557,7 @@ body{
 }
 .imgArea{
     float: right;
-    margin-top: 16px;
+    margin-top: 6px;
     width: 80px;
     margin-right: 30px;
     cursor: pointer;
@@ -782,9 +781,7 @@ body{
     float: left !important;
     margin-left: -156px;
 }
-/*#tabs ul li:last-child {
-    display:none;
-}*/
+
 .searchImage{
     width: 30px;
     border-radius: 50%;
@@ -895,7 +892,7 @@ body{
     border-radius: 2px;
     color: #000;
     font-size: 13px;
-    left: -6px;
+    left: 5px;
     padding: 8px;
     position: absolute;
     top: -38px;
@@ -910,7 +907,7 @@ body{
     border-radius: 2px;
     color: #000;
     font-size: 13px;
-    left: 100px;
+    left: 86px;
     padding: 8px;
     position: absolute;
     top: -38px;
@@ -918,6 +915,21 @@ body{
     text-decoration: none !important;
 }
 .buddyTab4 :hover .hoverTabRequest2{
+    display: block;
+}
+.buddyTabRequest{
+    background-color: #fffff0;
+    border-radius: 2px;
+    color: #000;
+    font-size: 13px;
+    left: 0px;
+    padding: 8px;
+    position: absolute;
+    top: -38px;
+    display: none; 
+    text-decoration: none !important;
+}
+.buddyTab4 :hover .buddyTabRequest{
     display: block;
 }
 .buddyTab3:hover:before  {
@@ -930,14 +942,25 @@ body{
     left: 24px;
     color: #fffff0;
 }
-.buddyTab4:hover:before  {
+
+.hoverTabRequest2:after{
+       content: "";
+    border-top: 10px solid #fffff0;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    position: absolute;
+    top: 30px;
+    left: 35px;
+    color: #fffff0;
+}
+.buddyTabRequest:after  {
     content: "";
     border-top: 10px solid #fffff0;
     border-left: 16px solid transparent;
     border-right: 16px solid transparent;
     position: absolute;
-    top: -10px;
-    left: 117px;
+    top: 30px;
+    left: 29px;
     color: #fffff0;
 }
 .buddyTab3{
@@ -1318,7 +1341,7 @@ body{
     border-width: 1px 0 0;
 }
 .View-Other-about{
-    padding: 22px;
+    padding: 17px;
     font-size: 23px;
     border-bottom: 1px solid #689F39;
 }
@@ -1359,4 +1382,57 @@ body{
 }
 .tabMinHeight{
     min-height:700px !important;
+}
+.transbox1{
+      border:2px solid #fee123;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100% !important;
+    position: absolute;
+    top:0px;
+    left:0px;
+    z-index: -1;
+}
+.transbox2{
+      border:1px solid red;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100% !important;
+    position: absolute;
+    top:0px;
+    left:0px;
+    z-index: -1;
+}
+.transbox3{
+    border:2px solid green;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100% !important;
+    position: absolute;
+    top:0px;
+    left:0px;
+    z-index: -1;
+}
+.overflow-class{
+    overflow: auto;
+}
+.feedback-profile{
+    margin-top: 60px;
+    height: 85%;
+}
+.text-height{
+    line-height: 32px;
+}
+.edit-height{
+     font-size: 30px;
+}
+.addImage{
+    background-image: url("../../images/+1-icon-active.png");
+    height: 20px;
+    width: 30px;
+    
+}
+
+#negetiveTab , #feedbackTab{
+    display:none;
 }
