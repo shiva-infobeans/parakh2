@@ -271,9 +271,9 @@
                 </div>
                 <div class="oj-web-applayout-max-width oj-web-applayout-content ">
                     <div class="oj-flex oj-row sliderPos">
-                        <div class="oj-col oj-sm-12 oj-md-12 oj-lg-12 oj-xl-12 oj-flex-item oj-panel slider-color slide ">
+                        <div class="oj-col oj-sm-12 oj-md-12 oj-lg-12 oj-xl-12 oj-flex-item oj-panel slider-color slide">
 
-                            <div id="slider-wrapper">
+                            <div id="slider-wrapper1">
                                 <div class="inner-wrapper" id="inner-wrapper" >
                                     <input checked type="radio" name="slide1" class="control" id="Slide12"/>
                                     <label for="Slide12" id="s12"></label>
@@ -396,6 +396,61 @@
                                     <div><img class="sliderSmiley-NoRatings"  src="../css/images/sliderScreen.png" alt="slider image"/></div>
                                 </div>
 
+                            </div>
+                            <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-8 oj-flex-item">
+
+                                <div id="filmStripDiv2" style="margin: 20px;">
+                                    <div id="filmStrip2" 
+                                         aria-label="Set of chemicals" 
+                                         data-bind="ojComponent: {
+           component: 'ojFilmStrip', 
+           arrowVisibility: 'hidden'}">
+                                        <!-- ko foreach: projects -->
+                                        <div class="filmstrip-item-manager"
+                                             data-bind="attr: {id: 'srno'+$index()},style: {
+             display:  getItemInitialDisplay1($index())}">
+                                            <!--<span data-bind="text: name"></span>-->
+                                            <div class="slider-item">
+                                                <div class="slider-text">
+                                                    <p style="text-align: left">
+                                                        Performance of <span data-bind="text: name"></span> team
+                                                    </p>
+                                                </div>
+                                                <div class="greenBtn">
+                                                    <div class="border-right"><img src="css/images/green-button.png" alt=""/></div>
+                                                    <div class="btn-text-green-tab2">
+                                                        <span data-bind="text: plus"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="redBtn"  id="hideredBtn3">
+                                                    <img src="css/images/red-button.png" alt=""/>
+                                                    <div class="btn-text-red-tab2">
+                                                        <span data-bind="text: minus"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div data-bind="attr: {id: 'emptyTxt'+$index()}" class="hide">
+                                                <div class="sliderScreen">No ratings for <span data-bind="text: name"></span> project
+                                                </div>
+                                                <img class="sliderSmiley" data-bind="attr: {id:'smiley'+$index()}" src="../css/images/sliderScreen.png" alt="slider image"/>
+                                            </div>
+                                        </div>
+                                        <!-- /ko -->
+                                    </div>
+
+                                    <div style="text-align: center;">
+                                        <div style="display: inline-block;margin-top: 4px;">
+                                            <div id="pagingControl" 
+                                                 data-bind="ojComponent: {
+               component: 'ojPagingControl', 
+               data: getPagingModel(), 
+               pageSize: 0, 
+               pageOptions: {type: 'dots'}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- end filmStripDiv -->
                             </div>
                         </div>
 

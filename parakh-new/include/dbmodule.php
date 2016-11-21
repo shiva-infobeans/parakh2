@@ -1353,26 +1353,42 @@ class dbmodule {
     /*get top ranker of project wise*/
     function get_top_rankers_project_wise($manager_id){
 
-        $query_rank = "SELECT MAX(r.created_date) as date,r.user_id,u.google_name,u.google_picture_link as image,u.projects,u.primary_project,
-                    sum(case when r.rating = 1 then 1  end) as pluscount,
-                    sum(case when r.rating = 0 then 1  end) as minuscount
-                    from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 
-                    and u.id in (SELECT user_id from user_hierarchy where manager_id = :manager_id) AND MONTH(r.created_date) = MONTH(CURDATE())
-                    AND YEAR(r.created_date) = YEAR(CURDATE()) AND u.primary_project!='' group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC";
-                $user_rank = $this->con->prepare($query_rank);
-                $user_rank->execute(array(':manager_id' => $manager_id));
-                $userRank = $user_rank->fetchAll((PDO::FETCH_ASSOC));
-                $totalUserRank = array();
-                for ($k=0;$k<count($userRank);$k++) { 
-                    if(!in_array($userRank[$k]['primary_project'],$totalUserRank))
-                    {
-                        $totalUserRank[$k]['project_name'] = $userRank[$k]['primary_project'];
-                        $totalUserRank[$k]['plus'] = ($userRank[$k]['pluscount']!='')?$userRank[$k]['pluscount']:0;
-                        $totalUserRank[$k]['minus'] = ($userRank[$k]['minuscount']!='')?$userRank[$k]['minuscount']:0;
-                    }
-                }
-                return $totalUserRank;
-    }
+       $query_rank = "SELECT MAX(r.created_date) as date,r.user_id,u.google_name,u.google_picture_link as image,u.projects,u.primary_project,
+                   sum(case when r.rating = 1 then 1  end) as pluscount,
+                   sum(case when r.rating = 0 then 1  end) as minuscount
+                   from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 
+                   and u.id in (SELECT user_id from user_hierarchy where manager_id = :manager_id) AND MONTH(r.created_date) = MONTH(CURDATE())
+                   AND YEAR(r.created_date) = YEAR(CURDATE()) AND u.primary_project!='' group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC";
+               $user_rank = $this->con->prepare($query_rank);
+               $user_rank->execute(array(':manager_id' => $manager_id));
+               $userRank = $user_rank->fetchAll((PDO::FETCH_ASSOC));
+               $totalUserRank = array();
+               for ($k=0;$k<count($userRank);$k++) {
+                   if(array_key_exists($userRank[$k]['primary_project'],$totalUserRank))
+                   {   
+                       $comma_array = explode(",",$totalUserRank[$userRank[$k]['primary_project']]);
+                       $comma_array[1] = $comma_array[1]+$userRank[$k]['pluscount'];
+                       $comma_array[2] = $comma_array[2]+$userRank[$k]['minuscount'];
+                       $totalUserRank[$userRank[$k]['primary_project']] = implode(",",$comma_array);
+                   }else
+                   {
+                       if($userRank[$k]['pluscount']=='')
+                       {
+                           $userRank[$k]['pluscount'] = 0;
+                       }
+                       if($userRank[$k]['minuscount']=='')
+                       {
+                           $userRank[$k]['minuscount'] = 0;
+                       }
+                       $totalUserRank[$userRank[$k]['primary_project']] = $userRank[$k]['primary_project'].",".$userRank[$k]['pluscount'].",".$userRank[$k]['minuscount'];
+                   }
+               }
+               $new_array = array();
+               foreach ($totalUserRank as $key => $value) {
+                   $new_array[] = $value;
+               }
+               return $new_array;
+   }
 
     /*get top ranker of calendar wise*/
     function get_top_rankers_calendar_wise($lead_id){
