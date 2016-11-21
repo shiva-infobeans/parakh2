@@ -63,6 +63,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 this.temporaryNumber = ko.observable();
                 this.interestsOptions = ko.observableArray();
                 this.projectOptions = ko.observableArray();
+                this.designationOptions = ko.observableArray();
                 this.feedback = ko.observable("GOOD WORK...  keep it up!!");
                 this.feedbackContent1 = ko.observableArray([]);
                 this.feedbackContent2 = ko.observableArray([]);
@@ -72,6 +73,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 this.plus = ko.observable();
                 this.minus = ko.observable();
                 this.myNumber = ko.observable();
+                this.primary_project = ko.observable();
                 this.skills = ko.observable();
                 this.interests = ko.observableArray();
                 this.projects = ko.observableArray();
@@ -81,6 +83,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 this.NoCommentsP = ko.observable(""); // for positive comment
                 self.id = ko.observable(0);
                 self.mobileError = ko.observable();
+                self.date = ko.observable();
                 this.successful = ko.observable("S");
                 this.successful("");
                 this.designation = ko.observable(abc);
@@ -157,16 +160,26 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         headers: {secret: secret},
                         method: 'POST',
                         url: updateProfile,
-                        data: {user_id: self.id(), desc: self.designation(), location: self.location(), skills: self.skills(), associate_with_infobeans: self.associate_with_infobeans(), projects: self.projects(), interests: self.interests(), mob: self.myNumber(), mob: self.myNumber()},
-                        success: function () {
+                        data: {user_id: self.id(), desc: self.designation(), location: self.location(), skills: self.skills(),primary_project: self.primary_project(), date: self.date(), projects: self.projects(), interests: self.interests(), mob: self.myNumber(), mob: self.myNumber()},
+                        success: function (res) {
+                            response = jQuery.parseJSON( res );
                             // self.desc('');
                             // self.textError('');
-                            // $("#sucessRate").show();
-                            // self.sucessMsg("Your Request is sent.");
-                            // setTimeout(function () {
-                            //     $("#sucessRate").hide();
-                            //     self.sucessMsg("");
-                            // }, 3000);
+                            $("#successful").show();
+                            if(response.data)
+                            {
+                                self.successful(response.data.error);
+                            }else
+                            {
+                                self.successful("Profile Updated Successfully");
+                            }
+                            setTimeout(function () {
+                                $("#successful").hide();
+                                //self.sucessMsg("");
+                            }, 3000);
+                        },
+                        error: function (err) {
+                            alert(err);
                         }
                     });
                 }
@@ -197,11 +210,39 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                             self.interests([]);
                         }
                         if (task.attributes['data']['projects'].length != 0) {
-                            self.interests(task.attributes['data']['projects']);
+                            self.projects(task.attributes['data']['projects']);
                         } else {
                             self.projects([]);
                         }
+                        self.primary_project(task.attributes['data']['primary_project']);
                         self.associate_with_infobeans(task.attributes['data']['associate_with_infobeans']);
+                        self.date(task.attributes['data']['associate_with_infobeans']);
+                        user_date = Date.parse($('#associate-text').attr('defaultDate'));
+                        today_date = new Date();
+                        diff_date =  today_date - user_date;
+
+                        num_years = diff_date/31536000000;
+                        num_months = (diff_date % 31536000000)/2628000000;
+                        num_days = ((diff_date % 31536000000) % 2628000000)/86400000;
+
+                        if(Math.floor(num_years) > 1)
+                        {
+                            num_years = Math.floor(num_years)+" Years";
+                        }else
+                        {
+                            num_years = Math.floor(num_years)+" Year";
+                        }
+
+                        if(Math.floor(num_months) > 1)
+                        {
+                            num_months = Math.floor(num_months)+" Months";
+                        }else
+                        {
+                            num_months = Math.floor(num_months)+" Month";
+                        }
+
+                        self.associate_with_infobeans(num_years+" "+num_months);
+
                         //feedback for the user
                         var feedbackApi = oj.Model.extend({
                             url: getFeedbackById + self.id()
@@ -318,79 +359,300 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         self.myNumber(numberTrim.substr(numberTrim.indexOf("-") + 1), numberTrim.length);
                     }
                 };
-                // edit projects
+                // edit Associate with infobeans
+                var associateDefaultVar;
                 self.openDate = function () {
-                    editVariable = self.associate_with_infobeans();
+                    associateDefaultVar = $('#associate-text').attr('defaultDate');
+                    self.associate_with_infobeans(associateDefaultVar);
+                    $('#associate-text').addClass('hide');
+                    $('#associate-div').removeClass('hide');
+                    $('#edit-associate').addClass('hide');
+                    $('#submit-associate').removeClass('hide');
+                    $('#cancel-associate').removeClass('hide');
                     
                 }
                 self.updateDate = function () {
-                    console.log(self.associate_with_infobeans());
                     //ajax call here
+                    self.updateProfile();
+                    $('#associate-text').removeClass('hide');
+                    $('#associate-div').addClass('hide');
+                    $('#edit-associate').removeClass('hide');
+                    $('#submit-associate').addClass('hide');
+                    $('#cancel-associate').addClass('hide');
                 }
                 self.dateRevert = function () {
-                    self.associate_with_infobeans(editVariable);
+                    self.associate_with_infobeans(associateDefaultVar);
+                    $('#associate-text').removeClass('hide');
+                    $('#associate-div').addClass('hide');
+                    $('#edit-associate').removeClass('hide');
+                    $('#submit-associate').addClass('hide');
+                    $('#cancel-associate').addClass('hide');   
                 }
 
 
+                // edit designation
+                var designationsDefaultVar;
+                self.openDesignations = function () {
+                    designationsDefaultVar = self.designation();
+                    editVariable = self.designationOptions();
+                    self.designationOptions([]);
+                        //get all desginations using ajax;
+                        var desgination = oj.Model.extend({
+                            url: getAllDesignations,
+                        });
+                        var desginationTask = new desgination();
+                        desginationTask.fetch({
+                            headers: {secret: secret},
+                            success: function (res) {
+                                for (var c = 0; c < res['attributes']['data'].length; c++) {
+                                    var obj = new Object();
+                                    obj.name = res['attributes']['data'][c]['designation'];
+                                    self.designationOptions.push(obj);
+                                }
+                                $('#selectDesignation').ojSelect("refresh");
+                            }
+                        });
+                        $('#designation-text').addClass('hide');
+                        $('#designation-div').removeClass('hide');
+                        $('#edit-designation').addClass('hide');
+                        $('#submit-designation').removeClass('hide');
+                        $('#cancel-designation').removeClass('hide');
+                }
+                self.updateDesignations = function () {
+                    //ajax call here
+                    self.updateProfile();
+                    $('#designation-text').removeClass('hide');
+                    $('#designation-div').addClass('hide');
+                    $('#edit-designation').removeClass('hide');
+                    $('#submit-designation').addClass('hide');
+                    $('#cancel-designation').addClass('hide');
+                }
+                self.designationsRevert = function () {
+                    // self.designationOptions(editVariable);
+                    $('#designation-text').removeClass('hide');
+                    $('#designation-div').addClass('hide');
+                    $('#edit-designation').removeClass('hide');
+                    $('#submit-designation').addClass('hide');
+                    $('#cancel-designation').addClass('hide');
+                    self.designation(designationsDefaultVar);
 
-// edit projects
+                }
+
+                // edit location
+                self.openLocation = function () {
+                    locationDefaultVar = self.location();
+                    $('#location-text').addClass('hide');
+                    $('#location-div').removeClass('hide');
+                    $('#edit-location').addClass('hide');
+                    $('#submit-location').removeClass('hide');
+                    $('#cancel-location').removeClass('hide');
+                }
+                self.updateLocation = function () {
+                    //ajax call here
+                    self.updateProfile();
+                    $('#location-text').removeClass('hide');
+                    $('#location-div').addClass('hide');
+                    $('#edit-location').removeClass('hide');
+                    $('#submit-location').addClass('hide');
+                    $('#cancel-location').addClass('hide'); 
+                }
+                self.locationRevert = function () {
+                    $('#location-text').removeClass('hide');
+                    $('#location-div').addClass('hide');
+                    $('#edit-location').removeClass('hide');
+                    $('#submit-location').addClass('hide');
+                    $('#cancel-location').addClass('hide'); 
+                    self.location(locationDefaultVar);  
+                }
+
+                // edit skills
+                var skillsDefaultVal;
+                self.openSkills = function () {
+                    skillsDefaultVal = self.skills();
+                    $('#skills-text').addClass('hide');
+                    $('#skills').removeClass('hide');
+                    $('#edit-skills').addClass('hide');
+                    $('#submit-skills').removeClass('hide');
+                    $('#cancel-skills').removeClass('hide');
+                }
+                self.updateSkills = function () {
+                    //ajax call here
+                    self.updateProfile();
+                    $('#skills-text').removeClass('hide');
+                    $('#skills').addClass('hide');
+                    $('#edit-skills').removeClass('hide');
+                    $('#submit-skills').addClass('hide');
+                    $('#cancel-skills').addClass('hide'); 
+                }
+                self.skillsRevert = function () {
+                    $('#skills-text').removeClass('hide');
+                    $('#skills').addClass('hide');
+                    $('#edit-skills').removeClass('hide');
+                    $('#submit-skills').addClass('hide');
+                    $('#cancel-skills').addClass('hide'); 
+                    self.skills(skillsDefaultVal);  
+                }
+
+                // edit projects
+                var projectsDefaultVal;
                 self.openProjects = function () {
+                    projectsDefaultVal = self.projects();
                     editVariable = self.projectOptions();
                     self.projectOptions([]);
-                    for (var c = 0; c < 3; c++) {
-                        var obj = new Object();
-                        obj.name = "1. " + c;
-                        self.projectOptions.push(obj);
-                    }
-                    $('#selectProjects').ojSelect("refresh");
+                    //get all projects using ajax;
+                    var projects = oj.Model.extend({
+                        url: getAllProjects,
+                    });
+                    var projectTask = new projects();
+                    projectTask.fetch({
+                        headers: {secret: secret},
+                        success: function (res) {
+                            for (var c = 0; c < res['attributes']['data'].length; c++) {
+                                var obj = new Object();
+                                obj.name = res['attributes']['data'][c]['name'];
+                                self.projectOptions.push(obj);
+                            }
+                            $('#selectProjects').ojSelect("refresh");
+                        }
+                    });
+                    $('#projects-text').addClass('hide');
+                    $('#projects-div').removeClass('hide');
+                    $('#edit-projects').addClass('hide');
+                    $('#submit-projects').removeClass('hide');
+                    $('#cancel-projects').removeClass('hide');
                 }
                 self.updateProjects = function () {
-                    console.log(self.projectOptions());
                     //ajax call here
+                    self.updateProfile();
+                    $('#projects-text').removeClass('hide');
+                    $('#projects-div').addClass('hide');
+                    $('#edit-projects').removeClass('hide');
+                    $('#submit-projects').addClass('hide');
+                    $('#cancel-projects').addClass('hide');
                 }
                 self.projectsRevert = function () {
                     self.projectOptions(editVariable);
+                    $('#projects-text').removeClass('hide');
+                    $('#projects-div').addClass('hide');
+                    $('#edit-projects').removeClass('hide');
+                    $('#submit-projects').addClass('hide');
+                    $('#cancel-projects').addClass('hide');
+                    self.projects(projectsDefaultVal);
                 }
 
                 // edit interests
+                var DefaultInterestsVar;
                 self.openInterest = function () {
+                    DefaultInterestsVar = self.interests();
                     editVariable = self.interests();
                     self.interestsOptions([]);
-                    for (var c = 0; c < 3; c++) {
-                        var obj = new Object();
-                        obj.name = "1. " + c;
-                        self.interestsOptions.push(obj);
-                    }
-                    console.log(editVariable);
-                    $('#selectInterests').ojSelect("refresh");
+                    //get all interests using ajax;
+                    var interests = oj.Model.extend({
+                        url: getAllInterests,
+                    });
+                    var interestTask = new interests();
+                    interestTask.fetch({
+                        headers: {secret: secret},
+                        success: function (res) {
+                            for (var c = 0; c < res['attributes']['data'].length; c++) {
+                                var obj = new Object();
+                                obj.name = res['attributes']['data'][c]['interest'];
+                                self.interestsOptions.push(obj);
+                            }
+                            $('#selectInterests').ojSelect("refresh");
+                        }
+                    });
+                    $('#interest-text').addClass('hide');
+                    $('#interest-div').removeClass('hide');
+                    $('#edit-interest').addClass('hide');
+                    $('#submit-interest').removeClass('hide');
+                    $('#cancel-interest').removeClass('hide');
                 }
                 self.updateInterest = function () {
-                    console.log(self.interests());
                     //ajax call here
+                    self.updateProfile();
+                    $('#interest-text').removeClass('hide');
+                    $('#interest-div').addClass('hide');
+                    $('#edit-interest').removeClass('hide');
+                    $('#submit-interest').addClass('hide');
+                    $('#cancel-interest').addClass('hide');
                 }
                 self.interestRevert = function () {
                     self.interests(editVariable);
+                    $('#interest-text').removeClass('hide');
+                    $('#interest-div').addClass('hide');
+                    $('#edit-interest').removeClass('hide');
+                    $('#submit-interest').addClass('hide');
+                    $('#cancel-interest').addClass('hide');
+                    self.interests(DefaultInterestsVar);
+                }
+
+                // edit primary project here......
+                var DefaultPrimaryProjectVar;
+                self.openPrimaryProject = function () {
+                    DefaultPrimaryProjectVar = self.primary_project();
+                        $('#primary-project-text').addClass('hide');
+                        $('#primary-project').removeClass('hide');
+                        $('#edit-primary-project').addClass('hide');
+                        $('#submit-primary-project').removeClass('hide');
+                        $('#cancel-primary-project').removeClass('hide');
+                }
+                self.updatePrimaryProject = function () {
+                    //ajax call here
+                    self.updateProfile();
+                    $('#primary-project-text').removeClass('hide');
+                    $('#primary-project').addClass('hide');
+                    $('#edit-primary-project').removeClass('hide');
+                    $('#submit-primary-project').addClass('hide');
+                    $('#cancel-primary-project').addClass('hide');
+                }
+                self.primaryProjectRevert = function () {
+                    $('#primary-project-text').removeClass('hide');
+                    $('#primary-project').addClass('hide');
+                    $('#edit-primary-project').removeClass('hide');
+                    $('#submit-primary-project').addClass('hide');
+                    $('#cancel-primary-project').addClass('hide');
+                    self.primary_project(DefaultPrimaryProjectVar);
                 }
 
                 // edit number here......
+                var DefaultNumberVar;
                 self.openNumber = function () {
-                    //$("#editNumberBox").show();
+                    DefaultNumberVar = self.myNumber();
                     editVariable = self.myNumber().substring(self.myNumber().indexOf("-") + 1, self.myNumber().length);
                     self.temporaryNumber(self.myNumber().substring(self.myNumber().indexOf("-") + 1, self.myNumber().length));
                     self.temporaryNumber();
+                    $('#number-text').addClass('hide');
+                    $('#editNumberBox').removeClass('hide');
+                    $('#edit-number').addClass('hide');
+                    $('#submit-number').removeClass('hide');
+                    $('#cancel-number').removeClass('hide');
                 }
                 self.updateNumber = function () {
-                    //$("#editNumberBox").hide();
                     self.myNumber("+91-" + self.temporaryNumber());
-                    //self.temporaryNumber("");
-                    //ajax call here.
+                    if(isNaN(self.temporaryNumber()))
+                    {
+                        self.myNumber(DefaultNumberVar);
+                    }
+                    //ajax call here
+                    self.updateProfile();
+                    $('#number-text').removeClass('hide');
+                    $('#editNumberBox').addClass('hide');
+                    $('#edit-number').removeClass('hide');
+                    $('#submit-number').addClass('hide');
+                    $('#cancel-number').addClass('hide');
                 }
                 self.numberEditRevert = function () {
                     //$("#editNumberBox").hide();
                     self.temporaryNumber(self.myNumber().substring(self.myNumber().indexOf("-") + 1, self.myNumber().length));
                     self.myNumber("+91-" + editVariable);
                     self.temporaryNumber("");
-
+                    $('#number-text').removeClass('hide');
+                    $('#editNumberBox').addClass('hide');
+                    $('#edit-number').removeClass('hide');
+                    $('#submit-number').addClass('hide');
+                    $('#cancel-number').addClass('hide');
+                    self.myNumber(DefaultNumberVar);
                 }
             }
 
