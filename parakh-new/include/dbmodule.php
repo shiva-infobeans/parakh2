@@ -495,9 +495,9 @@ class dbmodule {
      * @return type
      */
     function updateProfile($data) {
-        $query = "UPDATE users SET designation = :des, skills = :skills, interests = :interests, projects = :projects, associate_with_infobeans = :associate_with_infobeans, mobile_number = :mob WHERE id = :id";
+        $query = "UPDATE users SET designation = :des, skills = :skills, interests = :interests, projects = :projects, location = :location,associate_with_infobeans = :associate_with_infobeans, mobile_number = :mob,primary_project = :primary_project WHERE id = :id";
         $update_profile_data = $this->con->prepare($query);
-        $query_result = $update_profile_data->execute(array(':des' => $data['des'], ':skills' => $data['skills'], ':projects' => $data['projects'], ':interests' => $data['interests'], ':associate_with_infobeans' => $data['associate_with_infobeans'], ':mob' => $data['mob'], ':id' => $data['user_id']));
+        $query_result = $update_profile_data->execute(array(':des' => $data['des'], ':skills' => $data['skills'], ':projects' => $data['projects'], ':location' => $data['location'],':interests' => $data['interests'], ':associate_with_infobeans' => $data['associate_with_infobeans'], ':mob' => $data['mob'],':primary_project' => $data['primary_project'], ':id' => $data['user_id']));
         return $query_result;
     }
 
@@ -1424,6 +1424,35 @@ class dbmodule {
         return $totalUserRank;
     }
 
+    /*get all projects*/
+    function get_all_projects()
+    {
+        $query = "SELECT * FROM projects";
+                $all_projects = $this->con->prepare($query);
+                $all_projects->execute();
+                $allProjects = $all_projects->fetchAll((PDO::FETCH_ASSOC));
+                return $allProjects;
+    }
+
+    /*get all interests*/
+    function get_all_interests()
+    {
+        $query = "SELECT * FROM interests";
+                $all_interests = $this->con->prepare($query);
+                $all_interests->execute();
+                $allInterests = $all_interests->fetchAll((PDO::FETCH_ASSOC));
+                return $allInterests;
+    }
+
+    /*get all designations*/
+    function get_all_designations()
+    {
+        $query = "SELECT * FROM designations";
+                $all_designations = $this->con->prepare($query);
+                $all_designations->execute();
+                $allDesignations = $all_designations->fetchAll((PDO::FETCH_ASSOC));
+                return $allDesignations;
+    }
 //end of fun
 }
 

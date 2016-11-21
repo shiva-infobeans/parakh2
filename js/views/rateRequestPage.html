@@ -11,23 +11,92 @@ and open the template in the editor.
                 <span id="sucessRate" class="sucessMsgRate" data-bind="text: sucessMsg"> </span>
             </div>
         </div>
-        <div id="tabs1" data-bind="ojComponent:{component: 'ojTabs'}" class="buddyTab">
+        <div id="tabs1" data-bind="ojComponent:{component: 'ojTabs',selected: selectTab}" class="buddyTab">
             <!-- tab bar -->
             <ul>
-                <li class="buddyTab3 " id="rateTab1"> 
-                    <img id="rate1Active" src="../../images/+1-icon-active.png" alt=""/>
-                    <img id="rate1Inactive" class="rate1Inactive" src="../../images/+1-icon.png" alt=""/>
-                    <div class="hoverTabRequest1"> Send Request </div>
+                  <li class="buddyTab3" id="rateTab2"> 
+                      <div id="rateTab3">
+                    </div>             
+                    <div class="hoverTabRequest1"> Requests </div>
                 </li>
-                <li class="buddyTab4" id="rateTab2"> 
-                    <img id="rate2Inactive" src="../../images/request-approval.png" alt=""/>     
-                    <img id="rate2Active" class="rate2Active" src="../../images/request-approval-active.png" alt=""/>
-                    <div class="hoverTabRequest2"> Requests </div>
+                <li class="buddyTab4" id="rateTab5"> 
+                    <div id="rateTab1">   
+                    </div>
+                    <div id="requestHover"> Send Request </div>
                 </li>
             </ul>
             <!-- tab contents -->
             <div id="tabs-3">
-                <hr>
+                <hr />
+                <div class="oj-flex oj-row ">
+                    <div class=" oj-xl-6 oj-lg-6 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-margin-top oj-margin-bottom pos-relative transboxRequest ">
+                        <div class="oj-flex center NorequestMsg NorequestMsgAlignment">
+                            <div class ="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item cetner">
+                                <span class="errorText NorequestMsgAlignment" data-bind="text: noLeadPendingRequest"></span>
+                            </div>
+                        </div>
+                        <div class="transbox"></div>
+                        <div class="oj-flex oj-row">
+                            <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-flex-bar-middle">
+                                <div class="requestHeading">
+                                    Requests
+                                </div> 
+                            </div>
+
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-margin-top oj-margin-bottom requestAlignment">
+                                <!--ko foreach:  requestPendingLead-->
+                                <div class="oj-xl-8 oj-lg-8 oj-md-12 oj-sm-12 pos-relative oj-margin oj-flex-bar-center-absolute requestApproveDiv">
+                                       <div class="transbox1  requestHeight"></div>
+                                    <div class="transbox  requestHeight"></div>
+                                    <div class="oj-flex oj-row ">
+                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center ">
+                                            <img data-bind="attr: {src:pic}" alt="" class="profile-feedback-pic border-color-yellow "/>
+                                        </div>
+                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center color-white">
+
+                                            <span data-bind="text: name"></span>
+                                        </div>
+                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top color-white">
+
+                                            <span data-bind="text: designation"></span>
+                                        </div>
+                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top color-white">
+
+                                            <span data-bind="text: date"></span>
+                                        </div>
+                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin color-white divTextRateMe oj-padding ">
+
+
+                                            <textarea id="text-area20" class="textArea-requests" aria-label="ojTextArea component no visible label"
+                                                      data-bind="ojComponent: {component: 'ojTextArea', 
+                                     value: lComment, 
+                                     placeholder: 'Type your reason here..'}"></textarea>
+                                        </div>
+                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex  oj-margin-top">
+                                            <button class="approveDisapprove" data-bind="attr:{requestId: request_id,type:'1',descComment: lComment,userId: userID,to_id:from_id}"><i class="zmdi zmdi-check"></i></button>
+                                            <button class="approveDisapprove"  data-bind="attr:{requestId: request_id,type:'0',descComment: lComment,userId: userID,to_id:from_id}">  <i class="zmdi zmdi-close"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/ko-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" oj-xl-6 oj-lg-6 oj-md-12 oj-sm-12 oj-flex-item oj-margin-bottom pos-relative oj-margin-start oj-margin-top">
+                        <div class="transbox"></div>
+                        <div class="oj-flex oj-row">
+                            <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item ">
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+          
+            <div id="tabs-4">
+                 <hr>
                 <div class="oj-flex oj-row ">
                     <div class=" oj-xl-6 oj-lg-6 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-margin-top pos-relative transboxRequest ">
                         <div class="transbox"></div>
@@ -117,21 +186,22 @@ and open the template in the editor.
                                                 </div>
                                                 <!--repeat block starts here-->
                                                 <!-- ko foreach: requestPendingMember -->
-                                                <div class="oj-xl-9 oj-lg-9 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding heightContent oj-flex-bar-center-absolute">
-                                                    <div class="transbox border-color-yellow feedbackHeight"></div>
+                                                <div class="oj-xl-7 oj-lg-7 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding heightContent oj-flex-bar-center-absolute">
+                                                    <div class="transbox1  feedbackHeight"></div>
+                                                    <div class="transbox feedbackHeight"></div>
                                                     <div class="oj-flex oj-row">
-                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
+                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top oj-padding-top">
                                                             <img data-bind="attr: {src:pic}" alt="" class="profile-feedback-pic border-color-yellow"/>
                                                         </div>
-                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top">
+                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center ">
 
                                                             <span class="color-white" data-bind="text: name"></span>
                                                         </div>
-                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top">
+                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center ">
 
                                                             <span class="color-white" data-bind="text: designation"></span>
                                                         </div>
-                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top">
+                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
 
                                                             <span class="color-white" data-bind="text:date"></span>
                                                         </div>
@@ -139,17 +209,18 @@ and open the template in the editor.
 
                                                             <span class="color-white" data-bind="text: sComment"></span>
                                                         </div>
-                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item open-more oj-flex oj-margin">
+                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item open-more oj-flex oj-margin overflow-class">
                                                             <span class="color-white" data-bind="text: lComment"></span>
                                                         </div>
                                                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-margin replyBox">
 
                                                             <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item openDiv oj-flex-bar oj-margin">
-                                                                <span class="oj-flex-bar-end">
+                                                                <span class="oj-flex-bar-end oj-margin-bottom">
                                                                     <span class=" Moreless-fix"><i class="zmdi zmdi-caret-down color-white"></i></span>
                                                                     <span class="color-white">More</span>
                                                                     <span class="hide color-white" data-bind="text: lComment"></span>
                                                                 </span>
+                                                           
                                                             </div>
                                                         </div>
                                                     </div>
@@ -165,35 +236,36 @@ and open the template in the editor.
                                                 </div>
                                                 <!--repeat block starts here-->
                                                 <!-- ko foreach: requestRejectedMember-->
-                                                <div class="oj-xl-9 oj-lg-9 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding heightContent oj-flex-bar-center-absolute">
-                                                    <div class="transbox border-color-red feedbackHeight"></div>
+                                                <div class="oj-xl-7 oj-lg-7 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding heightContent oj-flex-bar-center-absolute">
+                                                       <div class="transbox2  feedbackHeight"></div>
+                                                    <div class="transbox  feedbackHeight"></div>
                                                     <div class="oj-flex oj-row">
-                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin color-white">
+                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin color-white oj-margin-top oj-padding-top">
                                                             <img data-bind="attr: {src:pic}" alt="" class="profile-feedback-pic border-color-red"/>
                                                         </div>
-                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin color-white">
+                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center  color-white">
 
                                                             <span data-bind="text: name"></span>
                                                         </div>
-                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin color-white">
+                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center color-white">
 
                                                             <span data-bind="text: designation"></span>
                                                         </div>
-                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin color-white">
+                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center color-white">
 
                                                             <span data-bind="text:date"></span>
                                                         </div>
-                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin color-white">
+                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-top color-white">
 
                                                             <span data-bind="text: sComment"></span>
                                                         </div>
-                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item open-more oj-flex oj-margin color-white">
+                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item open-more oj-flex oj-margin color-white overflow-class">
                                                             <span data-bind="text: lComment"></span>
                                                         </div>
                                                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-margin replyBox color-white">
 
                                                             <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item openDiv oj-flex-bar oj-margin">
-                                                                <span class="oj-flex-bar-end">
+                                                                <span class="oj-flex-bar-end oj-margin-bottom">
                                                                     <span class=" Moreless-fix"><i class="zmdi zmdi-caret-down"></i></span>
                                                                     <span>More</span>
                                                                     <span class="hide" data-bind="text: lComment"></span>
@@ -212,73 +284,8 @@ and open the template in the editor.
                         </div>
                     </div>
                 </div>
-            </div>
-            <div id="tabs-4">
-                <hr />
-                <div class="oj-flex oj-row ">
-                    <div class=" oj-xl-6 oj-lg-6 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-margin-top oj-margin-bottom pos-relative transboxRequest ">
-                        <div class="oj-flex center NorequestMsg NorequestMsgAlignment">
-                            <div class ="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item cetner">
-                                <span class="errorText NorequestMsgAlignment" data-bind="text: noLeadPendingRequest"></span>
-                            </div>
-                        </div>
-                        <div class="transbox"></div>
-                        <div class="oj-flex oj-row">
-                            <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-flex-bar-middle">
-                                <div class="requestHeading">
-                                    Requests
-                                </div> 
-                            </div>
-
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-margin-top oj-margin-bottom requestAlignment">
-                                <!--ko foreach:  requestPendingLead-->
-                                <div class="oj-xl-9 oj-lg-9 oj-md-12 oj-sm-12 pos-relative oj-margin oj-flex-bar-center-absolute requestApproveDiv">
-                                    <div class="transbox border-color-yellow feedbackHeight"></div>
-                                    <div class="oj-flex oj-row">
-                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center  oj-margin-top">
-                                            <img data-bind="attr: {src:pic}" alt="" class="profile-feedback-pic border-color-yellow "/>
-                                        </div>
-                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top color-white">
-
-                                            <span data-bind="text: name"></span>
-                                        </div>
-                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top color-white">
-
-                                            <span data-bind="text: designation"></span>
-                                        </div>
-                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top color-white">
-
-                                            <span data-bind="text: date"></span>
-                                        </div>
-                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin color-white divTextRateMe ">
-
-
-                                            <textarea id="text-area20" class="textArea-requests" aria-label="ojTextArea component no visible label"
-                                                      data-bind="ojComponent: {component: 'ojTextArea', 
-                                     value: lComment, 
-                                     placeholder: 'Type your reason here..'}"></textarea>
-                                        </div>
-                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex  oj-margin-top">
-                                            <button class="approveDisapprove" data-bind="attr:{requestId: request_id,type:'1',descComment: lComment,userId: userID,to_id:from_id}"><i class="zmdi zmdi-check"></i></button>
-                                            <button class="approveDisapprove"  data-bind="attr:{requestId: request_id,type:'0',descComment: lComment,userId: userID,to_id:from_id}">  <i class="zmdi zmdi-close"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--/ko-->
-                            </div>
-                        </div>
-                    </div>
-                    <div class=" oj-xl-6 oj-lg-6 oj-md-12 oj-sm-12 oj-flex-item oj-margin-bottom pos-relative oj-margin-start oj-margin-top">
-                        <div class="transbox"></div>
-                        <div class="oj-flex oj-row">
-                            <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item ">
-
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+</div>
         </div>
     </div>
 </div>
+    

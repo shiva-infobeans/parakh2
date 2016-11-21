@@ -392,15 +392,15 @@ div.oj-tabs-panel.oj-tabs-selected{
     transition: height .1s linear;
 }
 .profile-feedback-pic{
-    height:75px;
-    width: 75px;
+   height: 85px;
+    width: 85px;
     border-radius: 50%;
     z-index: 10;
+    border: solid 2px green;
 }
 .color-green{
     color: #85D44B !important;
 }
-
 .more-feedback a{
     text-decoration: underline;
     cursor: pointer;
@@ -441,7 +441,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 .feedbackHeight{
     margin-top: 60px;
-    height: 85%;
+    height: 78%;
 }
 .heightContent{
     margin-top: -10px;
@@ -715,6 +715,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     border:2px solid #6BA034;
     background:none;
     color:#fff;
+    height: 110px;
 }
 .requestAlignment{
     margin:0px auto;
@@ -723,11 +724,11 @@ div.oj-tabs-panel.oj-tabs-selected{
     color: #424242;
 }
 .border-color-yellow{
-    border:3px solid #fee123;
+    border:2px solid #fee123;
 }
 
 .border-color-red{
-    border:3px solid #bc3a2f;
+    border:2px solid #bc3a2f;
 }
 /*approve or disapprove request*/
 .approveDisapprove:first-child{
@@ -740,13 +741,14 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 .approveDisapprove{
     border: medium none;
-    margin-bottom: -15px;
+    margin-bottom: -3px;
     padding: 10px;
     font-size: 30px;
     width: 50%;
+    background-color: #fff;
 }
 .requestApproveDiv{
-    padding: 4px;
+    padding: 2px;
 }
 /* fixes */
 .closeIconNotify{
@@ -759,10 +761,10 @@ div.oj-tabs-panel.oj-tabs-selected{
     color:#689F39 !important;
 }
 .Moreless-fix{
-    font-size: 35px !important;
-    left: 295px;
+ font-size: 45px !important;
+    left: 224px;
     position: absolute;
-    top: -12px;
+    top: -18px;
 }
 .divTextRateMe .oj-textarea{
     max-width: 100% !important;
@@ -813,7 +815,6 @@ div.oj-tabs-panel.oj-tabs-selected{
     width:250px;
     height:200px;
 }
-
 .arrow-controls {
     display: inline-block;
     vertical-align: top;
@@ -880,4 +881,9 @@ div.oj-tabs-panel.oj-tabs-selected{
     left: 165px;
     position: absolute;
     top: 51px;
+}
+.edit-height{cursor: pointer;}
+.requestHeight{
+   margin-top: 50px;
+    height: 87%; 
 }

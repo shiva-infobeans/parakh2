@@ -363,7 +363,7 @@ body{
     display: block;
     width: 62px;
     height: 62px;
-    margin: 20px auto 0;
+    margin: 10px auto 0;
     position: relative;
     -webkit-transition: all  0.80s ease-out;
     transition: all 0.30s ease-out;
@@ -381,6 +381,9 @@ body{
     height: 45px;
     margin: 20px auto 0;
     opacity: 0;
+/*    display:none;*/
+/*     -webkit-transition: display  0.80s !important;
+    transition: display 0.30s !important;*/
     -webkit-transform: translateY(50px);
     -ms-transform: translateY(50px);
     transform: translateY(50px);
@@ -390,10 +393,13 @@ body{
 
 .buttons:not(:last-child) {
     opacity: 1;
+    /*display:block;*/
+/*     -webkit-transition: display  0.80s !important;
+    transition: display 0.30s !important;*/
     -webkit-transform: none;
     -ms-transform: none;
     transform: none;
-    margin: 15px auto 0;
+    margin: 7px auto 0;
 }
 
 /*Unessential styling for sliding up buttons at differnt speeds*/ 
@@ -441,7 +447,6 @@ body{
     font-weight: bolder !important;
     color: #fff;
 }
-
 
 #ojDialogWrapper-modalDialog1.oj-dialog  {
     overflow: hidden;
@@ -563,7 +568,7 @@ body{
 }
 .imgArea{
     float: right;
-    margin-top: 16px;
+    margin-top: 6px;
     width: 80px;
     margin-right: 30px;
     cursor: pointer;
@@ -787,9 +792,7 @@ body{
     float: left !important;
     margin-left: -156px;
 }
-/*#tabs ul li:last-child {
-    display:none;
-}*/
+
 .searchImage{
     width: 30px;
     border-radius: 50%;
@@ -900,7 +903,7 @@ body{
     border-radius: 2px;
     color: #000;
     font-size: 13px;
-    left: -6px;
+    left: 5px;
     padding: 8px;
     position: absolute;
     top: -38px;
@@ -915,7 +918,7 @@ body{
     border-radius: 2px;
     color: #000;
     font-size: 13px;
-    left: 100px;
+    left: 86px;
     padding: 8px;
     position: absolute;
     top: -38px;
@@ -923,6 +926,21 @@ body{
     text-decoration: none !important;
 }
 .buddyTab4 :hover .hoverTabRequest2{
+    display: block;
+}
+.buddyTabRequest{
+    background-color: #fffff0;
+    border-radius: 2px;
+    color: #000;
+    font-size: 13px;
+    left: 0px;
+    padding: 8px;
+    position: absolute;
+    top: -38px;
+    display: none; 
+    text-decoration: none !important;
+}
+.buddyTab4 :hover .buddyTabRequest{
     display: block;
 }
 .buddyTab3:hover:before  {
@@ -935,14 +953,25 @@ body{
     left: 24px;
     color: #fffff0;
 }
-.buddyTab4:hover:before  {
+
+.hoverTabRequest2:after{
+       content: "";
+    border-top: 10px solid #fffff0;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    position: absolute;
+    top: 30px;
+    left: 35px;
+    color: #fffff0;
+}
+.buddyTabRequest:after  {
     content: "";
     border-top: 10px solid #fffff0;
     border-left: 16px solid transparent;
     border-right: 16px solid transparent;
     position: absolute;
-    top: -10px;
-    left: 117px;
+    top: 30px;
+    left: 29px;
     color: #fffff0;
 }
 .buddyTab3{
@@ -1323,7 +1352,7 @@ body{
     border-width: 1px 0 0;
 }
 .View-Other-about{
-    padding: 21px;
+    padding: 17px;
     font-size: 23px;
     border-bottom: 1px solid #689F39;
 }
@@ -1331,7 +1360,7 @@ body{
     display: block;
     margin-left: 43px;
     width: 100%;
-    color: yellow;
+    color: #F9E81F;
     font-size: 22px;
     font-weight: bolder;
 }
@@ -1341,7 +1370,7 @@ body{
 }
 .about-icons{
     font-size: 38px !important;
-    color: yellow;
+    color: #F9E81F;
 }
 .icon-div{
     float: left;
@@ -1354,7 +1383,7 @@ body{
     line-height: 48px;
 }
 .heightCol5{
-    line-height: 27px;
+    line-height: 22px;
 }
 .tabHeight{
     height:700px;
@@ -1364,4 +1393,57 @@ body{
 }
 .tabMinHeight{
     min-height:700px !important;
+}
+.transbox1{
+      border:2px solid #fee123;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100% !important;
+    position: absolute;
+    top:0px;
+    left:0px;
+    z-index: -1;
+}
+.transbox2{
+      border:1px solid red;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100% !important;
+    position: absolute;
+    top:0px;
+    left:0px;
+    z-index: -1;
+}
+.transbox3{
+    border:2px solid green;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100% !important;
+    position: absolute;
+    top:0px;
+    left:0px;
+    z-index: -1;
+}
+.overflow-class{
+    overflow: auto;
+}
+.feedback-profile{
+    margin-top: 60px;
+    height: 85%;
+}
+.text-height{
+    line-height: 32px;
+}
+.edit-height{
+     font-size: 30px;
+}
+.addImage{
+    background-image: url("../../images/+1-icon-active.png");
+    height: 20px;
+    width: 30px;
+    
+}
+
+#negetiveTab , #feedbackTab{
+    display:none;
 }

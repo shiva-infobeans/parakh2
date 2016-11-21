@@ -67,10 +67,10 @@ require(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodule', 'ojs/ojknockout', '
         function (oj, ko, $) // this callback gets executed when all required modules are loaded
         {
             function call() {
-
             }
             $(document).ready(function () {
                 ko.applyBindings(new call());
+                
             });
 
         }
