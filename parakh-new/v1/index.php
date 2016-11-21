@@ -799,7 +799,49 @@ $app->get('/getTopFourRankForCurrentMonth[/]', function ($request, $response, $a
     
     //Creating a dbmodule object
     $db = new dbmodule();
-    $result = $db->get_top_ranker_for_current_month();
+    $result = $db->get_top_four_ranker_for_current_month();
+    if($result != 0){
+        $response_data = makeResponse('false',$result);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3001));
+    }    
+    $response->withJson($response_data);
+    return $response;
+});
+
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getTopRankersProjectWise/<managerId>
+ * Parameters: managerId
+ * 
+ * Method: GET
+ * */    
+$app->get('/getTopRankersProjectWise[/{managerId}]', function ($request, $response, $args) {
+    $response_data = array();
+    
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    $result = $db->get_top_rankers_project_wise($args['managerId']);
+    if($result != 0){
+        $response_data = makeResponse('false',$result);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3001));
+    }    
+    $response->withJson($response_data);
+    return $response;
+});
+
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getTopRankersCalendarWise/<leadId>
+ * Parameters: leadId
+ * 
+ * Method: GET
+ * */    
+$app->get('/getTopRankersCalendarWise[/{leadId}]', function ($request, $response, $args) {
+    $response_data = array();
+    
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    $result = $db->get_top_rankers_calendar_wise($args['leadId']);
     if($result != 0){
         $response_data = makeResponse('false',$result);
     }else{

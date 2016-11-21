@@ -26,6 +26,8 @@ var getTeamMembersRequest = baseUrl+"/getTeamMembersRequest/";
 var getUserPendingRequest = baseUrl+"/getUserPendingRequest/";
 var requestDecision = baseUrl+"/requestDecision";
 var notificationCount = baseUrl+"/getCountForUnreadNotification/";
+var leadMangerSlider = baseUrl+"/getCountForUnreadNotification/";  // remove this url
+var getTopFourRankForCurrentMonth = baseUrl+"/getTopFourRankForCurrentMonth/";  
 var resetNotifCount = baseUrl+"/resetNotifCount";
 
 

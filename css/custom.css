@@ -110,14 +110,14 @@ body{
     background-color: #DFF5CF;
     border-radius: 50%;
     padding: 2px;
-    height: 30px;
-    width: 30px;
+    height: 25px;
+    width: 25px;
     font-size: 12px;
 }
 .notif-count span{
-    margin-top: 4px;
+    margin-top: 1px;
     float: left;
-    margin-left: 4px;
+    margin-left: 2px;
     color:#000 !important;
 }
 .notification-padding{
@@ -414,12 +414,12 @@ div.oj-tabs-panel.oj-tabs-selected{
 
 .open-more > div > .replyComent:nth-child(odd) {
     margin-left: 2px;
-    border-left: 3px solid #ff0000;
+    border-left: 2px solid #00ff00;
     padding:5px;
 }
 .open-more > div > .replyComent:nth-child(even) {
     margin-left: 2px;
-    border-left: 3px solid #00ff00;
+    border-left: 2px solid #00ff00;
     padding:5px;
 }
 .more-feedback a span{
@@ -634,7 +634,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 /*indexer function*/
 .hide{
-    display:none !important;
+    display:none;
 }
 
 /*dialog wrapper in rate buddy page for view member's profile*/
@@ -812,7 +812,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     text-align: center;
     font-weight: bold;
     color: #333;
-    width:200px;
+    width:250px;
     height:200px;
 }
 .arrow-controls {
@@ -820,6 +820,27 @@ div.oj-tabs-panel.oj-tabs-selected{
     vertical-align: top;
     margin-right: 20px;
 }
+
+/*ajax loader for every page*/
+.ajaxLoaderImage{
+    top:40%;
+    left:40%;
+    position: absolute;
+    z-index: 1053;
+    height: 150px;
+    width: 150px;
+}
+.overlay-loader{
+    position: fixed;
+    top:0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    background-color: #000;
+    opacity: 0.5;
+    z-index: 1052;
+}
+.edit-height{cursor: pointer;}
 .requestHeight{
    margin-top: 50px;
     height: 87%; 

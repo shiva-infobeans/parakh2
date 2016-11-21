@@ -81,6 +81,12 @@ switch ($error_code) {
         'error' => 'Invalid parameters'
         );
         break;
+    case 3013:
+        return array(
+        'code' => '3013',
+        'error' => 'Invalid value for phone'
+        );
+        break;
     case "blue":
         echo "Your favorite color is blue!";
         break;
