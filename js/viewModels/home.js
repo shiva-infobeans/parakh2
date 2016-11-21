@@ -67,7 +67,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 self.image0(img0);
                 var person0 = "memberProfile.html?id=" + data.attributes['data'][0]['user_id'];
                 self.link0(person0);
-
+                
                 var img1 = data.attributes['data'][1]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][1]['google_picture_link'];
                 self.name1(data.attributes['data'][1]['google_name'].substr(0, data.attributes['data'][1]['google_name'].indexOf(' ')));
                 self.name1hover(data.attributes['data'][1]['google_name']);
@@ -296,45 +296,45 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                             self.dayMinusRatings(dayN);
                             if (self.dayPlusRatings() == 0 && self.dayMinusRatings() == 0) {
                                 self.sliderText1("You have not been rated this week!!");
-                                $('#hideSlider1,#hideSlider12').hide();
-                                $('#hidegreenBtn1,#hidegreenBtn12').hide();
-                                $('#hideredBtn1,#hideredBtn12').hide();
-                                $('#smiley1,#smiley12').show();
+                                $('#hideSlider1').hide();
+                                $('#hidegreenBtn1').hide();
+                                $('#hideredBtn1').hide();
+                                $('#smiley1').show();
                             } else {
 
-                                $('#hideSlider1,#hideSlider12').show();
-                                $('#hidegreenBtn1,#hidegreenBtn12').show();
-                                $('#hideredBtn1,#hideredBtn12').show();
-                                $('#smiley1,#smiley12').hide();
+                                $('#hideSlider1').show();
+                                $('#hidegreenBtn1').show();
+                                $('#hideredBtn1').show();
+                                $('#smiley1').hide();
                             }
                             self.monthPlusRatings(monthP); //ratings in this Month
                             self.monthMinusRatings(monthN);
 
                             if (self.monthPlusRatings() == 0 && self.monthMinusRatings() == 0) {
                                 self.sliderText2("You have not been rated this month!!");
-                                $('#hideSlider2,#hideSlider22').hide();
-                                $('#hidegreenBtn2,#hidegreenBtn22').hide();
-                                $('#hideredBtn2,#hideredBtn22').hide();
-                                $('#smiley2,#smiley22').show();
+                                $('#hideSlider2').hide();
+                                $('#hidegreenBtn2').hide();
+                                $('#hideredBtn2').hide();
+                                $('#smiley2').show();
                             } else {
-                                $('#hideSlider2,#hideSlider22').show();
-                                $('#hidegreenBtn2,#hidegreenBtn22').show();
-                                $('#hideredBtn2,#hideredBtn22').show();
-                                $('#smiley2,#smiley22').hide();
+                                $('#hideSlider2').show();
+                                $('#hidegreenBtn2').show();
+                                $('#hideredBtn2').show();
+                                $('#smiley2').hide();
                             }
                             self.myPlusRatings(plus); // over all ratings
                             self.myMinusRatings(minus);
                             if (self.myPlusRatings() == 0 && self.myMinusRatings() == 0) {
                                 self.sliderText3("You have not been rated yet!!");
-                                $('#hideSlider3,#hideSlider32').hide();
-                                $('#hidegreenBtn3,#hidegreenBtn32').hide();
-                                $('#hideredBtn3,#hideredBtn32').hide();
-                                $('#smiley3,#smiley32').show();
+                                $('#hideSlider3').hide();
+                                $('#hidegreenBtn3').hide();
+                                $('#hideredBtn3').hide();
+                                $('#smiley3').show();
                             } else {
-                                $('#hideSlider3,#hideSlider32').show();
-                                $('#hidegreenBtn3,#hidegreenBtn32').show();
-                                $('#hideredBtn3,#hideredBtn32').show();
-                                $('#smiley3,#smiley32').hide();
+                                $('#hideSlider3').show();
+                                $('#hidegreenBtn3').show();
+                                $('#hideredBtn3').show();
+                                $('#smiley3').hide();
                             }
                         }
                         /// rating calculation end here
