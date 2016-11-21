@@ -60,6 +60,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 this.myname = person['name'];
                 this.email = person['email'];
                 var abc = "Not Assigned";
+                this.temporaryNumber = ko.observable();
+                this.interestsOptions = ko.observableArray();
+                this.projectOptions = ko.observableArray();
                 this.feedback = ko.observable("GOOD WORK...  keep it up!!");
                 this.feedbackContent1 = ko.observableArray([]);
                 this.feedbackContent2 = ko.observableArray([]);
@@ -70,8 +73,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 this.minus = ko.observable();
                 this.myNumber = ko.observable();
                 this.skills = ko.observable();
-                this.interests = ko.observable();
-                this.projects = ko.observable();
+                this.interests = ko.observableArray();
+                this.projects = ko.observableArray();
                 this.location = ko.observable();
                 this.associate_with_infobeans = ko.observable();
                 this.NoCommentsN = ko.observable(""); // for negative comment
@@ -85,6 +88,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 this.minusSign = ko.observable('-');
                 this.plusSign = ko.observable('+');
                 self.selectedTab = ko.observable(0);
+                var editVariable;
                 var windowLocation = window.location;
                 var id = windowLocation.search.substring(windowLocation.search.indexOf("=") + 1, windowLocation.search.length);
 
@@ -93,20 +97,18 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 }
 
                 ///////////open modal
-                self.tempararyNumber = ko.observable();
+
                 //open feedback close feedback
                 setTimeout(function () {
                     $('.openDiv').click(function () {
                         $(this).parent().prev('.open-more').slideToggle();
                         if ($(this).prev().children("span").hasClass("hide")) {
                             $(this).prev().children("span").removeClass("hide");
-                            console.log($(this).children("span").children("span").children("i").attr('class'));
                             $(this).children("span").children("span").children("i").addClass("zmdi-caret-up");
                             $(this).children("span").children("span").children("i").removeClass("zmdi-caret-down");
                             $(this).children("span").children("span:nth-child(2)").html("Less");
                         } else {
                             $(this).children("span").children("span:nth-child(2)").html("More");
-                            console.log($(this).children("span").children("span").children("i").attr('class'));
                             $(this).children("span").children("span").children("i").removeClass("zmdi-caret-up");
                             $(this).children("span").children("span").children("i").addClass("zmdi-caret-down");
                             $(this).prev().children("span").addClass("hide");
@@ -155,7 +157,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         headers: {secret: secret},
                         method: 'POST',
                         url: updateProfile,
-                        data: {user_id: self.id(),desc: self.designation(),location: self.location(),skills: self.skills(),associate_with_infobeans: self.associate_with_infobeans(),projects: self.projects(),interests: self.interests(),mob: self.myNumber(),mob: self.myNumber()},
+                        data: {user_id: self.id(), desc: self.designation(), location: self.location(), skills: self.skills(), associate_with_infobeans: self.associate_with_infobeans(), projects: self.projects(), interests: self.interests(), mob: self.myNumber(), mob: self.myNumber()},
                         success: function () {
                             // self.desc('');
                             // self.textError('');
@@ -184,13 +186,21 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         self.id(task.attributes['data']['id']);
                         self.myname
                         self.designation(abc);
-                       // var num = task.attributes['data']['mobile_number'] == "" ? "NO NUMBER" : "+91-" + task.attributes['data']['mobile_number'];
+                        // var num = task.attributes['data']['mobile_number'] == "" ? "NO NUMBER" : "+91-" + task.attributes['data']['mobile_number'];
                         var num = "9405349099" == "" ? "NO NUMBER" : "+91-" + "9405349099";
                         self.myNumber(num);
                         self.skills(task.attributes['data']['skills']);
                         self.location(task.attributes['data']['location']);
-                        self.interests(task.attributes['data']['interests']);
-                        self.projects(task.attributes['data']['projects']);
+                        if (task.attributes['data']['interests'].length != 0) {
+                            self.interests(task.attributes['data']['interests']);
+                        } else {
+                            self.interests([]);
+                        }
+                        if (task.attributes['data']['projects'].length != 0) {
+                            self.interests(task.attributes['data']['projects']);
+                        } else {
+                            self.projects([]);
+                        }
                         self.associate_with_infobeans(task.attributes['data']['associate_with_infobeans']);
                         //feedback for the user
                         var feedbackApi = oj.Model.extend({
@@ -227,13 +237,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                 for (var i = 0; i < data.length; i++) {
                                     if (data[i]['rating'] == 0) {
                                         minus++;
-                                        var ab = new dataComment(data[i]['description'], data[i]['given_by_name'], data[i]['created_date']);
-                                        self.commentDataNegative.push(ab);
+                                        var temporaryComment = new dataComment(data[i]['description'], data[i]['given_by_name'], data[i]['created_date']);
+                                        self.commentDataNegative.push(temporaryComment);
                                     } else {
                                         if (data[i]['rating'] == 1)
                                             plus++;
-                                        var ab = new dataComment(data[i]['description'], data[i]['given_by_name'], data[i]['created_date']);
-                                        self.commentDataPositive.push(ab);
+                                        var temporaryComment = new dataComment(data[i]['description'], data[i]['given_by_name'], data[i]['created_date']);
+                                        self.commentDataPositive.push(temporaryComment);
                                     }
                                 }
                                 if (self.commentDataNegative().length == 0) {
@@ -262,7 +272,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 self.closeModal = function () {
                     $("#open-modal").fadeOut();
                     $("#open-modal").removeClass('open');
-                    self.myNumber(self.tempararyNumber());
+                    self.myNumber(self.temporaryNumber());
                 };
 
                 // submit edit profile modal for edit profile...
@@ -300,7 +310,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 self.openModal = function () {
                     $("#open-modal").fadeIn();
                     $("#open-modal").addClass('open');
-                    self.tempararyNumber(self.myNumber()); // store number temparary for observable
+                    self.temporaryNumber(self.myNumber()); // store number temparary for observable
                     if (self.myNumber() == "NO NUMBER") {
                         self.myNumber("");
                     } else {
@@ -308,35 +318,79 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         self.myNumber(numberTrim.substr(numberTrim.indexOf("-") + 1), numberTrim.length);
                     }
                 };
+                // edit projects
+                self.openDate = function () {
+                    editVariable = self.associate_with_infobeans();
+                    
+                }
+                self.updateDate = function () {
+                    console.log(self.associate_with_infobeans());
+                    //ajax call here
+                }
+                self.dateRevert = function () {
+                    self.associate_with_infobeans(editVariable);
+                }
+
+
+
+// edit projects
+                self.openProjects = function () {
+                    editVariable = self.projectOptions();
+                    self.projectOptions([]);
+                    for (var c = 0; c < 3; c++) {
+                        var obj = new Object();
+                        obj.name = "1. " + c;
+                        self.projectOptions.push(obj);
+                    }
+                    $('#selectProjects').ojSelect("refresh");
+                }
+                self.updateProjects = function () {
+                    console.log(self.projectOptions());
+                    //ajax call here
+                }
+                self.projectsRevert = function () {
+                    self.projectOptions(editVariable);
+                }
+
                 // edit interests
-                self.openInterest = function(){
-                    
+                self.openInterest = function () {
+                    editVariable = self.interests();
+                    self.interestsOptions([]);
+                    for (var c = 0; c < 3; c++) {
+                        var obj = new Object();
+                        obj.name = "1. " + c;
+                        self.interestsOptions.push(obj);
+                    }
+                    console.log(editVariable);
+                    $('#selectInterests').ojSelect("refresh");
                 }
-                self.updateInterest = function(){
-                    
+                self.updateInterest = function () {
+                    console.log(self.interests());
+                    //ajax call here
                 }
-                self.interestRevert = function(){
-                    
+                self.interestRevert = function () {
+                    self.interests(editVariable);
                 }
-                var editVariable;
+
                 // edit number here......
-                self.openNumber = function(){
+                self.openNumber = function () {
                     //$("#editNumberBox").show();
-                    editVariable = self.myNumber().substring(self.myNumber().indexOf("-")+1, self.myNumber().length);
-                    self.tempararyNumber(self.myNumber().substring(self.myNumber().indexOf("-")+1, self.myNumber().length));
-                    self.tempararyNumber();    
+                    editVariable = self.myNumber().substring(self.myNumber().indexOf("-") + 1, self.myNumber().length);
+                    self.temporaryNumber(self.myNumber().substring(self.myNumber().indexOf("-") + 1, self.myNumber().length));
+                    self.temporaryNumber();
                 }
-                self.updateNumber = function(){
+                self.updateNumber = function () {
                     //$("#editNumberBox").hide();
-                    self.tempararyNumber(self.myNumber().substring(self.myNumber().indexOf("-")+1, self.myNumber().length));
-                    self.myNumber("+91"+self.tempararyNumber());
+                    self.myNumber("+91-" + self.temporaryNumber());
+                    //self.temporaryNumber("");
                     //ajax call here.
                 }
-                self.numberEditRevert = function(){
+                self.numberEditRevert = function () {
                     //$("#editNumberBox").hide();
-                    self.tempararyNumber(self.myNumber().substring(self.myNumber().indexOf("-")+1, self.myNumber().length));
-                    self.myNumber("+91"+editVariable);    
-                    
+                    self.temporaryNumber(self.myNumber().substring(self.myNumber().indexOf("-") + 1, self.myNumber().length));
+                    self.myNumber("+91-" + editVariable);
+                    self.temporaryNumber("");
+
                 }
             }
 
