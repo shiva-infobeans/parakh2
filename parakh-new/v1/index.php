@@ -225,6 +225,9 @@ $app->post('/updateProfile', function ($request, $response) {
     if(is_array($data['interests'])){
         $post_data['interests'] = implode(",",$data['interests']);
     }
+    if(is_array($data['primary_project'])){
+        $post_data['primary_project'] = implode(",",$data['primary_project']);
+    }
     if($db->isValidUser( $post_data['user_id'] )){
         if(is_numeric(str_replace('+91-', '',$post_data['mob'])))
         {

@@ -131,7 +131,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                 $.ajax({
                     headers: {secret: secret},
                     method: 'POST',
-                    url: getAllTeamMembers+userRecord.attributes['data'],
+                    url: getAllTeamMembers+userRecord.attributes['data']['id'],
                     data: {},
                     success: function (task) {
                         var data = JSON.parse(task)['data'];
