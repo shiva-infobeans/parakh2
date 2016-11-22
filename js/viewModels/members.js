@@ -132,7 +132,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                     headers: {secret: secret},
                     method: 'POST',
                     url: getAllTeamMembers+userRecord.attributes['data'],
-                    data: {user_id: self.id()},
+                    data: {},
                     success: function (task) {
                         var data = JSON.parse(task)['data'];
                         var index;
