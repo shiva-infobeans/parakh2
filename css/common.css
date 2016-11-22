@@ -1352,7 +1352,7 @@ body{
     border-width: 1px 0 0;
 }
 .View-Other-about{
-    padding: 17px;
+    padding: 14px;
     font-size: 23px;
     border-bottom: 1px solid #689F39;
 }
@@ -1440,10 +1440,16 @@ body{
 .addImage{
     background-image: url("../../images/+1-icon-active.png");
     height: 20px;
-    width: 30px;
-    
+    width: 30px;   
 }
-
 #negetiveTab , #feedbackTab{
     display:none;
+}
+.oj-filmstrip-arrow.oj-default .oj-filmstrip-arrow-icon{
+    color: #fff;
+    font-size: 40px;
+}
+.oj-filmstrip-arrow.oj-hover {
+    background-color: transparent !important;
+    border-color:transparent !important;
 }

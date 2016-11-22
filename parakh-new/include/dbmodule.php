@@ -287,7 +287,7 @@ class dbmodule {
             $this->getParakhLink();
             $rating = ($data['rating'] == 0) ? '-1' : 1;
             $vars = array(
-                "{username}" => $email_data['to']['name'],
+                "{Username}" => $email_data['to']['name'],
                 "{rating}" => $rating,
                 "{parakh}" => $this->getParakhLink(),
             );
@@ -799,7 +799,7 @@ class dbmodule {
             ':modified_date' => $modified_date,
         ));
 
-        /* send email to user when decline */
+        /* send email to user when response has been received*/
         if (isset($data['feedback_desc']) && !empty($data['feedback_desc'])) {
             $email_data = [];
             $user_data = $this->getEmailById($data['login_user_id']);
