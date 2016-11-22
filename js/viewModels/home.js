@@ -50,6 +50,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
         self.leadMinusWeek = ko.observable();
         self.leadMinusmonth = ko.observable();
         self.leadMinustill = ko.observable();
+
 //         get members who get +1 recently
         var rec = oj.Model.extend({
             url: getRecentRankingList
@@ -66,6 +67,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 self.image0(img0);
                 var person0 = "memberProfile.html?id=" + data.attributes['data'][0]['user_id'];
                 self.link0(person0);
+
                 var img1 = data.attributes['data'][1]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][1]['google_picture_link'];
                 self.name1(data.attributes['data'][1]['google_name'].substr(0, data.attributes['data'][1]['google_name'].indexOf(' ')));
                 self.name1hover(data.attributes['data'][1]['google_name']);
@@ -73,6 +75,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 self.image1(img1);
                 var person1 = "memberProfile.html?id=" + data.attributes['data'][1]['user_id'];
                 self.link1(person1);
+
                 var img2 = data.attributes['data'][2]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][2]['google_picture_link'];
                 self.name2(data.attributes['data'][2]['google_name'].substr(0, data.attributes['data'][2]['google_name'].indexOf(' ')));
                 self.name2hover(data.attributes['data'][2]['google_name']);
@@ -80,6 +83,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 self.image2(img2);
                 var person2 = "memberProfile.html?id=" + data.attributes['data'][2]['user_id'];
                 self.link2(person2);
+
                 var img3 = data.attributes['data'][3]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][3]['google_picture_link'];
                 self.name3(data.attributes['data'][3]['google_name'].substr(0, data.attributes['data'][3]['google_name'].indexOf(' ')));
                 self.name3hover(data.attributes['data'][3]['google_name']);
@@ -89,6 +93,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 self.link3(person3);
             }
         });
+
         var profile = oj.Model.extend({
             url: getUserByEmail + person['email']
         });
@@ -98,21 +103,33 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
             success: function (res) {
                 var view = "profile.html?id=" + viewProfile.attributes['data']['id'];
                 self.vieMyProfile(view);
+
             }
         });
+
         this.memberName = person['name'].substr(0, person['name'].indexOf(' '));
         this.id = ko.observable();
+
         this.dayPlusRatings = ko.observable(0); //for this week
         this.dayMinusRatings = ko.observable(0);
+
         this.monthPlusRatings = ko.observable(0); //for this month
         this.monthMinusRatings = ko.observable(0);
+
         this.myPlusRatings = ko.observable(0);
         this.myMinusRatings = ko.observable(0);
+
         self.sliderText1 = ko.observable();
         self.sliderText2 = ko.observable();
         self.sliderText3 = ko.observable();
+
         self.teamMembers = ko.observableArray();
-        //pagination slider for manager start
+        self.addteamMembers = function (obj) {
+            self.teamMembers.push(obj);
+
+            $('#filmStrip').ojFilmStrip("refresh");
+        }
+//pagination slider for manager start
         self.projects = ko.observableArray([]);
         self.addProject = function (obj) {
             self.projects.push(obj);
@@ -133,17 +150,14 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
             }
             return self.pagingModel;
         };// pagination slider for manager end
-
-        self.addteamMembers = function (obj) {
-            self.teamMembers.push(obj);
-            $('#filmStrip').ojFilmStrip("refresh");
-        }
         self.currentNavArrowPlacement = ko.observable("adjacent");
         self.currentNavArrowVisibility = ko.observable("auto");
+
         getItemInitialDisplay = function (index)
         {
             return index < 4 ? '' : 'none';
         };
+
         var TaskRecord = oj.Model.extend({
             url: getUserByEmail + person['email'],
             //parse: parseTask
@@ -152,6 +166,10 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
         task.fetch({
             headers: {secret: secret},
             success: function () {
+                self.id(task.attributes['data']['id']);
+                self.roleName(task.attributes['data']['id']);
+                //lead /member service for +1 count and -1 count
+
                 self.id(task.attributes['data']['id']);
                 self.roleName(task.attributes['data']['role_name']);
                 //lead /member service for +1 count and -1 count
@@ -167,16 +185,16 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                         headers: {secret: secret},
                         success: function (result) {
                             //console.log(result['attributes']['data']);
-                            
+
                             var data = result['attributes']['data'];
                             for (var c = 0; c < data.length; c++) {
                                 var obj = new Object();
-                                var dat= data[0].split(",");
+                                var dat = data[0].split(",");
                                 obj.name = dat[0];
                                 obj.plus = dat[1] == 0 ? 0 : "+" + dat[1];
                                 obj.minus = dat[2] == 0 ? 0 : "+" + dat[2];
                                 self.addProject(obj);
-                                if (dat[1]==0 && dat[2]==0)
+                                if (dat[1] == 0 && dat[2] == 0)
                                 {
                                     $("#srno" + c + " .slider-item").hide();
                                     $("#emptyTxt" + c).show();
@@ -195,12 +213,41 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                         leadSlideFetch.fetch({
                             headers: {secret: secret},
                             success: function (result) {
-                                self.leadPlusWeek(result['attributes']['data']['week']['plus']);
-                                self.leadPlusmonth(result['attributes']['data']['month']['plus']);
-                                self.leadPlustill(result['attributes']['data']['till_now']['plus']);
-                                self.leadMinusWeek(result['attributes']['data']['week']['minus']);
-                                self.leadMinusmonth(result['attributes']['data']['month']['minus']);
-                                self.leadMinustill(result['attributes']['data']['till_now']['minus']);
+                                if (result['attributes']['data']['week']['plus'] == 0 && result['attributes']['data']['week']['minus'] == 0) {
+                                    $("#hideSliderWeek").show();
+                                    $("#weekSmiley").show();
+                                    $("#hideSlider12").hide();
+                                } else {
+                                    $("#hideSliderWeek").hide();
+                                    $("#weekSmiley").hide();
+                                    $("#hideSlider12").show();
+                                }
+
+                                if (result['attributes']['data']['month']['plus'] == 0 && result['attributes']['data']['month']['minus'] == 0) {
+                                    $("#hideMonthSlider").show();
+                                    $("#monthSmiley").show();
+                                    $("#hideSlider22").hide();
+                                } else {
+                                    $("#hideMonthSlider").hide();
+                                    $("#monthSmiley").hide();
+                                    $("#hideSlider22").show();
+                                }
+                                if (result['attributes']['data']['till_now']['plus'] == 0 && result['attributes']['data']['till_now']['minus'] == 0) {
+                                    $("#inner-wrapper1").hide();
+                                    $("#noRatingsScreen1").show();
+                                    $("#smileyOverAll").show();
+                                } else {
+                                    $("#inner-wrapper1").show();
+                                    $("#noRatingsScreen1").hide();
+                                    $("#smileyOverAll").hide();
+                                }
+
+                                self.leadPlusWeek(result['attributes']['data']['week']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['week']['plus']);
+                                self.leadPlusmonth(result['attributes']['data']['month']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['month']['plus']);
+                                self.leadPlustill(result['attributes']['data']['till_now']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['till_now']['plus']);
+                                self.leadMinusWeek(result['attributes']['data']['week']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['week']['minus']);
+                                self.leadMinusmonth(result['attributes']['data']['month']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['month']['minus']);
+                                self.leadMinustill(result['attributes']['data']['till_now']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['till_now']['minus']);
                             }
                         });
                     } else {
@@ -221,12 +268,40 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                                 leadSlideFetch.fetch({
                                     headers: {secret: secret},
                                     success: function (result) {
-                                        self.leadPlusWeek(result['attributes']['data']['week']['plus']);
-                                        self.leadPlusmonth(result['attributes']['data']['month']['plus']);
-                                        self.leadPlustill(result['attributes']['data']['till_now']['plus']);
-                                        self.leadMinusWeek(result['attributes']['data']['week']['minus']);
-                                        self.leadMinusmonth(result['attributes']['data']['month']['minus']);
-                                        self.leadMinustill(result['attributes']['data']['till_now']['minus']);
+                                        if (result['attributes']['data']['week']['plus'] == 0 && result['attributes']['data']['week']['minus'] == 0) {
+                                            $("#hideSliderWeek").show();
+                                            $("#weekSmiley").show();
+                                            $("#hideSlider12").hide();
+                                        } else {
+                                            $("#hideSliderWeek").hide();
+                                            $("#weekSmiley").hide();
+                                            $("#hideSlider12").show();
+                                        }
+
+                                        if (result['attributes']['data']['month']['plus'] == 0 && result['attributes']['data']['month']['minus'] == 0) {
+                                            $("#hideMonthSlider").show();
+                                            $("#monthSmiley").show();
+                                            $("#hideSlider22").hide();
+                                        } else {
+                                            $("#hideMonthSlider").hide();
+                                            $("#monthSmiley").hide();
+                                            $("#hideSlider22").show();
+                                        }
+                                        if (result['attributes']['data']['till_now']['plus'] == 0 && result['attributes']['data']['till_now']['minus'] == 0) {
+                                            $("#inner-wrapper1").hide();
+                                            $("#noRatingsScreen1").show();
+                                            $("#smileyOverAll").show();
+                                        } else {
+                                            $("#inner-wrapper1").show();
+                                            $("#noRatingsScreen1").hide();
+                                            $("#smileyOverAll").hide();
+                                        }
+                                        self.leadPlusWeek(result['attributes']['data']['week']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['week']['plus']);
+                                        self.leadPlusmonth(result['attributes']['data']['month']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['month']['plus']);
+                                        self.leadPlustill(result['attributes']['data']['till_now']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['till_now']['plus']);
+                                        self.leadMinusWeek(result['attributes']['data']['week']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['week']['minus']);
+                                        self.leadMinusmonth(result['attributes']['data']['month']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['month']['minus']);
+                                        self.leadMinustill(result['attributes']['data']['till_now']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['till_now']['minus']);
                                     }
                                 });
 
@@ -235,6 +310,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                     }
 
                 }
+// end of the performance slider
 
                 /// +1 performance slider 2nd tab start here
                 var personRating = oj.Model.extend({
@@ -297,6 +373,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                                         });
                                     }
                                 });
+
                             }
                         }); /// +1 performance slider 2nd tab end here.
 
@@ -355,7 +432,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                         }
                         self.myPlusRatings(plus); // over all ratings
                         self.myMinusRatings(minus);
-                        if (self.myPlusRatings() == 0 && self.myMinusRatings() == 0) {                                                                              
+                        if (self.myPlusRatings() == 0 && self.myMinusRatings() == 0) {
                             $('#inner-wrapper').hide();
                             $('#noRatingsScreen').show();
                         } else {
@@ -376,6 +453,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                             }
                             self.monthPlusRatings(monthP); //ratings in this Month
                             self.monthMinusRatings(monthN);
+
                             if (self.monthPlusRatings() == 0 && self.monthMinusRatings() == 0) {
                                 self.sliderText2("You have not been rated this month!!");
                                 $('#hideSlider2').hide();
@@ -408,8 +486,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 });
             }
         });
-
-        var counter = 1; //automatic slider counter
+        var counter = 1;//automatic slider counter
 
         setInterval(function () {
             if (counter % 3 == 0) {
@@ -419,6 +496,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 document.getElementsByName("slide1")[0].checked = true;
                 document.getElementsByName("slide1")[1].checked = false;
                 document.getElementsByName("slide1")[2].checked = false;
+
                 counter = 0;
             }
             if (counter % 3 == 1) {
@@ -428,6 +506,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 document.getElementsByName("slide1")[0].checked = false;
                 document.getElementsByName("slide1")[1].checked = true;
                 document.getElementsByName("slide1")[2].checked = false;
+
             }
             if (counter % 3 == 2) {
                 document.getElementsByName("slide")[0].checked = false;
@@ -436,14 +515,10 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 document.getElementsByName("slide1")[0].checked = false;
                 document.getElementsByName("slide1")[1].checked = false;
                 document.getElementsByName("slide1")[2].checked = true;
+
             }
             counter++;
 
-            if ($("#filmStrip").find("#ui-id-9").attr("style") == "visibility: hidden;")
-               $( "#filmStrip" ).ojFilmStrip( "option", "currentItem", 1 );
-            else {
-                $("#filmStrip").find("#ui-id-9").click();
-            }
         }, 6000)
 
 
@@ -453,6 +528,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 $(this).addClass('oj-tabs-title-active');
             });
         }, 500);
+
     }
 
     return homeContentViewModel;

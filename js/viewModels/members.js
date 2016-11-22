@@ -96,11 +96,8 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
         userRecord.fetch({
             headers: {secret: secret},
             success: function (res) {
-                
                 self.roleName(userRecord.attributes['data']['role_name']);
-                console.log(userRecord.attributes['data']['role_name']);
                 self.myselfId(userRecord.attributes['data']['id']);
-                console.log(userRecord.attributes['data']['id']);
                 self.myselfName(userRecord.attributes['data']['google_name']);
                  
                  if(self.id() == self.myselfId()){
@@ -126,14 +123,15 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                     }
                 });
                   
-                var TaskRecord = oj.Model.extend({
-                    url: getAllTeamMembers + userRecord.attributes['data']['id']
-                });
-                var task = new TaskRecord();
-                task.fetch({
+
+
+                $.ajax({
                     headers: {secret: secret},
-                    success: function () {
-                        var data = task.attributes['data'];
+                    method: 'POST',
+                    url: getAllTeamMembers+userRecord.attributes['data']['id'],
+                    data: {},
+                    success: function (task) {
+                        var data = JSON.parse(task)['data'];
                         var index;
                         for (index = 0; index < data.length; index++) {
                             if (data[index]["id"] == self.id()) {                             

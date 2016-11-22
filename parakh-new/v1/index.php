@@ -36,12 +36,12 @@ $app->add(function ($request, $response, $next) {
 	
         $headers = $request->getHeaders();
         // Validate headers
-        //if(trim($headers['HTTP_SECRET'][0]) != "" && validateSecretKey($headers['HTTP_SECRET'][0])){
+        if(trim($headers['HTTP_SECRET'][0]) != "" && validateSecretKey($headers['HTTP_SECRET'][0])){
             $response = $next($request, $response);
-        /*}else{
+        }else{
             $response_data = makeResponse('true',get_site_error(3003));
             $response->withJson($response_data);
-        }*/
+        }
 	//$response->getBody()->write('AFTER');
 	return $response;
 });
@@ -99,7 +99,7 @@ $app->get('/getUserByLead[/{lead_id}]', function ($request, $response, $args) {
  * 
  * Method: GET
  * */    
-$app->get('/getOtherTeamMembers[/{user_id}]', function ($request, $response, $args) {
+$app->post('/getOtherTeamMembers[/{user_id}]', function ($request, $response, $args) {
     $response_data = array();
     
     //Creating a dbmodule object
@@ -225,9 +225,9 @@ $app->post('/updateProfile', function ($request, $response) {
     if(is_array($data['interests'])){
         $post_data['interests'] = implode(",",$data['interests']);
     }
+	$post_data['mob'] = str_replace("+91-", "", $post_data['mob']);
     if($db->isValidUser( $post_data['user_id'] )){
-        if(!is_numeric(str_replace('+91', '',$post_data['mob'])))
-        {
+        if (!preg_replace( '/^[1-9][0-9]*$/', '', $post_data['mob'] )) {
             //Creating a dbmodule object
             $result = $db->updateProfile($post_data);
 
@@ -467,7 +467,7 @@ $app->post('/addFeedback', function ($request, $response) {
  * 
  * Method: GET
  * */    
-$app->get('/getAllTeamMembers[/{userId}]', function ($request, $response, $args) {
+$app->post('/getAllTeamMembers[/{userId}]', function ($request, $response, $args) {
     $response_data = array();
     //Creating a dbmodule object
     
@@ -890,7 +890,7 @@ $app->get('/getAllProjects[/]', function ($request, $response, $args) {
  * 
  * Method: GET
  * */    
-$app->get('/getAllInterests[/]', function ($request, $response, $args) {
+$app->post('/getAllInterests[/]', function ($request, $response, $args) {
     $response_data = array();
     
     //Creating a dbmodule object
@@ -912,7 +912,7 @@ $app->get('/getAllInterests[/]', function ($request, $response, $args) {
  * 
  * Method: GET
  * */    
-$app->get('/getAllDesignations[/]', function ($request, $response, $args) {
+$app->post('/getAllDesignations[/]', function ($request, $response, $args) {
     $response_data = array();
     
     //Creating a dbmodule object

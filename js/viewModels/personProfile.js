@@ -63,6 +63,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 this.temporaryNumber = ko.observable();
                 this.interestsOptions = ko.observableArray();
                 this.projectOptions = ko.observableArray();
+                this.primaryProjectOptions = ko.observableArray();
                 this.designationOptions = ko.observableArray();
                 this.feedback = ko.observable("GOOD WORK...  keep it up!!");
                 this.feedbackContent1 = ko.observableArray([]);
@@ -160,13 +161,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         headers: {secret: secret},
                         method: 'POST',
                         url: updateProfile,
-                        data: {user_id: self.id(), desc: self.designation(), location: self.location(), skills: self.skills(),primary_project: self.primary_project(), date: self.date(), projects: self.projects(), interests: self.interests(), mob: self.myNumber(), mob: self.myNumber()},
+                        data: {user_id: self.id(), desc: self.designation(), location: self.location(), skills: self.skills(),primary_project: self.primary_project(), date: self.date(), projects: self.projects(), interests: self.interests(), mob: self.myNumber()},
                         success: function (res) {
                             response = jQuery.parseJSON( res );
                             // self.desc('');
                             // self.textError('');
                             $("#successful").show();
-                            if(response.data)
+                            if(response.error=="true")
                             {
                                 self.successful(response.data.error);
                             }else
@@ -199,18 +200,23 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         self.id(task.attributes['data']['id']);
                         self.myname
                         self.designation(abc);
-                        // var num = task.attributes['data']['mobile_number'] == "" ? "NO NUMBER" : "+91-" + task.attributes['data']['mobile_number'];
-                        var num = "9405349099" == "" ? "NO NUMBER" : "+91-" + "9405349099";
+                        var num = task.attributes['data']['mobile_number'] == "" ? "NO NUMBER" : "+91-" + task.attributes['data']['mobile_number'].replace("+91-","");
                         self.myNumber(num);
                         self.skills(task.attributes['data']['skills']);
                         self.location(task.attributes['data']['location']);
                         if (task.attributes['data']['interests'].length != 0) {
-                            self.interests(task.attributes['data']['interests']);
+                            interest = task.attributes['data']['interests'].split(",");
+                            for(k=0;k<interest.length;k++){
+                                self.interests(interest);
+                            }
                         } else {
                             self.interests([]);
                         }
                         if (task.attributes['data']['projects'].length != 0) {
-                            self.projects(task.attributes['data']['projects']);
+                            project = task.attributes['data']['projects'].split(",");
+                            for(k=0;k<project.length;k++){
+                                self.projects(project);
+                            }
                         } else {
                             self.projects([]);
                         }
@@ -219,29 +225,34 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         self.date(task.attributes['data']['associate_with_infobeans']);
                         user_date = Date.parse($('#associate-text').attr('defaultDate'));
                         today_date = new Date();
-                        diff_date =  today_date - user_date;
+                        if($('#associate-text').attr('defaultDate')!=''){
+                            diff_date =  today_date - user_date;
 
-                        num_years = diff_date/31536000000;
-                        num_months = (diff_date % 31536000000)/2628000000;
-                        num_days = ((diff_date % 31536000000) % 2628000000)/86400000;
+                            num_years = diff_date/31536000000;
+                            num_months = (diff_date % 31536000000)/2628000000;
+                            num_days = ((diff_date % 31536000000) % 2628000000)/86400000;
 
-                        if(Math.floor(num_years) > 1)
-                        {
-                            num_years = Math.floor(num_years)+" Years";
+                            if(Math.floor(num_years) > 1)
+                            {
+                                num_years = Math.floor(num_years)+" Years";
+                            }else
+                            {
+                                num_years = Math.floor(num_years)+" Year";
+                            }
+
+                            if(Math.floor(num_months) > 1)
+                            {
+                                num_months = Math.floor(num_months)+" Months";
+                            }else
+                            {
+                                num_months = Math.floor(num_months)+" Month";
+                            }
+
+                            self.associate_with_infobeans(num_years+" "+num_months);
                         }else
                         {
-                            num_years = Math.floor(num_years)+" Year";
+                            self.associate_with_infobeans('');
                         }
-
-                        if(Math.floor(num_months) > 1)
-                        {
-                            num_months = Math.floor(num_months)+" Months";
-                        }else
-                        {
-                            num_months = Math.floor(num_months)+" Month";
-                        }
-
-                        self.associate_with_infobeans(num_years+" "+num_months);
 
                         //feedback for the user
                         var feedbackApi = oj.Model.extend({
@@ -374,6 +385,33 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 self.updateDate = function () {
                     //ajax call here
                     self.updateProfile();
+                    self.associate_with_infobeans(self.date());
+                    user_date = Date.parse(self.date());
+                    today_date = new Date();
+                    diff_date =  today_date - user_date;
+
+                    num_years = diff_date/31536000000;
+                    num_months = (diff_date % 31536000000)/2628000000;
+                    num_days = ((diff_date % 31536000000) % 2628000000)/86400000;
+
+                    if(Math.floor(num_years) > 1)
+                    {
+                        num_years = Math.floor(num_years)+" Years";
+                    }else
+                    {
+                        num_years = Math.floor(num_years)+" Year";
+                    }
+
+                    if(Math.floor(num_months) > 1)
+                    {
+                        num_months = Math.floor(num_months)+" Months";
+                    }else
+                    {
+                        num_months = Math.floor(num_months)+" Month";
+                    }
+
+                    self.associate_with_infobeans(num_years+" "+num_months);
+
                     $('#associate-text').removeClass('hide');
                     $('#associate-div').addClass('hide');
                     $('#edit-associate').removeClass('hide');
@@ -397,16 +435,16 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     editVariable = self.designationOptions();
                     self.designationOptions([]);
                         //get all desginations using ajax;
-                        var desgination = oj.Model.extend({
-                            url: getAllDesignations,
-                        });
-                        var desginationTask = new desgination();
-                        desginationTask.fetch({
+                        $.ajax({
                             headers: {secret: secret},
+                            method: 'POST',
+                            url: getAllDesignations,
+                            data: {},
                             success: function (res) {
-                                for (var c = 0; c < res['attributes']['data'].length; c++) {
+                                var res = JSON.parse(res)['data'];
+                                for (var c = 0; c < res.length; c++) {
                                     var obj = new Object();
-                                    obj.name = res['attributes']['data'][c]['designation'];
+                                    obj.name = res[c]['designation'];
                                     self.designationOptions.push(obj);
                                 }
                                 $('#selectDesignation').ojSelect("refresh");
@@ -547,21 +585,36 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     editVariable = self.interests();
                     self.interestsOptions([]);
                     //get all interests using ajax;
-                    var interests = oj.Model.extend({
-                        url: getAllInterests,
-                    });
-                    var interestTask = new interests();
-                    interestTask.fetch({
+                    $.ajax({
                         headers: {secret: secret},
+                        method: 'POST',
+                        url: getAllInterests,
+                        data: {},
                         success: function (res) {
-                            for (var c = 0; c < res['attributes']['data'].length; c++) {
+                            var res = JSON.parse(res)['data'];
+                            for (var c = 0; c < res.length; c++) {
                                 var obj = new Object();
-                                obj.name = res['attributes']['data'][c]['interest'];
+                                obj.name = res[c]['interest'];
                                 self.interestsOptions.push(obj);
                             }
                             $('#selectInterests').ojSelect("refresh");
                         }
                     });
+                    // var interests = oj.Model.extend({
+                    //     url: getAllInterests,
+                    // });
+                    // var interestTask = new interests();
+                    // interestTask.fetch({
+                    //     headers: {secret: secret},
+                    //     success: function (res) {
+                    //         for (var c = 0; c < res['attributes']['data'].length; c++) {
+                    //             var obj = new Object();
+                    //             obj.name = res['attributes']['data'][c]['interest'];
+                    //             self.interestsOptions.push(obj);
+                    //         }
+                    //         $('#selectInterests').ojSelect("refresh");
+                    //     }
+                    // });
                     $('#interest-text').addClass('hide');
                     $('#interest-div').removeClass('hide');
                     $('#edit-interest').addClass('hide');
@@ -591,8 +644,25 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 var DefaultPrimaryProjectVar;
                 self.openPrimaryProject = function () {
                     DefaultPrimaryProjectVar = self.primary_project();
+                    self.primaryProjectOptions([]);
+                    //get all projects using ajax;
+                    var primaryprojects = oj.Model.extend({
+                        url: getAllProjects,
+                    });
+                    var primaryprojectTask = new primaryprojects();
+                    primaryprojectTask.fetch({
+                        headers: {secret: secret},
+                        success: function (res) {
+                            for (var c = 0; c < res['attributes']['data'].length; c++) {
+                                var obj = new Object();
+                                obj.name = res['attributes']['data'][c]['name'];
+                                self.primaryProjectOptions.push(obj);
+                            }
+                            $('#selectPrimaryProjects').ojSelect("refresh");
+                        }
+                    });
                         $('#primary-project-text').addClass('hide');
-                        $('#primary-project').removeClass('hide');
+                        $('#primary-project-div').removeClass('hide');
                         $('#edit-primary-project').addClass('hide');
                         $('#submit-primary-project').removeClass('hide');
                         $('#cancel-primary-project').removeClass('hide');
@@ -601,14 +671,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     //ajax call here
                     self.updateProfile();
                     $('#primary-project-text').removeClass('hide');
-                    $('#primary-project').addClass('hide');
+                    $('#primary-project-div').addClass('hide');
                     $('#edit-primary-project').removeClass('hide');
                     $('#submit-primary-project').addClass('hide');
                     $('#cancel-primary-project').addClass('hide');
                 }
                 self.primaryProjectRevert = function () {
                     $('#primary-project-text').removeClass('hide');
-                    $('#primary-project').addClass('hide');
+                    $('#primary-project-div').addClass('hide');
                     $('#edit-primary-project').removeClass('hide');
                     $('#submit-primary-project').addClass('hide');
                     $('#cancel-primary-project').addClass('hide');
