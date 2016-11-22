@@ -104,11 +104,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             headers: {secret: secret},
             success: function (result) {
                 self.userIdFloat(result['attributes']['data']['id']);
-                   self.role_name(result['attributes']['data']['role_name']);
-                   
-                      if (self.role_name() === 'Team Member') {
+                self.role_name(result['attributes']['data']['role_name']);
+
+                if (self.role_name() === 'Team Member') {
                     $('#hideFeedbackFloat').hide();
-                  
+
                 } else {
                     $('#hideFeedbackFloat').show();
                 }
