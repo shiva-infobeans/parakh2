@@ -63,7 +63,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.desc = ko.observable();
         self.textError = ko.observable();
         self.sucessMsg = ko.observable();
-
+        
         //user
         var user = oj.Model.extend({
             url: getUserByEmail + person['email']
@@ -84,12 +84,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
                     $('#tabs ul li:last-child').addClass('abc').show();
                     //lead id user
-
-                    $.ajax({
+                    var teamUser = oj.Model.extend({
                         url: getUserByLead + self.lead_id(),
+                    });
+                    var getUser = new teamUser();
+                    getUser.fetch({
                         headers: {secret: secret},
-                        success: function (result) {
-                            var data = JSON.parse(result)['data'];
+                        success: function () {
+                            var data = getUser.attributes['data'];
                             data = data.sort(function (a, b) {
                                 return (a['user_name'] > b['user_name']) - (a['user_name'] < b['user_name']);
                             });
@@ -99,6 +101,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             self.data1(self.myTeam());
                         }
                     });
+
 
                 }
 
@@ -118,6 +121,24 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         self.data2(self.members());
                     }
                 });
+                // var TaskRecord = oj.Model.extend({
+                //     url: getOtherTeamMembers + self.userId()
+                // });
+                // var task = new TaskRecord();
+                // task.fetch({
+                //     headers: {secret: secret},
+                //     success: function (res) {
+                //         var data = task.attributes['data'];
+                //         data = data.sort(function (a, b) {
+                //             return (a['google_name'] > b['google_name']) - (a['google_name'] < b['google_name']);
+                //         });
+                //         for (var counter1 = 0; counter1 < data.length; counter1++) {
+                //             self.members.push(new teamMember(data[counter1]));
+                //         }
+                //         self.data2(self.members());
+                //     }
+                // });
+
             }
         });
         self.arrangeIndex = function (data, event) {
@@ -468,12 +489,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.handleOKClose = $("#okButton").click(function () {
                 $("#modalDialog8").ojDialog("close");
             });
-
+            
             $(".tabIcon").click(function () {
-                $(".tabIcon").removeClass('oj-tabs-title-active');
-                $(this).addClass('oj-tabs-title-active');
-            });
-
+               $(".tabIcon").removeClass('oj-tabs-title-active');
+               $(this).addClass('oj-tabs-title-active');
+           });
+            
 
         }, 600);
     }
