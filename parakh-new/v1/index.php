@@ -205,7 +205,7 @@ $app->post('/updateProfile', function ($request, $response) {
     $data = $request->getParsedBody();
     $post_data = [];
     $post_data['user_id'] = filter_var($data['user_id'], FILTER_SANITIZE_NUMBER_INT);
-    $post_data['mob']   = filter_var($data['mob'], FILTER_SANITIZE_NUMBER_INT);     
+    $post_data['mob']   = filter_var($data['mob'], FILTER_SANITIZE_STRING);     
     $post_data['des'] = filter_var($data['desc'], FILTER_SANITIZE_STRING);
     $post_data['skills'] = filter_var($data['skills'], FILTER_SANITIZE_STRING);
     $post_data['associate_with_infobeans'] = filter_var($data['date'], FILTER_SANITIZE_STRING);
@@ -228,9 +228,9 @@ $app->post('/updateProfile', function ($request, $response) {
     if(is_array($data['primary_project'])){
         $post_data['primary_project'] = implode(",",$data['primary_project']);
     }
+
     if($db->isValidUser( $post_data['user_id'] )){
-        if(is_numeric(str_replace('+91-', '',$post_data['mob'])))
-        {
+        if (!preg_replace( '/^[1-9][0-9]*$/', '', $post_data['mob'] )) {
             //Creating a dbmodule object
             $result = $db->updateProfile($post_data);
 

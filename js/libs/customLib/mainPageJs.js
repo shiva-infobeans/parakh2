@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 //links for webservice;
-var baseUrl = "http://dev.parakh.com/parakh-new/v1/index.php";
+var baseUrl = "http://dev.parakh.com/parakh2/parakh-new/v1/index.php";
 var getUserByEmail = baseUrl+"/getUserByEmail/";
 var getUserByLead = baseUrl+"/getUserByLead/";
 var getOtherTeamMembers = baseUrl+"/getOtherTeamMembers/";
@@ -34,6 +34,7 @@ var getTopRankersProjectWise = baseUrl+"/getTopRankersProjectWise/";
 var getAllProjects = baseUrl+"/getAllProjects/";
 var getAllInterests = baseUrl+"/getAllInterests/";
 var getAllDesignations = baseUrl+"/getAllDesignations/";
+var getOtherTeamMembers = baseUrl+"/getOtherTeamMembers/";
 
 
 

@@ -161,13 +161,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         headers: {secret: secret},
                         method: 'POST',
                         url: updateProfile,
-                        data: {user_id: self.id(), desc: self.designation(), location: self.location(), skills: self.skills(),primary_project: self.primary_project(), date: self.date(), projects: self.projects(), interests: self.interests(), mob: self.myNumber(), mob: self.myNumber()},
+                        data: {user_id: self.id(), desc: self.designation(), location: self.location(), skills: self.skills(),primary_project: self.primary_project(), date: self.date(), projects: self.projects(), interests: self.interests(), mob: self.temporaryNumber()},
                         success: function (res) {
                             response = jQuery.parseJSON( res );
                             // self.desc('');
                             // self.textError('');
                             $("#successful").show();
-                            if(response.data)
+                            if(response.error=="true")
                             {
                                 self.successful(response.data.error);
                             }else
@@ -200,8 +200,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         self.id(task.attributes['data']['id']);
                         self.myname
                         self.designation(abc);
-                        // var num = task.attributes['data']['mobile_number'] == "" ? "NO NUMBER" : "+91-" + task.attributes['data']['mobile_number'];
-                        var num = "9405349099" == "" ? "NO NUMBER" : "+91-" + "9405349099";
+                        var num = task.attributes['data']['mobile_number'] == "" ? "NO NUMBER" : "+91-" + task.attributes['data']['mobile_number'].replace("+91-","");
                         self.myNumber(num);
                         self.skills(task.attributes['data']['skills']);
                         self.location(task.attributes['data']['location']);
@@ -596,26 +595,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                             for (var c = 0; c < res.length; c++) {
                                 var obj = new Object();
                                 obj.name = res[c]['interest'];
-                                self.designationOptions.push(obj);
+                                self.interestsOptions.push(obj);
                             }
-                            $('#selectDesignation').ojSelect("refresh");
+                            $('#selectInterests').ojSelect("refresh");
                         }
                     });
-                    // var interests = oj.Model.extend({
-                    //     url: getAllInterests,
-                    // });
-                    // var interestTask = new interests();
-                    // interestTask.fetch({
-                    //     headers: {secret: secret},
-                    //     success: function (res) {
-                    //         for (var c = 0; c < res['attributes']['data'].length; c++) {
-                    //             var obj = new Object();
-                    //             obj.name = res['attributes']['data'][c]['interest'];
-                    //             self.interestsOptions.push(obj);
-                    //         }
-                    //         $('#selectInterests').ojSelect("refresh");
-                    //     }
-                    // });
+                    
                     $('#interest-text').addClass('hide');
                     $('#interest-div').removeClass('hide');
                     $('#edit-interest').addClass('hide');
