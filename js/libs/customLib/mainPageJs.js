@@ -4,7 +4,20 @@
  * and open the template in the editor.
  */
 //links for webservice;
-var baseUrl = "http://dev.parakh.com/parakh-new/v1/index.php";
+
+if(location.hostname=='dev.parakh.com')
+{
+	var baseUrl = "http://dev.parakh.com/parakh2/parakh-new/v1/index.php";
+	var secret = 'parakh-revamp-local-key-2016';
+}else if(location.hostname== 'dev.parakhnewdesign.com')
+{
+	var baseUrl = "http://dev.parakhnewdesign.com/parakh-new/v1/index.php";
+	var secret = 'parakh-revamp-qa#key!2016';
+}else if(location.hostname=='qa.parakhnewdesign.com')
+{
+	var baseUrl = "http://qa.parakhnewdesign.com/parakh-new/v1/index.php";
+	var secret = 'parakh-revamp-qa#key!2016';
+}
 var getUserByEmail = baseUrl+"/getUserByEmail/";
 var getUserByLead = baseUrl+"/getUserByLead/";
 var getOtherTeamMembers = baseUrl+"/getOtherTeamMembers/";
@@ -34,10 +47,8 @@ var getTopRankersProjectWise = baseUrl+"/getTopRankersProjectWise/";
 var getAllProjects = baseUrl+"/getAllProjects/";
 var getAllInterests = baseUrl+"/getAllInterests/";
 var getAllDesignations = baseUrl+"/getAllDesignations/";
+var getOtherTeamMembers = baseUrl+"/getOtherTeamMembers/";
 
-
-
-var secret = 'parakh-revamp-local-key-2016';
 
 //updates for google client id and parakh logo (favicon) 
 var clientId = "791490125018-lcfs9ha89efjtp09v5u8q38ls05hhinl.apps.googleusercontent.com";

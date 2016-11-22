@@ -20,7 +20,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         member.designation = data['designation'];
         member.role_name = data['role_name'];
         member.google_id = data['google_id'];
-        getOtherTeamMembers + data['id'];
+        // getOtherTeamMembers + data['id'];
         member.plus = data['pluscount'];
         member.minus = data['minuscount'];
         return member;
@@ -63,7 +63,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.desc = ko.observable();
         self.textError = ko.observable();
         self.sucessMsg = ko.observable();
-        
+
         //user
         var user = oj.Model.extend({
             url: getUserByEmail + person['email']
@@ -84,14 +84,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
                     $('#tabs ul li:last-child').addClass('abc').show();
                     //lead id user
-                    var teamUser = oj.Model.extend({
+
+                    $.ajax({
                         url: getUserByLead + self.lead_id(),
-                    });
-                    var getUser = new teamUser();
-                    getUser.fetch({
                         headers: {secret: secret},
-                        success: function () {
-                            var data = getUser.attributes['data'];
+                        success: function (result) {
+                            var data = JSON.parse(result)['data'];
                             data = data.sort(function (a, b) {
                                 return (a['user_name'] > b['user_name']) - (a['user_name'] < b['user_name']);
                             });
@@ -102,16 +100,15 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         }
                     });
 
-
                 }
-                var TaskRecord = oj.Model.extend({
-                    url: getOtherTeamMembers + self.userId()
-                });
-                var task = new TaskRecord();
-                task.fetch({
+
+                $.ajax({
                     headers: {secret: secret},
-                    success: function (res) {
-                        var data = task.attributes['data'];
+                    method: 'POST',
+                    url: getOtherTeamMembers+self.userId(),
+                    data: {user_id: self.userId()},
+                    success: function (task) {
+                        var data = JSON.parse(task)['data'];
                         data = data.sort(function (a, b) {
                             return (a['google_name'] > b['google_name']) - (a['google_name'] < b['google_name']);
                         });
@@ -121,7 +118,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         self.data2(self.members());
                     }
                 });
-
             }
         });
         self.arrangeIndex = function (data, event) {
@@ -472,12 +468,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.handleOKClose = $("#okButton").click(function () {
                 $("#modalDialog8").ojDialog("close");
             });
-            
+
             $(".tabIcon").click(function () {
-               $(".tabIcon").removeClass('oj-tabs-title-active');
-               $(this).addClass('oj-tabs-title-active');
-           });
-            
+                $(".tabIcon").removeClass('oj-tabs-title-active');
+                $(this).addClass('oj-tabs-title-active');
+            });
+
 
         }, 600);
     }

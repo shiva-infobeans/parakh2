@@ -1447,3 +1447,12 @@ body{
 #negetiveTab , #feedbackTab{
     display:none;
 }
+
+.oj-filmstrip-arrow.oj-default .oj-filmstrip-arrow-icon{
+   color: #fff;
+   font-size: 40px;
+}
+.oj-filmstrip-arrow.oj-hover {
+   background-color: transparent !important;
+   border-color:transparent !important;
+}

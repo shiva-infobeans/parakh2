@@ -64,6 +64,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
         this.mypic = person['pic'];
         this.memberName = "My Profile";
         var pgurl = window.location.href.substr(window.location.href.lastIndexOf("/") + 1);
+
         var getUser = oj.Model.extend({
             url: getUserByEmail + person['email']
         });
@@ -72,14 +73,15 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
             headers: {secret: secret},
             success: function (res) {
                 self.userId(res['attributes']['data']['id']);
-                var getNotification = oj.Model.extend({
-                    url: notify + self.userId()
-                });
-                var getNotifyId = new getNotification();
-                getNotifyId.fetch({
+
+                $.ajax({
                     headers: {secret: secret},
-                    success: function (res) {
-                        var data = res['attributes']['data'];
+                    method: 'POST',
+                    url: notify+self.userId(),
+                    data: {user_id: self.userId()},
+                    success: function (task) {
+                        var data = JSON.parse(task)['data'];
+                        
                         for (var c = 0; c < data.length; c++) {
                             var notificationData = new Object();
 
