@@ -116,7 +116,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 $.ajax({
                     headers: {secret: secret},
                     method: 'POST',
-                    url: getOtherTeamMembers+self.userIdFloat(),
+                    url: getAllTeamMembers+self.userIdFloat(),
                     data: {user_id: self.userIdFloat()},
                     success: function (task) {
 
