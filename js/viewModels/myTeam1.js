@@ -20,7 +20,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         member.designation = data['designation'];
         member.role_name = data['role_name'];
         member.google_id = data['google_id'];
-        getOtherTeamMembers + data['id'];
+        // getOtherTeamMembers + data['id'];
         member.plus = data['pluscount'];
         member.minus = data['minuscount'];
         return member;
@@ -104,14 +104,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
 
                 }
-                var TaskRecord = oj.Model.extend({
-                    url: getOtherTeamMembers + self.userId()
-                });
-                var task = new TaskRecord();
-                task.fetch({
+
+                $.ajax({
                     headers: {secret: secret},
-                    success: function (res) {
-                        var data = task.attributes['data'];
+                    method: 'POST',
+                    url: getOtherTeamMembers+self.userId(),
+                    data: {user_id: self.userId()},
+                    success: function (task) {
+                        var data = JSON.parse(task)['data'];
                         data = data.sort(function (a, b) {
                             return (a['google_name'] > b['google_name']) - (a['google_name'] < b['google_name']);
                         });
@@ -121,6 +121,23 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         self.data2(self.members());
                     }
                 });
+                // var TaskRecord = oj.Model.extend({
+                //     url: getOtherTeamMembers + self.userId()
+                // });
+                // var task = new TaskRecord();
+                // task.fetch({
+                //     headers: {secret: secret},
+                //     success: function (res) {
+                //         var data = task.attributes['data'];
+                //         data = data.sort(function (a, b) {
+                //             return (a['google_name'] > b['google_name']) - (a['google_name'] < b['google_name']);
+                //         });
+                //         for (var counter1 = 0; counter1 < data.length; counter1++) {
+                //             self.members.push(new teamMember(data[counter1]));
+                //         }
+                //         self.data2(self.members());
+                //     }
+                // });
 
             }
         });
