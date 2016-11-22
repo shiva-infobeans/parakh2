@@ -39,9 +39,9 @@
     <div id="tabs-1" class="color-white oj-margin-horizontal pos-relative">
         <div class="transbox"></div>
         <div class="profile-page-overflow pos-relative">
-            <div class="noComments" data-bind="text: NoCommentsP"></div>
+            <div class="noComments" id="noPositiveComment" data-bind="text: NoCommentsP"></div>
             <div class="rating-comment" data-bind="foreach: commentDataPositive">
-                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item pos-relative">
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item pos-relative oj-margin-top oj-padding-top">
                     <div class="profile-rating-circle circle-green">
                         <!--circle-green-->
                         <div class="transline"></div>
@@ -57,9 +57,9 @@
     <div id="tabs-2" class="color-white oj-margin-horizontal pos-relative">
         <div class="transbox"></div>
         <div class="profile-page-overflow">
-            <div class="noComments" data-bind="text: NoCommentsN"></div>
+            <div class="noComments" id="noNegativeComment" data-bind="text: NoCommentsN"></div>
             <div class="rating-comment" data-bind="foreach: commentDataNegative">
-                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative">
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top">
                     <div class="profile-rating-circle circle-red">
                         <div class="transline-red"></div>
                     </div>
@@ -75,6 +75,7 @@
     <div id="tabs-3" class="color-white oj-margin-horizontal pos-relative ">
         <div class="feedbackSection">
             <div class="transbox"></div>
+			<div id="noFeedback" class="noComments errorText"> No feedback available !!</div>
             <div class="oj-row oj-flex">
                 <div class="oj-xl-6 oj-lg-6 oj-md-12 oj-sm-12 oj-flex-item oj-flex">
 
@@ -84,18 +85,18 @@
                         <div class="transbox3 feedback-profile"></div>
                         <div class="transbox  feedback-profile"></div>
                         <div class="oj-flex oj-row">
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top">
                                 <img data-bind="attr: {src: feedbackImage}"  alt="" class="profile-feedback-pic"/>
                             </div>
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top">
 
                                 <span data-bind="text: name"></span>
                             </div>
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top">
 
                                 <span data-bind="text: feedbackdesignation"></span>
                             </div>
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top">
 
                                 <span data-bind="text: feedbackDate"></span>
                             </div>

@@ -518,6 +518,11 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
 
             }
             counter++;
+			 if ($("#filmStrip").find("#ui-id-9").attr("style") == "visibility: hidden;")
+               $( "#filmStrip" ).ojFilmStrip( "option", "currentItem", 1 );
+            else {
+                $("#filmStrip").find("#ui-id-9").click();
+            }
 
         }, 6000)
 

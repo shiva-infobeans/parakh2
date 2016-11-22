@@ -13,39 +13,47 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
      * The view model for the main content view template
      */
     function dataComment(comment1, commenter1, commentDate1) {
-        var com = this; // this is for object of this function
-        com.comment = comment1;
-        com.commenter = commenter1;
-        com.commentDate = commentDate1.substring(0, commentDate1.indexOf(' '));
-        return com;
-    }
-    function dataFeedback(myId, data) {
-        var feedbackObj = new Object();
-        feedbackObj.myId = myId;
-        feedbackObj.feedbackfrom = data['feedback_from'];
-        feedbackObj.name = data['given_by_name'];
-        feedbackObj.feedbackId = data['id'];
-        feedbackObj.feedbackDescription = data['description'];
-        feedbackObj.feedbackdesignation = data['designation'];
-        feedbackObj.replies = ko.observableArray();
-        feedbackObj.feedbackImage = data['google_picture_link'];
-        // 2nd myId with rtoId change it when view profile page;
-        var data_reply = data['reply'];
-        for (var c = 0; c < data_reply.length; c++) {
-            feedbackObj.replies.push(new feedbackRepliesData(myId, feedbackObj.feedbackfrom, data_reply[c]));
-        }
-        feedbackObj.feedbackDate = data['created_date'].substring(0, data['created_date'].indexOf(" "));
-        return feedbackObj;
-    }
-    function feedbackRepliesData(lid, rtoId, data) {
-        var freplies = new Object();
-        freplies.login_id = lid;
-        freplies.freply_to = rtoId;
-        freplies.reply_name = data['from_name'];
-        freplies.reply_desc = data['description'];//display desc
-        freplies.reply_date = data['created_date'].substring(0, data['created_date'].indexOf(" "));// display date
-        return freplies;
-    }
+       var com = this; // this is for object of this function
+       com.comment = comment1;
+       com.commenter = commenter1;
+       com.commentDate = dateFormatter(commentDate1.substring(0, commentDate1.indexOf(' ')));
+       return com;
+   }
+   function dateFormatter(commentDate1) {
+       commentDate1 = new Date(commentDate1);
+       var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June",
+           "July", "Aug", "Sep", "Oct", "Nov", "Dec"
+       ];
+       var dateReturn = commentDate1.getDate() + ' ' + monthNames[commentDate1.getMonth()] + ' ' + commentDate1.getFullYear();
+       return dateReturn;
+   }
+   function dataFeedback(myId, data) {
+       var feedbackObj = new Object();
+       feedbackObj.myId = myId;
+       feedbackObj.feedbackfrom = data['feedback_from'];
+       feedbackObj.name = data['given_by_name'];
+       feedbackObj.feedbackId = data['id'];
+       feedbackObj.feedbackDescription = data['description'];
+       feedbackObj.feedbackdesignation = data['designation'];
+       feedbackObj.replies = ko.observableArray();
+       feedbackObj.feedbackImage = data['google_picture_link'];
+       // 2nd myId with rtoId change it when view profile page;
+       var data_reply = data['reply'];
+       for (var c = 0; c < data_reply.length; c++) {
+           feedbackObj.replies.push(new feedbackRepliesData(myId, feedbackObj.feedbackfrom, data_reply[c]));
+       }
+       feedbackObj.feedbackDate = dateFormatter(data['created_date'].substring(0, data['created_date'].indexOf(" ")));
+       return feedbackObj;
+   }
+   function feedbackRepliesData(lid, rtoId, data) {
+       var freplies = new Object();
+       freplies.login_id = lid;
+       freplies.freply_to = rtoId;
+       freplies.reply_name = data['from_name'];
+       freplies.reply_desc = data['description'];//display desc
+       freplies.reply_date = dateFormatter(data['created_date'].substring(0, data['created_date'].indexOf(" ")));// display date
+       return freplies;
+   }
     function membersContentViewModel(person) {
         var self = this;
         var windowLocation = window.location;
@@ -178,11 +186,19 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                                     }
                                 }
                                 if (self.commentDataNegative().length == 0) {
-                                    self.NoCommentsN("No Ratings Available ...!!");
-                                }
-                                if (self.commentDataPositive().length == 0) {
-                                    self.NoCommentsP("No Ratings Available ...!!");
-                                }
+                                   self.NoCommentsN("No Ratings Available ...!!");
+                                   $("#noNegativeComment").show();
+                               }
+                               if (self.commentDataNegative().length != 0) {
+                                   $("#noNegativeComment").hide();
+                               }
+                               if(self.commentDataPositive().length != 0){
+                                   $("#noPositiveComment").hide();
+                               }
+                               if (self.commentDataPositive().length == 0) {
+                                   self.NoCommentsP("No Ratings Available ...!!");
+                                   $("#noPositiveComment").show();
+                               }
                                 self.plus(plus);
                                 self.minus(minus);
                                 if (self.plus() == 0) {
@@ -211,6 +227,11 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                                             } else {
                                                 self.feedbackContent2.push(new dataFeedback(self.myselfId(), data[index]));
                                             }
+											if (self.feedbackContent1().length == 0 && self.feedbackContent2().length == 0) {
+											   $("#noFeedback").show();
+										   } else {
+											   $("#noFeedback").hide();
+										   }
                                         }
                                         /// open feedback more option
                                         $('.openDiv').click(function () {
@@ -232,6 +253,9 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                                             var id = $(this).attr("loginUserId");
                                             var feedback_to = $(this).attr("feedback_to");
                                             var responseDesc = $(this).parent().next("span").children("input"); //desc respond
+											if (responseDesc.val() == '' || responseDesc.val().length == 0) {
+                                               return;
+                                           }
                                             var fid = $(this).attr("feedbackId");
                                             var appendChild = this;
                                             var sysDate = new Date();

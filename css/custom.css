@@ -360,7 +360,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     color:#d3d3d3;
 }
 .noComments{
-    margin: 50px 10px;
+    margin: 300px 10px;
     text-align: center;
     font-size: 30px;
 }
@@ -791,7 +791,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     background:#689F39;width:100%;padding:10px;text-align:center;color:#fff;font-weight: bold;
 }
 .rateBuddy-page-rate-red{
-    background:red;width:100%;padding:10px;text-align:center;color:#fff;font-weight: bold;
+    background:#e00000; width:100%;padding:10px;text-align:center;color:#fff;font-weight: bold;
 }
 .bold-class{    color: #fff;
                 font-size: 24px;
@@ -813,7 +813,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     font-weight: bold;
     color: #333;
     width:250px;
-    height:200px;
+    height:160px;
 }
 .arrow-controls {
     display: inline-block;

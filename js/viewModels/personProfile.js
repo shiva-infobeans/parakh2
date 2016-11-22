@@ -24,6 +24,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 com.commentDate = commentDate1.getDate() + ' ' + monthNames[commentDate1.getMonth()] + ' ' + commentDate1.getFullYear();
                 return com;
             }
+			 function dateFormatter(commentDate1) {
+			   commentDate1 = new Date(commentDate1);
+			   var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June",
+				   "July", "Aug", "Sep", "Oct", "Nov", "Dec"
+			   ];
+			   var dateReturn = commentDate1.getDate() + ' ' + monthNames[commentDate1.getMonth()] + ' ' + commentDate1.getFullYear();
+			   return dateReturn;
+		   }
             function dataFeedback(myId, data) {
                 var feedbackObj = new Object();
                 feedbackObj.myId = myId;
@@ -39,7 +47,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 for (var c = 0; c < data_reply.length; c++) {
                     feedbackObj.replies.push(new feedbackRepliesData(myId, myId, feedbackObj.feedbackId, data_reply[c]));
                 }
-                feedbackObj.feedbackDate = data['created_date'].substring(0, data['created_date'].indexOf(" "));
+                feedbackObj.feedbackDate = dateFormatter(data['created_date'].substring(0, data['created_date'].indexOf(" ")));
                 return feedbackObj;
             }
             function feedbackRepliesData(lid, rtoId, fid, data) {
@@ -49,7 +57,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 freplies.feedback_id = fid;
                 freplies.reply_name = data['from_name'];//display name
                 freplies.reply_desc = data['description'];//display desc
-                freplies.reply_date = data['created_date'].substring(0, data['created_date'].indexOf(" "));// display date
+                freplies.reply_date = dateFormatter(data['created_date'].substring(0, data['created_date'].indexOf(" ")));// display date
                 return freplies;
             }
 
@@ -122,6 +130,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         var id = $(this).attr("loginUserId");
                         var feedback_to = $(this).attr("feedback_to");
                         var responseDesc = $(this).parent().next("span").children("input");
+						if(responseDesc.val().length == 0) {
+                                               return;
+                                           }
                         var fid = $(this).attr("feedbackId");
                         var appendChild = this;
                         var sysDate = new Date();
@@ -271,6 +282,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                         self.feedbackContent2.push(new dataFeedback(self.id(), data[index]));
                                     }
                                 }
+								if (self.feedbackContent1().length == 0 && self.feedbackContent2().length == 0) {
+                                   $("#noFeedback").show();
+                               } else {
+                                   $("#noFeedback").hide();
+                               }
                             }
                         });
 
@@ -299,11 +315,19 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                     }
                                 }
                                 if (self.commentDataNegative().length == 0) {
-                                    self.NoCommentsN("No Ratings Available ...!!");
-                                }
-                                if (self.commentDataPositive().length == 0) {
-                                    self.NoCommentsP("No Ratings Available ...!!");
-                                }
+									   self.NoCommentsN("No Ratings Available ...!!");
+									   $("#noNegativeComment").show();
+								   }
+								   if (self.commentDataNegative().length != 0) {
+									   $("#noNegativeComment").hide();
+								   }
+								   if(self.commentDataPositive().length != 0){
+									   $("#noPositiveComment").hide();
+								   }
+								   if (self.commentDataPositive().length == 0) {
+									   self.NoCommentsP("No Ratings Available ...!!");
+									   $("#noPositiveComment").show();
+								   }
                                 self.plus(plus);
                                 self.minus(minus);
                                 if (self.plus() == 0) {

@@ -12,14 +12,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
     /**
      * The view model for the main content view template
      */
-    function dateformat(date) {
-        var yy = date.substring(0, date.indexOf("-"));
-        date = date.substring(date.indexOf("-") + 1, date.length);
-        var mm = date.substring(0, date.indexOf("-"));
-        date = date.substring(date.indexOf("-") + 1, date.length);
-        var dd = date.substring(0, 2);
-        date = dd + "-" + mm + "-" + yy;
-        return date;
+    function dateformat(commentDate1) {
+        commentDate1 = new Date(commentDate1);
+       var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June",
+           "July", "Aug", "Sep", "Oct", "Nov", "Dec"
+       ];
+       var dateReturn = commentDate1.getDate() + ' ' + monthNames[commentDate1.getMonth()] + ' ' + commentDate1.getFullYear();
+       return dateReturn;
     }
     function request(data, userid) {
         var req = Object();
