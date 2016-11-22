@@ -134,7 +134,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                         var data = JSON.parse(task)['data'];
                         var index;
                         for (index = 0; index < data.length; index++) {
-                            if (data[index]["id"] == self.id()) {                            
+                            if (data[index]["id"] == self.id()) {                             
                                 self.UserId(data[index]["id"]);
                                 self.myname(data[index]['google_name']);
                                 self.shortName(data[index]['google_name'].substring(0, data[index]['google_name'].indexOf(" ")));
