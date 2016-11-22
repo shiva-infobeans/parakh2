@@ -31,6 +31,10 @@ var getTopFourRankForCurrentMonth = baseUrl+"/getTopFourRankForCurrentMonth/";
 var resetNotifCount = baseUrl+"/resetNotifCount";
 var getTopRankersCalendarWise = baseUrl+"/getTopRankersCalendarWise/";
 var getTopRankersProjectWise = baseUrl+"/getTopRankersProjectWise/";
+var getAllProjects = baseUrl+"/getAllProjects/";
+var getAllInterests = baseUrl+"/getAllInterests/";
+var getAllDesignations = baseUrl+"/getAllDesignations/";
+
 
 
 var secret = 'parakh-revamp-local-key-2016';

@@ -20,7 +20,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         member.designation = data['designation'];
         member.role_name = data['role_name'];
         member.google_id = data['google_id'];
-        getOtherTeamMembers + data['id'];
+        // getOtherTeamMembers + data['id'];
         member.plus = data['pluscount'];
         member.minus = data['minuscount'];
         return member;
@@ -103,12 +103,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 }
 
                 $.ajax({
-                    url: getOtherTeamMembers + self.userId(),
-                    method: "POST",
                     headers: {secret: secret},
-                    success: function (result) {
-
-                        var data = JSON.parse(result)['data'];
+                    method: 'POST',
+                    url: getOtherTeamMembers+self.userId(),
+                    data: {user_id: self.userId()},
+                    success: function (task) {
+                        var data = JSON.parse(task)['data'];
                         data = data.sort(function (a, b) {
                             return (a['google_name'] > b['google_name']) - (a['google_name'] < b['google_name']);
                         });

@@ -36,12 +36,12 @@ $app->add(function ($request, $response, $next) {
 	
         $headers = $request->getHeaders();
         // Validate headers
-        //if(trim($headers['HTTP_SECRET'][0]) != "" && validateSecretKey($headers['HTTP_SECRET'][0])){
+        if(trim($headers['HTTP_SECRET'][0]) != "" && validateSecretKey($headers['HTTP_SECRET'][0])){
             $response = $next($request, $response);
-        /*}else{
+        }else{
             $response_data = makeResponse('true',get_site_error(3003));
             $response->withJson($response_data);
-        }*/
+        }
 	//$response->getBody()->write('AFTER');
 	return $response;
 });
@@ -225,8 +225,11 @@ $app->post('/updateProfile', function ($request, $response) {
     if(is_array($data['interests'])){
         $post_data['interests'] = implode(",",$data['interests']);
     }
+    if(is_array($data['primary_project'])){
+        $post_data['primary_project'] = implode(",",$data['primary_project']);
+    }
     if($db->isValidUser( $post_data['user_id'] )){
-        if(!is_numeric(str_replace('+91', '',$post_data['mob'])))
+        if(is_numeric(str_replace('+91-', '',$post_data['mob'])))
         {
             //Creating a dbmodule object
             $result = $db->updateProfile($post_data);
@@ -465,7 +468,7 @@ $app->post('/addFeedback', function ($request, $response) {
  * URL: http://localhost/parakh-new/v1/index.php/getAllTeamMembers/<userId>
  * Parameters: none
  * 
- * Method: GET
+ * Method: POST
  * */    
 $app->post('/getAllTeamMembers[/{userId}]', function ($request, $response, $args) {
     $response_data = array();
@@ -685,9 +688,9 @@ $app->post('/requestDecision', function ($request, $response) {
  * URL: http://localhost/parakh-new/v1/index.php/getRecentActivity/<userId>
  * Parameters: user id
  * 
- * Method: GET
+ * Method: POST
  * */    
-$app->get('/getRecentActivity[/{userId}]', function ($request, $response, $args) {
+$app->post('/getRecentActivity[/{userId}]', function ($request, $response, $args) {
     $response_data = array();
     //Creating a dbmodule object
     $db = new dbmodule();
@@ -888,9 +891,9 @@ $app->get('/getAllProjects[/]', function ($request, $response, $args) {
  * URL: http://localhost/parakh-new/v1/index.php/getAllInterests/
  * Parameters: 
  * 
- * Method: GET
+ * Method: POST
  * */    
-$app->get('/getAllInterests[/]', function ($request, $response, $args) {
+$app->post('/getAllInterests[/]', function ($request, $response, $args) {
     $response_data = array();
     
     //Creating a dbmodule object
@@ -910,9 +913,9 @@ $app->get('/getAllInterests[/]', function ($request, $response, $args) {
  * URL: http://localhost/parakh-new/v1/index.php/getAllDesignations/
  * Parameters: 
  * 
- * Method: GET
+ * Method: POST
  * */    
-$app->get('/getAllDesignations[/]', function ($request, $response, $args) {
+$app->post('/getAllDesignations[/]', function ($request, $response, $args) {
     $response_data = array();
     
     //Creating a dbmodule object
