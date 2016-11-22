@@ -63,6 +63,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 this.temporaryNumber = ko.observable();
                 this.interestsOptions = ko.observableArray();
                 this.projectOptions = ko.observableArray();
+                this.primaryProjectOptions = ko.observableArray();
                 this.designationOptions = ko.observableArray();
                 this.feedback = ko.observable("GOOD WORK...  keep it up!!");
                 this.feedbackContent1 = ko.observableArray([]);
@@ -387,7 +388,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     self.updateProfile();
                     self.associate_with_infobeans(self.date());
                     user_date = Date.parse(self.date());
-
+                    today_date = new Date();
                     diff_date =  today_date - user_date;
 
                     num_years = diff_date/31536000000;
@@ -644,8 +645,25 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 var DefaultPrimaryProjectVar;
                 self.openPrimaryProject = function () {
                     DefaultPrimaryProjectVar = self.primary_project();
+                    self.primaryProjectOptions([]);
+                    //get all projects using ajax;
+                    var primaryprojects = oj.Model.extend({
+                        url: getAllProjects,
+                    });
+                    var primaryprojectTask = new primaryprojects();
+                    primaryprojectTask.fetch({
+                        headers: {secret: secret},
+                        success: function (res) {
+                            for (var c = 0; c < res['attributes']['data'].length; c++) {
+                                var obj = new Object();
+                                obj.name = res['attributes']['data'][c]['name'];
+                                self.primaryProjectOptions.push(obj);
+                            }
+                            $('#selectPrimaryProjects').ojSelect("refresh");
+                        }
+                    });
                         $('#primary-project-text').addClass('hide');
-                        $('#primary-project').removeClass('hide');
+                        $('#primary-project-div').removeClass('hide');
                         $('#edit-primary-project').addClass('hide');
                         $('#submit-primary-project').removeClass('hide');
                         $('#cancel-primary-project').removeClass('hide');
@@ -654,14 +672,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     //ajax call here
                     self.updateProfile();
                     $('#primary-project-text').removeClass('hide');
-                    $('#primary-project').addClass('hide');
+                    $('#primary-project-div').addClass('hide');
                     $('#edit-primary-project').removeClass('hide');
                     $('#submit-primary-project').addClass('hide');
                     $('#cancel-primary-project').addClass('hide');
                 }
                 self.primaryProjectRevert = function () {
                     $('#primary-project-text').removeClass('hide');
-                    $('#primary-project').addClass('hide');
+                    $('#primary-project-div').addClass('hide');
                     $('#edit-primary-project').removeClass('hide');
                     $('#submit-primary-project').addClass('hide');
                     $('#cancel-primary-project').addClass('hide');
