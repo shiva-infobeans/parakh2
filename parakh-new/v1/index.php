@@ -99,7 +99,7 @@ $app->get('/getUserByLead[/{lead_id}]', function ($request, $response, $args) {
  * 
  * Method: GET
  * */    
-$app->get('/getOtherTeamMembers[/{user_id}]', function ($request, $response, $args) {
+$app->post('/getOtherTeamMembers[/{user_id}]', function ($request, $response, $args) {
     $response_data = array();
     
     //Creating a dbmodule object
@@ -467,7 +467,7 @@ $app->post('/addFeedback', function ($request, $response) {
  * 
  * Method: GET
  * */    
-$app->get('/getAllTeamMembers[/{userId}]', function ($request, $response, $args) {
+$app->post('/getAllTeamMembers[/{userId}]', function ($request, $response, $args) {
     $response_data = array();
     //Creating a dbmodule object
     

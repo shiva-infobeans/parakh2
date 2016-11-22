@@ -104,36 +104,39 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             headers: {secret: secret},
             success: function (result) {
                 self.userIdFloat(result['attributes']['data']['id']);
-                   self.role_name(result['attributes']['data']['role_name']);
-                   
-                      if (self.role_name() === 'Team Member') {
+                self.role_name(result['attributes']['data']['role_name']);
+
+                if (self.role_name() === 'Team Member') {
                     $('#hideFeedbackFloat').hide();
-                  
+
                 } else {
                     $('#hideFeedbackFloat').show();
                 }
-                
-                var getSearchUser = oj.Model.extend(
-                        {
-                            url: getAllTeamMembers + self.userIdFloat(),
-                        });
 
-                var floatMember = new getSearchUser();
-                floatMember.fetch({
-                    headers: {secret: secret},
-                    success: function () {
-                        var data = floatMember.attributes['data'];
-                        for (var counter1 = 0; counter1 < data.length; counter1++) {
-                            self.searchUser.push(new autoSearch(data[counter1]));
-                            var item = new Object();
-                            item.value = data[counter1]['id'];
-                            item.label = data[counter1]['google_name'];
-                            item.searchPic = data[counter1]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data[counter1]['google_picture_link'];
-                            self.browsers.push(item);
-                            self.browsers1.push(item);
-                        }
-                    }
-                });
+
+                $.ajax({
+                   headers: {secret: secret},
+                   method: 'POST',
+                   url: getOtherTeamMembers+self.userIdFloat(),
+                   data: {user_id: self.userIdFloat()},
+                   success: function (task) {
+
+                       var data = JSON.parse(task)['data'];
+
+                       for (var counter1 = 0; counter1 < data.length; counter1++) {
+                           self.searchUser.push(new autoSearch(data[counter1]));
+                           var item = new Object();
+                           item.value = data[counter1]['id'];
+                           item.label = data[counter1]['google_name'];
+                           item.searchPic = data[counter1]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data[counter1]['google_picture_link'];
+                           self.browsers.push(item);
+                           self.browsers1.push(item);
+                       }
+                   }
+               });
+
+
+                
             }
         });
         //auto search for respective team lead or manager
