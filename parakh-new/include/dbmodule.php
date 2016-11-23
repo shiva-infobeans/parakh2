@@ -742,7 +742,7 @@ class dbmodule {
 
     function get_all_team_members($user_id) {
         if ($user_id) {
-            $query = "SELECT id, google_name, google_email, mobile_number, designation, google_picture_link,location,skills,interests,associate_with_infobeans,primary_project FROM users WHERE id <>:id AND id <> 1 AND status <> 0 ORDER BY google_name";
+            $query = "SELECT id, google_name, google_email, mobile_number, designation, google_picture_link,location,skills,interests,associate_with_infobeans,projects,primary_project FROM users WHERE id <>:id AND id <> 1 AND status <> 0 ORDER BY google_name";
             
             $user_list = $this->con->prepare($query);
             $user_list->execute(array(':id' => $user_id));
