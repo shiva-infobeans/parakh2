@@ -1429,6 +1429,7 @@ body{
 }
 .overflow-class{
     overflow: auto;
+    word-wrap: break-word
 }
 .feedback-profile{
     margin-top: 60px;

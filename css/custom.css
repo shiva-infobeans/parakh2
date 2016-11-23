@@ -395,7 +395,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     transition: height .1s linear;
 }
 .profile-feedback-pic{
-   height: 85px;
+    height: 85px;
     width: 85px;
     border-radius: 50%;
     z-index: 10;
@@ -764,10 +764,11 @@ div.oj-tabs-panel.oj-tabs-selected{
     color:#689F39 !important;
 }
 .Moreless-fix{
- font-size: 45px !important;
-    left: 224px;
+    font-size: 45px !important;
+    left: 233px;
     position: absolute;
-    top: -18px;
+    top: -16px;
+    cursor: pointer;
 }
 .divTextRateMe .oj-textarea{
     max-width: 100% !important;
@@ -878,7 +879,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     top: 60px;
 }
 .btn-text-red-tab2{
-   color: #fff;
+    color: #fff;
     font-size: 50px;
     font-weight: normal;
     left: 165px;
@@ -887,7 +888,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 .edit-height{cursor: pointer;}
 .requestHeight{
-   margin-top: 50px;
+    margin-top: 50px;
     height: 87%; 
 }
 .sliderScreen1{
