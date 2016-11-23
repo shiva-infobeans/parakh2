@@ -1131,8 +1131,9 @@ body{
 .sucessMsgMyteam{
     background-color:#E7FCD5;
     color: #000;
+    top: 0px;
     left: 620px;
-    position: absolute;
+    position: fixed;
     border-radius: 5px;
     font-size: 16px;
     padding-top: 14px;
