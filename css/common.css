@@ -1458,11 +1458,14 @@ body{
     border-bottom: 1px solid #689F39;   
 }
 .padding-feedback{
-    padding: 2px;
+    padding: 1px;
 }
 .content1{
     margin-left: 40px;
 }
 .content2{
     margin-left: -40px;
+}
+.replyDate{
+    font-size: 12px;
 }
