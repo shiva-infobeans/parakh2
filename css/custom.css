@@ -413,6 +413,8 @@ div.oj-tabs-panel.oj-tabs-selected{
 .replyName{
     margin-top:5px;
     margin-bottom: 5px;
+    color: #689F39;
+    font-weight: bold;
 }
 
 .open-more > div > .replyComent:nth-child(odd) {
