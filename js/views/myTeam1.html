@@ -4,10 +4,10 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 
-       
-   <div class="oj-lg-12 oj-md-12 oj-sm-12  oj-flex-item oj-col profile-text oj-flex oj-margin">
-            <span id="sucess" class="sucessMsgMyteam" data-bind="text: sucessMsg"></span>
-        </div>
+
+<div class="oj-lg-12 oj-md-12 oj-sm-12  oj-flex-item oj-col profile-text oj-flex oj-margin">
+    <span id="sucess" class="sucessMsgMyteam" data-bind="text: sucessMsg"></span>
+</div>
 
 
 <div class="max-width">
@@ -22,13 +22,15 @@ and open the template in the editor.
         <div id="tabs" data-bind="ojComponent:{component: 'ojTabs'}" class="buddyTab">
             <!-- tab bar -->
             <ul>
-                
-                <li class="buddyTab1 "><i class="zmdi zmdi-accounts oj-tabs-title-active"></i>
+                <li class="buddyTab1" id="home1" >
+                    <div id="homeTab1">
+                    </div>   
                     <div class="hoverTab1"> ICC Team </div>
                 </li>
-                
-                <li class="buddyTab2 "><i class="zmdi zmdi-account  "></i>
-                     <div class="hoverTab2"> My Team </div>
+                <li class="buddyTab2" id="home2" >
+                    <div id="homeTab2">   
+                    </div>
+                    <div class="hoverTab2"> My Team </div>
                 </li>
                 
             </ul>
@@ -86,7 +88,7 @@ and open the template in the editor.
                             </div>
                             <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-4 oj-flex-item oj-padding-top oj-padding-bottom">
                                 <span>
-                                     <a href="javascript:void(0);">  <i class="zmdi zmdi-comment-alt-text"></i></a> 
+                                    <a href="javascript:void(0);">  <i class="zmdi zmdi-comment-alt-text"></i></a> 
                                 </span>
                             </div>
                             <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-4 oj-flex-item oj-padding-top oj-padding-bottom">
@@ -143,7 +145,7 @@ and open the template in the editor.
                         </div>
                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item pos-relative">
                             <div class="oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6 oj-flex-item rateBuddy-page-rate-green left" data-bind="text: plus">
-                                
+
                             </div>
                             <div class="oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6 oj-flex-item rateBuddy-page-rate-red left" data-bind="text: minus"> 
 
@@ -196,7 +198,7 @@ and open the template in the editor.
                                       data-bind=" ojComponent: {component: 'ojTextArea', 
                                      value: desc, 
                                      placeholder: 'Type your reason here..'}"></textarea>   
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" data-bind="text:textError"></div>
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText errorFix1" data-bind="text:textError"></div>
                         </div>
                         <div class="imgArea1">
                             <div class="pos-relative">
@@ -239,7 +241,7 @@ and open the template in the editor.
                                       data-bind=" ojComponent: {component: 'ojTextArea', 
                                      value: desc, 
                                      placeholder: 'Type your reason here..'}"></textarea>   
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" data-bind="text:textError"></div>
+                            
                         </div>
                         <div class="imgArea">
                             <div class="pos-relative" data-bind="click: plusOne">
@@ -256,10 +258,12 @@ and open the template in the editor.
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <button class="modal-submit" data-bind="click: leadSubmit"> Submit </button>
-                    </div>
+                    
                 </div>
+            </div>
+            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText center" data-bind="text:textError"></div>
+            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
+                <button class="modal-submit" data-bind="click: leadSubmit"> Submit </button>
             </div>
         </div>
     </div>
@@ -283,14 +287,17 @@ and open the template in the editor.
                                       data-bind=" ojComponent: {component: 'ojTextArea', 
                                      value: desc, 
                                      placeholder: 'Type your feedback here..'}"></textarea>   
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" data-bind="text:textError"></div>
                         </div>                      
                     </div>
                     <div>
-                        <button class="modal-submit1"  data-bind="click: submitFeedback"> Submit </button>
+
                     </div>
                 </div>
 
+            </div>
+            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal center errorText" data-bind="text:textError"></div>
+            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
+                <button class="modal-submit1"  data-bind="click: submitFeedback"> Submit </button>
             </div>
 
         </div>

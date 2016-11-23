@@ -242,7 +242,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         $("#sucessRate").show();
                         if (type == 0) {
 
-                            self.sucessMsg("Rating request decliened.");
+                            self.sucessMsg("Rating request declined.");
                         } else {
                             self.sucessMsg("Rating request approved");
                         }

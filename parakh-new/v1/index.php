@@ -6,6 +6,17 @@
  * If you are not using Composer, you need to load Slim Framework with your own
  * PSR-4 autoloader.
  */
+
+define('DEBUG_MODE','OFF');
+if(DEBUG_MODE=='OFF') {
+ini_set("display_errors",0);
+error_reporting(0);
+}
+else if(DEBUG_MODE=='ON')
+{
+   ini_set("display_errors",1);
+   error_reporting(E_ALL);
+}
 require '../vendor/autoload.php';
 
 /**
@@ -38,6 +49,7 @@ $app->add(function ($request, $response, $next) {
         // Validate headers
         if(trim($headers['HTTP_SECRET'][0]) != "" && validateSecretKey($headers['HTTP_SECRET'][0])){
             $response = $next($request, $response);
+			$size = (int)$response->getBody()->getSize();		
         }else{
             $response_data = makeResponse('true',get_site_error(3003));
             $response->withJson($response_data);
