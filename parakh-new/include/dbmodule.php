@@ -917,18 +917,25 @@ class dbmodule {
         $work_last_insert = $this->con->lastInsertId();
 
         if (isset($data['l_id']) && !empty($data['l_id']) && ($data['l_id'] != -1)) {
-            $request_insert_query = "INSERT INTO request(from_id,for_id,to_id,status,"
-                    . "work_id,created_date,modified_date)
-                    VALUES(:from_id,:for_id,:to_id,:status,:work_id,:created_date,:modified_date)";
+			$read_status=0;
+			$show_request=1;
+            $request_insert_query = "INSERT INTO request(from_id,for_id,to_id,status," 
+                    . "read_status,work_id,created_date,modified_date, show_request)
+                    VALUES(:from_id,:for_id,:to_id,:status,:read_status,:work_id,:created_date,:modified_date,:show_request)";
             $request_insert = $this->con->prepare($request_insert_query);
-            $request_insert->execute(array(':from_id' => $data['u_id'],
+            $run=$request_insert->execute(array(':from_id' => $data['u_id'],
                 ':for_id' => $data['u_id'],
                 ':to_id' => $data['l_id'],
                 ':status' => $pending,
+				':read_status'=>$read_status,
                 ':work_id' => $work_last_insert,
                 ':created_date' => $created_date,
-                ':modified_date' => $modified_date));
+                ':modified_date' => $modified_date,
+				':show_request'=>$show_request));
+				
+				if($run)
             $request_last_insert = $this->con->lastInsertId();
+		
             /* if (!empty($data)) {
               notifyRequestToManager($data);
               } */
@@ -954,7 +961,7 @@ class dbmodule {
                 $email_data_l = [];
                 $email_data_l['to']['email'] = $this->manager_email;
                 $email_data_l['to']['name'] = $this->manager_name;
-                $email_data_l['subject'] = $temp_data_l['subject'];
+                $email_data_l['subject'] = (!empty($temp_data_l['subject']))?$temp_data_l['subject']:"";
 
                 $message = strtr($temp_data['content'], $vars);
                 $email_data_l['message'] = $message;
@@ -967,7 +974,7 @@ class dbmodule {
             $user_list->execute();
             $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
             if (isset($row) && !empty($row)) {
-                $query = "UPDATE users set msg_read=" . ($row[0]['msg_rea'] + 1) . " where id=" . $data['u_id'];
+                $query = "UPDATE users set msg_read=" . ($row[0]['msg_read'] + 1) . " where id=" . $data['u_id'];
                 $user_list = $this->con->prepare($query);
                 $user_list->execute();
             }
