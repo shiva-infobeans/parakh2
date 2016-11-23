@@ -105,19 +105,19 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             headers: {secret: secret},
             success: function (result) {
                 self.userIdFloat(result['attributes']['data']['id']);
-                   self.role_name(result['attributes']['data']['role_name']);
-                   
-                      if (self.role_name() === 'Team Member') {
+                self.role_name(result['attributes']['data']['role_name']);
+
+                if (self.role_name() === 'Team Member') {
                     $('#hideFeedbackFloat').hide();
-                  
+
                 } else {
                     $('#hideFeedbackFloat').show();
                 }
-                
+
                 $.ajax({
                     headers: {secret: secret},
                     method: 'POST',
-                    url: getOtherTeamMembers+self.userIdFloat(),
+                    url: getOtherTeamMembers + self.userIdFloat(),
                     data: {user_id: self.userIdFloat()},
                     success: function (task) {
 
@@ -176,13 +176,33 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     headers: {secret: secret},
                     success: function () {
                         var data = teamLeadSearch.attributes['data'];
-                        for (var counter2 = 0; counter2 < data.length; counter2++) {
-                            self.autoSearchLead.push(new requestSearch(data[counter2]));
+                        if (data.length == 2) {
+
                             var item1 = new Object();
-                            item1.value = data[counter2]['manager_id'];
-                            item1.label = data[counter2]['manager_name'];
-                            item1.autoSearchLeadPic = data[counter2]['google_picture_link'];
-                            item1.autoSearchLeadRole = data[counter2]['role_name'];
+
+                            item1.value = data[0]['manager_id'];
+                            item1.label = data[0]['manager_name'];
+                            item1.autoSearchLeadPic = data[0]['google_picture_link'];
+                            item1.autoSearchLeadRole = data[0]['role_name'];
+
+                            var item2 = new Object();
+                            item2.value = data[1]['manager_id'];
+                            item2.label = data[1]['manager_name'];
+                            item2.autoSearchLeadPic = data[1]['google_picture_link'];
+                            item2.autoSearchLeadRole = data[1]['role_name'];
+
+                            if (item1.value == item2.value) {
+                                self.browsers2.push(item1);
+                            } else {
+                                self.browsers2.push(item1);
+                                self.browsers2.push(item2);
+                            }
+                        } else {
+                            var item1 = new Object();
+                            item1.value = data[0]['manager_id'];
+                            item1.label = data[0]['manager_name'];
+                            item1.autoSearchLeadPic = data[0]['google_picture_link'];
+                            item1.autoSearchLeadRole = data[0]['role_name'];
                             self.browsers2.push(item1);
                         }
                     }
@@ -194,7 +214,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
         self.feedbackModal = function () {
             if (self.value1() == '' || self.value1() == null) {
-            
+
                 console.log($("#feedbackFloatSearchError").removeClass('hide'));
                 return false;
             }
