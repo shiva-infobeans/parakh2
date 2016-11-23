@@ -490,10 +490,44 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 $("#modalDialog8").ojDialog("close");
             });
             
-            $(".tabIcon").click(function () {
-               $(".tabIcon").removeClass('oj-tabs-title-active');
-               $(this).addClass('oj-tabs-title-active');
-           });
+             $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
+                    $('#homeTab2').append(' <img src="../../images/team.png" alt="" />');
+                    
+                     $( "#homeTab2" ).click(function() {
+                          if($('#homeTab2 > img').attr("src")=="../../images/team.png"){
+                          $('#homeTab1 > img').remove();
+                          $('#homeTab2 > img').remove();
+                          $('#homeTab1').append(' <img src="../../images/user.png" alt="" />');
+                          $('#homeTab2').append(' <img src="../../images/team-active.png" alt="" />');
+                      }
+                     });
+                         
+                     $( "#home2" ).click(function() {
+                          if($('#homeTab2 > img').attr("src")=="../../images/team.png"){
+                          $('#homeTab1 > img').remove();
+                          $('#homeTab2 > img').remove();
+                          $('#homeTab1').append(' <img src="../../images/user.png" alt="" />');
+                          $('#homeTab2').append(' <img src="../../images/team-active.png" alt="" />');
+                      }
+                     });
+                     
+                       $( "#homeTab1" ).click(function() {
+                          if($('#homeTab1 > img').attr("src")=="../../images/user.png"){
+                          $('#homeTab1 > img').remove();
+                          $('#homeTab2 > img').remove();
+                          $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
+                          $('#homeTab2').append(' <img src="../../images/team.png" alt="" />');
+                      }
+                     });
+                         
+                     $( "#home1" ).click(function() {
+                         if($('#homeTab1 > img').attr("src")=="../../images/user.png"){
+                          $('#homeTab1 > img').remove();
+                          $('#homeTab2 > img').remove();
+                          $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
+                          $('#homeTab2').append(' <img src="../../images/team.png" alt="" />');
+                      }
+                     });
             
 
         }, 600);
