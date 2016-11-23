@@ -49,6 +49,7 @@ $app->add(function ($request, $response, $next) {
         // Validate headers
         if(trim($headers['HTTP_SECRET'][0]) != "" && validateSecretKey($headers['HTTP_SECRET'][0])){
             $response = $next($request, $response);
+			$size = (int)$response->getBody()->getSize();		
         }else{
             $response_data = makeResponse('true',get_site_error(3003));
             $response->withJson($response_data);

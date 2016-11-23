@@ -24,14 +24,44 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 com.commentDate = commentDate1.getDate() + ' ' + monthNames[commentDate1.getMonth()] + ' ' + commentDate1.getFullYear();
                 return com;
             }
-			 function dateFormatter(commentDate1) {
-			   commentDate1 = new Date(commentDate1);
+            function dateDiffCalender(Date1) {
+                user_date = Date.parse(Date1);
+                today_date = new Date();
+                if(Date1!=''){
+                    diff_date =  today_date - user_date;
+
+                    num_years = diff_date/31536000000;
+                    num_months = (diff_date % 31536000000)/2628000000;
+                    num_days = ((diff_date % 31536000000) % 2628000000)/86400000;
+                    if(Math.floor(num_years) > 1)
+                    {
+                        num_years = Math.floor(num_years)+" Years";
+                    }else
+                    {
+                        num_years = Math.floor(num_years)+" Year";
+                    }
+
+                    if(Math.floor(num_months) > 1)
+                    {
+                        num_months = Math.floor(num_months)+" Months";
+                    }else
+                    {
+                        num_months = Math.floor(num_months)+" Month";
+                    }
+                    return num_years+" "+num_months;
+                }else
+                {
+                    return '';
+                }
+            }
+	        function dateFormatter(commentDate1) {
+		       commentDate1 = new Date(commentDate1);
 			   var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June",
 				   "July", "Aug", "Sep", "Oct", "Nov", "Dec"
 			   ];
 			   var dateReturn = commentDate1.getDate() + ' ' + monthNames[commentDate1.getMonth()] + ' ' + commentDate1.getFullYear();
 			   return dateReturn;
-		   }
+            }
             function dataFeedback(myId, data) {
                 var feedbackObj = new Object();
                 feedbackObj.myId = myId;
@@ -175,9 +205,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         data: {user_id: self.id(), desc: self.designation(), location: self.location(), skills: self.skills(),primary_project: self.primary_project(), date: self.date(), projects: self.projects(), interests: self.interests(), mob: self.myNumber()},
                         success: function (res) {
                             response = jQuery.parseJSON( res );
-                            // self.desc('');
-                            // self.textError('');
-                            $("#successful").show();
+                            $('.sucessMsgRate').show();
                             if(response.error=="true")
                             {
                                 self.successful(response.data.error);
@@ -186,8 +214,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                 self.successful("Profile Updated Successfully");
                             }
                             setTimeout(function () {
-                                $("#successful").hide();
-                                //self.sucessMsg("");
+                                $('.sucessMsgRate').hide();
                             }, 3000);
                         },
                         error: function (err) {
@@ -232,39 +259,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                             self.projects([]);
                         }
                         self.primary_project(task.attributes['data']['primary_project']);
-                        self.associate_with_infobeans(task.attributes['data']['associate_with_infobeans']);
+                        self.associate_with_infobeans(dateDiffCalender(task.attributes['data']['associate_with_infobeans']));
                         self.date(task.attributes['data']['associate_with_infobeans']);
-                        user_date = Date.parse($('#associate-text').attr('defaultDate'));
-                        today_date = new Date();
-                        if($('#associate-text').attr('defaultDate')!=''){
-                            diff_date =  today_date - user_date;
-
-                            num_years = diff_date/31536000000;
-                            num_months = (diff_date % 31536000000)/2628000000;
-                            num_days = ((diff_date % 31536000000) % 2628000000)/86400000;
-
-                            if(Math.floor(num_years) > 1)
-                            {
-                                num_years = Math.floor(num_years)+" Years";
-                            }else
-                            {
-                                num_years = Math.floor(num_years)+" Year";
-                            }
-
-                            if(Math.floor(num_months) > 1)
-                            {
-                                num_months = Math.floor(num_months)+" Months";
-                            }else
-                            {
-                                num_months = Math.floor(num_months)+" Month";
-                            }
-
-                            self.associate_with_infobeans(num_years+" "+num_months);
-                        }else
-                        {
-                            self.associate_with_infobeans('');
-                        }
-
+                        
                         //feedback for the user
                         var feedbackApi = oj.Model.extend({
                             url: getFeedbackById + self.id()
@@ -409,32 +406,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 self.updateDate = function () {
                     //ajax call here
                     self.updateProfile();
-                    self.associate_with_infobeans(self.date());
-                    user_date = Date.parse(self.date());
-                    today_date = new Date();
-                    diff_date =  today_date - user_date;
-
-                    num_years = diff_date/31536000000;
-                    num_months = (diff_date % 31536000000)/2628000000;
-                    num_days = ((diff_date % 31536000000) % 2628000000)/86400000;
-
-                    if(Math.floor(num_years) > 1)
-                    {
-                        num_years = Math.floor(num_years)+" Years";
-                    }else
-                    {
-                        num_years = Math.floor(num_years)+" Year";
-                    }
-
-                    if(Math.floor(num_months) > 1)
-                    {
-                        num_months = Math.floor(num_months)+" Months";
-                    }else
-                    {
-                        num_months = Math.floor(num_months)+" Month";
-                    }
-
-                    self.associate_with_infobeans(num_years+" "+num_months);
+                    self.associate_with_infobeans(dateDiffCalender(self.date()));
 
                     $('#associate-text').removeClass('hide');
                     $('#associate-div').addClass('hide');

@@ -191,6 +191,9 @@ body{
     width: 120px;
     border-radius: 50%;
 }
+.profile:hover{
+    border:2px solid #689F39;
+}
 .border-color-green{
     border:3px #689F39 solid;
     cursor: pointer;
@@ -295,7 +298,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 .about-label{color: yellow;width: 240px;}
 .about-text{margin-left:200px !important;width: 240px;}
-.about-edit{color:white !important;font-size:20px !important;margin-top:30px !important;}
+.about-edit{color:white !important;font-size:20px !important;margin-top:10px !important;}
 .profile-tab1-data:not(:nth-child(1)) i{
     font-size: 50px;
     margin: 20px 0px 0px 30px;
