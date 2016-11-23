@@ -521,11 +521,9 @@ body{
     cursor: pointer !important;
     font-size: 24px;
     height: 48px;
-    margin-left: -120px;
     margin-top: 24px;
     outline: medium none;
     width: 38%;
-    float: left !important;
     -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color=#6f6d6d)";
     -moz-box-shadow: 3px 3px 3px #6f6d6d;
     -webkit-box-shadow: 3px 3px 3px #6f6d6d;
@@ -562,7 +560,7 @@ body{
     width: 278px;
 }
 .textArea3{
-    height: 144px;
+    height: 143px;
     border: none;
     width: 278px;
 }
@@ -576,6 +574,10 @@ body{
 .areaContent{
     float:left;
 }
+.areaContent1{
+    float:left;
+    width: 100%;
+}
 
 .mText{
     position: absolute;
@@ -588,6 +590,9 @@ body{
 .errorText{
     color:red;
     margin-left: -2px;
+}
+.errorFix1{
+    margin-left: 60px;
 }
 #ojDialogWrapper-modalDialog2 .oj-dialog-title {
     font-size: 22px;
@@ -613,8 +618,7 @@ body{
     margin-top: 24px;
     outline: medium none;
     width: 38%;
-    float: left !important;
-    margin-left: -152px;
+    
 }
 .modal-submit1{
     background-color: #ff6241 !important;
@@ -786,11 +790,9 @@ body{
     cursor: pointer !important;
     font-size: 24px;
     height: 48px;
-    margin-top: 37px;
+    margin-top: 25px;
     outline: medium none;
     width: 38%;
-    float: left !important;
-    margin-left: -156px;
 }
 
 .searchImage{
@@ -1062,7 +1064,7 @@ body{
     width: 463px;
 }
 .textArea-feedbackFloat{
-    height: 146px;
+    height: 143px;
     border: none;
     width: 383px;
 }
@@ -1099,11 +1101,11 @@ body{
     cursor: pointer !important;
     font-size: 24px;
     height: 48px;
-    margin-top: 178px;
+    margin-top: 25px;
     outline: medium none;
     width: 38%;
     float: left !important;
-    margin-left: -140px;
+    margin-left: 25%;
 }
 .searchLead{
     margin-top: -3px;

@@ -51,6 +51,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 self.textError('');
                 self.value([]);
                 self.searchError("");
+                $("#rateFloatTextError").addClass('hide');
             });
 
             self.handleOKClose = $("#okButton").click(function () {
@@ -61,9 +62,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.handleOpen = $(".feedBackFloat").click(function () {
                 $("#modalDialog9").ojDialog("open");
                 self.desc('');
-                self.textError('');
                 self.value1([]);
-                self.searchError("");
+                $("#feedbackFloatSearchError").addClass('hide');
+                $("#feedbackFloatTextError").addClass('hide');
 
             });
 
@@ -193,12 +194,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
         self.feedbackModal = function () {
             if (self.value1() == '' || self.value1() == null) {
-                self.searchError("This field cannot be empty");
+            
+                console.log($("#feedbackFloatSearchError").removeClass('hide'));
                 return false;
             }
             if (self.desc() == '' || self.desc() == null) {
-                self.searchError("");
-                self.textError("Please provide a reason for your feedback.");
+                $("#feedbackFloatSearchError").addClass('hide');
+                console.log($("#feedbackFloatTextError").removeClass('hide'));
                 return false;
             }
             $.ajax({
@@ -242,7 +244,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             }
             if (self.desc() == '' || self.desc() == null) {
                 self.searchError("");
-                self.textError("Please provide a reason for rating.");
+                $("#rateFloatTextError").removeClass('hide');
                 return false;
             }
 

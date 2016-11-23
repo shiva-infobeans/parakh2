@@ -184,7 +184,6 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                     leadSlideFetch.fetch({
                         headers: {secret: secret},
                         success: function (result) {
-                            //console.log(result['attributes']['data']);
 
                             var data = result['attributes']['data'];
                             for (var c = 0; c < data.length; c++) {
@@ -260,7 +259,6 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                             success: function (res) {
                                 var mylead = res['attributes']['data'][0]['manager_id'];
 
-                                console.log(getTopRankersCalendarWise + mylead);
                                 var leadSlide = oj.Model.extend({
                                     url: getTopRankersCalendarWise + mylead
                                 });
@@ -420,11 +418,9 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                                     diff /= (24 * 60 * 60 * 1000); //convert miliseconds into days
                                     if (diff < 7) {
                                         dayP++;
-                                        //           console.log(dayP);
                                     }
                                     if (diff < 30) {
                                         monthP++;
-                                        //     console.log(monthP);
                                     }
                                     plus++;
                                 }
