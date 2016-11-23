@@ -258,10 +258,6 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                             headers: {secret: secret},
                             success: function (res) {
                                 var mylead = res['attributes']['data'][0]['manager_id'];
-<<<<<<< HEAD
-
-=======
->>>>>>> b19cbdedc989cf3718b1d84978218f6b8b5d136f
                                 var leadSlide = oj.Model.extend({
                                     url: getTopRankersCalendarWise + mylead
                                 });
