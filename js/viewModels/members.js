@@ -19,6 +19,36 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
        com.commentDate = dateFormatter(commentDate1.substring(0, commentDate1.indexOf(' ')));
        return com;
    }
+   function dateDiffCalender(Date1) {
+      user_date = Date.parse(Date1);
+      today_date = new Date();
+      if(Date1!=''){
+          diff_date =  today_date - user_date;
+
+          num_years = diff_date/31536000000;
+          num_months = (diff_date % 31536000000)/2628000000;
+          num_days = ((diff_date % 31536000000) % 2628000000)/86400000;
+          if(Math.floor(num_years) > 1)
+          {
+              num_years = Math.floor(num_years)+" Years";
+          }else
+          {
+              num_years = Math.floor(num_years)+" Year";
+          }
+
+          if(Math.floor(num_months) > 1)
+          {
+              num_months = Math.floor(num_months)+" Months";
+          }else
+          {
+              num_months = Math.floor(num_months)+" Month";
+          }
+          return num_years+" "+num_months;
+      }else
+      {
+          return '';
+      }
+  }
    function dateFormatter(commentDate1) {
        commentDate1 = new Date(commentDate1);
        var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June",
@@ -152,7 +182,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                                  self.primary_project(data[index]["primary_project"]);
                                  self.past_project(data[index]["projects"]);
                                  self.interest(data[index]["interests"]);
-                                 self.associated(data[index]["associate_with_infobeans"]);
+                                 self.associated(dateDiffCalender(data[index]["associate_with_infobeans"]));
                                 var image = data[index]['google_picture_link'];
                                 self.pic(image);
                                 self.designation(data[index]['designation']);
