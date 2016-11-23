@@ -329,6 +329,7 @@ body{
     border-radius: 50%;
     height: 100px;
     width: 100px;
+    border: 2px solid #fff;
 }
 .profile-name{
     margin-left: -98px;
