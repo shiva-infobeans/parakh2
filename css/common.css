@@ -1131,7 +1131,6 @@ body{
 .sucessMsgMyteam{
     background-color:#E7FCD5;
     color: #000;
-    top: 50px;
     left: 620px;
     position: absolute;
     border-radius: 5px;
@@ -1140,6 +1139,7 @@ body{
     padding-bottom: 14px;
     padding-left: 50px;
     padding-right: 50px;
+    z-index: 999999;
 }
 .sucessMsgRate{
     background-color:#E7FCD5;
