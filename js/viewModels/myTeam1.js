@@ -497,6 +497,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             
 
         }, 600);
+
+
     }
     return myTeamContentViewModel;
 });
