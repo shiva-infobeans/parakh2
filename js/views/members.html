@@ -70,32 +70,33 @@
         <div class="feedbackSection">
             <div class="transbox"></div>
             <div class="oj-row oj-flex">
-                <div class="oj-xl-6 oj-lg-6 oj-md-12 oj-sm-12 oj-flex-item oj-flex">
+                <div class="oj-xl-6 oj-lg-6 oj-md-12 oj-sm-12 oj-flex-item oj-padding content1 ">
 
                     <!--repeat block-->
                     <!--ko foreach: feedbackContent1-->
-                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding heightContent">
-                        <div class="transbox border-color-green feedbackHeight"></div>
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                 <div class="oj-xl-10 oj-lg-10 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding heightContent  ">
+                            <div class="transbox3 feedback-profile"></div>
+                        <div class="transbox feedback-profile"></div>
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top">
                             <img data-bind="attr: {src: feedbackImage}"  alt="" class="profile-feedback-pic"/>
                         </div>
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top padding-feedback">
 
                             <span data-bind="text: name"></span>
                         </div>
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center padding-feedback">
 
                             <span data-bind="text: feedbackdesignation"></span>
                         </div>
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center padding-feedback ">
 
                             <span data-bind="text: feedbackDate"></span>
                         </div>
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin">
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding">
 
                             <span data-bind="text: feedbackDescription"></span>
                         </div>
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item open-more border-color-green oj-flex overflow-feedback-reply">
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item open-more oj-flex overflow-feedback-reply oj-margin-left oj-padding">
 
                             <!--repeat here-->
                             <!--ko foreach: replies-->
@@ -111,8 +112,8 @@
                             <!--/ko-->
                             <!--repeat end-->
                         </div>
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-margin replyBox">
-                            <div class="oj-xl-9 oj-lg-9 oj-md-9 oj-sm-9 oj-flex-item oj-flex"> 
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-margin-bottom replyBox">
+                            <div class="oj-xl-9 oj-lg-9 oj-md-9 oj-sm-9 oj-flex-item oj-flex oj-margin-bottom"> 
                                 <span class="hide oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item">
 
                                     <button  class="submitRespond" data-bind="attr:{loginUserId: myId,feedback_to: feedbackfrom,feedbackId: feedbackId}">
@@ -124,8 +125,8 @@
                                 </span>
                             </div>
                             <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item openDiv flex-bar">
-                                <span class="flex-bar-end">
-                                    <span><i class="zmdi zmdi-caret-down"></i></span>
+                                 <span class="flex-bar-end pos-relative">
+                                    <span class="feedbackMoreFix"><i class="zmdi zmdi-caret-down"></i></span>
                                     <span>More</span>
                                 </span>
                             </div>
@@ -135,31 +136,32 @@
                     <!--repeat end-->
 
                 </div>
-                <div class="oj-xl-6 oj-lg-6 oj-md-12 oj-sm-12 oj-flex-item ">
+                <div class="oj-xl-6 oj-lg-6 oj-md-12 oj-sm-12 oj-flex-item oj-padding content2">
                     <!--repeat block-->
                     <!--ko foreach: feedbackContent2-->
-                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding heightContent">
-                        <div class="transbox border-color-green feedbackHeight"></div>
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                   <div class="oj-xl-10 oj-lg-10 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding heightContent ">
+                            <div class="transbox3 feedback-profile"></div>
+                        <div class="transbox feedback-profile"></div>
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top">
                             <img data-bind="attr: {src: feedbackImage}"  alt="" class="profile-feedback-pic"/>
                         </div>
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center padding-feedback">
 
                             <span data-bind="text: name"></span>
                         </div>
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center padding-feedback">
 
                             <span data-bind="text: feedbackdesignation"></span>
                         </div>
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center padding-feedback">
 
                             <span data-bind="text: feedbackDate"></span>
                         </div>
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin">
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item feedbck-text oj-padding">
 
                             <span data-bind="text: feedbackDescription"></span>
                         </div>
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item open-more border-color-green oj-flex overflow-feedback-reply">
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item open-more oj-margin-left oj-flex overflow-feedback-reply">
 
                             <!--repeat here-->
                             <!--ko foreach: replies-->
@@ -175,8 +177,8 @@
                             <!--/ko-->
                             <!--repeat end-->
                         </div>
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-margin replyBox">
-                            <div class="oj-xl-9 oj-lg-9 oj-md-9 oj-sm-9 oj-flex-item oj-flex"> 
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-margin-bottom replyBox">
+                            <div class="oj-xl-9 oj-lg-9 oj-md-9 oj-sm-9 oj-flex-item oj-flex oj-margin-bottom"> 
                                 <span class="hide oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item">
 
                                     <button  class="submitRespond" data-bind="attr:{loginUserId: myId,feedback_to: feedbackfrom,feedbackId: feedbackId}">
@@ -188,8 +190,8 @@
                                 </span>
                             </div>
                             <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item openDiv flex-bar">
-                                <span class="flex-bar-end">
-                                    <span><i class="zmdi zmdi-caret-down"></i></span>
+                                <span class="flex-bar-end pos-relative">
+                                    <span class="feedbackMoreFix"><i class="zmdi zmdi-caret-down"></i></span>
                                     <span>More</span>
                                 </span>
                             </div>
@@ -206,7 +208,7 @@
     <div id="tabs-4" class="color-white oj-margin-horizontal pos-relative tabMinHeight">
         <div class="transbox"></div>
         <div class="profile-page-overflow">
-            <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+            <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
                 <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
                     <span class="icon-div"><i class="zmdi zmdi-email about-icons"></i></span>
                     <span class="text-about heightCol"> Email</span>
@@ -216,7 +218,7 @@
                 </div>
 
             </div>
-            <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+            <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
                 <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
                     <span class="icon-div"><i class="zmdi zmdi-case about-icons"></i> </span> 
                     <span class="text-about heightCol2">Designation</span>
@@ -225,7 +227,7 @@
                     <span  data-bind="text: designation"></span>
                 </div>
             </div>
-            <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+            <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
                 <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
                     <span class="icon-div"><i class="zmdi zmdi-pin about-icons"></i> </span>
                     <span class="text-about heightCol">Location</span>
@@ -234,7 +236,7 @@
                     <span data-bind="text: location" ></span>
                 </div>
             </div>
-            <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+            <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
                 <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
                     <span class="icon-div"><i class="zmdi zmdi-graduation-cap about-icons"></i> </span>
                     <span class="text-about heightCol">Skills</span>
@@ -243,7 +245,7 @@
                     <span data-bind="text: skills"></span>
                 </div>
             </div>
-            <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+            <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
                 <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
                     <span class="icon-div"><i class="zmdi zmdi-time-interval about-icons"></i>  </span>
                     <span class="text-about heightCol5">Associated with <br> Infobeans since</span>
@@ -253,7 +255,7 @@
                     <span data-bind="text: associated"></span>
                 </div>
             </div>
-            <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+            <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
                 <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
                     <span class="icon-div"><i class="zmdi zmdi-file-text about-icons"></i></span>
                     <span class="text-about heightCol">Primary Project</span>
@@ -262,7 +264,7 @@
                     <span data-bind="text: primary_project"></span>
                 </div>
             </div>
-               <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+               <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
                 <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
                     <span class="icon-div"><i class="zmdi zmdi-file-text about-icons"></i></span>
                     <span class="text-about heightCol"> Past Project(s)</span>
@@ -271,7 +273,7 @@
                     <span data-bind="text: past_project"></span>
                 </div>
             </div>
-            <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+            <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
                 <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
                     <span class="icon-div"><i class="zmdi zmdi-favorite about-icons"></i></span>
                     <span class="text-about heightCol"> Interests</span>
@@ -280,7 +282,7 @@
                     <span data-bind="text: interest"></span>
                 </div>
             </div>
-            <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+            <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
                 <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
                     <span class="icon-div"><i class="zmdi zmdi-phone about-icons"></i></span>
                     <span class="text-about heightCol"> Phone</span>

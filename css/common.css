@@ -1361,8 +1361,8 @@ body{
     margin-left: 43px;
     width: 100%;
     color: #F9E81F;
-    font-size: 22px;
-    font-weight: bolder;
+    font-size: 23px;
+    /*font-weight: bolder;*/
 }
 .textInfo{
     color: yellow;
@@ -1452,4 +1452,26 @@ body{
 .oj-filmstrip-arrow.oj-hover {
     background-color: transparent !important;
     border-color:transparent !important;
+}
+.View-Other-about-members{
+    padding: 17px;
+    font-size: 23px;
+    border-bottom: 1px solid #689F39;   
+}
+.padding-feedback{
+    padding: 2px;
+}
+.content1{
+    margin-left: 40px;
+}
+.content2{
+    margin-left: -40px;
+}
+.heading-slider{
+    color: #fff;
+    font-size: 25px;
+    font-weight: bold;
+}
+.tabIcon1{
+    color:green;
 }

@@ -785,13 +785,23 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 
 .rateBuddy-page-rate{
-    background:#689F39;width:100%;padding:10px;text-align:center;color:#fff;font-weight: bold;
+    background:#689F39;
+    width:100%;
+    padding:10px;
+    text-align:center;
+    color:#fff;
+    font-weight: bold;
 }
 .rateBuddy-page-rate-green{
     background:#689F39;width:100%;padding:10px;text-align:center;color:#fff;font-weight: bold;
 }
 .rateBuddy-page-rate-red{
-    background:red;width:100%;padding:10px;text-align:center;color:#fff;font-weight: bold;
+    background:#e00000;
+    width:100%;
+    padding:10px;
+    text-align:center;
+    color:#fff;
+    font-weight: bold;
 }
 .bold-class{    color: #fff;
                 font-size: 24px;

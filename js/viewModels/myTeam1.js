@@ -77,9 +77,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 self.role_name(res['attributes']['data']['role_name']);
 
                 if (self.role_name() === 'Team Member') {
-
                     $('#tabs ul li:last-child').hide();
-
+             
                 } else {
 
                     $('#tabs ul li:last-child').addClass('abc').show();
@@ -473,6 +472,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 $(".tabIcon").removeClass('oj-tabs-title-active');
                 $(this).addClass('oj-tabs-title-active');
             });
+
+
 
 
         }, 600);
