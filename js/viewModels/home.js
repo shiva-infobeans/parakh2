@@ -489,46 +489,46 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 });
             }
         });
-//        var counter = 1;//automatic slider counter
-//
-//        setInterval(function () {
-//            if (counter % 3 == 0) {
-//                document.getElementsByName("slide")[0].checked = true;
-//                document.getElementsByName("slide")[1].checked = false;
-//                document.getElementsByName("slide")[2].checked = false;
-//                document.getElementsByName("slide1")[0].checked = true;
-//                document.getElementsByName("slide1")[1].checked = false;
-//                document.getElementsByName("slide1")[2].checked = false;
-//
-//                counter = 0;
-//            }
-//            if (counter % 3 == 1) {
-//                document.getElementsByName("slide")[0].checked = false;
-//                document.getElementsByName("slide")[1].checked = true;
-//                document.getElementsByName("slide")[2].checked = false;
-//                document.getElementsByName("slide1")[0].checked = false;
-//                document.getElementsByName("slide1")[1].checked = true;
-//                document.getElementsByName("slide1")[2].checked = false;
-//
-//            }
-//            if (counter % 3 == 2) {
-//                document.getElementsByName("slide")[0].checked = false;
-//                document.getElementsByName("slide")[1].checked = false;
-//                document.getElementsByName("slide")[2].checked = true;
-//                document.getElementsByName("slide1")[0].checked = false;
-//                document.getElementsByName("slide1")[1].checked = false;
-//                document.getElementsByName("slide1")[2].checked = true;
-//
-//            }
-//            counter++;
-//			 if ($("#filmStrip").find("#ui-id-9").attr("style") == "visibility: hidden;")
-//               $( "#filmStrip" ).ojFilmStrip( "option", "currentItem", 1 );
-//            else {
-//                $("#filmStrip").find("#ui-id-9").click();
-//            }
-//
-//        }, 6000)
-//
+        var counter = 1;//automatic slider counter
+
+        setInterval(function () {
+            if (counter % 3 == 0) {
+                document.getElementsByName("slide")[0].checked = true;
+                document.getElementsByName("slide")[1].checked = false;
+                document.getElementsByName("slide")[2].checked = false;
+                document.getElementsByName("slide1")[0].checked = true;
+                document.getElementsByName("slide1")[1].checked = false;
+                document.getElementsByName("slide1")[2].checked = false;
+
+                counter = 0;
+            }
+            if (counter % 3 == 1) {
+                document.getElementsByName("slide")[0].checked = false;
+                document.getElementsByName("slide")[1].checked = true;
+                document.getElementsByName("slide")[2].checked = false;
+                document.getElementsByName("slide1")[0].checked = false;
+                document.getElementsByName("slide1")[1].checked = true;
+                document.getElementsByName("slide1")[2].checked = false;
+
+            }
+            if (counter % 3 == 2) {
+                document.getElementsByName("slide")[0].checked = false;
+                document.getElementsByName("slide")[1].checked = false;
+                document.getElementsByName("slide")[2].checked = true;
+                document.getElementsByName("slide1")[0].checked = false;
+                document.getElementsByName("slide1")[1].checked = false;
+                document.getElementsByName("slide1")[2].checked = true;
+
+            }
+            counter++;
+			 if ($("#filmStrip").find("#ui-id-9").attr("style") == "visibility: hidden;")
+               $( "#filmStrip" ).ojFilmStrip( "option", "currentItem", 1 );
+            else {
+                $("#filmStrip").find("#ui-id-9").click();
+            }
+
+        }, 6000)
+
 
         setTimeout(function () {
                     $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
