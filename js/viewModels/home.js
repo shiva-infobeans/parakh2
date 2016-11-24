@@ -63,7 +63,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 var img0 = data.attributes['data'][0]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][0]['google_picture_link'];
                 self.name0(data.attributes['data'][0]['google_name'].substr(0, data.attributes['data'][0]['google_name'].indexOf(' ')));
                 self.name0hover(data.attributes['data'][0]['google_name']);
-                self.project0hover(data.attributes['data'][0]['projects']);
+                self.project0hover(data.attributes['data'][0]['primary_project']);
                 self.image0(img0);
                 var person0 = "memberProfile.html?id=" + data.attributes['data'][0]['user_id'];
                 self.link0(person0);
@@ -71,7 +71,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 var img1 = data.attributes['data'][1]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][1]['google_picture_link'];
                 self.name1(data.attributes['data'][1]['google_name'].substr(0, data.attributes['data'][1]['google_name'].indexOf(' ')));
                 self.name1hover(data.attributes['data'][1]['google_name']);
-                self.project1hover(data.attributes['data'][1]['projects']);
+                self.project1hover(data.attributes['data'][1]['primary_project']);
                 self.image1(img1);
                 var person1 = "memberProfile.html?id=" + data.attributes['data'][1]['user_id'];
                 self.link1(person1);
@@ -79,7 +79,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 var img2 = data.attributes['data'][2]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][2]['google_picture_link'];
                 self.name2(data.attributes['data'][2]['google_name'].substr(0, data.attributes['data'][2]['google_name'].indexOf(' ')));
                 self.name2hover(data.attributes['data'][2]['google_name']);
-                self.project2hover(data.attributes['data'][2]['projects']);
+                self.project2hover(data.attributes['data'][2]['primary_project']);
                 self.image2(img2);
                 var person2 = "memberProfile.html?id=" + data.attributes['data'][2]['user_id'];
                 self.link2(person2);
@@ -87,7 +87,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 var img3 = data.attributes['data'][3]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][3]['google_picture_link'];
                 self.name3(data.attributes['data'][3]['google_name'].substr(0, data.attributes['data'][3]['google_name'].indexOf(' ')));
                 self.name3hover(data.attributes['data'][3]['google_name']);
-                self.project3hover(data.attributes['data'][3]['projects']);
+                self.project3hover(data.attributes['data'][3]['primary_project']);
                 self.image3(img3);
                 var person3 = "memberProfile.html?id=" + data.attributes['data'][3]['user_id'];
                 self.link3(person3);
