@@ -1337,6 +1337,10 @@ body{
 .text-hover{
     color: #000;
 }
+.text-hover-name{
+    font-weight: bold;
+    color: #000;
+}
 .sliderScreen-NoRatings{
     color: #fff !important;
     font-family: nameHeading;
