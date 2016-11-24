@@ -689,11 +689,11 @@ body{
     border-bottom: 4px solid #78A95A;
 }
 .rankText{
-    text-align: center;
-    font-size: 60px;
-    padding-top: 55px;
-    padding-bottom: 71px;
+   font-size: 60px;
     font-weight: bolder;
+    height: 210px;
+    padding-top: 47px;
+    text-align: center;
 }
 .countBlock{
     margin-bottom: 20px;
