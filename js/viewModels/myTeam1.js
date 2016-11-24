@@ -391,6 +391,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     success: function () {
                         $("#modalDialog2").ojDialog("close");
                         self.sucessMsg("Member rated successfully!");
+                        $("#sucess").show();
                         setTimeout(function () {
                             $("#sucess").hide();
                             self.sucessMsg("");
