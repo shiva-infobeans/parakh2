@@ -51,6 +51,38 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
         self.leadMinusmonth = ko.observable();
         self.leadMinustill = ko.observable();
 
+// slider 1 replace.............start
+
+        self.leadSlider = ko.observableArray([
+        ]);
+        self.pagingModel12 = null;
+
+        getItemInitialDisplay12 = function (index)
+        {
+            return index < 1 ? '' : 'none';
+        };
+
+        getPagingModel12 = function ()
+        {
+            if (!self.pagingModel12)
+            {
+                var filmStrip = $("#filmStrip12");
+                var pagingModel = filmStrip.ojFilmStrip("getPagingModel");
+                self.pagingModel12 = pagingModel;
+            }
+            return self.pagingModel12;
+        };
+
+        self.addLeadSlider = function (obj) {
+            self.leadSlider.push(obj);
+            $('#filmStrip12').ojFilmStrip("refresh");
+        }
+
+
+
+
+// slider 1 replace.............end
+
 //         get members who get +1 recently
         var rec = oj.Model.extend({
             url: getRecentRankingList
@@ -129,6 +161,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
 
             $('#filmStrip').ojFilmStrip("refresh");
         }
+
 //pagination slider for manager start
         self.projects = ko.observableArray([]);
         self.addProject = function (obj) {
@@ -241,12 +274,22 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                                     $("#smileyOverAll").hide();
                                 }
 
-                                self.leadPlusWeek(result['attributes']['data']['week']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['week']['plus']);
-                                self.leadPlusmonth(result['attributes']['data']['month']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['month']['plus']);
-                                self.leadPlustill(result['attributes']['data']['till_now']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['till_now']['plus']);
-                                self.leadMinusWeek(result['attributes']['data']['week']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['week']['minus']);
-                                self.leadMinusmonth(result['attributes']['data']['month']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['month']['minus']);
-                                self.leadMinustill(result['attributes']['data']['till_now']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['till_now']['minus']);
+                                var obj = new Object();
+                                obj.leadPlus12 = result['attributes']['data']['week']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['week']['plus'];
+                                obj.leadMinus12 = result['attributes']['data']['week']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['week']['minus'];
+                                obj.performanceTxt = "My Team’s Performance for this week…";
+                                obj.noRatingTxt = "Your team has not been rated this week!!";
+                                self.addLeadSlider(obj);
+                                obj.leadPlus12 = result['attributes']['data']['month']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['month']['plus'];
+                                obj.leadMinus12 = result['attributes']['data']['month']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['month']['minus'];
+                                obj.performanceTxt = "My Team’s Performance for this week…";
+                                obj.noRatingTxt = "Your team has not been rated this week!!";
+                                self.addLeadSlider(obj);
+                                obj.leadPlus12 = result['attributes']['data']['till_now']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['till_now']['plus'];
+                                obj.leadMinus12 = result['attributes']['data']['till_now']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['till_now']['minus'];
+                                obj.performanceTxt = "My Team’s Performance for this week…";
+                                obj.noRatingTxt = "Your team has not been rated this week!!";
+                                self.addLeadSlider(obj);
                             }
                         });
                     } else {
@@ -265,34 +308,35 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                                 leadSlideFetch.fetch({
                                     headers: {secret: secret},
                                     success: function (result) {
-                                        if (result['attributes']['data']['week']['plus'] == 0 && result['attributes']['data']['week']['minus'] == 0) {
-                                            $("#hideSliderWeek").show();
-                                            $("#weekSmiley").show();
-                                            $("#hideSlider12").hide();
-                                        } else {
-                                            $("#hideSliderWeek").hide();
-                                            $("#weekSmiley").hide();
-                                            $("#hideSlider12").show();
-                                        }
+//                                        if (result['attributes']['data']['week']['plus'] == 0 && result['attributes']['data']['week']['minus'] == 0) {
+//                                            $("#hideSliderWeek").show();
+//                                            $("#weekSmiley").show();
+//                                            $("#hideSlider12").hide();
+//                                        } else {
+//                                            $("#hideSliderWeek").hide();
+//                                            $("#weekSmiley").hide();
+//                                            $("#hideSlider12").show();
+//                                        }
+//
+//                                        if (result['attributes']['data']['month']['plus'] == 0 && result['attributes']['data']['month']['minus'] == 0) {
+//                                            $("#hideMonthSlider").show();
+//                                            $("#monthSmiley").show();
+//                                            $("#hideSlider22").hide();
+//                                        } else {
+//                                            $("#hideMonthSlider").hide();
+//                                            $("#monthSmiley").hide();
+//                                            $("#hideSlider22").show();
+//                                        }
+//                                        if (result['attributes']['data']['till_now']['plus'] == 0 && result['attributes']['data']['till_now']['minus'] == 0) {
+//                                            $("#inner-wrapper1").hide();
+//                                            $("#noRatingsScreen1").show();
+//                                            $("#smileyOverAll").show();
+//                                        } else {
+//                                            $("#inner-wrapper1").show();
+//                                            $("#noRatingsScreen1").hide();
+//                                            $("#smileyOverAll").hide();
+//                                        }
 
-                                        if (result['attributes']['data']['month']['plus'] == 0 && result['attributes']['data']['month']['minus'] == 0) {
-                                            $("#hideMonthSlider").show();
-                                            $("#monthSmiley").show();
-                                            $("#hideSlider22").hide();
-                                        } else {
-                                            $("#hideMonthSlider").hide();
-                                            $("#monthSmiley").hide();
-                                            $("#hideSlider22").show();
-                                        }
-                                        if (result['attributes']['data']['till_now']['plus'] == 0 && result['attributes']['data']['till_now']['minus'] == 0) {
-                                            $("#inner-wrapper1").hide();
-                                            $("#noRatingsScreen1").show();
-                                            $("#smileyOverAll").show();
-                                        } else {
-                                            $("#inner-wrapper1").show();
-                                            $("#noRatingsScreen1").hide();
-                                            $("#smileyOverAll").hide();
-                                        }
                                         self.leadPlusWeek(result['attributes']['data']['week']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['week']['plus']);
                                         self.leadPlusmonth(result['attributes']['data']['month']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['month']['plus']);
                                         self.leadPlustill(result['attributes']['data']['till_now']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['till_now']['plus']);
@@ -513,8 +557,8 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
 
             }
             counter++;
-			 if ($("#filmStrip").find("#ui-id-9").attr("style") == "visibility: hidden;")
-               $( "#filmStrip" ).ojFilmStrip( "option", "currentItem", 1 );
+            if ($("#filmStrip").find("#ui-id-9").attr("style") == "visibility: hidden;")
+                $("#filmStrip").ojFilmStrip("option", "currentItem", 1);
             else {
                 $("#filmStrip").find("#ui-id-9").click();
             }
@@ -523,45 +567,45 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
 
 
         setTimeout(function () {
+            $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
+            $('#homeTab2').append(' <img src="../../images/team.png" alt="" />');
+
+            $("#homeTab2").click(function () {
+                if ($('#homeTab2 > img').attr("src") == "../../images/team.png") {
+                    $('#homeTab1 > img').remove();
+                    $('#homeTab2 > img').remove();
+                    $('#homeTab1').append(' <img src="../../images/user.png" alt="" />');
+                    $('#homeTab2').append(' <img src="../../images/team-active.png" alt="" />');
+                }
+            });
+
+            $("#home2").click(function () {
+                if ($('#homeTab2 > img').attr("src") == "../../images/team.png") {
+                    $('#homeTab1 > img').remove();
+                    $('#homeTab2 > img').remove();
+                    $('#homeTab1').append(' <img src="../../images/user.png" alt="" />');
+                    $('#homeTab2').append(' <img src="../../images/team-active.png" alt="" />');
+                }
+            });
+
+            $("#homeTab1").click(function () {
+                if ($('#homeTab1 > img').attr("src") == "../../images/user.png") {
+                    $('#homeTab1 > img').remove();
+                    $('#homeTab2 > img').remove();
                     $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
                     $('#homeTab2').append(' <img src="../../images/team.png" alt="" />');
-                    
-                     $( "#homeTab2" ).click(function() {
-                          if($('#homeTab2 > img').attr("src")=="../../images/team.png"){
-                          $('#homeTab1 > img').remove();
-                          $('#homeTab2 > img').remove();
-                          $('#homeTab1').append(' <img src="../../images/user.png" alt="" />');
-                          $('#homeTab2').append(' <img src="../../images/team-active.png" alt="" />');
-                      }
-                     });
-                         
-                     $( "#home2" ).click(function() {
-                          if($('#homeTab2 > img').attr("src")=="../../images/team.png"){
-                          $('#homeTab1 > img').remove();
-                          $('#homeTab2 > img').remove();
-                          $('#homeTab1').append(' <img src="../../images/user.png" alt="" />');
-                          $('#homeTab2').append(' <img src="../../images/team-active.png" alt="" />');
-                      }
-                     });
-                     
-                       $( "#homeTab1" ).click(function() {
-                          if($('#homeTab1 > img').attr("src")=="../../images/user.png"){
-                          $('#homeTab1 > img').remove();
-                          $('#homeTab2 > img').remove();
-                          $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
-                          $('#homeTab2').append(' <img src="../../images/team.png" alt="" />');
-                      }
-                     });
-                         
-                     $( "#home1" ).click(function() {
-                         if($('#homeTab1 > img').attr("src")=="../../images/user.png"){
-                          $('#homeTab1 > img').remove();
-                          $('#homeTab2 > img').remove();
-                          $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
-                          $('#homeTab2').append(' <img src="../../images/team.png" alt="" />');
-                      }
-                     });
-                      
+                }
+            });
+
+            $("#home1").click(function () {
+                if ($('#homeTab1 > img').attr("src") == "../../images/user.png") {
+                    $('#homeTab1 > img').remove();
+                    $('#homeTab2 > img').remove();
+                    $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
+                    $('#homeTab2').append(' <img src="../../images/team.png" alt="" />');
+                }
+            });
+
         }, 500);
 
     }

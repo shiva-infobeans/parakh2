@@ -270,132 +270,74 @@
                     </div>
                 </div>
 
-                <!--start slider here-->
-                <div id="slider-wrapper1">
-                    <div class="inner-wrapper" id="inner-wrapper1" >
-                        <input checked type="radio" name="slide1" class="control" id="Slide12"/>
-                        <label for="Slide12" id="s12"></label>
-                        <input type="radio" name="slide1" class="control" id="Slide22" />
-                        <label for="Slide22" id="s22"></label>
-                        <input type="radio" name="slide1" class="control" id="Slide32" />
-                        <label for="Slide32" id="s32"></label>
-                        <div class="overflow-wrapper">
-                            <div class="slide">
- <!--week lead-->
-                                <div class="slider-item" id="hideSlider12">
+                <div class="oj-xl-8 oj-lg-8 oj-md-12 oj-sm-12 oj-flex-item" id="mangerSlider1">
 
-                                    <div class="slider-text">
-                                        <p>
-                                            My Team’s Performance for this week…
-                                        </p>
-                                    </div>
+                    <div style="margin: 20px; ">
+                        <div id="filmStripDiv" style="position: relative; height: 300px;">
+                            <div id="filmStrip12" 
+                                 data-bind="ojComponent: {
+             component: 'ojFilmStrip', 
+             maxItemsPerPage: 1, 
+             arrowVisibility: 'hidden'}" 
+                                 aria-label="Set of chemicals" 
+                                 class="demo-stretch-items">
+                                <!-- ko foreach: leadSlider -->
+                                <div class="filmstrip-item12" 
+                                     data-bind="attr: {id: 'srno'+$index()},style: {
+               display: getItemInitialDisplay12($index())}">
+                                    <div class="" data-bind="attr: {id: 'srno'+$index()}">
+                                        <div class="slider-text">
+                                            <p data-bind="text: performanceTxt">
 
-                                    <div class="green-button" id="hidegreenBtn1" data-bind="">
-
-                                        <div class="border-right"><img src="css/images/green-button.png" alt=""/></div>
-                                        <div class="btn-text-green">
-                                            <span data-bind="text: leadPlusWeek"></span>
-
+                                            </p>
+                                        </div>
+                                        <div class="oj-row oj-flex oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6 left">
+                                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item imgBorder-Slider pos-relative">
+                                                <div class="imgSlider"><img src="css/images/green-button.png" alt=""/></div>
+                                                <div class="btn-txt">
+                                                    <div class="alignSliderTxt">
+                                                        <span data-bind="text: leadPlus12"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="oj-row oj-flex oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6">
+                                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item pos-relative">
+                                                <div class="imgSlider"><img src="css/images/red-button.png" alt=""/></div>
+                                                <div class="btn-txt">
+                                                    <div class="alignSliderTxt">
+                                                        <span data-bind="text: leadMinus12"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-
-
-                                    <div class="red-button" id="hideredBtn1">
-
-                                        <img src="css/images/red-button.png" alt=""/>
-                                        <div class="btn-text-red">
-                                            <span data-bind="text: leadMinusWeek"></span>
-
-
+                                    <div data-bind="attr: {id: 'noRating'+$index()}" class="oj-row oj-flex oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 txtAlign hide">
+                                        <div class="sliderTxt1"><span data-bind="text: noRatingTxt"></span> </div>
+                                        <div class="noRatingImg">
+                                            <img class="" data-bind="attr: {id:'smiley'+$index()}" src="../css/images/sliderScreen.png" alt="slider image"/>
                                         </div>
                                     </div>
-
-                                </div> 
-
-                                    <div class="sliderScreen1" id="hideSliderWeek" >
-                                        Your team has not been rated this week!!
-                                    </div>
-                                    <img class="sliderSmiley" id="weekSmiley" src="../css/images/sliderScreen.png" alt="slider image"/>
-                                
+                                </div>
+                                <!-- /ko -->
                             </div>
 
-
-                            <!--SLIDER 2ND-->
-                            <div class="slide">
-
-                                <div class="slider-item" id="hideSlider22">
-                                    <div class="slider-text">
-                                        <p>
-                                            My Team’s Performance for this month…
-                                        </p>
-                                    </div>
-
-                                    <div class="green-button"  id="hidegreenBtn2">
-                                        <div class="border-right"><img src="css/images/green-button.png" alt=""/></div>
-                                        <div class="btn-text-green">
-                                            <span data-bind="text: leadPlusmonth"></span>
-
-                                        </div>
-                                    </div>
-
-
-                                    <div class="red-button"  id="hideredBtn2">
-                                        <img src="css/images/red-button.png" alt=""/>
-                                        <div class="btn-text-red">
-                                            <span data-bind="text: leadMinusmonth"></span>
-
-                                        </div>
-                                    </div>
-
-                                </div> 
-                               
-                                    <div class="sliderScreen1" id="hideMonthSlider" > 
-                                        Your team has not been rated this month!!
-                                    </div>
-                                    <img class="sliderSmiley" id="monthSmiley" src="../css/images/sliderScreen.png" alt="slider image"/>
-                                
-
+                            <div class="demo-overlaid-paging-control">
+                                <div id="pagingControl" 
+                                     data-bind="ojComponent: {
+               component: 'ojPagingControl', 
+               data: getPagingModel12(), 
+               pageSize: 0, 
+               pageOptions: {type: 'dots'}}">
+                                </div>
                             </div>
-                            <!--SLIDER 3RD-->
-                            <div class="slide">
-
-                                <div class="slider-item"  id="hideSlider3">
-                                    <div class="slider-text">
-                                        <p>
-                                            My Team’s Performance up to now…
-                                        </p>
-                                    </div>
-
-                                    <div class="green-button" id="hidegreenBtn3">
-                                        <div class="border-right"><img src="css/images/green-button.png" alt=""/></div>
-                                        <div class="btn-text-green">
-                                            <span data-bind="text: leadPlustill"></span>
-
-                                        </div>
-                                    </div>
+                        </div> <!-- end filmStripDiv -->
 
 
-                                    <div class="red-button"  id="hideredBtn3">
-                                        <img src="css/images/red-button.png" alt=""/>
-                                        <div class="btn-text-red">
-                                            <span data-bind="text: leadMinustill"></span>
-
-                                        </div>
-                                    </div>
-                                </div> 
-                            </div>
-
-                        </div>
                     </div>
-
-                    <div class="sliderScreen-NoRatings " id="noRatingsScreen1">
-                        Your team has not been rated yet!! </div>
-                        <img class="sliderSmiley-NoRatings" id="smileyOverAll" src="../css/images/sliderScreen.png" alt="slider image"/>
-                   
-
                 </div>
 
-                <!--end slider here-->
+
                 <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-8 oj-flex-item" id="mangerSlider">
 
                     <div id="filmStripDiv2" style="margin: 20px;">
