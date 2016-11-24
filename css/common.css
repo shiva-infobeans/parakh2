@@ -1475,3 +1475,7 @@ body{
 .replyDate{
    font-size: 12px;
 }
+.text-hover-name{
+    color: #000;
+    font-weight: bold;
+}
