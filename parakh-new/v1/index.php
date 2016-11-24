@@ -234,6 +234,9 @@ $app->post('/updateProfile', function ($request, $response) {
     if(is_array($data['projects'])){
         $post_data['projects'] = implode(",",$data['projects']);
     }
+    if(is_array($data['primary_project'])){
+        $post_data['primary_project'] = implode(",",$data['primary_project']);
+    }
     if(is_array($data['interests'])){
         $post_data['interests'] = implode(",",$data['interests']);
     }
