@@ -138,17 +138,21 @@ body{
     margin-right: 50px;
 }
 .btn-text-green{
-    color: #fff;
+   color: #fff;
     font-size: 50px;
-    font-weight: normal;
-    left: 168px;
+    font-weight: bold;
+    left: 165px;
     position: absolute;
-    top: 55px;
+    top: 64px;
+    text-align: center !important;
+}
+btn-txt-green0{
+    
 }
 .btn-text-red{
     color: #fff;
     font-size: 50px;
-    font-weight: normal;
+    font-weight: bold;
     left: 168px;
     position: absolute;
     top: 55px;
@@ -156,7 +160,7 @@ body{
 .btn-text-red1{
     color: #fff;
     font-size: 50px;
-    font-weight: normal;
+    font-weight: bold;
     left: 10px;
     position: absolute;
     top: 55px;
@@ -233,7 +237,14 @@ body{
     cursor: pointer;
     z-index: 999;
 }
-
+.sliderScreen1{
+   color: #fff !important;
+    font-family: nameHeading;
+    font-size: 55px;
+    margin-left: 33px;
+    margin-right: 24px;
+    margin-top: 50px;
+}
 
 
 .inner-wrapper {
@@ -1356,7 +1367,7 @@ body{
     border-width: 1px 0 0;
 }
 .View-Other-about{
-    padding: 14px;
+    padding: 17px;
     font-size: 23px;
     border-bottom: 1px solid #689F39;
 }

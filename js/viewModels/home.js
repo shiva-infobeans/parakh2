@@ -476,51 +476,59 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                                 $('#smiley3').hide();
                             }
                         }
+                        
+                                 self.dayPlusRatings(dayP == 0 ? 0 : "+" + dayP);
+                                 self.dayMinusRatings(dayN == 0 ? 0 : "+" + dayN);
+                                 self.monthPlusRatings(monthP == 0 ? 0 : "+" + monthP);
+                                 self.monthMinusRatings(monthN == 0 ? 0 : "-" + monthN);
+                                 self.myPlusRatings(plus== 0 ? 0 : "-" + plus);
+                                 self.myMinusRatings(minus== 0 ? 0 : "-" + minus);
+                        
                         /// rating calculation end here
                     }
                 });
             }
         });
-        var counter = 1;//automatic slider counter
-
-        setInterval(function () {
-            if (counter % 3 == 0) {
-                document.getElementsByName("slide")[0].checked = true;
-                document.getElementsByName("slide")[1].checked = false;
-                document.getElementsByName("slide")[2].checked = false;
-                document.getElementsByName("slide1")[0].checked = true;
-                document.getElementsByName("slide1")[1].checked = false;
-                document.getElementsByName("slide1")[2].checked = false;
-
-                counter = 0;
-            }
-            if (counter % 3 == 1) {
-                document.getElementsByName("slide")[0].checked = false;
-                document.getElementsByName("slide")[1].checked = true;
-                document.getElementsByName("slide")[2].checked = false;
-                document.getElementsByName("slide1")[0].checked = false;
-                document.getElementsByName("slide1")[1].checked = true;
-                document.getElementsByName("slide1")[2].checked = false;
-
-            }
-            if (counter % 3 == 2) {
-                document.getElementsByName("slide")[0].checked = false;
-                document.getElementsByName("slide")[1].checked = false;
-                document.getElementsByName("slide")[2].checked = true;
-                document.getElementsByName("slide1")[0].checked = false;
-                document.getElementsByName("slide1")[1].checked = false;
-                document.getElementsByName("slide1")[2].checked = true;
-
-            }
-            counter++;
-			 if ($("#filmStrip").find("#ui-id-9").attr("style") == "visibility: hidden;")
-               $( "#filmStrip" ).ojFilmStrip( "option", "currentItem", 1 );
-            else {
-                $("#filmStrip").find("#ui-id-9").click();
-            }
-
-        }, 6000)
-
+//        var counter = 1;//automatic slider counter
+//
+//        setInterval(function () {
+//            if (counter % 3 == 0) {
+//                document.getElementsByName("slide")[0].checked = true;
+//                document.getElementsByName("slide")[1].checked = false;
+//                document.getElementsByName("slide")[2].checked = false;
+//                document.getElementsByName("slide1")[0].checked = true;
+//                document.getElementsByName("slide1")[1].checked = false;
+//                document.getElementsByName("slide1")[2].checked = false;
+//
+//                counter = 0;
+//            }
+//            if (counter % 3 == 1) {
+//                document.getElementsByName("slide")[0].checked = false;
+//                document.getElementsByName("slide")[1].checked = true;
+//                document.getElementsByName("slide")[2].checked = false;
+//                document.getElementsByName("slide1")[0].checked = false;
+//                document.getElementsByName("slide1")[1].checked = true;
+//                document.getElementsByName("slide1")[2].checked = false;
+//
+//            }
+//            if (counter % 3 == 2) {
+//                document.getElementsByName("slide")[0].checked = false;
+//                document.getElementsByName("slide")[1].checked = false;
+//                document.getElementsByName("slide")[2].checked = true;
+//                document.getElementsByName("slide1")[0].checked = false;
+//                document.getElementsByName("slide1")[1].checked = false;
+//                document.getElementsByName("slide1")[2].checked = true;
+//
+//            }
+//            counter++;
+//			 if ($("#filmStrip").find("#ui-id-9").attr("style") == "visibility: hidden;")
+//               $( "#filmStrip" ).ojFilmStrip( "option", "currentItem", 1 );
+//            else {
+//                $("#filmStrip").find("#ui-id-9").click();
+//            }
+//
+//        }, 6000)
+//
 
         setTimeout(function () {
                     $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
