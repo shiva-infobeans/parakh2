@@ -1370,7 +1370,7 @@ class dbmodule {
     /*get top four ranker of current month*/
     function get_top_four_ranker_for_current_month(){
 
-        $query_rank = "SELECT r.created_date as date,r.user_id,u.google_name,u.google_picture_link as image,
+        $query_rank = "SELECT r.created_date as date,r.user_id,u.google_name,u.primary_project,u.projects,u.google_picture_link as image,
                     sum(case when r.rating = 1 then 1  end) as pluscount,
                     sum(case when r.rating = 0 then 1  end) as minuscount
                     from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 AND MONTH(r.created_date) = MONTH(CURDATE())
