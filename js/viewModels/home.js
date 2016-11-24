@@ -513,9 +513,9 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
 
             }
             counter++;
-			 if ($("#filmStrip").find("#ui-id-9").attr("style") == "visibility: hidden;")
-               $( "#filmStrip" ).ojFilmStrip( "option", "currentItem", 1 );
-            else {
+            if ($("#filmStrip").find("#ui-id-9").attr("style") == "visibility: hidden;") {
+                $("#filmStrip").ojFilmStrip("option", "currentItem", 1)
+            } else {
                 $("#filmStrip").find("#ui-id-9").click();
             }
 
@@ -523,45 +523,63 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
 
 
         setTimeout(function () {
+            $("#filmStrip").on({
+                'ojoptionchange': function (event, data) {
+                    // verify that the component firing the event is a component of interest
+                    if ($(event.target).is("#filmStrip")) {
+                        if($("#filmStrip").ojFilmStrip("option", "currentItem") == 1){
+                            $("#plusSliderTxt").text("Recent +1 Ratings");
+                        };
+                        if($("#filmStrip").ojFilmStrip("option", "currentItem") == 4){
+                            $("#plusSliderTxt").text("Monthly Highest +1 Ratings");
+                        };
+                        if($("#filmStrip").ojFilmStrip("option", "currentItem") == 8){
+                            $("#plusSliderTxt").text("Overall Highest +1 Rating");
+                        };
+                        //window.console.log("option that changed is: " + $("#filmStrip").ojFilmStrip("option", "currentItem"));
+                    }
+                }
+            });
+            $("#plusSliderTxt").text("Recent +1 Ratings");// slider text for +1 rating.
+            $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
+            $('#homeTab2').append(' <img src="../../images/team.png" alt="" />');
+
+            $("#homeTab2").click(function () {
+                if ($('#homeTab2 > img').attr("src") == "../../images/team.png") {
+                    $('#homeTab1 > img').remove();
+                    $('#homeTab2 > img').remove();
+                    $('#homeTab1').append(' <img src="../../images/user.png" alt="" />');
+                    $('#homeTab2').append(' <img src="../../images/team-active.png" alt="" />');
+                }
+            });
+
+            $("#home2").click(function () {
+                if ($('#homeTab2 > img').attr("src") == "../../images/team.png") {
+                    $('#homeTab1 > img').remove();
+                    $('#homeTab2 > img').remove();
+                    $('#homeTab1').append(' <img src="../../images/user.png" alt="" />');
+                    $('#homeTab2').append(' <img src="../../images/team-active.png" alt="" />');
+                }
+            });
+
+            $("#homeTab1").click(function () {
+                if ($('#homeTab1 > img').attr("src") == "../../images/user.png") {
+                    $('#homeTab1 > img').remove();
+                    $('#homeTab2 > img').remove();
                     $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
                     $('#homeTab2').append(' <img src="../../images/team.png" alt="" />');
-                    
-                     $( "#homeTab2" ).click(function() {
-                          if($('#homeTab2 > img').attr("src")=="../../images/team.png"){
-                          $('#homeTab1 > img').remove();
-                          $('#homeTab2 > img').remove();
-                          $('#homeTab1').append(' <img src="../../images/user.png" alt="" />');
-                          $('#homeTab2').append(' <img src="../../images/team-active.png" alt="" />');
-                      }
-                     });
-                         
-                     $( "#home2" ).click(function() {
-                          if($('#homeTab2 > img').attr("src")=="../../images/team.png"){
-                          $('#homeTab1 > img').remove();
-                          $('#homeTab2 > img').remove();
-                          $('#homeTab1').append(' <img src="../../images/user.png" alt="" />');
-                          $('#homeTab2').append(' <img src="../../images/team-active.png" alt="" />');
-                      }
-                     });
-                     
-                       $( "#homeTab1" ).click(function() {
-                          if($('#homeTab1 > img').attr("src")=="../../images/user.png"){
-                          $('#homeTab1 > img').remove();
-                          $('#homeTab2 > img').remove();
-                          $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
-                          $('#homeTab2').append(' <img src="../../images/team.png" alt="" />');
-                      }
-                     });
-                         
-                     $( "#home1" ).click(function() {
-                         if($('#homeTab1 > img').attr("src")=="../../images/user.png"){
-                          $('#homeTab1 > img').remove();
-                          $('#homeTab2 > img').remove();
-                          $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
-                          $('#homeTab2').append(' <img src="../../images/team.png" alt="" />');
-                      }
-                     });
-                      
+                }
+            });
+
+            $("#home1").click(function () {
+                if ($('#homeTab1 > img').attr("src") == "../../images/user.png") {
+                    $('#homeTab1 > img').remove();
+                    $('#homeTab2 > img').remove();
+                    $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
+                    $('#homeTab2').append(' <img src="../../images/team.png" alt="" />');
+                }
+            });
+
         }, 500);
 
     }
