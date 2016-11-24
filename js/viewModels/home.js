@@ -330,7 +330,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                                     obj.name = result['attributes']['data'][c]['google_name'];
                                     obj.nameS = result['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
                                     obj.image = result['attributes']['data'][c]['google_picture_link'];
-                                    obj.projects = result['attributes']['data'][c]['projects'];
+                                    obj.projects = result['attributes']['data'][c]['primary_project'];
                                     obj.personLink = "memberProfile.html?id=" + result['attributes']['data'][c]['user_id'];
                                     self.addteamMembers(obj);
                                 }
@@ -346,7 +346,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                                             obj.name = res2['attributes']['data'][c]['google_name'];
                                             obj.nameS = res2['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
                                             obj.image = res2['attributes']['data'][c]['image'];
-                                            obj.projects = res2['attributes']['data'][c]['projects'];
+                                            obj.projects = res2['attributes']['data'][c]['primary_project'];
                                             obj.personLink = "memberProfile.html?id=" + res2['attributes']['data'][c]['user_id'];
                                             self.addteamMembers(obj);
                                         }
@@ -363,7 +363,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                                                     obj.name = res3['attributes']['data'][c]['google_name'];
                                                     obj.nameS = res3['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
                                                     obj.image = res3['attributes']['data'][c]['image'];
-                                                    obj.projects = res3['attributes']['data'][c]['projects'];
+                                                    obj.projects = res3['attributes']['data'][c]['primary_project'];
                                                     self.addteamMembers(obj);
                                                 }
                                             }
