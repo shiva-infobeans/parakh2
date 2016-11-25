@@ -697,11 +697,10 @@
 #tabs-container .oj-tabs-nav{
     margin-left: 12px;
 }
-.tabIcon{
-    color:green;  
-}
+
 #tabs-container .oj-tabs-tab.oj-selected {
-    border-color: green;
+   border-color: green;
+    border-radius: 3px #fff !important;
 }
 .searchArea{
     margin-bottom: 51px;
@@ -1530,4 +1529,3 @@
     background: none;
     border: none;
 }
-    
