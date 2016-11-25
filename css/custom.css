@@ -385,7 +385,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     height: 100%;
     background-color: #e00000;
     position: absolute;
-    top:25px;
+    top:32px;
     left:62;
     z-index: -1;
 }
