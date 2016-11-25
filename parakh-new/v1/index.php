@@ -242,6 +242,10 @@ $app->post('/updateProfile', function ($request, $response) {
         $post_data['interests'] = implode(",",$data['interests']);
     }
 	$post_data['mob'] = str_replace("+91-", "", $post_data['mob']);
+    if($post_data['mob']=="NO NUMBER")
+    {
+        $post_data['mob'] = '';   
+    }
     if($db->isValidUser( $post_data['user_id'] )){
         if (!preg_replace( '/^[1-9][0-9]*$/', '', $post_data['mob'] )) {
             //Creating a dbmodule object
