@@ -867,11 +867,17 @@ div.oj-tabs-panel.oj-tabs-selected{
     text-align: left;
     color: #333;
 }
-.imgSlider{
+/*.imgSlider{
     width: 50%;
     height: 50%;
     margin: 10px auto;
     cursor: auto;
+}*/
+.imgSlider {
+    cursor: auto;
+    height: 200px;
+    margin: 24px auto;
+    width: 200px;
 }
 .imgBorder-Slider{
     border-right: 3px solid rgba(136,212,75,0.5);
@@ -913,12 +919,25 @@ div.oj-tabs-panel.oj-tabs-selected{
     font-family: nameHeading;
     color: #fff !important;
 }
-.imgSlider img{
-    margin: 24px auto;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
+
+.imgSlider img {
     cursor: pointer !important;
+    height: 100%;
+    margin: 24px auto;
+    max-width: 100%;
+}
+@media (min-width:320px) and (max-width:500px){
+    .imgSlider {
+        cursor: auto;
+        height: 100px;
+        margin: 24px auto;
+        width: 100px;
+    }
+    .btn-txt {
+        font-size: 32px;
+        top: 12px;
+
+    }
 }
 .filmstrip-item12 {
     box-sizing: border-box;
