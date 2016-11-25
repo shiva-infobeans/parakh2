@@ -323,6 +323,9 @@ div.oj-tabs-panel.oj-tabs-selected{
     bottom:0;
     /*overflow-y: auto;*/
 }
+.profile-page-overflow .View-Other-about:last-child{
+    border-bottom: 0px;
+}
 .myname-profile{
     font-weight: 600;
     font-size: 25px;
