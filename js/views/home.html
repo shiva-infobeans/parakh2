@@ -34,7 +34,7 @@
                             <div class="oj-xl-8 oj-lg-8 oj-md-12 oj-sm-12 oj-flex-item" id="mySlider">
 
                                 <div style="margin: 20px; ">
-                                    <div id="filmStripDiv" style="position: relative; height: 300px;overflow: hidden; width: 100%;">
+                                    <div id="filmStripDiv" style="position: relative; height: 340px;overflow: hidden; width: 100%;">
                                         <div id="filmStrip10" 
                                              data-bind="ojComponent: {
              component: 'ojFilmStrip', 
@@ -162,7 +162,7 @@
                                         <a data-bind="attr: {href: link1}">
                                             <img class="profile border-color-green" data-bind="attr: {src:image1}"/>
                                         </a>
-                                        
+
                                     </div>
                                     <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
                                         <h4 data-bind="text: name1"></h4>
@@ -179,7 +179,7 @@
                                         <a data-bind="attr: {href: link2}">
                                             <img class="profile border-color-green" data-bind="attr: {src:image2}"/>
                                         </a>
-                                        
+
                                     </div>
                                     <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
                                         <h4 data-bind="text: name2"></h4>
@@ -198,7 +198,7 @@
                                         <a data-bind="attr: {href: link3}">
                                             <img class="profile border-color-green" data-bind="attr: {src:image3}"/>
                                         </a>
-                                        
+
                                     </div>
                                     <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
                                         <h4 data-bind="text: name3"></h4>
@@ -212,145 +212,155 @@
             </div>
             <div id="tabs-6">
 
-                        <hr class="home-hr">
-                        <div class="oj-flex max-width">
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal oj-padding-horizontal">
-                                <h2  class="slider-heading">
-                                    Hello <span data-bind="text: memberName"></span>
-                                </h2> 
-                            </div>
-                        </div>
-                 <div class="oj-web-applayout-max-width oj-web-applayout-content ">
+                <hr class="home-hr">
+                <div class="oj-flex max-width">
+                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal oj-padding-horizontal">
+                        <h2  class="slider-heading">
+                            Hello <span data-bind="text: memberName"></span>
+                        </h2> 
+                    </div>
+                </div>
+                <div class="oj-web-applayout-max-width oj-web-applayout-content ">
                     <div class="oj-flex oj-row sliderPos">
                         <div class="oj-col oj-sm-12 oj-md-12 oj-lg-12 oj-xl-12 oj-flex-item oj-panel slider-color slide ">
 
-                        <div class="oj-xl-8 oj-lg-8 oj-md-12 oj-sm-12 oj-flex-item" id="mangerSlider1">
+                            <div class="oj-xl-8 oj-lg-8 oj-md-12 oj-sm-12 oj-flex-item" id="mangerSlider1">
 
-                            <div style="margin: 20px; ">
-                                <div id="filmStripDiv" style="position: relative; height: 300px;overflow: hidden; width: 100%;">
-                                    <div id="filmStrip12" 
-                                         data-bind="ojComponent: {
+                                <div style="margin: 20px; ">
+                                    <div id="filmStripDiv" style="position: relative; height: 340px;overflow: hidden; width: 100%;">
+                                        <div id="filmStrip12" 
+                                             data-bind="ojComponent: {
                      component: 'ojFilmStrip', 
                      maxItemsPerPage: 1, 
                      arrowVisibility: 'hidden'}" 
-                                         aria-label="Set of chemicals" 
-                                         class="demo-stretch-items">
-                                        <!-- ko foreach: leadSlider -->
-                                        <div class="filmstrip-item12" 
-                                             data-bind="attr: {id: 'show'+$index()},style: {
+                                             aria-label="Set of chemicals" 
+                                             class="demo-stretch-items">
+                                            <!-- ko foreach: leadSlider -->
+                                            <div class="filmstrip-item12" 
+                                                 data-bind="attr: {id: 'show'+$index()},style: {
                        display: getItemInitialDisplay12($index())}">
-                                            <div class="" data-bind="attr: {id: 'showSlider'+$index()}">
-                                                <div class="slider-text">
-                                                    <p data-bind="text: performanceTxt">
+                                                <div class="" data-bind="attr: {id: 'showSlider'+$index()}">
+                                                    <div class="slider-text">
+                                                        <p data-bind="text: performanceTxt">
 
-                                                    </p>
-                                                </div>
-                                                <div class="oj-row oj-flex oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6 left">
-                                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item imgBorder-Slider pos-relative">
-                                                        <div class="imgSlider"><img src="css/images/green-button.png" alt=""/></div>
-                                                        <div class="btn-txt">
-                                                            <div class="alignSliderTxt">
-                                                                <span data-bind="text: leadPlus12"></span>
+                                                        </p>
+                                                    </div>
+                                                    <div class="oj-row oj-flex oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6 left">
+                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item imgBorder-Slider pos-relative">
+                                                            <div class="imgSlider"><img src="css/images/green-button.png" alt=""/></div>
+                                                            <div class="btn-txt">
+                                                                <div class="alignSliderTxt">
+                                                                    <span data-bind="text: leadPlus12"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="oj-row oj-flex oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6">
+                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item pos-relative">
+                                                            <div class="imgSlider"><img src="css/images/red-button.png" alt=""/></div>
+                                                            <div class="btn-txt">
+                                                                <div class="alignSliderTxt">
+                                                                    <span data-bind="text: leadMinus12"></span>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="oj-row oj-flex oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6">
-                                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item pos-relative">
-                                                        <div class="imgSlider"><img src="css/images/red-button.png" alt=""/></div>
-                                                        <div class="btn-txt">
-                                                            <div class="alignSliderTxt">
-                                                                <span data-bind="text: leadMinus12"></span>
-                                                            </div>
-                                                        </div>
+                                                <div data-bind="attr: {id: 'noRating'+$index()}" class="oj-row oj-flex oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 txtAlign">
+                                                    <div class="sliderTxt1"><span data-bind="text: noRatingTxt"></span> </div>
+                                                    <div class="noRatingImg">
+                                                        <img class="" data-bind="attr: {id:'smiley'+$index()}" src="../css/images/sliderScreen.png" alt="slider image"/>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div data-bind="attr: {id: 'noRating'+$index()}" class="oj-row oj-flex oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 txtAlign">
-                                                <div class="sliderTxt1"><span data-bind="text: noRatingTxt"></span> </div>
-                                                <div class="noRatingImg">
-                                                    <img class="" data-bind="attr: {id:'smiley'+$index()}" src="../css/images/sliderScreen.png" alt="slider image"/>
-                                                </div>
-                                            </div>
+                                            <!-- /ko -->
                                         </div>
-                                        <!-- /ko -->
-                                    </div>
 
-                                    <div class="demo-overlaid-paging-control">
-                                        <div id="pagingControl2" 
-                                             data-bind="ojComponent: {
+                                        <div class="demo-overlaid-paging-control">
+                                            <div id="pagingControl2" 
+                                                 data-bind="ojComponent: {
                        component: 'ojPagingControl', 
                        data: getPagingModel12(), 
                        pageSize: 0, 
                        pageOptions: {type: 'dots'}}">
+                                            </div>
                                         </div>
-                                    </div>
-                                </div> <!-- end filmStripDiv -->
+                                    </div> <!-- end filmStripDiv -->
 
 
+                                </div>
                             </div>
-                        </div>
 
 
-                        <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-8 oj-flex-item" id="mangerSlider">
+                            <div class="oj-xl-8 oj-lg-8 oj-md-12 oj-sm-12 oj-flex-item" id="mangerSlider">
+                                <div style="margin: 0px; ">
+                                    <div id="filmStripDiv" style="position: relative; height: 340px;overflow: hidden; width: 100%;">
 
-                            <div id="filmStripDiv2" style="margin: 20px;">
-                                <div id="filmStrip2" 
-                                     aria-label="Set of chemicals" 
-                                     data-bind="ojComponent: {
+                                        <div id="filmStripDiv2" style="margin: 20px;">
+                                            <div id="filmStrip2" 
+                                                 aria-label="Set of chemicals" 
+                                                 data-bind="ojComponent: {
                    component: 'ojFilmStrip', 
                    arrowVisibility: 'hidden'}">
-                                    <!-- ko foreach: projects -->
-                                    <div class="filmstrip-item-manager"
-                                         data-bind="attr: {id: 'srno'+$index()},style: {
-                     display:  getItemInitialDisplay1($index())}">
-                                        <!--<span data-bind="text: name"></span>-->
-                                        <div class="slider-item">
-                                            <div class="slider-text">
-                                                <p style="text-align: left">
-                                                    Performance of <span data-bind="text: name"></span> team
-                                                </p>
-                                            </div>
-                                            <div class="greenBtn">
-                                                <div class="border-right"><img src="css/images/green-button.png" alt=""/></div>
-                                                <div class="btn-text-green-tab2">
-                                                    <span data-bind="text: plus"></span>
-                                                </div>
-                                            </div>
-                                            <div class="redBtn"  id="hideredBtn3">
-                                                <img src="css/images/red-button.png" alt=""/>
-                                                <div class="btn-text-red-tab2">
-                                                    <span data-bind="text: minus"></span>
-                                                </div>
-                                            </div>
-                                        </div>
+                                                <!-- ko foreach: projects -->
+                                                <div class="filmstrip-item12" 
+                                                     data-bind="attr: {id: 'showManager'+$index()},style: {
+                       display: getItemInitialDisplay1($index())}">
+                                                    <div class="" data-bind="attr: {id: 'showSliderManager'+$index()}">
+                                                        <div class="slider-text">
+                                                            <p data-bind="text: performanceTxt">
 
-                                        <div data-bind="attr: {id: 'emptyTxt'+$index()}" class="hide">
-                                            <div class="sliderScreen">No ratings for <span data-bind="text: name"></span> project
+                                                            </p>
+                                                        </div>
+                                                        <div class="oj-row oj-flex oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6 left">
+                                                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item imgBorder-Slider pos-relative">
+                                                                <div class="imgSlider"><img src="css/images/green-button.png" alt=""/></div>
+                                                                <div class="btn-txt">
+                                                                    <div class="alignSliderTxt">
+                                                                        <span data-bind="text: plus"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="oj-row oj-flex oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6">
+                                                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item pos-relative">
+                                                                <div class="imgSlider"><img src="css/images/red-button.png" alt=""/></div>
+                                                                <div class="btn-txt">
+                                                                    <div class="alignSliderTxt">
+                                                                        <span data-bind="text: minus"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div data-bind="attr: {id: 'noRatingManager'+$index()}" class="oj-row oj-flex oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 txtAlign">
+                                                        <div class="sliderTxt1"><span data-bind="text: noRatingTxt"></span> </div>
+                                                        <div class="noRatingImg">
+                                                            <img class="" data-bind="attr: {id:'smileyManager'+$index()}" src="../css/images/sliderScreen.png" alt="slider image"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- /ko -->
                                             </div>
-                                            <img class="sliderSmiley" data-bind="attr: {id:'smiley'+$index()}" src="../css/images/sliderScreen.png" alt="slider image"/>
-                                        </div>
-                                    </div>
-                                    <!-- /ko -->
-                                </div>
 
-                                <div style="text-align: center;">
-                                    <div style="display: inline-block;margin-top: 4px;">
-                                        <div id="pagingControl3" 
-                                             data-bind="ojComponent: {
+                                            <div style="text-align: center;">
+                                                <div style="display: inline-block;margin-top: 4px;">
+                                                    <div id="pagingControl3" 
+                                                         data-bind="ojComponent: {
                        component: 'ojPagingControl', 
-                       data: getPagingModel(), 
+                       data: getPagingModel1(), 
                        pageSize: 0, 
                        pageOptions: {type: 'dots'}}">
-                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> <!-- end filmStripDiv -->
                                     </div>
                                 </div>
-                            </div> <!-- end filmStripDiv -->
-                        </div>
+                            </div>
                         </div>
                     </div>
-                 </div>
-
+                </div>
                 <div class="oj-web-applayout-content max-width  color-white pos-relative oj-margin-bottom oj-margin-top bottom-feedback">
                     <div class="oj-flex">
                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex ">
@@ -363,7 +373,7 @@
                 <div class="oj-web-applayout-content max-width  color-white pos-relative oj-margin-bottom oj-margin-top bottom-feedback">
                     <div class="transbox max-width box-shadow border-transbox"></div>
 
-                    <div id="filmStripDiv" style="margin:20px">
+                    <div id="filmStripDiv" style="margin:20px;">
                         <div id="filmStrip" aria-label="Set of chemicals" data-bind="ojComponent: {
            component: 'ojFilmStrip', 
            arrowPlacement: currentNavArrowPlacement, 
@@ -396,8 +406,6 @@
                         </div>
                     </div> <!-- end filmStripDiv -->
                 </div>
-
-
             </div>
         </div>
     </div>

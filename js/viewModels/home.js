@@ -47,6 +47,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
         self.vieMyProfile = ko.observable();
         self.roleName = ko.observable();
 
+        self.managerSliderData = ko.observableArray();
 // Slider 0 replace.............start(my slider)
         self.mySlider = ko.observableArray([]);
         self.pagingModel10 = null;
@@ -192,21 +193,23 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
             self.projects.push(obj);
             $('#filmStrip2').ojFilmStrip("refresh");
         }
-        self.pagingModel = null;
+        self.pagingModel1 = null;
         getItemInitialDisplay1 = function (index)
         {
             return index < 1 ? '' : 'none';
         };
-        getPagingModel = function ()
+        getPagingModel1 = function ()
         {
-            if (!self.pagingModel)
+            if (!self.pagingModel1)
             {
                 var filmStrip = $("#filmStrip2");
                 var pagingModel = filmStrip.ojFilmStrip("getPagingModel");
-                self.pagingModel = pagingModel;
+                self.pagingModel1 = pagingModel;
             }
-            return self.pagingModel;
+            return self.pagingModel1;
         };// pagination slider for manager end
+        
+        
         self.currentNavArrowPlacement = ko.observable("adjacent");
         self.currentNavArrowVisibility = ko.observable("auto");
 
@@ -243,20 +246,42 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                         success: function (result) {
 
                             var data = result['attributes']['data'];
+
                             for (var c = 0; c < data.length; c++) {
                                 var obj = new Object();
-                                var dat = data[0].split(",");
+                                
+                                var dat = data[c].split(",");
+                                console.log(dat);
                                 obj.name = dat[0];
                                 obj.plus = dat[1] == 0 ? 0 : "+" + dat[1];
-                                obj.minus = dat[2] == 0 ? 0 : "+" + dat[2];
-                                self.addProject(obj);
+                                obj.minus = dat[2] == 0 ? 0 : "-" + dat[2];
+
+                                //manager slider
+                                var obj1 = new Object();
+                                obj1.plus = dat[1] == 0 ? 0 : "+" + dat[1];
+                                obj1.minus = dat[2] == 0 ? 0 : "-" + dat[2];
+                                obj1.performanceTxt = "Performance of " + dat[0] + " team";
+                                obj1.noRatingTxt = dat[0] + " team not rated yet!!";
+                                self.addProject(obj1);
                                 if (dat[1] == 0 && dat[2] == 0)
                                 {
-                                    $("#srno" + c + " .slider-item").hide();
-                                    $("#emptyTxt" + c).show();
+                                    $("#showSliderManager" + c + "").hide();
+                                    $("#noRatingManager" + c).show();
+                                }
+                                else{
+                                    $("#showSliderManager" + c).show();
+                                    $("#noRatingManager" + c).hide();
                                 }
                             }
-
+                            if(self.projects().length == 0){
+                                var obj1 = new Object();
+                                obj1.plus = 0;
+                                obj1.minus = 0;
+                                obj1.performanceTxt = "";
+                                obj1.noRatingTxt = "You have not assigned any projects yet !!";
+                                self.addProject(obj1);
+                                $("#showSliderManager" + 0 + "").hide();
+                            }
                         }
                     });
                 } else {
@@ -588,7 +613,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                     || $('#filmStrip10').ojFilmStrip("option", "currentItem") == 'show10') {
                 try {
                     $('#filmStrip10').ojFilmStrip("option", "currentItem", 1);
-                    
+
                 } catch (e)
                 {
                     console.log(e);
@@ -611,7 +636,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                     console.log(e);
                 }
             }
- /// manager slider
+            /// manager slider
 //            if ($('#filmStrip10').ojFilmStrip("option", "currentItem") == 0
 //                    || $('#filmStrip10').ojFilmStrip("option", "currentItem") == 'show10') {
 //                try {
@@ -639,7 +664,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
 //                    
 //                }
 //            }
-            
+
         }, 6000)
 
         setTimeout(function () {

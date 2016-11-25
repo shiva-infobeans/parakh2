@@ -851,7 +851,24 @@ div.oj-tabs-panel.oj-tabs-selected{
     width: 100%;
     background-color: #000;
     opacity: 0.5;
-    z-index: 1052;
+}
+.loaderDiv{
+    position: fixed;
+    top:0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    display: table;
+    z-index: 10052;
+}
+.loaderImgDiv{
+    display: table-cell;
+    text-align: center;
+    width: 100%;
+    vertical-align: middle;
+}
+.loaderHide{
+    display: none !important;
 }
 /*manager slider home page*/
 .filmstrip-item-manager {
@@ -942,6 +959,15 @@ div.oj-tabs-panel.oj-tabs-selected{
         top: 12px;
 
     }
+    .noRatingTxt{
+        font-size: 40px;
+    }
+    
+}
+#mangerSlider .oj-pagingcontrol-nav-dot-bullet.oj-selected,
+#mySlider .oj-pagingcontrol-nav-dot-bullet.oj-selected,
+#mangerSlider1 .oj-pagingcontrol-nav-dot-bullet.oj-selected{
+    background-color: #fff;
 }
 .filmstrip-item12 {
     box-sizing: border-box;
@@ -1020,3 +1046,8 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 .oj-inputdatetime-input-container{max-width: 18em;}
 #editNumberBox{font-size: 85%}
+
+/*paging color slider home page*/
+#pagingControl3{
+    
+}
