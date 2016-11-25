@@ -659,6 +659,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                 self.primaryProjectOptions.push(obj);
                             }
                             $('#selectPrimaryProjects').ojSelect("refresh");
+                            self.primary_project(res['attributes']['data'][0]['name']);
                         }
                     });
                         $('#primary-project-text').addClass('hide');
