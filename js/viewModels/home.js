@@ -42,14 +42,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
         self.link1 = ko.observable();
         self.link2 = ko.observable();
         self.link3 = ko.observable();
+
+
         self.vieMyProfile = ko.observable();
         self.roleName = ko.observable();
-        self.leadPlusWeek = ko.observable();
-        self.leadPlusmonth = ko.observable();
-        self.leadPlustill = ko.observable();
-        self.leadMinusWeek = ko.observable();
-        self.leadMinusmonth = ko.observable();
-        self.leadMinustill = ko.observable();
+
 // Slider 0 replace.............start(my slider)
         self.mySlider = ko.observableArray([]);
         self.pagingModel10 = null;
@@ -234,7 +231,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                 self.roleName(task.attributes['data']['role_name']);
                 //lead /member service for +1 count and -1 count
                 if (self.roleName() == "Manager") {
-                    $("#slider-wrapper1").hide();
+                    $("#mangerSlider1").hide();
                     var leadSlide = oj.Model.extend({
                         url: getTopRankersProjectWise + self.id()
                     });
@@ -402,7 +399,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                     obj.name = result['attributes']['data'][c]['google_name'];
                                     obj.nameS = result['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
                                     obj.image = result['attributes']['data'][c]['google_picture_link'];
-                                    obj.projects = result['attributes']['data'][c]['projects'];
+                                    obj.projects = result['attributes']['data'][c]['primary_project'];
                                     obj.personLink = "memberProfile.html?id=" + result['attributes']['data'][c]['user_id'];
                                     self.addteamMembers(obj);
                                 }
@@ -418,7 +415,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                             obj.name = res2['attributes']['data'][c]['google_name'];
                                             obj.nameS = res2['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
                                             obj.image = res2['attributes']['data'][c]['image'];
-                                            obj.projects = res2['attributes']['data'][c]['projects'];
+                                            obj.projects = res2['attributes']['data'][c]['primary_project'];
                                             obj.personLink = "memberProfile.html?id=" + res2['attributes']['data'][c]['user_id'];
                                             self.addteamMembers(obj);
                                         }
@@ -435,7 +432,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                                     obj.name = res3['attributes']['data'][c]['google_name'];
                                                     obj.nameS = res3['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
                                                     obj.image = res3['attributes']['data'][c]['image'];
-                                                    obj.projects = res3['attributes']['data'][c]['projects'];
+                                                    obj.projects = res3['attributes']['data'][c]['primary_project'];
                                                     self.addteamMembers(obj);
                                                 }
                                             }
@@ -547,28 +544,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                 });
             }
         });
-        var counter = 1;//automatic slider counter
+
 
         setInterval(function () {
 
-//            if (counter % 3 == 0) {
-//                document.getElementsByName("slide")[0].checked = true;
-//                document.getElementsByName("slide")[1].checked = false;
-//                document.getElementsByName("slide")[2].checked = false;
-//            }
-//            if (counter % 3 == 1) {
-//                document.getElementsByName("slide")[0].checked = false;
-//                document.getElementsByName("slide")[1].checked = true;
-//                document.getElementsByName("slide")[2].checked = false;
-//            }
-//            if (counter % 3 == 2) {
-//                document.getElementsByName("slide")[0].checked = false;
-//                document.getElementsByName("slide")[1].checked = false;
-//                document.getElementsByName("slide")[2].checked = true;
-//
-//                counter = 1;
-//            }
-//            counter++;
+
 
             if ($("#filmStrip").find("#ui-id-9").attr("style") == "visibility: hidden;") {
                 $("#filmStrip").ojFilmStrip("option", "currentItem", 0);
@@ -577,26 +557,24 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
             }
 
             /// slider my team
-
-
-
-            if ($('#filmStrip12').ojFilmStrip("option", "currentItem") == 0) {
+            if ($('#filmStrip12').ojFilmStrip("option", "currentItem") == 0
+                    || $('#filmStrip12').ojFilmStrip("option", "currentItem") == 'show0') {
                 try {
                     $('#filmStrip12').ojFilmStrip("option", "currentItem", 1);
                 } catch (e)
                 {
                     //console.log(e);
                 }
-            } else if ($('#filmStrip12').ojFilmStrip("option", "currentItem") == 1) {
 
+            } else if ($('#filmStrip12').ojFilmStrip("option", "currentItem") == 1
+                    || $('#filmStrip12').ojFilmStrip("option", "currentItem") == 'show1') {
                 try {
                     $('#filmStrip12').ojFilmStrip("option", "currentItem", 2);
                 } catch (e)
                 {
                     //console.log(e);
                 }
-            } else if ($('#filmStrip12').ojFilmStrip("option", "currentItem") == 2) {
-
+            } else if ($('#filmStrip12').ojFilmStrip("option", "currentItem") == 'show2') {
                 try {
                     $('#filmStrip12').ojFilmStrip("option", "currentItem", 0);
                 } catch (e)
@@ -605,10 +583,86 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                 }
             }
 
+            /// my slider
+            if ($('#filmStrip10').ojFilmStrip("option", "currentItem") == 0
+                    || $('#filmStrip10').ojFilmStrip("option", "currentItem") == 'show10') {
+                try {
+                    $('#filmStrip10').ojFilmStrip("option", "currentItem", 1);
+                    
+                } catch (e)
+                {
+                    console.log(e);
+                }
+            } else if ($('#filmStrip10').ojFilmStrip("option", "currentItem") == 1
+                    || $('#filmStrip10').ojFilmStrip("option", "currentItem") == 'show11') {
+                try {
+                    $('#filmStrip10').ojFilmStrip("option", "currentItem", 2);
+                } catch (e)
+                {
+                    console.log(e);
+                }
+            } else if ($('#filmStrip10').ojFilmStrip("option", "currentItem") == 2
+                    || $('#filmStrip10').ojFilmStrip("option", "currentItem") == 'show12') {
+
+                try {
+                    $('#filmStrip10').ojFilmStrip("option", "currentItem", 0);
+                } catch (e)
+                {
+                    console.log(e);
+                }
+            }
+ /// manager slider
+            if ($('#filmStrip10').ojFilmStrip("option", "currentItem") == 0
+                    || $('#filmStrip10').ojFilmStrip("option", "currentItem") == 'show10') {
+                try {
+                    $('#filmStrip10').ojFilmStrip("option", "currentItem", 1);
+                    
+                } catch (e)
+                {
+                    
+                }
+            } else if ($('#filmStrip10').ojFilmStrip("option", "currentItem") == 1
+                    || $('#filmStrip10').ojFilmStrip("option", "currentItem") == 'show11') {
+                try {
+                    $('#filmStrip10').ojFilmStrip("option", "currentItem", 2);
+                } catch (e)
+                {
+                    
+                }
+            } else if ($('#filmStrip10').ojFilmStrip("option", "currentItem") == 2
+                    || $('#filmStrip10').ojFilmStrip("option", "currentItem") == 'show12') {
+
+                try {
+                    $('#filmStrip10').ojFilmStrip("option", "currentItem", 0);
+                } catch (e)
+                {
+                    
+                }
+            }
+            
         }, 2000)
 
         setTimeout(function () {
-
+            $("#filmStrip").on({
+                'ojoptionchange': function (event, data) {
+                    // verify that the component firing the event is a component of interest
+                    if ($(event.target).is("#filmStrip")) {
+                        if ($("#filmStrip").ojFilmStrip("option", "currentItem") == 1) {
+                            $("#plusSliderTxt").text("Recent +1 Ratings");
+                        }
+                        ;
+                        if ($("#filmStrip").ojFilmStrip("option", "currentItem") == 4) {
+                            $("#plusSliderTxt").text("Monthly Highest +1 Ratings");
+                        }
+                        ;
+                        if ($("#filmStrip").ojFilmStrip("option", "currentItem") == 8) {
+                            $("#plusSliderTxt").text("Overall Highest +1 Rating");
+                        }
+                        ;
+                    }
+                }
+            });
+            $("#plusSliderTxt").text("Recent +1 Ratings");// slider text for +1 rating.
             $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
             $('#homeTab2').append(' <img src="../../images/team.png" alt="" />');
 

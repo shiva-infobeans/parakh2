@@ -3,11 +3,7 @@
 .oj-web-applayout-max-width{
     max-width: 1170px;
 }
-body{
-    background-image: url("../css/images/pbck.jpg");
-    background-size: cover;
 
-}
 
 .nav li{
     float: right;
@@ -689,11 +685,11 @@ body{
     border-bottom: 4px solid #78A95A;
 }
 .rankText{
-    text-align: center;
-    font-size: 60px;
-    padding-top: 55px;
-    padding-bottom: 71px;
+   font-size: 60px;
     font-weight: bolder;
+    height: 210px;
+    padding-top: 47px;
+    text-align: center;
 }
 .countBlock{
     margin-bottom: 20px;
@@ -701,11 +697,10 @@ body{
 #tabs-container .oj-tabs-nav{
     margin-left: 12px;
 }
-.tabIcon{
-    color:green;  
-}
+
 #tabs-container .oj-tabs-tab.oj-selected {
-    border-color: green;
+   border-color: green;
+    border-radius: 3px #fff !important;
 }
 .searchArea{
     margin-bottom: 51px;
@@ -1221,7 +1216,12 @@ body{
 #rate2Active{
     display:none;
 }
-.recentInfo0{
+.recentInfo0,.recentInfo1,.recentInfo2,.recentInfo3{
+    background-color: #E7FCD5;
+    border-radius: 5px;
+    height:30px;display:table;width:216px;margin:0 auto;position:absolute;padding:9px;margin-top:-5px;visibility: hidden;
+}
+/*.recentInfo0{
     background-color: #E7FCD5;
     border-radius: 5px;
     display: block;
@@ -1235,8 +1235,12 @@ body{
     margin: 0px auto;
     padding-right: 25px;
     left: 74px;
+}*/
+.text-hover-my{
+    vertical-align:middle;display:table-cell;width:100%;float:left;color:#000;font-weight: bold;
 }
-.recentInfo1{
+.text-hover-project{vertical-align:middle;display:table-cell;width:100%;float:left;color:#000;font-weight: normal;}
+/*.recentInfo1{
     background-color: #E7FCD5;
     border-radius: 5px;
     display: block;
@@ -1249,7 +1253,7 @@ body{
     bottom: 125px;
     visibility: hidden; 
     color: #000;
-    /* margin-left: 64px; */
+  
 }
 .recentInfo2{
     background-color: #E7FCD5;
@@ -1263,14 +1267,14 @@ body{
     bottom: 128px;
     visibility: hidden; 
     color: #000;
-    /* left: 58px; */
+ 
     margin-left: 45px;
 }
 .recentInfo3{
     background-color: #E7FCD5;
     border-radius: 5px;
     display: block;
-    /* left: 126px; */
+ 
     padding-top: 22px;
     padding-bottom: 22px;
     padding-left: 27px;
@@ -1280,7 +1284,7 @@ body{
     visibility: hidden; 
     color: #000;
     margin-left: 65px;
-}
+}*/
 .hoverContent0:hover .recentInfo0{
     visibility: visible !important;
 }
@@ -1300,7 +1304,18 @@ body{
     border-right: 11px solid transparent;
     position: absolute;
     bottom: -11px;
-    left: 60px;
+    left: 110px;
+    color: #fffff0;
+    margin: 0px auto;
+}
+.recentInfo0-my:after  {
+    content: "";
+    border-top: 11px solid #E7FCD5;
+    border-left: 11px solid transparent;
+    border-right: 11px solid transparent;
+    position: absolute;
+    bottom: -11px;
+    left: 110px;
     color: #fffff0;
     margin: 0px auto;
 }
@@ -1311,7 +1326,7 @@ body{
     border-right: 11px solid transparent;
     position: absolute;
     bottom: -11px;
-    left: 67px;
+    left: 110px;
     color: #fffff0;
 }
 .recentInfo2:after  {
@@ -1321,7 +1336,7 @@ body{
     border-right: 11px solid transparent;
     position: absolute;
     bottom: -11px;
-    /* left: 60px; */
+     left: 110px; 
     color: #fffff0;
 }
 .recentInfo3:after  {
@@ -1331,7 +1346,7 @@ body{
     border-right: 11px solid transparent;
     position: absolute;
     bottom: -11px;
-    left: 67px;
+    left: 100px;
     color: #fffff0;
 }
 .text-hover{
@@ -1356,7 +1371,7 @@ body{
     border-width: 1px 0 0;
 }
 .View-Other-about{
-    padding: 14px;
+    padding: 18px;
     font-size: 23px;
     border-bottom: 1px solid #689F39;
 }
@@ -1474,4 +1489,70 @@ body{
 }
 .replyDate{
    font-size: 12px;
+}
+.text-hover-name{
+    color: #000;
+    font-weight: bold;
+}
+.request-pic{
+    margin-left: 139px;
+}
+
+/*edit profile changes*/ 
+#oj-select-choice-selectDesignation.oj-select-choice,
+#oj-select-choice-selectLocation.oj-select-choice,
+#input-date.oj-inputdatetime-input,
+#oj-select-choice-selectPrimaryProjects.oj-select-choice,
+#ojChoiceId_selectProjects.oj-select-choices{
+        border-color: #689F39;
+        background-color: rgba(255,255,255,0.3);
+        border-width: 2px;
+        border-radius: 5px;
+        color: #fff;
+        font-weight: bold;
+}
+.oj-select-jet .oj-select-arrow{
+    flex: 0 0 auto;
+    cursor: pointer;
+    box-sizing: border-box;
+    text-align: center;
+    vertical-align: middle;
+    color: #689F39;
+    font-size: 32px;
+    margin-top: -5px;
+    margin-right: -4px;
+}
+.textArea-skills{
+    border: 2px solid #6BA034;
+    background-color: rgba(255,255,255,0.3);
+    color: #fff;
+    height: 47px;
+    border-radius: 5px;
+    width: 459px;
+    resize: none;
+    font-size: 22px;
+    padding: 7px;
+}
+#editNumberBox{
+     border-color: #689F39;
+     background-color: rgba(255,255,255,0.3);
+     border-width: 2px;
+     border-radius: 5px;
+     color: #fff;
+     font-weight: bold;
+     padding: 7px;
+}
+#ojChoiceId_selectInterests .oj-select-choices,
+#ojChoiceId_selectProjects .oj-select-choices{
+        border-color: #689F39;
+        background-color: rgba(255,255,255,0.3);
+        border-width: 2px;
+        border-radius: 5px;
+        font-weight: bold;
+        width: 459px;
+        color: #fff !important;
+}
+#associate-div .oj-inputdatetime-input-trigger{
+    background: none;
+    border: none;
 }

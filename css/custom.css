@@ -158,7 +158,7 @@ body{
 }
 /*background-image*/
 .background{
-    background: url('../images/background.jpg') no-repeat fixed;
+    background: url('../../css/images/new-bg.jpg') no-repeat fixed;
     background-size:cover;
     background-position:center;
 }
@@ -191,9 +191,10 @@ body{
     width: 120px;
     border-radius: 50%;
 }
-.profile:hover{
+.profile-img-div .profile:hover{
     border:2px solid #689F39;
 }
+.border-color-green:hover{border:2px solid #689F39;}
 .border-color-green{
     border:3px #689F39 solid;
     cursor: pointer;
@@ -298,7 +299,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 .about-label{color: yellow;width: 240px;}
 .about-text{margin-left:200px !important;width: 240px;}
-.about-edit{color:white !important;font-size:20px !important;margin-top:10px !important;}
+.about-edit{color:white !important;font-size:1em !important;margin-top:10px !important;}
 .profile-tab1-data:not(:nth-child(1)) i{
     font-size: 50px;
     margin: 20px 0px 0px 30px;
@@ -321,6 +322,9 @@ div.oj-tabs-panel.oj-tabs-selected{
     right:0;
     bottom:0;
     /*overflow-y: auto;*/
+}
+.profile-page-overflow .View-Other-about:last-child{
+    border-bottom: 0px;
 }
 .myname-profile{
     font-weight: 600;
@@ -1014,3 +1018,5 @@ div.oj-tabs-panel.oj-tabs-selected{
     margin-right: 41px;
     margin-top: 50px;
 }
+.oj-inputdatetime-input-container{max-width: 18em;}
+#editNumberBox{font-size: 85%}

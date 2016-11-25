@@ -243,9 +243,9 @@
                     </div>
                 </div>
                  <div class="oj-xl-1 oj-lg-1 oj-md-2 oj-sm-2 oj-flex-item center">                  
-                        <span class="edit-height" id="edit-designation"><i data-bind="click: openDesignations" class="zmdi zmdi-edit about-edit" ></i></span>
-                        <span class="edit-height hide" id="submit-designation"><i data-bind="click: updateDesignations" class="zmdi zmdi-check about-edit"></i></span>
-                        <span class="edit-height hide" id="cancel-designation"><i data-bind="click: designationsRevert" class="zmdi zmdi-minus-circle-outline about-edit"></i></span>
+                        <span class="edit-height" id="edit-designation"><i data-bind="click: openDesignations" class="zmdi zmdi-edit about-edit" title="Edit"></i></span>
+                        <span class="edit-height hide" id="submit-designation" title="Save"><i data-bind="click: updateDesignations" class="zmdi zmdi-check about-edit"></i></span>
+                        <span class="edit-height hide" id="cancel-designation" title="Cancel"><i data-bind="click: designationsRevert" class="zmdi zmdi-minus-circle-outline about-edit"></i></span>
                                 
                 </div>
             </div>
@@ -264,9 +264,9 @@
                     </div>
                 </div>
                  <div class="oj-xl-1 oj-lg-1 oj-md-2 oj-sm-2 oj-flex-item center">                  
-                        <span class="edit-height " id="edit-location"><i class="zmdi zmdi-edit about-edit" data-bind="click: openLocation"></i></span>
-                        <span class="edit-height hide" id="submit-location"><i class="zmdi zmdi-check about-edit" data-bind="click: updateLocation"></i></span>
-                        <span class="edit-height hide" id="cancel-location"><i class="zmdi zmdi-minus-circle-outline about-edit" data-bind="click: locationRevert"></i></span>
+                        <span class="edit-height " id="edit-location"><i class="zmdi zmdi-edit about-edit" data-bind="click: openLocation" title="Edit"></i></span>
+                        <span class="edit-height hide" id="submit-location" title="Save"><i class="zmdi zmdi-check about-edit" data-bind="click: updateLocation"></i></span>
+                        <span class="edit-height hide" id="cancel-location" title="Cancel"><i class="zmdi zmdi-minus-circle-outline about-edit" data-bind="click: locationRevert"></i></span>
                                 
                 </div>
             </div>
@@ -277,33 +277,33 @@
                 </div>
                  <div class="oj-xl-7 oj-lg-7 oj-md-6 oj-sm-6 oj-flex-item ">
                     <span  class="text-height" data-bind="text: skills" id="skills-text"></span>
-                    <textarea data-bind="value:skills" class="hide" name="skills" id="skills"></textarea>
+                    <textarea data-bind="value:skills" class="hide textArea-skills" name="skills" id="skills" cols="17"></textarea>
                 </div>
                  <div class="oj-xl-1 oj-lg-1 oj-md-2 oj-sm-2 oj-flex-item center">                  
-                        <span class="edit-height" id="edit-skills"><i class="zmdi zmdi-edit about-edit" data-bind="click: openSkills"></i></span>
-                        <span class="edit-height hide" id="submit-skills"><i class="zmdi zmdi-check about-edit" data-bind="click: updateSkills"></i></span>
-                        <span class="edit-height hide" id="cancel-skills"><i class="zmdi zmdi-minus-circle-outline about-edit" data-bind="click: skillsRevert"></i></span>
+                        <span class="edit-height" id="edit-skills"><i class="zmdi zmdi-edit about-edit" data-bind="click: openSkills" title="Edit"></i></span>
+                        <span class="edit-height hide" id="submit-skills" title="Save"><i class="zmdi zmdi-check about-edit" data-bind="click: updateSkills"></i></span>
+                        <span class="edit-height hide" id="cancel-skills" title="Cancel"><i class="zmdi zmdi-minus-circle-outline about-edit" data-bind="click: skillsRevert"></i></span>
                                 
                 </div>
             </div>
             <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
                 <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
                     <span class="icon-div"><i class="zmdi zmdi-time-interval about-icons"></i>  </span>
-                    <span class="text-about heightCol5">Associated with <br> Infobeans since</span>
+                    <span class="text-about heightCol5">Associated with <br> InfoBeans since</span>
                    
                 </div>
                 <div class="oj-xl-7 oj-lg-7 oj-md-6 oj-sm-6 oj-flex-item ">
                     <span  class="text-height"  data-bind="text: associate_with_infobeans,attr:{defaultDate:associate_with_infobeans}" id="associate-text"></span>
                     <div class="hide" id="associate-div">
-                        <input type="text" name="associate_with_infobeans" data-bind="ojComponent:{component:'ojInputDate', value: date,
+                        <input type="text" id="input-date" name="associate_with_infobeans" data-bind="ojComponent:{component:'ojInputDate', value: date,
                           datePicker: {changeMonth: 'yes', changeYear: 'yes'},
                           converter: {type:'datetime', options: { day: 'numeric', month: 'long',year: 'numeric'}}}" id="associateInput">
                     </div>
                 </div>
                  <div class="oj-xl-1 oj-lg-1 oj-md-2 oj-sm-2 oj-flex-item center">                  
-                        <span class="edit-height" id="edit-associate"><i data-bind="click: openDate" class="zmdi zmdi-edit about-edit" ></i></span>
-                        <span class="edit-height hide" id="submit-associate"><i data-bind="click: updateDate" class="zmdi zmdi-check about-edit" ></i></span>
-                        <span class="edit-height hide" id="cancel-associate"><i data-bind="click: dateRevert" class="zmdi zmdi-minus-circle-outline about-edit"></i></span>
+                        <span class="edit-height" id="edit-associate"><i data-bind="click: openDate" class="zmdi zmdi-edit about-edit" title="Edit"></i></span>
+                        <span class="edit-height hide" id="submit-associate" title="Save"><i data-bind="click: updateDate" class="zmdi zmdi-check about-edit" ></i></span>
+                        <span class="edit-height hide" id="cancel-associate" title="Cancel"><i data-bind="click: dateRevert" class="zmdi zmdi-minus-circle-outline about-edit"></i></span>
                                 
                 </div>
             </div>
@@ -324,9 +324,9 @@
                     <input type="text" data-bind="value: primary_project" name="primary_project" id="primary-project" class="hide">
                 </div>
                  <div class="oj-xl-1 oj-lg-1 oj-md-2 oj-sm-2 oj-flex-item center">                  
-                        <span class="edit-height" id="edit-primary-project"><i data-bind="click: openPrimaryProject" class="zmdi zmdi-edit about-edit" data-bind="click: openPrimaryProject"></i></span>
-                        <span class="edit-height hide" id="submit-primary-project"><i data-bind="click: updatePrimaryProject" class="zmdi zmdi-check about-edit" data-bind="click: updatePrimaryProject"></i></span>
-                        <span class="edit-height hide" id="cancel-primary-project"><i data-bind="click: primaryProjectRevert" class="zmdi zmdi-minus-circle-outline about-edit" data-bind="click: primaryProjectRevert"></i></span>
+                        <span class="edit-height" id="edit-primary-project"><i data-bind="click: openPrimaryProject" class="zmdi zmdi-edit about-edit" data-bind="click: openPrimaryProject" title="Edit"></i></span>
+                        <span class="edit-height hide" id="submit-primary-project"><i data-bind="click: updatePrimaryProject" class="zmdi zmdi-check about-edit" data-bind="click: updatePrimaryProject" title="Save"></i></span>
+                        <span class="edit-height hide" id="cancel-primary-project"><i data-bind="click: primaryProjectRevert" class="zmdi zmdi-minus-circle-outline about-edit" data-bind="click: primaryProjectRevert" title="Cancel"></i></span>
                                 
                 </div>
             </div>
@@ -346,9 +346,9 @@
                     </div>
                 </div>
                  <div class="oj-xl-1 oj-lg-1 oj-md-2 oj-sm-2 oj-flex-item center">                  
-                        <span class="edit-height" id="edit-projects"><i data-bind="click: openProjects" class="zmdi zmdi-edit about-edit" ></i></span>
-                        <span class="edit-height hide" id="submit-projects"><i data-bind="click: updateProjects" class="zmdi zmdi-check about-edit"></i></span>
-                        <span class="edit-height hide" id="cancel-projects"><i data-bind="click: projectsRevert" class="zmdi zmdi-minus-circle-outline about-edit"></i></span>
+                        <span class="edit-height" id="edit-projects"><i data-bind="click: openProjects" class="zmdi zmdi-edit about-edit" title="Edit"></i></span>
+                        <span class="edit-height hide" id="submit-projects"><i data-bind="click: updateProjects" class="zmdi zmdi-check about-edit" title="Save"></i></span>
+                        <span class="edit-height hide" id="cancel-projects"><i data-bind="click: projectsRevert" class="zmdi zmdi-minus-circle-outline about-edit" ></i></span>
                                 
                 </div>
             </div>
@@ -368,9 +368,9 @@
                     </div>
                 </div>
                  <div class="oj-xl-1 oj-lg-1 oj-md-2 oj-sm-2 oj-flex-item center">                  
-                        <span class="edit-height" id="edit-interest"><i data-bind="click: openInterest" class="zmdi zmdi-edit about-edit"></i></span>
-                        <span class="edit-height hide" id="submit-interest"><i data-bind="click: updateInterest" class="zmdi zmdi-check about-edit"></i></span>
-                        <span class="edit-height hide" id="cancel-interest"><i data-bind="click: interestRevert" class="zmdi zmdi-minus-circle-outline about-edit"></i></span>
+                        <span class="edit-height" id="edit-interest"><i data-bind="click: openInterest" class="zmdi zmdi-edit about-edit" title="Edit"></i></span>
+                        <span class="edit-height hide" id="submit-interest"><i data-bind="click: updateInterest" class="zmdi zmdi-check about-edit" title="Save"></i></span>
+                        <span class="edit-height hide" id="cancel-interest"><i data-bind="click: interestRevert" class="zmdi zmdi-minus-circle-outline about-edit" title="Cancel"></i></span>
                                 
                 </div>
             </div>
@@ -384,9 +384,9 @@
                     <input class="hide" id="editNumberBox" type="text" name="myNumber" data-bind="value: temporaryNumber" maxlength="10" pattern="\d*">
                 </div>
                  <div class="oj-xl-1 oj-lg-1 oj-md-2 oj-sm-2 oj-flex-item center">                  
-                        <span class="edit-height" id="edit-number"><i data-bind="click: openNumber" class="zmdi zmdi-edit about-edit"></i></span>
-                        <span class="edit-height hide" id="submit-number"><i data-bind="click: updateNumber" class="zmdi zmdi-check about-edit"></i></span>
-                        <span class="edit-height hide" id="cancel-number"><i data-bind="click: numberEditRevert" class="zmdi zmdi-minus-circle-outline about-edit"></i></span>
+                        <span class="edit-height" id="edit-number"><i data-bind="click: openNumber" class="zmdi zmdi-edit about-edit" title="Edit"></i></span>
+                        <span class="edit-height hide" id="submit-number"><i data-bind="click: updateNumber" class="zmdi zmdi-check about-edit" title="Save"></i></span>
+                        <span class="edit-height hide" id="cancel-number"><i data-bind="click: numberEditRevert" class="zmdi zmdi-minus-circle-outline about-edit" title="Cancel"></i></span>
                                 
                 </div>
             </div>

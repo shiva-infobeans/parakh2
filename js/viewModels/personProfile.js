@@ -209,6 +209,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                             if(response.error=="true")
                             {
                                 self.successful(response.data.error);
+                                if(response.data.code=="3013")
+                                {
+                                    self.myNumber(DefaultNumberVar);
+                                }
                             }else
                             {
                                 self.successful("Profile Updated Successfully");
@@ -696,10 +700,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 }
                 self.updateNumber = function () {
                     self.myNumber("+91-" + self.temporaryNumber());
-                    if(isNaN(self.temporaryNumber()))
-                    {
-                        self.myNumber(DefaultNumberVar);
-                    }
                     //ajax call here
                     self.updateProfile();
                     $('#number-text').removeClass('hide');

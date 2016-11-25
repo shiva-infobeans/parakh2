@@ -27,7 +27,8 @@ require '../vendor/autoload.php';
  * your Slim application now by passing an associative array
  * of setting names and values into the application constructor.
  */
-$app = new Slim\App();
+$config = [ 'settings' => [ 'addContentLengthHeader' => false, ] ];
+$app = new Slim\App($config);
 
 /**
  * Step 3: Define the Slim application routes
@@ -217,7 +218,7 @@ $app->post('/updateProfile', function ($request, $response) {
     $data = $request->getParsedBody();
     $post_data = [];
     $post_data['user_id'] = filter_var($data['user_id'], FILTER_SANITIZE_NUMBER_INT);
-    $post_data['mob']   = filter_var($data['mob'], FILTER_SANITIZE_NUMBER_INT);     
+    $post_data['mob']   = filter_var($data['mob'], FILTER_SANITIZE_STRING);     
     $post_data['des'] = filter_var($data['desc'], FILTER_SANITIZE_STRING);
     $post_data['skills'] = filter_var($data['skills'], FILTER_SANITIZE_STRING);
     $post_data['associate_with_infobeans'] = filter_var($data['date'], FILTER_SANITIZE_STRING);
@@ -241,6 +242,10 @@ $app->post('/updateProfile', function ($request, $response) {
         $post_data['interests'] = implode(",",$data['interests']);
     }
 	$post_data['mob'] = str_replace("+91-", "", $post_data['mob']);
+    if($post_data['mob']=="NO NUMBER")
+    {
+        $post_data['mob'] = '';   
+    }
     if($db->isValidUser( $post_data['user_id'] )){
         if (!preg_replace( '/^[1-9][0-9]*$/', '', $post_data['mob'] )) {
             //Creating a dbmodule object
