@@ -120,8 +120,7 @@
                             <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-margin replyBox">
                                 <div class="oj-xl-9 oj-lg-9 oj-md-9 oj-sm-9 oj-flex-item oj-flex"> 
                                     <span class="hide oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item">
-
-                                        <button  class="submitRespond" data-bind="attr:{loginUserId: myId,feedback_to: feedbackfrom,feedbackId: feedbackId}">
+                                        <button  class="submitRespond" data-bind="event:{click: $parent.replySubmit},attr:{id: replyBtnId ,loginUserId: myId,feedback_to: feedbackfrom,feedbackId: feedbackId}" >
                                             <i class="zmdi zmdi-mail-reply"></i>
                                         </button>
                                     </span>
@@ -187,8 +186,7 @@
                             <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-margin replyBox">
                                 <div class="oj-xl-9 oj-lg-9 oj-md-9 oj-sm-9 oj-flex-item oj-flex"> 
                                     <span class="hide oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item">
-
-                                        <button  class="submitRespond" data-bind="attr:{loginUserId: myId,feedback_to: feedbackfrom,feedbackId: feedbackId}">
+                                        <button  class="submitRespond" data-bind="event:{click: $parent.replySubmit},attr:{id: replyBtnId ,loginUserId: myId,feedback_to: feedbackfrom,feedbackId: feedbackId}">
                                             <i class="zmdi zmdi-mail-reply"></i>
                                         </button>
                                     </span>
