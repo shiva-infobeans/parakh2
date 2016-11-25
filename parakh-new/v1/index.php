@@ -6,6 +6,17 @@
  * If you are not using Composer, you need to load Slim Framework with your own
  * PSR-4 autoloader.
  */
+
+define('DEBUG_MODE','OFF');
+if(DEBUG_MODE=='OFF') {
+ini_set("display_errors",0);
+error_reporting(0);
+}
+else if(DEBUG_MODE=='ON')
+{
+   ini_set("display_errors",1);
+   error_reporting(E_ALL);
+}
 require '../vendor/autoload.php';
 
 /**
@@ -16,7 +27,8 @@ require '../vendor/autoload.php';
  * your Slim application now by passing an associative array
  * of setting names and values into the application constructor.
  */
-$app = new Slim\App();
+$config = [ 'settings' => [ 'addContentLengthHeader' => false, ] ];
+$app = new Slim\App($config);
 
 /**
  * Step 3: Define the Slim application routes
@@ -38,6 +50,7 @@ $app->add(function ($request, $response, $next) {
         // Validate headers
         if(trim($headers['HTTP_SECRET'][0]) != "" && validateSecretKey($headers['HTTP_SECRET'][0])){
             $response = $next($request, $response);
+			$size = (int)$response->getBody()->getSize();		
         }else{
             $response_data = makeResponse('true',get_site_error(3003));
             $response->withJson($response_data);
@@ -205,7 +218,7 @@ $app->post('/updateProfile', function ($request, $response) {
     $data = $request->getParsedBody();
     $post_data = [];
     $post_data['user_id'] = filter_var($data['user_id'], FILTER_SANITIZE_NUMBER_INT);
-    $post_data['mob']   = filter_var($data['mob'], FILTER_SANITIZE_NUMBER_INT);     
+    $post_data['mob']   = filter_var($data['mob'], FILTER_SANITIZE_STRING);     
     $post_data['des'] = filter_var($data['desc'], FILTER_SANITIZE_STRING);
     $post_data['skills'] = filter_var($data['skills'], FILTER_SANITIZE_STRING);
     $post_data['associate_with_infobeans'] = filter_var($data['date'], FILTER_SANITIZE_STRING);
@@ -221,6 +234,9 @@ $app->post('/updateProfile', function ($request, $response) {
     }
     if(is_array($data['projects'])){
         $post_data['projects'] = implode(",",$data['projects']);
+    }
+    if(is_array($data['primary_project'])){
+        $post_data['primary_project'] = implode(",",$data['primary_project']);
     }
     if(is_array($data['interests'])){
         $post_data['interests'] = implode(",",$data['interests']);

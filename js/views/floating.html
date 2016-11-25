@@ -11,7 +11,7 @@
         <nav class="container"> 
 
             <a href="#" id="hideFeedbackFloat" class="buttons feedBackFloat" title="Send Feedback"><i class="zmdi zmdi-comment-text-alt floatIcons"></i></a>
-              
+
             <a href="#" class="buttons rateFloat" title="Rate Buddy"><i class="zmdi zmdi-star floatIcons"></i></a>
 
             <a href="#" class="buttons requestFloat" title="Send Request"><i class="zmdi zmdi-plus-1 floatIcons"></i></a>
@@ -22,6 +22,7 @@
 
     </div>
 </div>
+
 
 <!--feedaback modal in floating button-->
 <div id="dialogWrapper9">
@@ -44,20 +45,21 @@
                               list: 'browsers1',
                               value: value1,     
                               rootAttributes: {style:'max-width:20em'}}"/>
-                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" data-bind="text: searchError"></div>
-
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" id="feedbackFloatSearchError">This field cannot be empty</div>
             </div>
             <div class="areaFloat">
                 <div class="areaContent">
                     <textarea id="text-area9" class="textArea-feedbackFloat" aria-label="ojTextArea component no visible label"
                               data-bind="ojComponent: {component: 'ojTextArea', 
                                      value: desc, 
-                                     placeholder: 'Type your feedback here..'}"></textarea>
-                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" data-bind="text:textError"></div>
-
+                                     placeholder: 'Type your feedback here...'}"></textarea>
                 </div>
             </div>
-            <button class="modal-submitFloatFeddback" data-bind="click: feedbackModal" > Submit </button>
+            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center errorText" id="feedbackFloatTextError">Please provide a reason for your feedback.</div>
+            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
+                <button class="modal-submitFloatFeddback" data-bind="click: feedbackModal" > Submit </button>
+            </div>
+
         </div>
     </div>
 </div>                              
@@ -115,7 +117,11 @@
 
                 </div>
             </div>
-            <button class="modal-submit3" data-bind="click: floatModal" > Submit </button>
+            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center hide errorText" id="rateFloatTextError">Please provide a reason for rating.</div>
+            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
+                <button class="modal-submit3" data-bind="click: floatModal" > Submit </button>
+            </div>
+
 
         </div>
     </div>
@@ -146,22 +152,25 @@
                                  list: 'browsers2',
                               value: value2,
                               rootAttributes: {style:'max-width:20em'}}"/>
-                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" data-bind="text: searchError"></div>
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal center errorText" data-bind="text: searchError"></div>
             </div>
 
             <div class="areaFloat">
-                <div class="areaContent">
+                <div class="areaContent1">
                     <textarea id="text-area10" class="textArea-feedbackFloat" aria-label="ojTextArea component no visible label"
                               data-bind="ojComponent: {component: 'ojTextArea', 
                                      value: desc, 
                                      placeholder: 'Type your reason here..'}"></textarea>
-                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" data-bind="text:textError"></div>
+                    
 
                 </div>
-
-                <button class="modal-submitRequest" data-bind="click: requestModal" > Submit</button>
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal center errorText" data-bind="text:textError"></div>
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
+                    <button class="modal-submitRequest" data-bind="click: requestModal" > Submit</button>
+                </div>
+                
 
             </div>
         </div>
     </div>
-    
+</div>    

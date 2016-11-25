@@ -63,7 +63,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 var img0 = data.attributes['data'][0]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][0]['google_picture_link'];
                 self.name0(data.attributes['data'][0]['google_name'].substr(0, data.attributes['data'][0]['google_name'].indexOf(' ')));
                 self.name0hover(data.attributes['data'][0]['google_name']);
-                self.project0hover(data.attributes['data'][0]['project_name']);
+                self.project0hover(data.attributes['data'][0]['primary_project']);
                 self.image0(img0);
                 var person0 = "memberProfile.html?id=" + data.attributes['data'][0]['user_id'];
                 self.link0(person0);
@@ -71,7 +71,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 var img1 = data.attributes['data'][1]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][1]['google_picture_link'];
                 self.name1(data.attributes['data'][1]['google_name'].substr(0, data.attributes['data'][1]['google_name'].indexOf(' ')));
                 self.name1hover(data.attributes['data'][1]['google_name']);
-                self.project1hover(data.attributes['data'][1]['project_name']);
+                self.project1hover(data.attributes['data'][1]['primary_project']);
                 self.image1(img1);
                 var person1 = "memberProfile.html?id=" + data.attributes['data'][1]['user_id'];
                 self.link1(person1);
@@ -79,7 +79,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 var img2 = data.attributes['data'][2]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][2]['google_picture_link'];
                 self.name2(data.attributes['data'][2]['google_name'].substr(0, data.attributes['data'][2]['google_name'].indexOf(' ')));
                 self.name2hover(data.attributes['data'][2]['google_name']);
-                self.project2hover(data.attributes['data'][2]['project_name']);
+                self.project2hover(data.attributes['data'][2]['primary_project']);
                 self.image2(img2);
                 var person2 = "memberProfile.html?id=" + data.attributes['data'][2]['user_id'];
                 self.link2(person2);
@@ -87,7 +87,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 var img3 = data.attributes['data'][3]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][3]['google_picture_link'];
                 self.name3(data.attributes['data'][3]['google_name'].substr(0, data.attributes['data'][3]['google_name'].indexOf(' ')));
                 self.name3hover(data.attributes['data'][3]['google_name']);
-                self.project3hover(data.attributes['data'][3]['project_name']);
+                self.project3hover(data.attributes['data'][3]['primary_project']);
                 self.image3(img3);
                 var person3 = "memberProfile.html?id=" + data.attributes['data'][3]['user_id'];
                 self.link3(person3);
@@ -184,7 +184,6 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                     leadSlideFetch.fetch({
                         headers: {secret: secret},
                         success: function (result) {
-                            //console.log(result['attributes']['data']);
 
                             var data = result['attributes']['data'];
                             for (var c = 0; c < data.length; c++) {
@@ -259,8 +258,6 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                             headers: {secret: secret},
                             success: function (res) {
                                 var mylead = res['attributes']['data'][0]['manager_id'];
-
-                                console.log(getTopRankersCalendarWise + mylead);
                                 var leadSlide = oj.Model.extend({
                                     url: getTopRankersCalendarWise + mylead
                                 });
@@ -333,7 +330,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                                     obj.name = result['attributes']['data'][c]['google_name'];
                                     obj.nameS = result['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
                                     obj.image = result['attributes']['data'][c]['google_picture_link'];
-                                    obj.projects = result['attributes']['data'][c]['projects'];
+                                    obj.projects = result['attributes']['data'][c]['primary_project'];
                                     obj.personLink = "memberProfile.html?id=" + result['attributes']['data'][c]['user_id'];
                                     self.addteamMembers(obj);
                                 }
@@ -349,7 +346,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                                             obj.name = res2['attributes']['data'][c]['google_name'];
                                             obj.nameS = res2['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
                                             obj.image = res2['attributes']['data'][c]['image'];
-                                            obj.projects = res2['attributes']['data'][c]['projects'];
+                                            obj.projects = res2['attributes']['data'][c]['primary_project'];
                                             obj.personLink = "memberProfile.html?id=" + res2['attributes']['data'][c]['user_id'];
                                             self.addteamMembers(obj);
                                         }
@@ -366,7 +363,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                                                     obj.name = res3['attributes']['data'][c]['google_name'];
                                                     obj.nameS = res3['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
                                                     obj.image = res3['attributes']['data'][c]['image'];
-                                                    obj.projects = res3['attributes']['data'][c]['projects'];
+                                                    obj.projects = res3['attributes']['data'][c]['primary_project'];
                                                     self.addteamMembers(obj);
                                                 }
                                             }
@@ -420,11 +417,9 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                                     diff /= (24 * 60 * 60 * 1000); //convert miliseconds into days
                                     if (diff < 7) {
                                         dayP++;
-                                        //           console.log(dayP);
                                     }
                                     if (diff < 30) {
                                         monthP++;
-                                        //     console.log(monthP);
                                     }
                                     plus++;
                                 }
@@ -518,9 +513,9 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
 
             }
             counter++;
-			 if ($("#filmStrip").find("#ui-id-9").attr("style") == "visibility: hidden;")
-               $( "#filmStrip" ).ojFilmStrip( "option", "currentItem", 1 );
-            else {
+            if ($("#filmStrip").find("#ui-id-9").attr("style") == "visibility: hidden;") {
+                $("#filmStrip").ojFilmStrip("option", "currentItem", 1)
+            } else {
                 $("#filmStrip").find("#ui-id-9").click();
             }
 
@@ -528,10 +523,63 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
 
 
         setTimeout(function () {
-            $(".tabIcon").click(function () {
-                $(".tabIcon").removeClass('oj-tabs-title-active');
-                $(this).addClass('oj-tabs-title-active');
+            $("#filmStrip").on({
+                'ojoptionchange': function (event, data) {
+                    // verify that the component firing the event is a component of interest
+                    if ($(event.target).is("#filmStrip")) {
+                        if($("#filmStrip").ojFilmStrip("option", "currentItem") == 1){
+                            $("#plusSliderTxt").text("Recent +1 Ratings");
+                        };
+                        if($("#filmStrip").ojFilmStrip("option", "currentItem") == 4){
+                            $("#plusSliderTxt").text("Monthly Highest +1 Ratings");
+                        };
+                        if($("#filmStrip").ojFilmStrip("option", "currentItem") == 8){
+                            $("#plusSliderTxt").text("Overall Highest +1 Rating");
+                        };
+                        //window.console.log("option that changed is: " + $("#filmStrip").ojFilmStrip("option", "currentItem"));
+                    }
+                }
             });
+            $("#plusSliderTxt").text("Recent +1 Ratings");// slider text for +1 rating.
+            $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
+            $('#homeTab2').append(' <img src="../../images/team.png" alt="" />');
+
+            $("#homeTab2").click(function () {
+                if ($('#homeTab2 > img').attr("src") == "../../images/team.png") {
+                    $('#homeTab1 > img').remove();
+                    $('#homeTab2 > img').remove();
+                    $('#homeTab1').append(' <img src="../../images/user.png" alt="" />');
+                    $('#homeTab2').append(' <img src="../../images/team-active.png" alt="" />');
+                }
+            });
+
+            $("#home2").click(function () {
+                if ($('#homeTab2 > img').attr("src") == "../../images/team.png") {
+                    $('#homeTab1 > img').remove();
+                    $('#homeTab2 > img').remove();
+                    $('#homeTab1').append(' <img src="../../images/user.png" alt="" />');
+                    $('#homeTab2').append(' <img src="../../images/team-active.png" alt="" />');
+                }
+            });
+
+            $("#homeTab1").click(function () {
+                if ($('#homeTab1 > img').attr("src") == "../../images/user.png") {
+                    $('#homeTab1 > img').remove();
+                    $('#homeTab2 > img').remove();
+                    $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
+                    $('#homeTab2').append(' <img src="../../images/team.png" alt="" />');
+                }
+            });
+
+            $("#home1").click(function () {
+                if ($('#homeTab1 > img').attr("src") == "../../images/user.png") {
+                    $('#homeTab1 > img').remove();
+                    $('#homeTab2 > img').remove();
+                    $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
+                    $('#homeTab2').append(' <img src="../../images/team.png" alt="" />');
+                }
+            });
+
         }, 500);
 
     }
