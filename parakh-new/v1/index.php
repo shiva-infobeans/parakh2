@@ -6,6 +6,17 @@
  * If you are not using Composer, you need to load Slim Framework with your own
  * PSR-4 autoloader.
  */
+
+define('DEBUG_MODE','OFF');
+if(DEBUG_MODE=='OFF') {
+ini_set("display_errors",0);
+error_reporting(0);
+}
+else if(DEBUG_MODE=='ON')
+{
+   ini_set("display_errors",1);
+   error_reporting(E_ALL);
+}
 require '../vendor/autoload.php';
 
 /**
@@ -16,7 +27,8 @@ require '../vendor/autoload.php';
  * your Slim application now by passing an associative array
  * of setting names and values into the application constructor.
  */
-$app = new Slim\App();
+$config = [ 'settings' => [ 'addContentLengthHeader' => false, ] ];
+$app = new Slim\App($config);
 
 /**
  * Step 3: Define the Slim application routes
@@ -222,6 +234,9 @@ $app->post('/updateProfile', function ($request, $response) {
     }
     if(is_array($data['projects'])){
         $post_data['projects'] = implode(",",$data['projects']);
+    }
+    if(is_array($data['primary_project'])){
+        $post_data['primary_project'] = implode(",",$data['primary_project']);
     }
     if(is_array($data['interests'])){
         $post_data['interests'] = implode(",",$data['interests']);

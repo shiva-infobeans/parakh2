@@ -248,7 +248,7 @@ body{
     height: 25px;
     width: 25px;
     border-radius: 50%;
-    border:1px solid #000;
+    border:1px solid #fff;
 }
 .control {
     display: none;
@@ -522,11 +522,9 @@ body{
     cursor: pointer !important;
     font-size: 24px;
     height: 48px;
-    margin-left: -120px;
     margin-top: 24px;
     outline: medium none;
     width: 38%;
-    float: left !important;
     -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color=#6f6d6d)";
     -moz-box-shadow: 3px 3px 3px #6f6d6d;
     -webkit-box-shadow: 3px 3px 3px #6f6d6d;
@@ -563,7 +561,7 @@ body{
     width: 278px;
 }
 .textArea3{
-    height: 144px;
+    height: 143px;
     border: none;
     width: 278px;
 }
@@ -577,6 +575,10 @@ body{
 .areaContent{
     float:left;
 }
+.areaContent1{
+    float:left;
+    width: 100%;
+}
 
 .mText{
     position: absolute;
@@ -589,6 +591,9 @@ body{
 .errorText{
     color:red;
     margin-left: -2px;
+}
+.errorFix1{
+    margin-left: 60px;
 }
 #ojDialogWrapper-modalDialog2 .oj-dialog-title {
     font-size: 22px;
@@ -614,8 +619,7 @@ body{
     margin-top: 24px;
     outline: medium none;
     width: 38%;
-    float: left !important;
-    margin-left: -152px;
+    
 }
 .modal-submit1{
     background-color: #ff6241 !important;
@@ -685,11 +689,11 @@ body{
     border-bottom: 4px solid #78A95A;
 }
 .rankText{
-    text-align: center;
-    font-size: 60px;
-    padding-top: 55px;
-    padding-bottom: 71px;
+   font-size: 60px;
     font-weight: bolder;
+    height: 210px;
+    padding-top: 47px;
+    text-align: center;
 }
 .countBlock{
     margin-bottom: 20px;
@@ -787,11 +791,9 @@ body{
     cursor: pointer !important;
     font-size: 24px;
     height: 48px;
-    margin-top: 37px;
+    margin-top: 25px;
     outline: medium none;
     width: 38%;
-    float: left !important;
-    margin-left: -156px;
 }
 
 .searchImage{
@@ -1063,7 +1065,7 @@ body{
     width: 463px;
 }
 .textArea-feedbackFloat{
-    height: 146px;
+    height: 143px;
     border: none;
     width: 383px;
 }
@@ -1100,11 +1102,11 @@ body{
     cursor: pointer !important;
     font-size: 24px;
     height: 48px;
-    margin-top: 178px;
+    margin-top: 25px;
     outline: medium none;
     width: 38%;
     float: left !important;
-    margin-left: -140px;
+    margin-left: 25%;
 }
 .searchLead{
     margin-top: -3px;
@@ -1129,15 +1131,16 @@ body{
 .sucessMsgMyteam{
     background-color:#E7FCD5;
     color: #000;
-    top: 50px;
+    top: 0px;
     left: 620px;
-    position: absolute;
+    position: fixed;
     border-radius: 5px;
     font-size: 16px;
     padding-top: 14px;
     padding-bottom: 14px;
     padding-left: 50px;
     padding-right: 50px;
+    z-index: 999999;
 }
 .sucessMsgRate{
     background-color:#E7FCD5;
@@ -1427,6 +1430,7 @@ body{
 }
 .overflow-class{
     overflow: auto;
+    word-wrap: break-word
 }
 .feedback-profile{
     margin-top: 60px;
@@ -1460,11 +1464,21 @@ body{
     border-bottom: 1px solid #689F39;   
 }
 .padding-feedback{
-    padding: 2px;
+    padding: 1px;
 }
 .content1{
     margin-left: 40px;
 }
 .content2{
     margin-left: -40px;
+}
+.replyDate{
+   font-size: 12px;
+}
+.text-hover-name{
+    color: #000;
+    font-weight: bold;
+}
+.request-pic{
+    margin-left: 139px;
 }

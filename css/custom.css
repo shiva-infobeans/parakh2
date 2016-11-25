@@ -299,7 +299,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 .about-label{color: yellow;width: 240px;}
 .about-text{margin-left:200px !important;width: 240px;}
-.about-edit{color:white !important;font-size:20px !important;margin-top:30px !important;}
+.about-edit{color:white !important;font-size:1em !important;margin-top:10px !important;}
 .profile-tab1-data:not(:nth-child(1)) i{
     font-size: 50px;
     margin: 20px 0px 0px 30px;
@@ -330,7 +330,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     margin-left: -8px;
 }
 .profile-rating-circle{
-    margin: 0 50px 20px;
+    margin: 5px 50px 20px;
     height: 25px;
     width: 25px;
     border:3px solid;
@@ -344,6 +344,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 .circle-red{
     border-color: #FF7a7a;
     background-color: #e00000;
+    margin-top:10px;
 }
 .rating-info{
     padding: 0px 10px 10px 10px;
@@ -377,6 +378,8 @@ div.oj-tabs-panel.oj-tabs-selected{
     left:62;
     z-index: -1;
 }
+.rating-comment-div:last-child .transline{display: none;}
+.rating-comment-red-div:last-child .transline-red{display: none;}
 .transline-red{
     width: 3px;
     height: 100%;
@@ -396,7 +399,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     transition: height .1s linear;
 }
 .profile-feedback-pic{
-   height: 85px;
+    height: 85px;
     width: 85px;
     border-radius: 50%;
     z-index: 10;
@@ -414,6 +417,8 @@ div.oj-tabs-panel.oj-tabs-selected{
 .replyName{
     margin-top:5px;
     margin-bottom: 5px;
+    color: #689F39;
+    font-weight: bold;
 }
 
 .open-more > div > .replyComent:nth-child(odd) {
@@ -765,10 +770,11 @@ div.oj-tabs-panel.oj-tabs-selected{
     color:#689F39 !important;
 }
 .Moreless-fix{
- font-size: 45px !important;
-    left: 224px;
+    font-size: 45px !important;
+    left: 233px;
     position: absolute;
-    top: -18px;
+    top: -16px;
+    cursor: pointer;
 }
 .divTextRateMe .oj-textarea{
     max-width: 100% !important;
@@ -879,7 +885,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     top: 60px;
 }
 .btn-text-red-tab2{
-   color: #fff;
+    color: #fff;
     font-size: 50px;
     font-weight: normal;
     left: 165px;
@@ -888,7 +894,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 .edit-height{cursor: pointer;}
 .requestHeight{
-   margin-top: 50px;
+    margin-top: 50px;
     height: 87%; 
 }
 .sliderScreen1{
@@ -899,3 +905,5 @@ div.oj-tabs-panel.oj-tabs-selected{
     margin-right: 41px;
     margin-top: 50px;
 }
+.oj-inputdatetime-input-container{max-width: 18em;}
+#editNumberBox{font-size: 85%}
