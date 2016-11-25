@@ -27,7 +27,8 @@ require '../vendor/autoload.php';
  * your Slim application now by passing an associative array
  * of setting names and values into the application constructor.
  */
-$app = new Slim\App();
+$config = [ 'settings' => [ 'addContentLengthHeader' => false, ] ];
+$app = new Slim\App($config);
 
 /**
  * Step 3: Define the Slim application routes

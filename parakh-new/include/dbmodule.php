@@ -138,33 +138,43 @@ class dbmodule {
            $user_list = $this->con->prepare($query);
            $user_list->execute(array(':id' => $lead_id));
            $employeeList = $user_list->fetchAll((PDO::FETCH_ASSOC));
+           $id_array = array();
+           foreach ($employeeList as $key => $value) {
+               $id_array[] = $value['id'];
+           }
+           $id_array = implode(",",$id_array);
 
-            for($y=0;$y<count($employeeList);$y++)
-            {
-                $query_rank = "SELECT MAX(r.created_date) as date,
+           $query_rank = "SELECT u.id,u.google_name,
                     sum(case when r.rating = 1 then 1  end) as pluscount,
                     sum(case when r.rating = 0 then 1  end) as minuscount
                     from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 
-                    and u.id=:id group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC LIMIT 10";
+                    group by r.user_id ORDER BY u.google_name";
                 $user_rank = $this->con->prepare($query_rank);
-                $user_rank->execute(array(':id' => $employeeList[$y]['id']));
+                $user_rank->execute();
                 $userRank = $user_rank->fetchAll((PDO::FETCH_ASSOC));
-                if(isset($userRank[0]['pluscount']) && !empty($userRank[0]['pluscount']))
+            foreach ($userRank as $key => $value) {
+               $rank_array[$value['id']]['pluscount'] = $value['pluscount'];
+               $rank_array[$value['id']]['minuscount'] = $value['minuscount'];
+            }
+            
+            for($y=0;$y<count($employeeList);$y++)
+            {
+                if(isset($rank_array[$employeeList[$y]['id']]['pluscount']) && !empty($rank_array[$employeeList[$y]['id']]['pluscount']))
                 {
-                    $employeeList[$y]['pluscount'] = "+".$userRank[0]['pluscount'];
+                    $employeeList[$y]['pluscount'] = "+".$rank_array[$employeeList[$y]['id']]['pluscount'];
                 }else
                 {
                     $employeeList[$y]['pluscount'] = 0;
                 }
-                if(isset($userRank[0]['minuscount']) && !empty($userRank[0]['minuscount']))
+                if(isset($rank_array[$employeeList[$y]['id']]['minuscount']) && !empty($rank_array[$employeeList[$y]['id']]['minuscount']))
                 {
-                    $employeeList[$y]['minuscount'] = "-".$userRank[0]['minuscount'];
+                    $employeeList[$y]['minuscount'] = "-".$rank_array[$employeeList[$y]['id']]['minuscount'];
                 }else
                 {
                     $employeeList[$y]['minuscount'] = 0;
                 }
+                
             }
-
            return $employeeList;
        } else {
            return 0;
@@ -748,31 +758,46 @@ class dbmodule {
             $user_list->execute(array(':id' => $user_id));
             $employeeList = $user_list->fetchAll((PDO::FETCH_ASSOC));
             
-            for($y=0;$y<count($employeeList);$y++)
-            {
-                $query_rank = "SELECT MAX(r.created_date) as date,r.user_id,u.google_name,u.google_picture_link as image,
+            
+            $id_array = array();
+            foreach ($employeeList as $key => $value) {
+               $id_array[] = $value['id'];
+            }
+            $id_array = implode(",",$id_array);
+
+            $query_rank = "SELECT u.id,u.google_name,
                     sum(case when r.rating = 1 then 1  end) as pluscount,
                     sum(case when r.rating = 0 then 1  end) as minuscount
                     from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 
-                    and u.id=:id group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC LIMIT 10";
+                    group by r.user_id ORDER BY u.google_name";
                 $user_rank = $this->con->prepare($query_rank);
-                $user_rank->execute(array(':id' => $employeeList[$y]['id']));
+                $user_rank->execute();
                 $userRank = $user_rank->fetchAll((PDO::FETCH_ASSOC));
-                if(isset($userRank[0]['pluscount']) && !empty($userRank[0]['pluscount']))
+
+            foreach ($userRank as $key => $value) {
+               $rank_array[$value['id']]['pluscount'] = $value['pluscount'];
+               $rank_array[$value['id']]['minuscount'] = $value['minuscount'];
+            }
+            
+            for($y=0;$y<count($employeeList);$y++)
+            {
+                if(isset($rank_array[$employeeList[$y]['id']]['pluscount']) && !empty($rank_array[$employeeList[$y]['id']]['pluscount']))
                 {
-                    $employeeList[$y]['pluscount'] = $userRank[0]['pluscount'];
+                    $employeeList[$y]['pluscount'] = "+".$rank_array[$employeeList[$y]['id']]['pluscount'];
                 }else
                 {
                     $employeeList[$y]['pluscount'] = 0;
                 }
-                if(isset($userRank[0]['minuscount']) && !empty($userRank[0]['minuscount']))
+                if(isset($rank_array[$employeeList[$y]['id']]['minuscount']) && !empty($rank_array[$employeeList[$y]['id']]['minuscount']))
                 {
-                    $employeeList[$y]['minuscount'] = $userRank[0]['minuscount'];
+                    $employeeList[$y]['minuscount'] = "-".$rank_array[$employeeList[$y]['id']]['minuscount'];
                 }else
                 {
                     $employeeList[$y]['minuscount'] = 0;
                 }
+                
             }
+
             return $employeeList;
         } else {
             return 0;
@@ -1345,7 +1370,7 @@ class dbmodule {
     /*get top four ranker of current month*/
     function get_top_four_ranker_for_current_month(){
 
-        $query_rank = "SELECT r.created_date as date,r.user_id,u.google_name,u.google_picture_link as image,
+        $query_rank = "SELECT r.created_date as date,r.user_id,u.google_name,u.primary_project,u.projects,u.google_picture_link as image,
                     sum(case when r.rating = 1 then 1  end) as pluscount,
                     sum(case when r.rating = 0 then 1  end) as minuscount
                     from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 AND MONTH(r.created_date) = MONTH(CURDATE())
