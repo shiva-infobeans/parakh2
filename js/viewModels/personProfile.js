@@ -72,6 +72,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 feedbackObj.feedbackdesignation = data['designation'];
                 feedbackObj.replies = ko.observableArray();
                 feedbackObj.feedbackImage = data['google_picture_link'];
+                feedbackObj.uniqueId = "feedback"+data['id'];
+                
                 // 2nd myId with rtoId change it when view profile page;
                 var data_reply = data['reply'];
                 for (var c = 0; c < data_reply.length; c++) {
@@ -130,31 +132,42 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 this.minusSign = ko.observable('-');
                 this.plusSign = ko.observable('+');
                 self.selectedTab = ko.observable(0);
+             
+             
                 var editVariable;
                 var windowLocation = window.location;
                 var id = windowLocation.search.substring(windowLocation.search.indexOf("=") + 1, windowLocation.search.length);
-
+                
                 if (id == "1") {
                     self.selectedTab(1);
                 }
 
+             self.feedbackMore1 = function(e,data) {
+                 
+                 var obj=$("#feedback"+e.feedbackId);
+                 
+            obj.parent().prev('.open-more').slideToggle();
+                        if (obj.prev().children("span").hasClass("hide")) {
+                            obj.prev().children("span").removeClass("hide");
+                            obj.children("span").children("span").children("i").addClass("zmdi-caret-up");
+                            obj.children("span").children("span").children("i").removeClass("zmdi-caret-down");
+                            obj.children("span").children("span:nth-child(2)").html("Less");
+                        } else {
+                            obj.children("span").children("span:nth-child(2)").html("More");
+                            obj.children("span").children("span").children("i").removeClass("zmdi-caret-up");
+                            obj.children("span").children("span").children("i").addClass("zmdi-caret-down");
+                            obj.prev().children("span").addClass("hide");
+                        }
+         }
+
                 ///////////open modal
+   
+
 
                 //open feedback close feedback
                 setTimeout(function () {
                     $('.openDiv').click(function () {
-                        $(this).parent().prev('.open-more').slideToggle();
-                        if ($(this).prev().children("span").hasClass("hide")) {
-                            $(this).prev().children("span").removeClass("hide");
-                            $(this).children("span").children("span").children("i").addClass("zmdi-caret-up");
-                            $(this).children("span").children("span").children("i").removeClass("zmdi-caret-down");
-                            $(this).children("span").children("span:nth-child(2)").html("Less");
-                        } else {
-                            $(this).children("span").children("span:nth-child(2)").html("More");
-                            $(this).children("span").children("span").children("i").removeClass("zmdi-caret-up");
-                            $(this).children("span").children("span").children("i").addClass("zmdi-caret-down");
-                            $(this).prev().children("span").addClass("hide");
-                        }
+                        
                     });
                     $('.submitRespond').on('click', function () {
                         var id = $(this).attr("loginUserId");
