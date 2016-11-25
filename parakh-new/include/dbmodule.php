@@ -1389,8 +1389,7 @@ class dbmodule {
                    sum(case when r.rating = 1 then 1  end) as pluscount,
                    sum(case when r.rating = 0 then 1  end) as minuscount
                    from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 
-                   and u.id in (SELECT user_id from user_hierarchy where manager_id = :manager_id) AND MONTH(r.created_date) = MONTH(CURDATE())
-                   AND YEAR(r.created_date) = YEAR(CURDATE()) AND u.primary_project!='' group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC";
+                   and u.id in (SELECT user_id from user_hierarchy where manager_id = :manager_id) AND u.primary_project!='' group by u.primary_project ORDER BY pluscount DESC, minuscount ASC,date ASC";
                $user_rank = $this->con->prepare($query_rank);
                $user_rank->execute(array(':manager_id' => $manager_id));
                $userRank = $user_rank->fetchAll((PDO::FETCH_ASSOC));
