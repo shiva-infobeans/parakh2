@@ -73,6 +73,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 feedbackObj.replies = ko.observableArray();
                 feedbackObj.feedbackImage = data['google_picture_link'];
                 feedbackObj.uniqueId = "feedback"+data['id'];
+                feedbackObj.replyBtnId = "replyBtn"+data['id'];
                 
                 // 2nd myId with rtoId change it when view profile page;
                 var data_reply = data['reply'];
@@ -160,34 +161,26 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         }
          }
 
-                ///////////open modal
-   
-
-
-                //open feedback close feedback
-                setTimeout(function () {
-                    $('.openDiv').click(function () {
-                        
-                    });
-                    $('.submitRespond').on('click', function () {
-                        var id = $(this).attr("loginUserId");
-                        var feedback_to = $(this).attr("feedback_to");
-                        var responseDesc = $(this).parent().next("span").children("input");
+                    self.replySubmit = function (e,data) {
+                        var obj=$("#replyBtn"+e.feedbackId);
+                        var id = obj.attr("loginUserId");
+                        var feedback_to = obj.attr("feedback_to");
+                        var responseDesc = obj.parent().next("span").children("input");
 						if(responseDesc.val().length == 0) {
                                                return;
                                            }
-                        var fid = $(this).attr("feedbackId");
-                        var appendChild = this;
+                        var fid = obj.attr("feedbackId");
                         var sysDate = new Date();
                         var dateString = sysDate.toJSON().toString().substr(0, 10);
-
+                        
                         $.ajax({
                             headers: {secret: secret},
                             method: 'POST',
                             url: addFeedbackResponse,
                             data: {login_user_id: id, feedback_to: feedback_to, feedback_desc: responseDesc.val(), feedback_id: fid},
                             success: function () {
-                                $(appendChild).parent().parent().parent().prev().append(
+                                
+                                obj.parent().parent().parent().prev().append(
                                         '<div class="oj-row oj-flex oj-margin-top oj-margin-bottom oj-margin-horizontal oj-padding-horizontal">' +
                                         '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item replyName">' +
                                         '<span>' + self.myname + '</span>' +
@@ -201,9 +194,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                 responseDesc.val("");
                             }
                         });
-                    });
+                    }
 
-                }, 500);
+               
 
                 //update profile submit button ajax call
                 self.updateProfile = function () {
