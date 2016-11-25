@@ -84,9 +84,9 @@ $app->get('/getUserByEmail[/{email}]', function ($request, $response, $args) {
  * URL: http://localhost/parakh-new/v1/index.php/getUserByLead/<lead_id>
  * Parameters: none
  * 
- * Method: GET
+ * Method: POST
  * */    
-$app->get('/getUserByLead[/{lead_id}]', function ($request, $response, $args) {
+$app->post('/getUserByLead[/{lead_id}]', function ($request, $response, $args) {
     $response_data = array();
     
     //Creating a dbmodule object

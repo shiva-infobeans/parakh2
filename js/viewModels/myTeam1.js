@@ -84,14 +84,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
                     $('#tabs ul li:last-child').addClass('abc').show();
                     //lead id user
-                    var teamUser = oj.Model.extend({
-                        url: getUserByLead + self.lead_id(),
-                    });
-                    var getUser = new teamUser();
-                    getUser.fetch({
+                    $.ajax({
                         headers: {secret: secret},
-                        success: function () {
-                            var data = getUser.attributes['data'];
+                        method: 'POST',
+                        url: getUserByLead + self.lead_id(),
+                        data: {user_id: self.userIdFloat()},
+                        success: function (task) {
+
+                            var data = JSON.parse(task)['data'];
                             data = data.sort(function (a, b) {
                                 return (a['user_name'] > b['user_name']) - (a['user_name'] < b['user_name']);
                             });
@@ -101,8 +101,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             self.data1(self.myTeam());
                         }
                     });
-
-
                 }
 
                 $.ajax({
