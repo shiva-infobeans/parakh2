@@ -612,35 +612,35 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                 }
             }
  /// manager slider
-            if ($('#filmStrip10').ojFilmStrip("option", "currentItem") == 0
-                    || $('#filmStrip10').ojFilmStrip("option", "currentItem") == 'show10') {
-                try {
-                    $('#filmStrip10').ojFilmStrip("option", "currentItem", 1);
-                    
-                } catch (e)
-                {
-                    
-                }
-            } else if ($('#filmStrip10').ojFilmStrip("option", "currentItem") == 1
-                    || $('#filmStrip10').ojFilmStrip("option", "currentItem") == 'show11') {
-                try {
-                    $('#filmStrip10').ojFilmStrip("option", "currentItem", 2);
-                } catch (e)
-                {
-                    
-                }
-            } else if ($('#filmStrip10').ojFilmStrip("option", "currentItem") == 2
-                    || $('#filmStrip10').ojFilmStrip("option", "currentItem") == 'show12') {
-
-                try {
-                    $('#filmStrip10').ojFilmStrip("option", "currentItem", 0);
-                } catch (e)
-                {
-                    
-                }
-            }
+//            if ($('#filmStrip10').ojFilmStrip("option", "currentItem") == 0
+//                    || $('#filmStrip10').ojFilmStrip("option", "currentItem") == 'show10') {
+//                try {
+//                    $('#filmStrip10').ojFilmStrip("option", "currentItem", 1);
+//                    
+//                } catch (e)
+//                {
+//                    
+//                }
+//            } else if ($('#filmStrip10').ojFilmStrip("option", "currentItem") == 1
+//                    || $('#filmStrip10').ojFilmStrip("option", "currentItem") == 'show11') {
+//                try {
+//                    $('#filmStrip10').ojFilmStrip("option", "currentItem", 2);
+//                } catch (e)
+//                {
+//                    
+//                }
+//            } else if ($('#filmStrip10').ojFilmStrip("option", "currentItem") == 2
+//                    || $('#filmStrip10').ojFilmStrip("option", "currentItem") == 'show12') {
+//
+//                try {
+//                    $('#filmStrip10').ojFilmStrip("option", "currentItem", 0);
+//                } catch (e)
+//                {
+//                    
+//                }
+//            }
             
-        }, 2000)
+        }, 6000)
 
         setTimeout(function () {
             $("#filmStrip").on({
