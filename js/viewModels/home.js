@@ -7,8 +7,8 @@
 /**
  * home module
  */
-define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojtabs', 'ojs/ojfilmstrip', 'ojs/ojpagingcontrol'
-], function (oj, ko) {
+define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojtabs', 'ojs/ojfilmstrip', 'ojs/ojpagingcontrol'
+], function (oj, ko, $) {
     /**
      * The view model for the main content view template
      */
@@ -245,51 +245,41 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                         leadSlideFetch.fetch({
                             headers: {secret: secret},
                             success: function (result) {
-                                if (result['attributes']['data']['week']['plus'] == 0 && result['attributes']['data']['week']['minus'] == 0) {
-                                    $("#hideSliderWeek").show();
-                                    $("#weekSmiley").show();
-                                    $("#hideSlider12").hide();
-                                } else {
-                                    $("#hideSliderWeek").hide();
-                                    $("#weekSmiley").hide();
-                                    $("#hideSlider12").show();
-                                }
+                                var obj1 = new Object();
+                                var obj2 = new Object();
+                                var obj3 = new Object();
+                                obj1.leadPlus12 = result['attributes']['data']['week']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['week']['plus'];
+                                obj1.leadMinus12 = result['attributes']['data']['week']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['week']['minus'];
+                                obj1.performanceTxt = "My Team’s Performance for this week…";
+                                obj1.noRatingTxt = "Your team has not been rated this week!!";
+                                obj2.leadPlus12 = result['attributes']['data']['month']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['month']['plus'];
+                                obj2.leadMinus12 = result['attributes']['data']['month']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['month']['minus'];
+                                obj2.performanceTxt = "My Team’s Performance for this month…";
+                                obj2.noRatingTxt = "Your team has not been rated this month!!";
+                                obj3.leadPlus12 = result['attributes']['data']['till_now']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['till_now']['plus'];
+                                obj3.leadMinus12 = result['attributes']['data']['till_now']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['till_now']['minus'];
+                                obj3.performanceTxt = "My Team’s Performance till now…";
+                                obj3.noRatingTxt = "Your team has not been rated till now!!";
 
-                                if (result['attributes']['data']['month']['plus'] == 0 && result['attributes']['data']['month']['minus'] == 0) {
-                                    $("#hideMonthSlider").show();
-                                    $("#monthSmiley").show();
-                                    $("#hideSlider22").hide();
-                                } else {
-                                    $("#hideMonthSlider").hide();
-                                    $("#monthSmiley").hide();
-                                    $("#hideSlider22").show();
-                                }
-                                if (result['attributes']['data']['till_now']['plus'] == 0 && result['attributes']['data']['till_now']['minus'] == 0) {
-                                    $("#inner-wrapper1").hide();
-                                    $("#noRatingsScreen1").show();
-                                    $("#smileyOverAll").show();
-                                } else {
-                                    $("#inner-wrapper1").show();
-                                    $("#noRatingsScreen1").hide();
-                                    $("#smileyOverAll").hide();
-                                }
+                                if (obj3.leadPlus12 == 0 && obj3.leadMinus12 == 0) {
+                                    self.addLeadSlider(obj3);
+                                    $("#showSlider0").hide();
+                                    $("#noRating0").show();
 
-                                var obj = new Object();
-                                obj.leadPlus12 = result['attributes']['data']['week']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['week']['plus'];
-                                obj.leadMinus12 = result['attributes']['data']['week']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['week']['minus'];
-                                obj.performanceTxt = "My Team’s Performance for this week…";
-                                obj.noRatingTxt = "Your team has not been rated this week!!";
-                                self.addLeadSlider(obj);
-                                obj.leadPlus12 = result['attributes']['data']['month']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['month']['plus'];
-                                obj.leadMinus12 = result['attributes']['data']['month']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['month']['minus'];
-                                obj.performanceTxt = "My Team’s Performance for this week…";
-                                obj.noRatingTxt = "Your team has not been rated this week!!";
-                                self.addLeadSlider(obj);
-                                obj.leadPlus12 = result['attributes']['data']['till_now']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['till_now']['plus'];
-                                obj.leadMinus12 = result['attributes']['data']['till_now']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['till_now']['minus'];
-                                obj.performanceTxt = "My Team’s Performance for this week…";
-                                obj.noRatingTxt = "Your team has not been rated this week!!";
-                                self.addLeadSlider(obj);
+                                } else {
+                                    self.addLeadSlider(obj1);
+                                    self.addLeadSlider(obj2);
+                                    self.addLeadSlider(obj3);
+                                    if (obj1.leadPlus12 == 0 && obj1.leadMinus12 == 0) {
+                                        $("#showSlider0").hide();
+                                        $("#noRating0").show();
+                                    }
+                                    if (obj2.leadPlus12 == 0 && obj2.leadMinus12 == 0) {
+                                        $("#showSlider1").hide();
+                                        $("#noRating1").show();
+                                    }
+
+                                }
                             }
                         });
                     } else {
@@ -308,41 +298,41 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                                 leadSlideFetch.fetch({
                                     headers: {secret: secret},
                                     success: function (result) {
-//                                        if (result['attributes']['data']['week']['plus'] == 0 && result['attributes']['data']['week']['minus'] == 0) {
-//                                            $("#hideSliderWeek").show();
-//                                            $("#weekSmiley").show();
-//                                            $("#hideSlider12").hide();
-//                                        } else {
-//                                            $("#hideSliderWeek").hide();
-//                                            $("#weekSmiley").hide();
-//                                            $("#hideSlider12").show();
-//                                        }
-//
-//                                        if (result['attributes']['data']['month']['plus'] == 0 && result['attributes']['data']['month']['minus'] == 0) {
-//                                            $("#hideMonthSlider").show();
-//                                            $("#monthSmiley").show();
-//                                            $("#hideSlider22").hide();
-//                                        } else {
-//                                            $("#hideMonthSlider").hide();
-//                                            $("#monthSmiley").hide();
-//                                            $("#hideSlider22").show();
-//                                        }
-//                                        if (result['attributes']['data']['till_now']['plus'] == 0 && result['attributes']['data']['till_now']['minus'] == 0) {
-//                                            $("#inner-wrapper1").hide();
-//                                            $("#noRatingsScreen1").show();
-//                                            $("#smileyOverAll").show();
-//                                        } else {
-//                                            $("#inner-wrapper1").show();
-//                                            $("#noRatingsScreen1").hide();
-//                                            $("#smileyOverAll").hide();
-//                                        }
+                                        var obj1 = new Object();
+                                        var obj2 = new Object();
+                                        var obj3 = new Object();
+                                        obj1.leadPlus12 = result['attributes']['data']['week']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['week']['plus'];
+                                        obj1.leadMinus12 = result['attributes']['data']['week']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['week']['minus'];
+                                        obj1.performanceTxt = "My Team’s Performance for this week…";
+                                        obj1.noRatingTxt = "Your team has not been rated this week!!";
+                                        obj2.leadPlus12 = result['attributes']['data']['month']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['month']['plus'];
+                                        obj2.leadMinus12 = result['attributes']['data']['month']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['month']['minus'];
+                                        obj2.performanceTxt = "My Team’s Performance for this month…";
+                                        obj2.noRatingTxt = "Your team has not been rated this month!!";
+                                        obj3.leadPlus12 = result['attributes']['data']['till_now']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['till_now']['plus'];
+                                        obj3.leadMinus12 = result['attributes']['data']['till_now']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['till_now']['minus'];
+                                        obj3.performanceTxt = "My Team’s Performance till now…";
+                                        obj3.noRatingTxt = "Your team has not been rated till now!!";
 
-                                        self.leadPlusWeek(result['attributes']['data']['week']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['week']['plus']);
-                                        self.leadPlusmonth(result['attributes']['data']['month']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['month']['plus']);
-                                        self.leadPlustill(result['attributes']['data']['till_now']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['till_now']['plus']);
-                                        self.leadMinusWeek(result['attributes']['data']['week']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['week']['minus']);
-                                        self.leadMinusmonth(result['attributes']['data']['month']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['month']['minus']);
-                                        self.leadMinustill(result['attributes']['data']['till_now']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['till_now']['minus']);
+                                        if (obj3.leadPlus12 == 0 && obj3.leadMinus12 == 0) {
+                                            self.addLeadSlider(obj3);
+                                            $("#showSlider0").hide();
+                                            $("#noRating0").show();
+
+                                        } else {
+                                            self.addLeadSlider(obj1);
+                                            self.addLeadSlider(obj2);
+                                            self.addLeadSlider(obj3);
+                                            if (obj1.leadPlus12 == 0 && obj1.leadMinus12 == 0) {
+                                                $("#showSlider0").hide();
+                                                $("#noRating0").show();
+                                            }
+                                            if (obj2.leadPlus12 == 0 && obj2.leadMinus12 == 0) {
+                                                $("#showSlider1").hide();
+                                                $("#noRating1").show();
+                                            }
+
+                                        }
                                     }
                                 });
 
@@ -532,37 +522,40 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 document.getElementsByName("slide")[0].checked = true;
                 document.getElementsByName("slide")[1].checked = false;
                 document.getElementsByName("slide")[2].checked = false;
-                document.getElementsByName("slide1")[0].checked = true;
-                document.getElementsByName("slide1")[1].checked = false;
-                document.getElementsByName("slide1")[2].checked = false;
-
-                counter = 0;
+                counter = 1;
             }
             if (counter % 3 == 1) {
                 document.getElementsByName("slide")[0].checked = false;
                 document.getElementsByName("slide")[1].checked = true;
                 document.getElementsByName("slide")[2].checked = false;
-                document.getElementsByName("slide1")[0].checked = false;
-                document.getElementsByName("slide1")[1].checked = true;
-                document.getElementsByName("slide1")[2].checked = false;
-
             }
             if (counter % 3 == 2) {
                 document.getElementsByName("slide")[0].checked = false;
                 document.getElementsByName("slide")[1].checked = false;
                 document.getElementsByName("slide")[2].checked = true;
-                document.getElementsByName("slide1")[0].checked = false;
-                document.getElementsByName("slide1")[1].checked = false;
-                document.getElementsByName("slide1")[2].checked = true;
 
+                counter = 1;
             }
             counter++;
-            if ($("#filmStrip").find("#ui-id-9").attr("style") == "visibility: hidden;")
-                $("#filmStrip").ojFilmStrip("option", "currentItem", 1);
-            else {
+            if ($("#filmStrip").find("#ui-id-9").attr("style") == "visibility: hidden;") {
+                $("#filmStrip").ojFilmStrip("option", "currentItem", 0);
+            } else {
                 $("#filmStrip").find("#ui-id-9").click();
             }
 
+            /// slider my team
+            if ($('#filmStrip12').ojFilmStrip("option", "currentItem") == 0) {
+                console.log($('#filmStrip12').ojFilmStrip("option"));
+                $('#filmStrip12').ojFilmStrip("option", "currentItem", 1);
+            }
+           else if ($('#filmStrip12').ojFilmStrip("option", "currentItem") == 1) {
+                console.log($('#filmStrip12').ojFilmStrip("option", "currentItem"));
+                $('#filmStrip12').ojFilmStrip("option", "currentItem", 2);
+            }
+            else if ($('#filmStrip12').ojFilmStrip("option", "currentItem") == 2) {
+                console.log($('#filmStrip12').ojFilmStrip("option", "currentItem"));
+                $('#filmStrip12').ojFilmStrip("option", "currentItem", 0);
+            }
         }, 6000)
 
 

@@ -283,9 +283,9 @@
                                  class="demo-stretch-items">
                                 <!-- ko foreach: leadSlider -->
                                 <div class="filmstrip-item12" 
-                                     data-bind="attr: {id: 'srno'+$index()},style: {
+                                     data-bind="attr: {id: 'show'+$index()},style: {
                display: getItemInitialDisplay12($index())}">
-                                    <div class="" data-bind="attr: {id: 'srno'+$index()}">
+                                    <div class="" data-bind="attr: {id: 'showSlider'+$index()}">
                                         <div class="slider-text">
                                             <p data-bind="text: performanceTxt">
 
@@ -312,7 +312,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div data-bind="attr: {id: 'noRating'+$index()}" class="oj-row oj-flex oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 txtAlign hide">
+                                    <div data-bind="attr: {id: 'noRating'+$index()}" class="oj-row oj-flex oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 txtAlign">
                                         <div class="sliderTxt1"><span data-bind="text: noRatingTxt"></span> </div>
                                         <div class="noRatingImg">
                                             <img class="" data-bind="attr: {id:'smiley'+$index()}" src="../css/images/sliderScreen.png" alt="slider image"/>

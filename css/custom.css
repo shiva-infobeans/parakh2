@@ -868,8 +868,8 @@ div.oj-tabs-panel.oj-tabs-selected{
     color: #333;
 }
 .imgSlider{
-    width: 200px;
-    height: 200px;
+    width: 50%;
+    height: 50%;
     margin: 10px auto;
     cursor: auto;
 }
