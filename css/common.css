@@ -1216,7 +1216,12 @@
 #rate2Active{
     display:none;
 }
-.recentInfo0{
+.recentInfo0,.recentInfo1,.recentInfo2,.recentInfo3{
+    background-color: #E7FCD5;
+    border-radius: 5px;
+    height:30px;display:table;width:216px;margin:0 auto;position:absolute;padding:9px;margin-top:-5px;visibility: hidden;
+}
+/*.recentInfo0{
     background-color: #E7FCD5;
     border-radius: 5px;
     display: block;
@@ -1230,8 +1235,12 @@
     margin: 0px auto;
     padding-right: 25px;
     left: 74px;
+}*/
+.text-hover-my{
+    vertical-align:middle;display:table-cell;width:100%;float:left;color:#000;font-weight: bold;
 }
-.recentInfo1{
+.text-hover-project{vertical-align:middle;display:table-cell;width:100%;float:left;color:#000;font-weight: normal;}
+/*.recentInfo1{
     background-color: #E7FCD5;
     border-radius: 5px;
     display: block;
@@ -1244,7 +1253,7 @@
     bottom: 125px;
     visibility: hidden; 
     color: #000;
-    /* margin-left: 64px; */
+  
 }
 .recentInfo2{
     background-color: #E7FCD5;
@@ -1258,14 +1267,14 @@
     bottom: 128px;
     visibility: hidden; 
     color: #000;
-    /* left: 58px; */
+ 
     margin-left: 45px;
 }
 .recentInfo3{
     background-color: #E7FCD5;
     border-radius: 5px;
     display: block;
-    /* left: 126px; */
+ 
     padding-top: 22px;
     padding-bottom: 22px;
     padding-left: 27px;
@@ -1275,7 +1284,7 @@
     visibility: hidden; 
     color: #000;
     margin-left: 65px;
-}
+}*/
 .hoverContent0:hover .recentInfo0{
     visibility: visible !important;
 }
@@ -1295,7 +1304,18 @@
     border-right: 11px solid transparent;
     position: absolute;
     bottom: -11px;
-    left: 60px;
+    left: 110px;
+    color: #fffff0;
+    margin: 0px auto;
+}
+.recentInfo0-my:after  {
+    content: "";
+    border-top: 11px solid #E7FCD5;
+    border-left: 11px solid transparent;
+    border-right: 11px solid transparent;
+    position: absolute;
+    bottom: -11px;
+    left: 110px;
     color: #fffff0;
     margin: 0px auto;
 }
@@ -1306,7 +1326,7 @@
     border-right: 11px solid transparent;
     position: absolute;
     bottom: -11px;
-    left: 67px;
+    left: 110px;
     color: #fffff0;
 }
 .recentInfo2:after  {
@@ -1316,7 +1336,7 @@
     border-right: 11px solid transparent;
     position: absolute;
     bottom: -11px;
-    /* left: 60px; */
+     left: 110px; 
     color: #fffff0;
 }
 .recentInfo3:after  {
@@ -1326,7 +1346,7 @@
     border-right: 11px solid transparent;
     position: absolute;
     bottom: -11px;
-    left: 67px;
+    left: 100px;
     color: #fffff0;
 }
 .text-hover{
