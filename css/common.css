@@ -576,10 +576,10 @@
     width: 100%;
 }
 
-.mText{
+.mText1 {
     position: absolute;
-    top: 15px;
-    left: 30px;
+    bottom: 33px;
+    left: 22px;
     color: #fff;
     font-weight: bolder;
     font-size: 24px;
@@ -658,14 +658,7 @@
     border-left: 1px solid #dcdcdc;
     padding-left: 20px;
 }
-.mText1 {
-    position: absolute;
-    top: 16px;
-    left: 22px;
-    color: #fff;
-    font-weight: bolder;
-    font-size: 24px;
-}
+
 .oj-dialog-body {
     background-color: #fff !important;
 }
@@ -685,12 +678,18 @@
     border-bottom: 4px solid #78A95A;
 }
 .rankText{
-   font-size: 60px;
+    font-size: 60px;
     font-weight: bolder;
-    height: 210px;
-    padding-top: 47px;
+    line-height: 185px;
     text-align: center;
 }
+.ranking-block1-height{
+    height: 300px;
+}
+.ranking-block2-height-height{
+    height: 301px;
+}
+
 .countBlock{
     margin-bottom: 20px;
 }
@@ -1374,7 +1373,7 @@
     border-width: 1px 0 0;
 }
 .View-Other-about{
-    padding: 18px;
+    padding: 17px;
     font-size: 23px;
     border-bottom: 1px solid #689F39;
 }
