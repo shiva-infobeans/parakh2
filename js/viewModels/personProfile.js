@@ -8,8 +8,8 @@
  * personProfile module
  */
 
-define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 'ojs/ojcomponentcore', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojmodel', 'ojs/ojselectcombobox', 'ojs/ojdatetimepicker'],
-        function (oj, ko, $)
+define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 'ojs/ojcomponentcore', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojmodel', 'ojs/ojselectcombobox', 'ojs/ojdatetimepicker','hammerjs', 'ojs/ojjquery-hammer', 'promise', 'ojs/ojpulltorefresh', 'ojs/ojlistview', 'ojs/ojdatacollection-common'],
+        function (oj, ko, $, Hammer)
         {
             function dataComment(comment1, commenter1, commentDate1) {
                 commentDate1 = new Date(commentDate1);
@@ -299,15 +299,16 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                 var plus = 0;
                                 var minus = 0;
                                 var data = res['attributes']['data'];
+                       
                                 for (var i = 0; i < data.length; i++) {
                                     if (data[i]['rating'] == 0) {
                                         minus++;
-                                        var temporaryComment = new dataComment(data[i]['description'], data[i]['given_by_name'], data[i]['created_date']);
+                                        var temporaryComment = new dataComment(data[i]['description'], data[i]['given_by_name'], data[i]['created_date'],data[i]['rate_id']);
                                         self.commentDataNegative.push(temporaryComment);
                                     } else {
                                         if (data[i]['rating'] == 1)
                                             plus++;
-                                        var temporaryComment = new dataComment(data[i]['description'], data[i]['given_by_name'], data[i]['created_date']);
+                                        var temporaryComment = new dataComment(data[i]['description'], data[i]['given_by_name'], data[i]['created_date'],data[i]['rate_id']);
                                         self.commentDataPositive.push(temporaryComment);
                                     }
                                 }
@@ -339,8 +340,97 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                 }
                             }
                         });
+         //lazy loading example    
+           var rate = oj.Model.extend({
+                            url: getRatingByUser + self.id(),
+                            //parse: parseTask
+                        });
+                        var rateTask = new rate();
+                        rateTask.fetch({
+                            headers: {secret: secret},
+                            success: function (res) {
+                                         console.log(res['attributes']['data']);
+                            }
+                           
+                        });
+         
+         
+       
+         
+                        
                     }
                 });
+                
+                
+                  var model = oj.Model.extend({
+        
+    });
+
+    var collection = new oj.Collection(null, {
+      url: 'cookbook/dataCollections/listView/collectionListView/tweets.json',
+        model: model
+    });
+
+    var dataSource = new oj.CollectionTableDataSource(collection);
+    
+     $(document).ready(
+        function() 
+        {
+            
+            oj.PullToRefreshUtils.setupPullToRefresh('#listviewContainer', function()
+            {
+                var promise = new Promise(function(resolve, reject)
+                {
+                    var handler = function(event)
+                    {
+                        if (event && event.data)
+                        {
+                            // this timeout is just to simulate a delay so that
+                            // the refresh panel does not close immediately
+                            setTimeout(function() {
+                                resolve();
+                            }, 2000);
+                        }
+                        else
+                        {
+                            reject();
+                        }
+                        dataSource.off("sync", handler);
+                        dataSource.off("error", handler);
+                    };
+
+                    // listens for data fetched after refresh
+                    dataSource.on("sync", handler);
+                    dataSource.on("error", reject);
+                });
+
+                // calls reset to clear collection
+                // listview will fetch data from collection
+                collection.reset();
+                return promise;
+            }, {'primaryText': 'Primary Text', 'secondaryText': 'secondary text'});
+
+            $('#listview').on({
+                'ojdestroy': function()
+                {
+                    oj.PullToRefreshUtils.tearDownPullToRefresh('#listviewContainer');
+                }
+            });
+        }
+    );
+
+        
+        
+    // lazy loading ends here    
+
+            $('#listview').on({
+                'ojdestroy': function()
+                {
+                    oj.PullToRefreshUtils.tearDownPullToRefresh('#listviewContainer');
+                }
+                
+                
+                   });      
                 // close modal
                 self.closeModal = function () {
                     $("#open-modal").fadeOut();

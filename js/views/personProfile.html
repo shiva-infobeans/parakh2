@@ -31,6 +31,7 @@
                 <span data-bind='text: minusSign'></span><span data-bind="text: minus"></span></span></li>
         <li class="profile-tabs profile-font-tabs selectedTab"><span><i class="zmdi zmdi-comment-alt-text"></i> Feedback</span></li>
         <li class="profile-tabs profile-font-tabs selectedTab"><span><i class="zmdi zmdi-account"></i> About Me</span></li>
+        <li class="profile-tabs profile-font-tabs selectedTab"><span><i class="zmdi zmdi-account"></i>lazy loading</span></li>
     </ul>
 
     <div id="tabs-1" class="color-white oj-margin-horizontal pos-relative">
@@ -38,360 +39,393 @@
         <div class="profile-page-overflow pos-relative">
             <div class="noComments" id="noPositiveComment" data-bind="text: NoCommentsP"></div>
             <div class="rating-comment" data-bind="foreach: commentDataPositive">
-                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item pos-relative oj-margin-top oj-padding-top rating-comment-div">
-                    <div class="profile-rating-circle circle-green">
-                        <!--circle-green-->
-                        <div class="transline"></div>
-                    </div>
-                    <div class="rating-info">
-                        <p class="comment"><span data-bind="text: comment"></span></p>
-                        <p class="commenter"><span data-bind="text: commenter"></span> on <span data-bind="text: commentDate"></span></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="tabs-2" class="color-white oj-margin-horizontal pos-relative">
-        <div class="transbox"></div>
-        <div class="profile-page-overflow">
-            <div class="noComments" id="noNegativeComment" data-bind="text: NoCommentsN"></div>
-            <div class="rating-comment" data-bind="foreach: commentDataNegative">
-                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div">
-                    <div class="profile-rating-circle circle-red">
-                        <div class="transline-red"></div>
-                    </div>
-                    <div class="rating-info">
-                        <p class="comment"><span data-bind="text: comment"></span></p>
-                        <p class="commenter"><span data-bind="text: commenter"></span> on <span data-bind="text: commentDate"></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+            
 
-    <div id="tabs-3" class="color-white oj-margin-horizontal pos-relative ">
-        <div class="feedbackSection">
+                                    
+                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item pos-relative oj-margin-top oj-padding-top rating-comment-div">
+                                        <div class="profile-rating-circle circle-green">
+                                          
+                                            <div class="transline"></div>
+                                        </div>
+                                        <div class="rating-info">
+                                            <p class="comment"><span data-bind="text: comment"></span></p>
+                                            <p class="commenter"><span data-bind="text: commenter"></span> on <span data-bind="text: commentDate"></span></p>
+                                        </div>
+                                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="tabs-2" class="color-white oj-margin-horizontal pos-relative">
             <div class="transbox"></div>
-			<div id="noFeedback" class="noComments errorText"> No feedback available !!</div>
-            <div class="oj-row oj-flex">
-                <div class="oj-xl-6 oj-lg-6 oj-md-12 oj-sm-12 oj-flex-item oj-flex">
-
-                    <!--repeat block-->
-                    <!--ko foreach: feedbackContent1-->
-                    <div class="oj-xl-10 oj-lg-10 oj-md-12 oj-sm-12 pos-relative  oj-padding heightContent oj-flex-bar-center-absolute">
-                        <div class="transbox3 feedback-profile"></div>
-                        <div class="transbox  feedback-profile"></div>
-                        <div class="oj-flex oj-row">
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top">
-                                <img data-bind="attr: {src: feedbackImage}"  alt="" class="profile-feedback-pic"/>
-                            </div>
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top padding-feedback">
-
-                                <span data-bind="text: name"></span>
-                            </div>
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center padding-feedback">
-
-                                <span data-bind="text: feedbackdesignation"></span>
-                            </div>
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center padding-feedback">
-
-                                <span data-bind="text: feedbackDate"></span>
-                            </div>
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-top oj-padding">
-
-                                <span data-bind="text: feedbackDescription"></span>
-                            </div>
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item open-more oj-flex overflow-feedback-reply oj-margin oj-padding">
-
-                                <!--repeat here-->
-                                <!--ko foreach: replies-->
-                                <div class="oj-row oj-flex oj-margin-top oj-margin-bottom oj-margin-horizontal oj-padding-horizontal">
-                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item replyName">
-                                        <span data-bind="text: reply_name"></span>
-                                    </div>
-                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex replyComent">
-                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item"><span data-bind="text: reply_desc"></span></div>
-                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex-bar replyDate"><span class="oj-flex-bar-end" data-bind="text: reply_date"></span></div>
-                                    </div>
-                                </div>
-                                <!--/ko-->
-                                <!--repeat end-->
-                            </div>
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-margin replyBox">
-                                <div class="oj-xl-9 oj-lg-9 oj-md-9 oj-sm-9 oj-flex-item oj-flex"> 
-                                    <span class="hide oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item">
-
-                                        <button  class="submitRespond" data-bind="attr:{loginUserId: myId,feedback_to: feedbackfrom,feedbackId: feedbackId}">
-                                            <i class="zmdi zmdi-mail-reply"></i>
-                                        </button>
-                                    </span>
-                                    <span class="hide oj-xl-9 oj-lg-9 oj-md-9 oj-sm-9 oj-flex-item oj-margin-bottom">
-                                        <input class="respondDescription border-color-white" type="text" />
-
-                                    </span>
-                                </div>
-                                <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-margin-top oj-flex-item openDiv flex-bar">
-                                    <span class="oj-flex-bar-end pos-relative">
-                                        <span class="feedbackMoreFix"><i class="zmdi zmdi-caret-down"></i></span>
-                                        <span>More</span>
-                                    </span>
-                                </div>
-                            </div>
+            <div class="profile-page-overflow">
+                <div class="noComments" id="noNegativeComment" data-bind="text: NoCommentsN"></div>
+                <div class="rating-comment" data-bind="foreach: commentDataNegative">
+                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div">
+                        <div class="profile-rating-circle circle-red">
+                            <div class="transline-red"></div>
+                        </div>
+                        <div class="rating-info">
+                            <p class="comment"><span data-bind="text: comment"></span></p>
+                            <p class="commenter"><span data-bind="text: commenter"></span> on <span data-bind="text: commentDate"></p>
                         </div>
                     </div>
-                    <!--/ko-->
-                    <!--repeat end-->
                 </div>
-                <div class="oj-xl-6 oj-lg-6 oj-md-12 oj-sm-12 oj-flex-item ">
-                    <!--repeat block-->
-                    <!--ko foreach: feedbackContent2-->
-                    <div class="oj-xl-10 oj-lg-10 oj-md-12 oj-sm-12 pos-relative  oj-padding heightContent oj-flex-bar-center-absolute">
-                            <div class="transbox3 feedback-profile"></div>
-                        <div class="transbox feedback-profile"></div>
-                        <div class="oj-row oj-flex">
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin ">
-                                <img data-bind="attr: {src: feedbackImage}"  alt="" class="profile-feedback-pic"/>
-                            </div>
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center padding-feedback">
-
-                                <span data-bind="text: name"></span>
-                            </div>
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center padding-feedback">
-
-                                <span data-bind="text: feedbackdesignation"></span>
-                            </div>
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center padding-feedback">
-
-                                <span data-bind="text: feedbackDate"></span>
-                            </div>
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-top oj-padding">
-
-                                <span data-bind="text: feedbackDescription"></span>
-                            </div>
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item open-more oj-flex overflow-feedback-reply oj-margin">
-
-                                <!--repeat here-->
-                                <!--ko foreach: replies-->
-                                <div class="oj-row oj-flex oj-margin-top oj-margin-bottom oj-margin-horizontal oj-padding-horizontal">
-                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item replyName">
-                                        <span data-bind="text: reply_name"></span>
-                                    </div>
-                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex replyComent">
-                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item"><span data-bind="text: reply_desc"></span></div>
-                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex-bar replyDate"><span class="oj-flex-bar-end" data-bind="text: reply_date"></span></div>
-                                    </div>
-                                </div>
-                                <!--/ko-->
-                                <!--repeat end-->
-                            </div>
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-margin replyBox">
-                                <div class="oj-xl-9 oj-lg-9 oj-md-9 oj-sm-9 oj-flex-item oj-flex"> 
-                                    <span class="hide oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item">
-
-                                        <button  class="submitRespond" data-bind="attr:{loginUserId: myId,feedback_to: feedbackfrom,feedbackId: feedbackId}">
-                                            <i class="zmdi zmdi-mail-reply"></i>
-                                        </button>
-                                    </span>
-                                    <span class="hide oj-xl-9 oj-lg-9 oj-md-9 oj-sm-9 oj-flex-item oj-margin-bottom">
-                                        <input class="respondDescription border-color-white" type="text" />
-
-                                    </span>
-                                </div>
-                                <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item oj-margin-top openDiv flex-bar">
-                                    <span class="oj-flex-bar-end pos-relative">
-                                        <span class="feedbackMoreFix"><i class="zmdi zmdi-caret-down"></i></span>
-                                        <span>More</span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--/ko-->
-                    <!--repeat end-->
-                </div>
-
             </div>
         </div>
-    </div>
-    <div id="tabs-4" class="color-white oj-margin-horizontal pos-relative tabMinHeight">
-        <div class="transbox"></div>
-        <div class="profile-page-overflow">
-            <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
-                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-4 oj-flex-item">
-                    <span class="icon-div"><i class="zmdi zmdi-email about-icons"></i></span>
-                    <span class="text-about heightCol"> Email</span>
-                </div>
-                <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-6 oj-flex-item">                  
-                     <span class="text-height" data-bind="text: email"> </span>               
-                </div>
-                  
 
-            </div>
-            <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
-                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
-                    <span class="icon-div"><i class="zmdi zmdi-case about-icons"></i> </span> 
-                    <span class="text-about heightCol2">Designation</span>
-                </div>
-                <div class="oj-xl-7 oj-lg-7 oj-md-6 oj-sm-6 oj-flex-item ">
-                    <span  class="text-height" data-bind="text: designation" id="designation-text"></span>
-                    <div class="hide" id="designation-div">
-                        <select id="selectDesignation" data-bind="ojComponent: {component: 'ojSelect', value: designation}" class="hide selector">
-                            <!--ko foreach: designationOptions-->
-                                <option data-bind="attr: {value: name},text: name"></option>
-                            <!--/ko-->
-                        </select>
+        <div id="tabs-3" class="color-white oj-margin-horizontal pos-relative ">
+            <div class="feedbackSection">
+                <div class="transbox"></div>
+                <div id="noFeedback" class="noComments errorText"> No feedback available !!</div>
+                <div class="oj-row oj-flex">
+                    <div class="oj-xl-6 oj-lg-6 oj-md-12 oj-sm-12 oj-flex-item oj-flex">
+
+                        <!--repeat block-->
+                        <!--ko foreach: feedbackContent1-->
+                        <div class="oj-xl-10 oj-lg-10 oj-md-12 oj-sm-12 pos-relative  oj-padding heightContent oj-flex-bar-center-absolute">
+                            <div class="transbox3 feedback-profile"></div>
+                            <div class="transbox  feedback-profile"></div>
+                            <div class="oj-flex oj-row">
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top">
+                                    <img data-bind="attr: {src: feedbackImage}"  alt="" class="profile-feedback-pic"/>
+                                </div>
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top padding-feedback">
+
+                                    <span data-bind="text: name"></span>
+                                </div>
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center padding-feedback">
+
+                                    <span data-bind="text: feedbackdesignation"></span>
+                                </div>
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center padding-feedback">
+
+                                    <span data-bind="text: feedbackDate"></span>
+                                </div>
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-top oj-padding">
+
+                                    <span data-bind="text: feedbackDescription"></span>
+                                </div>
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item open-more oj-flex overflow-feedback-reply oj-margin oj-padding">
+
+                                    <!--repeat here-->
+                                    <!--ko foreach: replies-->
+                                    <div class="oj-row oj-flex oj-margin-top oj-margin-bottom oj-margin-horizontal oj-padding-horizontal">
+                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item replyName">
+                                            <span data-bind="text: reply_name"></span>
+                                        </div>
+                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex replyComent">
+                                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item"><span data-bind="text: reply_desc"></span></div>
+                                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex-bar replyDate"><span class="oj-flex-bar-end" data-bind="text: reply_date"></span></div>
+                                        </div>
+                                    </div>
+                                    <!--/ko-->
+                                    <!--repeat end-->
+                                </div>
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-margin replyBox">
+                                    <div class="oj-xl-9 oj-lg-9 oj-md-9 oj-sm-9 oj-flex-item oj-flex"> 
+                                        <span class="hide oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item">
+
+                                            <button  class="submitRespond" data-bind="attr:{loginUserId: myId,feedback_to: feedbackfrom,feedbackId: feedbackId}">
+                                                <i class="zmdi zmdi-mail-reply"></i>
+                                            </button>
+                                        </span>
+                                        <span class="hide oj-xl-9 oj-lg-9 oj-md-9 oj-sm-9 oj-flex-item oj-margin-bottom">
+                                            <input class="respondDescription border-color-white" type="text" />
+
+                                        </span>
+                                    </div>
+                                    <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-margin-top oj-flex-item openDiv flex-bar">
+                                        <span class="oj-flex-bar-end pos-relative">
+                                            <span class="feedbackMoreFix"><i class="zmdi zmdi-caret-down"></i></span>
+                                            <span>More</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/ko-->
+                        <!--repeat end-->
                     </div>
+                    <div class="oj-xl-6 oj-lg-6 oj-md-12 oj-sm-12 oj-flex-item ">
+                        <!--repeat block-->
+                        <!--ko foreach: feedbackContent2-->
+                        <div class="oj-xl-10 oj-lg-10 oj-md-12 oj-sm-12 pos-relative  oj-padding heightContent oj-flex-bar-center-absolute">
+                            <div class="transbox3 feedback-profile"></div>
+                            <div class="transbox feedback-profile"></div>
+                            <div class="oj-row oj-flex">
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin ">
+                                    <img data-bind="attr: {src: feedbackImage}"  alt="" class="profile-feedback-pic"/>
+                                </div>
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center padding-feedback">
+
+                                    <span data-bind="text: name"></span>
+                                </div>
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center padding-feedback">
+
+                                    <span data-bind="text: feedbackdesignation"></span>
+                                </div>
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center padding-feedback">
+
+                                    <span data-bind="text: feedbackDate"></span>
+                                </div>
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-top oj-padding">
+
+                                    <span data-bind="text: feedbackDescription"></span>
+                                </div>
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item open-more oj-flex overflow-feedback-reply oj-margin">
+
+                                    <!--repeat here-->
+                                    <!--ko foreach: replies-->
+                                    <div class="oj-row oj-flex oj-margin-top oj-margin-bottom oj-margin-horizontal oj-padding-horizontal">
+                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item replyName">
+                                            <span data-bind="text: reply_name"></span>
+                                        </div>
+                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex replyComent">
+                                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item"><span data-bind="text: reply_desc"></span></div>
+                                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex-bar replyDate"><span class="oj-flex-bar-end" data-bind="text: reply_date"></span></div>
+                                        </div>
+                                    </div>
+                                    <!--/ko-->
+                                    <!--repeat end-->
+                                </div>
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-margin replyBox">
+                                    <div class="oj-xl-9 oj-lg-9 oj-md-9 oj-sm-9 oj-flex-item oj-flex"> 
+                                        <span class="hide oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item">
+
+                                            <button  class="submitRespond" data-bind="attr:{loginUserId: myId,feedback_to: feedbackfrom,feedbackId: feedbackId}">
+                                                <i class="zmdi zmdi-mail-reply"></i>
+                                            </button>
+                                        </span>
+                                        <span class="hide oj-xl-9 oj-lg-9 oj-md-9 oj-sm-9 oj-flex-item oj-margin-bottom">
+                                            <input class="respondDescription border-color-white" type="text" />
+
+                                        </span>
+                                    </div>
+                                    <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item oj-margin-top openDiv flex-bar">
+                                        <span class="oj-flex-bar-end pos-relative">
+                                            <span class="feedbackMoreFix"><i class="zmdi zmdi-caret-down"></i></span>
+                                            <span>More</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/ko-->
+                        <!--repeat end-->
+                    </div>
+
                 </div>
-                 <div class="oj-xl-1 oj-lg-1 oj-md-2 oj-sm-2 oj-flex-item center">                  
+            </div>
+        </div>
+        <div id="tabs-4" class="color-white oj-margin-horizontal pos-relative tabMinHeight">
+            <div class="transbox"></div>
+            <div class="profile-page-overflow">
+                <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                    <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-4 oj-flex-item">
+                        <span class="icon-div"><i class="zmdi zmdi-email about-icons"></i></span>
+                        <span class="text-about heightCol"> Email</span>
+                    </div>
+                    <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-6 oj-flex-item">                  
+                        <span class="text-height" data-bind="text: email"> </span>               
+                    </div>
+
+
+                </div>
+                <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                    <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                        <span class="icon-div"><i class="zmdi zmdi-case about-icons"></i> </span> 
+                        <span class="text-about heightCol2">Designation</span>
+                    </div>
+                    <div class="oj-xl-7 oj-lg-7 oj-md-6 oj-sm-6 oj-flex-item ">
+                        <span  class="text-height" data-bind="text: designation" id="designation-text"></span>
+                        <div class="hide" id="designation-div">
+                            <select id="selectDesignation" data-bind="ojComponent: {component: 'ojSelect', value: designation}" class="hide selector">
+                                <!--ko foreach: designationOptions-->
+                                <option data-bind="attr: {value: name},text: name"></option>
+                                <!--/ko-->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="oj-xl-1 oj-lg-1 oj-md-2 oj-sm-2 oj-flex-item center">                  
                         <span class="edit-height" id="edit-designation"><i data-bind="click: openDesignations" class="zmdi zmdi-edit about-edit" title="Edit"></i></span>
                         <span class="edit-height hide" id="submit-designation" title="Save"><i data-bind="click: updateDesignations" class="zmdi zmdi-check about-edit"></i></span>
                         <span class="edit-height hide" id="cancel-designation" title="Cancel"><i data-bind="click: designationsRevert" class="zmdi zmdi-minus-circle-outline about-edit"></i></span>
-                                
-                </div>
-            </div>
-            <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
-                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
-                    <span class="icon-div"><i class="zmdi zmdi-pin about-icons"></i> </span>
-                    <span class="text-about heightCol">Location</span>
-                </div>
-                 <div class="oj-xl-7 oj-lg-7 oj-md-6 oj-sm-6 oj-flex-item ">
-                    <span  class="text-height"data-bind="text: location" id="location-text"></span>
-                    <div class="hide" id="location-div">
-                        <select class="selector hide" data-bind="ojComponent: {component: 'ojSelect',value: location}"  id="selectLocation" name="location">
-                            <option value="Indore">Indore</option>
-                            <option value="Pune">Pune</option>
-                        </select>
+
                     </div>
                 </div>
-                 <div class="oj-xl-1 oj-lg-1 oj-md-2 oj-sm-2 oj-flex-item center">                  
+                <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                    <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                        <span class="icon-div"><i class="zmdi zmdi-pin about-icons"></i> </span>
+                        <span class="text-about heightCol">Location</span>
+                    </div>
+                    <div class="oj-xl-7 oj-lg-7 oj-md-6 oj-sm-6 oj-flex-item ">
+                        <span  class="text-height"data-bind="text: location" id="location-text"></span>
+                        <div class="hide" id="location-div">
+                            <select class="selector hide" data-bind="ojComponent: {component: 'ojSelect',value: location}"  id="selectLocation" name="location">
+                                <option value="Indore">Indore</option>
+                                <option value="Pune">Pune</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="oj-xl-1 oj-lg-1 oj-md-2 oj-sm-2 oj-flex-item center">                  
                         <span class="edit-height " id="edit-location"><i class="zmdi zmdi-edit about-edit" data-bind="click: openLocation" title="Edit"></i></span>
                         <span class="edit-height hide" id="submit-location" title="Save"><i class="zmdi zmdi-check about-edit" data-bind="click: updateLocation"></i></span>
                         <span class="edit-height hide" id="cancel-location" title="Cancel"><i class="zmdi zmdi-minus-circle-outline about-edit" data-bind="click: locationRevert"></i></span>
-                                
+
+                    </div>
                 </div>
-            </div>
-            <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
-                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
-                    <span class="icon-div"><i class="zmdi zmdi-graduation-cap about-icons"></i> </span>
-                    <span class="text-about heightCol">Skills</span>
-                </div>
-                 <div class="oj-xl-7 oj-lg-7 oj-md-6 oj-sm-6 oj-flex-item ">
-                    <span  class="text-height" data-bind="text: skills" id="skills-text"></span>
-                    <textarea data-bind="value:skills" class="hide" name="skills" id="skills" cols="17"></textarea>
-                </div>
-                 <div class="oj-xl-1 oj-lg-1 oj-md-2 oj-sm-2 oj-flex-item center">                  
+                <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                    <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                        <span class="icon-div"><i class="zmdi zmdi-graduation-cap about-icons"></i> </span>
+                        <span class="text-about heightCol">Skills</span>
+                    </div>
+                    <div class="oj-xl-7 oj-lg-7 oj-md-6 oj-sm-6 oj-flex-item ">
+                        <span  class="text-height" data-bind="text: skills" id="skills-text"></span>
+                        <textarea data-bind="value:skills" class="hide" name="skills" id="skills" cols="17"></textarea>
+                    </div>
+                    <div class="oj-xl-1 oj-lg-1 oj-md-2 oj-sm-2 oj-flex-item center">                  
                         <span class="edit-height" id="edit-skills"><i class="zmdi zmdi-edit about-edit" data-bind="click: openSkills" title="Edit"></i></span>
                         <span class="edit-height hide" id="submit-skills" title="Save"><i class="zmdi zmdi-check about-edit" data-bind="click: updateSkills"></i></span>
                         <span class="edit-height hide" id="cancel-skills" title="Cancel"><i class="zmdi zmdi-minus-circle-outline about-edit" data-bind="click: skillsRevert"></i></span>
-                                
-                </div>
-            </div>
-            <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
-                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
-                    <span class="icon-div"><i class="zmdi zmdi-time-interval about-icons"></i>  </span>
-                    <span class="text-about heightCol5">Associated with <br> Infobeans since</span>
-                   
-                </div>
-                <div class="oj-xl-7 oj-lg-7 oj-md-6 oj-sm-6 oj-flex-item ">
-                    <span  class="text-height"  data-bind="text: associate_with_infobeans,attr:{defaultDate:associate_with_infobeans}" id="associate-text"></span>
-                    <div class="hide" id="associate-div">
-                        <input type="text" name="associate_with_infobeans" data-bind="ojComponent:{component:'ojInputDate', value: date,
-                          datePicker: {changeMonth: 'yes', changeYear: 'yes'},
-                          converter: {type:'datetime', options: { day: 'numeric', month: 'long',year: 'numeric'}}}" id="associateInput">
+
                     </div>
                 </div>
-                 <div class="oj-xl-1 oj-lg-1 oj-md-2 oj-sm-2 oj-flex-item center">                  
+                <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                    <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                        <span class="icon-div"><i class="zmdi zmdi-time-interval about-icons"></i>  </span>
+                        <span class="text-about heightCol5">Associated with <br> Infobeans since</span>
+
+                    </div>
+                    <div class="oj-xl-7 oj-lg-7 oj-md-6 oj-sm-6 oj-flex-item ">
+                        <span  class="text-height"  data-bind="text: associate_with_infobeans,attr:{defaultDate:associate_with_infobeans}" id="associate-text"></span>
+                        <div class="hide" id="associate-div">
+                            <input type="text" name="associate_with_infobeans" data-bind="ojComponent:{component:'ojInputDate', value: date,
+                          datePicker: {changeMonth: 'yes', changeYear: 'yes'},
+                          converter: {type:'datetime', options: { day: 'numeric', month: 'long',year: 'numeric'}}}" id="associateInput">
+                        </div>
+                    </div>
+                    <div class="oj-xl-1 oj-lg-1 oj-md-2 oj-sm-2 oj-flex-item center">                  
                         <span class="edit-height" id="edit-associate"><i data-bind="click: openDate" class="zmdi zmdi-edit about-edit" title="Edit"></i></span>
                         <span class="edit-height hide" id="submit-associate" title="Save"><i data-bind="click: updateDate" class="zmdi zmdi-check about-edit" ></i></span>
                         <span class="edit-height hide" id="cancel-associate" title="Cancel"><i data-bind="click: dateRevert" class="zmdi zmdi-minus-circle-outline about-edit"></i></span>
-                                
-                </div>
-            </div>
-            <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
-                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
-                    <span class="icon-div"><i class="zmdi zmdi-file-text about-icons"></i></span>
-                    <span class="text-about heightCol">Primary Project</span>
-                </div>
-                 <div class="oj-xl-7 oj-lg-7 oj-md-6 oj-sm-6 oj-flex-item ">
-                    <span  class="text-height" data-bind="text: primary_project" id="primary-project-text"></span>
-                    <div class="hide" id="primary-project-div">
-                        <select id="selectPrimaryProjects" data-bind="ojComponent: {component: 'ojSelect',value: primary_project}" class="selector">
-                            <!--ko foreach: primaryProjectOptions-->
-                            <option data-bind="attr: {value: name},text: name"></option>
-                            <!--/ko-->
-                        </select>
+
                     </div>
-                    <input type="text" data-bind="value: primary_project" name="primary_project" id="primary-project" class="hide">
                 </div>
-                 <div class="oj-xl-1 oj-lg-1 oj-md-2 oj-sm-2 oj-flex-item center">                  
+                <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                    <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                        <span class="icon-div"><i class="zmdi zmdi-file-text about-icons"></i></span>
+                        <span class="text-about heightCol">Primary Project</span>
+                    </div>
+                    <div class="oj-xl-7 oj-lg-7 oj-md-6 oj-sm-6 oj-flex-item ">
+                        <span  class="text-height" data-bind="text: primary_project" id="primary-project-text"></span>
+                        <div class="hide" id="primary-project-div">
+                            <select id="selectPrimaryProjects" data-bind="ojComponent: {component: 'ojSelect',value: primary_project}" class="selector">
+                                <!--ko foreach: primaryProjectOptions-->
+                                <option data-bind="attr: {value: name},text: name"></option>
+                                <!--/ko-->
+                            </select>
+                        </div>
+                        <input type="text" data-bind="value: primary_project" name="primary_project" id="primary-project" class="hide">
+                    </div>
+                    <div class="oj-xl-1 oj-lg-1 oj-md-2 oj-sm-2 oj-flex-item center">                  
                         <span class="edit-height" id="edit-primary-project"><i data-bind="click: openPrimaryProject" class="zmdi zmdi-edit about-edit" data-bind="click: openPrimaryProject" title="Edit"></i></span>
                         <span class="edit-height hide" id="submit-primary-project"><i data-bind="click: updatePrimaryProject" class="zmdi zmdi-check about-edit" data-bind="click: updatePrimaryProject" title="Save"></i></span>
                         <span class="edit-height hide" id="cancel-primary-project"><i data-bind="click: primaryProjectRevert" class="zmdi zmdi-minus-circle-outline about-edit" data-bind="click: primaryProjectRevert" title="Cancel"></i></span>
-                                
-                </div>
-            </div>
-               <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
-                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
-                    <span class="icon-div"><i class="zmdi zmdi-file-text about-icons"></i></span>
-                    <span class="text-about heightCol"> Past Project(s)</span>
-                </div>
-                 <div class="oj-xl-7 oj-lg-7 oj-md-6 oj-sm-6 oj-flex-item ">
-                    <span  class="text-height" data-bind="text: projects" id='projects-text'></span>
-                    <div class="hide" id="projects-div">
-                        <select id="selectProjects" data-bind="ojComponent: {component: 'ojSelect',multiple: true,value: projects}" class="selector">
-                            <!--ko foreach: projectOptions-->
-                            <option data-bind="attr: {value: name},text: name"></option>
-                            <!--/ko-->
-                        </select> 
+
                     </div>
                 </div>
-                 <div class="oj-xl-1 oj-lg-1 oj-md-2 oj-sm-2 oj-flex-item center">                  
+                <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                    <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                        <span class="icon-div"><i class="zmdi zmdi-file-text about-icons"></i></span>
+                        <span class="text-about heightCol"> Past Project(s)</span>
+                    </div>
+                    <div class="oj-xl-7 oj-lg-7 oj-md-6 oj-sm-6 oj-flex-item ">
+                        <span  class="text-height" data-bind="text: projects" id='projects-text'></span>
+                        <div class="hide" id="projects-div">
+                            <select id="selectProjects" data-bind="ojComponent: {component: 'ojSelect',multiple: true,value: projects}" class="selector">
+                                <!--ko foreach: projectOptions-->
+                                <option data-bind="attr: {value: name},text: name"></option>
+                                <!--/ko-->
+                            </select> 
+                        </div>
+                    </div>
+                    <div class="oj-xl-1 oj-lg-1 oj-md-2 oj-sm-2 oj-flex-item center">                  
                         <span class="edit-height" id="edit-projects"><i data-bind="click: openProjects" class="zmdi zmdi-edit about-edit" title="Edit"></i></span>
                         <span class="edit-height hide" id="submit-projects"><i data-bind="click: updateProjects" class="zmdi zmdi-check about-edit" title="Save"></i></span>
                         <span class="edit-height hide" id="cancel-projects"><i data-bind="click: projectsRevert" class="zmdi zmdi-minus-circle-outline about-edit" ></i></span>
-                                
-                </div>
-            </div>
-            <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
-                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
-                    <span class="icon-div"><i class="zmdi zmdi-favorite about-icons"></i></span>
-                    <span class="text-about heightCol"> Interests</span>
-                </div>
-                <div class="oj-xl-7 oj-lg-7 oj-md-6 oj-sm-6 oj-flex-item ">
-                    <span  class="text-height" data-bind="text: interests" id='interest-text'></span>
-                    <div class="hide" id="interest-div">
-                        <select id="selectInterests" data-bind="ojComponent: {component: 'ojSelect',multiple: true,value: interests}" class="selector">
-                            <!--ko foreach: interestsOptions-->
-                            <option data-bind="attr: {value: name},text: name"></option>
-                            <!--/ko-->
-                        </select>
+
                     </div>
                 </div>
-                 <div class="oj-xl-1 oj-lg-1 oj-md-2 oj-sm-2 oj-flex-item center">                  
+                <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                    <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                        <span class="icon-div"><i class="zmdi zmdi-favorite about-icons"></i></span>
+                        <span class="text-about heightCol"> Interests</span>
+                    </div>
+                    <div class="oj-xl-7 oj-lg-7 oj-md-6 oj-sm-6 oj-flex-item ">
+                        <span  class="text-height" data-bind="text: interests" id='interest-text'></span>
+                        <div class="hide" id="interest-div">
+                            <select id="selectInterests" data-bind="ojComponent: {component: 'ojSelect',multiple: true,value: interests}" class="selector">
+                                <!--ko foreach: interestsOptions-->
+                                <option data-bind="attr: {value: name},text: name"></option>
+                                <!--/ko-->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="oj-xl-1 oj-lg-1 oj-md-2 oj-sm-2 oj-flex-item center">                  
                         <span class="edit-height" id="edit-interest"><i data-bind="click: openInterest" class="zmdi zmdi-edit about-edit" title="Edit"></i></span>
                         <span class="edit-height hide" id="submit-interest"><i data-bind="click: updateInterest" class="zmdi zmdi-check about-edit" title="Save"></i></span>
                         <span class="edit-height hide" id="cancel-interest"><i data-bind="click: interestRevert" class="zmdi zmdi-minus-circle-outline about-edit" title="Cancel"></i></span>
-                                
+
+                    </div>
                 </div>
-            </div>
-            <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
-                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
-                    <span class="icon-div"><i class="zmdi zmdi-phone about-icons"></i></span>
-                    <span class="text-about heightCol"> Phone</span>
-                </div>
-                 <div class="oj-xl-7 oj-lg-7 oj-md-6 oj-sm-6 oj-flex-item ">
-                    <span  class="text-height" data-bind="text: myNumber" id='number-text'></span>
-                    <input class="hide" id="editNumberBox" type="text" name="myNumber" data-bind="value: temporaryNumber" maxlength="10" pattern="\d*">
-                </div>
-                 <div class="oj-xl-1 oj-lg-1 oj-md-2 oj-sm-2 oj-flex-item center">                  
+                <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                    <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                        <span class="icon-div"><i class="zmdi zmdi-phone about-icons"></i></span>
+                        <span class="text-about heightCol"> Phone</span>
+                    </div>
+                    <div class="oj-xl-7 oj-lg-7 oj-md-6 oj-sm-6 oj-flex-item ">
+                        <span  class="text-height" data-bind="text: myNumber" id='number-text'></span>
+                        <input class="hide" id="editNumberBox" type="text" name="myNumber" data-bind="value: temporaryNumber" maxlength="10" pattern="\d*">
+                    </div>
+                    <div class="oj-xl-1 oj-lg-1 oj-md-2 oj-sm-2 oj-flex-item center">                  
                         <span class="edit-height" id="edit-number"><i data-bind="click: openNumber" class="zmdi zmdi-edit about-edit" title="Edit"></i></span>
                         <span class="edit-height hide" id="submit-number"><i data-bind="click: updateNumber" class="zmdi zmdi-check about-edit" title="Save"></i></span>
                         <span class="edit-height hide" id="cancel-number"><i data-bind="click: numberEditRevert" class="zmdi zmdi-minus-circle-outline about-edit" title="Cancel"></i></span>
-                                
+
+                    </div>
                 </div>
             </div>
+
+
         </div>
-    
+    <div id="tabs-5" class="color-white oj-margin-horizontal pos-relative">
+ <div class="transbox"></div>
+ <div class="profile-page-overflow pos-relative">
+                <div id="listviewWrapper">
+                    <ul id="listview" aria-label="list using collection" style="height:100%" 
+                        data-bind="ojComponent: {component: 'ojListView', item: {template: 'tweet_template'},
+                                rootAttributes: {style: 'width:100%;height:500px;overflow-x:hidden', id: 'listviewContainer'},
+                                scrollPolicy: 'loadMoreOnScroll', scrollPolicyOptions: {fetchSize: 7}}">
+                    </ul>
+                </div>
+                <script type="text/html" id="tweet_template">
+                   <li data-bind="attr: {id: commenter + commentDate}">
+                        <div class="oj-flex" style="flex-wrap: nowrap">
+                            <!--<span class="demo-thumbnail oj-flex-item" data-bind="style: { backgroundImage: 'url(\'' + ../../images/loading.gif + '\')' }"></span>-->
+                            <div class="demo-container oj-flex-item">
+                                <div>
+                                    <strong data-bind="text: commenter"></strong>
+                                </div>
+                                <div class="tweet">
+                                    <span style="word-wrap: break-word" data-bind="text: comment"></span>
+                                </div>        
+                                <span class="demo-metadata" data-bind="text: commentDate "></span>
+                            </div>
+                        </div>
+       
+                    </li>
+                    </script>
 
-</div>
-
+ </div>
+    </div>
+    </div>
