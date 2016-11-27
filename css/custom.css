@@ -849,8 +849,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     left: 0px;
     height: 100%;
     width: 100%;
-    background-color: #000;
-    opacity: 0.5;
+   background-color: rgba(0,0,0,0.3);
 }
 .loaderDiv{
     position: fixed;
@@ -859,13 +858,16 @@ div.oj-tabs-panel.oj-tabs-selected{
     height: 100%;
     width: 100%;
     display: table;
-    z-index: 10052;
+    z-index: 20090;
+    background-color: rgba(0,0,0,0.3);
+  
 }
 .loaderImgDiv{
     display: table-cell;
     text-align: center;
     width: 100%;
     vertical-align: middle;
+   
 }
 .loaderHide{
     display: none !important;

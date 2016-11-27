@@ -27,43 +27,49 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
             function dateDiffCalender(Date1) {
                 user_date = Date.parse(Date1);
                 today_date = new Date();
-                if(Date1!=''){
-                    diff_date =  today_date - user_date;
+                if (Date1 != '') {
+                    diff_date = today_date - user_date;
 
-                    num_years = diff_date/31536000000;
-                    num_months = (diff_date % 31536000000)/2628000000;
-                    num_days = ((diff_date % 31536000000) % 2628000000)/86400000;
-                    if(Math.floor(num_years) > 1)
+                    num_years = diff_date / 31536000000;
+                    num_months = (diff_date % 31536000000) / 2628000000;
+                    num_days = ((diff_date % 31536000000) % 2628000000) / 86400000;
+                    if (Math.floor(num_years) > 1)
                     {
-                        num_years = Math.floor(num_years)+" Years";
-                    }else
+                        num_years = Math.floor(num_years) + " Years";
+                    } else
                     {
-                        num_years = Math.floor(num_years)+" Year";
+                        num_years = Math.floor(num_years) + " Year";
                     }
 
-                    if(Math.floor(num_months) > 1)
+                    if (Math.floor(num_months) > 1)
                     {
-                        num_months = Math.floor(num_months)+" Months";
-                    }else
+                        num_months = Math.floor(num_months) + " Months";
+                    } else
                     {
-                        num_months = Math.floor(num_months)+" Month";
+                        num_months = Math.floor(num_months) + " Month";
                     }
-                    return num_years+" "+num_months;
-                }else
+                    return num_years + " " + num_months;
+                } else
                 {
                     return '';
                 }
             }
-	        function dateFormatter(commentDate1) {
-		       commentDate1 = new Date(commentDate1);
-			   var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June",
-				   "July", "Aug", "Sep", "Oct", "Nov", "Dec"
-			   ];
-			   var dateReturn = commentDate1.getDate() + ' ' + monthNames[commentDate1.getMonth()] + ' ' + commentDate1.getFullYear();
-			   return dateReturn;
+            function dateFormatter(commentDate1) {
+                commentDate1 = new Date(commentDate1);
+                var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June",
+                    "July", "Aug", "Sep", "Oct", "Nov", "Dec"
+                ];
+                var dateReturn = commentDate1.getDate() + ' ' + monthNames[commentDate1.getMonth()] + ' ' + commentDate1.getFullYear();
+                return dateReturn;
             }
             function dataFeedback(myId, data) {
                 var feedbackObj = new Object();
+                if (data['description'].length > 100) {
+                    feedbackObj.sComment = data['description'].substring(0, 100) + "...";
+                } else {
+                    feedbackObj.sComment = data['description'];
+                }
+                feedbackObj.lComment = data['description'];
                 feedbackObj.myId = myId;
                 feedbackObj.feedbackfrom = data['feedback_from'];
                 feedbackObj.name = data['given_by_name'];
@@ -72,9 +78,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 feedbackObj.feedbackdesignation = data['designation'];
                 feedbackObj.replies = ko.observableArray();
                 feedbackObj.feedbackImage = data['google_picture_link'];
-                feedbackObj.uniqueId = "feedback"+data['id'];
-                feedbackObj.replyBtnId = "replyBtn"+data['id'];
-                
+                feedbackObj.uniqueId = "feedback" + data['id'];
+                feedbackObj.replyBtnId = "replyBtn" + data['id'];
+
                 // 2nd myId with rtoId change it when view profile page;
                 var data_reply = data['reply'];
                 for (var c = 0; c < data_reply.length; c++) {
@@ -133,70 +139,78 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 this.minusSign = ko.observable('-');
                 this.plusSign = ko.observable('+');
                 self.selectedTab = ko.observable(0);
-             
-             
+
+
                 var editVariable;
                 var windowLocation = window.location;
                 var id = windowLocation.search.substring(windowLocation.search.indexOf("=") + 1, windowLocation.search.length);
-                
+
                 if (id == "1") {
                     self.selectedTab(1);
                 }
 
-             self.feedbackMore1 = function(e,data) {
-                 
-                 var obj=$("#feedback"+e.feedbackId);
-                 
-            obj.parent().prev('.open-more').slideToggle();
-                        if (obj.prev().children("span").hasClass("hide")) {
-                            obj.prev().children("span").removeClass("hide");
-                            obj.children("span").children("span").children("i").addClass("zmdi-caret-up");
-                            obj.children("span").children("span").children("i").removeClass("zmdi-caret-down");
-                            obj.children("span").children("span:nth-child(2)").html("Less");
-                        } else {
-                            obj.children("span").children("span:nth-child(2)").html("More");
-                            obj.children("span").children("span").children("i").removeClass("zmdi-caret-up");
-                            obj.children("span").children("span").children("i").addClass("zmdi-caret-down");
-                            obj.prev().children("span").addClass("hide");
-                        }
-         }
+                self.feedbackMore1 = function (e, data) {
 
-                    self.replySubmit = function (e,data) {
-                        var obj=$("#replyBtn"+e.feedbackId);
-                        var id = obj.attr("loginUserId");
-                        var feedback_to = obj.attr("feedback_to");
-                        var responseDesc = obj.parent().next("span").children("input");
-						if(responseDesc.val().length == 0) {
-                                               return;
-                                           }
-                        var fid = obj.attr("feedbackId");
-                        var sysDate = new Date();
-                        var dateString = sysDate.toJSON().toString().substr(0, 10);
+                    var obj = $("#feedback" + e.feedbackId);
+
+                    obj.parent().prev('.open-more').slideToggle();
+                    if (obj.prev().children("span").hasClass("hide")) {
+                        obj.prev().children("span").removeClass("hide");
+                        obj.children("span").children("span").children("i").addClass("zmdi-caret-up");
+                        obj.children("span").children("span").children("i").removeClass("zmdi-caret-down");
+                        obj.children("span").children("span:nth-child(2)").html("Less");
                         
-                        $.ajax({
-                            headers: {secret: secret},
-                            method: 'POST',
-                            url: addFeedbackResponse,
-                            data: {login_user_id: id, feedback_to: feedback_to, feedback_desc: responseDesc.val(), feedback_id: fid},
-                            success: function () {
-                                
-                                obj.parent().parent().parent().prev().append(
-                                        '<div class="oj-row oj-flex oj-margin-top oj-margin-bottom oj-margin-horizontal oj-padding-horizontal">' +
-                                        '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item replyName">' +
-                                        '<span>' + self.myname + '</span>' +
-                                        '</div>' +
-                                        '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex replyComent">' +
-                                        '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item"><span>' + responseDesc.val() + '</span></div>' +
-                                        '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex-bar"><span class="oj-flex-bar-end">' + dateString + '</span></div>' +
-                                        '</div>' +
-                                        '</div>'
-                                        );
-                                responseDesc.val("");
-                            }
-                        });
+                    } else {
+                        obj.children("span").children("span:nth-child(2)").html("More");
+                        obj.children("span").children("span").children("i").removeClass("zmdi-caret-up");
+                        obj.children("span").children("span").children("i").addClass("zmdi-caret-down");
+                        obj.prev().children("span").addClass("hide");
                     }
+                }
 
-               
+
+                self.replySubmit = function (e, data) {
+                    var obj = $("#replyBtn" + e.feedbackId);
+                    var id = obj.attr("loginUserId");
+                    var feedback_to = obj.attr("feedback_to");
+                    var responseDesc = obj.parent().next("span").children("input");
+                    if (responseDesc.val().length == 0) {
+                        return;
+                    }
+                    var fid = obj.attr("feedbackId");
+                    var sysDate = new Date();
+                    var dateString = dateFormatter(sysDate.toJSON().toString().substr(0, 10));
+
+                    $.ajax({
+                        headers: {secret: secret},
+                        method: 'POST',
+                        url: addFeedbackResponse,
+                        data: {login_user_id: id, feedback_to: feedback_to, feedback_desc: responseDesc.val(), feedback_id: fid},
+                        success: function () {
+
+                            obj.parent().parent().parent().prev().append(
+                                    '<div class="oj-row oj-flex oj-margin-top oj-margin-bottom oj-margin-horizontal oj-padding-horizontal">' +
+                                    '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item replyName">' +
+                                    '<span>' + self.myname + '</span>' +
+                                    '</div>' +
+                                    '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex replyComent">' +
+                                    '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item"><span>' + responseDesc.val() + '</span></div>' +
+                                    '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex-bar"><span class="oj-flex-bar-end">' + dateString + '</span></div>' +
+                                    '</div>' +
+                                    '</div>'
+                                    );
+                            responseDesc.val("");
+                        },
+                        beforeSend: function () {
+                            $("#respondLoader").removeClass('loaderHide');
+                        },
+                        complete: function () {
+                            $("#respondLoader").addClass('loaderHide');
+                        }
+                    });
+                }
+
+
 
                 //update profile submit button ajax call
                 self.updateProfile = function () {
@@ -208,18 +222,18 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         headers: {secret: secret},
                         method: 'POST',
                         url: updateProfile,
-                        data: {user_id: self.id(), desc: self.designation(), location: self.location(), skills: self.skills(),primary_project: self.primary_project(), date: self.date(), projects: self.projects(), interests: self.interests(), mob: self.myNumber()},
+                        data: {user_id: self.id(), desc: self.designation(), location: self.location(), skills: self.skills(), primary_project: self.primary_project(), date: self.date(), projects: self.projects(), interests: self.interests(), mob: self.myNumber()},
                         success: function (res) {
-                            response = jQuery.parseJSON( res );
+                            response = jQuery.parseJSON(res);
                             $('.sucessMsgRate').show();
-                            if(response.error=="true")
+                            if (response.error == "true")
                             {
                                 self.successful(response.data.error);
-                                if(response.data.code=="3013")
+                                if (response.data.code == "3013")
                                 {
                                     self.myNumber(DefaultNumberVar);
                                 }
-                            }else
+                            } else
                             {
                                 self.successful("Profile Updated Successfully");
                             }
@@ -248,13 +262,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         self.id(task.attributes['data']['id']);
                         self.myname
                         self.designation(abc);
-                        var num = task.attributes['data']['mobile_number'] == "" ? "NO NUMBER" : "+91-" + task.attributes['data']['mobile_number'].replace("+91-","");
+                        var num = task.attributes['data']['mobile_number'] == "" ? "NO NUMBER" : "+91-" + task.attributes['data']['mobile_number'].replace("+91-", "");
                         self.myNumber(num);
                         self.skills(task.attributes['data']['skills']);
                         self.location(task.attributes['data']['location']);
                         if (task.attributes['data']['interests'].length != 0) {
                             interest = task.attributes['data']['interests'].split(",");
-                            for(k=0;k<interest.length;k++){
+                            for (k = 0; k < interest.length; k++) {
                                 self.interests(interest);
                             }
                         } else {
@@ -262,7 +276,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         }
                         if (task.attributes['data']['projects'].length != 0) {
                             project = task.attributes['data']['projects'].split(",");
-                            for(k=0;k<project.length;k++){
+                            for (k = 0; k < project.length; k++) {
                                 self.projects(project);
                             }
                         } else {
@@ -271,7 +285,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         self.primary_project(task.attributes['data']['primary_project']);
                         self.associate_with_infobeans(dateDiffCalender(task.attributes['data']['associate_with_infobeans']));
                         self.date(task.attributes['data']['associate_with_infobeans']);
-                        
+
                         //feedback for the user
                         var feedbackApi = oj.Model.extend({
                             url: getFeedbackById + self.id()
@@ -289,11 +303,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                         self.feedbackContent2.push(new dataFeedback(self.id(), data[index]));
                                     }
                                 }
-								if (self.feedbackContent1().length == 0 && self.feedbackContent2().length == 0) {
-                                   $("#noFeedback").show();
-                               } else {
-                                   $("#noFeedback").hide();
-                               }
+                                if (self.feedbackContent1().length == 0 && self.feedbackContent2().length == 0) {
+                                    $("#noFeedback").show();
+                                } else {
+                                    $("#noFeedback").hide();
+                                }
                             }
                         });
 
@@ -322,19 +336,19 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                     }
                                 }
                                 if (self.commentDataNegative().length == 0) {
-									   self.NoCommentsN("No Ratings Available ...!!");
-									   $("#noNegativeComment").show();
-								   }
-								   if (self.commentDataNegative().length != 0) {
-									   $("#noNegativeComment").hide();
-								   }
-								   if(self.commentDataPositive().length != 0){
-									   $("#noPositiveComment").hide();
-								   }
-								   if (self.commentDataPositive().length == 0) {
-									   self.NoCommentsP("No Ratings Available ...!!");
-									   $("#noPositiveComment").show();
-								   }
+                                    self.NoCommentsN("No Ratings Available ...!!");
+                                    $("#noNegativeComment").show();
+                                }
+                                if (self.commentDataNegative().length != 0) {
+                                    $("#noNegativeComment").hide();
+                                }
+                                if (self.commentDataPositive().length != 0) {
+                                    $("#noPositiveComment").hide();
+                                }
+                                if (self.commentDataPositive().length == 0) {
+                                    self.NoCommentsP("No Ratings Available ...!!");
+                                    $("#noPositiveComment").show();
+                                }
                                 self.plus(plus);
                                 self.minus(minus);
                                 if (self.plus() == 0) {
@@ -411,7 +425,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     $('#edit-associate').addClass('hide');
                     $('#submit-associate').removeClass('hide');
                     $('#cancel-associate').removeClass('hide');
-                    
+
                 }
                 self.updateDate = function () {
                     //ajax call here
@@ -430,7 +444,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     $('#associate-div').addClass('hide');
                     $('#edit-associate').removeClass('hide');
                     $('#submit-associate').addClass('hide');
-                    $('#cancel-associate').addClass('hide');   
+                    $('#cancel-associate').addClass('hide');
                 }
 
 
@@ -440,27 +454,27 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     designationsDefaultVar = self.designation();
                     editVariable = self.designationOptions();
                     self.designationOptions([]);
-                        //get all desginations using ajax;
-                        $.ajax({
-                            headers: {secret: secret},
-                            method: 'POST',
-                            url: getAllDesignations,
-                            data: {},
-                            success: function (res) {
-                                var res = JSON.parse(res)['data'];
-                                for (var c = 0; c < res.length; c++) {
-                                    var obj = new Object();
-                                    obj.name = res[c]['designation'];
-                                    self.designationOptions.push(obj);
-                                }
-                                $('#selectDesignation').ojSelect("refresh");
+                    //get all desginations using ajax;
+                    $.ajax({
+                        headers: {secret: secret},
+                        method: 'POST',
+                        url: getAllDesignations,
+                        data: {},
+                        success: function (res) {
+                            var res = JSON.parse(res)['data'];
+                            for (var c = 0; c < res.length; c++) {
+                                var obj = new Object();
+                                obj.name = res[c]['designation'];
+                                self.designationOptions.push(obj);
                             }
-                        });
-                        $('#designation-text').addClass('hide');
-                        $('#designation-div').removeClass('hide');
-                        $('#edit-designation').addClass('hide');
-                        $('#submit-designation').removeClass('hide');
-                        $('#cancel-designation').removeClass('hide');
+                            $('#selectDesignation').ojSelect("refresh");
+                        }
+                    });
+                    $('#designation-text').addClass('hide');
+                    $('#designation-div').removeClass('hide');
+                    $('#edit-designation').addClass('hide');
+                    $('#submit-designation').removeClass('hide');
+                    $('#cancel-designation').removeClass('hide');
                 }
                 self.updateDesignations = function () {
                     //ajax call here
@@ -498,15 +512,15 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     $('#location-div').addClass('hide');
                     $('#edit-location').removeClass('hide');
                     $('#submit-location').addClass('hide');
-                    $('#cancel-location').addClass('hide'); 
+                    $('#cancel-location').addClass('hide');
                 }
                 self.locationRevert = function () {
                     $('#location-text').removeClass('hide');
                     $('#location-div').addClass('hide');
                     $('#edit-location').removeClass('hide');
                     $('#submit-location').addClass('hide');
-                    $('#cancel-location').addClass('hide'); 
-                    self.location(locationDefaultVar);  
+                    $('#cancel-location').addClass('hide');
+                    self.location(locationDefaultVar);
                 }
 
                 // edit skills
@@ -526,15 +540,15 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     $('#skills').addClass('hide');
                     $('#edit-skills').removeClass('hide');
                     $('#submit-skills').addClass('hide');
-                    $('#cancel-skills').addClass('hide'); 
+                    $('#cancel-skills').addClass('hide');
                 }
                 self.skillsRevert = function () {
                     $('#skills-text').removeClass('hide');
                     $('#skills').addClass('hide');
                     $('#edit-skills').removeClass('hide');
                     $('#submit-skills').addClass('hide');
-                    $('#cancel-skills').addClass('hide'); 
-                    self.skills(skillsDefaultVal);  
+                    $('#cancel-skills').addClass('hide');
+                    self.skills(skillsDefaultVal);
                 }
 
                 // edit projects
@@ -668,11 +682,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                             self.primary_project(res['attributes']['data'][0]['name']);
                         }
                     });
-                        $('#primary-project-text').addClass('hide');
-                        $('#primary-project-div').removeClass('hide');
-                        $('#edit-primary-project').addClass('hide');
-                        $('#submit-primary-project').removeClass('hide');
-                        $('#cancel-primary-project').removeClass('hide');
+                    $('#primary-project-text').addClass('hide');
+                    $('#primary-project-div').removeClass('hide');
+                    $('#edit-primary-project').addClass('hide');
+                    $('#submit-primary-project').removeClass('hide');
+                    $('#cancel-primary-project').removeClass('hide');
                 }
                 self.updatePrimaryProject = function () {
                     //ajax call here
