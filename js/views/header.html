@@ -5,12 +5,15 @@
         <div class="oj-web-applayout-header-title">
             <div class="oj-row oj-flex box">
                 <div class=" oj-xl-4 oj-lg-4 oj-md-2 oj-sm-3 header oj-col oj-flex-item ">
-                    <a href="dashboard.html"><img class="logo" src="css/images/login-logo.png" alt=""/></a>
+                    <ul class="mobile-menu">
+                        <li><a href="javascript:void(0)" data-bind="event:{click: toggleMenu}" class="menus"><i class="zmdi zmdi-menu zmdi"></i> </a></li>
+                        <li><a href="dashboard.html"><img class="logo" src="css/images/login-logo.png" alt=""/></a></li>
+                    </ul>   
                 </div>
                 <div class="oj-xl-8 oj-lg-8 oj-md-10 oj-sm-9 oj-col ">
                     <div class="navigationlist">
                         <ul class="nav">
-                            <li title="More"><a href="#"><i class="zmdi zmdi-more-vert zmdi"></i> </a></li>
+                            <li title="More"><a href="#" ><i class="zmdi zmdi-more-vert zmdi"></i> </a></li>
                             <li title="Sign out"><a href="#" id="signOut" data-bind="click: signout"><i class="zmdi zmdi-power  zmdi-hc-lg"></i></a></li>
                             <li><a href="profile.html" data-bind="attr: {title: memberName}"><img data-bind="attr: {src: mypic}" class="home-profile-pic" /></a></li>
                             <li class="pos-relative openCloseNotify">

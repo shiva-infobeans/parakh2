@@ -173,6 +173,17 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
 
         }, 500);
 
+        self.toggleMenu = function(){
+            if($('#forActiveul').css('display')=='block')
+            {
+                $('#forActiveul').css('display','none');
+            }else
+            {
+                $('#forActiveul').css('display','block');
+            }
+            
+        }
+
         /*hide show notification*/
         $(document).mouseup(function (e)
         {

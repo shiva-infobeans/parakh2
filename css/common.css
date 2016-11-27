@@ -41,6 +41,9 @@
     height:90px;
 
 }
+.menus{display: none;}
+.mobile-menu{list-style-type: none;}
+.mobile-menu li{display: inline;}
 @media (max-width: 480px) {
     .nav li{
         font-size: 16px !important ;
@@ -49,7 +52,8 @@
     .logo{
         height:60px;
     }
-
+    .menus{display: block;}
+    .nav1 li{float: none;}
 }
 .oj-panel {
     padding-bottom:0px;
@@ -584,6 +588,15 @@
     font-weight: bolder;
     font-size: 24px;
 }
+.mText{
+    position: absolute;
+    top: 15px;
+    left: 26px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 25px;
+}
+
 .errorText{
     color:red;
     margin-left: -2px;
@@ -1561,3 +1574,4 @@
     background: none;
     border: none;
 }
+.my-performance-slide{height: 211px;}
