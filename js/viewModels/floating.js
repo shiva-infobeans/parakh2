@@ -113,16 +113,15 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 } else {
                     $('#hideFeedbackFloat').show();
                 }
-
+                
                 $.ajax({
                     headers: {secret: secret},
                     method: 'POST',
-                    url: getOtherTeamMembers + self.userIdFloat(),
+                    url: getAllTeamMembers + self.userIdFloat(),
                     data: {user_id: self.userIdFloat()},
                     success: function (task) {
 
                         var data = JSON.parse(task)['data'];
-						console.log(data);
                         for (var counter1 = 0; counter1 < data.length; counter1++) {
                             self.searchUser.push(new autoSearch(data[counter1]));
                             var item = new Object();
@@ -130,6 +129,24 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             item.label = data[counter1]['google_name'];
                             item.searchPic = data[counter1]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data[counter1]['google_picture_link'];
                             self.browsers.push(item);
+                        }
+                    }
+                });
+
+                $.ajax({
+                    headers: {secret: secret},
+                    method: 'POST',
+                    url: getUserByLead + self.userIdFloat(),
+                    data: {user_id: self.userIdFloat()},
+                    success: function (task) {
+
+                        var data = JSON.parse(task)['data'];
+                        for (var counter1 = 0; counter1 < data.length; counter1++) {
+                            self.searchUser.push(new autoSearch(data[counter1]));
+                            var item = new Object();
+                            item.value = data[counter1]['user_id'];
+                            item.label = data[counter1]['user_name'];
+                            item.searchPic = data[counter1]['picture'] == "" ? 'images/warning-icon-24.png' : data[counter1]['picture'];
                             self.browsers1.push(item);
                         }
                     }
