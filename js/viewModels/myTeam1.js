@@ -88,7 +88,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         headers: {secret: secret},
                         method: 'POST',
                         url: getUserByLead + self.lead_id(),
-                        data: {user_id: self.userIdFloat()},
+                        data: {user_id: res['attributes']['data']['id']},
                         success: function (task) {
 
                             var data = JSON.parse(task)['data'];
@@ -414,15 +414,19 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         AlphaIndexes[alphaCounter++] = self.members()[index]['name'].charAt(0);
                     }
                 }
+				//$("#index").addClass("hide");
                 $("#index span").each(function (i, data) {
                     if (i != 0) {
-                        for (var z = 0; z < AlphaIndexes.length; z++) {
-                            if (AlphaIndexes[z] == $(this).children("a").attr("href")) {
-                                $(this).removeClass("hide");
-                            }
-                        }
+                        if($.inArray($(this).children("a").attr("href"),AlphaIndexes)<0)
+						{
+							//console.log($(this).children("a").attr("href"));
+							
+								//console.log(AlphaIndexes[z]);
+                                $(this).addClass("hide");
+						}
                     }
                 })
+				$("#index").removeClass("hide");
             });
 
 
