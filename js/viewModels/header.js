@@ -174,12 +174,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
         }, 500);
 
         self.toggleMenu = function(){
-            if($('#forActiveul').css('display')=='block')
+            if($('#forActive-mobile #forActiveul').css('display')=='block')
             {
-                $('#forActiveul').css('display','none');
+                $('#forActive-mobile #forActiveul').css('display','none');
             }else
             {
-                $('#forActiveul').css('display','block');
+                $('#forActive-mobile #forActiveul').css('display','block');
             }
             
         }
@@ -206,10 +206,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
                     width = screen.width;
                     height = screen.height;
                     if(width==768){
-                        $('#forActiveul').css('display','block');
+                        $('#forActive-mobile #forActiveul').css('display','none');
                     }else
                     {
-                        $('#forActiveul').css('display','none');
+                        $('#forActive-mobile #forActiveul').css('display','none');
                     }
                     $(window).trigger('resolutionchange');
                 }
