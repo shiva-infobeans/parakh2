@@ -37,7 +37,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         req.date = dateformat(data['created_date']);
         req.userID = userid;
         req.uniqueId = "pending" + data['request_id'];
-        req.reqId = "requestDecision" + data['request_id'];
         req.acceptBtnId = "accept" + data['request_id'];
         req.declineBtnId = "decline" + data['request_id'];
 //        console.log(req.uniqueId);
@@ -280,14 +279,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 }
             });
         }
-
-
-        self.requestMore = function (uniqueId) {           
-            console.log(uniqueId);
+        
+        self.requestMore = function (e, data) {      
+           
             var obj = $("#pending" + e.request_id);
-            console.log(e.request_id);            
-            console.log(e);
-            //console.log($(this).children("span").children("span:nth-child(2)").html());
             if (obj.children("span").children("span:nth-child(2)").html() == "More") {
                 obj.parent().prev().prev().addClass("hide");
                 obj.children("span").children("span:nth-child(2)").html("Less");
@@ -309,16 +304,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             }
 
         }
-        
-        $(".openDiv").each(function () {
-            //console.log();
-            if (obj.children().children("span:nth-child(3)").text().length <= 100) {
-                obj.addClass('hide');
-            }
-        });
-
-
-
+      
         //send request for +1 ratings ajax call
         self.requestManager = function () {
             if (self.desc() == '' || self.desc() == null) {
@@ -376,7 +362,15 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 }
             });
         }
-
+        setTimeout(function(){
+            $(".openDiv").each(function () {     
+            
+            if ($(this).children().children(":last-child").text().length <= 100) {
+                $(this).addClass('hide');
+            }
+        });
+        },500);
     }
+    
     return rateRequestPageContentViewModel;
 });
