@@ -198,6 +198,22 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
         });
 
         $(document).ready(function(){
+
+            var width = screen.width,
+                height = screen.height;
+            setInterval(function () {
+                if (screen.width !== width || screen.height !== height) {
+                    width = screen.width;
+                    height = screen.height;
+                    if(width==768){
+                        $('#forActiveul').css('display','block');
+                    }else
+                    {
+                        $('#forActiveul').css('display','none');
+                    }
+                    $(window).trigger('resolutionchange');
+                }
+            }, 50);
             $('#notificationOpen').on('click',function(){
                 if($('.notification').css('display')== 'none'){
                     $(".notification").css('display','block');
