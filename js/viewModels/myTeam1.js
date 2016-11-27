@@ -306,7 +306,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             $("#sucess").hide();
                             self.sucessMsg("");
                         }, 3000);
-                    }
+                    },
+                      beforeSend: function () {
+                            $("#rateMeLoader").removeClass('loaderHide');
+                        },
+                        complete: function () {
+                            $("#rateMeLoader").addClass('loaderHide');
+                        }
+                    
                 });
             }
         }
@@ -328,7 +335,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             $("#sucess").hide();
                             self.sucessMsg("");
                         }, 3000);
-                    }
+                    },
+                      beforeSend: function () {
+                            $("#rateMeLoader1").removeClass('loaderHide');
+                        },
+                        complete: function () {
+                            $("#rateMeLoader1").addClass('loaderHide');
+                        }
                 });
             }
         }
@@ -394,7 +407,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             $("#sucess").hide();
                             self.sucessMsg("");
                         }, 3000);
-                    }
+                    },
+                      beforeSend: function () {
+                            $("#rateMeLoader2").removeClass('loaderHide');
+                        },
+                        complete: function () {
+                            $("#rateMeLoader2").addClass('loaderHide');
+                        }
                 });
             }
         };

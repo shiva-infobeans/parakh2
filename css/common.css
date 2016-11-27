@@ -575,7 +575,14 @@
     float:left;
     width: 100%;
 }
-
+.mText{
+    position: absolute;
+    top: 15px;
+    left: 26px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 25px;
+}
 .mText1 {
     position: absolute;
     bottom: 33px;
@@ -1557,4 +1564,7 @@
 #associate-div .oj-inputdatetime-input-trigger{
     background: none;
     border: none;
+}
+#longText{
+    margin-top: -20px;
 }
