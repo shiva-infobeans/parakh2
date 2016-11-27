@@ -1051,7 +1051,7 @@ class dbmodule {
                     . "role_type as role on role.id = user.role_id "
                     . "where request.to_id = " . $user_id . $cnd . " order by work.modified_date desc";
             $user_list = $this->con->prepare($query);
-			//echo($user_list->queryString);
+			echo($user_list->queryString);
             $user_list->execute();
             $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
             return $row;
