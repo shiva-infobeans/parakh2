@@ -1049,8 +1049,9 @@ class dbmodule {
                     . "rating as rating on work.id=rating.work_id left join  "
                     . "users as user on request.to_id=user.id left join "
                     . "role_type as role on role.id = user.role_id "
-                    . "where work.created_by = " . $user_id . $cnd . " order by work.modified_date desc";
+                    . "where request.to_id = " . $user_id . $cnd . " order by work.modified_date desc";
             $user_list = $this->con->prepare($query);
+			//echo($user_list->queryString);
             $user_list->execute();
             $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
             return $row;
