@@ -1021,6 +1021,7 @@ class dbmodule {
                     . "request.for_id = user.id ) WHERE request.to_id = " . $user_id . " "
                     . "ORDER BY work.id DESC";
             $user_list = $this->con->prepare($query);
+			var_dump($user_list);
             $user_list->execute();
             $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
             return $row;
@@ -1039,7 +1040,7 @@ class dbmodule {
             $cnd = '';
             if ($status != '')
                 $cnd = " AND request.status = " . $status;
-            $query = "select user.google_name,user.id as lead_id, "
+            $query = "select request.id as request_id, user.google_name,user.id as lead_id, "
                     . "user.google_picture_link, user.designation,role.name as role_name, "
                     . "request.to_id,request.from_id,description,"
                     . "work.created_date,request_for,rating, request.status "
