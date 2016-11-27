@@ -1467,13 +1467,16 @@
 #negetiveTab , #feedbackTab{
     display:none;
 }
-.oj-filmstrip-arrow.oj-default .oj-filmstrip-arrow-icon{
+#filmStrip .oj-filmstrip-arrow.oj-default .oj-filmstrip-arrow-icon{
     color: #fff;
     font-size: 40px;
 }
-.oj-filmstrip-arrow.oj-hover {
+#filmStrip .oj-filmstrip-arrow.oj-hover {
     background-color: transparent !important;
     border-color:transparent !important;
+}
+#filmStrip #ui-id-9.oj-hover span,#filmStrip #ui-id-8.oj-hover span{
+    color: #689F39;
 }
 .View-Other-about-members{
     padding: 17px;
