@@ -59,6 +59,12 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
     }
     function dataFeedback(myId, data) {
         var feedbackObj = new Object();
+        if (data['description'].length > 100) {
+            feedbackObj.sComment = data['description'].substring(0, 100) + "...";
+        } else {
+            feedbackObj.sComment = data['description'];
+        }
+        feedbackObj.lComment = data['description'];
         feedbackObj.myId = myId;
         feedbackObj.feedbackfrom = data['feedback_from'];
         feedbackObj.name = data['given_by_name'];
@@ -273,59 +279,67 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
 
                                             obj.parent().prev('.open-more').slideToggle();
                                             if (obj.prev().children("span").hasClass("hide")) {
+                                                var lcomment = e['lComment'];
                                                 obj.prev().children("span").removeClass("hide");
                                                 obj.children("span").children("span").children("i").addClass("zmdi-caret-up");
                                                 obj.children("span").children("span").children("i").removeClass("zmdi-caret-down");
                                                 obj.children("span").children("span:nth-child(2)").html("Less");
+                                                if (e['sComment'].length == 103) {
+                                                    obj.parent().prev().prev().children().text(lcomment);
+                                                }
                                             } else {
+                                                var scomment = e['sComment'];
                                                 obj.children("span").children("span:nth-child(2)").html("More");
                                                 obj.children("span").children("span").children("i").removeClass("zmdi-caret-up");
                                                 obj.children("span").children("span").children("i").addClass("zmdi-caret-down");
                                                 obj.prev().children("span").addClass("hide");
+                                                if (e['sComment'].length == 103) {
+                                                    obj.parent().prev().prev().children().text(scomment);
+                                                }
                                             }
                                         }
 
                                         //send the respond to the feedback;
-                                       self.replySubmit = function (e, data) {
-                    var obj = $("#replyBtn" + e.feedbackId);
-                    var id = obj.attr("loginUserId");
-                    var feedback_to = obj.attr("feedback_to");
-                    var responseDesc = obj.parent().next("span").children("input");
-                    if (responseDesc.val().length == 0) {
-                        return;
-                    }
-                    var fid = obj.attr("feedbackId");
-                    var sysDate = new Date();
-                    var dateString = dateFormatter(sysDate.toJSON().toString().substr(0, 10));
-                    
-                    $.ajax({
-                        headers: {secret: secret},
-                        method: 'POST',
-                        url: addFeedbackResponse,
-                        data: {login_user_id: id, feedback_to: feedback_to, feedback_desc: responseDesc.val(), feedback_id: fid},
-                        success: function () {
+                                        self.replySubmit = function (e, data) {
+                                            var obj = $("#replyBtn" + e.feedbackId);
+                                            var id = obj.attr("loginUserId");
+                                            var feedback_to = obj.attr("feedback_to");
+                                            var responseDesc = obj.parent().next("span").children("input");
+                                            if (responseDesc.val().length == 0) {
+                                                return;
+                                            }
+                                            var fid = obj.attr("feedbackId");
+                                            var sysDate = new Date();
+                                            var dateString = dateFormatter(sysDate.toJSON().toString().substr(0, 10));
 
-                            obj.parent().parent().parent().prev().append(
-                                    '<div class="oj-row oj-flex oj-margin-top oj-margin-bottom oj-margin-horizontal oj-padding-horizontal">' +
-                                    '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item replyName">' +
-                                    '<span>' + self.myname() + '</span>' +
-                                    '</div>' +
-                                    '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex replyComent">' +
-                                    '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item"><span>' + responseDesc.val() + '</span></div>' +
-                                    '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex-bar"><span class="oj-flex-bar-end">' + dateString + '</span></div>' +
-                                    '</div>' +
-                                    '</div>'
-                                    );
-                            responseDesc.val("");
-                        },
-                        beforeSend: function () {
-                            $("#respondLoader1").removeClass('loaderHide');
-                        },
-                        complete: function () {
-                            $("#respondLoader1").addClass('loaderHide');
-                        }
-                    });
-                }
+                                            $.ajax({
+                                                headers: {secret: secret},
+                                                method: 'POST',
+                                                url: addFeedbackResponse,
+                                                data: {login_user_id: id, feedback_to: feedback_to, feedback_desc: responseDesc.val(), feedback_id: fid},
+                                                success: function () {
+
+                                                    obj.parent().parent().parent().prev().append(
+                                                            '<div class="oj-row oj-flex oj-margin-top oj-margin-bottom oj-margin-horizontal oj-padding-horizontal">' +
+                                                            '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item replyName">' +
+                                                            '<span>' + self.myname() + '</span>' +
+                                                            '</div>' +
+                                                            '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex replyComent">' +
+                                                            '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item"><span>' + responseDesc.val() + '</span></div>' +
+                                                            '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex-bar"><span class="oj-flex-bar-end">' + dateString + '</span></div>' +
+                                                            '</div>' +
+                                                            '</div>'
+                                                            );
+                                                    responseDesc.val("");
+                                                },
+                                                beforeSend: function () {
+                                                    $("#respondLoader1").removeClass('loaderHide');
+                                                },
+                                                complete: function () {
+                                                    $("#respondLoader1").addClass('loaderHide');
+                                                }
+                                            });
+                                        }
                                     }
                                 });
                             }

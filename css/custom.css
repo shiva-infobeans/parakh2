@@ -283,6 +283,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     background: none;
     border:none;
     padding: 0px;
+    margin-top: -4px;  
 }
 .profile-tab1-data{
     display: flex;
@@ -773,11 +774,11 @@ div.oj-tabs-panel.oj-tabs-selected{
     color:#689F39 !important;
 }
 .Moreless-fix{
-    font-size: 45px !important;
-    left: 227px;
-    position: absolute;
-    top: -16px;
+    bottom: -8px;
     cursor: pointer;
+    font-size: 45px !important;
+    left: 224px;
+    position: absolute;
 }
 .divTextRateMe .oj-textarea{
     max-width: 100% !important;
@@ -813,9 +814,9 @@ div.oj-tabs-panel.oj-tabs-selected{
                 text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5), -1px -1px 1px rgba(0, 0, 0, 0.5);}
 
 .feedbackMoreFix{
-    font-size: 35px !important;
+    font-size: 42px !important;
     position: absolute;
-    top: -8px;
+    bottom: -10px;
     left: -20px;
 }
 

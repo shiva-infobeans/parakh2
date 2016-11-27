@@ -152,19 +152,27 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 self.feedbackMore1 = function (e, data) {
 
                     var obj = $("#feedback" + e.feedbackId);
-
                     obj.parent().prev('.open-more').slideToggle();
                     if (obj.prev().children("span").hasClass("hide")) {
+                          var lcomment = e['lComment'];
                         obj.prev().children("span").removeClass("hide");
                         obj.children("span").children("span").children("i").addClass("zmdi-caret-up");
                         obj.children("span").children("span").children("i").removeClass("zmdi-caret-down");
                         obj.children("span").children("span:nth-child(2)").html("Less");
+                          if (e['sComment'].length == 103) {
+                            obj.parent().prev().prev().children().text(lcomment);
+                        }
+
                         
                     } else {
+                         var scomment = e['sComment'];
                         obj.children("span").children("span:nth-child(2)").html("More");
                         obj.children("span").children("span").children("i").removeClass("zmdi-caret-up");
                         obj.children("span").children("span").children("i").addClass("zmdi-caret-down");
                         obj.prev().children("span").addClass("hide");
+                         if (e['sComment'].length == 103) {
+                            obj.parent().prev().prev().children().text(scomment);
+                        }
                     }
                 }
 

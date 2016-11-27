@@ -214,8 +214,8 @@ and open the template in the editor.
                                                         </div>
                                                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-margin replyBox">
 
-                                                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item openDiv oj-flex-bar oj-margin" data-bind="event:{click: function(){$parent.requestMore(uniqueId)}},attr:{id: uniqueId}">
-                                                                <span class="oj-flex-bar-end oj-margin-bottom">
+                                                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item openDiv oj-flex-bar oj-margin" data-bind="click: $parent.requestMore,attr:{id: uniqueId}">
+                                                                <span class="oj-flex-bar-end oj-margin-bottom" id="openMore">
                                                                     <span class=" Moreless-fix"><i class="zmdi zmdi-caret-down color-white"></i></span>
                                                                     <span class="color-white">More</span>
                                                                     <span class="hide color-white" data-bind="text: lComment"></span>                 
@@ -264,7 +264,7 @@ and open the template in the editor.
                                                         </div>
                                                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-margin replyBox color-white">
 
-                                                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item openDiv oj-flex-bar oj-margin" data-bind="event:{click: $parent.requestMore},attr:{id: uniqueId}">
+                                                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item openDiv oj-flex-bar oj-margin" data-bind="click: $parent.requestMore,attr:{id: uniqueId}">
                                                                 <span class="oj-flex-bar-end oj-margin-bottom">
                                                                     <span class=" Moreless-fix"><i class="zmdi zmdi-caret-down"></i></span>
                                                                     <span>More</span>
