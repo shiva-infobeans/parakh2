@@ -485,7 +485,7 @@ $app->post('/addFeedback', function ($request, $response) {
  * URL: http://localhost/parakh-new/v1/index.php/getAllTeamMembers/<userId>
  * Parameters: none
  * 
- * Method: GET
+ * Method: Post
  * */    
 $app->post('/getAllTeamMembers[/{userId}]', function ($request, $response, $args) {
     $response_data = array();
