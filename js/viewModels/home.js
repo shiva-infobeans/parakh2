@@ -50,28 +50,28 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
         self.managerSliderData = ko.observableArray();
 // Slider 0 replace.............start(my slider)
         self.mySlider = ko.observableArray([]);
-        self.pagingModel10 = null;
-        self.pagingModel10 = null;
+        self.pagingModel9 = null;
+        self.pagingModel9 = null;
 
-        getItemInitialDisplay10 = function (index)
+        getItemInitialDisplay9 = function (index)
         {
             return index < 1 ? '' : 'none';
         };
 
-        getPagingModel10 = function ()
+        getPagingModel9 = function ()
         {
-            if (!self.pagingModel10)
+            if (!self.pagingModel9)
             {
-                var filmStrip = $("#filmStrip10");
+                var filmStrip = $("#filmStrip9");
                 var pagingModel = filmStrip.ojFilmStrip("getPagingModel");
-                self.pagingModel10 = pagingModel;
+                self.pagingModel9 = pagingModel;
             }
-            return self.pagingModel10;
+            return self.pagingModel9;
         };
 
         self.addMySlider = function (obj) {
             self.mySlider.push(obj);
-            $('#filmStrip10').ojFilmStrip("refresh");
+            $('#filmStrip9').ojFilmStrip("refresh");
         }
 
 // Slider 0 replace.............end(my slider)
@@ -80,27 +80,27 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
 
         self.leadSlider = ko.observableArray([
         ]);
-        self.pagingModel12 = null;
+        self.pagingModel8 = null;
 
-        getItemInitialDisplay12 = function (index)
+        getItemInitialDisplay8 = function (index)
         {
             return index < 1 ? '' : 'none';
         };
 
-        getPagingModel12 = function ()
+        getPagingModel8 = function ()
         {
-            if (!self.pagingModel12)
+            if (!self.pagingModel8)
             {
-                var filmStrip = $("#filmStrip12");
+                var filmStrip = $("#filmStrip8");
                 var pagingModel = filmStrip.ojFilmStrip("getPagingModel");
-                self.pagingModel12 = pagingModel;
+                self.pagingModel8 = pagingModel;
             }
-            return self.pagingModel12;
+            return self.pagingModel8;
         };
 
         self.addLeadSlider = function (obj) {
             self.leadSlider.push(obj);
-            $('#filmStrip12').ojFilmStrip("refresh");
+            $('#filmStrip8').ojFilmStrip("refresh");
         }
 
 
@@ -191,25 +191,25 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
         self.projects = ko.observableArray([]);
         self.addProject = function (obj) {
             self.projects.push(obj);
-            $('#filmStrip2').ojFilmStrip("refresh");
+            $('#filmStrip7').ojFilmStrip("refresh");
         }
-        self.pagingModel1 = null;
-        getItemInitialDisplay1 = function (index)
+        self.pagingModel7 = null;
+        getItemInitialDisplay7 = function (index)
         {
             return index < 1 ? '' : 'none';
         };
-        getPagingModel1 = function ()
+        getPagingModel7 = function ()
         {
-            if (!self.pagingModel1)
+            if (!self.pagingModel7)
             {
-                var filmStrip = $("#filmStrip2");
+                var filmStrip = $("#filmStrip7");
                 var pagingModel = filmStrip.ojFilmStrip("getPagingModel");
-                self.pagingModel1 = pagingModel;
+                self.pagingModel7 = pagingModel;
             }
-            return self.pagingModel1;
+            return self.pagingModel7;
         };// pagination slider for manager end
-        
-        
+
+
         self.currentNavArrowPlacement = ko.observable("adjacent");
         self.currentNavArrowVisibility = ko.observable("auto");
 
@@ -249,43 +249,41 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
 
                             for (var c = 0; c < data.length; c++) {
                                 var obj = new Object();
-                                
+
                                 var dat = data[c].split(",");
-                                console.log(dat);
                                 obj.name = dat[0];
                                 obj.plus = dat[1] == 0 ? 0 : "+" + dat[1];
                                 obj.minus = dat[2] == 0 ? 0 : "-" + dat[2];
 
                                 //manager slider
                                 var obj1 = new Object();
-                                obj1.plus = dat[1] == 0 ? 0 : "+" + dat[1];
-                                obj1.minus = dat[2] == 0 ? 0 : "-" + dat[2];
+                                obj1.leadPlus12 = dat[1] == 0 ? 0 : "+" + dat[1];
+                                obj1.leadMinus12 = dat[2] == 0 ? 0 : "-" + dat[2];
                                 obj1.performanceTxt = "Performance of " + dat[0] + " team";
                                 obj1.noRatingTxt = dat[0] + " team not rated yet!!";
                                 self.addProject(obj1);
                                 if (dat[1] == 0 && dat[2] == 0)
                                 {
-                                    $("#showSliderManager" + c + "").hide();
-                                    $("#noRatingManager" + c).show();
-                                }
-                                else{
-                                    $("#showSliderManager" + c).show();
-                                    $("#noRatingManager" + c).hide();
+                                    $("#showSlider7" + c + "").hide();
+                                    $("#noRating7" + c).show();
+                                } else {
+                                    $("#showSlider7" + c).show();
+                                    $("#noRating7" + c).hide();
                                 }
                             }
-                            if(self.projects().length == 0){
+                            if (self.projects().length == 0) {
                                 var obj1 = new Object();
-                                obj1.plus = 0;
-                                obj1.minus = 0;
+                                obj1.leadPlus12 = 0;
+                                obj1.leadMinus12 = 0;
                                 obj1.performanceTxt = "";
                                 obj1.noRatingTxt = "You have not assigned any projects yet !!";
                                 self.addProject(obj1);
-                                $("#showSliderManager" + 0 + "").hide();
+                                $("#showSlider7" + 0 + "").hide();
                             }
                         }
                     });
                 } else {
-                    $("#filmStripDiv2").hide();
+                    $("#mangerSlider").hide();
                     if (self.roleName() == "Lead") {
                         var leadSlide = oj.Model.extend({
                             url: getTopRankersCalendarWise + self.id()
@@ -312,26 +310,26 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
 
                                 if (obj3.leadPlus12 == 0 && obj3.leadMinus12 == 0) {
                                     self.addLeadSlider(obj3);
-                                    $("#showSlider0").hide();
-                                    $("#noRating0").show();
+                                    $("#show80").hide();
+                                    $("#noRating80").show();
 
                                 } else {
                                     self.addLeadSlider(obj1);
                                     self.addLeadSlider(obj2);
                                     self.addLeadSlider(obj3);
                                     if (obj1.leadPlus12 == 0 && obj1.leadMinus12 == 0) {
-                                        $("#showSlider0").hide();
-                                        $("#noRating0").show();
+                                        $("#showSlider80").hide();
+                                        $("#noRating80").show();
                                     } else {
-                                        $("#noRating0").hide();
+                                        $("#noRating80").hide();
                                     }
                                     if (obj2.leadPlus12 == 0 && obj2.leadMinus12 == 0) {
-                                        $("#showSlider1").hide();
-                                        $("#noRating1").show();
+                                        $("#showSlider81").hide();
+                                        $("#noRating81").show();
                                     } else {
-                                        $("#noRating1").hide();
+                                        $("#noRating81").hide();
                                     }
-                                    $("#noRating2").hide();
+                                    $("#noRating82").hide();
 
                                 }
                             }
@@ -370,27 +368,26 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
 
                                         if (obj3.leadPlus12 == 0 && obj3.leadMinus12 == 0) {
                                             self.addLeadSlider(obj3);
-                                            $("#showSlider0").hide();
-                                            $("#noRating0").show();
+                                            $("#show80").hide();
+                                            $("#noRating80").show();
 
                                         } else {
                                             self.addLeadSlider(obj1);
                                             self.addLeadSlider(obj2);
                                             self.addLeadSlider(obj3);
                                             if (obj1.leadPlus12 == 0 && obj1.leadMinus12 == 0) {
-                                                $("#showSlider0").hide();
-                                                $("#noRating0").show();
+                                                $("#showSlider80").hide();
+                                                $("#noRating80").show();
                                             } else {
-                                                $("#noRating0").hide();
+                                                $("#noRating80").hide();
                                             }
                                             if (obj2.leadPlus12 == 0 && obj2.leadMinus12 == 0) {
-                                                $("#showSlider1").hide();
-                                                $("#noRating1").show();
+                                                $("#showSlider81").hide();
+                                                $("#noRating81").show();
                                             } else {
-                                                $("#noRating1").hide();
+                                                $("#noRating81").hide();
                                             }
-                                            $("#noRating2").hide();
-
+                                            $("#noRating82").hide();
                                         }
 
                                     }
@@ -519,7 +516,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                 }
                             }
                         }
-                        // rating slider change for user start here
+                        // rating my slider start here
                         var obj1 = new Object();
                         var obj2 = new Object();
                         var obj3 = new Object();
@@ -538,8 +535,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
 
                         if (obj3.leadPlus12 == 0 && obj3.leadMinus12 == 0) {
                             self.addMySlider(obj3);
-                            $("#showSlider10").hide();
-                            $("#noRating10").show();
+                            $("#showSlider90").hide();
+                            $("#noRating90").show();
 
                         } else {
                             self.addMySlider(obj1);
@@ -547,18 +544,18 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                             self.addMySlider(obj3);
 
                             if (obj1.leadPlus12 == 0 && obj1.leadMinus12 == 0) {
-                                $("#showSlider10").hide();
-                                $("#noRating10").show();
+                                $("#showSlider90").hide();
+                                $("#noRating90").show();
                             } else {
-                                $("#noRating10").hide();
+                                $("#noRating90").hide();
                             }
                             if (obj2.leadPlus12 == 0 && obj2.leadMinus12 == 0) {
-                                $("#showSlider11").hide();
-                                $("#noRating11").show();
+                                $("#showSlider91").hide();
+                                $("#noRating91").show();
                             } else {
-                                $("#noRating11").hide();
+                                $("#noRating91").hide();
                             }
-                            $("#noRating12").hide();
+                            $("#noRating92").hide();
                         }
 
                         // rating slider change for user end here
@@ -567,12 +564,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                         /// rating calculation end here
                     }
                 });
+                $(".oj-pagingcontrol-nav-dot").attr("title","");
             }
         });
-
+        var ManagerSlider = 0;
 
         setInterval(function () {
-
 
 
             if ($("#filmStrip").find("#ui-id-9").attr("style") == "visibility: hidden;") {
@@ -580,28 +577,27 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
             } else {
                 $("#filmStrip").find("#ui-id-9").click();
             }
-
+            
             /// slider my team
-            if ($('#filmStrip12').ojFilmStrip("option", "currentItem") == 0
-                    || $('#filmStrip12').ojFilmStrip("option", "currentItem") == 'show0') {
+            if ($('#filmStrip8').ojFilmStrip("option", "currentItem") == 0) {
                 try {
-                    $('#filmStrip12').ojFilmStrip("option", "currentItem", 1);
+                    $('#filmStrip8').ojFilmStrip("option", "currentItem", 1);
                 } catch (e)
                 {
                     //console.log(e);
                 }
 
-            } else if ($('#filmStrip12').ojFilmStrip("option", "currentItem") == 1
-                    || $('#filmStrip12').ojFilmStrip("option", "currentItem") == 'show1') {
+            } else if ($('#filmStrip8').ojFilmStrip("option", "currentItem") == 1
+                    || $('#filmStrip8').ojFilmStrip("option", "currentItem") == 'show1') {
                 try {
-                    $('#filmStrip12').ojFilmStrip("option", "currentItem", 2);
+                    $('#filmStrip8').ojFilmStrip("option", "currentItem", 2);
                 } catch (e)
                 {
                     //console.log(e);
                 }
-            } else if ($('#filmStrip12').ojFilmStrip("option", "currentItem") == 'show2') {
+            } else if ($('#filmStrip8').ojFilmStrip("option", "currentItem") == 2) {
                 try {
-                    $('#filmStrip12').ojFilmStrip("option", "currentItem", 0);
+                    $('#filmStrip8').ojFilmStrip("option", "currentItem", 0);
                 } catch (e)
                 {
                     //console.log(e);
@@ -609,64 +605,57 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
             }
 
             /// my slider
-            if ($('#filmStrip10').ojFilmStrip("option", "currentItem") == 0
-                    || $('#filmStrip10').ojFilmStrip("option", "currentItem") == 'show10') {
+            if ($('#filmStrip9').ojFilmStrip("option", "currentItem") == 0
+                    || $('#filmStrip9').ojFilmStrip("option", "currentItem") == 'show10') {
                 try {
-                    $('#filmStrip10').ojFilmStrip("option", "currentItem", 1);
+                    $('#filmStrip9').ojFilmStrip("option", "currentItem", 1);
 
                 } catch (e)
                 {
-                    console.log(e);
+                    //console.log(e);
                 }
-            } else if ($('#filmStrip10').ojFilmStrip("option", "currentItem") == 1
-                    || $('#filmStrip10').ojFilmStrip("option", "currentItem") == 'show11') {
+            } else if ($('#filmStrip9').ojFilmStrip("option", "currentItem") == 1
+                    || $('#filmStrip9').ojFilmStrip("option", "currentItem") == 'show11') {
                 try {
-                    $('#filmStrip10').ojFilmStrip("option", "currentItem", 2);
+                    $('#filmStrip9').ojFilmStrip("option", "currentItem", 2);
                 } catch (e)
                 {
-                    console.log(e);
+                    //console.log(e);
                 }
-            } else if ($('#filmStrip10').ojFilmStrip("option", "currentItem") == 2
-                    || $('#filmStrip10').ojFilmStrip("option", "currentItem") == 'show12') {
+            } else if ($('#filmStrip9').ojFilmStrip("option", "currentItem") == 2
+                    || $('#filmStrip9').ojFilmStrip("option", "currentItem") == 'show12') {
 
                 try {
-                    $('#filmStrip10').ojFilmStrip("option", "currentItem", 0);
+                    $('#filmStrip9').ojFilmStrip("option", "currentItem", 0);
                 } catch (e)
                 {
-                    console.log(e);
+                    //console.log(e);
                 }
             }
             /// manager slider
-//            if ($('#filmStrip10').ojFilmStrip("option", "currentItem") == 0
-//                    || $('#filmStrip10').ojFilmStrip("option", "currentItem") == 'show10') {
-//                try {
-//                    $('#filmStrip10').ojFilmStrip("option", "currentItem", 1);
-//                    
-//                } catch (e)
-//                {
-//                    
-//                }
-//            } else if ($('#filmStrip10').ojFilmStrip("option", "currentItem") == 1
-//                    || $('#filmStrip10').ojFilmStrip("option", "currentItem") == 'show11') {
-//                try {
-//                    $('#filmStrip10').ojFilmStrip("option", "currentItem", 2);
-//                } catch (e)
-//                {
-//                    
-//                }
-//            } else if ($('#filmStrip10').ojFilmStrip("option", "currentItem") == 2
-//                    || $('#filmStrip10').ojFilmStrip("option", "currentItem") == 'show12') {
-//
-//                try {
-//                    $('#filmStrip10').ojFilmStrip("option", "currentItem", 0);
-//                } catch (e)
-//                {
-//                    
-//                }
-//            }
+            
+            
+            if($('#filmStrip7').ojFilmStrip("option", "currentItem") == (ManagerSlider)
+                    || $('#filmStrip7').ojFilmStrip("option", "currentItem") == ("show7"+ManagerSlider)){
+                try {
+                    if(ManagerSlider==(self.projects().length-1)) ManagerSlider=0;
+                    else ManagerSlider++;
+                    $('#filmStrip7').ojFilmStrip("option", "currentItem", ManagerSlider);
+                    
+                } catch (e)
+                {
+                    ManagerSlider = 0;
+                }
+            }
 
-        }, 6000)
-
+        }, 6000);
+        self.redirectPlus = function(){
+            window.location = "profile.html";
+        }
+        self.redirectMinus = function(){
+            window.location = "profile.html?id=1";
+        }
+        
         setTimeout(function () {
             $("#filmStrip").on({
                 'ojoptionchange': function (event, data) {

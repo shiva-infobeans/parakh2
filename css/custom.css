@@ -902,6 +902,36 @@ div.oj-tabs-panel.oj-tabs-selected{
     margin: 24px auto;
     width: 200px;
 }
+.greenBtnImg{
+    background-image: url('images/green-button.png');
+    background-repeat: no-repeat;
+    background-attachment: initial;
+    background-size: 200px 200px;
+    background-position: 50% 85%;
+    cursor: pointer;
+    display: inline-block;
+    height: 200px;
+    width: 200px;
+    padding-top: 43px;
+    border-radius: 54% 40%;
+    -moz-border-radius: 54% 40%;
+    -webkit-border-radius: 54% 40%;
+}
+.redBtnImg{
+    background-image: url('images/red-button.png');
+    background-repeat: no-repeat;
+    background-attachment: initial;
+    background-size: 200px 200px;
+    background-position: 50% 85%;
+    cursor: pointer;
+    display: inline-block;
+    height: 200px;
+    width: 200px;
+    padding-top: 43px;
+    border-radius: 54% 40%;
+    -moz-border-radius: 54% 40%;
+    -webkit-border-radius: 54% 40%;
+}
 .imgBorder-Slider{
     border-right: 3px solid rgba(136,212,75,0.5);
     cursor: auto;
@@ -943,11 +973,8 @@ div.oj-tabs-panel.oj-tabs-selected{
     color: #fff !important;
 }
 
-.imgSlider img {
-    cursor: pointer !important;
-    height: 100%;
-    margin: 24px auto;
-    max-width: 100%;
+.imgSlider-pointer {
+    border-radius: 50%;
 }
 @media (min-width:320px) and (max-width:500px){
     .imgSlider {
@@ -965,11 +992,33 @@ div.oj-tabs-panel.oj-tabs-selected{
         font-size: 40px;
     }
     
+    .greenBtnImg{
+
+        background-size: 100px 100px;
+        background-position: 50% 85%;
+        height: 136px;
+        width: 120px;
+    }
+    .redBtnImg{
+      
+        background-size: 100px 100px;
+        background-position: 50% 85%;
+        height: 136px;
+        width: 120px;
+    }
+
+
+
 }
 #mangerSlider .oj-pagingcontrol-nav-dot-bullet.oj-selected,
 #mySlider .oj-pagingcontrol-nav-dot-bullet.oj-selected,
 #mangerSlider1 .oj-pagingcontrol-nav-dot-bullet.oj-selected{
     background-color: #fff;
+}
+#mangerSlider .oj-pagingcontrol-nav-dot-bullet.oj-hover,
+#mySlider .oj-pagingcontrol-nav-dot-bullet.oj-hover,
+#mangerSlider1 .oj-pagingcontrol-nav-dot-bullet.oj-hover{
+    background-color: #689F39;
 }
 .filmstrip-item12 {
     box-sizing: border-box;
@@ -1051,5 +1100,5 @@ div.oj-tabs-panel.oj-tabs-selected{
 
 /*paging color slider home page*/
 #pagingControl3{
-    
+
 }

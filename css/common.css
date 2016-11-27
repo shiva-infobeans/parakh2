@@ -41,6 +41,9 @@
     height:90px;
 
 }
+.menus{display: none;}
+.mobile-menu{list-style-type: none;}
+.mobile-menu li{display: inline;}
 @media (max-width: 480px) {
     .nav li{
         font-size: 16px !important ;
@@ -49,7 +52,8 @@
     .logo{
         height:60px;
     }
-
+    .menus{display: block;}
+    .nav1 li{float: none;}
 }
 .oj-panel {
     padding-bottom:0px;
@@ -591,6 +595,15 @@
     font-weight: bolder;
     font-size: 24px;
 }
+.mText{
+    position: absolute;
+    top: 15px;
+    left: 26px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 25px;
+}
+
 .errorText{
     color:red;
     margin-left: -2px;
@@ -1474,13 +1487,16 @@
 #negetiveTab , #feedbackTab{
     display:none;
 }
-.oj-filmstrip-arrow.oj-default .oj-filmstrip-arrow-icon{
+#filmStrip .oj-filmstrip-arrow.oj-default .oj-filmstrip-arrow-icon{
     color: #fff;
     font-size: 40px;
 }
-.oj-filmstrip-arrow.oj-hover {
+#filmStrip .oj-filmstrip-arrow.oj-hover {
     background-color: transparent !important;
     border-color:transparent !important;
+}
+#filmStrip #ui-id-9.oj-hover span,#filmStrip #ui-id-8.oj-hover span{
+    color: #689F39;
 }
 .View-Other-about-members{
     padding: 17px;
@@ -1568,3 +1584,4 @@
 #longText{
     margin-top: -20px;
 }
+.my-performance-slide{height: 211px;}
