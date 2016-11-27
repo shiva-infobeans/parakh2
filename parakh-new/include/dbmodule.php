@@ -1021,7 +1021,7 @@ class dbmodule {
                     . "request.for_id = user.id ) WHERE request.to_id = " . $user_id . " "
                     . "ORDER BY work.id DESC";
             $user_list = $this->con->prepare($query);
-			var_dump($user_list);
+			//echo($user_list->queryString);
             $user_list->execute();
             $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
             return $row;

@@ -125,15 +125,23 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     }
                 });
                 // for lead or manager
+				
                 if (self.role() != "Team Member") {
                     var requestUrl1 = oj.Model.extend({
                         url: getTeamMembersRequest + self.userId() // get all pending requests for the lead to approve or reject.
                     });
-                    var requestFetch1 = new requestUrl1();
-                    requestFetch1.fetch({
+					var requestFetch1 = new requestUrl1();
+					requestFetch1.fetch({
                         headers: {secret: secret},
+						error:function(ee)
+						{
+							//console.log(ee);
+						},
                         success: function (res) {
+							
                             var data1 = res['attributes']['data'];
+							//console.log('getTeamMembersRequest');
+							//console.log(data1);
                             for (var i = 0; i < data1.length; i++) {
                                 if (data1[i]['status'] == 0) {
                                     self.requestPendingLead.push(new request(data1[i], self.userId()));
