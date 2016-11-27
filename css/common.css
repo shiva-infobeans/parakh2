@@ -584,6 +584,15 @@
     font-weight: bolder;
     font-size: 24px;
 }
+.mText{
+    position: absolute;
+    top: 15px;
+    left: 26px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 25px;
+}
+
 .errorText{
     color:red;
     margin-left: -2px;
