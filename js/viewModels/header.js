@@ -205,12 +205,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
                 if (screen.width !== width || screen.height !== height) {
                     width = screen.width;
                     height = screen.height;
-                    if(width==768){
-                        $('#forActive-mobile #forActiveul').css('display','none');
-                    }else
-                    {
-                        $('#forActive-mobile #forActiveul').css('display','none');
-                    }
+                    $('#forActive-mobile #forActiveul').css('display','none');
                     $(window).trigger('resolutionchange');
                 }
             }, 50);
