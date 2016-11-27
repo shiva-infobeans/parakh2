@@ -41,6 +41,9 @@
     height:90px;
 
 }
+.menus{display: none;}
+.mobile-menu{list-style-type: none;}
+.mobile-menu li{display: inline;}
 @media (max-width: 480px) {
     .nav li{
         font-size: 16px !important ;
@@ -49,7 +52,8 @@
     .logo{
         height:60px;
     }
-
+    .menus{display: block;}
+    .nav1 li{float: none;}
 }
 .oj-panel {
     padding-bottom:0px;
