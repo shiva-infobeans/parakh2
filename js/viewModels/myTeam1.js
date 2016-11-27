@@ -521,6 +521,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                           $('#homeTab2 > img').remove();
                           $('#homeTab1').append(' <img src="../../images/user.png" alt="" />');
                           $('#homeTab2').append(' <img src="../../images/team-active.png" alt="" />');
+						  self.members([]);
+                    self.members(self.data2());
                       }
                      });
                          
@@ -530,6 +532,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                           $('#homeTab2 > img').remove();
                           $('#homeTab1').append(' <img src="../../images/user.png" alt="" />');
                           $('#homeTab2').append(' <img src="../../images/team-active.png" alt="" />');
+						  self.members([]);
+                    self.members(self.data2());
                       }
                      });
                      
@@ -539,6 +543,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                           $('#homeTab2 > img').remove();
                           $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
                           $('#homeTab2').append(' <img src="../../images/team.png" alt="" />');
+						  self.members([]);
+                    self.members(self.data2());
                       }
                      });
                          
@@ -548,6 +554,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                           $('#homeTab2 > img').remove();
                           $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
                           $('#homeTab2').append(' <img src="../../images/team.png" alt="" />');
+						  self.members([]);
+                    self.members(self.data2());
                       }
                      });
             
