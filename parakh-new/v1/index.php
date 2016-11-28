@@ -946,6 +946,27 @@ $app->post('/getAllDesignations[/]', function ($request, $response, $args) {
     $response->withJson($response_data);
     return $response;
 });
+
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getAllRejectedRequestsByLoginId/
+ * Parameters: 
+ * 
+ * Method: POST
+ * */    
+$app->post('/getAllRejectedRequestsByLoginId[/{leadId}]', function ($request, $response, $args) {
+    $response_data = array();
+    
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    $result = $db->get_all_rejected_request_by_login_id($args['lead_id']);
+    if($result != 0){
+        $response_data = makeResponse('false',$result);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3001));
+    }    
+    $response->withJson($response_data);
+    return $response;
+});
 /**
  * Step 4: Run the Slim application
  *
