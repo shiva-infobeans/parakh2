@@ -40,32 +40,10 @@ and open the template in the editor.
                 <hr/>
                 <div id="index" class="oj-margin-top oj-margin-bottom indexer center bold-class hide" data-bind="click:arrangeIndex">
                     <span><a href="ALL" onclick="return false;">All</a></span>
-                    <span ><a href="A" onclick="return false;">A</a></span>
-                    <span ><a href="B" onclick="return false;">B</a></span>
-                    <span ><a href="C" onclick="return false;">C</a></span>
-                    <span ><a href="D" onclick="return false;">D</a></span>
-                    <span ><a href="E" onclick="return false;">E</a></span>
-                    <span ><a href="F" onclick="return false;">F</a></span>
-                    <span ><a href="G" onclick="return false;">G</a></span>
-                    <span ><a href="H" onclick="return false;">H</a></span>
-                    <span ><a href="I" onclick="return false;">I</a></span>
-                    <span ><a href="J" onclick="return false;">J</a></span>
-                    <span ><a href="K" onclick="return false;">K</a></span>
-                    <span ><a href="L" onclick="return false;">L</a></span>
-                    <span ><a href="M" onclick="return false;">M</a></span>
-                    <span ><a href="N" onclick="return false;">N</a></span>
-                    <span ><a href="O" onclick="return false;">O</a></span>
-                    <span ><a href="P" onclick="return false;">P</a></span>
-                    <span ><a href="Q" onclick="return false;">Q</a></span>
-                    <span ><a href="R" onclick="return false;">R</a></span>
-                    <span ><a href="S" onclick="return false;">S</a></span>
-                    <span ><a href="T" onclick="return false;">T</a></span>
-                    <span ><a href="U" onclick="return false;">U</a></span>
-                    <span ><a href="V" onclick="return false;">V</a></span>
-                    <span ><a href="W" onclick="return false;">W</a></span>
-                    <span ><a href="X" onclick="return false;">X</a></span>
-                    <span ><a href="Y" onclick="return false;">Y</a></span>
-                    <span ><a href="Z" onclick="return false;">Z</a></span>
+                    <!--ko foreach: indexer2Letters-->
+                    
+                    <span ><a data-bind="attr: {href: $data},text:$data" onclick="return false;"></a></span>
+                    <!--/ko-->
                 </div>
                 <hr />
                 <div data-bind="foreach: members" class="">
@@ -99,32 +77,10 @@ and open the template in the editor.
                 <hr/>
                 <div id="index1" class="oj-margin-top oj-margin-bottom indexer center bold-class" data-bind="click: arrangeIndex1">
                     <span><a href="ALL" onclick="return false;">All</a></span>
-                    <span class="hide"><a href="A" onclick="return false;">A</a></span>
-                    <span class="hide"><a href="B" onclick="return false;">B</a></span>
-                    <span class="hide"><a href="C" onclick="return false;">C</a></span>
-                    <span class="hide"><a href="D" onclick="return false;">D</a></span>
-                    <span class="hide"><a href="E" onclick="return false;">E</a></span>
-                    <span class="hide"><a href="F" onclick="return false;">F</a></span>
-                    <span class="hide"><a href="G" onclick="return false;">G</a></span>
-                    <span class="hide"><a href="H" onclick="return false;">H</a></span>
-                    <span class="hide"><a href="I" onclick="return false;">I</a></span>
-                    <span class="hide"><a href="J" onclick="return false;">J</a></span>
-                    <span class="hide"><a href="K" onclick="return false;">K</a></span>
-                    <span class="hide"><a href="L" onclick="return false;">L</a></span>
-                    <span class="hide"><a href="M" onclick="return false;">M</a></span>
-                    <span class="hide"><a href="N" onclick="return false;">N</a></span>
-                    <span class="hide"><a href="O" onclick="return false;">O</a></span>
-                    <span class="hide"><a href="P" onclick="return false;">P</a></span>
-                    <span class="hide"><a href="Q" onclick="return false;">Q</a></span>
-                    <span class="hide"><a href="R" onclick="return false;">R</a></span>
-                    <span class="hide"><a href="S" onclick="return false;">S</a></span>
-                    <span class="hide"><a href="T" onclick="return false;">T</a></span>
-                    <span class="hide"><a href="U" onclick="return false;">U</a></span>
-                    <span class="hide"><a href="V" onclick="return false;">V</a></span>
-                    <span class="hide"><a href="W" onclick="return false;">W</a></span>
-                    <span class="hide"><a href="X" onclick="return false;">X</a></span>
-                    <span class="hide"><a href="Y" onclick="return false;">Y</a></span>
-                    <span class="hide"><a href="Z" onclick="return false;">Z</a></span>
+                    <!--ko foreach: indexer1Letters-->
+                    
+                    <span ><a data-bind="attr: {href: $data},text:$data" onclick="return false;"></a></span>
+                    <!--/ko-->
                 </div>
                 <hr/>
                 <!--                <div class="color-white noComments"></div>-->
