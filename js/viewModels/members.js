@@ -112,6 +112,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
         this.pic = ko.observable();
         this.myname = ko.observable();
         this.email = ko.observable();
+        this.mailTo = ko.observable();
         this.UserId = ko.observable();
         this.shortName = ko.observable();
         this.minusSign = ko.observable('-');
@@ -185,6 +186,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                                 self.myname(data[index]['google_name']);
                                 self.shortName(data[index]['google_name'].substring(0, data[index]['google_name'].indexOf(" ")));
                                 self.email(data[index]['google_email']);
+                                self.mailTo("mailto:"+data[index]['google_email']);
                                 self.location(data[index]["location"]);
                                 self.skills(data[index]["skills"]);
                                 self.primary_project(data[index]["primary_project"]);
