@@ -148,8 +148,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
             }
         });
         setTimeout(function () {
-
-            $("#forActive ul li a").each(function () {
+            $("#forActive-desktop ul li a").each(function () {
                 if ($(this).attr("href") == pgurl || $(this).attr("href") == '') {
                     $(this).parent().addClass("active");
                 }
@@ -198,7 +197,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
         });
 
         $(document).ready(function(){
-
             var width = screen.width,
                 height = screen.height;
             setInterval(function () {
@@ -219,7 +217,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
             });
         });
     }
-
     
     return headerContentViewModel;
 });

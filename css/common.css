@@ -47,7 +47,7 @@
 @media (max-width:1280px) {
     #forActive-mobile #forActiveul{display: none;}
 }
-@media (max-width: 768px) {
+@media (max-width: 767px) {
 #forActive-desktop #forActiveul{display: none;}
 #forActive-mobile #forActiveul{display: none;}
 .nav1 li:last-child{float: none; border-bottom:none;}
@@ -1628,3 +1628,32 @@ margin:5px 10px;
     margin-top: -20px;
 }
 .my-performance-slide{height: 211px;}
+@media(max-width:767px){
+    #forActive-desktop{
+        display:none;
+    }
+    #forActive-mobile{
+        display:block;
+    }   
+    #forActive-mobile > ul#forActiveul{
+        list-style:none;
+        padding-left:0px;
+        margin:0px;
+    }
+    #forActive-mobile > ul#forActiveul li{
+        border-top:1px solid #fff;
+        margin-left: 0px;
+        margin-right: 0px;
+        margin-top:0px;     
+    }
+    #forActive-mobile > ul#forActiveul li a{
+        display:block;
+        clear:both;
+        padding:10px;
+    }
+    #forActive-mobile > ul#forActiveul li a:hover{
+        display:block;
+        clear:both;
+        padding:10px;
+    }
+}
