@@ -730,6 +730,9 @@ div.oj-tabs-panel.oj-tabs-selected{
     color:#fff;
     height: 110px;
 }
+.textArea-white{
+    border:2px solid #fff;
+}
 .requestAlignment{
     margin:0px auto;
 }
