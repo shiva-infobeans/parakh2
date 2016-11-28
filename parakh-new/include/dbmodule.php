@@ -69,42 +69,15 @@ class dbmodule {
     function getUserByLead($lead_id) {
         if (!filter_var($lead_id, FILTER_VALIDATE_INT) === false) {
             $employeeList = array();
-            $query = 'SELECT uh.user_id,u.google_name,u.google_email,u.mobile_number,u.designation,u.google_picture_link as picture,u.google_email FROM user_hierarchy uh left join users u on u.id = uh.user_id ' .
-                    'WHERE manager_id = :id  AND u.status <> 0 group by user_id';
+            $query = 'SELECT uh.user_id,u.google_name,u.google_email,u.mobile_number,u.designation,u.google_picture_link as picture,u.google_email,
+                    sum(case when r.rating = 1 then 1 end) as pluscount,
+                    sum(case when r.rating = 0 then 1 end) as minuscount
+                    FROM user_hierarchy uh left join users u on u.id = uh.user_id left join rating r on (u.id=r.user_id)
+                    WHERE manager_id = :id AND u.status <> 0 group by r.user_id order by u.google_name';
             $user_data = $this->con->prepare($query);
             $user_data->execute(array(':id' => $lead_id));
             $employeeList = $user_data->fetchAll((PDO::FETCH_ASSOC));
             
-            $query_rank = "SELECT u.id,u.google_name,
-                    sum(case when r.rating = 1 then 1  end) as pluscount,
-                    sum(case when r.rating = 0 then 1  end) as minuscount
-                    from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 
-                    group by r.user_id ORDER BY u.google_name";
-                $user_rank = $this->con->prepare($query_rank);
-                $user_rank->execute();
-                $userRank = $user_rank->fetchAll((PDO::FETCH_ASSOC));
-            foreach ($userRank as $key => $value) {
-               $rank_array[$value['id']]['pluscount'] = $value['pluscount'];
-               $rank_array[$value['id']]['minuscount'] = $value['minuscount'];
-            }
-            for($y=0;$y<count($employeeList);$y++)
-            {
-                if(isset($rank_array[$employeeList[$y]['id']]['pluscount']) && !empty($rank_array[$employeeList[$y]['id']]['pluscount']))
-                {
-                    $employeeList[$y]['pluscount'] = "+".$rank_array[$employeeList[$y]['id']]['pluscount'];
-                }else
-                {
-                    $employeeList[$y]['pluscount'] = 0;
-                }
-                if(isset($rank_array[$employeeList[$y]['id']]['minuscount']) && !empty($rank_array[$employeeList[$y]['id']]['minuscount']))
-                {
-                    $employeeList[$y]['minuscount'] = "-".$rank_array[$employeeList[$y]['id']]['minuscount'];
-                }else
-                {
-                    $employeeList[$y]['minuscount'] = 0;
-                }
-                
-            }
             return $employeeList;
         } else {
             return 0;
