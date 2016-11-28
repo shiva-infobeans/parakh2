@@ -43,6 +43,7 @@
 }
 .menus{display: none;color: #fff;font-size: 35px;}
 .mobile-menu{list-style-type: none;}
+#forActive-mobile #forActiveul{display: none;}
 @media (max-width:1280px) {
     #forActive-mobile #forActiveul{display: none;}
 }
