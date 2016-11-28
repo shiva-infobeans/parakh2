@@ -29,7 +29,7 @@
     margin-top:38px;
     color:#333;
 }
-
+/*.nav1 li{float: none; border-bottom:1px solid #fff;}*/
 .header-padding{
     padding:0px;
 }
@@ -41,10 +41,32 @@
     height:90px;
 
 }
-.menus{display: none;}
+.menus{display: none;color: #fff;font-size: 35px;}
 .mobile-menu{list-style-type: none;}
-.mobile-menu li{display: inline;}
-@media (max-width: 480px) {
+#forActive-mobile #forActiveul{display: none;}
+@media (max-width:1280px) {
+    #forActive-mobile #forActiveul{display: none;}
+}
+@media (max-width: 767px) {
+#forActive-desktop #forActiveul{display: none;}
+#forActive-mobile #forActiveul{display: none;}
+.nav1 li:last-child{float: none; border-bottom:none;}
+/*.nav1 li{
+float: none;
+display:block;
+clear:both;
+font-size: 16px;
+list-style: outside none none;
+margin-left: 0px;
+margin-right: 0px;
+margin-top:0px;
+padding:10px 5px;
+color:#333;
+}*/
+#forActiveul1 i{
+margin:5px 10px;
+}
+.mobile-menu li{display: inline;float: left;}
     .nav li{
         font-size: 16px !important ;
         margin: 0px 10px !important;
@@ -54,6 +76,27 @@
     }
     .menus{display: block;}
     .nav1 li{float: none;}
+    .logo {
+        height: 56px;
+        margin-top: -8px;
+        padding-left: 10px;
+    }
+    ul.mobile-menu {
+  
+       list-style: outside none none;
+       margin-left: 10px;
+       padding: 0;
+       width: 160px;
+    }
+    ul#forActiveul1 {
+       list-style: outside none none;
+       margin: 0;
+       padding: 0;
+    }
+    .navigationlist {
+       float: right;
+       width: 100%;
+    }
 }
 .oj-panel {
     padding-bottom:0px;
@@ -1585,3 +1628,32 @@
     margin-top: -20px;
 }
 .my-performance-slide{height: 211px;}
+@media(max-width:767px){
+    #forActive-desktop{
+        display:none;
+    }
+    #forActive-mobile{
+        display:block;
+    }   
+    #forActive-mobile > ul#forActiveul{
+        list-style:none;
+        padding-left:0px;
+        margin:0px;
+    }
+    #forActive-mobile > ul#forActiveul li{
+        border-top:1px solid #fff;
+        margin-left: 0px;
+        margin-right: 0px;
+        margin-top:0px;     
+    }
+    #forActive-mobile > ul#forActiveul li a{
+        display:block;
+        clear:both;
+        padding:10px;
+    }
+    #forActive-mobile > ul#forActiveul li a:hover{
+        display:block;
+        clear:both;
+        padding:10px;
+    }
+}
