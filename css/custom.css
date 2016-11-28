@@ -685,9 +685,18 @@ div.oj-tabs-panel.oj-tabs-selected{
     text-align: center !important;
     width: 100% !important;
 }
+#tabs-container-request ul li.oj-tabs-tab{
+    border-top: none;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 2px;   
+}
 #tabs-container-request ul li.oj-selected{
     border-top: none;
     border-bottom: 5px solid #6BA034;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 2px;
 }
 #tabs-container-request .oj-tabs-title{
     text-decoration: none;
@@ -850,7 +859,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     left: 0px;
     height: 100%;
     width: 100%;
-   background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0,0,0,0.3);
 }
 .loaderDiv{
     position: fixed;
@@ -861,14 +870,14 @@ div.oj-tabs-panel.oj-tabs-selected{
     display: table;
     z-index: 20090;
     background-color: rgba(0,0,0,0.3);
-  
+
 }
 .loaderImgDiv{
     display: table-cell;
     text-align: center;
     width: 100%;
     vertical-align: middle;
-   
+
 }
 .loaderHide{
     display: none !important;
@@ -992,7 +1001,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     .noRatingTxt{
         font-size: 40px;
     }
-    
+
     .greenBtnImg{
 
         background-size: 100px 100px;
@@ -1001,7 +1010,7 @@ div.oj-tabs-panel.oj-tabs-selected{
         width: 120px;
     }
     .redBtnImg{
-      
+
         background-size: 100px 100px;
         background-position: 50% 85%;
         height: 136px;
@@ -1102,4 +1111,9 @@ div.oj-tabs-panel.oj-tabs-selected{
 /*paging color slider home page*/
 #pagingControl3{
 
+}
+/*rate request page*/
+#a12{
+    height: 500px;
+    overflow-y: scroll;
 }

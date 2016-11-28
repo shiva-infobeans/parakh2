@@ -1270,10 +1270,10 @@ margin:5px 10px;
     color:#fff;
 }
 #tabs-container1 .oj-tabs-tab.oj-selected {
-    border-color: green;
+    border-color: #6BA034;
 }
 #tabs-container3 .oj-tabs-tab.oj-selected {
-    border-color: green;
+    border-color: #6BA034;
 }
 .rate1Inactive{
     display:none;
