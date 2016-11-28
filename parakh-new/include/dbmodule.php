@@ -582,9 +582,9 @@ class dbmodule {
     function get_recent_ratings() {
 
         $MonthFirstDate = date('Y-m-01');
-        $query = "SELECT r.user_id,u.google_name,u.google_picture_link,u.projects,u.primary_project,u.designation,if(c.comment_text <> '',c.comment_text,w.description) AS description"
-                . " FROM rating as r LEFT JOIN work AS w ON (w.id =r.work_id)"
-                . " LEFT JOIN comment AS c on (c.request_id = r.request_id) JOIN users AS u ON (u.id = r.user_id) WHERE description <> '' AND r.rating <> 0 ORDER BY r.created_date DESC LIMIT 4";
+        $query = "SELECT r.user_id,u.google_name,u.google_picture_link,u.projects,u.primary_project,u.designation"
+                . " FROM rating as r "
+                . " JOIN users AS u ON (u.id = r.user_id) WHERE r.rating <> 0 ORDER BY r.created_date DESC LIMIT 4";
         $rank_data = $this->con->prepare($query);
         $rank_data->execute();
         $row = $rank_data->fetchAll((PDO::FETCH_ASSOC));
@@ -1021,6 +1021,7 @@ class dbmodule {
                     . "request.for_id = user.id ) WHERE request.to_id = " . $user_id . " "
                     . "ORDER BY work.id DESC";
             $user_list = $this->con->prepare($query);
+			//echo($user_list->queryString);
             $user_list->execute();
             $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
             return $row;
@@ -1039,7 +1040,7 @@ class dbmodule {
             $cnd = '';
             if ($status != '')
                 $cnd = " AND request.status = " . $status;
-            $query = "select user.google_name,user.id as lead_id, "
+            $query = "select request.id as request_id, user.google_name,user.id as lead_id, "
                     . "user.google_picture_link, user.designation,role.name as role_name, "
                     . "request.to_id,request.from_id,description,"
                     . "work.created_date,request_for,rating, request.status "
@@ -1048,8 +1049,9 @@ class dbmodule {
                     . "rating as rating on work.id=rating.work_id left join  "
                     . "users as user on request.to_id=user.id left join "
                     . "role_type as role on role.id = user.role_id "
-                    . "where work.created_by = " . $user_id . $cnd . " order by work.modified_date desc";
+                    . "where request.from_id = " . $user_id . $cnd . " order by work.modified_date desc";
             $user_list = $this->con->prepare($query);
+			//echo($user_list->queryString);
             $user_list->execute();
             $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
             return $row;
@@ -1389,8 +1391,7 @@ class dbmodule {
                    sum(case when r.rating = 1 then 1  end) as pluscount,
                    sum(case when r.rating = 0 then 1  end) as minuscount
                    from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 
-                   and u.id in (SELECT user_id from user_hierarchy where manager_id = :manager_id) AND MONTH(r.created_date) = MONTH(CURDATE())
-                   AND YEAR(r.created_date) = YEAR(CURDATE()) AND u.primary_project!='' group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC";
+                   and u.id in (SELECT user_id from user_hierarchy where manager_id = :manager_id) AND u.primary_project!='' group by u.primary_project ORDER BY pluscount DESC, minuscount ASC,date ASC";
                $user_rank = $this->con->prepare($query_rank);
                $user_rank->execute(array(':manager_id' => $manager_id));
                $userRank = $user_rank->fetchAll((PDO::FETCH_ASSOC));

@@ -283,6 +283,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     background: none;
     border:none;
     padding: 0px;
+    margin-top: -4px;  
 }
 .profile-tab1-data{
     display: flex;
@@ -322,6 +323,9 @@ div.oj-tabs-panel.oj-tabs-selected{
     right:0;
     bottom:0;
     /*overflow-y: auto;*/
+}
+.profile-page-overflow .View-Other-about:last-child{
+    border-bottom: 0px;
 }
 .myname-profile{
     font-weight: 600;
@@ -385,7 +389,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     height: 100%;
     background-color: #e00000;
     position: absolute;
-    top:25px;
+    top:32px;
     left:62;
     z-index: -1;
 }
@@ -417,18 +421,18 @@ div.oj-tabs-panel.oj-tabs-selected{
 .replyName{
     margin-top:5px;
     margin-bottom: 5px;
-    color: #689F39;
+    color: #fee123;
     font-weight: bold;
 }
 
 .open-more > div > .replyComent:nth-child(odd) {
     margin-left: 2px;
-    border-left: 2px solid #00ff00;
+    border-left: 2px solid #fee123;
     padding:5px;
 }
 .open-more > div > .replyComent:nth-child(even) {
     margin-left: 2px;
-    border-left: 2px solid #00ff00;
+    border-left: 2px solid #fee123;
     padding:5px;
 }
 .more-feedback a span{
@@ -770,11 +774,11 @@ div.oj-tabs-panel.oj-tabs-selected{
     color:#689F39 !important;
 }
 .Moreless-fix{
-    font-size: 45px !important;
-    left: 233px;
-    position: absolute;
-    top: -16px;
+    bottom: -8px;
     cursor: pointer;
+    font-size: 45px !important;
+    left: 224px;
+    position: absolute;
 }
 .divTextRateMe .oj-textarea{
     max-width: 100% !important;
@@ -810,9 +814,9 @@ div.oj-tabs-panel.oj-tabs-selected{
                 text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5), -1px -1px 1px rgba(0, 0, 0, 0.5);}
 
 .feedbackMoreFix{
-    font-size: 35px !important;
+    font-size: 42px !important;
     position: absolute;
-    top: -8px;
+    bottom: -10px;
     left: -20px;
 }
 
@@ -846,9 +850,28 @@ div.oj-tabs-panel.oj-tabs-selected{
     left: 0px;
     height: 100%;
     width: 100%;
-    background-color: #000;
-    opacity: 0.5;
-    z-index: 1052;
+   background-color: rgba(0,0,0,0.3);
+}
+.loaderDiv{
+    position: fixed;
+    top:0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    display: table;
+    z-index: 20090;
+    background-color: rgba(0,0,0,0.3);
+  
+}
+.loaderImgDiv{
+    display: table-cell;
+    text-align: center;
+    width: 100%;
+    vertical-align: middle;
+   
+}
+.loaderHide{
+    display: none !important;
 }
 /*manager slider home page*/
 .filmstrip-item-manager {
@@ -858,6 +881,174 @@ div.oj-tabs-panel.oj-tabs-selected{
     text-align: left;
     color: #333;
 }
+
+
+/*member slider change*/
+.filmstrip-slider1 {
+    box-sizing: border-box;
+    width: 100%;
+    height: 300px;
+    text-align: left;
+    color: #333;
+}
+/*.imgSlider{
+    width: 50%;
+    height: 50%;
+    margin: 10px auto;
+    cursor: auto;
+}*/
+.imgSlider {
+    cursor: auto;
+    height: 200px;
+    margin: 24px auto;
+    width: 200px;
+}
+.greenBtnImg{
+    background-image: url('images/green-button.png');
+    background-repeat: no-repeat;
+    background-attachment: initial;
+    background-size: 200px 200px;
+    background-position: 50% 85%;
+    cursor: pointer;
+    display: inline-block;
+    height: 200px;
+    width: 200px;
+    padding-top: 43px;
+    border-radius: 54% 40%;
+    -moz-border-radius: 54% 40%;
+    -webkit-border-radius: 54% 40%;
+}
+.redBtnImg{
+    background-image: url('images/red-button.png');
+    background-repeat: no-repeat;
+    background-attachment: initial;
+    background-size: 200px 200px;
+    background-position: 50% 85%;
+    cursor: pointer;
+    display: inline-block;
+    height: 200px;
+    width: 200px;
+    padding-top: 43px;
+    border-radius: 54% 40%;
+    -moz-border-radius: 54% 40%;
+    -webkit-border-radius: 54% 40%;
+}
+.imgBorder-Slider{
+    border-right: 3px solid rgba(136,212,75,0.5);
+    cursor: auto;
+}
+.alignSliderTxt{
+    display: table-cell;
+    width: 100%;
+    vertical-align: middle;
+    text-align: center;
+}
+.btn-txt{
+    color: #fff;
+    font-size: 50px;
+    font-weight: normal;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    display: table;
+}
+.sliderTxt1{
+    width: 100%;
+    color: #fff !important;
+    font-family: nameHeading;
+    text-align: center;
+}
+.txtAlign{
+    font-size: 50px !important;
+    margin: 25px auto;
+}
+.noRatingImg{
+    width: 100%;
+    text-align: center;
+}
+.noRatingTxt{
+    font-size: 50px;
+    font-family: nameHeading;
+    color: #fff !important;
+}
+
+.imgSlider-pointer {
+    border-radius: 50%;
+}
+@media (min-width:320px) and (max-width:500px){
+    .imgSlider {
+        cursor: auto;
+        height: 100px;
+        margin: 24px auto;
+        width: 100px;
+    }
+    .btn-txt {
+        font-size: 32px;
+        top: 12px;
+
+    }
+    .noRatingTxt{
+        font-size: 40px;
+    }
+    
+    .greenBtnImg{
+
+        background-size: 100px 100px;
+        background-position: 50% 85%;
+        height: 136px;
+        width: 120px;
+    }
+    .redBtnImg{
+      
+        background-size: 100px 100px;
+        background-position: 50% 85%;
+        height: 136px;
+        width: 120px;
+    }
+
+
+
+}
+#mangerSlider .oj-pagingcontrol-nav-dot-bullet.oj-selected,
+#mySlider .oj-pagingcontrol-nav-dot-bullet.oj-selected,
+#mangerSlider1 .oj-pagingcontrol-nav-dot-bullet.oj-selected{
+    background-color: #fff;
+}
+#mangerSlider .oj-pagingcontrol-nav-dot-bullet.oj-hover,
+#mySlider .oj-pagingcontrol-nav-dot-bullet.oj-hover,
+#mangerSlider1 .oj-pagingcontrol-nav-dot-bullet.oj-hover{
+    background-color: #689F39;
+}
+.filmstrip-item12 {
+    box-sizing: border-box;
+    width: 100%;
+    color: #333;
+    font-size: 3rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.demo-overlaid-paging-control {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
+.demo-stretch-items {
+    height: 100%;
+}
+
+.demo-stretch-items .oj-filmstrip-item-container {
+    -webkit-align-items: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+}
+
+
 
 /*slider*/ 
 .greenBtn img{
@@ -907,3 +1098,8 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 .oj-inputdatetime-input-container{max-width: 18em;}
 #editNumberBox{font-size: 85%}
+
+/*paging color slider home page*/
+#pagingControl3{
+
+}

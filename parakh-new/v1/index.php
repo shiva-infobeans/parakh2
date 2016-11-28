@@ -84,9 +84,9 @@ $app->get('/getUserByEmail[/{email}]', function ($request, $response, $args) {
  * URL: http://localhost/parakh-new/v1/index.php/getUserByLead/<lead_id>
  * Parameters: none
  * 
- * Method: GET
+ * Method: POST
  * */    
-$app->get('/getUserByLead[/{lead_id}]', function ($request, $response, $args) {
+$app->post('/getUserByLead[/{lead_id}]', function ($request, $response, $args) {
     $response_data = array();
     
     //Creating a dbmodule object
@@ -242,6 +242,10 @@ $app->post('/updateProfile', function ($request, $response) {
         $post_data['interests'] = implode(",",$data['interests']);
     }
 	$post_data['mob'] = str_replace("+91-", "", $post_data['mob']);
+    if($post_data['mob']=="NO NUMBER")
+    {
+        $post_data['mob'] = '';   
+    }
     if($db->isValidUser( $post_data['user_id'] )){
         if (!preg_replace( '/^[1-9][0-9]*$/', '', $post_data['mob'] )) {
             //Creating a dbmodule object
@@ -481,7 +485,7 @@ $app->post('/addFeedback', function ($request, $response) {
  * URL: http://localhost/parakh-new/v1/index.php/getAllTeamMembers/<userId>
  * Parameters: none
  * 
- * Method: GET
+ * Method: Post
  * */    
 $app->post('/getAllTeamMembers[/{userId}]', function ($request, $response, $args) {
     $response_data = array();

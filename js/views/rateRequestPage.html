@@ -74,8 +74,8 @@ and open the template in the editor.
                                      placeholder: 'Type your reason here..'}"></textarea>
                                         </div>
                                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex  oj-margin-top">
-                                            <button class="approveDisapprove" data-bind="attr:{requestId: request_id,type:'1',descComment: lComment,userId: userID,to_id:from_id}"><i class="zmdi zmdi-check"></i></button>
-                                            <button class="approveDisapprove"  data-bind="attr:{requestId: request_id,type:'0',descComment: lComment,userId: userID,to_id:from_id}">  <i class="zmdi zmdi-close"></i></button>
+                                            <button class="approveDisapprove"   data-bind="event:{click: function(data,event){ $parent.approveRequest(1,this,request_id,userID,from_id) }},attr:{id: acceptBtnId},requestId: request_id,type1:'1',descComment: lComment,userId: userID,to_id:from_id"><i class="zmdi zmdi-check"></i></button>
+                                            <button class="approveDisapprove"  data-bind="event:{click: function(data,event){ $parent.approveRequest(0,this,request_id,userID,from_id) }},attr:{id: declineBtnId},requestId: request_id,type1:'0',descComment: lComment,userId: userID,to_id:from_id">  <i class="zmdi zmdi-close"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -207,7 +207,6 @@ and open the template in the editor.
                                                             <span class="color-white" data-bind="text:date"></span>
                                                         </div>
                                                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item padding-feedback oj-margin-horizontal">
-
                                                             <span class="color-white" data-bind="text: sComment"></span>
                                                         </div>
                                                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item open-more oj-flex oj-margin overflow-class">
@@ -215,11 +214,11 @@ and open the template in the editor.
                                                         </div>
                                                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-margin replyBox">
 
-                                                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item openDiv oj-flex-bar oj-margin">
-                                                                <span class="oj-flex-bar-end oj-margin-bottom">
+                                                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item openDiv oj-flex-bar oj-margin" data-bind="click: $parent.requestMore,attr:{id: uniqueId}">
+                                                                <span class="oj-flex-bar-end oj-margin-bottom" id="openMore">
                                                                     <span class=" Moreless-fix"><i class="zmdi zmdi-caret-down color-white"></i></span>
                                                                     <span class="color-white">More</span>
-                                                                    <span class="hide color-white" data-bind="text: lComment"></span>
+                                                                    <span class="hide color-white" data-bind="text: lComment"></span>                 
                                                                 </span>
                                                            
                                                             </div>
@@ -265,7 +264,7 @@ and open the template in the editor.
                                                         </div>
                                                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-margin replyBox color-white">
 
-                                                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item openDiv oj-flex-bar oj-margin">
+                                                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item openDiv oj-flex-bar oj-margin" data-bind="click: $parent.requestMore,attr:{id: uniqueId}">
                                                                 <span class="oj-flex-bar-end oj-margin-bottom">
                                                                     <span class=" Moreless-fix"><i class="zmdi zmdi-caret-down"></i></span>
                                                                     <span>More</span>
@@ -289,4 +288,15 @@ and open the template in the editor.
         </div>
     </div>
 </div>
-    
+    <div class="loaderDiv loaderHide" id="requestLoader">
+    <div class="overlay-loader"></div>
+    <div class="loaderImgDiv"><img src="css/images/loader.gif" alt=""/></div>
+</div>
+ <div class="loaderDiv loaderHide" id="requestLoader1">
+    <div class="overlay-loader"></div>
+    <div class="loaderImgDiv"><img src="css/images/loader.gif" alt=""/></div>
+</div>
+ <div class="loaderDiv loaderHide" id="requestLoader2">
+    <div class="overlay-loader"></div>
+    <div class="loaderImgDiv"><img src="css/images/loader.gif" alt=""/></div>
+</div>

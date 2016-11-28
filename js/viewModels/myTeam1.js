@@ -84,14 +84,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
                     $('#tabs ul li:last-child').addClass('abc').show();
                     //lead id user
-                    var teamUser = oj.Model.extend({
-                        url: getUserByLead + self.lead_id(),
-                    });
-                    var getUser = new teamUser();
-                    getUser.fetch({
+                    $.ajax({
                         headers: {secret: secret},
-                        success: function () {
-                            var data = getUser.attributes['data'];
+                        method: 'POST',
+                        url: getUserByLead + self.lead_id(),
+                        data: {user_id: res['attributes']['data']['id']},
+                        success: function (task) {
+
+                            var data = JSON.parse(task)['data'];
                             data = data.sort(function (a, b) {
                                 return (a['user_name'] > b['user_name']) - (a['user_name'] < b['user_name']);
                             });
@@ -101,8 +101,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             self.data1(self.myTeam());
                         }
                     });
-
-
                 }
 
                 $.ajax({
@@ -308,7 +306,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             $("#sucess").hide();
                             self.sucessMsg("");
                         }, 3000);
-                    }
+                    },
+                      beforeSend: function () {
+                            $("#rateMeLoader").removeClass('loaderHide');
+                        },
+                        complete: function () {
+                            $("#rateMeLoader").addClass('loaderHide');
+                        }
+                    
                 });
             }
         }
@@ -330,7 +335,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             $("#sucess").hide();
                             self.sucessMsg("");
                         }, 3000);
-                    }
+                    },
+                      beforeSend: function () {
+                            $("#rateMeLoader1").removeClass('loaderHide');
+                        },
+                        complete: function () {
+                            $("#rateMeLoader1").addClass('loaderHide');
+                        }
                 });
             }
         }
@@ -396,7 +407,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             $("#sucess").hide();
                             self.sucessMsg("");
                         }, 3000);
-                    }
+                    },
+                      beforeSend: function () {
+                            $("#rateMeLoader2").removeClass('loaderHide');
+                        },
+                        complete: function () {
+                            $("#rateMeLoader2").addClass('loaderHide');
+                        }
                 });
             }
         };
@@ -416,15 +433,19 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         AlphaIndexes[alphaCounter++] = self.members()[index]['name'].charAt(0);
                     }
                 }
+				//$("#index").addClass("hide");
                 $("#index span").each(function (i, data) {
                     if (i != 0) {
-                        for (var z = 0; z < AlphaIndexes.length; z++) {
-                            if (AlphaIndexes[z] == $(this).children("a").attr("href")) {
-                                $(this).removeClass("hide");
-                            }
-                        }
+                        if($.inArray($(this).children("a").attr("href"),AlphaIndexes)<0)
+						{
+							//console.log($(this).children("a").attr("href"));
+							
+								//console.log(AlphaIndexes[z]);
+                                $(this).addClass("hide");
+						}
                     }
                 })
+				$("#index").removeClass("hide");
             });
 
 
@@ -500,6 +521,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                           $('#homeTab2 > img').remove();
                           $('#homeTab1').append(' <img src="../../images/user.png" alt="" />');
                           $('#homeTab2').append(' <img src="../../images/team-active.png" alt="" />');
+						  self.members([]);
+                    self.members(self.data2());
                       }
                      });
                          
@@ -509,6 +532,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                           $('#homeTab2 > img').remove();
                           $('#homeTab1').append(' <img src="../../images/user.png" alt="" />');
                           $('#homeTab2').append(' <img src="../../images/team-active.png" alt="" />');
+						  self.members([]);
+                    self.members(self.data2());
                       }
                      });
                      
@@ -518,6 +543,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                           $('#homeTab2 > img').remove();
                           $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
                           $('#homeTab2').append(' <img src="../../images/team.png" alt="" />');
+						  self.members([]);
+                    self.members(self.data2());
                       }
                      });
                          
@@ -527,6 +554,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                           $('#homeTab2 > img').remove();
                           $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
                           $('#homeTab2').append(' <img src="../../images/team.png" alt="" />');
+						  self.members([]);
+                    self.members(self.data2());
                       }
                      });
             

@@ -13,77 +13,85 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
      * The view model for the main content view template
      */
     function dataComment(comment1, commenter1, commentDate1) {
-       var com = this; // this is for object of this function
-       com.comment = comment1;
-       com.commenter = commenter1;
-       com.commentDate = dateFormatter(commentDate1.substring(0, commentDate1.indexOf(' ')));
-       return com;
-   }
-   function dateDiffCalender(Date1) {
-      user_date = Date.parse(Date1);
-      today_date = new Date();
-      if(Date1!=''){
-          diff_date =  today_date - user_date;
+        var com = this; // this is for object of this function
+        com.comment = comment1;
+        com.commenter = commenter1;
+        com.commentDate = dateFormatter(commentDate1.substring(0, commentDate1.indexOf(' ')));
+        return com;
+    }
+    function dateDiffCalender(Date1) {
+        user_date = Date.parse(Date1);
+        today_date = new Date();
+        if (Date1 != '') {
+            diff_date = today_date - user_date;
 
-          num_years = diff_date/31536000000;
-          num_months = (diff_date % 31536000000)/2628000000;
-          num_days = ((diff_date % 31536000000) % 2628000000)/86400000;
-          if(Math.floor(num_years) > 1)
-          {
-              num_years = Math.floor(num_years)+" Years";
-          }else
-          {
-              num_years = Math.floor(num_years)+" Year";
-          }
+            num_years = diff_date / 31536000000;
+            num_months = (diff_date % 31536000000) / 2628000000;
+            num_days = ((diff_date % 31536000000) % 2628000000) / 86400000;
+            if (Math.floor(num_years) > 1)
+            {
+                num_years = Math.floor(num_years) + " Years";
+            } else
+            {
+                num_years = Math.floor(num_years) + " Year";
+            }
 
-          if(Math.floor(num_months) > 1)
-          {
-              num_months = Math.floor(num_months)+" Months";
-          }else
-          {
-              num_months = Math.floor(num_months)+" Month";
-          }
-          return num_years+" "+num_months;
-      }else
-      {
-          return '';
-      }
-  }
-   function dateFormatter(commentDate1) {
-       commentDate1 = new Date(commentDate1);
-       var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June",
-           "July", "Aug", "Sep", "Oct", "Nov", "Dec"
-       ];
-       var dateReturn = commentDate1.getDate() + ' ' + monthNames[commentDate1.getMonth()] + ' ' + commentDate1.getFullYear();
-       return dateReturn;
-   }
-   function dataFeedback(myId, data) {
-       var feedbackObj = new Object();
-       feedbackObj.myId = myId;
-       feedbackObj.feedbackfrom = data['feedback_from'];
-       feedbackObj.name = data['given_by_name'];
-       feedbackObj.feedbackId = data['id'];
-       feedbackObj.feedbackDescription = data['description'];
-       feedbackObj.feedbackdesignation = data['designation'];
-       feedbackObj.replies = ko.observableArray();
-       feedbackObj.feedbackImage = data['google_picture_link'];
-       // 2nd myId with rtoId change it when view profile page;
-       var data_reply = data['reply'];
-       for (var c = 0; c < data_reply.length; c++) {
-           feedbackObj.replies.push(new feedbackRepliesData(myId, feedbackObj.feedbackfrom, data_reply[c]));
-       }
-       feedbackObj.feedbackDate = dateFormatter(data['created_date'].substring(0, data['created_date'].indexOf(" ")));
-       return feedbackObj;
-   }
-   function feedbackRepliesData(lid, rtoId, data) {
-       var freplies = new Object();
-       freplies.login_id = lid;
-       freplies.freply_to = rtoId;
-       freplies.reply_name = data['from_name'];
-       freplies.reply_desc = data['description'];//display desc
-       freplies.reply_date = dateFormatter(data['created_date'].substring(0, data['created_date'].indexOf(" ")));// display date
-       return freplies;
-   }
+            if (Math.floor(num_months) > 1)
+            {
+                num_months = Math.floor(num_months) + " Months";
+            } else
+            {
+                num_months = Math.floor(num_months) + " Month";
+            }
+            return num_years + " " + num_months;
+        } else
+        {
+            return '';
+        }
+    }
+    function dateFormatter(commentDate1) {
+        commentDate1 = new Date(commentDate1);
+        var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June",
+            "July", "Aug", "Sep", "Oct", "Nov", "Dec"
+        ];
+        var dateReturn = commentDate1.getDate() + ' ' + monthNames[commentDate1.getMonth()] + ' ' + commentDate1.getFullYear();
+        return dateReturn;
+    }
+    function dataFeedback(myId, data) {
+        var feedbackObj = new Object();
+        if (data['description'].length > 100) {
+            feedbackObj.sComment = data['description'].substring(0, 100) + "...";
+        } else {
+            feedbackObj.sComment = data['description'];
+        }
+        feedbackObj.lComment = data['description'];
+        feedbackObj.myId = myId;
+        feedbackObj.feedbackfrom = data['feedback_from'];
+        feedbackObj.name = data['given_by_name'];
+        feedbackObj.feedbackId = data['id'];
+        feedbackObj.feedbackDescription = data['description'];
+        feedbackObj.feedbackdesignation = data['designation'];
+        feedbackObj.replies = ko.observableArray();
+        feedbackObj.feedbackImage = data['google_picture_link'];
+        feedbackObj.uniqueId = "feedback" + data['id'];
+        feedbackObj.replyBtnId = "replyBtn" + data['id'];
+        // 2nd myId with rtoId change it when view profile page;
+        var data_reply = data['reply'];
+        for (var c = 0; c < data_reply.length; c++) {
+            feedbackObj.replies.push(new feedbackRepliesData(myId, feedbackObj.feedbackfrom, data_reply[c]));
+        }
+        feedbackObj.feedbackDate = dateFormatter(data['created_date'].substring(0, data['created_date'].indexOf(" ")));
+        return feedbackObj;
+    }
+    function feedbackRepliesData(lid, rtoId, data) {
+        var freplies = new Object();
+        freplies.login_id = lid;
+        freplies.freply_to = rtoId;
+        freplies.reply_name = data['from_name'];
+        freplies.reply_desc = data['description'];//display desc
+        freplies.reply_date = dateFormatter(data['created_date'].substring(0, data['created_date'].indexOf(" ")));// display date
+        return freplies;
+    }
     function membersContentViewModel(person) {
         var self = this;
         var windowLocation = window.location;
@@ -117,15 +125,15 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
         self.associated = ko.observable();
         self.myLead = ko.observable();
         self.myManager = ko.observable();
-        
+
         if (id) {
             self.id(id);
         } else {
             window.location = "rateBuddy.html";
         }
         var abc = "Not Assigned";
-            
-            
+
+
 //service for id of the user.
         var userIdSearch = oj.Model.extend({
             url: getUserByEmail + person['email']
@@ -137,52 +145,52 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                 self.roleName(userRecord.attributes['data']['role_name']);
                 self.myselfId(userRecord.attributes['data']['id']);
                 self.myselfName(userRecord.attributes['data']['google_name']);
-                 
-                 if(self.id() == self.myselfId()){
-                       window.location = "profile.html";
-                 }
 
-                  var getLead = oj.Model.extend(
+                if (self.id() == self.myselfId()) {
+                    window.location = "profile.html";
+                }
+
+                var getLead = oj.Model.extend(
                         {
-                            url: getAllLeads +  self.id(),
+                            url: getAllLeads + self.id(),
                         });
                 var getmyLead = new getLead();
                 getmyLead.fetch({
                     headers: {secret: secret},
                     success: function () {
-                       self.myLead(getmyLead['attributes']['data'][0]['manager_id']); 
-                        self.myManager(getmyLead['attributes']['data'][1]['manager_id']);                           
-                    if(self.myselfId() === self.myLead() || self.myselfId() === self.myManager() ){
-                    $('#negetiveTab').show();
-                    $('#feedbackTab').show();
-                    $("#ulTab").addClass("tabHeight");
-                    $("#ulTab").removeClass("tabHeightNew");
-                } 
+                        self.myLead(getmyLead['attributes']['data'][0]['manager_id']);
+                        self.myManager(getmyLead['attributes']['data'][1]['manager_id']);
+                        if (self.myselfId() === self.myLead() || self.myselfId() === self.myManager()) {
+                            $('#negetiveTab').show();
+                            $('#feedbackTab').show();
+                            $("#ulTab").addClass("tabHeight");
+                            $("#ulTab").removeClass("tabHeightNew");
+                        }
                     }
                 });
-                  
+
 
 
                 $.ajax({
                     headers: {secret: secret},
                     method: 'POST',
-                    url: getAllTeamMembers+userRecord.attributes['data']['id'],
+                    url: getAllTeamMembers + userRecord.attributes['data']['id'],
                     data: {},
                     success: function (task) {
                         var data = JSON.parse(task)['data'];
                         var index;
                         for (index = 0; index < data.length; index++) {
-                            if (data[index]["id"] == self.id()) {                             
+                            if (data[index]["id"] == self.id()) {
                                 self.UserId(data[index]["id"]);
                                 self.myname(data[index]['google_name']);
                                 self.shortName(data[index]['google_name'].substring(0, data[index]['google_name'].indexOf(" ")));
                                 self.email(data[index]['google_email']);
-                                 self.location(data[index]["location"]);
-                                 self.skills(data[index]["skills"]);
-                                 self.primary_project(data[index]["primary_project"]);
-                                 self.past_project(data[index]["projects"]);
-                                 self.interest(data[index]["interests"]);
-                                 self.associated(dateDiffCalender(data[index]["associate_with_infobeans"]));
+                                self.location(data[index]["location"]);
+                                self.skills(data[index]["skills"]);
+                                self.primary_project(data[index]["primary_project"]);
+                                self.past_project(data[index]["projects"]);
+                                self.interest(data[index]["interests"]);
+                                self.associated(dateDiffCalender(data[index]["associate_with_infobeans"]));
                                 var image = data[index]['google_picture_link'];
                                 self.pic(image);
                                 self.designation(data[index]['designation']);
@@ -216,19 +224,19 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                                     }
                                 }
                                 if (self.commentDataNegative().length == 0) {
-                                   self.NoCommentsN("No Ratings Available ...!!");
-                                   $("#noNegativeComment").show();
-                               }
-                               if (self.commentDataNegative().length != 0) {
-                                   $("#noNegativeComment").hide();
-                               }
-                               if(self.commentDataPositive().length != 0){
-                                   $("#noPositiveComment").hide();
-                               }
-                               if (self.commentDataPositive().length == 0) {
-                                   self.NoCommentsP("No Ratings Available ...!!");
-                                   $("#noPositiveComment").show();
-                               }
+                                    self.NoCommentsN("No Ratings Available ...!!");
+                                    $("#noNegativeComment").show();
+                                }
+                                if (self.commentDataNegative().length != 0) {
+                                    $("#noNegativeComment").hide();
+                                }
+                                if (self.commentDataPositive().length != 0) {
+                                    $("#noPositiveComment").hide();
+                                }
+                                if (self.commentDataPositive().length == 0) {
+                                    self.NoCommentsP("No Ratings Available ...!!");
+                                    $("#noPositiveComment").show();
+                                }
                                 self.plus(plus);
                                 self.minus(minus);
                                 if (self.plus() == 0) {
@@ -257,39 +265,52 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                                             } else {
                                                 self.feedbackContent2.push(new dataFeedback(self.myselfId(), data[index]));
                                             }
-											if (self.feedbackContent1().length == 0 && self.feedbackContent2().length == 0) {
-											   $("#noFeedback").show();
-										   } else {
-											   $("#noFeedback").hide();
-										   }
+                                            if (self.feedbackContent1().length == 0 && self.feedbackContent2().length == 0) {
+                                                $("#noFeedback").show();
+                                            } else {
+                                                $("#noFeedback").hide();
+                                            }
                                         }
                                         /// open feedback more option
-                                        $('.openDiv').click(function () {
-                                            $(this).parent().prev('.open-more').slideToggle();
-                                            if ($(this).prev().children("span").hasClass("hide")) {
-                                                $(this).prev().children("span").removeClass("hide");
-                                                $(this).children("span").children("span").children("i").addClass("zmdi-caret-up");
-                                                $(this).children("span").children("span").children("i").removeClass("zmdi-caret-down");
-                                                $(this).children("span").children("span:nth-child(2)").html("Less");
+
+                                        self.feedbackMore1 = function (e, data) {
+
+                                            var obj = $("#feedback" + e.feedbackId);
+
+                                            obj.parent().prev('.open-more').slideToggle();
+                                            if (obj.prev().children("span").hasClass("hide")) {
+                                                var lcomment = e['lComment'];
+                                                obj.prev().children("span").removeClass("hide");
+                                                obj.children("span").children("span").children("i").addClass("zmdi-caret-up");
+                                                obj.children("span").children("span").children("i").removeClass("zmdi-caret-down");
+                                                obj.children("span").children("span:nth-child(2)").html("Less");
+                                                if (e['sComment'].length == 103) {
+                                                    obj.parent().prev().prev().children().text(lcomment);
+                                                }
                                             } else {
-                                                $(this).children("span").children("span:nth-child(2)").html("More");
-                                                $(this).children("span").children("span").children("i").removeClass("zmdi-caret-up");
-                                                $(this).children("span").children("span").children("i").addClass("zmdi-caret-down");
-                                                $(this).prev().children("span").addClass("hide");
+                                                var scomment = e['sComment'];
+                                                obj.children("span").children("span:nth-child(2)").html("More");
+                                                obj.children("span").children("span").children("i").removeClass("zmdi-caret-up");
+                                                obj.children("span").children("span").children("i").addClass("zmdi-caret-down");
+                                                obj.prev().children("span").addClass("hide");
+                                                if (e['sComment'].length == 103) {
+                                                    obj.parent().prev().prev().children().text(scomment);
+                                                }
                                             }
-                                        });
+                                        }
+
                                         //send the respond to the feedback;
-                                        $('.submitRespond').on('click', function () {
-                                            var id = $(this).attr("loginUserId");
-                                            var feedback_to = $(this).attr("feedback_to");
-                                            var responseDesc = $(this).parent().next("span").children("input"); //desc respond
-											if (responseDesc.val() == '' || responseDesc.val().length == 0) {
-                                               return;
-                                           }
-                                            var fid = $(this).attr("feedbackId");
-                                            var appendChild = this;
+                                        self.replySubmit = function (e, data) {
+                                            var obj = $("#replyBtn" + e.feedbackId);
+                                            var id = obj.attr("loginUserId");
+                                            var feedback_to = obj.attr("feedback_to");
+                                            var responseDesc = obj.parent().next("span").children("input");
+                                            if (responseDesc.val().length == 0) {
+                                                return;
+                                            }
+                                            var fid = obj.attr("feedbackId");
                                             var sysDate = new Date();
-                                            var dateString = sysDate.toJSON().toString().substr(0, 10);
+                                            var dateString = dateFormatter(sysDate.toJSON().toString().substr(0, 10));
 
                                             $.ajax({
                                                 headers: {secret: secret},
@@ -297,10 +318,11 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                                                 url: addFeedbackResponse,
                                                 data: {login_user_id: id, feedback_to: feedback_to, feedback_desc: responseDesc.val(), feedback_id: fid},
                                                 success: function () {
-                                                    $(appendChild).parent().parent().parent().prev().append(
+
+                                                    obj.parent().parent().parent().prev().append(
                                                             '<div class="oj-row oj-flex oj-margin-top oj-margin-bottom oj-margin-horizontal oj-padding-horizontal">' +
                                                             '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item replyName">' +
-                                                            '<span>' + self.myselfName() + '</span>' +
+                                                            '<span>' + self.myname() + '</span>' +
                                                             '</div>' +
                                                             '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex replyComent">' +
                                                             '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item"><span>' + responseDesc.val() + '</span></div>' +
@@ -309,9 +331,15 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                                                             '</div>'
                                                             );
                                                     responseDesc.val("");
+                                                },
+                                                beforeSend: function () {
+                                                    $("#respondLoader1").removeClass('loaderHide');
+                                                },
+                                                complete: function () {
+                                                    $("#respondLoader1").addClass('loaderHide');
                                                 }
                                             });
-                                        });
+                                        }
                                     }
                                 });
                             }

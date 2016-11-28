@@ -7,8 +7,8 @@
 /**
  * home module
  */
-define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojtabs', 'ojs/ojfilmstrip', 'ojs/ojpagingcontrol'
-], function (oj, ko) {
+define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojtabs', 'ojs/ojfilmstrip', 'ojs/ojpagingcontrol'
+], function (oj, ko, $) {
     /**
      * The view model for the main content view template
      */
@@ -42,14 +42,71 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
         self.link1 = ko.observable();
         self.link2 = ko.observable();
         self.link3 = ko.observable();
+
+
         self.vieMyProfile = ko.observable();
         self.roleName = ko.observable();
-        self.leadPlusWeek = ko.observable();
-        self.leadPlusmonth = ko.observable();
-        self.leadPlustill = ko.observable();
-        self.leadMinusWeek = ko.observable();
-        self.leadMinusmonth = ko.observable();
-        self.leadMinustill = ko.observable();
+
+        self.managerSliderData = ko.observableArray();
+// Slider 0 replace.............start(my slider)
+        self.mySlider = ko.observableArray([]);
+        self.pagingModel9 = null;
+        self.pagingModel9 = null;
+
+        getItemInitialDisplay9 = function (index)
+        {
+            return index < 1 ? '' : 'none';
+        };
+
+        getPagingModel9 = function ()
+        {
+            if (!self.pagingModel9)
+            {
+                var filmStrip = $("#filmStrip9");
+                var pagingModel = filmStrip.ojFilmStrip("getPagingModel");
+                self.pagingModel9 = pagingModel;
+            }
+            return self.pagingModel9;
+        };
+
+        self.addMySlider = function (obj) {
+            self.mySlider.push(obj);
+            $('#filmStrip9').ojFilmStrip("refresh");
+        }
+
+// Slider 0 replace.............end(my slider)
+
+// slider 1 replace.............start(my team)
+
+        self.leadSlider = ko.observableArray([
+        ]);
+        self.pagingModel8 = null;
+
+        getItemInitialDisplay8 = function (index)
+        {
+            return index < 1 ? '' : 'none';
+        };
+
+        getPagingModel8 = function ()
+        {
+            if (!self.pagingModel8)
+            {
+                var filmStrip = $("#filmStrip8");
+                var pagingModel = filmStrip.ojFilmStrip("getPagingModel");
+                self.pagingModel8 = pagingModel;
+            }
+            return self.pagingModel8;
+        };
+
+        self.addLeadSlider = function (obj) {
+            self.leadSlider.push(obj);
+            $('#filmStrip8').ojFilmStrip("refresh");
+        }
+
+
+
+
+// slider 1 replace.............end(my team)
 
 //         get members who get +1 recently
         var rec = oj.Model.extend({
@@ -129,27 +186,30 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
 
             $('#filmStrip').ojFilmStrip("refresh");
         }
+
 //pagination slider for manager start
         self.projects = ko.observableArray([]);
         self.addProject = function (obj) {
             self.projects.push(obj);
-            $('#filmStrip2').ojFilmStrip("refresh");
+            $('#filmStrip7').ojFilmStrip("refresh");
         }
-        self.pagingModel = null;
-        getItemInitialDisplay1 = function (index)
+        self.pagingModel7 = null;
+        getItemInitialDisplay7 = function (index)
         {
             return index < 1 ? '' : 'none';
         };
-        getPagingModel = function ()
+        getPagingModel7 = function ()
         {
-            if (!self.pagingModel)
+            if (!self.pagingModel7)
             {
-                var filmStrip = $("#filmStrip2");
+                var filmStrip = $("#filmStrip7");
                 var pagingModel = filmStrip.ojFilmStrip("getPagingModel");
-                self.pagingModel = pagingModel;
+                self.pagingModel7 = pagingModel;
             }
-            return self.pagingModel;
+            return self.pagingModel7;
         };// pagination slider for manager end
+
+
         self.currentNavArrowPlacement = ko.observable("adjacent");
         self.currentNavArrowVisibility = ko.observable("auto");
 
@@ -174,7 +234,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                 self.roleName(task.attributes['data']['role_name']);
                 //lead /member service for +1 count and -1 count
                 if (self.roleName() == "Manager") {
-                    $("#slider-wrapper1").hide();
+                    $("#mangerSlider1").hide();
                     var leadSlide = oj.Model.extend({
                         url: getTopRankersProjectWise + self.id()
                     });
@@ -186,24 +246,44 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                         success: function (result) {
 
                             var data = result['attributes']['data'];
+
                             for (var c = 0; c < data.length; c++) {
                                 var obj = new Object();
-                                var dat = data[0].split(",");
+
+                                var dat = data[c].split(",");
                                 obj.name = dat[0];
                                 obj.plus = dat[1] == 0 ? 0 : "+" + dat[1];
-                                obj.minus = dat[2] == 0 ? 0 : "+" + dat[2];
-                                self.addProject(obj);
+                                obj.minus = dat[2] == 0 ? 0 : "-" + dat[2];
+
+                                //manager slider
+                                var obj1 = new Object();
+                                obj1.leadPlus12 = dat[1] == 0 ? 0 : "+" + dat[1];
+                                obj1.leadMinus12 = dat[2] == 0 ? 0 : "-" + dat[2];
+                                obj1.performanceTxt = "Performance of " + dat[0] + " team";
+                                obj1.noRatingTxt = dat[0] + " team not rated yet!!";
+                                self.addProject(obj1);
                                 if (dat[1] == 0 && dat[2] == 0)
                                 {
-                                    $("#srno" + c + " .slider-item").hide();
-                                    $("#emptyTxt" + c).show();
+                                    $("#showSlider7" + c + "").hide();
+                                    $("#noRating7" + c).show();
+                                } else {
+                                    $("#showSlider7" + c).show();
+                                    $("#noRating7" + c).hide();
                                 }
                             }
-
+                            if (self.projects().length == 0) {
+                                var obj1 = new Object();
+                                obj1.leadPlus12 = 0;
+                                obj1.leadMinus12 = 0;
+                                obj1.performanceTxt = "";
+                                obj1.noRatingTxt = "You have not assigned any projects yet !!";
+                                self.addProject(obj1);
+                                $("#showSlider7" + 0 + "").hide();
+                            }
                         }
                     });
                 } else {
-                    $("#filmStripDiv2").hide();
+                    $("#mangerSlider").hide();
                     if (self.roleName() == "Lead") {
                         var leadSlide = oj.Model.extend({
                             url: getTopRankersCalendarWise + self.id()
@@ -212,41 +292,46 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                         leadSlideFetch.fetch({
                             headers: {secret: secret},
                             success: function (result) {
-                                if (result['attributes']['data']['week']['plus'] == 0 && result['attributes']['data']['week']['minus'] == 0) {
-                                    $("#hideSliderWeek").show();
-                                    $("#weekSmiley").show();
-                                    $("#hideSlider12").hide();
-                                } else {
-                                    $("#hideSliderWeek").hide();
-                                    $("#weekSmiley").hide();
-                                    $("#hideSlider12").show();
-                                }
+                                var obj1 = new Object();
+                                var obj2 = new Object();
+                                var obj3 = new Object();
+                                obj1.leadPlus12 = result['attributes']['data']['week']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['week']['plus'];
+                                obj1.leadMinus12 = result['attributes']['data']['week']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['week']['minus'];
+                                obj1.performanceTxt = "My Team’s Performance for this week…";
+                                obj1.noRatingTxt = "Your team has not been rated this week!!";
+                                obj2.leadPlus12 = result['attributes']['data']['month']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['month']['plus'];
+                                obj2.leadMinus12 = result['attributes']['data']['month']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['month']['minus'];
+                                obj2.performanceTxt = "My Team’s Performance for this month…";
+                                obj2.noRatingTxt = "Your team has not been rated this month!!";
+                                obj3.leadPlus12 = result['attributes']['data']['till_now']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['till_now']['plus'];
+                                obj3.leadMinus12 = result['attributes']['data']['till_now']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['till_now']['minus'];
+                                obj3.performanceTxt = "My Team’s Performance till now…";
+                                obj3.noRatingTxt = "Your team has not been rated till now!!";
 
-                                if (result['attributes']['data']['month']['plus'] == 0 && result['attributes']['data']['month']['minus'] == 0) {
-                                    $("#hideMonthSlider").show();
-                                    $("#monthSmiley").show();
-                                    $("#hideSlider22").hide();
-                                } else {
-                                    $("#hideMonthSlider").hide();
-                                    $("#monthSmiley").hide();
-                                    $("#hideSlider22").show();
-                                }
-                                if (result['attributes']['data']['till_now']['plus'] == 0 && result['attributes']['data']['till_now']['minus'] == 0) {
-                                    $("#inner-wrapper1").hide();
-                                    $("#noRatingsScreen1").show();
-                                    $("#smileyOverAll").show();
-                                } else {
-                                    $("#inner-wrapper1").show();
-                                    $("#noRatingsScreen1").hide();
-                                    $("#smileyOverAll").hide();
-                                }
+                                if (obj3.leadPlus12 == 0 && obj3.leadMinus12 == 0) {
+                                    self.addLeadSlider(obj3);
+                                    $("#show80").hide();
+                                    $("#noRating80").show();
 
-                                self.leadPlusWeek(result['attributes']['data']['week']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['week']['plus']);
-                                self.leadPlusmonth(result['attributes']['data']['month']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['month']['plus']);
-                                self.leadPlustill(result['attributes']['data']['till_now']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['till_now']['plus']);
-                                self.leadMinusWeek(result['attributes']['data']['week']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['week']['minus']);
-                                self.leadMinusmonth(result['attributes']['data']['month']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['month']['minus']);
-                                self.leadMinustill(result['attributes']['data']['till_now']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['till_now']['minus']);
+                                } else {
+                                    self.addLeadSlider(obj1);
+                                    self.addLeadSlider(obj2);
+                                    self.addLeadSlider(obj3);
+                                    if (obj1.leadPlus12 == 0 && obj1.leadMinus12 == 0) {
+                                        $("#showSlider80").hide();
+                                        $("#noRating80").show();
+                                    } else {
+                                        $("#noRating80").hide();
+                                    }
+                                    if (obj2.leadPlus12 == 0 && obj2.leadMinus12 == 0) {
+                                        $("#showSlider81").hide();
+                                        $("#noRating81").show();
+                                    } else {
+                                        $("#noRating81").hide();
+                                    }
+                                    $("#noRating82").hide();
+
+                                }
                             }
                         });
                     } else {
@@ -265,40 +350,46 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                                 leadSlideFetch.fetch({
                                     headers: {secret: secret},
                                     success: function (result) {
-                                        if (result['attributes']['data']['week']['plus'] == 0 && result['attributes']['data']['week']['minus'] == 0) {
-                                            $("#hideSliderWeek").show();
-                                            $("#weekSmiley").show();
-                                            $("#hideSlider12").hide();
+                                        var obj1 = new Object();
+                                        var obj2 = new Object();
+                                        var obj3 = new Object();
+                                        obj1.leadPlus12 = result['attributes']['data']['week']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['week']['plus'];
+                                        obj1.leadMinus12 = result['attributes']['data']['week']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['week']['minus'];
+                                        obj1.performanceTxt = "My Team’s Performance for this week…";
+                                        obj1.noRatingTxt = "Your team has not been rated this week!!";
+                                        obj2.leadPlus12 = result['attributes']['data']['month']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['month']['plus'];
+                                        obj2.leadMinus12 = result['attributes']['data']['month']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['month']['minus'];
+                                        obj2.performanceTxt = "My Team’s Performance for this month…";
+                                        obj2.noRatingTxt = "Your team has not been rated this month!!";
+                                        obj3.leadPlus12 = result['attributes']['data']['till_now']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['till_now']['plus'];
+                                        obj3.leadMinus12 = result['attributes']['data']['till_now']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['till_now']['minus'];
+                                        obj3.performanceTxt = "My Team’s Performance till now…";
+                                        obj3.noRatingTxt = "Your team has not been rated till now!!";
+
+                                        if (obj3.leadPlus12 == 0 && obj3.leadMinus12 == 0) {
+                                            self.addLeadSlider(obj3);
+                                            $("#show80").hide();
+                                            $("#noRating80").show();
+
                                         } else {
-                                            $("#hideSliderWeek").hide();
-                                            $("#weekSmiley").hide();
-                                            $("#hideSlider12").show();
+                                            self.addLeadSlider(obj1);
+                                            self.addLeadSlider(obj2);
+                                            self.addLeadSlider(obj3);
+                                            if (obj1.leadPlus12 == 0 && obj1.leadMinus12 == 0) {
+                                                $("#showSlider80").hide();
+                                                $("#noRating80").show();
+                                            } else {
+                                                $("#noRating80").hide();
+                                            }
+                                            if (obj2.leadPlus12 == 0 && obj2.leadMinus12 == 0) {
+                                                $("#showSlider81").hide();
+                                                $("#noRating81").show();
+                                            } else {
+                                                $("#noRating81").hide();
+                                            }
+                                            $("#noRating82").hide();
                                         }
 
-                                        if (result['attributes']['data']['month']['plus'] == 0 && result['attributes']['data']['month']['minus'] == 0) {
-                                            $("#hideMonthSlider").show();
-                                            $("#monthSmiley").show();
-                                            $("#hideSlider22").hide();
-                                        } else {
-                                            $("#hideMonthSlider").hide();
-                                            $("#monthSmiley").hide();
-                                            $("#hideSlider22").show();
-                                        }
-                                        if (result['attributes']['data']['till_now']['plus'] == 0 && result['attributes']['data']['till_now']['minus'] == 0) {
-                                            $("#inner-wrapper1").hide();
-                                            $("#noRatingsScreen1").show();
-                                            $("#smileyOverAll").show();
-                                        } else {
-                                            $("#inner-wrapper1").show();
-                                            $("#noRatingsScreen1").hide();
-                                            $("#smileyOverAll").hide();
-                                        }
-                                        self.leadPlusWeek(result['attributes']['data']['week']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['week']['plus']);
-                                        self.leadPlusmonth(result['attributes']['data']['month']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['month']['plus']);
-                                        self.leadPlustill(result['attributes']['data']['till_now']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['till_now']['plus']);
-                                        self.leadMinusWeek(result['attributes']['data']['week']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['week']['minus']);
-                                        self.leadMinusmonth(result['attributes']['data']['month']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['month']['minus']);
-                                        self.leadMinustill(result['attributes']['data']['till_now']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['till_now']['minus']);
                                     }
                                 });
 
@@ -425,118 +516,163 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodel', 'jquery', 'ojs/ojknockout', 'oj
                                 }
                             }
                         }
-                        self.myPlusRatings(plus); // over all ratings
-                        self.myMinusRatings(minus);
-                        if (self.myPlusRatings() == 0 && self.myMinusRatings() == 0) {
-                            $('#inner-wrapper').hide();
-                            $('#noRatingsScreen').show();
+                        // rating my slider start here
+                        var obj1 = new Object();
+                        var obj2 = new Object();
+                        var obj3 = new Object();
+                        obj1.leadPlus12 = dayP == 0 ? 0 : "+" + dayP;
+                        obj1.leadMinus12 = dayN == 0 ? 0 : "-" + dayN;
+                        obj1.performanceTxt = "Your performance for this week...";
+                        obj1.noRatingTxt = "You have not been rated this week!!";
+                        obj2.leadPlus12 = monthP == 0 ? 0 : "+" + monthP;
+                        obj2.leadMinus12 = monthN == 0 ? 0 : "-" + monthN;
+                        obj2.performanceTxt = "Your performance for this month...";
+                        obj2.noRatingTxt = "You have not been rated this month!!";
+                        obj3.leadPlus12 = plus == 0 ? 0 : "+" + plus;
+                        obj3.leadMinus12 = minus == 0 ? 0 : "-" + minus;
+                        obj3.performanceTxt = "Your performance up to now...";
+                        obj3.noRatingTxt = "You have not been rated yet!!";
+
+                        if (obj3.leadPlus12 == 0 && obj3.leadMinus12 == 0) {
+                            self.addMySlider(obj3);
+                            $("#showSlider90").hide();
+                            $("#noRating90").show();
+
                         } else {
-                            self.dayPlusRatings(dayP); // Ratings in this week
-                            self.dayMinusRatings(dayN);
-                            if (self.dayPlusRatings() == 0 && self.dayMinusRatings() == 0) {
-                                self.sliderText1("You have not been rated this week!!");
-                                $('#hideSlider1').hide();
-                                $('#hidegreenBtn1').hide();
-                                $('#hideredBtn1').hide();
-                                $('#smiley1').show();
-                            } else {
+                            self.addMySlider(obj1);
+                            self.addMySlider(obj2);
+                            self.addMySlider(obj3);
 
-                                $('#hideSlider1').show();
-                                $('#hidegreenBtn1').show();
-                                $('#hideredBtn1').show();
-                                $('#smiley1').hide();
-                            }
-                            self.monthPlusRatings(monthP); //ratings in this Month
-                            self.monthMinusRatings(monthN);
-
-                            if (self.monthPlusRatings() == 0 && self.monthMinusRatings() == 0) {
-                                self.sliderText2("You have not been rated this month!!");
-                                $('#hideSlider2').hide();
-                                $('#hidegreenBtn2').hide();
-                                $('#hideredBtn2').hide();
-                                $('#smiley2').show();
+                            if (obj1.leadPlus12 == 0 && obj1.leadMinus12 == 0) {
+                                $("#showSlider90").hide();
+                                $("#noRating90").show();
                             } else {
-                                $('#hideSlider2').show();
-                                $('#hidegreenBtn2').show();
-                                $('#hideredBtn2').show();
-                                $('#smiley2').hide();
+                                $("#noRating90").hide();
                             }
-                            self.myPlusRatings(plus); // over all ratings
-                            self.myMinusRatings(minus);
-                            if (self.myPlusRatings() == 0 && self.myMinusRatings() == 0) {
-                                self.sliderText3("You have not been rated yet!!");
-                                $('#hideSlider3').hide();
-                                $('#hidegreenBtn3').hide();
-                                $('#hideredBtn3').hide();
-                                $('#smiley3').show();
+                            if (obj2.leadPlus12 == 0 && obj2.leadMinus12 == 0) {
+                                $("#showSlider91").hide();
+                                $("#noRating91").show();
                             } else {
-                                $('#hideSlider3').show();
-                                $('#hidegreenBtn3').show();
-                                $('#hideredBtn3').show();
-                                $('#smiley3').hide();
+                                $("#noRating91").hide();
                             }
+                            $("#noRating92").hide();
                         }
+
+                        // rating slider change for user end here
+
+
                         /// rating calculation end here
                     }
                 });
+                $(".oj-pagingcontrol-nav-dot").attr("title","");
             }
         });
-        var counter = 1;//automatic slider counter
+        var ManagerSlider = 0;
 
         setInterval(function () {
-            if (counter % 3 == 0) {
-                document.getElementsByName("slide")[0].checked = true;
-                document.getElementsByName("slide")[1].checked = false;
-                document.getElementsByName("slide")[2].checked = false;
-                document.getElementsByName("slide1")[0].checked = true;
-                document.getElementsByName("slide1")[1].checked = false;
-                document.getElementsByName("slide1")[2].checked = false;
 
-                counter = 0;
-            }
-            if (counter % 3 == 1) {
-                document.getElementsByName("slide")[0].checked = false;
-                document.getElementsByName("slide")[1].checked = true;
-                document.getElementsByName("slide")[2].checked = false;
-                document.getElementsByName("slide1")[0].checked = false;
-                document.getElementsByName("slide1")[1].checked = true;
-                document.getElementsByName("slide1")[2].checked = false;
 
-            }
-            if (counter % 3 == 2) {
-                document.getElementsByName("slide")[0].checked = false;
-                document.getElementsByName("slide")[1].checked = false;
-                document.getElementsByName("slide")[2].checked = true;
-                document.getElementsByName("slide1")[0].checked = false;
-                document.getElementsByName("slide1")[1].checked = false;
-                document.getElementsByName("slide1")[2].checked = true;
-
-            }
-            counter++;
             if ($("#filmStrip").find("#ui-id-9").attr("style") == "visibility: hidden;") {
-                $("#filmStrip").ojFilmStrip("option", "currentItem", 1)
+                $("#filmStrip").ojFilmStrip("option", "currentItem", 0);
             } else {
                 $("#filmStrip").find("#ui-id-9").click();
             }
+            
+            /// slider my team
+            if ($('#filmStrip8').ojFilmStrip("option", "currentItem") == 0) {
+                try {
+                    $('#filmStrip8').ojFilmStrip("option", "currentItem", 1);
+                } catch (e)
+                {
+                    //console.log(e);
+                }
 
-        }, 6000)
+            } else if ($('#filmStrip8').ojFilmStrip("option", "currentItem") == 1
+                    || $('#filmStrip8').ojFilmStrip("option", "currentItem") == 'show1') {
+                try {
+                    $('#filmStrip8').ojFilmStrip("option", "currentItem", 2);
+                } catch (e)
+                {
+                    //console.log(e);
+                }
+            } else if ($('#filmStrip8').ojFilmStrip("option", "currentItem") == 2) {
+                try {
+                    $('#filmStrip8').ojFilmStrip("option", "currentItem", 0);
+                } catch (e)
+                {
+                    //console.log(e);
+                }
+            }
 
+            /// my slider
+            if ($('#filmStrip9').ojFilmStrip("option", "currentItem") == 0
+                    || $('#filmStrip9').ojFilmStrip("option", "currentItem") == 'show10') {
+                try {
+                    $('#filmStrip9').ojFilmStrip("option", "currentItem", 1);
 
+                } catch (e)
+                {
+                    //console.log(e);
+                }
+            } else if ($('#filmStrip9').ojFilmStrip("option", "currentItem") == 1
+                    || $('#filmStrip9').ojFilmStrip("option", "currentItem") == 'show11') {
+                try {
+                    $('#filmStrip9').ojFilmStrip("option", "currentItem", 2);
+                } catch (e)
+                {
+                    //console.log(e);
+                }
+            } else if ($('#filmStrip9').ojFilmStrip("option", "currentItem") == 2
+                    || $('#filmStrip9').ojFilmStrip("option", "currentItem") == 'show12') {
+
+                try {
+                    $('#filmStrip9').ojFilmStrip("option", "currentItem", 0);
+                } catch (e)
+                {
+                    //console.log(e);
+                }
+            }
+            /// manager slider
+            
+            
+            if($('#filmStrip7').ojFilmStrip("option", "currentItem") == (ManagerSlider)
+                    || $('#filmStrip7').ojFilmStrip("option", "currentItem") == ("show7"+ManagerSlider)){
+                try {
+                    if(ManagerSlider==(self.projects().length-1)) ManagerSlider=0;
+                    else ManagerSlider++;
+                    $('#filmStrip7').ojFilmStrip("option", "currentItem", ManagerSlider);
+                    
+                } catch (e)
+                {
+                    ManagerSlider = 0;
+                }
+            }
+
+        }, 6000);
+        self.redirectPlus = function(){
+            window.location = "profile.html";
+        }
+        self.redirectMinus = function(){
+            window.location = "profile.html?id=1";
+        }
+        
         setTimeout(function () {
             $("#filmStrip").on({
                 'ojoptionchange': function (event, data) {
                     // verify that the component firing the event is a component of interest
                     if ($(event.target).is("#filmStrip")) {
-                        if($("#filmStrip").ojFilmStrip("option", "currentItem") == 1){
+                        if ($("#filmStrip").ojFilmStrip("option", "currentItem") == 1) {
                             $("#plusSliderTxt").text("Recent +1 Ratings");
-                        };
-                        if($("#filmStrip").ojFilmStrip("option", "currentItem") == 4){
+                        }
+                        ;
+                        if ($("#filmStrip").ojFilmStrip("option", "currentItem") == 4) {
                             $("#plusSliderTxt").text("Monthly Highest +1 Ratings");
-                        };
-                        if($("#filmStrip").ojFilmStrip("option", "currentItem") == 8){
+                        }
+                        ;
+                        if ($("#filmStrip").ojFilmStrip("option", "currentItem") == 8) {
                             $("#plusSliderTxt").text("Overall Highest +1 Rating");
-                        };
-                        //window.console.log("option that changed is: " + $("#filmStrip").ojFilmStrip("option", "currentItem"));
+                        }
+                        ;
                     }
                 }
             });

@@ -26,10 +26,10 @@
     list-style: outside none none;
     margin-left: 17px;
     margin-right: 17px;
-    margin-top:25px;
+    margin-top:38px;
     color:#333;
 }
-
+/*.nav1 li{float: none; border-bottom:1px solid #fff;}*/
 .header-padding{
     padding:0px;
 }
@@ -41,7 +41,32 @@
     height:90px;
 
 }
-@media (max-width: 480px) {
+.menus{display: none;color: #fff;font-size: 35px;}
+.mobile-menu{list-style-type: none;}
+#forActive-mobile #forActiveul{display: none;}
+@media (max-width:1280px) {
+    #forActive-mobile #forActiveul{display: none;}
+}
+@media (max-width: 767px) {
+#forActive-desktop #forActiveul{display: none;}
+#forActive-mobile #forActiveul{display: none;}
+.nav1 li:last-child{float: none; border-bottom:none;}
+/*.nav1 li{
+float: none;
+display:block;
+clear:both;
+font-size: 16px;
+list-style: outside none none;
+margin-left: 0px;
+margin-right: 0px;
+margin-top:0px;
+padding:10px 5px;
+color:#333;
+}*/
+#forActiveul1 i{
+margin:5px 10px;
+}
+.mobile-menu li{display: inline;float: left;}
     .nav li{
         font-size: 16px !important ;
         margin: 0px 10px !important;
@@ -49,7 +74,29 @@
     .logo{
         height:60px;
     }
-
+    .menus{display: block;}
+    .nav1 li{float: none;}
+    .logo {
+        height: 56px;
+        margin-top: -8px;
+        padding-left: 10px;
+    }
+    ul.mobile-menu {
+  
+       list-style: outside none none;
+       margin-left: 10px;
+       padding: 0;
+       width: 160px;
+    }
+    ul#forActiveul1 {
+       list-style: outside none none;
+       margin: 0;
+       padding: 0;
+    }
+    .navigationlist {
+       float: right;
+       width: 100%;
+    }
 }
 .oj-panel {
     padding-bottom:0px;
@@ -575,15 +622,31 @@
     float:left;
     width: 100%;
 }
-
 .mText{
     position: absolute;
     top: 15px;
-    left: 30px;
+    left: 26px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 25px;
+}
+.mText1 {
+    position: absolute;
+    bottom: 33px;
+    left: 22px;
     color: #fff;
     font-weight: bolder;
     font-size: 24px;
 }
+.mText{
+    position: absolute;
+    top: 15px;
+    left: 26px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 25px;
+}
+
 .errorText{
     color:red;
     margin-left: -2px;
@@ -658,14 +721,7 @@
     border-left: 1px solid #dcdcdc;
     padding-left: 20px;
 }
-.mText1 {
-    position: absolute;
-    top: 16px;
-    left: 22px;
-    color: #fff;
-    font-weight: bolder;
-    font-size: 24px;
-}
+
 .oj-dialog-body {
     background-color: #fff !important;
 }
@@ -685,12 +741,18 @@
     border-bottom: 4px solid #78A95A;
 }
 .rankText{
-   font-size: 60px;
+    font-size: 60px;
     font-weight: bolder;
-    height: 210px;
-    padding-top: 47px;
+    line-height: 185px;
     text-align: center;
 }
+.ranking-block1-height{
+    height: 300px;
+}
+.ranking-block2-height-height{
+    height: 301px;
+}
+
 .countBlock{
     margin-bottom: 20px;
 }
@@ -1127,7 +1189,8 @@
     background-color:#E7FCD5;
     color: #000;
     top: 0px;
-    left: 620px;
+    /*left: 620px;*/
+    left: 500px;
     position: fixed;
     border-radius: 5px;
     font-size: 16px;
@@ -1136,6 +1199,8 @@
     padding-left: 50px;
     padding-right: 50px;
     z-index: 999999;
+    width: 25%;
+    text-align: center;
 }
 .sucessMsgRate{
     background-color:#E7FCD5;
@@ -1371,7 +1436,7 @@
     border-width: 1px 0 0;
 }
 .View-Other-about{
-    padding: 14px;
+    padding: 17px;
     font-size: 23px;
     border-bottom: 1px solid #689F39;
 }
@@ -1449,7 +1514,7 @@
 }
 .feedback-profile{
     margin-top: 60px;
-    height: 85%;
+     height: 88%;
 }
 .text-height{
     line-height: 32px;
@@ -1465,13 +1530,16 @@
 #negetiveTab , #feedbackTab{
     display:none;
 }
-.oj-filmstrip-arrow.oj-default .oj-filmstrip-arrow-icon{
+#filmStrip .oj-filmstrip-arrow.oj-default .oj-filmstrip-arrow-icon{
     color: #fff;
     font-size: 40px;
 }
-.oj-filmstrip-arrow.oj-hover {
+#filmStrip .oj-filmstrip-arrow.oj-hover {
     background-color: transparent !important;
     border-color:transparent !important;
+}
+#filmStrip #ui-id-9.oj-hover span,#filmStrip #ui-id-8.oj-hover span{
+    color: #689F39;
 }
 .View-Other-about-members{
     padding: 17px;
@@ -1555,4 +1623,37 @@
 #associate-div .oj-inputdatetime-input-trigger{
     background: none;
     border: none;
+}
+#longText{
+    margin-top: -20px;
+}
+.my-performance-slide{height: 211px;}
+@media(max-width:767px){
+    #forActive-desktop{
+        display:none;
+    }
+    #forActive-mobile{
+        display:block;
+    }   
+    #forActive-mobile > ul#forActiveul{
+        list-style:none;
+        padding-left:0px;
+        margin:0px;
+    }
+    #forActive-mobile > ul#forActiveul li{
+        border-top:1px solid #fff;
+        margin-left: 0px;
+        margin-right: 0px;
+        margin-top:0px;     
+    }
+    #forActive-mobile > ul#forActiveul li a{
+        display:block;
+        clear:both;
+        padding:10px;
+    }
+    #forActive-mobile > ul#forActiveul li a:hover{
+        display:block;
+        clear:both;
+        padding:10px;
+    }
 }
