@@ -306,7 +306,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             $("#sucess").hide();
                             self.sucessMsg("");
                         }, 3000);
-                    }
+                    },
+                      beforeSend: function () {
+                            $("#rateMeLoader").removeClass('loaderHide');
+                        },
+                        complete: function () {
+                            $("#rateMeLoader").addClass('loaderHide');
+                        }
+                    
                 });
             }
         }
@@ -328,7 +335,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             $("#sucess").hide();
                             self.sucessMsg("");
                         }, 3000);
-                    }
+                    },
+                      beforeSend: function () {
+                            $("#rateMeLoader1").removeClass('loaderHide');
+                        },
+                        complete: function () {
+                            $("#rateMeLoader1").addClass('loaderHide');
+                        }
                 });
             }
         }
@@ -394,7 +407,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             $("#sucess").hide();
                             self.sucessMsg("");
                         }, 3000);
-                    }
+                    },
+                      beforeSend: function () {
+                            $("#rateMeLoader2").removeClass('loaderHide');
+                        },
+                        complete: function () {
+                            $("#rateMeLoader2").addClass('loaderHide');
+                        }
                 });
             }
         };
@@ -502,6 +521,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                           $('#homeTab2 > img').remove();
                           $('#homeTab1').append(' <img src="../../images/user.png" alt="" />');
                           $('#homeTab2').append(' <img src="../../images/team-active.png" alt="" />');
+						  self.members([]);
+                    self.members(self.data2());
                       }
                      });
                          
@@ -511,6 +532,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                           $('#homeTab2 > img').remove();
                           $('#homeTab1').append(' <img src="../../images/user.png" alt="" />');
                           $('#homeTab2').append(' <img src="../../images/team-active.png" alt="" />');
+						  self.members([]);
+                    self.members(self.data2());
                       }
                      });
                      
@@ -520,6 +543,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                           $('#homeTab2 > img').remove();
                           $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
                           $('#homeTab2').append(' <img src="../../images/team.png" alt="" />');
+						  self.members([]);
+                    self.members(self.data2());
                       }
                      });
                          
@@ -529,6 +554,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                           $('#homeTab2 > img').remove();
                           $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
                           $('#homeTab2').append(' <img src="../../images/team.png" alt="" />');
+						  self.members([]);
+                    self.members(self.data2());
                       }
                      });
             

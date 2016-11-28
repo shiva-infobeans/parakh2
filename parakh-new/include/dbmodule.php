@@ -582,9 +582,9 @@ class dbmodule {
     function get_recent_ratings() {
 
         $MonthFirstDate = date('Y-m-01');
-        $query = "SELECT r.user_id,u.google_name,u.google_picture_link,u.projects,u.primary_project,u.designation,if(c.comment_text <> '',c.comment_text,w.description) AS description"
-                . " FROM rating as r LEFT JOIN work AS w ON (w.id =r.work_id)"
-                . " LEFT JOIN comment AS c on (c.request_id = r.request_id) JOIN users AS u ON (u.id = r.user_id) WHERE description <> '' AND r.rating <> 0 ORDER BY r.created_date DESC LIMIT 4";
+        $query = "SELECT r.user_id,u.google_name,u.google_picture_link,u.projects,u.primary_project,u.designation"
+                . " FROM rating as r "
+                . " JOIN users AS u ON (u.id = r.user_id) WHERE r.rating <> 0 ORDER BY r.created_date DESC LIMIT 4";
         $rank_data = $this->con->prepare($query);
         $rank_data->execute();
         $row = $rank_data->fetchAll((PDO::FETCH_ASSOC));
@@ -1021,7 +1021,7 @@ class dbmodule {
                     . "request.for_id = user.id ) WHERE request.to_id = " . $user_id . " "
                     . "ORDER BY work.id DESC";
             $user_list = $this->con->prepare($query);
-			var_dump($user_list);
+			//echo($user_list->queryString);
             $user_list->execute();
             $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
             return $row;
@@ -1049,8 +1049,9 @@ class dbmodule {
                     . "rating as rating on work.id=rating.work_id left join  "
                     . "users as user on request.to_id=user.id left join "
                     . "role_type as role on role.id = user.role_id "
-                    . "where work.created_by = " . $user_id . $cnd . " order by work.modified_date desc";
+                    . "where request.from_id = " . $user_id . $cnd . " order by work.modified_date desc";
             $user_list = $this->con->prepare($query);
+			//echo($user_list->queryString);
             $user_list->execute();
             $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
             return $row;
