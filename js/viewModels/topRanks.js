@@ -16,13 +16,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
         var initial = NAME.charAt(0) + NAME.charAt(NAME.lastIndexOf(" ") + 1);
         return initial;
     }
-    function Rankers1(x1, y1, z1, name1) {
+    function Rankers1(x1, y1, z1, name1,id) {
         var ranker = new Object();
         ranker.x = x1;
         ranker.y = parseInt(y1);
         ranker.z = z1;
         ranker.Member = name1;
         ranker.label = nameFunction(name1);
+        ranker.userId = id;
         return ranker;
     }
 
@@ -102,29 +103,28 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
             success: function (res) {
                 var data1 = res['attributes']['data'];
                 for (var counter = 0; counter < data1.length; counter++) {
-                    self.data12.push(Rankers1((10 - counter), data1[counter]['pluscount'], (90 - (counter * 5)), data1[counter]['google_name']));
+                    self.data12.push(Rankers1((10 - counter), data1[counter]['pluscount'], (90 - (counter * 5)), data1[counter]['google_name'],data1[counter]['user_id']));
                 }
                 for (var i = 0; i < self.data12().length; i++) {
                     self.bubbleSeries()[i].items.push({
                         x: self.data12()[i].x, y: self.data12()[i].y, z: self.data12()[i].z, label: self.data12()[i].label, labelPosition: 'auto',
-                        shortDesc: "&lt;b&gt;" + self.data12()[i].Member + "&lt;/b&gt;" + "&lt;br/&gt;Total +1 ratings: " + self.data12()[i].y + "&lt;br/&gt;"
+                        shortDesc: "&lt;b&gt;" + self.data12()[i].Member + "&lt;/b&gt;" + "&lt;br/&gt;Total +1 ratings: " + self.data12()[i].y + "&lt;br/&gt;",
+                        user_id:self.data12()[i].userId
                     });
                 }
                 self.bubbleSeriesValue(self.bubbleSeries());
             }
         });
-        var data = [
-            {x: 10, y: 40, z: 90, Member: "Mahender Devangan", label: nameFunction("Mahender Devangan"), labelPosition: 'auto'},
-            {x: 9, y: 35, z: 85, Member: "SHIVA SHIRBHATE", label: nameFunction("SHIVA SHIRBHATE"), labelPosition: 'auto'},
-            {x: 8, y: 32, z: 80, Member: "SHIVA SHIRBHATE", label: "3rd MEMBER", labelPosition: 'auto'},
-            {x: 7, y: 30, z: 75, Member: "SHIVA SHIRBHATE", label: "Group d", labelPosition: 'auto'},
-            {x: 6, y: 12, z: 70, Member: "SHIVA SHIRBHATE", label: "Group e", labelPosition: 'auto'},
-            {x: 5, y: 11, z: 65, Member: "SHIVA SHIRBHATE", label: "Group f", labelPosition: 'auto'},
-            {x: 4, y: 10, z: 60, Member: "SHIVA SHIRBHATE", label: "Group A", labelPosition: 'auto'},
-            {x: 3, y: 9, z: 55, Member: "SHIVA SHIRBHATE", label: "Group h", labelPosition: 'auto'},
-            {x: 2, y: 8, z: 50, Member: "SHIVA SHIRBHATE", label: "Group i", labelPosition: 'auto'},
-            {x: 1, y: 7, z: 45, Member: "SHIVA SHIRBHATE", label: "Group k", labelPosition: 'auto'}
-        ];
+        
+        
+        self.chartOptionChange =  function(event, ui) {
+            
+          if (ui['option'] == 'selection') {
+              var userId = ui['optionMetadata']['selectionData'][0]['data']['user_id'];
+              window.location = "memberProfile.html?id=" + userId;
+          }
+        }
+        
         
         var bubbleGroups = ["MEMBER"];
         this.bubbleGroupsValue = ko.observableArray(bubbleGroups);
