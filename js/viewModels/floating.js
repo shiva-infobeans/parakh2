@@ -183,7 +183,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             headers: {secret: secret},
             success: function (result) {
                 self.userIdFloat(result['attributes']['data']['id']);
-                // console.log(result['attributes']['data']['id']);
+                
                 var getautoSearchLead = oj.Model.extend(
                         {
                             url: getAllLeads + self.userIdFloat(),
@@ -232,12 +232,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.feedbackModal = function () {
             if (self.value1() == '' || self.value1() == null) {
 
-                console.log($("#feedbackFloatSearchError").removeClass('hide'));
+                
                 return false;
             }
             if (self.desc() == '' || self.desc() == null) {
                 $("#feedbackFloatSearchError").addClass('hide');
-                console.log($("#feedbackFloatTextError").removeClass('hide'));
+                
                 return false;
             }
             $.ajax({

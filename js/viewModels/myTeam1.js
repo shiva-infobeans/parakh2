@@ -96,6 +96,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         success: function (task) {
 
                             var data = JSON.parse(task)['data'];
+							
+							
                             data = data.sort(function (a, b) {
                                 return (a['user_name'] > b['user_name']) - (a['user_name'] < b['user_name']);
                             });
@@ -103,14 +105,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 self.myTeam.push(new leadTeam(data[counter1]));
                             }
                             self.data1(self.myTeam());
-                            console.log(self.data1());
+                            
                             for (var c = 0; c < self.data1().length; c++) {
                                 if (c == 0) {
                                     self.indexer1Letters.push(self.data1()[c]['myName'].substring(0, 1));
                                 } else {
                                     var letter = self.data1()[c]['myName'].substring(0, 1);
 
-                                    //console.log(self.data2()[c]['name'].substring(0, 1));
+                                    
                                     if (self.data1()[c - 1]['myName'].substring(0, 1) != letter) {
                                         self.indexer1Letters.push(letter);
                                     }
@@ -141,7 +143,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             } else {
                                 var letter = self.data2()[c]['name'].substring(0, 1);
 
-                                //console.log(self.data2()[c]['name'].substring(0, 1));
+                                
                                 if (self.data2()[c - 1]['name'].substring(0, 1) != letter) {
                                     self.indexer2Letters.push(letter);
                                 }
@@ -189,9 +191,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     }
                 }
                 $(".viewProfile").on('click', function () {
-                    console.log($(this).attr("myTeamId"));
+                    
                     var link = "memberProfile.html?id=" + $(this).attr("myTeamId");
-                    console.log(link);
+                    
                     window.location = link;
                 });
 
@@ -459,7 +461,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 var AlphaIndexes = [];
                 var alphaCounter = 0; // counter for letters present in indexer
                 for (var index = 0; index < self.members().length; index++) {
-                    //    console.log("here : " + index);
+                    
                     if (self.members()[index]['name'].charAt(0) != AlphaIndexes[alphaCounter - 1]) {
                         AlphaIndexes[alphaCounter++] = self.members()[index]['name'].charAt(0);
                     }
@@ -469,9 +471,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     if (i != 0) {
                         if ($.inArray($(this).children("a").attr("href"), AlphaIndexes) < 0)
                         {
-                            //console.log($(this).children("a").attr("href"));
-
-                            //console.log(AlphaIndexes[z]);
+                            
                             $(this).addClass("hide");
                         }
                     }

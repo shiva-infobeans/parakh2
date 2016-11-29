@@ -584,7 +584,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                     $('#filmStrip8').ojFilmStrip("option", "currentItem", 1);
                 } catch (e)
                 {
-                    //console.log(e);
+                    
                 }
 
             } else if ($('#filmStrip8').ojFilmStrip("option", "currentItem") == 1
@@ -593,14 +593,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                     $('#filmStrip8').ojFilmStrip("option", "currentItem", 2);
                 } catch (e)
                 {
-                    //console.log(e);
+                    
                 }
             } else if ($('#filmStrip8').ojFilmStrip("option", "currentItem") == 2) {
                 try {
                     $('#filmStrip8').ojFilmStrip("option", "currentItem", 0);
                 } catch (e)
                 {
-                    //console.log(e);
+                    
                 }
             }
 
@@ -612,7 +612,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
 
                 } catch (e)
                 {
-                    //console.log(e);
+                    
                 }
             } else if ($('#filmStrip9').ojFilmStrip("option", "currentItem") == 1
                     || $('#filmStrip9').ojFilmStrip("option", "currentItem") == 'show11') {
@@ -620,7 +620,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                     $('#filmStrip9').ojFilmStrip("option", "currentItem", 2);
                 } catch (e)
                 {
-                    //console.log(e);
+                    
                 }
             } else if ($('#filmStrip9').ojFilmStrip("option", "currentItem") == 2
                     || $('#filmStrip9').ojFilmStrip("option", "currentItem") == 'show12') {
@@ -629,7 +629,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                     $('#filmStrip9').ojFilmStrip("option", "currentItem", 0);
                 } catch (e)
                 {
-                    //console.log(e);
+                    
                 }
             }
             /// manager slider
