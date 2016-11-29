@@ -1563,8 +1563,7 @@ margin:5px 10px;
 #longText{
     margin-top: -20px;
 }
-.my-performance-slide{height: 211px;}
-
+/*.my-performance-slide{height: 211px;}*/
 @media(max-width:767px){
     #forActive-desktop{
         display:none;
