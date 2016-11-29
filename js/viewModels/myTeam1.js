@@ -20,17 +20,16 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         member.designation = data['designation'];
         member.role_name = data['role_name'];
         member.google_id = data['google_id'];
-        // getOtherTeamMembers + data['id'];
         member.plus = data['pluscount'];
         member.minus = data['minuscount'];
         return member;
     }
     function leadTeam(data) {
         var myTeam = this;
-        myTeam.myName = data['user_name'];
+        myTeam.myName = data['google_name'];
         myTeam.myId = data['user_id'];
         myTeam.myDesign = data['designation'];
-        myTeam.myEmail = data['email'];
+        myTeam.myEmail = data['google_email'];
         myTeam.myPic = data['picture'] == "" ? 'images/warning-icon-24.png' : data['picture'];
         myTeam.plus = data['pluscount'];
         myTeam.minus = data['minuscount'];
@@ -66,8 +65,25 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
         //indexer for other team members
         self.indexer2Letters = ko.observableArray();
+        self.makeUnderLine2 = function (data, event) {
+            $("#index").children("span").each(function () {
+                if ($(this).children().hasClass('indexerUnderline')) {
+                    $(this).children().removeClass('indexerUnderline');
+                }
+            });
+            $(event.target).addClass('indexerUnderline');
+        }
         //indexer for my team members
         self.indexer1Letters = ko.observableArray();
+        self.makeUnderLine1 = function (data, event) {
+            $("#index1").children("span").each(function () {
+                if ($(this).children().hasClass('indexerUnderline')) {
+                    $(this).children().removeClass('indexerUnderline');
+                }
+            });
+            $(event.target).addClass('indexerUnderline');
+        }
+        ///
         //user
         var user = oj.Model.extend({
             url: getUserByEmail + person['email']
@@ -103,14 +119,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 self.myTeam.push(new leadTeam(data[counter1]));
                             }
                             self.data1(self.myTeam());
-                            console.log(self.data1());
+                            self.indexer1Letters.push("All");
+                            $("#All1 a").addClass('indexerUnderline');
                             for (var c = 0; c < self.data1().length; c++) {
                                 if (c == 0) {
                                     self.indexer1Letters.push(self.data1()[c]['myName'].substring(0, 1));
                                 } else {
                                     var letter = self.data1()[c]['myName'].substring(0, 1);
-
-                                    //console.log(self.data2()[c]['name'].substring(0, 1));
                                     if (self.data1()[c - 1]['myName'].substring(0, 1) != letter) {
                                         self.indexer1Letters.push(letter);
                                     }
@@ -135,39 +150,20 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             self.members.push(new teamMember(data[counter1]));
                         }
                         self.data2(self.members());
+                        self.indexer2Letters.push("All");
+                        $("#All a").addClass('indexerUnderline');
                         for (var c = 0; c < self.data2().length; c++) {
                             if (c == 0) {
                                 self.indexer2Letters.push(self.data2()[c]['name'].substring(0, 1));
                             } else {
                                 var letter = self.data2()[c]['name'].substring(0, 1);
-
-                                //console.log(self.data2()[c]['name'].substring(0, 1));
                                 if (self.data2()[c - 1]['name'].substring(0, 1) != letter) {
                                     self.indexer2Letters.push(letter);
                                 }
-
                             }
                         }
                     }
                 });
-                // var TaskRecord = oj.Model.extend({
-                //     url: getOtherTeamMembers + self.userId()
-                // });
-                // var task = new TaskRecord();
-                // task.fetch({
-                //     headers: {secret: secret},
-                //     success: function (res) {
-                //         var data = task.attributes['data'];
-                //         data = data.sort(function (a, b) {
-                //             return (a['google_name'] > b['google_name']) - (a['google_name'] < b['google_name']);
-                //         });
-                //         for (var counter1 = 0; counter1 < data.length; counter1++) {
-                //             self.members.push(new teamMember(data[counter1]));
-                //         }
-                //         self.data2(self.members());
-                //     }
-                // });
-
             }
         });
         self.arrangeIndex = function (data, event) {
@@ -176,7 +172,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 value = value.substr(value.lastIndexOf('/') + 1);
                 var temp_data = [];
                 self.members([]);
-                if (value == "ALL") {
+                if (value == "All") {
                     self.members([]);
                     self.members(self.data2());
                 } else {
@@ -189,9 +185,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     }
                 }
                 $(".viewProfile").on('click', function () {
-                    console.log($(this).attr("myTeamId"));
                     var link = "memberProfile.html?id=" + $(this).attr("myTeamId");
-                    console.log(link);
                     window.location = link;
                 });
 
@@ -241,7 +235,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 value = value.substr(value.lastIndexOf('/') + 1);
                 var temp_data = [];
                 self.myTeam([]);
-                if (value == "ALL") {
+                if (value == "All") {
                     self.myTeam([]);
                     self.myTeam(self.data1());
                 } else {
@@ -454,33 +448,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 var link = "memberProfile.html?id=" + $(this).attr("myTeamId");
                 window.location = link;
             });
-
-            $("#index").ready(function () {
-                var AlphaIndexes = [];
-                var alphaCounter = 0; // counter for letters present in indexer
-                for (var index = 0; index < self.members().length; index++) {
-                    //    console.log("here : " + index);
-                    if (self.members()[index]['name'].charAt(0) != AlphaIndexes[alphaCounter - 1]) {
-                        AlphaIndexes[alphaCounter++] = self.members()[index]['name'].charAt(0);
-                    }
-                }
-                //$("#index").addClass("hide");
-                $("#index span").each(function (i, data) {
-                    if (i != 0) {
-                        if ($.inArray($(this).children("a").attr("href"), AlphaIndexes) < 0)
-                        {
-                            //console.log($(this).children("a").attr("href"));
-
-                            //console.log(AlphaIndexes[z]);
-                            $(this).addClass("hide");
-                        }
-                    }
-                })
-                $("#index").removeClass("hide");
-            });
-
-
-
             $("#index1").ready(function () {
                 var AlphaIndexes = [];
                 var alphaCounter = 0; // counter for letters present in indexer
