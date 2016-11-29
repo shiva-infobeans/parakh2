@@ -284,6 +284,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     border:none;
     padding: 0px;
     margin-top: -4px;  
+    margin-bottom:1px;
 }
 .profile-tab1-data{
     display: flex;
