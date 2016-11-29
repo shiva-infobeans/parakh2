@@ -230,7 +230,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         headers: {secret: secret},
                         method: 'POST',
                         url: updateProfile,
-                        data: {user_id: self.id(), desc: self.designation(), location: self.location(), skills: self.skills(), primary_project: self.primary_project(), date: self.date(), projects: self.projects(), interests: self.interests(), mob: self.myNumber()},
+                        data: {user_id: self.id(), desc: self.designation(), location: self.location(), skills: self.skills(), primary_project: self.primary_project(), date: self.date(), projects: self.projects(), interests: self.interests(), mob: self.temporaryNumber()},
                         success: function (res) {
                             response = jQuery.parseJSON(res);
                             $('.sucessMsgRate').show();
@@ -411,54 +411,16 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         });
                     }
                 }
-
-                self.openModal = function () {
-                    $("#open-modal").fadeIn();
-                    $("#open-modal").addClass('open');
-                    self.temporaryNumber(self.myNumber()); // store number temparary for observable
-                    if (self.myNumber() == "NO NUMBER") {
-                        self.myNumber("");
-                    } else {
-                        var numberTrim = self.myNumber();
-                        self.myNumber(numberTrim.substr(numberTrim.indexOf("-") + 1), numberTrim.length);
-                    }
-                };
-                // edit Associate with infobeans
-                var associateDefaultVar;
-                self.openDate = function () {
-                    associateDefaultVar = $('#associate-text').attr('defaultDate');
-                    self.associate_with_infobeans(associateDefaultVar);
-                    $('#associate-text').addClass('hide');
-                    $('#associate-div').removeClass('hide');
-                    $('#edit-associate').addClass('hide');
-                    $('#submit-associate').removeClass('hide');
-                    $('#cancel-associate').removeClass('hide');
-
-                }
-                self.updateDate = function () {
-                    //ajax call here
-                    self.updateProfile();
-                    self.associate_with_infobeans(dateDiffCalender(self.date()));
-
-                    $('#associate-text').removeClass('hide');
-                    $('#associate-div').addClass('hide');
-                    $('#edit-associate').removeClass('hide');
-                    $('#submit-associate').addClass('hide');
-                    $('#cancel-associate').addClass('hide');
-                }
-                self.dateRevert = function () {
-                    self.associate_with_infobeans(associateDefaultVar);
-                    $('#associate-text').removeClass('hide');
-                    $('#associate-div').addClass('hide');
-                    $('#edit-associate').removeClass('hide');
-                    $('#submit-associate').addClass('hide');
-                    $('#cancel-associate').addClass('hide');
-                }
-
-
-                // edit designation
+                /*edit all fields*/
                 var designationsDefaultVar;
-                self.openDesignations = function () {
+                var associateDefaultVar;
+                var skillsDefaultVal;
+                var projectsDefaultVal;
+                var interestsDefaultVar;
+                var primaryProjectDefaultVar;
+                var numberDefaultVar;
+                self.openAll = function () {
+                    /*******************************Open Edit Designation block***********************/
                     designationsDefaultVar = self.designation();
                     editVariable = self.designationOptions();
                     self.designationOptions([]);
@@ -480,88 +442,52 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     });
                     $('#designation-text').addClass('hide');
                     $('#designation-div').removeClass('hide');
-                    $('#edit-designation').addClass('hide');
-                    $('#submit-designation').removeClass('hide');
-                    $('#cancel-designation').removeClass('hide');
-                }
-                self.updateDesignations = function () {
-                    //ajax call here
-                    self.updateProfile();
-                    $('#designation-text').removeClass('hide');
-                    $('#designation-div').addClass('hide');
-                    $('#edit-designation').removeClass('hide');
-                    $('#submit-designation').addClass('hide');
-                    $('#cancel-designation').addClass('hide');
-                }
-                self.designationsRevert = function () {
-                    // self.designationOptions(editVariable);
-                    $('#designation-text').removeClass('hide');
-                    $('#designation-div').addClass('hide');
-                    $('#edit-designation').removeClass('hide');
-                    $('#submit-designation').addClass('hide');
-                    $('#cancel-designation').addClass('hide');
-                    self.designation(designationsDefaultVar);
+                    /*******************************Open Edit Designation block***********************/
 
-                }
-
-                // edit location
-                self.openLocation = function () {
+                    /*******************************Open Edit Location block***********************/
                     locationDefaultVar = self.location();
                     $('#location-text').addClass('hide');
                     $('#location-div').removeClass('hide');
-                    $('#edit-location').addClass('hide');
-                    $('#submit-location').removeClass('hide');
-                    $('#cancel-location').removeClass('hide');
-                }
-                self.updateLocation = function () {
-                    //ajax call here
-                    self.updateProfile();
-                    $('#location-text').removeClass('hide');
-                    $('#location-div').addClass('hide');
-                    $('#edit-location').removeClass('hide');
-                    $('#submit-location').addClass('hide');
-                    $('#cancel-location').addClass('hide');
-                }
-                self.locationRevert = function () {
-                    $('#location-text').removeClass('hide');
-                    $('#location-div').addClass('hide');
-                    $('#edit-location').removeClass('hide');
-                    $('#submit-location').addClass('hide');
-                    $('#cancel-location').addClass('hide');
-                    self.location(locationDefaultVar);
-                }
+                    /*******************************Open Edit Location block***********************/
 
-                // edit skills
-                var skillsDefaultVal;
-                self.openSkills = function () {
+                    /*******************************Open Edit Skills block***********************/
                     skillsDefaultVal = self.skills();
                     $('#skills-text').addClass('hide');
                     $('#skills').removeClass('hide');
-                    $('#edit-skills').addClass('hide');
-                    $('#submit-skills').removeClass('hide');
-                    $('#cancel-skills').removeClass('hide');
-                }
-                self.updateSkills = function () {
-                    //ajax call here
-                    self.updateProfile();
-                    $('#skills-text').removeClass('hide');
-                    $('#skills').addClass('hide');
-                    $('#edit-skills').removeClass('hide');
-                    $('#submit-skills').addClass('hide');
-                    $('#cancel-skills').addClass('hide');
-                }
-                self.skillsRevert = function () {
-                    $('#skills-text').removeClass('hide');
-                    $('#skills').addClass('hide');
-                    $('#edit-skills').removeClass('hide');
-                    $('#submit-skills').addClass('hide');
-                    $('#cancel-skills').addClass('hide');
-                    self.skills(skillsDefaultVal);
-                }
+                    /*******************************Open Edit Skills block***********************/
 
-                // edit projects
-                var projectsDefaultVal;
-                self.openProjects = function () {
+                    /*******************************Open Edit Associated with block***********************/
+                    associateDefaultVar = $('#associate-text').attr('defaultDate');
+                    self.associate_with_infobeans(associateDefaultVar);
+                    $('#associate-text').addClass('hide');
+                    $('#associate-div').removeClass('hide');
+                    /*******************************Open Edit Associated with block***********************/
+
+                    /*******************************Open Edit Primary Project block***********************/
+                    primaryProjectDefaultVar = self.primary_project();
+                    self.primaryProjectOptions([]);
+                    //get all projects using ajax;
+                    var primaryprojects = oj.Model.extend({
+                        url: getAllProjects,
+                    });
+                    var primaryprojectTask = new primaryprojects();
+                    primaryprojectTask.fetch({
+                        headers: {secret: secret},
+                        success: function (res) {
+                            for (var c = 0; c < res['attributes']['data'].length; c++) {
+                                var obj = new Object();
+                                obj.name = res['attributes']['data'][c]['name'];
+                                self.primaryProjectOptions.push(obj);
+                            }
+                            $('#selectPrimaryProjects').ojSelect("refresh");
+                            self.primary_project(res['attributes']['data'][0]['name']);
+                        }
+                    });
+                    $('#primary-project-text').addClass('hide');
+                    $('#primary-project-div').removeClass('hide');
+                    /*******************************Open Edit Primary Project block***********************/
+
+                    /*******************************Open Edit Past Project block***********************/
                     projectsDefaultVal = self.projects();
                     editVariable = self.projectOptions();
                     self.projectOptions([]);
@@ -583,33 +509,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     });
                     $('#projects-text').addClass('hide');
                     $('#projects-div').removeClass('hide');
-                    $('#edit-projects').addClass('hide');
-                    $('#submit-projects').removeClass('hide');
-                    $('#cancel-projects').removeClass('hide');
-                }
-                self.updateProjects = function () {
-                    //ajax call here
-                    self.updateProfile();
-                    $('#projects-text').removeClass('hide');
-                    $('#projects-div').addClass('hide');
-                    $('#edit-projects').removeClass('hide');
-                    $('#submit-projects').addClass('hide');
-                    $('#cancel-projects').addClass('hide');
-                }
-                self.projectsRevert = function () {
-                    self.projectOptions(editVariable);
-                    $('#projects-text').removeClass('hide');
-                    $('#projects-div').addClass('hide');
-                    $('#edit-projects').removeClass('hide');
-                    $('#submit-projects').addClass('hide');
-                    $('#cancel-projects').addClass('hide');
-                    self.projects(projectsDefaultVal);
-                }
+                    /*******************************Open Edit Past Project block***********************/
 
-                // edit interests
-                var DefaultInterestsVar;
-                self.openInterest = function () {
-                    DefaultInterestsVar = self.interests();
+                    /*******************************Open Edit Interest block***********************/
+                    interestsDefaultVar = self.interests();
                     editVariable = self.interests();
                     self.interestsOptions([]);
                     //get all interests using ajax;
@@ -628,128 +531,98 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                             $('#selectInterests').ojSelect("refresh");
                         }
                     });
-                    // var interests = oj.Model.extend({
-                    //     url: getAllInterests,
-                    // });
-                    // var interestTask = new interests();
-                    // interestTask.fetch({
-                    //     headers: {secret: secret},
-                    //     success: function (res) {
-                    //         for (var c = 0; c < res['attributes']['data'].length; c++) {
-                    //             var obj = new Object();
-                    //             obj.name = res['attributes']['data'][c]['interest'];
-                    //             self.interestsOptions.push(obj);
-                    //         }
-                    //         $('#selectInterests').ojSelect("refresh");
-                    //     }
-                    // });
                     $('#interest-text').addClass('hide');
                     $('#interest-div').removeClass('hide');
-                    $('#edit-interest').addClass('hide');
-                    $('#submit-interest').removeClass('hide');
-                    $('#cancel-interest').removeClass('hide');
-                }
-                self.updateInterest = function () {
-                    //ajax call here
-                    self.updateProfile();
-                    $('#interest-text').removeClass('hide');
-                    $('#interest-div').addClass('hide');
-                    $('#edit-interest').removeClass('hide');
-                    $('#submit-interest').addClass('hide');
-                    $('#cancel-interest').addClass('hide');
-                }
-                self.interestRevert = function () {
-                    self.interests(editVariable);
-                    $('#interest-text').removeClass('hide');
-                    $('#interest-div').addClass('hide');
-                    $('#edit-interest').removeClass('hide');
-                    $('#submit-interest').addClass('hide');
-                    $('#cancel-interest').addClass('hide');
-                    self.interests(DefaultInterestsVar);
-                }
+                    /*******************************Open Edit Interest block***********************/
 
-                // edit primary project here......
-                var DefaultPrimaryProjectVar;
-                self.openPrimaryProject = function () {
-                    DefaultPrimaryProjectVar = self.primary_project();
-                    self.primaryProjectOptions([]);
-                    //get all projects using ajax;
-                    var primaryprojects = oj.Model.extend({
-                        url: getAllProjects,
-                    });
-                    var primaryprojectTask = new primaryprojects();
-                    primaryprojectTask.fetch({
-                        headers: {secret: secret},
-                        success: function (res) {
-                            for (var c = 0; c < res['attributes']['data'].length; c++) {
-                                var obj = new Object();
-                                obj.name = res['attributes']['data'][c]['name'];
-                                self.primaryProjectOptions.push(obj);
-                            }
-                            $('#selectPrimaryProjects').ojSelect("refresh");
-                            self.primary_project(res['attributes']['data'][0]['name']);
-                        }
-                    });
-                    $('#primary-project-text').addClass('hide');
-                    $('#primary-project-div').removeClass('hide');
-                    $('#edit-primary-project').addClass('hide');
-                    $('#submit-primary-project').removeClass('hide');
-                    $('#cancel-primary-project').removeClass('hide');
-                }
-                self.updatePrimaryProject = function () {
-                    //ajax call here
-                    self.updateProfile();
-                    $('#primary-project-text').removeClass('hide');
-                    $('#primary-project-div').addClass('hide');
-                    $('#edit-primary-project').removeClass('hide');
-                    $('#submit-primary-project').addClass('hide');
-                    $('#cancel-primary-project').addClass('hide');
-                }
-                self.primaryProjectRevert = function () {
-                    $('#primary-project-text').removeClass('hide');
-                    $('#primary-project-div').addClass('hide');
-                    $('#edit-primary-project').removeClass('hide');
-                    $('#submit-primary-project').addClass('hide');
-                    $('#cancel-primary-project').addClass('hide');
-                    self.primary_project(DefaultPrimaryProjectVar);
-                }
-
-                // edit number here......
-                var DefaultNumberVar;
-                self.openNumber = function () {
+                    /*******************************Open Edit Number block***********************/
                     DefaultNumberVar = self.myNumber();
                     editVariable = self.myNumber().substring(self.myNumber().indexOf("-") + 1, self.myNumber().length);
                     self.temporaryNumber(self.myNumber().substring(self.myNumber().indexOf("-") + 1, self.myNumber().length));
                     self.temporaryNumber();
                     $('#number-text').addClass('hide');
                     $('#editNumberBox').removeClass('hide');
-                    $('#edit-number').addClass('hide');
-                    $('#submit-number').removeClass('hide');
-                    $('#cancel-number').removeClass('hide');
+                    /*******************************Open Edit Number block***********************/
+                    $('#edit-all').addClass('hide');
+                    $('#submit-all').removeClass('hide');
+                    $('#cancel-all').removeClass('hide');
                 }
-                self.updateNumber = function () {
-                    self.myNumber("+91-" + self.temporaryNumber());
-                    //ajax call here
+
+                self.updateAll = function () {
                     self.updateProfile();
+                    self.associate_with_infobeans(dateDiffCalender(self.date()));
+                    if(isNaN(self.temporaryNumber()))
+                    {
+                        self.myNumber("+91-" + self.temporaryNumber());
+                        self.designation(designationsDefaultVar);
+                        self.associate_with_infobeans(associateDefaultVar);
+                        self.location(locationDefaultVar);
+                        self.skills(skillsDefaultVal);
+                        self.projects(projectsDefaultVal);
+                        self.interests(interestsDefaultVar);
+                        self.primary_project(primaryProjectDefaultVar);
+                        self.temporaryNumber(self.myNumber().substring(self.myNumber().indexOf("-") + 1, self.myNumber().length));
+                        self.myNumber("+91-" + editVariable);
+                        self.temporaryNumber("");
+                        self.myNumber(DefaultNumberVar);
+                    }else
+                    {
+                        self.myNumber("+91-" + self.temporaryNumber());
+                    }
+                    $('#designation-text').removeClass('hide');
+                    $('#designation-div').addClass('hide');
+                    $('#location-text').removeClass('hide');
+                    $('#location-div').addClass('hide');
+                    $('#skills-text').removeClass('hide');
+                    $('#skills').addClass('hide');
+                    $('#associate-text').removeClass('hide');
+                    $('#associate-div').addClass('hide');
+                    $('#primary-project-text').removeClass('hide');
+                    $('#primary-project-div').addClass('hide');
+                    $('#projects-text').removeClass('hide');
+                    $('#projects-div').addClass('hide');
+                    $('#interest-text').removeClass('hide');
+                    $('#interest-div').addClass('hide');
                     $('#number-text').removeClass('hide');
                     $('#editNumberBox').addClass('hide');
-                    $('#edit-number').removeClass('hide');
-                    $('#submit-number').addClass('hide');
-                    $('#cancel-number').addClass('hide');
+                    $('#edit-all').removeClass('hide');
+                    $('#submit-all').addClass('hide');
+                    $('#cancel-all').addClass('hide');
                 }
-                self.numberEditRevert = function () {
-                    //$("#editNumberBox").hide();
+
+                self.allRevert = function () {
+                    
+                    $('#designation-text').removeClass('hide');
+                    $('#designation-div').addClass('hide');
+                    $('#location-text').removeClass('hide');
+                    $('#location-div').addClass('hide');
+                    $('#skills-text').removeClass('hide');
+                    $('#skills').addClass('hide');
+                    $('#associate-text').removeClass('hide');
+                    $('#associate-div').addClass('hide');
+                    $('#primary-project-text').removeClass('hide');
+                    $('#primary-project-div').addClass('hide');
+                    $('#projects-text').removeClass('hide');
+                    $('#projects-div').addClass('hide');
+                    $('#interest-text').removeClass('hide');
+                    $('#interest-div').addClass('hide');
+                    $('#number-text').removeClass('hide');
+                    $('#editNumberBox').addClass('hide');
+                    self.designation(designationsDefaultVar);
+                    self.associate_with_infobeans(associateDefaultVar);
+                    self.location(locationDefaultVar);
+                    self.skills(skillsDefaultVal);
+                    self.projects(projectsDefaultVal);
+                    self.interests(interestsDefaultVar);
+                    self.primary_project(primaryProjectDefaultVar);
                     self.temporaryNumber(self.myNumber().substring(self.myNumber().indexOf("-") + 1, self.myNumber().length));
                     self.myNumber("+91-" + editVariable);
                     self.temporaryNumber("");
-                    $('#number-text').removeClass('hide');
-                    $('#editNumberBox').addClass('hide');
-                    $('#edit-number').removeClass('hide');
-                    $('#submit-number').addClass('hide');
-                    $('#cancel-number').addClass('hide');
                     self.myNumber(DefaultNumberVar);
+                    $('#edit-all').removeClass('hide');
+                    $('#submit-all').addClass('hide');
+                    $('#cancel-all').addClass('hide');
                 }
             }
-
             return dialogModel;
         });
