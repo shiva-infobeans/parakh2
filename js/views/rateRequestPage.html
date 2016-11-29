@@ -29,22 +29,22 @@ and open the template in the editor.
             <div id="tabs-3">
                 <hr />
                 <div class="oj-flex oj-row ">
-                    <div class=" oj-xl-6 oj-lg-6 oj-md-6 oj-sm-12 oj-flex-item oj-padding oj-margin-top oj-margin-bottom pos-relative transboxRequest ">
-                  
+                    <div class=" oj-xl-6 oj-lg-6 oj-md-6 oj-sm-12 oj-flex-item oj-padding oj-margin-top  oj-margin-bottom pos-relative transboxRequest ">
+
                         <div class="transbox"></div>
                         <div class="oj-flex oj-row">
                             <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-flex-bar-middle">
                                 <div class="requestHeading">
-                                  Pending Requests
+                                    Pending Requests
                                 </div> 
                             </div>
                             <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-margin-top oj-margin-bottom requestAlignment">
-                                    <div class ="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding NorequestMsgAlignment oj-flex-bar-center-absolute" id="request2">
-                                                    <span class="errorText1" data-bind="text: noLeadPendingRequest"></span>
-                                                </div>
-                                
+                                <div class ="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding NorequestMsgAlignment oj-flex-bar-center-absolute" id="request2">
+                                    <span class="errorText1" data-bind="text: noLeadPendingRequest"></span>
+                                </div>
+
                                 <!--ko foreach:  requestPendingLead-->
-                                <div class="oj-xl-8 oj-lg-8 oj-md-10 oj-sm-8 pos-relative oj-margin oj-flex-bar-center-absolute requestApproveDiv">
+                                <div class="oj-xl-8 oj-lg-8 oj-md-10 oj-sm-8 pos-relative oj-margin oj-flex-bar-center-absolute space-block">
                                     <div class="transbox1  requestHeight"></div>
                                     <div class="transbox  requestHeight"></div>
                                     <div class="oj-flex oj-row ">
@@ -63,7 +63,7 @@ and open the template in the editor.
 
                                             <span data-bind="text: date"></span>
                                         </div>
-                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin color-white divTextRateMe oj-padding ">
+                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center  color-white divTextRateMe oj-padding ">
 
 
                                             <textarea id="text-area20" class="textArea-requests textArea-white" aria-label="ojTextArea component no visible label"
@@ -84,11 +84,54 @@ and open the template in the editor.
                     <div class=" oj-xl-6 oj-lg-6 oj-md-6 oj-sm-12 oj-flex-item oj-margin-bottom pos-relative oj-margin-start oj-margin-top">
                         <div class="transbox"></div>
                         <div class="oj-flex oj-row">
-                            <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item ">
-
-
-
+                            <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-flex-bar-middle oj-margin-bottom oj-margin-top">
+                                <div class="requestHeading">
+                                    Declined Requests
+                                </div> 
                             </div>
+                               <div class ="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding NorequestMsgAlignment oj-flex-bar-center-absolute" id="request3">
+                                    <span class="errorText1" data-bind="text: noLeadDeclinedRequest"></span>
+                                </div>
+                            <!-- ko foreach: requestDeclinedLead-->
+                            <div class="oj-xl-7 oj-lg-7 oj-md-10 oj-sm-8 pos-relative oj-margin oj-flex-bar-center-absolute space-block">
+                                <div class="transbox2  declineHeight"></div>
+                                <div class="transbox  declineHeight"></div>
+                                <div class="oj-flex oj-row">
+                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center ">
+                                        <img data-bind="attr: {src:pic}" alt="" class="profile-feedback-pic border-color-red"/>
+                                    </div>
+                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center color-white">
+
+                                        <span data-bind="text: name"></span>
+                                    </div>
+                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center color-white">
+
+                                        <span data-bind="text: designation"></span>
+                                    </div>
+                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center color-white ">
+
+                                        <span data-bind="text:date"></span>
+                                    </div>
+                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding color-white">
+
+                                        <span data-bind="text: sComment"></span>
+                                    </div>
+                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item open-more oj-flex oj-margin overflow-class">
+                                        <span class="color-white" data-bind="text: lComment"></span>
+                                    </div>
+                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex replyBox">
+                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item openDiv oj-flex-bar oj-margin " data-bind="click: $parent.requestMore,attr:{id: uniqueId}">
+                                            <span class="oj-flex-bar-end oj-margin-bottom more-alignment" id="openMore">
+                                                <span class="oj-padding-right "><i class="zmdi zmdi-caret-down color-white Moreless-fix"></i></span>
+                                                <span class=" color-white oj-margin-start">More</span>
+                                                <span class="hide color-white" data-bind="text: lComment"></span>                 
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /ko -->
+
                         </div>
                     </div>
                 </div>

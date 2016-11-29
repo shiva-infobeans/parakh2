@@ -1563,6 +1563,7 @@ margin:5px 10px;
     margin-top: -20px;
 }
 .my-performance-slide{height: 211px;}
+
 @media(max-width:767px){
     #forActive-desktop{
         display:none;
@@ -1591,6 +1592,14 @@ margin:5px 10px;
         clear:both;
         padding:10px;
     }
+}
+.more-alignment{
+    margin-top: 48px;
+    margin-bottom: -2px;
+    margin-right: 13px;
+}
+.space-block{
+    margin-bottom: 70px;
 }
 .custom-zmdi-icons-div{
     border-radius:50%;border:2px solid #fff;background:#000;cursor: pointer;color: white;
