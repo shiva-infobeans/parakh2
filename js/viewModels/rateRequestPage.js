@@ -29,7 +29,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         }
         req.lComment = data['description'];
         req.request_id = data['request_id'];
-//        console.log(req.request_id);
+
         req.pic = data['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data['google_picture_link'];
         req.name = data['google_name'];
         req.designation = data['designation'];
@@ -39,7 +39,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         req.uniqueId = "pending" + data['request_id'];
         req.acceptBtnId = "accept" + data['request_id'];
         req.declineBtnId = "decline" + data['request_id'];
-//        console.log(req.uniqueId);
+
         return req;
     }
     function rateRequestPageContentViewModel(person) {
@@ -94,6 +94,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     headers: {secret: secret},
                     success: function (res) {
                         var data1 = res['attributes']['data'];
+
                         for (var i = 0; i < data1.length; i++) {
                             if (data1[i]['status'] == 0) {
                                 self.requestPendingMember.push(new request(data1[i], self.userId()));
@@ -115,7 +116,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     headers: {secret: secret},
                     success: function (res) {
                         var data1 = res['attributes']['data'];
-
+						
                         for (var i = 0; i < data1.length; i++) {
                             if (data1[i]['status'] == 1) {
                                 self.requestRejectedMember.push(new request(data1[i], self.userId()));
@@ -138,12 +139,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     var requestFetch1 = new requestUrl1();
                     requestFetch1.fetch({
                         headers: {secret: secret},
-                        error: function (ee)
-                        {
-                        },
+						error:function(ee)
+						{
+						
+						},
                         success: function (res) {
 
                             var data1 = res['attributes']['data'];
+						
                             for (var i = 0; i < data1.length; i++) {
                                 if (data1[i]['status'] == 0) {
                                     self.requestPendingLead.push(new request(data1[i], self.userId()));
@@ -218,6 +221,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     $("#rateTab5").click(function () {
                         if ($('#rateTab1 > img').attr("src") == "../../images/+1-icon.png")
                         {
+                        
                             $('#rateTab1 > img').remove();
                             $('#rateTab3 > img').remove();
                             $('#rateTab3').append(' <img src="../../images/request-approval.png" alt="" />');
@@ -228,6 +232,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     $("#rateTab1").click(function () {
                         if ($('#rateTab1 > img').attr("src") == "../../images/+1-icon.png")
                         {
+
                             $('#rateTab1 > img').remove();
                             $('#rateTab3 > img').remove();
                             $('#rateTab3').append(' <img src="../../images/request-approval.png" alt="" />');
@@ -249,14 +254,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         self.lead_pic(result['attributes']['data'][0]['google_picture_link']);
                         self.lead_id(result['attributes']['data'][0]['manager_id']);
                         self.lead_role(result['attributes']['data'][0]['role_name']);
-                        // console.log(result['attributes']['data'][0]['role_name']);
+
                         if (result['attributes']['data'].length == 2) {
                             self.manager_name(result['attributes']['data'][1]['manager_name']);
                             self.manager_pic(result['attributes']['data'][1]['google_picture_link']);
                             self.manager_id(result['attributes']['data'][1]['manager_id']);
                             self.manager_role(result['attributes']['data'][1]['role_name']);
                         }
-                        //console.log(result['attributes']['data'][1]['role_name']);
+
                     }
                 });
             }
@@ -275,8 +280,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     descHTML.val() : obj.attr('descComment');
 
             var removeHtml = obj;
-            var datas = {u_id: userId, rq_id: requestId, st: type, desc: descriptionChange, to_id: to_id};
-            console.log(datas);
+        var datas={u_id: userId, rq_id: requestId, st:type, desc: descriptionChange, to_id: to_id};
+        
             $.ajax({
                 headers: {secret: secret},
                 method: 'POST',
