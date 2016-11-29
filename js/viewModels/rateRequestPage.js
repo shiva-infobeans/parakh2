@@ -62,6 +62,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         this.sucessMsg = ko.observable("");
         this.sucessMsg("");
         self.requestRejectedMember = ko.observableArray();
+        self.reqRejectMem = ko.observableArray();
+        self.requestPendingMember = ko.observableArray();
+        self.reqPendingMem = ko.observableArray();
         self.requestPendingMember = ko.observableArray();
         self.requestPendingLead = ko.observableArray();
         self.requestRejectedLead = ko.observableArray();
@@ -92,7 +95,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     headers: {secret: secret},
                     success: function (res) {
                         var data1 = res['attributes']['data'];
-						console.log(data1);
                         for (var i = 0; i < data1.length; i++) {
                             if (data1[i]['status'] == 0) {
                                 self.requestPendingMember.push(new request(data1[i], self.userId()));
@@ -101,6 +103,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         if (self.requestPendingMember().length != 0) {
                             self.noPendingRequest("");
                         }
+                        getItemsreqPendingMember(5);
                     }
                 });
                 var requestUrl = oj.Model.extend({
@@ -111,12 +114,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     headers: {secret: secret},
                     success: function (res) {
                         var data1 = res['attributes']['data'];
-						console.log(data1);
                         for (var i = 0; i < data1.length; i++) {
                             if (data1[i]['status'] == 1) {
                                 self.requestRejectedMember.push(new request(data1[i], self.userId()));
                             }
                         }
+                        getItemsReqRejectedMember(5);
                         if (self.requestRejectedMember().length != 0) {
                             self.noRejectRequest("");
                         }
@@ -124,23 +127,23 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     }
                 });
                 // for lead or manager
-				
+
                 if (self.role() != "Team Member") {
                     var requestUrl1 = oj.Model.extend({
                         url: getTeamMembersRequest + self.userId() // get all pending requests for the lead to approve or reject.
                     });
-					var requestFetch1 = new requestUrl1();
-					requestFetch1.fetch({
+                    var requestFetch1 = new requestUrl1();
+                    requestFetch1.fetch({
                         headers: {secret: secret},
-						error:function(ee)
-						{
-							//console.log(ee);
-						},
+                        error: function (ee)
+                        {
+                            //console.log(ee);
+                        },
                         success: function (res) {
-							
+
                             var data1 = res['attributes']['data'];
-							//console.log('getTeamMembersRequest');
-							//console.log(data1);
+                            //console.log('getTeamMembersRequest');
+                            //console.log(data1);
                             for (var i = 0; i < data1.length; i++) {
                                 if (data1[i]['status'] == 0) {
                                     self.requestPendingLead.push(new request(data1[i], self.userId()));
@@ -190,7 +193,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     $("#rateTab5").click(function () {
                         if ($('#rateTab1 > img').attr("src") == "../../images/+1-icon.png")
                         {
-                            console.log(" no aert");
                             $('#rateTab1 > img').remove();
                             $('#rateTab3 > img').remove();
                             $('#rateTab3').append(' <img src="../../images/request-approval.png" alt="" />');
@@ -201,7 +203,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     $("#rateTab1").click(function () {
                         if ($('#rateTab1 > img').attr("src") == "../../images/+1-icon.png")
                         {
-                            console.log(" no aert");
                             $('#rateTab1 > img').remove();
                             $('#rateTab3 > img').remove();
                             $('#rateTab3').append(' <img src="../../images/request-approval.png" alt="" />');
@@ -236,22 +237,21 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             }
         });
 
-        self.approveRequest = function (type,d,requestId,userId,to_id) {
-            if(type==1)
+        self.approveRequest = function (type, d, requestId, userId, to_id) {
+            if (type == 1)
             {
-              var obj = $("#accept" + requestId);
-          }
-          else
-          {
-              var obj = $("#decline" + requestId);
-          }
+                var obj = $("#accept" + requestId);
+            } else
+            {
+                var obj = $("#decline" + requestId);
+            }
             var descHTML = obj.parent().prev().children().children('#text-area20');
             var descriptionChange = (descHTML.val() != "") ?
                     descHTML.val() : obj.attr('descComment');
-            
+
             var removeHtml = obj;
-        var datas={u_id: userId, rq_id: requestId, st:type, desc: descriptionChange, to_id: to_id};
-        console.log(datas);
+            var datas = {u_id: userId, rq_id: requestId, st: type, desc: descriptionChange, to_id: to_id};
+            console.log(datas);
             $.ajax({
                 headers: {secret: secret},
                 method: 'POST',
@@ -279,32 +279,81 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 }
             });
         }
+        //// scroll pagination in rateRequest pending request start
+        self.scrolledPendingMember = function (data, event) {
+            var elem = event.target;
+            if (elem.scrollTop > (elem.scrollHeight - elem.offsetHeight - 200)) {
+                getItemsreqPendingMember(5);
+            }
+        }
+        self.scrolledVisible = function (data, event) {
+            console.log(event.target);
+            return false;
+        }
         
-        self.requestMore = function (e, data) {      
-           
+        function getItemsreqPendingMember(cnt) {
+            var count = self.reqPendingMem().length;
+            var maxLen = self.requestPendingMember().length;
+            if ((count + cnt) < maxLen) {
+                for (var i = count; i < count + cnt; i++) {
+                    self.reqPendingMem.push(self.requestPendingMember()[i]);
+                }
+            } else {
+                for (var i = count; i < maxLen; i++) {
+                    self.reqPendingMem.push(self.requestPendingMember()[i]);
+                }
+            }
+        }
+
+        //// scroll pagination in rateRequest pending request end
+        //
+        //// scroll pagination in rateRequest rejected request start
+        
+        self.scrolledRejectedMember = function (data, event) {
+            var elem = event.target;
+            if (elem.scrollTop > (elem.scrollHeight - elem.offsetHeight - 200)) {
+                getItemsReqRejectedMember(5);
+            }
+        }
+        function getItemsReqRejectedMember(cnt) {
+            var count = self.reqRejectMem().length;
+            var maxLen = self.requestRejectedMember().length;
+            if ((count + cnt) < maxLen) {
+                for (var i = count; i < count + cnt; i++) {
+                    self.reqRejectMem.push(self.requestRejectedMember()[i]);
+                }
+            } else {
+                for (var i = count; i < maxLen; i++) {
+                    self.reqRejectMem.push(self.requestRejectedMember()[i]);
+                }
+            }
+        }
+        //// scroll pagination in rateRequest rejected request end
+        self.requestMore = function (e, data) {
+
             var obj = $("#pending" + e.request_id);
             if (obj.children("span").children("span:nth-child(2)").html() == "More") {
                 obj.parent().prev().prev().addClass("hide");
                 obj.children("span").children("span:nth-child(2)").html("Less");
                 obj.children("span").children("span").children("i").removeClass("zmdi-caret-down");
-               obj.children("span").children("span").children("i").addClass("zmdi-caret-up");
+                obj.children("span").children("span").children("i").addClass("zmdi-caret-up");
                 var lmsg = obj.children("span").children("span:nth-child(3)").text();
-               obj.parent().prev().prev().children('span').text(lmsg);
-               obj.parent().prev('.open-more').slideToggle();
+                obj.parent().prev().prev().children('span').text(lmsg);
+                obj.parent().prev('.open-more').slideToggle();
             } else {
                 if (obj.children("span").children("span:nth-child(2)").html() == "Less") {
-                   obj.parent().prev('.open-more').slideToggle();
-                   obj.children("span").children("span:nth-child(2)").html("More");
+                    obj.parent().prev('.open-more').slideToggle();
+                    obj.children("span").children("span:nth-child(2)").html("More");
                     obj.children("span").children("span").children("i").removeClass("zmdi-caret-up");
                     obj.children("span").children("span").children("i").addClass("zmdi-caret-down");
                     var smsg = obj.children("span").children("span:nth-child(3)").text().substring(0, 100) + "...";
-                   obj.parent().prev().prev().children('span').text(smsg);
+                    obj.parent().prev().prev().children('span').text(smsg);
                     obj.parent().prev().prev().removeClass("hide");
                 }
             }
 
         }
-      
+
         //send request for +1 ratings ajax call
         self.requestManager = function () {
             if (self.desc() == '' || self.desc() == null) {
@@ -362,15 +411,15 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 }
             });
         }
-        setTimeout(function(){
-            $(".openDiv").each(function () {     
-            
-            if ($(this).children().children(":last-child").text().length <= 100) {
-                $(this).addClass('hide');
-            }
-        });
-        },500);
+        setTimeout(function () {
+            $(".openDiv").each(function () {
+
+                if ($(this).children().children(":last-child").text().length <= 100) {
+                    $(this).addClass('hide');
+                }
+            });
+        }, 500);
     }
-    
+
     return rateRequestPageContentViewModel;
 });
