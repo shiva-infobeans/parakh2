@@ -11,6 +11,7 @@
 define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 'ojs/ojcomponentcore', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojmodel', 'ojs/ojselectcombobox', 'ojs/ojdatetimepicker'],
         function (oj, ko, $)
         {
+            var dateArray = [];
             function dataComment(comment1, commenter1, commentDate1) {
                 commentDate1 = new Date(commentDate1);
                 //commentDate1 = commentDate1.toDateString();
@@ -20,8 +21,15 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
 
                 var com = this; // this is for object of this function
                 com.comment = comment1;
+                com.shortName = commenter1.replace(/[^A-Z]/g, '');
                 com.commenter = commenter1;
                 com.commentDate = commentDate1.getDate() + ' ' + monthNames[commentDate1.getMonth()] + ' ' + commentDate1.getFullYear();
+                if(dateArray.indexOf(com.commentDate)==-1){
+                    dateArray.push(com.commentDate);
+                }else
+                {
+                    com.commentDate = '';
+                }
                 return com;
             }
             function dateDiffCalender(Date1) {

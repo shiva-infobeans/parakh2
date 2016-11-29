@@ -34,14 +34,13 @@
             <div class="noComments" id="noPositiveComment" data-bind="text: NoCommentsP"></div>
             <div class="rating-comment" data-bind="foreach: commentDataPositive">
                 <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item pos-relative oj-margin-top oj-padding-top rating-comment-div">
-                    <div class="profile-rating-circle circle-green">
+                    <div class="div-comment-date"><span data-bind="text: commentDate"></span></div>
+                    <div class="profile-rating-circle circle-green"><span data-bind="text:shortName"></span>
                         <!--circle-green-->
                         <div class="transline"></div>
                     </div>
                     <div class="rating-info">
                         <p class="comment"><span data-bind="text: comment"></span></p>
-                        <p class="commenter"><span data-bind="text: commenter"></span> on <span data-bind="text: commentDate"></p>
-                        
                     </div>
                 </div>
             </div>
@@ -53,12 +52,12 @@
             <div class="noComments" id="noNegativeComment" data-bind="text: NoCommentsN"></div>
             <div class="rating-comment" data-bind="foreach: commentDataNegative">
                 <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div">
-                    <div class="profile-rating-circle circle-red">
+                    <div class="div-comment-date"><span data-bind="text: commentDate"></span></div>
+                    <div class="profile-rating-circle circle-red"><span data-bind="text:shortName"></span>
                         <div class="transline-red"></div>
                     </div>
                     <div class="rating-info">
                         <p class="comment"><span data-bind="text: comment"></span></p>
-                        <p class="commenter"><span data-bind="text: commenter"></span> on <span data-bind="text: commentDate"></span></p>
                     </div>
                 </div>
             </div>
