@@ -1592,3 +1592,9 @@ margin:5px 10px;
         padding:10px;
     }
 }
+.custom-zmdi-icons-div{
+    border-radius:50%;border:2px solid #fff;background:#000;cursor: pointer;color: white;
+}
+.custom-zmdi-icons-div:hover{
+    border:2px solid #689F39;cursor: pointer;color: #689F39;
+}

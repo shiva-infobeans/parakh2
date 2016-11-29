@@ -300,7 +300,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 .about-label{color: yellow;width: 240px;}
 .about-text{margin-left:200px !important;width: 240px;}
-.about-edit{color:white !important;font-size:1em !important;margin-top:10px !important;}
+.about-edit{font-size:1em !important;margin: 5px 0px;}
 .profile-tab1-data:not(:nth-child(1)) i{
     font-size: 50px;
     margin: 20px 0px 0px 30px;
