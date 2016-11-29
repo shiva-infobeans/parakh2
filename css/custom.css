@@ -284,6 +284,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     border:none;
     padding: 0px;
     margin-top: -4px;  
+    margin-bottom:1px;
 }
 .profile-tab1-data{
     display: flex;
@@ -455,10 +456,6 @@ div.oj-tabs-panel.oj-tabs-selected{
 .feedbackHeight{
     margin-top: 60px;
     height: 78%;
-}
-.declineHeight{
-    margin-top: 50px;
-    height: 83%; 
 }
 .heightContent{
     margin-top: -10px;
@@ -729,10 +726,10 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 /*for request send by the user and accept/reject by lead/manager*/
 .textArea-requests{
-    background: none;
-    color: #fff;
-    height: 76px;
-    width: 87%;
+    border:2px solid #6BA034;
+    background:none;
+    color:#fff;
+    height: 110px;
 }
 .textArea-white{
     border:2px solid #fff;
@@ -760,13 +757,12 @@ div.oj-tabs-panel.oj-tabs-selected{
     color: #FF3D46 !important;
 }
 .approveDisapprove{
-   border: medium none;
+    border: medium none;
     margin-bottom: -3px;
-    padding: 6px;
-    font-size: 28px;
+    padding: 10px;
+    font-size: 30px;
     width: 50%;
     background-color: #fff;
-    margin-top: -11px;
 }
 .requestApproveDiv{
     padding: 2px;
@@ -1094,7 +1090,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 .edit-height{cursor: pointer;}
 .requestHeight{
     margin-top: 50px;
-    height: 83%; 
+    height: 87%; 
 }
 .sliderScreen1{
     color: #fff !important;
@@ -1112,7 +1108,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 
 }
 /*media query for notification*/ 
-@media  screen and (min-width: 363px) and (max-width: 767px) {
+@media  screen and (min-width: 363px) and (max-width: 523px) {
    .notification::before {
     border-bottom: 10px solid #fff;
     border-left: 16px solid transparent;
@@ -1155,4 +1151,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     z-index: 1;
 }
 
+}
+.indexerUnderline{
+    text-decoration: underline;
 }

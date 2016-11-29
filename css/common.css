@@ -15,6 +15,7 @@
 }
 .navigationlist{
     float:right;
+    margin-top: 1px;
 }
 
 .border-fix{

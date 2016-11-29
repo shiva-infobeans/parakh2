@@ -38,11 +38,9 @@ and open the template in the editor.
             <!-- tab contents -->
             <div id="tabs-1">
                 <hr/>
-                <div id="index" class="oj-margin-top oj-margin-bottom indexer center bold-class hide" data-bind="click:arrangeIndex">
-                    <span><a href="ALL" onclick="return false;">All</a></span>
+                <div id="index" class="oj-margin-top oj-margin-bottom indexer center bold-class" data-bind="click:arrangeIndex">
                     <!--ko foreach: indexer2Letters-->
-                    
-                    <span ><a data-bind="attr: {href: $data},text:$data" onclick="return false;"></a></span>
+                    <span data-bind="event:{click: $parent.makeUnderLine2},attr: {id:$data}"><a data-bind="attr: {href: $data},text:$data"></a></span>
                     <!--/ko-->
                 </div>
                 <hr />
@@ -76,10 +74,9 @@ and open the template in the editor.
             <div id="tabs-2">
                 <hr/>
                 <div id="index1" class="oj-margin-top oj-margin-bottom indexer center bold-class" data-bind="click: arrangeIndex1">
-                    <span><a href="ALL" onclick="return false;">All</a></span>
-                    <!--ko foreach: indexer1Letters-->
                     
-                    <span ><a data-bind="attr: {href: $data},text:$data" onclick="return false;"></a></span>
+                    <!--ko foreach: indexer1Letters-->
+                    <span data-bind="event:{click: $parent.makeUnderLine1},attr: {id:$data+'1'}"><a data-bind="attr: {href: $data},text:$data"></a></span>
                     <!--/ko-->
                 </div>
                 <hr/>

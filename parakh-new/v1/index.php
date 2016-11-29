@@ -953,12 +953,12 @@ $app->post('/getAllDesignations[/]', function ($request, $response, $args) {
  * 
  * Method: POST
  * */    
-$app->post('/getAllRejectedRequestsByLoginId[/]', function ($request, $response, $args) {
+$app->post('/getAllRejectedRequestsByLoginId[/{leadId}]', function ($request, $response, $args) {
     $response_data = array();
-    $data = $request->getParsedBody();
+    
     //Creating a dbmodule object
     $db = new dbmodule();
-    $result = $db->get_all_rejected_request_by_login_id($data['lead_id']);
+    $result = $db->get_all_rejected_request_by_login_id($args['lead_id']);
     if($result != 0){
         $response_data = makeResponse('false',$result);
     }else{

@@ -48,7 +48,6 @@ var getAllProjects = baseUrl+"/getAllProjects/";
 var getAllInterests = baseUrl+"/getAllInterests/";
 var getAllDesignations = baseUrl+"/getAllDesignations/";
 var getOtherTeamMembers = baseUrl+"/getOtherTeamMembers/";
-var getAllRejectedRequestsByLoginId = baseUrl+"/getAllRejectedRequestsByLoginId/";
 
 
 //updates for google client id and parakh logo (favicon) 
