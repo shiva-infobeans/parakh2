@@ -96,10 +96,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         for (var i = 0; i < data1.length; i++) {
                             if (data1[i]['status'] == 0) {
                                 self.requestPendingMember.push(new request(data1[i], self.userId()));
+                              $("#request").show();
                             }
                         }
                         if (self.requestPendingMember().length != 0) {
+                             $("#request").hide();
                             self.noPendingRequest("");
+                           
                         }
                     }
                 });
@@ -115,9 +118,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         for (var i = 0; i < data1.length; i++) {
                             if (data1[i]['status'] == 1) {
                                 self.requestRejectedMember.push(new request(data1[i], self.userId()));
+                                 $("#request1").show();
                             }
                         }
                         if (self.requestRejectedMember().length != 0) {
+                               $("#request1").hide();
                             self.noRejectRequest("");
                         }
 
@@ -144,9 +149,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             for (var i = 0; i < data1.length; i++) {
                                 if (data1[i]['status'] == 0) {
                                     self.requestPendingLead.push(new request(data1[i], self.userId()));
+                                      $("#request2").show();
                                 }
                             }
                             if (self.requestPendingLead().length != 0) {
+                                   $("#request2").hide();
                                 self.noLeadPendingRequest("");
                             }
                         }

@@ -69,38 +69,15 @@ class dbmodule {
     function getUserByLead($lead_id) {
         if (!filter_var($lead_id, FILTER_VALIDATE_INT) === false) {
             $employeeList = array();
-            $query = 'SELECT uh.user_id,u.google_name,u.google_email,u.mobile_number,u.designation,u.google_picture_link,u.google_email FROM user_hierarchy uh left join users u on u.id = uh.user_id ' .
-                    'WHERE manager_id = :id  AND u.status <> 0 group by user_id';
+            $query = 'SELECT uh.user_id,u.google_name,u.google_email,u.mobile_number,u.designation,u.google_picture_link as picture,u.google_email,
+                    sum(case when r.rating = 1 then 1 end) as pluscount,
+                    sum(case when r.rating = 0 then 1 end) as minuscount
+                    FROM user_hierarchy uh left join users u on u.id = uh.user_id left join rating r on (u.id=r.user_id)
+                    WHERE manager_id = :id AND u.status <> 0 group by r.user_id order by u.google_name';
             $user_data = $this->con->prepare($query);
             $user_data->execute(array(':id' => $lead_id));
-            while ($row = $user_data->fetch((PDO::FETCH_ASSOC))) {
-                $membresInfo = array();
-                $query_rank = "SELECT MAX(r.created_date) as date,
-                    sum(case when r.rating = 1 then 1  end) as pluscount,
-                    sum(case when r.rating = 0 then 1  end) as minuscount
-                    from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 
-                    and u.id=:id group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC LIMIT 10";
-                $user_rank = $this->con->prepare($query_rank);
-                $user_rank->execute(array(':id' => $row['user_id']));
-                $userRank = $user_rank->fetchAll((PDO::FETCH_ASSOC));
-                if(isset($userRank[0]['pluscount']) && !empty($userRank[0]['pluscount']))
-                {
-                    $userRank[0]['pluscount'] = "+".$userRank[0]['pluscount'];
-                }else
-                {
-                    $userRank[0]['pluscount'] = 0;
-                }
-                if(isset($userRank[0]['minuscount']) && !empty($userRank[0]['minuscount']))
-                {
-                    $userRank[0]['minuscount'] = "-".$userRank[0]['minuscount'];
-                }else
-                {
-                    $userRank[0]['minuscount'] = 0;
-                }
-                $membresInfo = array('user_id' => $row['user_id'], 'user_name' => $row['google_name'],'designation' => $row['designation'],'picture' => $row['google_picture_link'],'email' => $row['google_email'],'mobile_number' => $row['mobile_number'],'pluscount' => $userRank[0]['pluscount'],'minuscount' => $userRank[0]['minuscount']);
-                $employeeList[] = $membresInfo;
-                $this->getUserByLead($row['user_id']);
-            }
+            $employeeList = $user_data->fetchAll((PDO::FETCH_ASSOC));
+            
             return $employeeList;
         } else {
             return 0;
@@ -138,12 +115,7 @@ class dbmodule {
            $user_list = $this->con->prepare($query);
            $user_list->execute(array(':id' => $lead_id));
            $employeeList = $user_list->fetchAll((PDO::FETCH_ASSOC));
-           $id_array = array();
-           foreach ($employeeList as $key => $value) {
-               $id_array[] = $value['id'];
-           }
-           $id_array = implode(",",$id_array);
-
+                      
            $query_rank = "SELECT u.id,u.google_name,
                     sum(case when r.rating = 1 then 1  end) as pluscount,
                     sum(case when r.rating = 0 then 1  end) as minuscount
@@ -758,13 +730,6 @@ class dbmodule {
             $user_list->execute(array(':id' => $user_id));
             $employeeList = $user_list->fetchAll((PDO::FETCH_ASSOC));
             
-            
-            $id_array = array();
-            foreach ($employeeList as $key => $value) {
-               $id_array[] = $value['id'];
-            }
-            $id_array = implode(",",$id_array);
-
             $query_rank = "SELECT u.id,u.google_name,
                     sum(case when r.rating = 1 then 1  end) as pluscount,
                     sum(case when r.rating = 0 then 1  end) as minuscount
@@ -1485,6 +1450,21 @@ class dbmodule {
                 $all_designations->execute();
                 $allDesignations = $all_designations->fetchAll((PDO::FETCH_ASSOC));
                 return $allDesignations;
+    }
+
+    /*function to fetch all rejected requests reject by login user*/
+    function get_all_rejected_request_by_login_id($lead_id){
+        $query = "SELECT request.id as request_id, user.google_name,user.id as lead_id,user.google_picture_link, user.designation,role.name as role_name,request.to_id,request.from_id,description,work.created_date,request_for,rating, request.status FROM `request` 
+                    left join work on work.id = request.work_id 
+                    left join rating on rating.work_id = request.work_id 
+                    left join users as user on user.id = request.to_id 
+                    left join role_type as role on role.id = user.role_id 
+                    WHERE request.to_id = :lead_id AND request.status = 1 order by request.modified_date desc";
+
+            $user_list = $this->con->prepare($query);
+            $user_list->execute(array(':lead_id' => $lead_id));
+            $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
+            return $row;
     }
 //end of fun
 }

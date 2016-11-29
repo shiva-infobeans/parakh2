@@ -404,7 +404,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 .profile-feedback-pic{
     height: 85px;
-    width: 85px;
+    width: 86px;
     border-radius: 50%;
     z-index: 10;
     border: solid 2px green;
@@ -730,6 +730,9 @@ div.oj-tabs-panel.oj-tabs-selected{
     color:#fff;
     height: 110px;
 }
+.textArea-white{
+    border:2px solid #fff;
+}
 .requestAlignment{
     margin:0px auto;
 }
@@ -774,11 +777,10 @@ div.oj-tabs-panel.oj-tabs-selected{
     color:#689F39 !important;
 }
 .Moreless-fix{
-    bottom: -8px;
     cursor: pointer;
-    font-size: 45px !important;
-    left: 224px;
-    position: absolute;
+    font-size: 41px !important;
+    margin-right: -6px;
+    margin-top: -12px;
 }
 .divTextRateMe .oj-textarea{
     max-width: 100% !important;
@@ -793,9 +795,10 @@ div.oj-tabs-panel.oj-tabs-selected{
     width: 100%;
 }
 .NorequestMsgAlignment{
-    margin-top: 350px;
+    display: table;
     font-size: 35px;
-    min-height: 50%;
+    height: 100%;
+    text-align: center;
 }
 
 .rateBuddy-page-rate{
@@ -1101,5 +1104,50 @@ div.oj-tabs-panel.oj-tabs-selected{
 
 /*paging color slider home page*/
 #pagingControl3{
+
+}
+/*media query for notification*/ 
+@media  screen and (min-width: 363px) and (max-width: 523px) {
+   .notification::before {
+    border-bottom: 10px solid #fff;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    content: "";
+    left: 54%;
+    position: absolute;
+    top: -10px;
+}
+.notification {
+    background-color: #fff;
+    border: 1px solid;
+    border-radius: 10px;
+    left: -139px;
+    position: absolute;
+    top: 36px;
+    width: 244px;
+    z-index: 1;
+}
+
+}
+@media screen  and (max-width: 360px) {
+  .notification::before {
+    border-bottom: 10px solid #fff;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    content: "";
+    left: 54%;
+    position: absolute;
+    top: -10px;
+}
+.notification {
+    background-color: #fff;
+    border: 1px solid;
+    border-radius: 10px;
+    left: -139px;
+    position: absolute;
+    top: 36px;
+    width: 244px;
+    z-index: 1;
+}
 
 }

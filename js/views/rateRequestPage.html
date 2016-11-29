@@ -14,8 +14,8 @@ and open the template in the editor.
         <div id="tabs1" data-bind="ojComponent:{component: 'ojTabs',selected: selectTab}" class="buddyTab">
             <!-- tab bar -->
             <ul>
-                  <li class="buddyTab3" id="rateTab2"> 
-                      <div id="rateTab3">
+                <li class="buddyTab3" id="rateTab2"> 
+                    <div id="rateTab3">
                     </div>             
                     <div class="hoverTabRequest1"> Requests </div>
                 </li>
@@ -29,29 +29,27 @@ and open the template in the editor.
             <div id="tabs-3">
                 <hr />
                 <div class="oj-flex oj-row ">
-                    <div class=" oj-xl-6 oj-lg-6 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-margin-top oj-margin-bottom pos-relative transboxRequest ">
-                        <div class="oj-flex center NorequestMsg NorequestMsgAlignment">
-                            <div class ="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item cetner">
-                                <span class="errorText NorequestMsgAlignment" data-bind="text: noLeadPendingRequest"></span>
-                            </div>
-                        </div>
+                    <div class=" oj-xl-6 oj-lg-6 oj-md-6 oj-sm-12 oj-flex-item oj-padding oj-margin-top oj-margin-bottom pos-relative transboxRequest ">
+                  
                         <div class="transbox"></div>
                         <div class="oj-flex oj-row">
                             <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-flex-bar-middle">
                                 <div class="requestHeading">
-                                    Requests
+                                  Pending Requests
                                 </div> 
                             </div>
-                          
-
                             <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-margin-top oj-margin-bottom requestAlignment">
+                                    <div class ="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding NorequestMsgAlignment oj-flex-bar-center-absolute" id="request2">
+                                                    <span class="errorText1" data-bind="text: noLeadPendingRequest"></span>
+                                                </div>
+                                
                                 <!--ko foreach:  requestPendingLead-->
-                                <div class="oj-xl-8 oj-lg-8 oj-md-12 oj-sm-12 pos-relative oj-margin oj-flex-bar-center-absolute requestApproveDiv">
-                                       <div class="transbox1  requestHeight"></div>
+                                <div class="oj-xl-8 oj-lg-8 oj-md-10 oj-sm-8 pos-relative oj-margin oj-flex-bar-center-absolute requestApproveDiv">
+                                    <div class="transbox1  requestHeight"></div>
                                     <div class="transbox  requestHeight"></div>
                                     <div class="oj-flex oj-row ">
-                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item  ">
-                                            <img data-bind="attr: {src:pic}" alt="" class="profile-feedback-pic border-color-yellow request-pic "/>
+                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center ">
+                                            <img data-bind="attr: {src:pic}" alt="" class="profile-feedback-pic border-color-yellow "/>
                                         </div>
                                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center color-white">
 
@@ -68,7 +66,7 @@ and open the template in the editor.
                                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin color-white divTextRateMe oj-padding ">
 
 
-                                            <textarea id="text-area20" class="textArea-requests" aria-label="ojTextArea component no visible label"
+                                            <textarea id="text-area20" class="textArea-requests textArea-white" aria-label="ojTextArea component no visible label"
                                                       data-bind="ojComponent: {component: 'ojTextArea', 
                                      value: lComment, 
                                      placeholder: 'Type your reason here..'}"></textarea>
@@ -83,10 +81,11 @@ and open the template in the editor.
                             </div>
                         </div>
                     </div>
-                    <div class=" oj-xl-6 oj-lg-6 oj-md-12 oj-sm-12 oj-flex-item oj-margin-bottom pos-relative oj-margin-start oj-margin-top">
+                    <div class=" oj-xl-6 oj-lg-6 oj-md-6 oj-sm-12 oj-flex-item oj-margin-bottom pos-relative oj-margin-start oj-margin-top">
                         <div class="transbox"></div>
                         <div class="oj-flex oj-row">
                             <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item ">
+
 
 
                             </div>
@@ -94,21 +93,21 @@ and open the template in the editor.
                     </div>
                 </div>
             </div>
-        
-          
+
+
             <div id="tabs-4">
-                 <hr>
+                <hr>
                 <div class="oj-flex oj-row ">
-                    <div class=" oj-xl-6 oj-lg-6 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-margin-top pos-relative transboxRequest ">
+                    <div class=" oj-xl-6 oj-lg-6 oj-md-6 oj-sm-12 oj-flex-item oj-padding oj-margin-top pos-relative transboxRequest ">
                         <div class="transbox"></div>
                         <div class="oj-flex oj-row">
-                            <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex-bar-middle">
+                            <div class="  oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-flex-bar-middle">
                                 <div class="requestHeading">
                                     Send Request
                                 </div> 
                             </div>
                             <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding ">
-                                <div class="oj-xl-9 oj-lg-9 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-flex-bar-center-absolute requestCOntent pos-relative" id="hideLead">
+                                <div class="oj-xl-9 oj-lg-9 oj-md-10 oj-sm-10 oj-flex-item oj-padding-top oj-flex-bar-center-absolute requestCOntent pos-relative" id="hideLead">
                                     <div class="transbox"></div>
                                     <div class="oj-flex oj-row ">
                                         <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center" >
@@ -120,7 +119,7 @@ and open the template in the editor.
                                         </div>
                                         <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item padding-feedback center" data-bind="text: manager_role" >
                                         </div>
-                                        <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-top center">
+                                        <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-top center oj-padding">
                                             <textarea id="text-area" class="textArea-request"  aria-label="ojTextArea component no visible label"
                                                       data-bind="ojComponent: {component: 'ojTextArea', 
                                                             value: desc, 
@@ -135,7 +134,7 @@ and open the template in the editor.
                                 </div>
                             </div>
                             <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding ">
-                                <div class="oj-xl-9 oj-lg-9 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-flex-bar-center-absolute requestCOntent pos-relative">
+                                <div class="oj-xl-9 oj-lg-9 oj-md-10 oj-sm-10 oj-flex-item oj-padding-top oj-flex-bar-center-absolute requestCOntent pos-relative">
                                     <div class="transbox"></div>
                                     <div class="oj-flex oj-row">
                                         <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
@@ -147,7 +146,7 @@ and open the template in the editor.
                                         <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item padding-feedback center"  data-bind="text: lead_role"> 
 
                                         </div>
-                                        <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-top center">
+                                        <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-top oj-padding center">
                                             <textarea id="text-area" class="textArea-request"  aria-label="ojTextArea component no visible label"
                                                       data-bind="ojComponent: {component: 'ojTextArea', 
                                                             value: desc1, 
@@ -162,7 +161,7 @@ and open the template in the editor.
                             </div>
                         </div>
                     </div>
-                    <div class=" oj-xl-6 oj-lg-6 oj-md-12 oj-sm-12 oj-flex-item pos-relative oj-margin-start  oj-margin-top ">
+                    <div class=" oj-xl-6 oj-lg-6 oj-md-6 oj-sm-12 oj-flex-item pos-relative oj-margin-start  oj-margin-top ">
                         <div class="transbox"></div>
                         <div class="oj-flex oj-row">
                             <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item ">
@@ -180,14 +179,14 @@ and open the template in the editor.
 
                                             <!-- tab contents -->
                                             <div id="tabs-12" class="pos-relative">
-                                                <div class="oj-flex center NorequestMsg NorequestMsgAlignment">
-                                                    <div class ="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                                                        <span class="errorText NorequestMsgAlignment" data-bind="text: noPendingRequest"></span>
-                                                    </div>
+
+                                                <div class ="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding NorequestMsgAlignment oj-flex-bar-center-absolute" id="request">
+                                                    <span class="errorText1" data-bind="text: noPendingRequest"></span>
                                                 </div>
+
                                                 <!--repeat block starts here-->
                                                 <!-- ko foreach: requestPendingMember -->
-                                                <div class="oj-xl-7 oj-lg-7 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding heightContent oj-flex-bar-center-absolute">
+                                                <div class="oj-xl-7 oj-lg-7 oj-md-10 oj-sm-8 pos-relative oj-margin oj-padding heightContent oj-flex-bar-center-absolute">
                                                     <div class="transbox1  feedbackHeight"></div>
                                                     <div class="transbox feedbackHeight"></div>
                                                     <div class="oj-flex oj-row">
@@ -216,11 +215,11 @@ and open the template in the editor.
 
                                                             <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item openDiv oj-flex-bar oj-margin" data-bind="click: $parent.requestMore,attr:{id: uniqueId}">
                                                                 <span class="oj-flex-bar-end oj-margin-bottom" id="openMore">
-                                                                    <span class=" Moreless-fix"><i class="zmdi zmdi-caret-down color-white"></i></span>
-                                                                    <span class="color-white">More</span>
+                                                                    <span class="oj-padding-right "><i class="zmdi zmdi-caret-down color-white Moreless-fix"></i></span>
+                                                                    <span class=" color-white oj-margin-start">More</span>
                                                                     <span class="hide color-white" data-bind="text: lComment"></span>                 
                                                                 </span>
-                                                           
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -229,15 +228,15 @@ and open the template in the editor.
                                                 <!--repeat block ends here-->
                                             </div>
                                             <div id="tabs-13" class="pos-relative">
-                                                <div class="oj-flex center NorequestMsg NorequestMsgAlignment">
-                                                    <div class ="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item cetner">
-                                                        <span class="errorText NorequestMsgAlignment" data-bind="text: noRejectRequest"></span>
-                                                    </div>
+
+                                                <div class ="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-8 pos-relative oj-margin oj-padding  oj-flex-bar-center-absolute NorequestMsgAlignment " id="request1">
+                                                    <span class="errorText1" data-bind="text: noRejectRequest"></span>
                                                 </div>
+
                                                 <!--repeat block starts here-->
                                                 <!-- ko foreach: requestRejectedMember-->
-                                                <div class="oj-xl-7 oj-lg-7 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding heightContent oj-flex-bar-center-absolute">
-                                                       <div class="transbox2  feedbackHeight"></div>
+                                                <div class="oj-xl-7 oj-lg-7 oj-md-10 oj-sm-10 pos-relative oj-margin oj-padding heightContent oj-flex-bar-center-absolute">
+                                                    <div class="transbox2  feedbackHeight"></div>
                                                     <div class="transbox  feedbackHeight"></div>
                                                     <div class="oj-flex oj-row">
                                                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top oj-padding-top">
@@ -266,8 +265,8 @@ and open the template in the editor.
 
                                                             <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item openDiv oj-flex-bar oj-margin" data-bind="click: $parent.requestMore,attr:{id: uniqueId}">
                                                                 <span class="oj-flex-bar-end oj-margin-bottom">
-                                                                    <span class=" Moreless-fix"><i class="zmdi zmdi-caret-down"></i></span>
-                                                                    <span>More</span>
+                                                                    <span class="oj-padding-right "><i class="zmdi zmdi-caret-down Moreless-fix"></i></span>
+                                                                    <span class=" color-white oj-margin-start">More</span>
                                                                     <span class="hide" data-bind="text: lComment"></span>
                                                                 </span>
                                                             </div>
@@ -284,19 +283,19 @@ and open the template in the editor.
                         </div>
                     </div>
                 </div>
-</div>
+            </div>
         </div>
     </div>
 </div>
-    <div class="loaderDiv loaderHide" id="requestLoader">
+<div class="loaderDiv loaderHide" id="requestLoader">
     <div class="overlay-loader"></div>
     <div class="loaderImgDiv"><img src="css/images/loader.gif" alt=""/></div>
 </div>
- <div class="loaderDiv loaderHide" id="requestLoader1">
+<div class="loaderDiv loaderHide" id="requestLoader1">
     <div class="overlay-loader"></div>
     <div class="loaderImgDiv"><img src="css/images/loader.gif" alt=""/></div>
 </div>
- <div class="loaderDiv loaderHide" id="requestLoader2">
+<div class="loaderDiv loaderHide" id="requestLoader2">
     <div class="overlay-loader"></div>
     <div class="loaderImgDiv"><img src="css/images/loader.gif" alt=""/></div>
 </div>

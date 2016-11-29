@@ -63,7 +63,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.desc = ko.observable();
         self.textError = ko.observable();
         self.sucessMsg = ko.observable();
-        
+
+        //indexer for other team members
+        self.indexer2Letters = ko.observableArray();
+        //indexer for my team members
+        self.indexer1Letters = ko.observableArray();
         //user
         var user = oj.Model.extend({
             url: getUserByEmail + person['email']
@@ -99,6 +103,20 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 self.myTeam.push(new leadTeam(data[counter1]));
                             }
                             self.data1(self.myTeam());
+                            console.log(self.data1());
+                            for (var c = 0; c < self.data1().length; c++) {
+                                if (c == 0) {
+                                    self.indexer1Letters.push(self.data1()[c]['myName'].substring(0, 1));
+                                } else {
+                                    var letter = self.data1()[c]['myName'].substring(0, 1);
+
+                                    //console.log(self.data2()[c]['name'].substring(0, 1));
+                                    if (self.data1()[c - 1]['myName'].substring(0, 1) != letter) {
+                                        self.indexer1Letters.push(letter);
+                                    }
+
+                                }
+                            }
                         }
                     });
                 }
@@ -106,7 +124,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 $.ajax({
                     headers: {secret: secret},
                     method: 'POST',
-                    url: getOtherTeamMembers+self.userId(),
+                    url: getOtherTeamMembers + self.userId(),
                     data: {user_id: self.userId()},
                     success: function (task) {
                         var data = JSON.parse(task)['data'];
@@ -117,6 +135,19 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             self.members.push(new teamMember(data[counter1]));
                         }
                         self.data2(self.members());
+                        for (var c = 0; c < self.data2().length; c++) {
+                            if (c == 0) {
+                                self.indexer2Letters.push(self.data2()[c]['name'].substring(0, 1));
+                            } else {
+                                var letter = self.data2()[c]['name'].substring(0, 1);
+
+                                //console.log(self.data2()[c]['name'].substring(0, 1));
+                                if (self.data2()[c - 1]['name'].substring(0, 1) != letter) {
+                                    self.indexer2Letters.push(letter);
+                                }
+
+                            }
+                        }
                     }
                 });
                 // var TaskRecord = oj.Model.extend({
@@ -307,13 +338,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             self.sucessMsg("");
                         }, 3000);
                     },
-                      beforeSend: function () {
-                            $("#rateMeLoader").removeClass('loaderHide');
-                        },
-                        complete: function () {
-                            $("#rateMeLoader").addClass('loaderHide');
-                        }
-                    
+                    beforeSend: function () {
+                        $("#rateMeLoader").removeClass('loaderHide');
+                    },
+                    complete: function () {
+                        $("#rateMeLoader").addClass('loaderHide');
+                    }
+
                 });
             }
         }
@@ -336,12 +367,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             self.sucessMsg("");
                         }, 3000);
                     },
-                      beforeSend: function () {
-                            $("#rateMeLoader1").removeClass('loaderHide');
-                        },
-                        complete: function () {
-                            $("#rateMeLoader1").addClass('loaderHide');
-                        }
+                    beforeSend: function () {
+                        $("#rateMeLoader1").removeClass('loaderHide');
+                    },
+                    complete: function () {
+                        $("#rateMeLoader1").addClass('loaderHide');
+                    }
                 });
             }
         }
@@ -408,12 +439,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             self.sucessMsg("");
                         }, 3000);
                     },
-                      beforeSend: function () {
-                            $("#rateMeLoader2").removeClass('loaderHide');
-                        },
-                        complete: function () {
-                            $("#rateMeLoader2").addClass('loaderHide');
-                        }
+                    beforeSend: function () {
+                        $("#rateMeLoader2").removeClass('loaderHide');
+                    },
+                    complete: function () {
+                        $("#rateMeLoader2").addClass('loaderHide');
+                    }
                 });
             }
         };
@@ -433,19 +464,19 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         AlphaIndexes[alphaCounter++] = self.members()[index]['name'].charAt(0);
                     }
                 }
-				//$("#index").addClass("hide");
+                //$("#index").addClass("hide");
                 $("#index span").each(function (i, data) {
                     if (i != 0) {
-                        if($.inArray($(this).children("a").attr("href"),AlphaIndexes)<0)
-						{
-							//console.log($(this).children("a").attr("href"));
-							
-								//console.log(AlphaIndexes[z]);
-                                $(this).addClass("hide");
-						}
+                        if ($.inArray($(this).children("a").attr("href"), AlphaIndexes) < 0)
+                        {
+                            //console.log($(this).children("a").attr("href"));
+
+                            //console.log(AlphaIndexes[z]);
+                            $(this).addClass("hide");
+                        }
                     }
                 })
-				$("#index").removeClass("hide");
+                $("#index").removeClass("hide");
             });
 
 
@@ -511,54 +542,54 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.handleOKClose = $("#okButton").click(function () {
                 $("#modalDialog8").ojDialog("close");
             });
-            
-             $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
+
+            $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
+            $('#homeTab2').append(' <img src="../../images/team.png" alt="" />');
+
+            $("#homeTab2").click(function () {
+                if ($('#homeTab2 > img').attr("src") == "../../images/team.png") {
+                    $('#homeTab1 > img').remove();
+                    $('#homeTab2 > img').remove();
+                    $('#homeTab1').append(' <img src="../../images/user.png" alt="" />');
+                    $('#homeTab2').append(' <img src="../../images/team-active.png" alt="" />');
+                    self.members([]);
+                    self.members(self.data2());
+                }
+            });
+
+            $("#home2").click(function () {
+                if ($('#homeTab2 > img').attr("src") == "../../images/team.png") {
+                    $('#homeTab1 > img').remove();
+                    $('#homeTab2 > img').remove();
+                    $('#homeTab1').append(' <img src="../../images/user.png" alt="" />');
+                    $('#homeTab2').append(' <img src="../../images/team-active.png" alt="" />');
+                    self.members([]);
+                    self.members(self.data2());
+                }
+            });
+
+            $("#homeTab1").click(function () {
+                if ($('#homeTab1 > img').attr("src") == "../../images/user.png") {
+                    $('#homeTab1 > img').remove();
+                    $('#homeTab2 > img').remove();
+                    $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
                     $('#homeTab2').append(' <img src="../../images/team.png" alt="" />');
-                    
-                     $( "#homeTab2" ).click(function() {
-                          if($('#homeTab2 > img').attr("src")=="../../images/team.png"){
-                          $('#homeTab1 > img').remove();
-                          $('#homeTab2 > img').remove();
-                          $('#homeTab1').append(' <img src="../../images/user.png" alt="" />');
-                          $('#homeTab2').append(' <img src="../../images/team-active.png" alt="" />');
-						  self.members([]);
+                    self.members([]);
                     self.members(self.data2());
-                      }
-                     });
-                         
-                     $( "#home2" ).click(function() {
-                          if($('#homeTab2 > img').attr("src")=="../../images/team.png"){
-                          $('#homeTab1 > img').remove();
-                          $('#homeTab2 > img').remove();
-                          $('#homeTab1').append(' <img src="../../images/user.png" alt="" />');
-                          $('#homeTab2').append(' <img src="../../images/team-active.png" alt="" />');
-						  self.members([]);
+                }
+            });
+
+            $("#home1").click(function () {
+                if ($('#homeTab1 > img').attr("src") == "../../images/user.png") {
+                    $('#homeTab1 > img').remove();
+                    $('#homeTab2 > img').remove();
+                    $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
+                    $('#homeTab2').append(' <img src="../../images/team.png" alt="" />');
+                    self.members([]);
                     self.members(self.data2());
-                      }
-                     });
-                     
-                       $( "#homeTab1" ).click(function() {
-                          if($('#homeTab1 > img').attr("src")=="../../images/user.png"){
-                          $('#homeTab1 > img').remove();
-                          $('#homeTab2 > img').remove();
-                          $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
-                          $('#homeTab2').append(' <img src="../../images/team.png" alt="" />');
-						  self.members([]);
-                    self.members(self.data2());
-                      }
-                     });
-                         
-                     $( "#home1" ).click(function() {
-                         if($('#homeTab1 > img').attr("src")=="../../images/user.png"){
-                          $('#homeTab1 > img').remove();
-                          $('#homeTab2 > img').remove();
-                          $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
-                          $('#homeTab2').append(' <img src="../../images/team.png" alt="" />');
-						  self.members([]);
-                    self.members(self.data2());
-                      }
-                     });
-            
+                }
+            });
+
 
         }, 600);
 
