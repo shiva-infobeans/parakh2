@@ -728,7 +728,7 @@ class dbmodule {
             
             $user_list = $this->con->prepare($query);
             $user_list->execute(array(':id' => $user_id));
-            $employeeList = $user_list->fetchAll((PDO::FETCH_ASSOC));
+            $employeeList = $user_list->fetchAll();
             
             $query_rank = "SELECT u.id,u.google_name,
                     sum(case when r.rating = 1 then 1  end) as pluscount,
