@@ -1154,12 +1154,7 @@ margin:5px 10px;
 #sucessRate{
     display:none;
 }
-.transboxRequest{
-    position: relative;
-    margin-left: -12px;
-    min-height: 810px;
 
-}
 .requestHeading{
     font-weight: bold;
     color:#fff;
@@ -1594,11 +1589,6 @@ margin:5px 10px;
         padding:10px;
     }
 }
-.more-alignment{
-    margin-top: 48px;
-    margin-bottom: -2px;
-    margin-right: 13px;
-}
 .space-block{
     margin-bottom: 70px;
 }
@@ -1607,4 +1597,19 @@ margin:5px 10px;
 }
 .custom-zmdi-icons-div:hover{
     border:2px solid #689F39;cursor: pointer;color: #689F39;
+}
+.more-alignment{
+    margin-right: 14px;
+ }
+ .space-block{
+     margin-bottom: 70px;
+     margin-top: 40px;
+ }
+ .space-block1{
+    margin-top: 40px;
+    margin-bottom: 80px;
+ }
+ .declineHeight{
+     margin-top: 50px;
+    height: 80%; 
 }
