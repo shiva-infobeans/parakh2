@@ -94,7 +94,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     headers: {secret: secret},
                     success: function (res) {
                         var data1 = res['attributes']['data'];
-						console.log(data1);
                         for (var i = 0; i < data1.length; i++) {
                             if (data1[i]['status'] == 0) {
                                 self.requestPendingMember.push(new request(data1[i], self.userId()));
@@ -116,7 +115,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     headers: {secret: secret},
                     success: function (res) {
                         var data1 = res['attributes']['data'];
-						console.log(data1);
                         for (var i = 0; i < data1.length; i++) {
                             if (data1[i]['status'] == 1) {
                                 self.requestRejectedMember.push(new request(data1[i], self.userId()));
