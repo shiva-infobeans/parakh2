@@ -460,7 +460,6 @@ div.oj-tabs-panel.oj-tabs-selected{
 .heightContent{
     margin-top: -10px;
     margin-bottom: 50px;
-    margin-left: -2px;
 }
 .replyBox div span:nth-child(1) button{
     margin-left:15px;
@@ -726,10 +725,10 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 /*for request send by the user and accept/reject by lead/manager*/
 .textArea-requests{
-    border:2px solid #6BA034;
-    background:none;
-    color:#fff;
-    height: 110px;
+   background: none;
+     color: #fff;
+     height: 76px;
+     width: 87%;
 }
 .textArea-white{
     border:2px solid #fff;
@@ -759,10 +758,11 @@ div.oj-tabs-panel.oj-tabs-selected{
 .approveDisapprove{
     border: medium none;
     margin-bottom: -3px;
-    padding: 10px;
-    font-size: 30px;
+    padding: 6px;
+    font-size: 28px;
     width: 50%;
     background-color: #fff;
+    margin-top: -11px;
 }
 .requestApproveDiv{
     padding: 2px;
@@ -1090,7 +1090,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 .edit-height{cursor: pointer;}
 .requestHeight{
     margin-top: 50px;
-    height: 87%; 
+    height: 83%;  
 }
 .sliderScreen1{
     color: #fff !important;
@@ -1107,8 +1107,17 @@ div.oj-tabs-panel.oj-tabs-selected{
 #pagingControl3{
 
 }
+.transboxRequest{
+    position: relative;
+    margin-left: -10px;
+    min-height: 810px;
+
+}
+.transboxRequest2{
+    margin-left:10px;
+}
 /*media query for notification*/ 
-@media  screen and (min-width: 363px) and (max-width: 523px) {
+@media  screen and (min-width: 363px) and (max-width: 767px) {
    .notification::before {
     border-bottom: 10px solid #fff;
     border-left: 16px solid transparent;
@@ -1129,6 +1138,18 @@ div.oj-tabs-panel.oj-tabs-selected{
     z-index: 1;
 }
 
+}
+@media  screen and (min-width: 320px) and (max-width: 767px) {
+    
+    .transboxRequest{
+    position: relative;
+    margin-left: 0px;
+    min-height: 810px;
+
+}
+.transboxRequest2{
+    margin-left: 0px;
+}
 }
 @media screen  and (max-width: 360px) {
   .notification::before {
@@ -1154,4 +1175,8 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 .indexerUnderline{
     text-decoration: underline;
+}
+@media screen  and (max-width: 767px) {
+    
+   
 }

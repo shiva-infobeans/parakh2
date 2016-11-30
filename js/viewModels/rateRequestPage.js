@@ -65,10 +65,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.requestPendingMember = ko.observableArray();
         self.requestPendingLead = ko.observableArray();
         self.requestRejectedLead = ko.observableArray();
+        self.requestDeclinedLead = ko.observableArray();
         self.role = ko.observable();
         self.noPendingRequest = ko.observable("No Pending Requests.");
         self.noRejectRequest = ko.observable("No Declined Requests.");
         self.noLeadPendingRequest = ko.observable("No Pending Requests.");
+        self.noLeadDeclinedRequest = ko.observable();
         self.selectTab = ko.observable(0);
 
 //        self.pic = "http://www.freeiconspng.com/uploads/blank-face-person-icon-7.png";
@@ -139,13 +141,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         headers: {secret: secret},
 						error:function(ee)
 						{
-							//console.log(ee);
+							
 						},
                         success: function (res) {
 							
                             var data1 = res['attributes']['data'];
-							//console.log('getTeamMembersRequest');
-							//console.log(data1);
+							
                             for (var i = 0; i < data1.length; i++) {
                                 if (data1[i]['status'] == 0) {
                                     self.requestPendingLead.push(new request(data1[i], self.userId()));
@@ -159,6 +160,31 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         }
                     });
                 }
+                
+                // get all requests that has been declined by lead or manager.
+                 if (self.role() != "Team Member") {
+                     $.ajax({
+                         headers: {secret: secret},
+                         url: getAllRejectedRequestsByLoginId,
+                         method: 'POST',
+                         data: {lead_id: self.userId()},
+                         success: function (result) {
+                             var data2 = JSON.parse(result)['data'];
+                             for (var i = 0; i < data2.length; i++) {
+                                 if (data2[i] === 0) {
+                                     self.noLeadDeclinedRequest("No Declined Request.");
+                                     $("#request3").show();
+                                 } else {
+                                     self.requestDeclinedLead.push(new request(data2[i]));
+                                     self.noLeadDeclinedRequest("");
+                                     $("#request3").hide();
+                                 }
+                             }
+                         }
+                     });
+                 }
+                
+                
                 if (self.role_name() === 'Team Member') {
                     $('#rateTab2').hide();
                     self.selectTab(1);
@@ -387,14 +413,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 }
             });
         }
-        setTimeout(function(){
-            $(".openDiv").each(function () {     
-            
-            if ($(this).children().children(":last-child").text().length <= 100) {
-                $(this).addClass('hide');
-            }
-        });
-        },500);
+//        setTimeout(function(){
+//            $(".openDiv").each(function () {     
+//            
+//            if ($(this).children().children(":last-child").text().length <= 100) {
+//                $(this).addClass('hide');
+//            }
+//        });
+//        },500);
     }
     
     return rateRequestPageContentViewModel;
