@@ -73,7 +73,7 @@ class dbmodule {
                     sum(case when r.rating = 1 then 1 end) as pluscount,
                     sum(case when r.rating = 0 then 1 end) as minuscount
                     FROM user_hierarchy uh left join users u on u.id = uh.user_id left join rating r on (u.id=r.user_id)
-                    WHERE manager_id = :id AND u.status <> 0 group by r.user_id order by u.google_name';
+                    WHERE manager_id = :id AND u.status <> 0 group by uh.user_id order by u.google_name';
             $user_data = $this->con->prepare($query);
             $user_data->execute(array(':id' => $lead_id));
             $employeeList = $user_data->fetchAll((PDO::FETCH_ASSOC));
@@ -647,7 +647,7 @@ class dbmodule {
     function addFeedback($data) {
         $dateTime = new \DateTime(null, new DateTimeZone('Asia/Kolkata'));
         $created_date = $modified_date = $dateTime->format("Y-m-d H:i:s");
-
+var_dump($data);
         $feedback_insert_query = "INSERT INTO feedback(feedback_to, feedback_description, feedback_from, response_parent, created_date, modified_date) VALUES(:feedback_to,:feedback_description,:feedback_from,:response_parent,:created_date,:modified_date)";
         try {
             $feedback_insert = $this->con->prepare($feedback_insert_query);
@@ -778,10 +778,24 @@ class dbmodule {
         $dateTime = new \DateTime(null, new DateTimeZone('Asia/Kolkata'));
         $created_date = $modified_date = $dateTime->format("Y-m-d H:i:s");
 
+		$query = "SELECT * from feedback where id=" . $data['feedback_id'];
+            $feedback = $this->con->prepare($query);
+            $feedback->execute();
+            $row = $feedback->fetchAll((PDO::FETCH_ASSOC));
+			if($data['login_user_id']==$row[0]['feedback_to']) // if current user is team member, not a lead
+			{
+				$feedback_to=$row[0]['feedback_from'];
+			}
+			
+			else // if this is from any of the lead
+			{
+				$feedback_to=$row[0]['feedback_to'];
+			}
+		
         $feedback_insert_query = "INSERT INTO feedback(feedback_to, feedback_description, feedback_from, response_parent, created_date, modified_date) VALUES(:feedback_to,:feedback_description,:feedback_from,:response_parent,:created_date,:modified_date)";
 
         $feedback_insert = $this->con->prepare($feedback_insert_query);
-        $feedback_insert->execute(array(':feedback_to' => $data['feedback_to'],
+        $feedback_insert->execute(array(':feedback_to' => $feedback_to,
             ':feedback_description' => $data['feedback_desc'],
             ':feedback_from' => $data['login_user_id'],
             ':response_parent' => $data['feedback_id'],
