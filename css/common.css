@@ -1610,6 +1610,7 @@ margin:5px 10px;
 .custom-zmdi-icons-div:hover{
     border:2px solid #689F39;cursor: pointer;color: #689F39;
 }
+.oj-select-selected-choice{color: #fff;}
 .edit-section{
      position:absolute;
      right:0px;
@@ -1619,3 +1620,4 @@ margin:5px 10px;
     color:#fff;
     text-decoration: underline;
 }
+
