@@ -103,6 +103,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
             function dialogModel(person) {
                 var self = this;
 
+                this.tabOrientation = ko.observable('vertical');
                 this.pic = person['pic'];
                 this.myname = person['name'];
                 this.email = person['email'];
