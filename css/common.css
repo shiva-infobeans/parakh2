@@ -1146,7 +1146,6 @@ margin:5px 10px;
     padding-left: 50px;
     padding-right: 50px; 
     margin: 0px auto;
-
 }
 #sucess{
     display:none;
@@ -1603,8 +1602,20 @@ margin:5px 10px;
     margin-bottom: 70px;
 }
 .custom-zmdi-icons-div{
-    border-radius:50%;border:2px solid #fff;background:#000;cursor: pointer;color: white;
+    border-radius:50%;
+    border:2px solid #fff;
+    cursor: pointer;
+    color: white;
 }
 .custom-zmdi-icons-div:hover{
     border:2px solid #689F39;cursor: pointer;color: #689F39;
+}
+.edit-section{
+     position:absolute;
+     right:0px;
+     top:-120px
+}
+.mailToColor{
+    color:#fff;
+    text-decoration: underline;
 }
