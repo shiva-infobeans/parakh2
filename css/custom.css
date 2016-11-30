@@ -345,16 +345,23 @@ div.oj-tabs-panel.oj-tabs-selected{
 .circle-green{
     border-color: #D6F6C0;
     background-color: #689F39;
+    height: 70px;
+    width:70px;
+    text-align:center;font-size:35px;padding-top:12px;
 }
 .circle-red{
     border-color: #FF7a7a;
     background-color: #e00000;
     margin-top:10px;
+    height: 70px;
+    width:70px;
+    text-align:center;font-size:35px;padding-top:12px;
 }
 .rating-info{
-    padding: 0px 10px 10px 10px;
+    padding: 10px 10px 10px 10px;
     margin-bottom: 10px;
     margin-left: 125px;
+    height: 116px;
 }
 /*positive and negative comments*/
 .comment{
@@ -380,7 +387,8 @@ div.oj-tabs-panel.oj-tabs-selected{
     background-color: #689F39;
     position: absolute;
     top:25px;
-    left:62;
+    /*left:62;*/
+    left:225;
     z-index: -1;
 }
 .rating-comment-div:last-child .transline{display: none;}
@@ -391,7 +399,8 @@ div.oj-tabs-panel.oj-tabs-selected{
     background-color: #e00000;
     position: absolute;
     top:32px;
-    left:62;
+    /*left:62;*/
+    left:225;
     z-index: -1;
 }
 /* feedback section css */
@@ -1173,10 +1182,4 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 
 }
-.indexerUnderline{
-    text-decoration: underline;
-}
-@media screen  and (max-width: 767px) {
-    
-   
-}
+.div-comment-date{margin: 10px 12px 20px;height: 25px;float: left;font-size:20px;width:115px;}
