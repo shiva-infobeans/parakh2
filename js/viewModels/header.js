@@ -103,8 +103,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
                                 }
                             }
                             if (data[c]['rating'] == 'feedback') {
+								if(self.userId() == data[c]['for_id']) {
                                 notificationData.type = "feedback";
-                                notificationData.comment = data[c]['ratedby'] + " gave you feedback";
+								notificationData.comment = data[c]['ratedby'] + " gave you feedback";
+								}
                             }
                             if (data[c]['rating'] == 'approved') {
                                 notificationData.type = "approved";
@@ -124,9 +126,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
                                 }
                             }
                             if (data[c]['rating'] == 'response-feedback') {
+								if(self.userId()!=data[c]['ratedby']) {
                                 notificationData.type = "response-feedback";
                                 notificationData.comment = data[c]['ratedby'] + " responded on your feedback";
+								}
                             }
+							if(notificationData.type!=undefined)
                             self.notif.push(new notificationContent(notificationData.type, notificationData.comment));
                         }
                     }

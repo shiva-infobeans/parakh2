@@ -1293,7 +1293,9 @@ var_dump($data);
         $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
 
         /* query for feedback */
-        $query1 = "SELECT feedback.feedback_to as user_id,feedback.feedback_to as for_id, 3 as status,'response-feedback' as rating,feedback_from as given_by,users.google_name as rated_to,google_picture_link, feedback.created_date  from users join feedback on feedback.feedback_to = users.id where feedback.feedback_to = :user_id";
+        $query1 = "SELECT feedback.id,feedback.feedback_to as user_id,feedback.feedback_to as for_id, 3 as status,
+		feedback.response_parent,
+		feedback_from as given_by,users.google_name as rated_to,google_picture_link, feedback.created_date  from users join feedback on feedback.feedback_to = users.id where feedback.feedback_to = :user_id";
         $user_list1 = $this->con->prepare($query1);
         $user_list1->execute(array(':user_id' => $user_id));
         $row1 = $user_list1->fetchAll((PDO::FETCH_ASSOC));
@@ -1304,22 +1306,35 @@ var_dump($data);
             $row2 = $user_list2->fetchAll((PDO::FETCH_ASSOC));
             $row1[$p]['for_picture'] = $row2[0]['google_picture_link'];
             $row1[$p]['ratedby'] = $row2[0]['google_name'];
+			$row1[$p]['rating'] = (empty($row1[$p]['response_parent']))?'feedback':'response-feedback';
             $row[] = $row1[$p];
         }
 
             /*query for feedback response*/
-            $query3 = "SELECT feedback.feedback_from as user_id,feedback.feedback_from as for_id, 3 as status,'feedback' as rating,feedback_to as given_by,users.google_name as rated_to,google_picture_link, feedback.created_date  from users join feedback on feedback.feedback_from = users.id where feedback.feedback_from = :user_id"; 
+			$query3="select 
+			f.id,
+			f.feedback_from as user_id,
+			f.feedback_from as given_by,
+			f.feedback_to as for_id, 
+			u.google_name as ratedby,
+			3 as status,
+			f.created_date,
+			f.response_parent
+			from feedback f 
+			left join users u on (f.feedback_from=u.id)
+			where f.response_parent in (select f2.id from feedback f2 where f2.feedback_from=:user_id) AND f.feedback_from!=:user_id and f.feedback_to!=:user_id";
             $user_list3 = $this->con->prepare($query3);
             $user_list3->execute(array(':user_id' => $user_id));
             $row3 = $user_list3->fetchAll((PDO::FETCH_ASSOC));
-            for ($t=0;$t<count($row3);$t++) { 
+			for ($t=0;$t < count($row3);$t++) {
                 $query4 = "SELECT id,google_name,google_picture_link from users where users.id = :user_id"; 
                 $user_list4 = $this->con->prepare($query4);
-                $user_list4->execute(array(':user_id' => $row3[$t]['given_by']));
+                $user_list4->execute(array(':user_id' => $row3[$t]['for_id']));
                 $row4 = $user_list4->fetchAll((PDO::FETCH_ASSOC));
-                $row3[$p]['for_picture'] = $row4[0]['google_picture_link'];
-                $row3[$p]['ratedby'] = $row4[0]['google_name'];
-                $row[] = $row3[$p];
+                $row3[$t]['google_picture_link'] = $row4[0]['google_picture_link'];
+                $row3[$t]['rated_to'] = $row4[0]['google_name'];
+				$row3[$t]['rating'] = (empty($row3[$t]['response_parent']))?'feedback':'response-feedback';
+                $row[] = $row3[$t];
             }
             usort($row, function($a, $b) {
                 if($a['created_date']==$b['created_date']) return 0;
