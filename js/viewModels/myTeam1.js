@@ -62,6 +62,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.desc = ko.observable();
         self.textError = ko.observable();
         self.sucessMsg = ko.observable();
+        self.selectTab = ko.observable(0);
 
         //indexer for other team members
         self.indexer2Letters = ko.observableArray();
@@ -466,7 +467,15 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     }
                 })
             });
-
+            
+              if (self.role_name() === 'Team Member') {
+                    self.selectTab(1);
+                    $("#membersHover").addClass("buddyTabRequest1");
+                  
+                    $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />')
+                }        
+            else{
+                   $("#membersHover").addClass("hoverTab2");
             $('#homeTab1').append(' <img src="../../images/user.png" alt="" />');
             $('#homeTab2').append(' <img src="../../images/team-active_1.png" alt="" />');
 
@@ -514,7 +523,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 }
             });
 
-
+                }
         }, 600);
 
      self.handleOpen = $(".star").click(function () {

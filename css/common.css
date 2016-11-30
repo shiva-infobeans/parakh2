@@ -420,25 +420,28 @@ margin:5px 10px;
 
 #ojDialogWrapper-modalDialog1.oj-dialog  {
     overflow: hidden;
-    width: 556px;
-    height: 541px;
+   width:29%;
     box-sizing: border-box;
     display: -webkit-flex;
     display: flex;
     -webkit-flex-direction: column;
     flex-direction: column;
+    border-radius: 5px;
 }
 #ojDialogWrapper-modalDialog8.oj-dialog,#ojDialogWrapper-modalDialog2.oj-dialog{
     overflow: hidden;
-    width: 556px;
-    height: 541px;
+    width: 29%;
     box-sizing: border-box;
     display: -webkit-flex;
     display: flex;
     -webkit-flex-direction: column;
     flex-direction: column;
+    border-radius: 5px;
 }
-
+.errorTextPlus{
+    color: red;
+    margin-left: -2px;
+}
 #ojDialogWrapper-modalDialog9.oj-dialog,#ojDialogWrapper-modalDialog3.oj-dialog,#ojDialogWrapper-modalDialogRequest.oj-dialog{
     overflow: hidden;
     width: 484px;
@@ -478,17 +481,28 @@ margin:5px 10px;
     font-size: 24px;
 }
 .modalImage{
-    width: 70px;
+    width: 95%;
+}
+.area2{
+    width: 87%;
+    height: 55%;
+    border: solid 1px #000;
+    margin-left: 17px;
+    background-color: #fff;
+    margin-left: 32px;
+    margin-top: 25px;
+    border-radius: 5px;
 }
 .modal-submit{
-    background-color: #ff6241 !important;
-    color: #fff !important;
+    background-color: #e3ffca !important;
+    color: #000 !important;
     cursor: pointer !important;
     font-size: 24px;
     height: 48px;
-    margin-top: 24px;
+    border-radius: 5px;
     outline: medium none;
     width: 38%;
+    border-color: #e3ffca;
     -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color=#6f6d6d)";
     -moz-box-shadow: 3px 3px 3px #6f6d6d;
     -webkit-box-shadow: 3px 3px 3px #6f6d6d;
@@ -504,29 +518,40 @@ margin:5px 10px;
     margin-left: 37px;
 }
 .area {
-   width: 87%;
-    height: 55%;
+    width: 87%;
+    height: 46%;
     border: solid 1px #000;
     margin-left: 17px;
     background-color: #fff;
-    margin-left: 36px;
+    margin-left: 32px;
+    margin-top: 25px;
+    border-radius: 5px;
+    margin-bottom: 6px;
 }
 .area-Feedback {
-    width: 465px;
+  width: 436px;
     height: 162px;
-    border: solid 1px #dcdcdc;
-    margin-left: 17px;
+    border: solid 1px #000;
     background-color: #fff;
-    margin-left: 21px;
+    border-radius: 5px;
+    margin-left: 26px;
 }
 .textArea2{
-    height: 163px;
+    height: 140px;
     border: none;
-    width: 278px;
+    width: 320px;
+    margin-left: 2px;
+}
+.textArea4{
+  height: 189px;
+    border: none;
+    width: 320px;
+    margin-left: 2px;
 }
 .textArea3{
     height: 143px;
     border: none;
+    margin-left: 2px;
     width: 278px;
 }
 .imgArea{
@@ -544,33 +569,26 @@ margin:5px 10px;
     width: 100%;
 }
 .mText{
-    position: absolute;
-    top: 15px;
-    left: 26px;
+   position: absolute;
+    bottom: 34px;
+    left: 24px;
     color: #fff;
     font-weight: bold;
-    font-size: 25px;
+    font-size: 32px;
 }
 .mText1 {
     position: absolute;
-    bottom: 33px;
-    left: 22px;
+    bottom: 36px;
+    left: 24px;
     color: #fff;
     font-weight: bolder;
-    font-size: 24px;
-}
-.mText{
-    position: absolute;
-    top: 15px;
-    left: 26px;
-    color: #fff;
-    font-weight: bold;
-    font-size: 25px;
+    font-size: 32px;
 }
 
 .errorText{
-    color:red;
+    color: red;
     margin-left: -2px;
+   margin-bottom: 10px;
 }
 .errorText1{
     color: #fff;
@@ -581,7 +599,7 @@ margin:5px 10px;
     width: 100%;
 }
 .errorFix1{
-    margin-left: 60px;
+    /*margin-left: 60px;*/
 }
 #ojDialogWrapper-modalDialog2 .oj-dialog-title {
     font-size: 22px;
@@ -590,7 +608,8 @@ margin:5px 10px;
 #ojDialogWrapper-modalDialog2 .oj-dialog-header.oj-helper-clearfix.ui-draggable-handle,
 #ojDialogWrapper-modalDialogRequest .oj-dialog-header.oj-helper-clearfix.ui-draggable-handle, 
 #ojDialogWrapper-modalDialog9 .oj-dialog-header.oj-helper-clearfix.ui-draggable-handle, 
-#ojDialogWrapper-modalDialog3 .oj-dialog-header.oj-helper-clearfix.ui-draggable-handle {
+#ojDialogWrapper-modalDialog3 .oj-dialog-header.oj-helper-clearfix.ui-draggable-handle,
+#ojDialogWrapper-modalDialog8 .oj-dialog-header.oj-helper-clearfix.ui-draggable-handle {
     background-color: #e3ffca;
     border: none;
 }
@@ -614,16 +633,16 @@ margin:5px 10px;
     
 }
 .modal-submit1{
-    background-color: #ff6241 !important;
-    color: #fff !important;
+     background-color: #e3ffca !important;
+    color: #000 !important;
     cursor: pointer !important;
     font-size: 24px;
     height: 48px;
-    margin-top: 24px;
     outline: medium none;
     width: 38%;
-    float: left !important;
-    margin-left: 150px;
+    border-color: #e3ffca;
+    border-radius: 5px;
+    margin-top: 4px;
 }
 #ojDialogWrapper-modalDialog2 .oj-dialog-title::before {
     background-image: url("../css/images/star_1.png");
@@ -775,6 +794,10 @@ margin:5px 10px;
 #ojDialogWrapper-modalDialogRequest  .oj-dialog-content  {
     background-color: #fff !important;
 }
+#ojDialogWrapper-modalDialog1 .oj-dialog-body{
+    background-color: #fff !important;
+    height: 425px;
+}
 .modal-submit3{
     background-color: #e3ffca !important;
     color: #000 !important;
@@ -808,12 +831,7 @@ margin:5px 10px;
     border-width: 1px;
     border-radius: 7px;
 }
-#tabs-container .oj-tabs-title {
-    color: #000;
-}
-#tabs-container .oj-tabs-title-active {
-    color: green;
-}
+
 #ui-id-4 .oj-hover{
     text-decoration: none !important; 
 }
@@ -841,6 +859,7 @@ margin:5px 10px;
 .oj-tabs-horizontal > .oj-tabs-nav-root .oj-tabs-tab{
     position: static;
 }
+
 .hoverTab2{
     background-color: #fffff0;
     border-radius: 2px;
@@ -934,7 +953,26 @@ margin:5px 10px;
     display: none; 
     text-decoration: none !important;
 }
+.buddyTabRequest1{
+   background-color: #fffff0;
+    border-radius: 2px;
+    color: #000;
+    font-size: 13px;
+    left: 20px;
+    padding: 10px;
+    position: absolute;
+    top: -41px;
+    display: none;
+    text-decoration: none !important;
+}
+
+
+
+
 .buddyTab4 :hover .buddyTabRequest{
+    display: block;
+}
+.buddyTab2 :hover .buddyTabRequest1{
     display: block;
 }
 .buddyTab3:hover:before  {
@@ -966,6 +1004,26 @@ margin:5px 10px;
     position: absolute;
     top: 30px;
     left: 29px;
+    color: #fffff0;
+}
+.buddyTabRequest1:after  {
+    content: "";
+    border-top: 10px solid #fffff0;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    position: absolute;
+    top: 30px;
+    left: 23px;
+    color: #fffff0;
+}
+.hoverTab2:after  {
+    content: "";
+    border-top: 10px solid #fffff0;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    position: absolute;
+    top: 38px;
+    left: 28px;
     color: #fffff0;
 }
 .buddyTab3{
@@ -1014,7 +1072,7 @@ margin:5px 10px;
     left: 36px;
     color: #fffff0;
 }
-.buddyTab2:hover:before  {
+/*.buddyTab2:hover:before  {
     content: "";
     border-top: 10px solid #fffff0;
     border-left: 16px solid transparent;
@@ -1023,7 +1081,7 @@ margin:5px 10px;
     top: -10px;
     left: 132px;
     color: #fffff0;
-}
+}*/
 .buddyTab5:hover:before  {
     content: "";
     border-top: 9px solid #E7FCD5;
@@ -1051,9 +1109,10 @@ margin:5px 10px;
     text-decoration: none !important;
 }
 .textArea-feedback{
-    height: 157px;
+ height: 157px;
     border: none;
-    width: 463px;
+    width: 431px;
+    margin-left: 2px;
 }
 .textArea-feedbackFloat{
     height: 143px;
