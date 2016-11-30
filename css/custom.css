@@ -1150,6 +1150,28 @@ div.oj-tabs-panel.oj-tabs-selected{
 .transboxRequest2{
     margin-left: 0px;
 }
+#ojDialogWrapper-modalDialog9.oj-dialog,
+#ojDialogWrapper-modalDialog3.oj-dialog,
+#ojDialogWrapper-modalDialogRequest.oj-dialog{
+    width: 96% !important;
+   
+}
+.modalImage {
+    width: 55% !important;
+}
+.areaFloat{
+    margin-left: 0px !important; 
+}
+
+}
+@media  screen and (min-width: 768px) and (max-width: 1024px) {
+    
+    #ojDialogWrapper-modalDialog9.oj-dialog,
+    #ojDialogWrapper-modalDialog3.oj-dialog,
+    #ojDialogWrapper-modalDialogRequest.oj-dialog{
+    width: 60% !important;
+   
+}
 }
 @media screen  and (max-width: 360px) {
   .notification::before {

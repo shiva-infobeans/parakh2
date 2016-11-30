@@ -428,7 +428,8 @@ margin:5px 10px;
     flex-direction: column;
     border-radius: 5px;
 }
-#ojDialogWrapper-modalDialog8.oj-dialog,#ojDialogWrapper-modalDialog2.oj-dialog{
+#ojDialogWrapper-modalDialog8.oj-dialog,
+#ojDialogWrapper-modalDialog2.oj-dialog{
     overflow: hidden;
     width: 29%;
     box-sizing: border-box;
@@ -442,15 +443,11 @@ margin:5px 10px;
     color: red;
     margin-left: -2px;
 }
-#ojDialogWrapper-modalDialog9.oj-dialog,#ojDialogWrapper-modalDialog3.oj-dialog,#ojDialogWrapper-modalDialogRequest.oj-dialog{
+#ojDialogWrapper-modalDialog9.oj-dialog,
+#ojDialogWrapper-modalDialog3.oj-dialog,
+#ojDialogWrapper-modalDialogRequest.oj-dialog{
     overflow: hidden;
-    width: 484px;
-    height: 430px;
-    box-sizing: border-box;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: column;
-    flex-direction: column;
+    width: 26%;
     border-radius: 5px;
 }
 .buddyTab{
@@ -510,12 +507,14 @@ margin:5px 10px;
     filter: progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color=#6f6d6d);
 }
 .areaFloat{
-    width: 385px;
+   width: 88%;
     height: 148px;
     border: solid 1px #000;
-    margin-left: 17px;
+    margin-top: -14px;
+    border: solid 1px #000;
     background-color: #fff;
-    margin-left: 37px;
+    border-radius: 5px;
+    margin-left: 28px;
 }
 .area {
     width: 87%;
@@ -527,6 +526,11 @@ margin:5px 10px;
     margin-top: 25px;
     border-radius: 5px;
     margin-bottom: 6px;
+}
+.errorTextModal{
+    color: red;
+    margin-left: -2px;
+    margin-top: 6px;
 }
 .area-Feedback {
   width: 436px;
@@ -552,7 +556,7 @@ margin:5px 10px;
     height: 143px;
     border: none;
     margin-left: 2px;
-    width: 278px;
+    width: 100%;
 }
 .imgArea{
     float: right;
@@ -565,8 +569,10 @@ margin:5px 10px;
     float:left;
 }
 .areaContent1{
-    float:left;
     width: 100%;
+}
+.oj-textarea{
+    max-width: 24em;
 }
 .mText{
    position: absolute;
@@ -1115,9 +1121,10 @@ margin:5px 10px;
     margin-left: 2px;
 }
 .textArea-feedbackFloat{
-    height: 143px;
-    border: none;
-    width: 383px;
+   height: 143px;
+    border: solid 1px #000;
+    width: 100%;
+    border-radius: 5px;
 }
 
 .feedbackAlignment{
@@ -1152,7 +1159,7 @@ margin:5px 10px;
     cursor: pointer !important;
     font-size: 24px;
     height: 48px;
-    margin-top: 25px;
+    margin-top: 15px;
     outline: medium none;
     width: 38%;
     border-radius: 5px;
