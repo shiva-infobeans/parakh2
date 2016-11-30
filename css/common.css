@@ -1404,6 +1404,7 @@ margin:5px 10px;
 }
 .tabHeightNew{
     height: 352px;
+    margin-bottom: 10px !important;
 }
 .tabMinHeight{
     min-height:700px !important;

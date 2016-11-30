@@ -277,7 +277,7 @@ ul li.selectedTab div {
     border:none;
 }
 div.profile-page{
-        height: 712px;
+    min-height: 712px;
 }
 div.oj-tabs-panel.oj-tabs-selected{
     background: none;
@@ -725,10 +725,10 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 /*for request send by the user and accept/reject by lead/manager*/
 .textArea-requests{
-   background: none;
-     color: #fff;
-     height: 76px;
-     width: 87%;
+    background: none;
+    color: #fff;
+    height: 76px;
+    width: 87%;
 }
 .textArea-white{
     border:2px solid #fff;
@@ -854,7 +854,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     left: 0px;
     height: 100%;
     width: 100%;
-   background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0,0,0,0.3);
 }
 .loaderDiv{
     position: fixed;
@@ -865,14 +865,14 @@ div.oj-tabs-panel.oj-tabs-selected{
     display: table;
     z-index: 20090;
     background-color: rgba(0,0,0,0.3);
-  
+
 }
 .loaderImgDiv{
     display: table-cell;
     text-align: center;
     width: 100%;
     vertical-align: middle;
-   
+
 }
 .loaderHide{
     display: none !important;
@@ -996,7 +996,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     .noRatingTxt{
         font-size: 40px;
     }
-    
+
     .greenBtnImg{
 
         background-size: 100px 100px;
@@ -1005,7 +1005,7 @@ div.oj-tabs-panel.oj-tabs-selected{
         width: 120px;
     }
     .redBtnImg{
-      
+
         background-size: 100px 100px;
         background-position: 50% 85%;
         height: 136px;
@@ -1118,59 +1118,59 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 /*media query for notification*/ 
 @media  screen and (min-width: 363px) and (max-width: 767px) {
-   .notification::before {
-    border-bottom: 10px solid #fff;
-    border-left: 16px solid transparent;
-    border-right: 16px solid transparent;
-    content: "";
-    left: 54%;
-    position: absolute;
-    top: -10px;
-}
-.notification {
-    background-color: #fff;
-    border: 1px solid;
-    border-radius: 10px;
-    left: -139px;
-    position: absolute;
-    top: 36px;
-    width: 244px;
-    z-index: 1;
-}
+    .notification::before {
+        border-bottom: 10px solid #fff;
+        border-left: 16px solid transparent;
+        border-right: 16px solid transparent;
+        content: "";
+        left: 54%;
+        position: absolute;
+        top: -10px;
+    }
+    .notification {
+        background-color: #fff;
+        border: 1px solid;
+        border-radius: 10px;
+        left: -139px;
+        position: absolute;
+        top: 36px;
+        width: 244px;
+        z-index: 1;
+    }
 
 }
 @media  screen and (min-width: 320px) and (max-width: 767px) {
-    
-    .transboxRequest{
-    position: relative;
-    margin-left: 0px;
-    min-height: 810px;
 
-}
-.transboxRequest2{
-    margin-left: 0px;
-}
+    .transboxRequest{
+        position: relative;
+        margin-left: 0px;
+        min-height: 810px;
+
+    }
+    .transboxRequest2{
+        margin-left: 0px;
+    }
 }
 @media screen  and (max-width: 360px) {
-  .notification::before {
-    border-bottom: 10px solid #fff;
-    border-left: 16px solid transparent;
-    border-right: 16px solid transparent;
-    content: "";
-    left: 54%;
-    position: absolute;
-    top: -10px;
-}
-.notification {
-    background-color: #fff;
-    border: 1px solid;
-    border-radius: 10px;
-    left: -139px;
-    position: absolute;
-    top: 36px;
-    width: 244px;
-    z-index: 1;
-}
+    .notification::before {
+        border-bottom: 10px solid #fff;
+        border-left: 16px solid transparent;
+        border-right: 16px solid transparent;
+        content: "";
+        left: 54%;
+        position: absolute;
+        top: -10px;
+    }
+    .notification {
+        background-color: #fff;
+        border: 1px solid;
+        border-radius: 10px;
+        left: -139px;
+        position: absolute;
+        top: 36px;
+        width: 244px;
+        z-index: 1;
+    }
 
 }
 .indexerUnderline{
@@ -1182,6 +1182,8 @@ div.oj-tabs-panel.oj-tabs-selected{
     display: table-cell;
     width: 150px;
     text-align: center;
+    font-style: italic;
+    font-size: 15px;
 }
 .feedback-align{
     display: table;
@@ -1194,10 +1196,23 @@ div.oj-tabs-panel.oj-tabs-selected{
     float: left;
     padding: 12px 0px 0px 10px;
 }
+.reply-circle{
+    height: 40px;
+    width: 40px;
+    border: 3px solid;
+    border-radius: 50%;
+    float: left;
+    padding: 8px 0px 0px 7px;
+}
 .feedback-comment{
     margin-left: 80px;
     padding: 5px;
     width: 80%;
+}
+.replyDate{
+    font-size: 13px;
+    color: #ddd;
+    font-style: italic;
 }
 .feedback-comment-text{
     padding: 5px;
@@ -1217,4 +1232,56 @@ div.oj-tabs-panel.oj-tabs-selected{
     left: 0px;
     border-radius: 10px;
     z-index: -1;
+}
+.buttonReply {
+    height: 45px;
+    width: 100px;
+    border-radius: 10px;
+    border: none;
+    font-size: 22px;
+    background-color: #E2FDCB;
+}
+.circle-purple:hover .viewFeedbackName{
+    display: block !important;
+}
+.viewFeedbackName{
+    position: absolute;
+    height: 38px;
+    top: -14px;
+    left: -110px;
+    background-color: #fff;
+    color: #000;
+    border: 2px solid #8DAC6C;
+    padding: 10px;
+    display: none;
+}
+.replyInput div{
+    padding: 10px;
+    border-radius: 10px;
+}
+.replyInput div:last-child{
+    padding: 9px 12px 10px 10px;
+    margin-right: 11%;
+    width: 80%;
+    float: left;
+
+}
+.replyInput div:first-child input
+{
+    padding: 5px;
+    height: 35px;
+    width: 80%;
+    border-radius: 5px;
+    border: 1px solid #fff;
+    background-color: rgba(0,0,0,0.5);
+    color:#fff;
+}
+.replyInput div:last-child i{
+    font-size: 23px;
+    margin-left: 2px;
+    cursor: pointer;
+}
+.replyInput{
+    width: 100%;
+    border-radius: 10px;
 }

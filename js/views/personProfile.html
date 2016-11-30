@@ -76,47 +76,67 @@
                 <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex">
 
                     <!--repeat block-->
-                    <div class="oj-flex oj-flex-item oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12">
+                    <div data-bind="foreach: feedbackContent1">
+                        <div class="oj-flex oj-flex-item oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12">
+
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div feedback-align">
+                                <div class="feedback-date">
+                                    <span data-bind="text: feedbackDate"></span>
+                                </div>
+                                <div class="feedback-circle circle-purple pos-relative">
+                                    <div class="viewFeedbackName" data-bind="text: name"></div>
+                                    <span data-bind="text:shortName"></span>
+                                </div>
+                                <div class="feedback-comment pos-relative">
+                                    <div class="feedback-Transbox"></div>
+                                    <p class="feedback-comment-text"><span data-bind="text: feedbackDescription"></span></p>
+                                </div>
+                            </div>
 
 
-
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div feedback-align">
-                            <div class="feedback-date">
-                                <span>12 Jan 1212</span>
-                            </div>
-                            <div class="feedback-circle circle-purple">
-                                AC
-                            </div>
-                            <div class="feedback-comment pos-relative">
-                                <div class="feedback-Transbox"></div>
-                                <p class="feedback-comment-text"><span> HERE I AM GOING TO SHOW COMMENT</span></p>
-                            </div>
-                        </div>
-                        
-                        
                             <!--repeat replies start-->
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div feedback-align">
-                            <div class="feedback-date">
-                                
+                            <div data-bind="foreach: replies">
+                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div feedback-align">
+                                    <div class="feedback-date">
+
+                                    </div>
+                                    <div class="reply-circle circle-purple pos-relative">
+
+                                        <div class="viewFeedbackName"  data-bind="text: reply_name"></div>
+                                        <span data-bind="text: reply_ShortName"></span>
+                                    </div>
+                                    <div class="feedback-comment pos-relative">
+                                        <div class="feedback-Transbox"></div>
+                                        <p class="feedback-comment-text"><span data-bind="text: reply_desc"></span>
+                                            <br />
+                                            <br />
+                                            <span class="right replyDate" data-bind="text: reply_date"></span>
+                                            <br />
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="feedback-circle circle-purple">
-                                AC
-                            </div>
-                            <div class="feedback-comment pos-relative">
-                                <div class="feedback-Transbox"></div>
-                                <p class="feedback-comment-text"><span> HERE I AM GOING TO SHOW COMMENT</span>
-                                    <br />
-                                    <br />
-                                    <span class="right"> Date here</span>
-                                    <br />
-                                </p>
+                            <!--repeat replies end-->
+                            <!--reply button here-->
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div feedback-align">
+                                <div class="feedback-date">
+
+                                </div>
+
+                                <div class="feedback-comment pos-relative">
+                                    <button class="buttonReply" data-bind="click: $parent.openReply,attr: {id: replyBtnId}"><i class="zmdi zmdi-mail-reply"></i> Reply</button>
+                                    <div data-bind="attr:{id:uniqueId}" class="replyInput hide">
+                                        <div class="pos-relative">
+                                            <div class="transbox"></div>
+                                            <input type="text" placeholder="Write your response here" class=""/>
+                                            <i class="zmdi zmdi-mail-reply"></i> 
+                                            <i class="zmdi zmdi-close"></i>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                            <!--repeat replies end-->
-                            replies box here
-                        <!--repeat end feedback-->
-
-                    </div>
+                    </div><!--reply button here--><!--repeat end feedback-->
                 </div>
             </div>
         </div>

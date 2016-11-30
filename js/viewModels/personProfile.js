@@ -8,9 +8,13 @@
  * personProfile module
  */
 
-define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 'ojs/ojcomponentcore', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojmodel', 'ojs/ojselectcombobox', 'ojs/ojdatetimepicker'],
+define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 'ojs/ojcomponentcore', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojdialog', 'ojs/ojmodel', 'ojs/ojselectcombobox', 'ojs/ojdatetimepicker', 'ojs/ojmoduleanimations', 'ojs/ojanimation'],
         function (oj, ko, $)
         {
+            function nameFunction(NAME) {
+                var initial = NAME.charAt(0) + NAME.charAt(NAME.lastIndexOf(" ") + 1);
+                return initial;
+            }
             function dataComment(comment1, commenter1, commentDate1) {
                 commentDate1 = new Date(commentDate1);
                 //commentDate1 = commentDate1.toDateString();
@@ -70,6 +74,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     feedbackObj.sComment = data['description'];
                 }
                 feedbackObj.lComment = data['description'];
+                feedbackObj.shortName = nameFunction(data['given_by_name']);
                 feedbackObj.myId = myId;
                 feedbackObj.feedbackfrom = data['feedback_from'];
                 feedbackObj.name = data['given_by_name'];
@@ -95,6 +100,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 freplies.freply_to = rtoId;
                 freplies.feedback_id = fid;
                 freplies.reply_name = data['from_name'];//display name
+                freplies.reply_ShortName = nameFunction(data['from_name']);//display name
                 freplies.reply_desc = data['description'];//display desc
                 freplies.reply_date = dateFormatter(data['created_date'].substring(0, data['created_date'].indexOf(" ")));// display date
                 return freplies;
@@ -154,23 +160,23 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     var obj = $("#feedback" + e.feedbackId);
                     obj.parent().prev('.open-more').slideToggle();
                     if (obj.prev().children("span").hasClass("hide")) {
-                          var lcomment = e['lComment'];
+                        var lcomment = e['lComment'];
                         obj.prev().children("span").removeClass("hide");
                         obj.children("span").children("span").children("i").addClass("zmdi-caret-up");
                         obj.children("span").children("span").children("i").removeClass("zmdi-caret-down");
                         obj.children("span").children("span:nth-child(2)").html("Less");
-                          if (e['sComment'].length == 103) {
+                        if (e['sComment'].length == 103) {
                             obj.parent().prev().prev().children().text(lcomment);
                         }
 
-                        
+
                     } else {
-                         var scomment = e['sComment'];
+                        var scomment = e['sComment'];
                         obj.children("span").children("span:nth-child(2)").html("More");
                         obj.children("span").children("span").children("i").removeClass("zmdi-caret-up");
                         obj.children("span").children("span").children("i").addClass("zmdi-caret-down");
                         obj.prev().children("span").addClass("hide");
-                         if (e['sComment'].length == 103) {
+                        if (e['sComment'].length == 103) {
                             obj.parent().prev().prev().children().text(scomment);
                         }
                     }
@@ -273,7 +279,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         var num = task.attributes['data']['mobile_number'] == "" ? "NO NUMBER" : "+91-" + task.attributes['data']['mobile_number'].replace("+91-", "");
                         self.myNumber(num);
                         var regex = new RegExp(',', 'g');
-                        self.skills(task.attributes['data']['skills'].replace(regex,", "));
+                        self.skills(task.attributes['data']['skills'].replace(regex, ", "));
                         self.location(task.attributes['data']['location']);
                         if (task.attributes['data']['interests'].length != 0) {
                             interest = task.attributes['data']['interests'].split(",");
@@ -305,10 +311,21 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                 var data = res['attributes']['data'];
                                 var index;
                                 for (index = 0; index < data.length; index++) {
-                                    if (index % 2 == 0) {
+                                    if (data[index]['reply'].length != 0) {
                                         self.feedbackContent1.push(new dataFeedback(self.id(), data[index]));
+                                    }
+                                    if (self.feedbackContent1().length == 1) {
+                                        console.log(self.feedbackContent1());
+                                        console.log(self.feedbackContent1()[0]['replies']());
+                                        break;
+                                    }
+                                    if (index % 2 == 0) {
+                                        //self.feedbackContent1.push(new dataFeedback(self.id(), data[index]));
+                                        //console.log(self.feedbackContent1());
+                                        //break;
                                     } else {
-                                        self.feedbackContent2.push(new dataFeedback(self.id(), data[index]));
+                                        //self.feedbackContent1.push(new dataFeedback(self.id(), data[index]));
+                                        //self.feedbackContent2.push(new dataFeedback(self.id(), data[index]));
                                     }
                                 }
                                 if (self.feedbackContent1().length == 0 && self.feedbackContent2().length == 0) {
@@ -551,7 +568,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 self.updateAll = function () {
                     self.updateProfile();
                     self.associate_with_infobeans(dateDiffCalender(self.date()));
-                    if(isNaN(self.temporaryNumber()))
+                    if (isNaN(self.temporaryNumber()))
                     {
                         self.myNumber("+91-" + self.temporaryNumber());
                         self.designation(designationsDefaultVar);
@@ -565,7 +582,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         self.myNumber("+91-" + editVariable);
                         self.temporaryNumber("");
                         self.myNumber(DefaultNumberVar);
-                    }else
+                    } else
                     {
                         self.myNumber("+91-" + self.temporaryNumber());
                     }
@@ -591,7 +608,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 }
 
                 self.allRevert = function () {
-                    
+
                     $('#designation-text').removeClass('hide');
                     $('#designation-div').addClass('hide');
                     $('#location-text').removeClass('hide');
@@ -623,6 +640,31 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     $('#submit-all').addClass('hide');
                     $('#cancel-all').addClass('hide');
                 }
+                self.openReply = function (data, event) {
+                    $('#'+data['replyBtnId']).fadeOut();
+                    $('#'+data['uniqueId']).fadeOut();
+                    try{
+                    var effectReplyBtn = 'slideOut';
+                    if (effectReplyBtn && oj.AnimationUtils[effectReplyBtn])
+                    {
+                        var jElem = $('#'+data['replyBtnId']);
+                        
+                        jElem.css('backgroundColor','white');
+
+                        var animateOptions = {'delay': '200ms',
+                            'duration': '1000ms',
+                            'timingFunction': 'linear'};
+                        $.extend(animateOptions, 'all');
+                        // Invoke the animation effect method with options
+                        oj.AnimationUtils[effectReplyBtn](jElem[0], animateOptions);
+                    }
+                }catch(e){
+                    
+                }
+                $('#'+data['uniqueId']).fadeIn();
+                
+                };
+
             }
             return dialogModel;
         });
