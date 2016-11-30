@@ -1180,3 +1180,15 @@ div.oj-tabs-panel.oj-tabs-selected{
     
    
 }
+
+span.zmdi-plus-request {
+  background-attachment: scroll !important;
+  background-clip: border-box !important;
+  background-color: rgba(0, 0, 0, 0) !important;
+  background-image: url("../images/plus-request.png") !important;
+  background-origin: padding-box !important;
+  background-position: 4px 6px;
+  background-repeat: no-repeat !important;
+  background-size: calc(100% - 40%) auto;
+  border: medium none !important;
+}

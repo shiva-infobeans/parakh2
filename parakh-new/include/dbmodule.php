@@ -1270,7 +1270,7 @@ class dbmodule {
     }
 
     function getRecentActivity($user_id) {
-        $query = "SELECT * FROM (SELECT r.user_id AS user_id,re.for_id,
+		$query="SELECT r.id, r.user_id AS user_id,re.for_id,
                      re.status,r.given_by AS given_by,u.google_name AS ratedby,
                      u1.google_name AS rated_to,IF(r.rating = 1, '+1', '-1') AS rating,
                      u.google_picture_link,u1.google_picture_link AS for_picture,
@@ -1278,19 +1278,26 @@ class dbmodule {
                      JOIN request re ON re.id = r.request_id JOIN users AS u ON u.id = r.user_id
                      JOIN users AS u1 ON u1.id = r.given_by
                      WHERE r.user_id = :user_id OR r.given_by = :user_id
-                     AND re.for_id IS NULL
-                     UNION 
-                     SELECT re.to_id,re.for_id,re.status,re.from_id,u.google_name,u1.google_name AS ratedby,
-                     IF(re.status = 1, 'declined', 'approved') AS rating,u.google_picture_link,
-                     u1.google_picture_link AS for_picture,re.modified_date AS created_date
-                     FROM `request` AS re JOIN users AS u ON (u.id = re.to_id)
-                     JOIN users AS u1 ON u1.id = re.for_id WHERE re.for_id = :user_id
-                     OR re.to_id = :user_id ORDER BY created_date DESC) AS d
-                     WHERE status <> 0 AND (user_id <> for_id OR for_id IS NULL)ORDER BY d.created_date DESC
-                     ";
-        $user_list = $this->con->prepare($query);
+                     AND re.for_id IS NULL ORDER BY r.created_date DESC";
+		
+		$user_list = $this->con->prepare($query);
         $user_list->execute(array(':user_id' => $user_id));
         $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
+					 
+        $query = "SELECT re.id, re.to_id,re.for_id,re.status,re.from_id,u.google_name,u1.google_name AS ratedby,
+                     (case re.status when 1 then 'declined'when 0 then 'pending' else 'approved' end) AS rating,u.google_picture_link,
+                     u1.google_picture_link AS for_picture,re.modified_date AS created_date
+                     FROM `request` AS re JOIN users AS u ON (u.id = re.to_id)
+                     JOIN users AS u1 ON u1.id = re.for_id WHERE  re.to_id = :user_id ORDER BY created_date DESC";
+					 
+        $user_list = $this->con->prepare($query);
+        $user_list->execute(array(':user_id' => $user_id));
+        $rows_req = $user_list->fetchAll((PDO::FETCH_ASSOC));
+		foreach($rows_req as $row_req)
+		{
+			$row[]=$row_req;
+		}
+		
 
         /* query for feedback */
         $query1 = "SELECT feedback.id,feedback.feedback_to as user_id,feedback.feedback_to as for_id, 3 as status,

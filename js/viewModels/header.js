@@ -40,7 +40,19 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
             type1 = "zmdi-comments";
             obj.backColor = '#8F6E5F';
         }
-        obj.element = '<i class="color-black zmdi ' + type1 + '"></i>';
+		if(type=='pending')
+		{
+			type1 = "zmdi-plus-request";
+            obj.backColor = '#607D8B';
+		}
+		if(type=='pending')
+		{
+			obj.element = '<span class="' + type1 + '"></span>';
+		}
+		else
+		{
+			obj.element = '<i class="zmdi ' + type1 + '"></i>';
+		}
         obj.notificationComment = comment;
         return obj;
     }
@@ -124,6 +136,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
                                 } else {
                                     notificationData.comment = "You declined " + data[c]['rated_to'] + "'s request";
                                 }
+                            }
+							 if (data[c]['rating'] == 'pending') {
+                                notificationData.type = "pending";
+                                if (self.userId() == data[c]['to_id']) {
+                                    notificationData.comment = data[c]['ratedby'] + " requested for +1";
+                                } 
                             }
                             if (data[c]['rating'] == 'response-feedback') {
 								if(self.userId()!=data[c]['ratedby']) {
