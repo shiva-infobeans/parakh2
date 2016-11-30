@@ -22,18 +22,18 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
         var self = this;
         self.id = ko.observable();
         self.designation = ko.observable();
-        self.image0 = ko.observable();
-        self.name0 = ko.observable();
-        self.image1 = ko.observable();
-        self.name1 = ko.observable();
-        self.image2 = ko.observable();
-        self.name2 = ko.observable();
-        self.image3 = ko.observable();
-        self.name3 = ko.observable();
-        self.name0hover = ko.observable();
-        self.name1hover = ko.observable();
-        self.name2hover = ko.observable();
-        self.name3hover = ko.observable();
+        self.image0 = ko.observable("images/warning-icon-24.png");
+        self.name0 = ko.observable("No Record");
+        self.image1 = ko.observable("images/warning-icon-24.png");
+        self.name1 = ko.observable("No Record");
+        self.image2 = ko.observable("images/warning-icon-24.png");
+        self.name2 = ko.observable("No Record");
+        self.image3 = ko.observable("images/warning-icon-24.png");
+        self.name3 = ko.observable("No Record");
+        self.name0hover = ko.observable("No Record");
+        self.name1hover = ko.observable("No Record");
+        self.name2hover = ko.observable("No Record");
+        self.name3hover = ko.observable("No Record");
         self.project0hover = ko.observable();
         self.project1hover = ko.observable();
         self.project2hover = ko.observable();
@@ -117,37 +117,50 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
             headers: {secret: secret},
             success: function () {
 //                assgning values to the varibles.
-                var img0 = data.attributes['data'][0]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][0]['google_picture_link'];
-                self.name0(data.attributes['data'][0]['google_name'].substr(0, data.attributes['data'][0]['google_name'].indexOf(' ')));
-                self.name0hover(data.attributes['data'][0]['google_name']);
-                self.project0hover(data.attributes['data'][0]['primary_project']);
-                self.image0(img0);
-                var person0 = "memberProfile.html?id=" + data.attributes['data'][0]['user_id'];
-                self.link0(person0);
+                if (typeof data.attributes['data'] !== 'undefined' && data.attributes['data'].length > 0) {
+                    try{
+                        var img0 = data.attributes['data'][0]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][0]['google_picture_link'];
+                        self.name0(data.attributes['data'][0]['google_name'].substr(0, data.attributes['data'][0]['google_name'].indexOf(' ')));
+                        self.name0hover(data.attributes['data'][0]['google_name']);
+                        self.project0hover(data.attributes['data'][0]['primary_project']);
+                        self.image0(img0);
+                        var person0 = "memberProfile.html?id=" + data.attributes['data'][0]['user_id'];
+                        self.link0(person0);
+                        
+                        var img1 = data.attributes['data'][1]['google_picture_link'].length >0 ? 'images/warning-icon-24.png' : data.attributes['data'][1]['google_picture_link'];
+                        self.name1(data.attributes['data'][1]['google_name'].substr(0, data.attributes['data'][1]['google_name'].indexOf(' ')));
+                        self.name1hover(data.attributes['data'][1]['google_name']);
+                        self.project1hover(data.attributes['data'][1]['primary_project']);
+                        self.image1(img1);
+                        var person1 = "memberProfile.html?id=" + data.attributes['data'][1]['user_id'];
+                        self.link1(person1);
 
-                var img1 = data.attributes['data'][1]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][1]['google_picture_link'];
-                self.name1(data.attributes['data'][1]['google_name'].substr(0, data.attributes['data'][1]['google_name'].indexOf(' ')));
-                self.name1hover(data.attributes['data'][1]['google_name']);
-                self.project1hover(data.attributes['data'][1]['primary_project']);
-                self.image1(img1);
-                var person1 = "memberProfile.html?id=" + data.attributes['data'][1]['user_id'];
-                self.link1(person1);
+                        var img2 = data.attributes['data'][2]['google_picture_link'].length >0 ? 'images/warning-icon-24.png' : data.attributes['data'][2]['google_picture_link'];
+                        self.name2(data.attributes['data'][2]['google_name'].substr(0, data.attributes['data'][2]['google_name'].indexOf(' ')));
+                        self.name2hover(data.attributes['data'][2]['google_name']);
+                        self.project2hover(data.attributes['data'][2]['primary_project']);
+                        self.image2(img2);
+                        var person2 = "memberProfile.html?id=" + data.attributes['data'][2]['user_id'];
+                        self.link2(person2);
 
-                var img2 = data.attributes['data'][2]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][2]['google_picture_link'];
-                self.name2(data.attributes['data'][2]['google_name'].substr(0, data.attributes['data'][2]['google_name'].indexOf(' ')));
-                self.name2hover(data.attributes['data'][2]['google_name']);
-                self.project2hover(data.attributes['data'][2]['primary_project']);
-                self.image2(img2);
-                var person2 = "memberProfile.html?id=" + data.attributes['data'][2]['user_id'];
-                self.link2(person2);
-
-                var img3 = data.attributes['data'][3]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][3]['google_picture_link'];
-                self.name3(data.attributes['data'][3]['google_name'].substr(0, data.attributes['data'][3]['google_name'].indexOf(' ')));
-                self.name3hover(data.attributes['data'][3]['google_name']);
-                self.project3hover(data.attributes['data'][3]['primary_project']);
-                self.image3(img3);
-                var person3 = "memberProfile.html?id=" + data.attributes['data'][3]['user_id'];
-                self.link3(person3);
+                        var img3 = data.attributes['data'][3]['google_picture_link'].length>0 ? 'images/warning-icon-24.png' : data.attributes['data'][3]['google_picture_link'];
+                        self.name3(data.attributes['data'][3]['google_name'].substr(0, data.attributes['data'][3]['google_name'].indexOf(' ')));
+                        self.name3hover(data.attributes['data'][3]['google_name']);
+                        self.project3hover(data.attributes['data'][3]['primary_project']);
+                        self.image3(img3);
+                        var person3 = "memberProfile.html?id=" + data.attributes['data'][3]['user_id'];
+                        self.link3(person3);
+                    }catch(e)
+                    {
+                        console.log(e);
+                    }
+                }else
+                {
+                    $('.hoverContent0').hide();
+                    $('.hoverContent1').hide();
+                    $('.hoverContent2').hide();
+                    $('.hoverContent3').hide();
+                }
             }
         });
 
@@ -448,14 +461,16 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                         yearFetch.fetch({
                                             headers: {secret: secret},
                                             success: function (res3) {
-                                                for (var c = 0; c < 4; c++) {
-                                                    var obj = new Object();
-                                                    obj.personLink = "memberProfile.html?id=" + res3['attributes']['data'][c]['user_id'];
-                                                    obj.name = res3['attributes']['data'][c]['google_name'];
-                                                    obj.nameS = res3['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
-                                                    obj.image = res3['attributes']['data'][c]['image'];
-                                                    obj.projects = res3['attributes']['data'][c]['primary_project'];
-                                                    self.addteamMembers(obj);
+                                                if (typeof res3 !== 'undefined' && res3.length > 0) {
+                                                    for (var c = 0; c < 4; c++) {
+                                                        var obj = new Object();
+                                                        obj.personLink = "memberProfile.html?id=" + res3['attributes']['data'][c]['user_id'];
+                                                        obj.name = res3['attributes']['data'][c]['google_name'];
+                                                        obj.nameS = res3['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
+                                                        obj.image = res3['attributes']['data'][c]['image'];
+                                                        obj.projects = res3['attributes']['data'][c]['primary_project'];
+                                                        self.addteamMembers(obj);
+                                                    }
                                                 }
                                             }
                                         });
