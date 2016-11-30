@@ -7,7 +7,7 @@
 /**
  * rateRequestPage module
  */
-define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojmodel', 'ojs/ojinputtext', 'ojs/ojtabs', 'ojs/ojconveyorbelt'
+define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojmodel', 'ojs/ojinputtext', 'ojs/ojtabs', 'ojs/ojconveyorbelt' , 'ojs/ojdialog'
 ], function (oj, ko, $) {
     /**
      * The view model for the main content view template
@@ -244,21 +244,36 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         });
 
         self.approveRequest = function (type,d,requestId,userId,to_id) {
+            $("#minMaxDialog").ojDialog("open");
+            $('#yesButton').attr("type",type);
+            $('#yesButton').attr("d",d);
+            $('#yesButton').attr("requestId",requestId);
+            $('#yesButton').attr("userId",userId);
+            $('#yesButton').attr("to_id",to_id);
+        }
+
+        self.yesProcess = function(){
+            var type = $('#yesButton').attr("type");
+            var d = $('#yesButton').attr("d");
+            var requestId = $('#yesButton').attr("requestId");
+            var userId = $('#yesButton').attr("userId");
+            var to_id = $('#yesButton').attr("to_id");
+            $("#minMaxDialog").ojDialog("close");
             if(type==1)
             {
               var obj = $("#accept" + requestId);
-          }
-          else
-          {
+            }
+            else
+            {
               var obj = $("#decline" + requestId);
-          }
+            }
             var descHTML = obj.parent().prev().children().children('#text-area20');
             var descriptionChange = (descHTML.val() != "") ?
                     descHTML.val() : obj.attr('descComment');
             
             var removeHtml = obj;
-        var datas={u_id: userId, rq_id: requestId, st:type, desc: descriptionChange, to_id: to_id};
-        console.log(datas);
+            var datas={u_id: userId, rq_id: requestId, st:type, desc: descriptionChange, to_id: to_id};
+            //console.log(datas);
             $.ajax({
                 headers: {secret: secret},
                 method: 'POST',
@@ -287,6 +302,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             });
         }
         
+        self.noProcess = function(type,d,requestId,userId,to_id){
+            $("#minMaxDialog").ojDialog("close");
+        }
         self.requestMore = function (e, data) {      
            
             var obj = $("#pending" + e.request_id);
