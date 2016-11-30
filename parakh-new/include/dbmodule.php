@@ -647,7 +647,7 @@ class dbmodule {
     function addFeedback($data) {
         $dateTime = new \DateTime(null, new DateTimeZone('Asia/Kolkata'));
         $created_date = $modified_date = $dateTime->format("Y-m-d H:i:s");
-var_dump($data);
+
         $feedback_insert_query = "INSERT INTO feedback(feedback_to, feedback_description, feedback_from, response_parent, created_date, modified_date) VALUES(:feedback_to,:feedback_description,:feedback_from,:response_parent,:created_date,:modified_date)";
         try {
             $feedback_insert = $this->con->prepare($feedback_insert_query);
