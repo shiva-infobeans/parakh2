@@ -973,7 +973,7 @@ class dbmodule {
             }
 
             /* update msg read count */
-            $query = "SELECT msg_read from users where id=" . $data['u_id'];
+            $query = "SELECT msg_read from users where id=" . $data['l_id'];
             $user_list = $this->con->prepare($query);
             $user_list->execute();
             $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
