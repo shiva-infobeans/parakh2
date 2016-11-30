@@ -38,28 +38,28 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
     function myTeamContentViewModel(person) {
         var self = this;
-        self.image = ko.observable();
-        self.myname = ko.observable();
-        self.myDesignation = ko.observable();
-        self.role_name = ko.observable();
-        self.teamImage = ko.observable();
-        self.teamName = ko.observable();
-        self.teamDesig = ko.observable();
+        self.image = ko.observable("");
+        self.myname = ko.observable("");
+        self.myDesignation = ko.observable("");
+        self.role_name = ko.observable("");
+        self.teamImage = ko.observable("");
+        self.teamName = ko.observable("");
+        self.teamDesig = ko.observable("");
         self.data1 = ko.observableArray([]);
-        this.value = ko.observable();
+        this.value = ko.observable("");
         //  var lead_id = 5; //static id for team lead 
         self.myTeam = ko.observableArray([]);
-        self.myId = ko.observable();
-        self.desc = ko.observable();
-        self.textError = ko.observable();
-        self.lead_id = ko.observable(); //static
+        self.myId = ko.observable("");
+        self.desc = ko.observable("");
+        self.textError = ko.observable("");
+        self.lead_id = ko.observable(""); //static
         self.members = ko.observableArray([]);
-        self.data2 = ko.observable();
-        self.userId = ko.observable();
-        self.name = ko.observable();
-        self.for_id = ko.observable();
-        self.role_name = ko.observable();
-        self.desc = ko.observable();
+        self.data2 = ko.observable("");
+        self.userId = ko.observable("");
+        self.name = ko.observable("");
+        self.for_id = ko.observable("");
+        self.role_name = ko.observable("");
+        self.desc = ko.observable("");
         self.textError = ko.observable();
         self.sucessMsg = ko.observable();
 
@@ -393,13 +393,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.myId($(this).attr("myTeamId"));
             self.teamName($(this).attr("teamName"));
             self.teamDesig($(this).attr("teamDesig"));
-
         });
         self.p = ko.observable(1);
 
         // +1 rating on green button 
-        self.image1 = ko.observable(src = "css/images/green-button.png");
-        self.image2 = ko.observable(src = "css/images/disable.png");
+        self.image1 = ko.observable("css/images/green-button.png");
+        self.image2 = ko.observable("css/images/disable.png");
         this.plusOne = function () {
             self.p(1);
             self.image1("css/images/green-button.png")
@@ -467,48 +466,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 })
             });
 
-            self.handleOpen = $(".star").click(function () {
-                $("#modalDialog1").ojDialog("open");
-                self.desc('');
-                self.textError('');
-            });
-
-            self.handleOKClose = $("#okButton").click(function () {
-//                $("#modalDialog1").ojDialog("close");
-            });
-
-            self.handleOpen = $(".starTeam").click(function () {
-                $("#modalDialog2").ojDialog("open");
-                self.desc('');
-                self.textError('');
-                self.p(1);
-                self.image1("css/images/green-button.png")
-                self.image2("css/images/disable.png");
-            });
-
-            self.handleOKClose = $("#okButton").click(function () {
-                $("#modalDialog2").ojDialog("close");
-            });
-            // feedback...
-            self.handleOpen = $(".feedbackBuddy").click(function () {
-                $("#modalDialog8").ojDialog("open");
-                self.desc('');
-                self.textError('');
-            });
-
-            self.handleOKClose = $("#okButton").click(function () {
-                $("#modalDialog8").ojDialog("close");
-            });
-            // feedbackLead...
-            self.handleOpen = $(".feedbackBuddyLead").click(function () {
-                $("#modalDialog8").ojDialog("open");
-                self.desc('');
-                self.textError('');
-            });
-
-            self.handleOKClose = $("#okButton").click(function () {
-                $("#modalDialog8").ojDialog("close");
-            });
 
             $('#homeTab1').append(' <img src="../../images/user.png" alt="" />');
             $('#homeTab2').append(' <img src="../../images/team-active_1.png" alt="" />');
@@ -559,7 +516,38 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
 
         }, 600);
+        
+        self.handleOpen = $(".star").click(function () {
+            $("#modalDialog1").ojDialog("open");
+            self.desc('');
+            self.textError('');
+        });
 
+
+        self.handleOpen = $(".starTeam").click(function () {
+            $("#modalDialog2").ojDialog("open");
+            self.desc('');
+            self.textError('');
+            self.p(1);
+            self.image1("css/images/green-button.png")
+            self.image2("css/images/disable.png");
+        });
+
+
+        // feedback...
+        self.handleOpen = $(".feedbackBuddy").click(function () {
+            $("#modalDialog8").ojDialog("open");
+            self.desc('');
+            self.textError('');
+        });
+
+
+        // feedbackLead...
+        self.handleOpen = $(".feedbackBuddyLead").click(function () {
+            $("#modalDialog8").ojDialog("open");
+            self.desc('');
+            self.textError('');
+        });
 
     }
     return myTeamContentViewModel;

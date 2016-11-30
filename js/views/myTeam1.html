@@ -22,19 +22,19 @@ and open the template in the editor.
         <div id="tabs" data-bind="ojComponent:{component: 'ojTabs'}" class="buddyTab">
             <!-- tab bar -->
             <ul>
-               <li class="buddyTab1" id="home1" >
-                <div id="homeTab2">
+                <li class="buddyTab1" id="home1" >
+                    <div id="homeTab2">
                     </div>   
-                  <div class="hoverTab1"> My Team </div>
+                    <div class="hoverTab1"> My Team </div>
                 </li>
-                   <li class="buddyTab2" id="home2" >
+                <li class="buddyTab2" id="home2" >
                     <div id="homeTab1">    
                     </div>
-                     <div class="hoverTab2">  ICC Team</div>
+                    <div class="hoverTab2">  ICC Team</div>
                 </li>
-                
+
             </ul>
-        
+
             <!-- tab contents -->
             <div id="tabs-1">
                 <hr/>
@@ -74,7 +74,7 @@ and open the template in the editor.
             <div id="tabs-2">
                 <hr/>
                 <div id="index1" class="oj-margin-top oj-margin-bottom indexer center bold-class" data-bind="click: arrangeIndex1">
-                    
+
                     <!--ko foreach: indexer1Letters-->
                     <span data-bind="event:{click: $parent.makeUnderLine1},attr: {id:$data+'1'}"><a data-bind="attr: {href: $data},text:$data"></a></span>
                     <!--/ko-->
@@ -189,7 +189,7 @@ and open the template in the editor.
                                       data-bind=" ojComponent: {component: 'ojTextArea', 
                                      value: desc, 
                                      placeholder: 'Type your reason here..'}"></textarea>   
-                            
+
                         </div>
                         <div class="imgArea">
                             <div class="pos-relative" data-bind="click: plusOne">
@@ -206,7 +206,7 @@ and open the template in the editor.
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
             <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText center" data-bind="text:textError"></div>
