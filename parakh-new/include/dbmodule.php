@@ -73,7 +73,7 @@ class dbmodule {
                     sum(case when r.rating = 1 then 1 end) as pluscount,
                     sum(case when r.rating = 0 then 1 end) as minuscount
                     FROM user_hierarchy uh left join users u on u.id = uh.user_id left join rating r on (u.id=r.user_id)
-                    WHERE manager_id = :id AND u.status <> 0 group by r.user_id order by u.google_name';
+                    WHERE manager_id = :id AND u.status <> 0 group by uh.user_id order by u.google_name';
             $user_data = $this->con->prepare($query);
             $user_data->execute(array(':id' => $lead_id));
             $employeeList = $user_data->fetchAll((PDO::FETCH_ASSOC));
@@ -361,7 +361,7 @@ class dbmodule {
      */
     function send_notification($email_data) {
         require_once 'notifications.php';
-        send_mail($email_data);
+        //send_mail($email_data);
     }
 
 //end of fun
@@ -778,10 +778,24 @@ class dbmodule {
         $dateTime = new \DateTime(null, new DateTimeZone('Asia/Kolkata'));
         $created_date = $modified_date = $dateTime->format("Y-m-d H:i:s");
 
+		$query = "SELECT * from feedback where id=" . $data['feedback_id'];
+            $feedback = $this->con->prepare($query);
+            $feedback->execute();
+            $row = $feedback->fetchAll((PDO::FETCH_ASSOC));
+			if($data['login_user_id']==$row[0]['feedback_to']) // if current user is team member, not a lead
+			{
+				$feedback_to=$row[0]['feedback_from'];
+			}
+			
+			else // if this is from any of the lead
+			{
+				$feedback_to=$row[0]['feedback_to'];
+			}
+		
         $feedback_insert_query = "INSERT INTO feedback(feedback_to, feedback_description, feedback_from, response_parent, created_date, modified_date) VALUES(:feedback_to,:feedback_description,:feedback_from,:response_parent,:created_date,:modified_date)";
 
         $feedback_insert = $this->con->prepare($feedback_insert_query);
-        $feedback_insert->execute(array(':feedback_to' => $data['feedback_to'],
+        $feedback_insert->execute(array(':feedback_to' => $feedback_to,
             ':feedback_description' => $data['feedback_desc'],
             ':feedback_from' => $data['login_user_id'],
             ':response_parent' => $data['feedback_id'],
@@ -1279,7 +1293,9 @@ class dbmodule {
         $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
 
         /* query for feedback */
-        $query1 = "SELECT feedback.feedback_to as user_id,feedback.feedback_to as for_id, 3 as status,'response-feedback' as rating,feedback_from as given_by,users.google_name as rated_to,google_picture_link, feedback.created_date  from users join feedback on feedback.feedback_to = users.id where feedback.feedback_to = :user_id";
+        $query1 = "SELECT feedback.id,feedback.feedback_to as user_id,feedback.feedback_to as for_id, 3 as status,
+		feedback.response_parent,
+		feedback_from as given_by,users.google_name as rated_to,google_picture_link, feedback.created_date  from users join feedback on feedback.feedback_to = users.id where feedback.feedback_to = :user_id";
         $user_list1 = $this->con->prepare($query1);
         $user_list1->execute(array(':user_id' => $user_id));
         $row1 = $user_list1->fetchAll((PDO::FETCH_ASSOC));
@@ -1290,22 +1306,35 @@ class dbmodule {
             $row2 = $user_list2->fetchAll((PDO::FETCH_ASSOC));
             $row1[$p]['for_picture'] = $row2[0]['google_picture_link'];
             $row1[$p]['ratedby'] = $row2[0]['google_name'];
+			$row1[$p]['rating'] = (empty($row1[$p]['response_parent']))?'feedback':'response-feedback';
             $row[] = $row1[$p];
         }
 
             /*query for feedback response*/
-            $query3 = "SELECT feedback.feedback_from as user_id,feedback.feedback_from as for_id, 3 as status,'feedback' as rating,feedback_to as given_by,users.google_name as rated_to,google_picture_link, feedback.created_date  from users join feedback on feedback.feedback_from = users.id where feedback.feedback_from = :user_id"; 
+			$query3="select 
+			f.id,
+			f.feedback_from as user_id,
+			f.feedback_from as given_by,
+			f.feedback_to as for_id, 
+			u.google_name as ratedby,
+			3 as status,
+			f.created_date,
+			f.response_parent
+			from feedback f 
+			left join users u on (f.feedback_from=u.id)
+			where f.response_parent in (select f2.id from feedback f2 where f2.feedback_from=:user_id) AND f.feedback_from!=:user_id and f.feedback_to!=:user_id";
             $user_list3 = $this->con->prepare($query3);
             $user_list3->execute(array(':user_id' => $user_id));
             $row3 = $user_list3->fetchAll((PDO::FETCH_ASSOC));
-            for ($t=0;$t<count($row3);$t++) { 
+			for ($t=0;$t < count($row3);$t++) {
                 $query4 = "SELECT id,google_name,google_picture_link from users where users.id = :user_id"; 
                 $user_list4 = $this->con->prepare($query4);
-                $user_list4->execute(array(':user_id' => $row3[$t]['given_by']));
+                $user_list4->execute(array(':user_id' => $row3[$t]['for_id']));
                 $row4 = $user_list4->fetchAll((PDO::FETCH_ASSOC));
-                $row3[$p]['for_picture'] = $row4[0]['google_picture_link'];
-                $row3[$p]['ratedby'] = $row4[0]['google_name'];
-                $row[] = $row3[$p];
+                $row3[$t]['google_picture_link'] = $row4[0]['google_picture_link'];
+                $row3[$t]['rated_to'] = $row4[0]['google_name'];
+				$row3[$t]['rating'] = (empty($row3[$t]['response_parent']))?'feedback':'response-feedback';
+                $row[] = $row3[$t];
             }
             usort($row, function($a, $b) {
                 if($a['created_date']==$b['created_date']) return 0;
@@ -1457,7 +1486,7 @@ class dbmodule {
         $query = "SELECT request.id as request_id, user.google_name,user.id as lead_id,user.google_picture_link, user.designation,role.name as role_name,request.to_id,request.from_id,description,work.created_date,request_for,rating, request.status FROM `request` 
                     left join work on work.id = request.work_id 
                     left join rating on rating.work_id = request.work_id 
-                    left join users as user on user.id = request.to_id 
+                    left join users as user on user.id = request.from_id 
                     left join role_type as role on role.id = user.role_id 
                     WHERE request.to_id = :lead_id AND request.status = 1 order by request.modified_date desc";
 
