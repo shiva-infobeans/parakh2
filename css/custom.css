@@ -277,14 +277,14 @@ ul li.selectedTab div {
     border:none;
 }
 div.profile-page{
-    /*    height: 600px;*/
+        height: 712px;
 }
 div.oj-tabs-panel.oj-tabs-selected{
     background: none;
     border:none;
     padding: 0px;
     margin-top: -4px;  
-    margin-bottom:1px;
+    margin-bottom:10px;
 }
 .profile-tab1-data{
     display: flex;
@@ -1176,7 +1176,45 @@ div.oj-tabs-panel.oj-tabs-selected{
 .indexerUnderline{
     text-decoration: underline;
 }
-@media screen  and (max-width: 767px) {
-    
-   
+
+/*feedback new design*/
+.feedback-date{
+    display: table-cell;
+    width: 150px;
+    text-align: center;
+}
+.feedback-align{
+    display: table;
+}
+.feedback-circle{
+    height: 48px;
+    width: 48px;
+    border: 3px solid;
+    border-radius: 50%;
+    float: left;
+    padding: 12px 0px 0px 10px;
+}
+.feedback-comment{
+    margin-left: 80px;
+    padding: 5px;
+    width: 80%;
+}
+.feedback-comment-text{
+    padding: 5px;
+    margin: 5px 3px;
+}
+.circle-purple{
+    background-color: #2780b5;
+    border-color: #144562;
+}
+.feedback-Transbox{
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.5;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    border-radius: 10px;
+    z-index: -1;
 }
