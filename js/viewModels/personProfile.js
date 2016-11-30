@@ -272,7 +272,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         self.designation(abc);
                         var num = task.attributes['data']['mobile_number'] == "" ? "NO NUMBER" : "+91-" + task.attributes['data']['mobile_number'].replace("+91-", "");
                         self.myNumber(num);
-                        self.skills(task.attributes['data']['skills']);
+                        var regex = new RegExp(',', 'g');
+                        self.skills(task.attributes['data']['skills'].replace(regex,", "));
                         self.location(task.attributes['data']['location']);
                         if (task.attributes['data']['interests'].length != 0) {
                             interest = task.attributes['data']['interests'].split(",");
@@ -282,11 +283,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         } else {
                             self.interests([]);
                         }
+                        // task.attributes['data']['projects'] = task.attributes['data']['projects'].replace(",",", ");
                         if (task.attributes['data']['projects'].length != 0) {
                             project = task.attributes['data']['projects'].split(",");
-                            for (k = 0; k < project.length; k++) {
-                                self.projects(project);
-                            }
+                            self.projects(project);
                         } else {
                             self.projects([]);
                         }
