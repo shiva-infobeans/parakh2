@@ -98,11 +98,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
                 if (self.role_name() === 'Team Member') {
 
-                    $('#tabs ul li:last-child').hide();
+                    $('#tabs ul li:first-child').hide();
 
                 } else {
 
-                    $('#tabs ul li:last-child').addClass('abc').show();
+                    $('#tabs ul li:first-child').addClass('abc').show();
                     //lead id user
                     $.ajax({
                         headers: {secret: secret},
