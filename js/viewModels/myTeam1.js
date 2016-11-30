@@ -20,19 +20,19 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         member.designation = data['designation'];
         member.role_name = data['role_name'];
         member.google_id = data['google_id'];
-        member.plus = data['pluscount'];
-        member.minus = data['minuscount'];
+        member.plus = data['pluscount']!=null?data['pluscount']:0;
+        member.minus = data['minuscount']!=null?data['minuscount']:0;
         return member;
     }
-    function leadTeam(data) {
+    function leadTeam(data) {console.log(data);
         var myTeam = this;
         myTeam.myName = data['google_name'];
         myTeam.myId = data['user_id'];
         myTeam.myDesign = data['designation'];
         myTeam.myEmail = data['google_email'];
         myTeam.myPic = data['picture'] == "" ? 'images/warning-icon-24.png' : data['picture'];
-        myTeam.plus = data['pluscount'];
-        myTeam.minus = data['minuscount'];
+        myTeam.plus = data['pluscount']!=null?data['pluscount']:0;
+        myTeam.minus = data['minuscount']!=null?data['minuscount']:0;
         return myTeam;
     }
 
