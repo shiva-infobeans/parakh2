@@ -460,6 +460,12 @@ margin:5px 10px;
     width: 26%;
     border-radius: 5px;
 }
+#ojDialogWrapper-minMaxDialog.oj-dialog{
+    overflow: hidden;
+       width: 19% ;
+    border-radius: 5px;
+    background-color: #ffffff;
+}
 .buddyTab{
     margin-top: -78px;
 }
@@ -626,12 +632,18 @@ margin:5px 10px;
 #ojDialogWrapper-modalDialogRequest .oj-dialog-header.oj-helper-clearfix.ui-draggable-handle, 
 #ojDialogWrapper-modalDialog9 .oj-dialog-header.oj-helper-clearfix.ui-draggable-handle, 
 #ojDialogWrapper-modalDialog3 .oj-dialog-header.oj-helper-clearfix.ui-draggable-handle,
-#ojDialogWrapper-modalDialog8 .oj-dialog-header.oj-helper-clearfix.ui-draggable-handle {
+#ojDialogWrapper-modalDialog8 .oj-dialog-header.oj-helper-clearfix.ui-draggable-handle,
+#ojDialogWrapper-minMaxDialog .oj-dialog-header.oj-helper-clearfix.ui-draggable-handle {
     background-color: #e3ffca;
     border: none;
 }
-#ojDialogWrapper-modalDialog1 .oj-dialog-title {
+#ojDialogWrapper-modalDialog1 .oj-dialog-title{
     font-size: 22px;
+    text-align: center;
+}
+#ojDialogWrapper-minMaxDialog .oj-dialog-title{
+    overflow: hidden;
+    cursor: default;
     text-align: center;
 }
 #ojDialogWrapper-modalDialog1 .oj-dialog-header.oj-helper-clearfix.ui-draggable-handle {
@@ -1701,4 +1713,16 @@ margin:5px 10px;
 .mailToColor{
     color:#fff;
     text-decoration: underline;
+}
+.confirmButton{
+    background-color: #e3ffca;
+    border-radius: 5px;
+    padding: 7px 16px 7px 20px;
+    border: 1px solid #e3ffca;
+}
+.commentDate{
+    font-size: 19px;
+    margin-left: 37px;
+    margin-top: 28px;
+    margin-right: -34px;
 }
