@@ -395,8 +395,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                             } else {
                                                 $("#noRating80").hide();
                                             }
-<<<<<<< HEAD
-=======
+
                                             if (obj2.leadPlus12 == 0 && obj2.leadMinus12 == 0) {
                                                 $("#showSlider81").hide();
                                                 $("#noRating81").show();
@@ -404,7 +403,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                                 $("#noRating81").hide();
                                             }
                                             $("#noRating82").hide();
->>>>>>> parent of 6cda22d... Merge pull request #123 from shiva-infobeans/feedbackChangesUI
+
                                         }
 
                                     }
