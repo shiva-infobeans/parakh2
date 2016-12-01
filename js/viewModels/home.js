@@ -22,14 +22,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
         var self = this;
         self.id = ko.observable();
         self.designation = ko.observable();
-        self.image0 = ko.observable("/images/warning-icon-24.png");
-        self.name0 = ko.observable();
-        self.image1 = ko.observable("/images/warning-icon-24.png");
-        self.name1 = ko.observable();
-        self.image2 = ko.observable("/images/warning-icon-24.png");
-        self.name2 = ko.observable();
-        self.image3 = ko.observable("/images/warning-icon-24.png");
-        self.name3 = ko.observable();
+        self.image0 = ko.observable("images/warning-icon-24.png");
+        self.name0 = ko.observable("No Record");
+        self.image1 = ko.observable("images/warning-icon-24.png");
+        self.name1 = ko.observable("No Record");
+        self.image2 = ko.observable("images/warning-icon-24.png");
+        self.name2 = ko.observable("No Record");
+        self.image3 = ko.observable("images/warning-icon-24.png");
+        self.name3 = ko.observable("No Record");
         self.name0hover = ko.observable("No Record");
         self.name1hover = ko.observable("No Record");
         self.name2hover = ko.observable("No Record");
@@ -126,8 +126,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                         self.image0(img0);
                         var person0 = "memberProfile.html?id=" + data.attributes['data'][0]['user_id'];
                         self.link0(person0);
-
-                        var img1 = data.attributes['data'][1]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][1]['google_picture_link'];
+                        
+                        var img1 = data.attributes['data'][1]['google_picture_link'].length >0 ? 'images/warning-icon-24.png' : data.attributes['data'][1]['google_picture_link'];
                         self.name1(data.attributes['data'][1]['google_name'].substr(0, data.attributes['data'][1]['google_name'].indexOf(' ')));
                         self.name1hover(data.attributes['data'][1]['google_name']);
                         self.project1hover(data.attributes['data'][1]['primary_project']);
@@ -135,7 +135,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                         var person1 = "memberProfile.html?id=" + data.attributes['data'][1]['user_id'];
                         self.link1(person1);
 
-                        var img2 = data.attributes['data'][2]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][2]['google_picture_link'];
+                        var img2 = data.attributes['data'][2]['google_picture_link'].length >0 ? 'images/warning-icon-24.png' : data.attributes['data'][2]['google_picture_link'];
                         self.name2(data.attributes['data'][2]['google_name'].substr(0, data.attributes['data'][2]['google_name'].indexOf(' ')));
                         self.name2hover(data.attributes['data'][2]['google_name']);
                         self.project2hover(data.attributes['data'][2]['primary_project']);
@@ -143,7 +143,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                         var person2 = "memberProfile.html?id=" + data.attributes['data'][2]['user_id'];
                         self.link2(person2);
 
-                        var img3 = data.attributes['data'][3]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][3]['google_picture_link'];
+                        var img3 = data.attributes['data'][3]['google_picture_link'].length>0 ? 'images/warning-icon-24.png' : data.attributes['data'][3]['google_picture_link'];
                         self.name3(data.attributes['data'][3]['google_name'].substr(0, data.attributes['data'][3]['google_name'].indexOf(' ')));
                         self.name3hover(data.attributes['data'][3]['google_name']);
                         self.project3hover(data.attributes['data'][3]['primary_project']);
@@ -257,41 +257,45 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                     leadSlideFetch.fetch({
                         headers: {secret: secret},
                         success: function (result) {
+                            try{
+                                var data = result['attributes']['data'];
 
-                            var data = result['attributes']['data'];
+                                for (var c = 0; c < data.length; c++) {
+                                    var obj = new Object();
 
-                            for (var c = 0; c < data.length; c++) {
-                                var obj = new Object();
+                                    var dat = data[c].split(",");
+                                    obj.name = dat[0];
+                                    obj.plus = dat[1] == 0 ? 0 : "+" + dat[1];
+                                    obj.minus = dat[2] == 0 ? 0 : "-" + dat[2];
 
-                                var dat = data[c].split(",");
-                                obj.name = dat[0];
-                                obj.plus = dat[1] == 0 ? 0 : "+" + dat[1];
-                                obj.minus = dat[2] == 0 ? 0 : "-" + dat[2];
-
-                                //manager slider
-                                var obj1 = new Object();
-                                obj1.leadPlus12 = dat[1] == 0 ? 0 : "+" + dat[1];
-                                obj1.leadMinus12 = dat[2] == 0 ? 0 : "-" + dat[2];
-                                obj1.performanceTxt = "Performance of " + dat[0] + " team";
-                                obj1.noRatingTxt = dat[0] + " team not rated yet!!";
-                                self.addProject(obj1);
-                                if (dat[1] == 0 && dat[2] == 0)
-                                {
-                                    $("#showSlider7" + c + "").hide();
-                                    $("#noRating7" + c).show();
-                                } else {
-                                    $("#showSlider7" + c).show();
-                                    $("#noRating7" + c).hide();
+                                    //manager slider
+                                    var obj1 = new Object();
+                                    obj1.leadPlus12 = dat[1] == 0 ? 0 : "+" + dat[1];
+                                    obj1.leadMinus12 = dat[2] == 0 ? 0 : "-" + dat[2];
+                                    obj1.performanceTxt = "Performance of " + dat[0] + " team";
+                                    obj1.noRatingTxt = dat[0] + " team not rated yet!!";
+                                    self.addProject(obj1);
+                                    if (dat[1] == 0 && dat[2] == 0)
+                                    {
+                                        $("#showSlider7" + c + "").hide();
+                                        $("#noRating7" + c).show();
+                                    } else {
+                                        $("#showSlider7" + c).show();
+                                        $("#noRating7" + c).hide();
+                                    }
                                 }
-                            }
-                            if (self.projects().length == 0) {
-                                var obj1 = new Object();
-                                obj1.leadPlus12 = 0;
-                                obj1.leadMinus12 = 0;
-                                obj1.performanceTxt = "";
-                                obj1.noRatingTxt = "You have not assigned any projects yet !!";
-                                self.addProject(obj1);
-                                $("#showSlider7" + 0 + "").hide();
+                                if (self.projects().length == 0) {
+                                    var obj1 = new Object();
+                                    obj1.leadPlus12 = 0;
+                                    obj1.leadMinus12 = 0;
+                                    obj1.performanceTxt = "";
+                                    obj1.noRatingTxt = "You have not assigned any projects yet !!";
+                                    self.addProject(obj1);
+                                    $("#showSlider7" + 0 + "").hide();
+                                }
+                            }catch(e)
+                            {
+                                console.log(e);
                             }
                         }
                     });
@@ -305,45 +309,50 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                         leadSlideFetch.fetch({
                             headers: {secret: secret},
                             success: function (result) {
-                                var obj1 = new Object();
-                                var obj2 = new Object();
-                                var obj3 = new Object();
-                                obj1.leadPlus12 = result['attributes']['data']['week']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['week']['plus'];
-                                obj1.leadMinus12 = result['attributes']['data']['week']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['week']['minus'];
-                                obj1.performanceTxt = "My Team’s Performance for this week…";
-                                obj1.noRatingTxt = "Your team has not been rated this week!!";
-                                obj2.leadPlus12 = result['attributes']['data']['month']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['month']['plus'];
-                                obj2.leadMinus12 = result['attributes']['data']['month']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['month']['minus'];
-                                obj2.performanceTxt = "My Team’s Performance for this month…";
-                                obj2.noRatingTxt = "Your team has not been rated this month!!";
-                                obj3.leadPlus12 = result['attributes']['data']['till_now']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['till_now']['plus'];
-                                obj3.leadMinus12 = result['attributes']['data']['till_now']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['till_now']['minus'];
-                                obj3.performanceTxt = "My Team’s Performance till now…";
-                                obj3.noRatingTxt = "Your team has not been rated till now!!";
+                                try{
+                                    var obj1 = new Object();
+                                    var obj2 = new Object();
+                                    var obj3 = new Object();
+                                    obj1.leadPlus12 = result['attributes']['data']['week']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['week']['plus'];
+                                    obj1.leadMinus12 = result['attributes']['data']['week']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['week']['minus'];
+                                    obj1.performanceTxt = "My Team’s Performance for this week…";
+                                    obj1.noRatingTxt = "Your team has not been rated this week!!";
+                                    obj2.leadPlus12 = result['attributes']['data']['month']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['month']['plus'];
+                                    obj2.leadMinus12 = result['attributes']['data']['month']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['month']['minus'];
+                                    obj2.performanceTxt = "My Team’s Performance for this month…";
+                                    obj2.noRatingTxt = "Your team has not been rated this month!!";
+                                    obj3.leadPlus12 = result['attributes']['data']['till_now']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['till_now']['plus'];
+                                    obj3.leadMinus12 = result['attributes']['data']['till_now']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['till_now']['minus'];
+                                    obj3.performanceTxt = "My Team’s Performance till now…";
+                                    obj3.noRatingTxt = "Your team has not been rated till now!!";
 
-                                if (obj3.leadPlus12 == 0 && obj3.leadMinus12 == 0) {
-                                    self.addLeadSlider(obj3);
-                                    $("#show80").hide();
-                                    $("#noRating80").show();
-
-                                } else {
-                                    self.addLeadSlider(obj1);
-                                    self.addLeadSlider(obj2);
-                                    self.addLeadSlider(obj3);
-                                    if (obj1.leadPlus12 == 0 && obj1.leadMinus12 == 0) {
-                                        $("#showSlider80").hide();
+                                    if (obj3.leadPlus12 == 0 && obj3.leadMinus12 == 0) {
+                                        self.addLeadSlider(obj3);
+                                        $("#show80").hide();
                                         $("#noRating80").show();
-                                    } else {
-                                        $("#noRating80").hide();
-                                    }
-                                    if (obj2.leadPlus12 == 0 && obj2.leadMinus12 == 0) {
-                                        $("#showSlider81").hide();
-                                        $("#noRating81").show();
-                                    } else {
-                                        $("#noRating81").hide();
-                                    }
-                                    $("#noRating82").hide();
 
+                                    } else {
+                                        self.addLeadSlider(obj1);
+                                        self.addLeadSlider(obj2);
+                                        self.addLeadSlider(obj3);
+                                        if (obj1.leadPlus12 == 0 && obj1.leadMinus12 == 0) {
+                                            $("#showSlider80").hide();
+                                            $("#noRating80").show();
+                                        } else {
+                                            $("#noRating80").hide();
+                                        }
+                                        if (obj2.leadPlus12 == 0 && obj2.leadMinus12 == 0) {
+                                            $("#showSlider81").hide();
+                                            $("#noRating81").show();
+                                        } else {
+                                            $("#noRating81").hide();
+                                        }
+                                        $("#noRating82").hide();
+
+                                    }
+                                }catch(e)
+                                {
+                                    console.log(e);
                                 }
                             }
                         });
@@ -363,46 +372,50 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                 leadSlideFetch.fetch({
                                     headers: {secret: secret},
                                     success: function (result) {
-                                        var obj1 = new Object();
-                                        var obj2 = new Object();
-                                        var obj3 = new Object();
-                                        obj1.leadPlus12 = result['attributes']['data']['week']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['week']['plus'];
-                                        obj1.leadMinus12 = result['attributes']['data']['week']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['week']['minus'];
-                                        obj1.performanceTxt = "My Team’s Performance for this week…";
-                                        obj1.noRatingTxt = "Your team has not been rated this week!!";
-                                        obj2.leadPlus12 = result['attributes']['data']['month']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['month']['plus'];
-                                        obj2.leadMinus12 = result['attributes']['data']['month']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['month']['minus'];
-                                        obj2.performanceTxt = "My Team’s Performance for this month…";
-                                        obj2.noRatingTxt = "Your team has not been rated this month!!";
-                                        obj3.leadPlus12 = result['attributes']['data']['till_now']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['till_now']['plus'];
-                                        obj3.leadMinus12 = result['attributes']['data']['till_now']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['till_now']['minus'];
-                                        obj3.performanceTxt = "My Team’s Performance till now…";
-                                        obj3.noRatingTxt = "Your team has not been rated till now!!";
+                                        try{
+                                            var obj1 = new Object();
+                                            var obj2 = new Object();
+                                            var obj3 = new Object();
+                                            obj1.leadPlus12 = result['attributes']['data']['week']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['week']['plus'];
+                                            obj1.leadMinus12 = result['attributes']['data']['week']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['week']['minus'];
+                                            obj1.performanceTxt = "My Team’s Performance for this week…";
+                                            obj1.noRatingTxt = "Your team has not been rated this week!!";
+                                            obj2.leadPlus12 = result['attributes']['data']['month']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['month']['plus'];
+                                            obj2.leadMinus12 = result['attributes']['data']['month']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['month']['minus'];
+                                            obj2.performanceTxt = "My Team’s Performance for this month…";
+                                            obj2.noRatingTxt = "Your team has not been rated this month!!";
+                                            obj3.leadPlus12 = result['attributes']['data']['till_now']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['till_now']['plus'];
+                                            obj3.leadMinus12 = result['attributes']['data']['till_now']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['till_now']['minus'];
+                                            obj3.performanceTxt = "My Team’s Performance till now…";
+                                            obj3.noRatingTxt = "Your team has not been rated till now!!";
 
-                                        if (obj3.leadPlus12 == 0 && obj3.leadMinus12 == 0) {
-                                            self.addLeadSlider(obj3);
-                                            $("#show80").hide();
-                                            $("#noRating80").show();
-
-                                        } else {
-                                            self.addLeadSlider(obj1);
-                                            self.addLeadSlider(obj2);
-                                            self.addLeadSlider(obj3);
-                                            if (obj1.leadPlus12 == 0 && obj1.leadMinus12 == 0) {
-                                                $("#showSlider80").hide();
+                                            if (obj3.leadPlus12 == 0 && obj3.leadMinus12 == 0) {
+                                                self.addLeadSlider(obj3);
+                                                $("#show80").hide();
                                                 $("#noRating80").show();
-                                            } else {
-                                                $("#noRating80").hide();
-                                            }
-                                            if (obj2.leadPlus12 == 0 && obj2.leadMinus12 == 0) {
-                                                $("#showSlider81").hide();
-                                                $("#noRating81").show();
-                                            } else {
-                                                $("#noRating81").hide();
-                                            }
-                                            $("#noRating82").hide();
-                                        }
 
+                                            } else {
+                                                self.addLeadSlider(obj1);
+                                                self.addLeadSlider(obj2);
+                                                self.addLeadSlider(obj3);
+                                                if (obj1.leadPlus12 == 0 && obj1.leadMinus12 == 0) {
+                                                    $("#showSlider80").hide();
+                                                    $("#noRating80").show();
+                                                } else {
+                                                    $("#noRating80").hide();
+                                                }
+                                                if (obj2.leadPlus12 == 0 && obj2.leadMinus12 == 0) {
+                                                    $("#showSlider81").hide();
+                                                    $("#noRating81").show();
+                                                } else {
+                                                    $("#noRating81").hide();
+                                                }
+                                                $("#noRating82").hide();
+                                            }
+                                        }catch(e)
+                                        {
+                                            console.log(e);
+                                        }
                                     }
                                 });
 
@@ -429,23 +442,29 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                         fetchWeek.fetch({
                             headers: {secret: secret},
                             success: function (result) {
-                                for (var c = 0; c < result['attributes']['data'].length; c++) {
-                                    var obj = new Object();
-                                    obj.name = result['attributes']['data'][c]['google_name'];
-                                    obj.nameS = result['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
-                                    obj.image = result['attributes']['data'][c]['google_picture_link'];
-                                    obj.projects = result['attributes']['data'][c]['primary_project'];
-                                    obj.personLink = "memberProfile.html?id=" + result['attributes']['data'][c]['user_id'];
-                                    self.addteamMembers(obj);
-                                }
-                                for(i=result['attributes']['data'].length;i<4;i++)
+                                try{
+                                    for (var c = 0; c < 4; c++) {
+                                        var obj = new Object();
+                                        if(c == result['attributes']['data'].length-1)
+                                        {
+                                            obj.name = result['attributes']['data'][c]['google_name'];
+                                            obj.nameS = result['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
+                                            obj.image = result['attributes']['data'][c]['google_picture_link'];
+                                            obj.projects = result['attributes']['data'][c]['primary_project'];
+                                            obj.personLink = "memberProfile.html?id=" + result['attributes']['data'][c]['user_id'];
+                                        }else
+                                        {
+                                            obj.name = 'No Record';
+                                            obj.nameS = '';
+                                            obj.image = "/images/warning-icon-24.png";
+                                            obj.projects = "No Record";
+                                            obj.personLink = "";
+                                        }
+                                        self.addteamMembers(obj);
+                                    }
+                                }catch(e)
                                 {
-                                    obj.name = 'No Record';
-                                    obj.nameS = '';
-                                    obj.image = "/images/warning-icon-24.png";
-                                    obj.projects = "";
-                                    obj.personLink = "";
-                                    self.addteamMembers(obj);
+                                    console.log(e);
                                 }
                                 var monthUrl = oj.Model.extend({
                                     url: getTopFourRankForCurrentMonth
@@ -454,23 +473,29 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                 monthFetch.fetch({
                                     headers: {secret: secret},
                                     success: function (res2) {
-                                        for (var c = 0; c < res2['attributes']['data'].length; c++) {
-                                            var obj = new Object();
-                                            obj.name = res2['attributes']['data'][c]['google_name'];
-                                            obj.nameS = res2['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
-                                            obj.image = res2['attributes']['data'][c]['image'];
-                                            obj.projects = res2['attributes']['data'][c]['primary_project'];
-                                            obj.personLink = "memberProfile.html?id=" + res2['attributes']['data'][c]['user_id'];
-                                            self.addteamMembers(obj);
-                                        }
-                                        for(i=res2['attributes']['data'].length;i<4;i++)
+                                        try{
+                                            for (var c = 0; c < 4; c++) {
+                                                var obj = new Object();
+                                                if(c == res2['attributes']['data'].length-1)
+                                                {
+                                                    obj.name = res2['attributes']['data'][c]['google_name'];
+                                                    obj.nameS = res2['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
+                                                    obj.image = res2['attributes']['data'][c]['image'];
+                                                    obj.projects = res2['attributes']['data'][c]['primary_project'];
+                                                    obj.personLink = "memberProfile.html?id=" + res2['attributes']['data'][c]['user_id'];
+                                                }else
+                                                {
+                                                    obj.name = 'No Record';
+                                                    obj.nameS = '';
+                                                    obj.image = "/images/warning-icon-24.png";
+                                                    obj.projects = "No Record";
+                                                    obj.personLink = "";
+                                                }
+                                                self.addteamMembers(obj);
+                                            }
+                                        }catch(e)
                                         {
-                                            obj.name = 'No Record';
-                                            obj.nameS = '';
-                                            obj.image = "/images/warning-icon-24.png";
-                                            obj.projects = "";
-                                            obj.personLink = "";
-                                            self.addteamMembers(obj);
+                                            console.log(e);
                                         }
                                         var yearUrl = oj.Model.extend({
                                             url: getRankingList
@@ -479,23 +504,30 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                         yearFetch.fetch({
                                             headers: {secret: secret},
                                             success: function (res3) {
-                                                for (var c = 0; c < res3['attributes']['data'].length; c++) {
-                                                    var obj = new Object();
-                                                    obj.personLink = "memberProfile.html?id=" + res3['attributes']['data'][c]['user_id'];
-                                                    obj.name = res3['attributes']['data'][c]['google_name'];
-                                                    obj.nameS = res3['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
-                                                    obj.image = res3['attributes']['data'][c]['image'];
-                                                    obj.projects = res3['attributes']['data'][c]['primary_project'];
-                                                    self.addteamMembers(obj);
-                                                }
-                                                for(i=res3['attributes']['data'].length;i<4;i++)
+                                                try{
+                                                    if (typeof res3 !== 'undefined' && res3.length > 0) {
+                                                        for (var c = 0; c < 4; c++) {
+                                                            var obj = new Object();
+                                                            if(c == (res3['attributes']['data'].length)-1){
+                                                                obj.personLink = "memberProfile.html?id=" + res3['attributes']['data'][c]['user_id'];
+                                                                obj.name = res3['attributes']['data'][c]['google_name'];
+                                                                obj.nameS = res3['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
+                                                                obj.image = res3['attributes']['data'][c]['image'];
+                                                                obj.projects = res3['attributes']['data'][c]['primary_project'];
+                                                            }else
+                                                            {
+                                                                obj.name = 'No Record';
+                                                                obj.nameS = '';
+                                                                obj.image = "/images/warning-icon-24.png";
+                                                                obj.projects = "No Record";
+                                                                obj.personLink = "";
+                                                            }
+                                                            self.addteamMembers(obj);
+                                                        }
+                                                    }
+                                                }catch(e)
                                                 {
-                                                    obj.name = 'No Record';
-                                                    obj.nameS = '';
-                                                    obj.image = "/images/warning-icon-24.png";
-                                                    obj.projects = "";
-                                                    obj.personLink = "";
-                                                    self.addteamMembers(obj);
+                                                    console.log(e);
                                                 }
                                             }
                                         });

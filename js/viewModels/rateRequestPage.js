@@ -169,16 +169,15 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                          success: function (result) {
                              var data2 = JSON.parse(result)['data'];
                              for (var i = 0; i < data2.length; i++) {
-                                   self.requestDeclinedLead.push(new request(data2[i]));
-                                    }
-                                 if (data2.length === 0) {
+                                 if (data2[i] === 0) {
                                      self.noLeadDeclinedRequest("No Declined Request.");
                                      $("#request3").show();
                                  } else {
+                                     self.requestDeclinedLead.push(new request(data2[i]));
                                      self.noLeadDeclinedRequest("");
                                      $("#request3").hide();
                                  }
-                            
+                             }
                          }
                      });
                  }
