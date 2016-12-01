@@ -283,8 +283,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 self.desc('');
                 self.textError('');
                 self.p(1);
-                self.image1("css/images/green-button.png")
-                self.image2("css/images/disable.png");
+                self.image1("../../images/active(+1).png")
+                self.image2("../../images/disable(-1).png");
             });
 
             self.handleOKClose = $("#okButton").click(function () {
@@ -399,19 +399,19 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.p = ko.observable(1);
 
         // +1 rating on green button 
-        self.image1 = ko.observable(src = "css/images/green-button.png");
-        self.image2 = ko.observable(src = "css/images/disable.png");
+        self.image1 = ko.observable(src = "../../images/active(+1).png");
+        self.image2 = ko.observable(src = "../../images/disable(-1).png");
         this.plusOne = function () {
             self.p(1);
-            self.image1("css/images/green-button.png")
-            self.image2("css/images/disable.png");
+            self.image1("../../images/active(+1).png")
+            self.image2("../../images/disable(-1).png");
         };
         //-1 ratig on red button image
 
         this.minusOne = function () {
             self.p(0);
-            self.image1("css/images/disable.png")
-            self.image2("css/images/red-button.png");
+            self.image1("../../images/disable(+1).png")
+            self.image2("../../images/active(-1).png");
 
         };
         // default +1 on submit button 
