@@ -81,28 +81,20 @@ and open the template in the editor.
                             </div>
                         </div>
                     </div>
-                    <div class="oj-row oj-flex">
                     <div id="dialogWrapper">
-                        <div style="display:none" id="minMaxDialog" title="Confirmation"  class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item "
-                             data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide', modality: 'modeless',cancelBehavior: 'escape',
-                              rootAttributes: { style: ''}
+                        <div style="display:none" id="minMaxDialog" title="Warning!" 
+                             data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide', modality: 'modeless',
+                              rootAttributes: { style: 'width: 300px; height: 200px; min-width 240px; max-width: 350px; min-height: 100px; max-height: 300px;'}
                               }">
                             <div class="oj-dialog-body">
-                                    <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                             Are You Sure You Want to Approve/Decline the request ?
-                                </div>
-                                    <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-margin-top oj-padding  center ">
-                              <div class=" oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6 oj-flex-item oj-padding oj-margin-top  center">
-                              <button id="noButton" class="confirmButton" data-bind="click : noProcess"> No </button>
-                                </div>
-                                    <div class=" oj-xl-6 oj-lg-6 oj-md-6 oj-sm-12 oj-flex-item oj-margin-top  oj-padding  center">
-                              <button id="yesButton" class="confirmButton" data-bind="click : yesProcess"> Yes </button>
-                                </div>
-                                </div>
-                           </div>
+                                Are You Sure You Want to Perform This Action?
+                            </div>
+                            <div class="oj-dialog-footer">
+                                <button id="yesButton" data-bind="click : yesProcess,ojComponent: {component: 'ojButton', label: 'Yes'}"> </button>
+                                <button id="noButton" data-bind="click : noProcess,ojComponent: {component: 'ojButton', label: 'No'}"> </button>
+                            </div>
                         </div>
 
-                    </div>
                     </div>
                     <div class=" oj-xl-6 oj-lg-6 oj-md-6 oj-sm-12 oj-flex-item oj-margin-bottom pos-relative transboxRequest2 oj-margin-top">
                         <div class="transbox"></div>
