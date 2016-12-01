@@ -25,10 +25,11 @@
 
 
 <!--feedaback modal in floating button-->
+<div class="oj-row oj-flex">
 <div id="dialogWrapper9">
     <div style="display:none" id="modalDialog9" title="Feedback" 
          data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide'}">
-        <div class="oj-dialog-body">
+        <div class="oj-dialog-body oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item ">
             <div class="searchArea">
                 <label for="combobox"></label>
                 <ul id="browsers1" style="display: none">
@@ -47,14 +48,14 @@
                               rootAttributes: {style:'max-width:20em'}}"/>
                 <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" id="feedbackFloatSearchError">This field cannot be empty</div>
             </div>
-            <div class="areaFloat">
-                <div class="areaContent">
+         
+                <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center areaContent1">
                     <textarea id="text-area9" class="textArea-feedbackFloat" aria-label="ojTextArea component no visible label"
                               data-bind="ojComponent: {component: 'ojTextArea', 
                                      value: desc, 
                                      placeholder: 'Type your feedback here...'}"></textarea>
                 </div>
-            </div>
+           
             <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center errorText" id="feedbackFloatTextError">Please provide a reason for your feedback.</div>
             <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
                 <button class="modal-submitFloatFeddback" data-bind="click: feedbackModal" > Submit </button>
@@ -62,15 +63,16 @@
 
         </div>
     </div>
-</div>                              
+</div>               
+</div>
 
 
 <!--Rate buddy using floating button modal(popUp)-->
-
+<div class="oj-row oj-flex">
 <div id="dialogWrapper">
-    <div style="display:none" id="modalDialog3"  title="Rate Buddy"
+    <div style="display:none" id="modalDialog3"  title="Rate Buddy" class="oj-dialog-body oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item "
          data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide'}">
-        <div class="oj-dialog-body">
+        <div class="oj-dialog-body  oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item">
 
             <div class="searchArea">
 
@@ -96,28 +98,23 @@
 
             </div>
 
-            <div class="areaFloat">
-                <div class="areaContent">
+            <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center areaFloat">
+                <div class="oj-xl-9 oj-lg-9 oj-md-8 oj-sm-8 oj-flex-item  oj-flex areaContent">
                     <textarea id="text-area" class="textArea3" aria-label="ojTextArea component no visible label"
                               data-bind="ojComponent: {component: 'ojTextArea', 
                                      value: desc, 
                                      placeholder: 'Type your reason here..'}"></textarea>
-                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" data-bind="text:textError"></div>
-                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" ></div>
                 </div>
-                <div class="imgArea1">
+                <div class="oj-xl-3 oj-lg-3 oj-md-4 oj-sm-4 oj-flex-item imgArea1 ">
                     <div class="pos-relative">
-                        <img class="modalImage" src="css/images/green-button.png" alt=""/>
-                        <div class="mText1">
-                            +1
-                        </div>
+                        <img class="modalImage"  src="../../images/active(+1).png" alt="+1 image"/>
                     </div>
                 </div>
                 <div>
 
                 </div>
             </div>
-            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center hide errorText" id="rateFloatTextError">Please provide a reason for rating.</div>
+            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center hide errorTextModal" id="rateFloatTextError">Please provide a reason for rating.</div>
             <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
                 <button class="modal-submit3" data-bind="click: floatModal" > Submit </button>
             </div>
@@ -126,14 +123,15 @@
         </div>
     </div>
 </div>    
+    </div>
 
 <!--Request for +1 modal from floating button-->
 
-
+<div class="oj-row oj-flex">
 <div id="dialogWrapper">
-    <div style="display:none" id="modalDialogRequest"  title="Send Request"
+    <div style="display:none" id="modalDialogRequest"  title="Send Request" class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item "
          data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide'}">
-        <div class="oj-dialog-body">
+        <div class="oj-dialog-body oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item ">
 
             <div class="searchArea">
 
@@ -154,26 +152,22 @@
                               rootAttributes: {style:'max-width:20em'}}"/>
                 <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal center errorText" data-bind="text: searchError"></div>
             </div>
-
-            <div class="areaFloat">
-                <div class="areaContent1">
+           
+                <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center areaContent1">
                     <textarea id="text-area10" class="textArea-feedbackFloat" aria-label="ojTextArea component no visible label"
                               data-bind="ojComponent: {component: 'ojTextArea', 
                                      value: desc, 
                                      placeholder: 'Type your reason here..'}"></textarea>
-
-
                 </div>
                 <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal center errorText" data-bind="text:textError"></div>
                 <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
                     <button class="modal-submitRequest" data-bind="click: requestModal" > Submit</button>
-                </div>
-
-
-            </div>
+             
+            </div>  
         </div>
     </div>
 </div>    
+</div>
 <div class="loaderDiv loaderHide" id="loaderScreen">
     <div class="overlay-loader"></div>
     <div class="loaderImgDiv"><img src="css/images/loader.gif" alt=""/></div>
