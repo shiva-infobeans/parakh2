@@ -20,19 +20,19 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         member.designation = data['designation'];
         member.role_name = data['role_name'];
         member.google_id = data['google_id'];
-        member.plus = data['pluscount'];
-        member.minus = data['minuscount'];
+        member.plus = data['pluscount']!=null?data['pluscount']:0;
+        member.minus = data['minuscount']!=null?data['minuscount']:0;
         return member;
     }
-    function leadTeam(data) {
+    function leadTeam(data) {console.log(data);
         var myTeam = this;
         myTeam.myName = data['google_name'];
         myTeam.myId = data['user_id'];
         myTeam.myDesign = data['designation'];
         myTeam.myEmail = data['google_email'];
         myTeam.myPic = data['picture'] == "" ? 'images/warning-icon-24.png' : data['picture'];
-        myTeam.plus = data['pluscount'];
-        myTeam.minus = data['minuscount'];
+        myTeam.plus = data['pluscount']!=null?data['pluscount']:0;
+        myTeam.minus = data['minuscount']!=null?data['minuscount']:0;
         return myTeam;
     }
 
@@ -62,6 +62,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.desc = ko.observable();
         self.textError = ko.observable();
         self.sucessMsg = ko.observable();
+        self.selectTab = ko.observable(0);
 
         //indexer for other team members
         self.indexer2Letters = ko.observableArray();
@@ -98,11 +99,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
                 if (self.role_name() === 'Team Member') {
 
-                    $('#tabs ul li:last-child').hide();
+                    $('#tabs ul li:first-child').hide();
 
                 } else {
 
-                    $('#tabs ul li:last-child').addClass('abc').show();
+                    $('#tabs ul li:first-child').addClass('abc').show();
                     //lead id user
                     $.ajax({
                         headers: {secret: secret},
@@ -282,8 +283,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 self.desc('');
                 self.textError('');
                 self.p(1);
-                self.image1("css/images/green-button.png")
-                self.image2("css/images/disable.png");
+                self.image1("../../images/active(+1).png")
+                self.image2("../../images/disable(-1).png");
             });
 
             self.handleOKClose = $("#okButton").click(function () {
@@ -398,19 +399,19 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.p = ko.observable(1);
 
         // +1 rating on green button 
-        self.image1 = ko.observable(src = "css/images/green-button.png");
-        self.image2 = ko.observable(src = "css/images/disable.png");
+        self.image1 = ko.observable(src = "../../images/active(+1).png");
+        self.image2 = ko.observable(src = "../../images/disable(-1).png");
         this.plusOne = function () {
             self.p(1);
-            self.image1("css/images/green-button.png")
-            self.image2("css/images/disable.png");
+            self.image1("../../images/active(+1).png")
+            self.image2("../../images/disable(-1).png");
         };
         //-1 ratig on red button image
 
         this.minusOne = function () {
             self.p(0);
-            self.image1("css/images/disable.png")
-            self.image2("css/images/red-button.png");
+            self.image1("../../images/disable(+1).png")
+            self.image2("../../images/active(-1).png");
 
         };
         // default +1 on submit button 
@@ -466,7 +467,15 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     }
                 })
             });
-
+            
+              if (self.role_name() === 'Team Member') {
+                    self.selectTab(1);
+                    $("#membersHover").addClass("buddyTabRequest1");
+                  
+                    $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />')
+                }        
+            else{
+                   $("#membersHover").addClass("hoverTab2");
             $('#homeTab1').append(' <img src="../../images/user.png" alt="" />');
             $('#homeTab2').append(' <img src="../../images/team-active_1.png" alt="" />');
 
@@ -514,7 +523,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 }
             });
 
-
+                }
         }, 600);
 
      self.handleOpen = $(".star").click(function () {
