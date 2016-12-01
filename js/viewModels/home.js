@@ -156,10 +156,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                     }
                 }else
                 {
-                    $('.hoverContent0').hide();
-                    $('.hoverContent1').hide();
-                    $('.hoverContent2').hide();
-                    $('.hoverContent3').hide();
+                    //$('.hoverContent0').hide();
+                    //$('.hoverContent1').hide();
+                    //$('.hoverContent2').hide();
+                    //$('.hoverContent3').hide();
                 }
             }
         });
@@ -382,6 +382,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                         if (obj3.leadPlus12 == 0 && obj3.leadMinus12 == 0) {
                                             self.addLeadSlider(obj3);
                                             $("#show80").hide();
+											$("#showSlider80").hide();
                                             $("#noRating80").show();
 
                                         } else {
@@ -440,6 +441,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                 }
                                 for(i=result['attributes']['data'].length;i<4;i++)
                                 {
+									var obj = new Object();
                                     obj.name = 'No Record';
                                     obj.nameS = '';
                                     obj.image = "/images/warning-icon-24.png";
@@ -465,6 +467,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                         }
                                         for(i=res2['attributes']['data'].length;i<4;i++)
                                         {
+											var obj = new Object();
                                             obj.name = 'No Record';
                                             obj.nameS = '';
                                             obj.image = "/images/warning-icon-24.png";
@@ -490,6 +493,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                                 }
                                                 for(i=res3['attributes']['data'].length;i<4;i++)
                                                 {
+													var obj = new Object();
                                                     obj.name = 'No Record';
                                                     obj.nameS = '';
                                                     obj.image = "/images/warning-icon-24.png";
