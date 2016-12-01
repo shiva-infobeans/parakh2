@@ -156,10 +156,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                     }
                 }else
                 {
-                    $('.hoverContent0').hide();
-                    $('.hoverContent1').hide();
-                    $('.hoverContent2').hide();
-                    $('.hoverContent3').hide();
+                    //$('.hoverContent0').hide();
+                    //$('.hoverContent1').hide();
+                    //$('.hoverContent2').hide();
+                    //$('.hoverContent3').hide();
                 }
             }
         });
@@ -372,26 +372,34 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                 leadSlideFetch.fetch({
                                     headers: {secret: secret},
                                     success: function (result) {
-                                        try{
-                                            var obj1 = new Object();
-                                            var obj2 = new Object();
-                                            var obj3 = new Object();
-                                            obj1.leadPlus12 = result['attributes']['data']['week']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['week']['plus'];
-                                            obj1.leadMinus12 = result['attributes']['data']['week']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['week']['minus'];
-                                            obj1.performanceTxt = "My Team’s Performance for this week…";
-                                            obj1.noRatingTxt = "Your team has not been rated this week!!";
-                                            obj2.leadPlus12 = result['attributes']['data']['month']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['month']['plus'];
-                                            obj2.leadMinus12 = result['attributes']['data']['month']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['month']['minus'];
-                                            obj2.performanceTxt = "My Team’s Performance for this month…";
-                                            obj2.noRatingTxt = "Your team has not been rated this month!!";
-                                            obj3.leadPlus12 = result['attributes']['data']['till_now']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['till_now']['plus'];
-                                            obj3.leadMinus12 = result['attributes']['data']['till_now']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['till_now']['minus'];
-                                            obj3.performanceTxt = "My Team’s Performance till now…";
-                                            obj3.noRatingTxt = "Your team has not been rated till now!!";
+                                        var obj1 = new Object();
+                                        var obj2 = new Object();
+                                        var obj3 = new Object();
+                                        obj1.leadPlus12 = result['attributes']['data']['week']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['week']['plus'];
+                                        obj1.leadMinus12 = result['attributes']['data']['week']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['week']['minus'];
+                                        obj1.performanceTxt = "My Team’s Performance for this week…";
+                                        obj1.noRatingTxt = "Your team has not been rated this week!!";
+                                        obj2.leadPlus12 = result['attributes']['data']['month']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['month']['plus'];
+                                        obj2.leadMinus12 = result['attributes']['data']['month']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['month']['minus'];
+                                        obj2.performanceTxt = "My Team’s Performance for this month…";
+                                        obj2.noRatingTxt = "Your team has not been rated this month!!";
+                                        obj3.leadPlus12 = result['attributes']['data']['till_now']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['till_now']['plus'];
+                                        obj3.leadMinus12 = result['attributes']['data']['till_now']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['till_now']['minus'];
+                                        obj3.performanceTxt = "My Team’s Performance till now…";
+                                        obj3.noRatingTxt = "Your team has not been rated till now!!";
 
-                                            if (obj3.leadPlus12 == 0 && obj3.leadMinus12 == 0) {
-                                                self.addLeadSlider(obj3);
-                                                $("#show80").hide();
+                                        if (obj3.leadPlus12 == 0 && obj3.leadMinus12 == 0) {
+                                            self.addLeadSlider(obj3);
+                                            $("#show80").hide();
+											$("#showSlider80").hide();
+                                            $("#noRating80").show();
+
+                                        } else {
+                                            self.addLeadSlider(obj1);
+                                            self.addLeadSlider(obj2);
+                                            self.addLeadSlider(obj3);
+                                            if (obj1.leadPlus12 == 0 && obj1.leadMinus12 == 0) {
+                                                $("#showSlider80").hide();
                                                 $("#noRating80").show();
 
                                             } else {
@@ -464,7 +472,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                     }
                                 }catch(e)
                                 {
-                                    console.log(e);
+									var obj = new Object();
+                                    obj.name = 'No Record';
+                                    obj.nameS = '';
+                                    obj.image = "/images/warning-icon-24.png";
+                                    obj.projects = "";
+                                    obj.personLink = "";
+                                    self.addteamMembers(obj);
                                 }
                                 var monthUrl = oj.Model.extend({
                                     url: getTopFourRankForCurrentMonth
@@ -495,7 +509,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                             }
                                         }catch(e)
                                         {
-                                            console.log(e);
+											var obj = new Object();
+                                            obj.name = 'No Record';
+                                            obj.nameS = '';
+                                            obj.image = "/images/warning-icon-24.png";
+                                            obj.projects = "";
+                                            obj.personLink = "";
+                                            self.addteamMembers(obj);
                                         }
                                         var yearUrl = oj.Model.extend({
                                             url: getRankingList
@@ -527,7 +547,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                                     }
                                                 }catch(e)
                                                 {
-                                                    console.log(e);
+													var obj = new Object();
+                                                    obj.name = 'No Record';
+                                                    obj.nameS = '';
+                                                    obj.image = "/images/warning-icon-24.png";
+                                                    obj.projects = "";
+                                                    obj.personLink = "";
+                                                    self.addteamMembers(obj);
                                                 }
                                             }
                                         });
