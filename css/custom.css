@@ -1217,6 +1217,25 @@ div.oj-tabs-panel.oj-tabs-selected{
     }
    
 }
+@media  screen and (min-width: 1200px) and (max-width: 1366px) {
+     #ojDialogWrapper-modalDialog9.oj-dialog,
+    #ojDialogWrapper-modalDialog3.oj-dialog,
+    #ojDialogWrapper-modalDialogRequest.oj-dialog{
+        width: 60% !important;
+
+    }
+    #ojDialogWrapper-modalDialog8.oj-dialog,
+    #ojDialogWrapper-modalDialog2.oj-dialog,
+    #ojDialogWrapper-modalDialog1.oj-dialog{
+        width: 75% !important;
+    }
+    .modalImage {
+        width: 50%!important;
+        margin-top: 3px!important;
+        margin-left: 18px!important;
+    }
+   
+}
 @media screen  and (max-width: 360px) {
     .notification::before {
         border-bottom: 10px solid #fff;
@@ -1259,7 +1278,7 @@ span.zmdi-plus-request {
   background-size: calc(100% - 40%) auto;
   border: medium none !important;
 }
-<<<<<<< HEAD
+
 .replyInput{
     width: 100%;
     border-radius: 10px;
@@ -1267,5 +1286,5 @@ span.zmdi-plus-request {
 .feedback-comment-text p{
     margin-top: 5px;
 }*/
-=======
->>>>>>> parent of 6cda22d... Merge pull request #123 from shiva-infobeans/feedbackChangesUI
+
+
