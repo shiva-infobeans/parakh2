@@ -17,7 +17,7 @@
 </div>
 <div id="vtabs" class="max-width profile-page oj-margin-top"
      data-bind="ojComponent:{component: 'ojTabs', 
-                            orientation: 'vertical',
+                            orientation: large()?'vertical':'horizontal',
                             selected: selectedTab}">
 
 
@@ -126,13 +126,13 @@
 
                                 <div class="feedback-comment pos-relative">
                                     <button class="buttonReply" data-bind="click: $parent.openReply,attr: {id: replyBtnId}"><i class="zmdi zmdi-mail-reply"></i> Reply</button>
-                                    <div data-bind="attr:{id:uniqueId}" class="replyInput hide">
+                                    <div data-bind="attr:{id: uniqueId}" class="replyInput hide">
                                         <div class="pos-relative">
                                             <div class="transbox"></div>
-                                            <span> <input type="text" placeholder="Write your response here" class="left"/></span>
+                                            <span> <input type="text" placeholder="Write your response here" class="left" data-bind="attr: {id:replyInput}"/></span>
                                             <span>
-                                                <i class="zmdi zmdi-mail-reply zmdi-hc-2x left"></i> 
-                                                <i class="zmdi zmdi-close zmdi-hc-2x"></i>
+                                                <i class="zmdi zmdi-mail-reply zmdi-hc-2x left" data-bind="attr: {id: replySend},click: $parent.replySend"></i> 
+                                                <i class="zmdi zmdi-close zmdi-hc-2x" data-bind="attr: {id: replyClose},click: $parent.closeReply"></i>
                                             </span>
                                         </div>
                                     </div>
@@ -159,22 +159,22 @@
         <div class="transbox"></div>
         <div class="profile-page-overflow">
             <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
-                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-4 oj-flex-item">
+                <div class="oj-xl-4 oj-lg-4 oj-md-12 oj-sm-12 oj-flex-item">
                     <span class="icon-div"><i class="zmdi zmdi-email about-icons"></i></span>
                     <span class="text-about heightCol"> Email</span>
                 </div>
-                <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-6 oj-flex-item">                  
+                <div class="oj-xl-8 oj-lg-8 oj-md-12 oj-sm-12 oj-flex-item">                  
                     <span class="text-height" data-bind="text: email"> </span>        
                 </div>
 
 
             </div>
             <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
-                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                <div class="oj-xl-4 oj-lg-4 oj-md-12 oj-sm-12 oj-flex-item">
                     <span class="icon-div"><i class="zmdi zmdi-case about-icons"></i> </span> 
                     <span class="text-about heightCol2">Designation</span>
                 </div>
-                <div class="oj-xl-7 oj-lg-7 oj-md-6 oj-sm-6 oj-flex-item ">
+                <div class="oj-xl-7 oj-lg-7 oj-md-12 oj-sm-12 oj-flex-item ">
                     <span  class="text-height" data-bind="text: designation" id="designation-text"></span>
                     <div class="hide" id="designation-div">
                         <select id="selectDesignation" data-bind="ojComponent: {component: 'ojSelect', value: designation}" class="hide selector">
@@ -186,11 +186,11 @@
                 </div>
             </div>
             <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
-                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                <div class="oj-xl-4 oj-lg-4 oj-md-12 oj-sm-12 oj-flex-item">
                     <span class="icon-div"><i class="zmdi zmdi-pin about-icons"></i> </span>
                     <span class="text-about heightCol">Location</span>
                 </div>
-                <div class="oj-xl-7 oj-lg-7 oj-md-6 oj-sm-6 oj-flex-item ">
+                <div class="oj-xl-7 oj-lg-7 oj-md-12 oj-sm-12 oj-flex-item ">
                     <span  class="text-height"data-bind="text: location" id="location-text"></span>
                     <div class="hide" id="location-div">
                         <select class="selector hide" data-bind="ojComponent: {component: 'ojSelect',value: location}"  id="selectLocation" name="location">
@@ -201,22 +201,22 @@
                 </div>
             </div>
             <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
-                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                <div class="oj-xl-4 oj-lg-4 oj-md-12 oj-sm-12 oj-flex-item">
                     <span class="icon-div"><i class="zmdi zmdi-graduation-cap about-icons"></i> </span>
                     <span class="text-about heightCol">Skills</span>
                 </div>
-                <div class="oj-xl-7 oj-lg-7 oj-md-6 oj-sm-6 oj-flex-item ">
+                <div class="oj-xl-7 oj-lg-7 oj-md-12 oj-sm-12 oj-flex-item ">
                     <span  class="text-height" data-bind="text: skills" id="skills-text"></span>
                     <textarea data-bind="value:skills" class="hide textArea-skills" name="skills" id="skills" cols="17"></textarea>
                 </div>
             </div>
             <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
-                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                <div class="oj-xl-4 oj-lg-4 oj-md-12 oj-sm-12 oj-flex-item">
                     <span class="icon-div"><i class="zmdi zmdi-time-interval about-icons"></i>  </span>
                     <span class="text-about heightCol5">With InfoBeans<br>since</span>
 
                 </div>
-                <div class="oj-xl-7 oj-lg-7 oj-md-6 oj-sm-6 oj-flex-item ">
+                <div class="oj-xl-7 oj-lg-7 oj-md-12 oj-sm-12 oj-flex-item ">
                     <span  class="text-height"  data-bind="text: associate_with_infobeans,attr:{defaultDate:associate_with_infobeans}" id="associate-text"></span>
                     <div class="hide" id="associate-div">
                         <input type="text" id="input-date" name="associate_with_infobeans" data-bind="ojComponent:{component:'ojInputDate', value: date,
@@ -226,11 +226,11 @@
                 </div>
             </div>
             <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
-                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                <div class="oj-xl-4 oj-lg-4 oj-md-12 oj-sm-12 oj-flex-item">
                     <span class="icon-div"><i class="zmdi zmdi-file-text about-icons"></i></span>
                     <span class="text-about heightCol">Primary Project</span>
                 </div>
-                <div class="oj-xl-7 oj-lg-7 oj-md-6 oj-sm-6 oj-flex-item ">
+                <div class="oj-xl-7 oj-lg-7 oj-md-12 oj-sm-12 oj-flex-item ">
                     <span  class="text-height" data-bind="text: primary_project" id="primary-project-text"></span>
                     <div class="hide" id="primary-project-div">
                         <select id="selectPrimaryProjects" data-bind="ojComponent: {component: 'ojSelect',value: primary_project}" class="selector">
@@ -243,11 +243,11 @@
                 </div>
             </div>
             <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
-                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                <div class="oj-xl-4 oj-lg-4 oj-md-12 oj-sm-12 oj-flex-item">
                     <span class="icon-div"><i class="zmdi zmdi-file-text about-icons"></i></span>
                     <span class="text-about heightCol"> Past Project(s)</span>
                 </div>
-                <div class="oj-xl-7 oj-lg-7 oj-md-6 oj-sm-6 oj-flex-item ">
+                <div class="oj-xl-7 oj-lg-7 oj-md-12 oj-sm-12 oj-flex-item ">
                     <span  class="text-height" data-bind="text: projects" id='projects-text'></span>
                     <div class="hide" id="projects-div">
                         <select id="selectProjects" data-bind="ojComponent: {component: 'ojSelect',multiple: true,value: projects}" class="selector">
@@ -259,11 +259,11 @@
                 </div>
             </div>
             <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
-                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                <div class="oj-xl-4 oj-lg-4 oj-md-12 oj-sm-12 oj-flex-item">
                     <span class="icon-div"><i class="zmdi zmdi-favorite about-icons"></i></span>
                     <span class="text-about heightCol"> Interests</span>
                 </div>
-                <div class="oj-xl-7 oj-lg-7 oj-md-6 oj-sm-6 oj-flex-item ">
+                <div class="oj-xl-7 oj-lg-7 oj-md-12 oj-sm-12 oj-flex-item ">
                     <span  class="text-height" data-bind="text: interests" id='interest-text'></span>
                     <div class="hide" id="interest-div">
                         <select id="selectInterests" data-bind="ojComponent: {component: 'ojSelect',multiple: true,value: interests}" class="selector">
@@ -275,11 +275,11 @@
                 </div>
             </div>
             <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
-                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                <div class="oj-xl-4 oj-lg-4 oj-md-12 oj-sm-12 oj-flex-item">
                     <span class="icon-div"><i class="zmdi zmdi-phone about-icons"></i></span>
                     <span class="text-about heightCol"> Phone</span>
                 </div>
-                <div class="oj-xl-7 oj-lg-7 oj-md-6 oj-sm-6 oj-flex-item ">
+                <div class="oj-xl-7 oj-lg-7 oj-md-12 oj-sm-12 oj-flex-item ">
                     <span  class="text-height" data-bind="text: myNumber" id='number-text'></span>
                     <input class="hide" id="editNumberBox" type="text" name="myNumber" data-bind="value: temporaryNumber" maxlength="10" pattern="\d*">
                 </div>

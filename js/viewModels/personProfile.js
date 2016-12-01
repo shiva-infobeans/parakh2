@@ -68,25 +68,20 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
             }
             function dataFeedback(myId, data) {
                 var feedbackObj = new Object();
-                if (data['description'].length > 100) {
-                    feedbackObj.sComment = data['description'].substring(0, 100) + "...";
-                } else {
-                    feedbackObj.sComment = data['description'];
-                }
-                feedbackObj.lComment = data['description'];
+
                 feedbackObj.shortName = nameFunction(data['given_by_name']);
                 feedbackObj.myId = myId;
                 feedbackObj.feedbackfrom = data['feedback_from'];
+                feedbackObj.feedbackto = data['feedback_to'];
                 feedbackObj.name = data['given_by_name'];
                 feedbackObj.feedbackId = data['id'];
                 feedbackObj.feedbackDescription = data['description'];
-                feedbackObj.feedbackdesignation = data['designation'];
                 feedbackObj.replies = ko.observableArray();
-                feedbackObj.feedbackImage = data['google_picture_link'];
                 feedbackObj.uniqueId = "feedback" + data['id'];
                 feedbackObj.replyBtnId = "replyBtn" + data['id'];
-                feedbackObj.replyBtnId = "replyClose" + data['id'];
-                feedbackObj.replyBtnId = "replySend" + data['id'];
+                feedbackObj.replyClose = "replyClose" + data['id'];
+                feedbackObj.replySend = "replySend" + data['id'];
+                feedbackObj.replyInput = "replyInput" + data['id'];
 
                 // 2nd myId with rtoId change it when view profile page;
                 var data_reply = data['reply'];
@@ -185,46 +180,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 }
 
 
-                self.replySubmit = function (e, data) {
-                    var obj = $("#replyBtn" + e.feedbackId);
-                    var id = obj.attr("loginUserId");
-                    var feedback_to = obj.attr("feedback_to");
-                    var responseDesc = obj.parent().next("span").children("input");
-                    if (responseDesc.val().length == 0) {
-                        return;
-                    }
-                    var fid = obj.attr("feedbackId");
-                    var sysDate = new Date();
-                    var dateString = dateFormatter(sysDate.toJSON().toString().substr(0, 10));
 
-                    $.ajax({
-                        headers: {secret: secret},
-                        method: 'POST',
-                        url: addFeedbackResponse,
-                        data: {login_user_id: id, feedback_to: feedback_to, feedback_desc: responseDesc.val(), feedback_id: fid},
-                        success: function () {
-
-                            obj.parent().parent().parent().prev().append(
-                                    '<div class="oj-row oj-flex oj-margin-top oj-margin-bottom oj-margin-horizontal oj-padding-horizontal">' +
-                                    '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item replyName">' +
-                                    '<span>' + self.myname + '</span>' +
-                                    '</div>' +
-                                    '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex replyComent">' +
-                                    '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item"><span>' + responseDesc.val() + '</span></div>' +
-                                    '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex-bar"><span class="oj-flex-bar-end">' + dateString + '</span></div>' +
-                                    '</div>' +
-                                    '</div>'
-                                    );
-                            responseDesc.val("");
-                        },
-                        beforeSend: function () {
-                            $("#respondLoader").removeClass('loaderHide');
-                        },
-                        complete: function () {
-                            $("#respondLoader").addClass('loaderHide');
-                        }
-                    });
-                }
 
 
 
@@ -313,21 +269,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                 var data = res['attributes']['data'];
                                 var index;
                                 for (index = 0; index < data.length; index++) {
+
                                     if (data[index]['reply'].length != 0) {
+                                        console.log(data[index]['reply']);
                                         self.feedbackContent1.push(new dataFeedback(self.id(), data[index]));
                                     }
                                     if (self.feedbackContent1().length == 1) {
-                                        console.log(self.feedbackContent1());
-                                        console.log(self.feedbackContent1()[0]['replies']());
                                         break;
-                                    }
-                                    if (index % 2 == 0) {
-                                        //self.feedbackContent1.push(new dataFeedback(self.id(), data[index]));
-                                        //console.log(self.feedbackContent1());
-                                        //break;
-                                    } else {
-                                        //self.feedbackContent1.push(new dataFeedback(self.id(), data[index]));
-                                        //self.feedbackContent2.push(new dataFeedback(self.id(), data[index]));
                                     }
                                 }
                                 if (self.feedbackContent1().length == 0 && self.feedbackContent2().length == 0) {
@@ -392,6 +340,91 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         });
                     }
                 });
+                /////////////// responsive tabs in small screen
+                var lgQuery = oj.ResponsiveUtils.getFrameworkQuery(
+                        oj.ResponsiveUtils.FRAMEWORK_QUERY_KEY.LG_UP);
+
+                self.large = oj.ResponsiveKnockoutUtils.createMediaQueryObservable(lgQuery);
+
+                // send respond on feedback
+                self.replySend = function (data, event) {
+                    //feedback respond from (user) 
+                    var reply_from = data["myId"];
+                    //feedbackId 
+                    var fid = data['feedbackId'];
+                    if (reply_from == data['feedbackFrom']) {
+                        var reply_to = data['feedbackto'];
+                    } else {
+                        var reply_to = data['feedbackfrom'];
+                    }
+                    // feedback respond system date 
+                    var sysDate = new Date();
+                    var dateString = dateFormatter(sysDate.toJSON().toString().substr(0, 10));
+
+
+                    var responseDesc = $('#' + data['replyInput']);
+                    if (responseDesc.val().length == 0) {
+                        return;
+                    }
+                    ////////// object for reply add
+//                    function feedbackRepliesData(lid, rtoId, fid, data) {
+//                var freplies = new Object();
+//                freplies.login_id = lid;
+//                freplies.freply_to = rtoId;
+//                freplies.feedback_id = fid;
+//                freplies.reply_name = data['from_name'];//display name
+//                freplies.reply_ShortName = nameFunction(data['from_name']);//display name
+//                freplies.reply_desc = data['description'];//display desc
+//                freplies.reply_date = dateFormatter(data['created_date'].substring(0, data['created_date'].indexOf(" ")));// display date
+//                return freplies;
+//            }
+                    var obj = new Object();
+                    obj.from_name = self.myname;
+                    obj.description = responseDesc.val();
+                    obj.created_date = sysDate.toJSON().toString().substr(0, 10);
+                    console.log(obj);
+                    console.log(obj.created_date);
+                    data['replies'].push(new feedbackRepliesData(0, 0, 0, obj));
+                    console.log(data['replies']());
+                    return;
+                    $.ajax({
+                        headers: {secret: secret},
+                        method: 'POST',
+                        url: addFeedbackResponse,
+                        data: {login_user_id: reply_from, feedback_to: reply_to, feedback_desc: responseDesc.val(), feedback_id: fid},
+                        success: function () {
+
+                            obj.parent().parent().parent().prev().append(
+                                    '<div class="oj-row oj-flex oj-margin-top oj-margin-bottom oj-margin-horizontal oj-padding-horizontal">' +
+                                    '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item replyName">' +
+                                    '<span>' + self.myname + '</span>' +
+                                    '</div>' +
+                                    '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex replyComent">' +
+                                    '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item"><span>' + responseDesc.val() + '</span></div>' +
+                                    '<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex-bar"><span class="oj-flex-bar-end">' + dateString + '</span></div>' +
+                                    '</div>' +
+                                    '</div>'
+                                    );
+                            responseDesc.val("");
+                        },
+                        beforeSend: function () {
+                            $("#respondLoader").removeClass('loaderHide');
+                        },
+                        complete: function () {
+                            $("#respondLoader").addClass('loaderHide');
+                        }
+                    });
+
+
+                }
+                // close reply input and show reply button
+                self.closeReply = function (data, event) {
+                    $('#' + data['replyBtnId']).fadeIn();
+                    $('#' + data['uniqueId']).fadeOut();
+                }
+
+
+
                 // close modal
                 self.closeModal = function () {
                     $("#open-modal").fadeOut();
@@ -643,28 +676,25 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     $('#cancel-all').addClass('hide');
                 }
                 self.openReply = function (data, event) {
-                    $('#'+data['replyBtnId']).fadeOut();
-                    $('#'+data['uniqueId']).fadeOut();
-                    try{
-                    var effectReplyBtn = 'slideOut';
-                    if (effectReplyBtn && oj.AnimationUtils[effectReplyBtn])
-                    {
-                        var jElem = $('#'+data['replyBtnId']);
-                        
-                        jElem.css('backgroundColor','white');
+                    $('#' + data['replyBtnId']).fadeOut();
+                    $('#' + data['uniqueId']).fadeOut();
+                    try {
+                        var effectReplyBtn = 'slideOut';
+                        if (effectReplyBtn && oj.AnimationUtils[effectReplyBtn])
+                        {
+                            var jElem = $('#' + data['replyBtnId']);
+                            var animateOptions = {'delay': '0ms',
+                                'duration': '1000ms',
+                                'timingFunction': 'linear'};
+                            $.extend(animateOptions, 'all');
+                            // Invoke the animation effect method with options
+                            oj.AnimationUtils[effectReplyBtn](jElem[0], animateOptions);
+                        }
+                    } catch (e) {
 
-                        var animateOptions = {'delay': '200ms',
-                            'duration': '1000ms',
-                            'timingFunction': 'linear'};
-                        $.extend(animateOptions, 'all');
-                        // Invoke the animation effect method with options
-                        oj.AnimationUtils[effectReplyBtn](jElem[0], animateOptions);
                     }
-                }catch(e){
-                    
-                }
-                $('#'+data['uniqueId']).fadeIn();
-                
+                    $('#' + data['uniqueId']).fadeIn();
+
                 };
 
             }
