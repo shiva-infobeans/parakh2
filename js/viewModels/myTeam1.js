@@ -31,8 +31,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         myTeam.myDesign = data['designation'];
         myTeam.myEmail = data['google_email'];
         myTeam.myPic = data['picture'] == "" ? 'images/warning-icon-24.png' : data['picture'];
-        myTeam.plus = data['pluscount'];
-        myTeam.minus = data['minuscount'];
+        myTeam.plus = (data['pluscount']!=null)?data['pluscount']:0;
+        myTeam.minus = (data['minuscount']!=null)?data['minuscount']:0;
         return myTeam;
     }
 
@@ -166,6 +166,20 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 });
             }
         });
+		
+		 self.handleOpen = $(".feedbackBuddyLead").click(function () {
+                $("#modalDialog8").ojDialog("open");
+                self.desc('');
+                self.textError('');
+            });
+
+            self.handleOKClose = $("#okButton").click(function () {
+                $("#modalDialog8").ojDialog("close");
+            });
+            self.handleOpen = $(".feedbackBuddyLead").click(function () {
+                $("#modalDialog8").ojDialog("open");
+            });
+
         self.arrangeIndex = function (data, event) {
             if (event.target.tagName == 'A') {
                 var value = event.target.href;
