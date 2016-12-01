@@ -460,6 +460,11 @@ margin:5px 10px;
     width: 26%;
     border-radius: 5px;
 }
+#ojDialogWrapper-minMaxDialog.oj-dialog{
+    overflow: hidden;
+    width: 26%;
+    border-radius: 5px;
+}
 .buddyTab{
     margin-top: -78px;
 }
