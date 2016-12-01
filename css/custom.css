@@ -1260,13 +1260,28 @@ div.oj-tabs-panel.oj-tabs-selected{
     padding: 10px;
     border-radius: 10px;
 }
-.replyInput div:last-child{
+.replyInput div span input{
+    padding: 5px;
+    height: 35px;
+    width: 80%;
+    border-radius: 5px;
+    border: 1px solid #fff;
+    background-color: rgba(0,0,0,0.5);
+    color:#fff;
+}
+.replyInput div span i{
+    
+    margin-left: 2px;
+    cursor: pointer;
+}
+/*.replyInput div:last-child{
     padding: 9px 12px 10px 10px;
     margin-right: 11%;
     width: 80%;
     float: left;
 
-}
+}*/
+/*
 .replyInput div:first-child input
 {
     padding: 5px;
@@ -1288,4 +1303,4 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 .feedback-comment-text p{
     margin-top: 5px;
-}
+}*/

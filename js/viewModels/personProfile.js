@@ -85,6 +85,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 feedbackObj.feedbackImage = data['google_picture_link'];
                 feedbackObj.uniqueId = "feedback" + data['id'];
                 feedbackObj.replyBtnId = "replyBtn" + data['id'];
+                feedbackObj.replyBtnId = "replyClose" + data['id'];
+                feedbackObj.replyBtnId = "replySend" + data['id'];
 
                 // 2nd myId with rtoId change it when view profile page;
                 var data_reply = data['reply'];
