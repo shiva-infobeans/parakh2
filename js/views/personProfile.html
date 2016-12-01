@@ -107,12 +107,13 @@
                                     </div>
                                     <div class="feedback-comment pos-relative">
                                         <div class="feedback-Transbox"></div>
-                                        <p class="feedback-comment-text"><span data-bind="text: reply_desc"></span>
-                                            <br />
-                                            <br />
-                                            <span class="right replyDate" data-bind="text: reply_date"></span>
-                                            <br />
-                                        </p>
+                                        <div class="feedback-comment-text">
+                                            <div><span data-bind="text: reply_desc"></span></div>
+                                            <p>
+                                                <span class="right replyDate" data-bind="text: reply_date"></span>
+                                            </p>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -128,9 +129,11 @@
                                     <div data-bind="attr:{id:uniqueId}" class="replyInput hide">
                                         <div class="pos-relative">
                                             <div class="transbox"></div>
-                                            <input type="text" placeholder="Write your response here" class=""/>
-                                            <i class="zmdi zmdi-mail-reply"></i> 
-                                            <i class="zmdi zmdi-close"></i>
+                                            <span> <input type="text" placeholder="Write your response here" class=""/></span>
+                                            <span>
+                                                <i class="zmdi zmdi-mail-reply"></i> 
+                                                <i class="zmdi zmdi-close"></i>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>

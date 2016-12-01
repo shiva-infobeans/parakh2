@@ -22,6 +22,7 @@ body{
     width: 100%;
     min-height: 100%;
     padding-bottom: 38px;
+    font-family: 'Montserrat', sans-serif;
 }
 /*container*/
 .max-width{
@@ -1284,4 +1285,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 .replyInput{
     width: 100%;
     border-radius: 10px;
+}
+.feedback-comment-text p{
+    margin-top: 5px;
 }

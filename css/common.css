@@ -135,8 +135,8 @@ margin:5px 10px;
 /*font for the slider heading*/ 
 @font-face {
     font-family: nameHeading;
-    src: url("../css/fonts/Font/Allura-Regular.otf");
-}
+    src: url("../css/fonts/Font/Allura-Regular.otf");}
+
 .slider-heading{
     color:#fff;
     font-family:nameHeading;
