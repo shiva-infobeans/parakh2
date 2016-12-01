@@ -190,6 +190,13 @@ body{
     height: 120px;
     width: 120px;
     border-radius: 50%;
+    margin-top: -10px;
+}
+.profile2{
+    height: 90px;
+    width: 90px;
+    border-radius: 50%;
+    margin-top: -10px;
 }
 .profile-img-div .profile:hover{
     border:2px solid #689F39;
@@ -734,10 +741,10 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 /*for request send by the user and accept/reject by lead/manager*/
 .textArea-requests{
-   background: none;
-     color: #fff;
-     height: 76px;
-     width: 87%;
+    background: none;
+    color: #fff;
+    height: 76px;
+    width: 87%;
 }
 .textArea-white{
     border:2px solid #fff;
@@ -863,7 +870,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     left: 0px;
     height: 100%;
     width: 100%;
-   background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0,0,0,0.3);
 }
 .loaderDiv{
     position: fixed;
@@ -874,14 +881,14 @@ div.oj-tabs-panel.oj-tabs-selected{
     display: table;
     z-index: 20090;
     background-color: rgba(0,0,0,0.3);
-  
+
 }
 .loaderImgDiv{
     display: table-cell;
     text-align: center;
     width: 100%;
     vertical-align: middle;
-   
+
 }
 .loaderHide{
     display: none !important;
@@ -1005,7 +1012,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     .noRatingTxt{
         font-size: 40px;
     }
-    
+
     .greenBtnImg{
 
         background-size: 100px 100px;
@@ -1014,7 +1021,7 @@ div.oj-tabs-panel.oj-tabs-selected{
         width: 120px;
     }
     .redBtnImg{
-      
+
         background-size: 100px 100px;
         background-position: 50% 85%;
         height: 136px;
@@ -1127,59 +1134,109 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 /*media query for notification*/ 
 @media  screen and (min-width: 363px) and (max-width: 767px) {
-   .notification::before {
-    border-bottom: 10px solid #fff;
-    border-left: 16px solid transparent;
-    border-right: 16px solid transparent;
-    content: "";
-    left: 54%;
-    position: absolute;
-    top: -10px;
-}
-.notification {
-    background-color: #fff;
-    border: 1px solid;
-    border-radius: 10px;
-    left: -139px;
-    position: absolute;
-    top: 36px;
-    width: 244px;
-    z-index: 1;
-}
+    .notification::before {
+        border-bottom: 10px solid #fff;
+        border-left: 16px solid transparent;
+        border-right: 16px solid transparent;
+        content: "";
+        left: 54%;
+        position: absolute;
+        top: -10px;
+    }
+    .notification {
+        background-color: #fff;
+        border: 1px solid;
+        border-radius: 10px;
+        left: -139px;
+        position: absolute;
+        top: 36px;
+        width: 244px;
+        z-index: 1;
+    }
 
 }
 @media  screen and (min-width: 320px) and (max-width: 767px) {
-    
     .transboxRequest{
-    position: relative;
-    margin-left: 0px;
-    min-height: 810px;
+        position: relative;
+        margin-left: 0px;
+        min-height: 810px;
 
+    }
+    .area{
+        margin-left: 17px !important;
+    }
+    .transboxRequest2{
+        margin-left: 0px;
+    }
+    #ojDialogWrapper-modalDialog9.oj-dialog,
+    #ojDialogWrapper-modalDialog3.oj-dialog,
+    #ojDialogWrapper-modalDialogRequest.oj-dialog{
+        width: 95% !important; 
+    }
+
+    .areaFloat{
+        margin-left: 4px !important;
+        width: 97% !Important;
+    }
+    .imgArea1{
+        margin-right: 0px !important; 
+    }
+    .mText1{
+        bottom: 28px  !important;
+        left: 28px  !important;
+        font-size: 24px  !important;
+    }
+
+    #ojDialogWrapper-modalDialog8.oj-dialog,
+    #ojDialogWrapper-modalDialog2.oj-dialog,
+   #ojDialogWrapper-modalDialog1.oj-dialog{
+        width: 95% !important;
+    }
+    .area2{
+        margin-left: 20px!important;
+    }
+  
 }
-.transboxRequest2{
-    margin-left: 0px;
-}
+@media  screen and (min-width: 768px) and (max-width: 1024px) {
+
+    #ojDialogWrapper-modalDialog9.oj-dialog,
+    #ojDialogWrapper-modalDialog3.oj-dialog,
+    #ojDialogWrapper-modalDialogRequest.oj-dialog{
+        width: 60% !important;
+
+    }
+    #ojDialogWrapper-modalDialog8.oj-dialog,
+    #ojDialogWrapper-modalDialog2.oj-dialog,
+    #ojDialogWrapper-modalDialog1.oj-dialog{
+        width: 75% !important;
+    }
+    .modalImage {
+        width: 50%!important;
+        margin-top: 3px!important;
+        margin-left: 18px!important;
+    }
+   
 }
 @media screen  and (max-width: 360px) {
-  .notification::before {
-    border-bottom: 10px solid #fff;
-    border-left: 16px solid transparent;
-    border-right: 16px solid transparent;
-    content: "";
-    left: 54%;
-    position: absolute;
-    top: -10px;
-}
-.notification {
-    background-color: #fff;
-    border: 1px solid;
-    border-radius: 10px;
-    left: -139px;
-    position: absolute;
-    top: 36px;
-    width: 244px;
-    z-index: 1;
-}
+    .notification::before {
+        border-bottom: 10px solid #fff;
+        border-left: 16px solid transparent;
+        border-right: 16px solid transparent;
+        content: "";
+        left: 54%;
+        position: absolute;
+        top: -10px;
+    }
+    .notification {
+        background-color: #fff;
+        border: 1px solid;
+        border-radius: 10px;
+        left: -139px;
+        position: absolute;
+        top: 36px;
+        width: 244px;
+        z-index: 1;
+    }
 
 }
 .div-comment-date{margin: 10px 12px 20px;height: 25px;float: left;font-size:20px;width:115px;}
