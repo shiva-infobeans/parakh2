@@ -12,19 +12,11 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
     /**
      * The view model for the main content view template
      */
-    var dateArray = [];
     function dataComment(comment1, commenter1, commentDate1) {
         var com = this; // this is for object of this function
         com.comment = comment1;
-        com.shortName = commenter1.replace(/[^A-Z]/g, '');
         com.commenter = commenter1;
         com.commentDate = dateFormatter(commentDate1.substring(0, commentDate1.indexOf(' ')));
-        if(dateArray.indexOf(com.commentDate)==-1){
-            dateArray.push(com.commentDate);
-        }else
-        {
-            com.commentDate = '';
-        }
         return com;
     }
     function dateDiffCalender(Date1) {
