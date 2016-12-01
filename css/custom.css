@@ -22,7 +22,6 @@ body{
     width: 100%;
     min-height: 100%;
     padding-bottom: 38px;
-    font-family: 'Montserrat', sans-serif;
 }
 /*container*/
 .max-width{
@@ -191,6 +190,13 @@ body{
     height: 120px;
     width: 120px;
     border-radius: 50%;
+    margin-top: -10px;
+}
+.profile2{
+    height: 90px;
+    width: 90px;
+    border-radius: 50%;
+    margin-top: -10px;
 }
 .profile-img-div .profile:hover{
     border:2px solid #689F39;
@@ -278,14 +284,14 @@ ul li.selectedTab div {
     border:none;
 }
 div.profile-page{
-    min-height: 712px;
+    /*    height: 600px;*/
 }
 div.oj-tabs-panel.oj-tabs-selected{
     background: none;
     border:none;
     padding: 0px;
     margin-top: -4px;  
-    margin-bottom:10px;
+    margin-bottom:1px;
 }
 .profile-tab1-data{
     display: flex;
@@ -346,16 +352,23 @@ div.oj-tabs-panel.oj-tabs-selected{
 .circle-green{
     border-color: #D6F6C0;
     background-color: #689F39;
+    height: 70px;
+    width:70px;
+    text-align:center;font-size:35px;padding-top:12px;
 }
 .circle-red{
     border-color: #FF7a7a;
     background-color: #e00000;
     margin-top:10px;
+    height: 70px;
+    width:70px;
+    text-align:center;font-size:35px;padding-top:12px;
 }
 .rating-info{
-    padding: 0px 10px 10px 10px;
+    padding: 10px 10px 10px 10px;
     margin-bottom: 10px;
     margin-left: 125px;
+    height: 116px;
 }
 /*positive and negative comments*/
 .comment{
@@ -381,7 +394,8 @@ div.oj-tabs-panel.oj-tabs-selected{
     background-color: #689F39;
     position: absolute;
     top:25px;
-    left:62;
+    /*left:62;*/
+    left:225;
     z-index: -1;
 }
 .rating-comment-div:last-child .transline{display: none;}
@@ -392,7 +406,8 @@ div.oj-tabs-panel.oj-tabs-selected{
     background-color: #e00000;
     position: absolute;
     top:32px;
-    left:62;
+    /*left:62;*/
+    left:225;
     z-index: -1;
 }
 /* feedback section css */
@@ -1141,16 +1156,66 @@ div.oj-tabs-panel.oj-tabs-selected{
 
 }
 @media  screen and (min-width: 320px) and (max-width: 767px) {
-
     .transboxRequest{
         position: relative;
         margin-left: 0px;
         min-height: 810px;
 
     }
+    .area{
+        margin-left: 17px !important;
+    }
     .transboxRequest2{
         margin-left: 0px;
     }
+    #ojDialogWrapper-modalDialog9.oj-dialog,
+    #ojDialogWrapper-modalDialog3.oj-dialog,
+    #ojDialogWrapper-modalDialogRequest.oj-dialog{
+        width: 95% !important; 
+    }
+
+    .areaFloat{
+        margin-left: 4px !important;
+        width: 97% !Important;
+    }
+    .imgArea1{
+        margin-right: 0px !important; 
+    }
+    .mText1{
+        bottom: 28px  !important;
+        left: 28px  !important;
+        font-size: 24px  !important;
+    }
+
+    #ojDialogWrapper-modalDialog8.oj-dialog,
+    #ojDialogWrapper-modalDialog2.oj-dialog,
+   #ojDialogWrapper-modalDialog1.oj-dialog{
+        width: 95% !important;
+    }
+    .area2{
+        margin-left: 20px!important;
+    }
+  
+}
+@media  screen and (min-width: 768px) and (max-width: 1024px) {
+
+    #ojDialogWrapper-modalDialog9.oj-dialog,
+    #ojDialogWrapper-modalDialog3.oj-dialog,
+    #ojDialogWrapper-modalDialogRequest.oj-dialog{
+        width: 60% !important;
+
+    }
+    #ojDialogWrapper-modalDialog8.oj-dialog,
+    #ojDialogWrapper-modalDialog2.oj-dialog,
+    #ojDialogWrapper-modalDialog1.oj-dialog{
+        width: 75% !important;
+    }
+    .modalImage {
+        width: 50%!important;
+        margin-top: 3px!important;
+        margin-left: 18px!important;
+    }
+   
 }
 @media screen  and (max-width: 360px) {
     .notification::before {
@@ -1174,129 +1239,27 @@ div.oj-tabs-panel.oj-tabs-selected{
     }
 
 }
+.div-comment-date{margin: 10px 12px 20px;height: 25px;float: left;font-size:20px;width:115px;}
 .indexerUnderline{
     text-decoration: underline;
 }
-
-/*feedback new design*/
-.feedback-date{
-    display: table-cell;
-    width: 150px;
-    text-align: center;
-    font-style: italic;
-    font-size: 15px;
-}
-.feedback-align{
-    display: table;
-}
-.feedback-circle{
-    height: 48px;
-    width: 48px;
-    border: 3px solid;
-    border-radius: 50%;
-    float: left;
-    padding: 12px 0px 0px 10px;
-}
-.reply-circle{
-    height: 40px;
-    width: 40px;
-    border: 3px solid;
-    border-radius: 50%;
-    float: left;
-    padding: 8px 0px 0px 7px;
-}
-.feedback-comment{
-    margin-left: 80px;
-    padding: 5px;
-    width: 80%;
-}
-.replyDate{
-    font-size: 13px;
-    color: #ddd;
-    font-style: italic;
-}
-.feedback-comment-text{
-    padding: 5px;
-    margin: 5px 3px;
-}
-.circle-purple{
-    background-color: #2780b5;
-    border-color: #144562;
-}
-.feedback-Transbox{
-    width: 100%;
-    height: 100%;
-    background-color: #000;
-    opacity: 0.5;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    border-radius: 10px;
-    z-index: -1;
-}
-.buttonReply {
-    height: 45px;
-    width: 100px;
-    border-radius: 10px;
-    border: none;
-    font-size: 22px;
-    background-color: #E2FDCB;
-}
-.circle-purple:hover .viewFeedbackName{
-    display: block !important;
-}
-.viewFeedbackName{
-    position: absolute;
-    height: 38px;
-    top: -14px;
-    left: -110px;
-    background-color: #fff;
-    color: #000;
-    border: 2px solid #8DAC6C;
-    padding: 10px;
-    display: none;
-}
-.replyInput div{
-    padding: 10px;
-    border-radius: 10px;
-}
-.replyInput div span input{
-    padding: 5px;
-    height: 35px;
-    width: 80%;
-    border-radius: 5px;
-    border: 1px solid #fff;
-    background-color: rgba(0,0,0,0.5);
-    color:#fff;
-}
-.replyInput div span i{
+@media screen  and (max-width: 767px) {
     
-    margin-left: 2px;
-    cursor: pointer;
+   
 }
-/*.replyInput div:last-child{
-    padding: 9px 12px 10px 10px;
-    margin-right: 11%;
-    width: 80%;
-    float: left;
 
-}*/
-/*
-.replyInput div:first-child input
-{
-    padding: 5px;
-    height: 35px;
-    width: 80%;
-    border-radius: 5px;
-    border: 1px solid #fff;
-    background-color: rgba(0,0,0,0.5);
-    color:#fff;
+span.zmdi-plus-request {
+  background-attachment: scroll !important;
+  background-clip: border-box !important;
+  background-color: rgba(0, 0, 0, 0) !important;
+  background-image: url("../images/plus-request.png") !important;
+  background-origin: padding-box !important;
+  background-position: 4px 6px;
+  background-repeat: no-repeat !important;
+  background-size: calc(100% - 40%) auto;
+  border: medium none !important;
 }
-.replyInput div:last-child i{
-    font-size: 23px;
-    margin-left: 2px;
-    cursor: pointer;
-}
+<<<<<<< HEAD
 .replyInput{
     width: 100%;
     border-radius: 10px;
@@ -1304,3 +1267,5 @@ div.oj-tabs-panel.oj-tabs-selected{
 .feedback-comment-text p{
     margin-top: 5px;
 }*/
+=======
+>>>>>>> parent of 6cda22d... Merge pull request #123 from shiva-infobeans/feedbackChangesUI
