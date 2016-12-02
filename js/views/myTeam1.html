@@ -21,8 +21,8 @@ and open the template in the editor.
 
         <div id="tabs" data-bind="ojComponent:{component: 'ojTabs',selected: selectTab}" class="buddyTab">
             <!-- tab bar -->
-            <ul>
-                <li class="buddyTab1" id="home1" >
+            <ul class="tab-margin">
+                <li class="buddyTab1 tab1" id="home1" >
                     <div id="homeTab2">
                     </div>   
                     <div class="hoverTab1"> My Team </div>
@@ -50,18 +50,18 @@ and open the template in the editor.
                     <div class="oj-xl-4 oj-lg-4 oj-md-6 oj-sm-12 oj-flex oj-flex-item oj-padding left">
                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item pos-relative oj-padding">
                             <div class="transbox border-color-green"></div>
-                            <div class="profile-img-div"><a href="javascript:void(0);" title="View profile" class="viewProfile" data-bind="attr: {myTeamId: myId}"><img class="profile border-color-white" data-bind="attr:{src: myPic}" title="View Profile"/></a></div>
-                            <div class="oj-row">
-                                <h4><span data-bind="text: myName" class="color-white" ></span></h4>
-                                <h5><span data-bind="text: myDesign" class="color-white"></span></h5>
+                            <div class="profile-img-div oj-margin-top"><a href="javascript:void(0);" title="View profile" class="viewProfile" data-bind="attr: {myTeamId: myId}"><img class="profile border-color-white" data-bind="attr:{src: myPic}" title="View Profile"/></a></div>
+                            <div class="oj-row oj-padding">
+                                <h4 class="myNameBuddies"><span data-bind="text: myName" class="color-white" ></span></h4>
+                                <h5 class="myDesignBuddies"><span data-bind="text: myDesign" class="color-white"></span></h5>
                             </div>
                         </div>
                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item pos-relative">
-                            <div class="oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6 oj-flex-item rateBuddy-page-rate-green left" data-bind="text: plus">
-
+                            <div class="oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6 oj-flex-item rateBuddy-page-rate-green left" >
+                                <span data-bind="text: plus"> </span>
                             </div>
-                            <div class="oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6 oj-flex-item rateBuddy-page-rate-red left" data-bind="text: minus"> 
-
+                            <div class="oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6 oj-flex-item rateBuddy-page-rate-red left"> 
+                                <span data-bind="text: minus"> </span>
                             </div>
                         </div>
                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-flex rateBuddy-page-icons">
@@ -95,15 +95,15 @@ and open the template in the editor.
                      <span data-bind="event:{click: $parent.makeUnderLine2},attr: {id:$data}"><a data-bind="attr: {href: $data},text:$data"></a></span>
                     <!--/ko-->
                 </div>
-                <hr />
+                <hr/>
                 <div data-bind="foreach: members" class="">
                     <div class="oj-xl-4 oj-lg-4 oj-md-6 oj-sm-12 oj-flex oj-flex-item oj-padding left">
                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item pos-relative oj-padding">
                             <div class="transbox  border-color-green"></div>
-                            <div class="profile-img-div"><a href="javascript:void(0);" title="View profile" class="viewProfile" data-bind="attr: {myTeamId: userId}"><img class="profile border-color-white" data-bind="attr: {src: pic}" title="View Profile"/></a></div>
-                            <div class="oj-row">
-                                <h4><span data-bind="text: name" class="color-white" ></span></h4>
-                                <h5><span data-bind="text: designation" class="color-white"></span></h5>
+                            <div class="profile-img-div oj-margin-top"><a href="javascript:void(0);" title="View profile" class="viewProfile" data-bind="attr: {myTeamId: userId}"><img class="profile border-color-white" data-bind="attr: {src: pic}" title="View Profile"/></a></div>
+                            <div class="oj-row oj-padding">
+                                <h4 class="myNameBuddies"><span data-bind="text: name" class="color-white" ></span></h4>
+                                <h5 class="myDesignBuddies"><span data-bind="text: designation" class="color-white"></span></h5>
                             </div>
                         </div>
                         <div class="rateBuddy-page-rate"><span data-bind="text: plus" class="color-white" ></span></div>

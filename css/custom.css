@@ -22,6 +22,7 @@ body{
     width: 100%;
     min-height: 100%;
     padding-bottom: 38px;
+    font-family: 'Montserrat', sans-serif !important;
 }
 /*container*/
 .max-width{
@@ -586,8 +587,8 @@ div.oj-tabs-panel.oj-tabs-selected{
     color:#607D8B;
     padding-bottom: 5px;
 }
-.rateBuddy-page-icons div:nth-child(2) span a{
-    color:#2981B3;
+#tabs-2 .rateBuddy-page-icons div:nth-child(2) span a{
+    color:#F46547;
     padding-bottom: 5px;
 }
 .rateBuddy-page-icons div:nth-child(3) span a{
@@ -811,7 +812,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 .approveDisapprove{
     border: medium none;
     margin-bottom: -3px;
-    padding: 6px;
+    padding: 4px;
     font-size: 28px;
     width: 50%;
     background-color: #fff;
@@ -885,6 +886,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     color: #333;
     width:250px;
     height:160px;
+    margin-top: 10px;
 }
 .arrow-controls {
     display: inline-block;
@@ -1166,9 +1168,18 @@ div.oj-tabs-panel.oj-tabs-selected{
     min-height: 810px;
 
 }
-.transboxRequest2{
-    margin-left:10px;
+.tab1{
+    margin-left: 10px !important;
 }
+#ui-id-8{
+    margin-left: -10px;
+}
+.transboxRequest2{
+    margin-left: 10px;
+}
+ .tab-margin{
+    margin-left: -10px;
+    }
 /*media query for notification*/ 
 @media  screen and (min-width: 363px) and (max-width: 767px) {
     .notification::before {
@@ -1190,6 +1201,7 @@ div.oj-tabs-panel.oj-tabs-selected{
         width: 244px;
         z-index: 1;
     }
+   
 
 }
 @media  screen and (min-width: 320px) and (max-width: 767px) {
@@ -1237,7 +1249,13 @@ div.oj-tabs-panel.oj-tabs-selected{
     .area2{
         margin-left: 20px!important;
     }
-
+    .tab-margin{
+        margin-left: 3px;
+    }
+     #ui-id-8{
+    margin-left: 0px;
+}
+  
 }
 @media  screen and (min-width: 768px) and (max-width: 1024px) {
 
@@ -1257,7 +1275,12 @@ div.oj-tabs-panel.oj-tabs-selected{
         margin-top: 3px!important;
         margin-left: 18px!important;
     }
-
+    .tab-margin{
+        margin-left: 3px;
+    }
+     #ui-id-8{
+    margin-left: 0px;
+}
 }
 @media  screen and (min-width: 1200px) and (max-width: 1366px) {
     #ojDialogWrapper-modalDialog9.oj-dialog,
@@ -1430,6 +1453,16 @@ span.zmdi-plus-request {
 }
 .feedback-comment-text p{
     margin-top: 5px;
+}
+.myNameBuddies{
+    margin-top: 15px;
+}
+.myDesignBuddies{
+    margin-top: -5px;
+    font-size: 15px;
+}
+a{
+    outline:none;
 }
 .mailToColor:active{color: #fff;}
 /*Namrata*/
