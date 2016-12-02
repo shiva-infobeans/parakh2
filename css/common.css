@@ -514,7 +514,7 @@ margin:5px 10px;
     border-radius: 5px;
     outline: medium none;
     width: 38%;
-    border-color: #e3ffca;
+    border-color: #bdff91;
     -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color=#6f6d6d)";
     -moz-box-shadow: 3px 3px 3px #6f6d6d;
     -webkit-box-shadow: 3px 3px 3px #6f6d6d;
@@ -659,7 +659,9 @@ margin:5px 10px;
     margin-top: 24px;
     outline: medium none;
     width: 38%;
-    
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px #6f6d6d;
+    border-color: #bdff91;
 }
 .modal-submit1{
      background-color: #e3ffca !important;
@@ -669,7 +671,7 @@ margin:5px 10px;
     height: 48px;
     outline: medium none;
     width: 38%;
-    border-color: #e3ffca;
+    border-color: #bdff91;
     border-radius: 5px;
     margin-top: 4px;
     box-shadow: 3px 3px 3px #6f6d6d;
@@ -838,7 +840,9 @@ margin:5px 10px;
     margin-top: 25px;
     outline: medium none;
     width: 38%;
-    border-color:#e3ffca;
+    border-color:#bdff91;
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px #6f6d6d;
 }
 
 .searchImage{
@@ -1190,7 +1194,8 @@ margin:5px 10px;
     border-radius: 5px;
     float: left !important;
     margin-left: 30%;
-    border-color: #e3ffca;
+    border-color: #bdff91;
+    box-shadow: 3px 3px 3px #6f6d6d;
 }
 .searchLead{
     margin-top: -3px;
