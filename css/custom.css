@@ -190,7 +190,7 @@ body{
     height: 120px;
     width: 120px;
     border-radius: 50%;
-    margin-top: -10px;
+    margin-top: -4px;/*Namrata*/
 }
 .profile2{
     height: 90px;
@@ -1211,9 +1211,14 @@ div.oj-tabs-panel.oj-tabs-selected{
         width: 95% !important; 
     }
 
-    .areaFloat{
+/*    .areaFloat{
         margin-left: 4px !important;
         width: 97% !Important;
+    }*/
+    /*Namrata*/
+    .areaFloat{
+    margin-left: -8px !important;
+    min-width: 280px;
     }
     .imgArea1{
         margin-right: 0px !important; 
@@ -1286,6 +1291,13 @@ div.oj-tabs-panel.oj-tabs-selected{
         top: 36px;
         width: 244px;
         z-index: 1;
+    }
+    
+    /*Namrata*/
+    #oj-combobox-choice-combobox3.oj-combobox-choice,#oj-combobox-choice-combobox2.oj-combobox-choice,#oj-combobox-choice-combobox9.oj-combobox-choice{
+        min-width: 285px !important;
+        max-width: 100% !important;
+        margin-left: 0;
     }
 
 }
@@ -1420,3 +1432,7 @@ span.zmdi-plus-request {
     margin-top: 5px;
 }
 .mailToColor:active{color: #fff;}
+/*Namrata*/
+a:visited{
+    color: #fff !important;
+}
