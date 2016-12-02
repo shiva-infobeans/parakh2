@@ -143,6 +143,7 @@
     color:#fff;
     font-family:nameHeading;
     font-size: 40px;
+    margin-left: -3px;/*Namrata*/
 }
 
 .side-box{
@@ -516,7 +517,7 @@
     border-radius: 5px;
     outline: medium none;
     width: 38%;
-    border-color: #e3ffca;
+    border-color: #bdff91;
     -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color=#6f6d6d)";
     -moz-box-shadow: 3px 3px 3px #6f6d6d;
     -webkit-box-shadow: 3px 3px 3px #6f6d6d;
@@ -526,9 +527,10 @@
 .areaFloat{
     width: 84%;
     height: 148px;
-    border: solid 1px #000;
+    border-style: solid;
+    border-color: #305a04;
+    border-width: 1px;
     margin-top: -8px;
-    border: solid 1px #000;
     background-color: #fff;
     border-radius: 5px;
     margin-left: 37px;
@@ -654,14 +656,18 @@
 }
 .modal-submitFloatFeddback{
     background-color: #e3ffca !important;
-    color: #000 !important;
+    color: #363636 !important;
     cursor: pointer !important;
     font-size: 24px;
     height: 48px;
-    margin-top: 24px;
-    outline: medium none;
+    margin-top: 25px;
     width: 38%;
-
+    border-radius: 8px;
+    border-style: solid;
+    border-color: #bdff91;
+    border-width: 2px;
+    box-shadow: 3px 4px 6px rgba(0,0,0,0.3)
+    
 }
 .modal-submit1{
     background-color: #e3ffca !important;
@@ -671,7 +677,6 @@
     height: 48px;
     outline: medium none;
     width: 38%;
-    border-color: #e3ffca;
     border-radius: 5px;
     margin-top: 4px;
     box-shadow: 3px 3px 3px #6f6d6d;
@@ -704,9 +709,12 @@
     cursor: pointer;
     border-left: 1px solid #dcdcdc;
 }
-
+/*Namrata*/
 .oj-dialog-body {
     background-color: #fff !important;
+    max-width: 100% !important;
+    min-width: 300px;
+    overflow: hidden;
 }
 
 /*top 10 ranks page side section*/
@@ -763,7 +771,7 @@
     border-radius: 2px;
     border-style: solid;
     border-width: 1px;
-    color: #000;
+    color: #555;/*Namrata*/
     cursor: pointer;
     font-size: 27px;
     margin-right: -8px;
@@ -804,8 +812,8 @@
 }
 #ojDialogWrapper-modalDialog3 .oj-dialog-title::before{
     background-image: url("../css/images/star-icon.png");
-    background-position: 13px 5px;
-    background-size: 23px 21px;
+    background-position: 5px -3px;
+    background-size: 30px 30px;
 }
 #ojDialogWrapper-modalDialog9 .oj-dialog-title::before,
 #ojDialogWrapper-modalDialog8 .oj-dialog-title::before
@@ -831,7 +839,7 @@
 #ojDialogWrapper-modalDialog1 .oj-dialog-body{
     background-color: #fff !important;
 }
-.modal-submit3{
+/*.modal-submit3{
     background-color: #e3ffca !important;
     color: #000 !important;
     cursor: pointer !important;
@@ -840,9 +848,23 @@
     margin-top: 25px;
     outline: medium none;
     width: 38%;
-    border-color:#e3ffca;
 }
-
+*/
+/*Namrata*/
+    .modal-submit3 {
+        background-color: #e3ffca !important;
+        color: #363636 !important;
+        cursor: pointer !important;
+        font-size: 24px;
+        height: 48px;
+        margin-top: 25px;
+        width: 38%;
+        border-radius: 8px;
+        border-style: solid;
+        border-color: #bdff91;
+        border-width: 2px;
+        box-shadow: 3px 4px 6px rgba(0,0,0,0.3);
+    }
 .searchImage{
     width: 30px;
     border-radius: 50%;
@@ -857,12 +879,15 @@
     width: 42px;
     float: left;
 }
+/*Namrata*/
 #oj-combobox-choice-combobox3.oj-combobox-choice,#oj-combobox-choice-combobox2.oj-combobox-choice,#oj-combobox-choice-combobox9.oj-combobox-choice{
     background-color: #f3f3f3;
     border-style: solid;
     border-color: #305a04;
     border-width: 1px;
     border-radius: 7px;
+    width: 377px;
+    margin-left: -11px;
 }
 
 #ui-id-4 .oj-hover{
@@ -1147,11 +1172,21 @@
     width: 100%;
     border-radius: 5px;
 }
-.textArea-feedbackFloat{
-    height: 143px;
+/*.textArea-feedbackFloat{
+   height: 143px;
     border: solid 1px #000;
     width: 100%;
     border-radius: 5px;
+}*/
+
+.textArea-feedbackFloat {
+    height: 143px;
+    border: solid 1px #305a04;
+    width: 452px !important;
+    border-radius: 5px;
+    min-width: 376px;
+    max-width: 100%;
+    margin-left: -18px;
 }
 
 .feedbackAlignment{
@@ -1181,18 +1216,18 @@
     color:#fff;
 }
 .modal-submitRequest{
-    background-color: #e3ffca !important;
-    color: #000 !important;
+   background-color: #e3ffca !important;
+    color: #363636 !important;
     cursor: pointer !important;
     font-size: 24px;
     height: 48px;
-    margin-top: 15px;
-    outline: medium none;
+    margin-top: 25px;
     width: 38%;
-    border-radius: 5px;
-    float: left !important;
-    margin-left: 30%;
-    border-color: #e3ffca;
+    border-radius: 8px;
+    border-style: solid;
+    border-color: #bdff91;
+    border-width: 2px;
+    box-shadow: 3px 4px 6px rgba(0,0,0,0.3)
 }
 .searchLead{
     margin-top: -3px;
@@ -1483,6 +1518,7 @@
 .icon-div{
     float: left;
     width: 40px;
+    margin-top: 2px;
 }
 .heightCol{
     line-height: 42px;
@@ -1626,13 +1662,15 @@
     padding: 7px;
 }
 #editNumberBox{
-    border-color: #689F39;
-    background-color: rgba(255,255,255,0.3);
-    border-width: 2px;
-    border-radius: 5px;
-    color: #fff;
-    font-weight: bold;
-    padding: 7px;
+     border-color: #689F39;
+     background-color: rgba(255,255,255,0.3);
+     border-width: 2px;
+     border-radius: 5px;
+     color: #fff;
+     font-weight: bold;
+     padding: 7px;
+     border-style: none;
+     border:2px solid #689F39;
 }
 #ojChoiceId_selectInterests .oj-select-choices,
 #ojChoiceId_selectProjects .oj-select-choices{
@@ -1727,13 +1765,15 @@
     outline: none;
 }
 .commentDate{
-    margin-left: 37px;
-    margin-top: 28px;
-    margin-right: -34px;
+    margin-top: 31px;
+    margin-right: -19px;
     text-align: center;
     font-style: italic;
-    font-size: 15px;
+    font-size: 17px;
+    color: #dcdcdc;
 }
 a:hover.oj-clickable-icon-nocontext,.oj-hover.oj-clickable-icon-nocontext{ color: white;}
 .text-right{text-align: right}
 .text-left{text-align: left}
+.textArea-skills:focus,#editNumberBox:focus{border:2px solid #689F39;}
+#cancel-all{padding: 121x;}

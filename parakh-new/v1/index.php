@@ -247,7 +247,7 @@ $app->post('/updateProfile', function ($request, $response) {
         $post_data['mob'] = '';   
     }
     if($db->isValidUser( $post_data['user_id'] )){
-        if (!preg_replace( '/^[1-9][0-9]*$/', '', $post_data['mob'] )) {
+        if (preg_match( '/^\d{10}$/',  $post_data['mob'] )) {
             //Creating a dbmodule object
             $result = $db->updateProfile($post_data);
 
