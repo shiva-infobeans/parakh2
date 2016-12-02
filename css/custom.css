@@ -1263,7 +1263,6 @@ div.oj-tabs-panel.oj-tabs-selected{
     
    
 }
-
 span.zmdi-plus-request {
   background-attachment: scroll !important;
   background-clip: border-box !important;
@@ -1275,13 +1274,10 @@ span.zmdi-plus-request {
   background-size: calc(100% - 40%) auto;
   border: medium none !important;
 }
-<<<<<<< HEAD
 .replyInput{
     width: 100%;
     border-radius: 10px;
 }
 .feedback-comment-text p{
     margin-top: 5px;
-}*/
-=======
->>>>>>> parent of 6cda22d... Merge pull request #123 from shiva-infobeans/feedbackChangesUI
+}
