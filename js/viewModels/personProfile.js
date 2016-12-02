@@ -16,8 +16,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 return initial;
             }
 
-            var dateArray = [];
-            function dataComment(comment1, commenter1, commentDate1) {
+            var dateplusArray = [];
+            var dateminusArray = [];
+            function dataComment(comment1, commenter1, commentDate1, datafor) {
                 commentDate1 = new Date(commentDate1);
                 //commentDate1 = commentDate1.toDateString();
                 var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June",
@@ -29,11 +30,21 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 com.shortName = commenter1.replace(/[^A-Z]/g, '');
                 com.commenter = commenter1;
                 com.commentDate = commentDate1.getDate() + ' ' + monthNames[commentDate1.getMonth()] + ' ' + commentDate1.getFullYear();
-                if (dateArray.indexOf(com.commentDate) == -1) {
-                    dateArray.push(com.commentDate);
-                } else
+                if(datafor){
+                    if (dateplusArray.indexOf(com.commentDate) == -1) {
+                        dateplusArray.push(com.commentDate);
+                    } else
+                    {
+                        com.commentDate = '';
+                    }
+                }else
                 {
-                    com.commentDate = '';
+                    if (dateminusArray.indexOf(com.commentDate) == -1) {
+                        dateminusArray.push(com.commentDate);
+                    } else
+                    {
+                        com.commentDate = '';
+                    }
                 }
                 return com;
             }
@@ -341,12 +352,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                 for (var i = 0; i < data.length; i++) {
                                     if (data[i]['rating'] == 0) {
                                         minus++;
-                                        var temporaryComment = new dataComment(data[i]['description'], data[i]['given_by_name'], data[i]['created_date']);
+                                        var temporaryComment = new dataComment(data[i]['description'], data[i]['given_by_name'], data[i]['created_date'],1);
                                         self.commentDataNegative.push(temporaryComment);
                                     } else {
                                         if (data[i]['rating'] == 1)
                                             plus++;
-                                        var temporaryComment = new dataComment(data[i]['description'], data[i]['given_by_name'], data[i]['created_date']);
+                                        var temporaryComment = new dataComment(data[i]['description'], data[i]['given_by_name'], data[i]['created_date'],0);
                                         self.commentDataPositive.push(temporaryComment);
                                     }
                                 }
