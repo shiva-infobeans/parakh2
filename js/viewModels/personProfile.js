@@ -244,10 +244,46 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
 
                 //update profile submit button ajax call
                 self.updateProfile = function () {
-                    // if (self.desc() == '' || self.desc() == null) {
-                    //     self.textError("Please provide a reason for your request.");
-                    //     return false;
-                    // }
+                    var temp = 0;
+                    if(designationsDefaultVar!=self.designation())
+                    {
+                        temp = 1;
+                    }
+                    if(locationDefaultVar!=self.location() && temp == 0)
+                    {
+                        temp = 1;
+                    }
+                    if(skillsDefaultVal.replace(/ /g,'')!=self.skills() && temp == 0)
+                    {
+                        temp = 1;
+                    }
+                    if(projectsDefaultVal!=self.projects() && temp == 0)
+                    {
+                        temp = 1;
+                    }
+                    if(interestsDefaultVar!=self.interests() && temp == 0)
+                    {
+                        temp = 1;
+                    }
+                    if(primaryProjectDefaultVar!=self.primary_project() && temp == 0)
+                    {
+                        temp = 1;
+                    }
+                    if(numberDefaultVar.substring(numberDefaultVar.indexOf("-")+1)!=self.temporaryNumber())
+                    {
+                        temp = 1;
+                    }
+                    if(associateDefaultVar!=dateDiffCalender(self.date()))
+                    {
+                        temp = 1;
+                    }
+                    if(temp==0)
+                    {
+                        $('.sucessMsgRate').show();
+                        self.successful("Nothing is updated");
+                        return false;
+                    }
+                    
                     $.ajax({
                         headers: {secret: secret},
                         method: 'POST',
@@ -261,7 +297,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                 self.successful(response.data.error);
                                 if (response.data.code == "3013")
                                 {
-                                    self.myNumber(DefaultNumberVar);
+                                    self.myNumber(numberDefaultVar);
                                 }
                             } else
                             {
@@ -431,6 +467,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 }
                 /*edit all fields*/
                 var designationsDefaultVar;
+                var locationDefaultVar;
                 var associateDefaultVar;
                 var skillsDefaultVal;
                 var projectsDefaultVal;
@@ -470,6 +507,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
 
                     /*******************************Open Edit Skills block***********************/
                     skillsDefaultVal = self.skills();
+                    self.skills(skillsDefaultVal.replace(/ /g,''));
                     $('#skills-text').addClass('hide');
                     $('#skills').removeClass('hide');
                     /*******************************Open Edit Skills block***********************/
@@ -554,7 +592,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     /*******************************Open Edit Interest block***********************/
 
                     /*******************************Open Edit Number block***********************/
-                    DefaultNumberVar = self.myNumber();
+                    numberDefaultVar = self.myNumber();
                     editVariable = self.myNumber().substring(self.myNumber().indexOf("-") + 1, self.myNumber().length);
                     self.temporaryNumber(self.myNumber().substring(self.myNumber().indexOf("-") + 1, self.myNumber().length));
                     self.temporaryNumber();
@@ -582,7 +620,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         self.temporaryNumber(self.myNumber().substring(self.myNumber().indexOf("-") + 1, self.myNumber().length));
                         self.myNumber("+91-" + editVariable);
                         self.temporaryNumber("");
-                        self.myNumber(DefaultNumberVar);
+                        self.myNumber(numberDefaultVar);
                     } else
                     {
                         self.myNumber("+91-" + self.temporaryNumber());
@@ -636,7 +674,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     self.temporaryNumber(self.myNumber().substring(self.myNumber().indexOf("-") + 1, self.myNumber().length));
                     self.myNumber("+91-" + editVariable);
                     self.temporaryNumber("");
-                    self.myNumber(DefaultNumberVar);
+                    self.myNumber(numberDefaultVar);
                     $('#edit-all').removeClass('hide');
                     $('#submit-all').addClass('hide');
                     $('#cancel-all').addClass('hide');

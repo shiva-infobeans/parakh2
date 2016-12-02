@@ -290,7 +290,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     background: none;
     border:none;
     padding: 0px;
-    margin-top: -4px;  
+    /*margin-top: -4px;  */
     margin-bottom:1px;
 }
 .profile-tab1-data{
@@ -1419,3 +1419,4 @@ span.zmdi-plus-request {
 .feedback-comment-text p{
     margin-top: 5px;
 }
+.mailToColor:active{color: #fff;}

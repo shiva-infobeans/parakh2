@@ -1482,6 +1482,7 @@ margin:5px 10px;
 .icon-div{
     float: left;
     width: 40px;
+    margin-top: 2px;
 }
 .heightCol{
     line-height: 42px;
@@ -1632,6 +1633,8 @@ margin:5px 10px;
      color: #fff;
      font-weight: bold;
      padding: 7px;
+     border-style: none;
+     border:2px solid #689F39;
 }
 #ojChoiceId_selectInterests .oj-select-choices,
 #ojChoiceId_selectProjects .oj-select-choices{
@@ -1738,3 +1741,5 @@ margin:5px 10px;
 a:hover.oj-clickable-icon-nocontext,.oj-hover.oj-clickable-icon-nocontext{ color: white;}
 .text-right{text-align: right}
 .text-left{text-align: left}
+.textArea-skills:focus,#editNumberBox:focus{border:2px solid #689F39;}
+#cancel-all{padding: 121x;}
