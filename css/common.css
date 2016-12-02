@@ -659,7 +659,8 @@ margin:5px 10px;
     margin-top: 24px;
     outline: medium none;
     width: 38%;
-    
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px #6f6d6d;
 }
 .modal-submit1{
      background-color: #e3ffca !important;
@@ -839,6 +840,8 @@ margin:5px 10px;
     outline: medium none;
     width: 38%;
     border-color:#e3ffca;
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px #6f6d6d;
 }
 
 .searchImage{
@@ -1191,6 +1194,7 @@ margin:5px 10px;
     float: left !important;
     margin-left: 30%;
     border-color: #e3ffca;
+    box-shadow: 3px 3px 3px #6f6d6d;
 }
 .searchLead{
     margin-top: -3px;
