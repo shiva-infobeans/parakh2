@@ -462,7 +462,7 @@ margin:5px 10px;
 }
 #ojDialogWrapper-minMaxDialog.oj-dialog{
     overflow: hidden;
-       width: 19% ;
+    width: 25% ;
     border-radius: 5px;
     background-color: #ffffff;
 }
@@ -1719,6 +1719,7 @@ margin:5px 10px;
     border-radius: 5px;
     padding: 7px 16px 7px 20px;
     border: 1px solid #e3ffca;
+    outline: none;
 }
 .commentDate{
     font-size: 19px;
@@ -1726,3 +1727,4 @@ margin:5px 10px;
     margin-top: 28px;
     margin-right: -34px;
 }
+a:hover.oj-clickable-icon-nocontext,.oj-hover.oj-clickable-icon-nocontext{ color: white;}
