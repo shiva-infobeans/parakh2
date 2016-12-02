@@ -1728,3 +1728,5 @@ margin:5px 10px;
     margin-right: -34px;
 }
 a:hover.oj-clickable-icon-nocontext,.oj-hover.oj-clickable-icon-nocontext{ color: white;}
+.text-right{text-align: right}
+.text-left{text-align: left}
