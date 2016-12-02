@@ -1728,12 +1728,12 @@ margin:5px 10px;
     outline: none;
 }
 .commentDate{
-    margin-left: 37px;
-    margin-top: 28px;
-    margin-right: -34px;
+    margin-top: 31px;
+    margin-right: -19px;
     text-align: center;
     font-style: italic;
-    font-size: 15px;
+    font-size: 17px;
+    color: #dcdcdc;
 }
 a:hover.oj-clickable-icon-nocontext,.oj-hover.oj-clickable-icon-nocontext{ color: white;}
 .text-right{text-align: right}
