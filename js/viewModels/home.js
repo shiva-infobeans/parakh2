@@ -381,7 +381,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
 
                                         if (obj3.leadPlus12 == 0 && obj3.leadMinus12 == 0) {
                                             self.addLeadSlider(obj3);
-                                            $("#showSlider80").hide();
+                                            $("#show80").hide();
+											$("#showSlider80").hide();
                                             $("#noRating80").show();
 
                                         } else {
