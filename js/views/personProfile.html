@@ -15,7 +15,7 @@
         </div>
     </div>
 </div>
-<div id="vtabs" class="max-width profile-page oj-margin-top"
+<div id="vtabs" class="max-width profile-page oj-margin-top oj-margin-bottom"
      data-bind="ojComponent:{component: 'ojTabs', 
                             orientation: 'vertical',
                             selected: selectedTab}">
@@ -136,7 +136,7 @@
                                 </div>
 
                                 <div class="feedback-comment pos-relative">
-                                    <button class="buttonReply" data-bind="click: $parent.openReply,attr: {id: replyBtnId}"><i class="zmdi zmdi-mail-reply"></i> Reply</button>
+                                    <a class="buttonReply" data-bind="click: $parent.openReply,attr: {id: replyBtnId}">Reply</a>
                                     <div data-bind="attr:{id: uniqueId}" class="replyInput hide">
                                         <div class="pos-relative">
                                             <div class="transbox"></div>
