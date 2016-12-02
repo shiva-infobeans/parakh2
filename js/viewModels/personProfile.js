@@ -699,7 +699,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
 
                     data['replies'].push(new feedbackRepliesData(0, 0, 0, obj));
                     data['replies']();
-                    return;
                     $.ajax({
                         headers: {secret: secret},
                         method: 'POST',
