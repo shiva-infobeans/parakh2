@@ -293,6 +293,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         };
         //rateBuddy
         $("body").on('click', '.rateBuddy', function () {
+            $("#modalDialog1").ojDialog("open");
             self.for_id($(this).attr("id"));
             self.image($(this).attr("image"));
             self.myname($(this).attr("myname"));
@@ -300,6 +301,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         });
         //feedbackLead
         $("body").on('click', '.feedbackBuddyLead', function () {
+            $("#modalDialog8").ojDialog("open");
             self.for_id($(this).attr("myTeamId"));
             self.image($(this).attr("teamImage"));
             self.myname($(this).attr("teamName"));
@@ -373,6 +375,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         }
 //        +1/-1 from team lead/manager 
         $("body").on('click', '.rateMyTeam', function () {
+            $("#modalDialog2").ojDialog("open");
             self.teamImage($(this).attr("teamImage"));
             self.myId($(this).attr("myTeamId"));
             self.teamName($(this).attr("teamName"));
@@ -390,6 +393,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         });
         //feedbackLead
         $("body").on('click', '.feedbackBuddyLead', function () {
+             $("#modalDialog8").ojDialog("open");
             self.teamImage($(this).attr("teamImage"));
             self.myId($(this).attr("myTeamId"));
             self.teamName($(this).attr("teamName"));
