@@ -514,7 +514,7 @@ margin:5px 10px;
     border-radius: 5px;
     outline: medium none;
     width: 38%;
-    border-color: #e3ffca;
+    border-color: #bdff91;
     -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color=#6f6d6d)";
     -moz-box-shadow: 3px 3px 3px #6f6d6d;
     -webkit-box-shadow: 3px 3px 3px #6f6d6d;
@@ -659,7 +659,9 @@ margin:5px 10px;
     margin-top: 24px;
     outline: medium none;
     width: 38%;
-    
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px #6f6d6d;
+    border-color: #bdff91;
 }
 .modal-submit1{
      background-color: #e3ffca !important;
@@ -669,7 +671,7 @@ margin:5px 10px;
     height: 48px;
     outline: medium none;
     width: 38%;
-    border-color: #e3ffca;
+    border-color: #bdff91;
     border-radius: 5px;
     margin-top: 4px;
     box-shadow: 3px 3px 3px #6f6d6d;
@@ -838,7 +840,9 @@ margin:5px 10px;
     margin-top: 25px;
     outline: medium none;
     width: 38%;
-    border-color:#e3ffca;
+    border-color:#bdff91;
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px #6f6d6d;
 }
 
 .searchImage{
@@ -1190,7 +1194,8 @@ margin:5px 10px;
     border-radius: 5px;
     float: left !important;
     margin-left: 30%;
-    border-color: #e3ffca;
+    border-color: #bdff91;
+    box-shadow: 3px 3px 3px #6f6d6d;
 }
 .searchLead{
     margin-top: -3px;
@@ -1482,6 +1487,7 @@ margin:5px 10px;
 .icon-div{
     float: left;
     width: 40px;
+    margin-top: 2px;
 }
 .heightCol{
     line-height: 42px;
@@ -1632,6 +1638,8 @@ margin:5px 10px;
      color: #fff;
      font-weight: bold;
      padding: 7px;
+     border-style: none;
+     border:2px solid #689F39;
 }
 #ojChoiceId_selectInterests .oj-select-choices,
 #ojChoiceId_selectProjects .oj-select-choices{
@@ -1728,13 +1736,15 @@ margin:5px 10px;
     outline: none;
 }
 .commentDate{
-    margin-left: 37px;
-    margin-top: 28px;
-    margin-right: -34px;
+    margin-top: 31px;
+    margin-right: -19px;
     text-align: center;
     font-style: italic;
-    font-size: 15px;
+    font-size: 17px;
+    color: #dcdcdc;
 }
 a:hover.oj-clickable-icon-nocontext,.oj-hover.oj-clickable-icon-nocontext{ color: white;}
 .text-right{text-align: right}
 .text-left{text-align: left}
+.textArea-skills:focus,#editNumberBox:focus{border:2px solid #689F39;}
+#cancel-all{padding: 121x;}
