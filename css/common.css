@@ -1696,15 +1696,17 @@
 .more-alignment{
     margin-right: 14px;
 }
+.font-name{
+    font-size:18px;
+}
 .space-block{
-    margin-bottom: 70px;
+    margin-bottom: 85px;
 }
 .space-block1{
-    margin-top: 40px;
     margin-bottom: 80px;
 }
 .declineHeight{
-    height: 96%;
+    height: 98%;
     margin-top: 50px;
 }
 .oj-select-selected-choice{color: #fff;}

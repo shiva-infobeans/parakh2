@@ -14,7 +14,7 @@ and open the template in the editor.
         <div id="tabs1" data-bind="ojComponent:{component: 'ojTabs',selected: selectTab}" class="buddyTab">
             <!-- tab bar -->
             <ul class="tab-margin">
-                <li class="buddyTab3" id="rateTab2"> 
+                <li class="buddyTab3 tab1" id="rateTab2"> 
                     <div id="rateTab3">
                     </div>             
                     <div class="hoverTabRequest1"> Requests </div>
@@ -29,8 +29,7 @@ and open the template in the editor.
             <div id="tabs-3">
                 <hr class="tab-margin" />
                 <div class="oj-flex oj-row ">
-                    <div class=" oj-xl-6 oj-lg-6 oj-md-6 oj-sm-12 oj-flex-item oj-padding oj-margin-top oj-margin-bottom pos-relative  ">
-                        <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-top  pos-relative transboxRequest ">
+                    <div class=" oj-xl-6 oj-lg-6 oj-md-6 oj-sm-12 oj-flex-item oj-padding oj-margin-top oj-margin-bottom pos-relative transboxRequest ">
                         <div class="transbox"></div>
                         <div class="oj-flex oj-row">
                             <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-flex-bar-middle">
@@ -51,7 +50,7 @@ and open the template in the editor.
                                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center ">
                                             <img data-bind="attr: {src:pic}" alt="" class="profile-feedback-pic border-color-yellow "/>
                                         </div>
-                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center color-white">
+                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center color-white font-name">
 
                                             <span data-bind="text: name"></span>
                                         </div>
@@ -63,7 +62,7 @@ and open the template in the editor.
 
                                             <span data-bind="text: date"></span>
                                         </div>
-                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center  color-white divTextRateMe oj-padding ">
+                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center  color-white divTextRateMe oj-margin-bottom oj-padding  ">
 
 
                                             <textarea id="text-area20" class="textArea-requests textArea-white" aria-label="ojTextArea component no visible label"
@@ -71,7 +70,7 @@ and open the template in the editor.
                                      value: lComment, 
                                      placeholder: 'Type your reason here..'}"></textarea>
                                         </div>
-                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex  oj-margin-top">
+                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex ">
                                             <button class="approveDisapprove"   data-bind="event:{click: function(data,event){ $parent.approveRequest(1,this,request_id,userID,from_id) }},attr:{id: acceptBtnId},requestId: request_id,type1:'1',descComment: lComment,userId: userID,to_id:from_id"><i class="zmdi zmdi-check"></i></button>
                                             <button class="approveDisapprove"  data-bind="event:{click: function(data,event){ $parent.approveRequest(0,this,request_id,userID,from_id) }},attr:{id: declineBtnId},requestId: request_id,type1:'0',descComment: lComment,userId: userID,to_id:from_id">  <i class="zmdi zmdi-close"></i></button>
                                         </div>
@@ -81,7 +80,7 @@ and open the template in the editor.
                             </div>
                         </div>
                     </div>
-                    </div>
+                  
                     <div class="oj-row oj-flex">
                     <div id="dialogWrapper">
                         <div style="display:none" id="minMaxDialog" title="Confirmation"  class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item "
@@ -105,11 +104,10 @@ and open the template in the editor.
 
                     </div>
                     </div>
-                    <div class=" oj-xl-6 oj-lg-6 oj-md-6 oj-sm-12 oj-flex-item oj-margin-bottom pos-relative  oj-margin-top">
-                        <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-top  pos-relative transboxRequest2 ">
+                    <div class=" oj-xl-6 oj-lg-6 oj-md-6 oj-sm-12 oj-flex-item oj-margin-bottom pos-relative oj-margin-top transboxRequest2">
                         <div class="transbox"></div>
                         <div class="oj-flex oj-row">
-                            <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-flex-bar-middle oj-margin-bottom oj-margin-top">
+                            <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-flex-bar-middle oj-margin-bottom oj-margin">
                                 <div class="requestHeading">
                                     Declined Requests
                                 </div> 
@@ -125,7 +123,7 @@ and open the template in the editor.
                                     <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center ">
                                         <img data-bind="attr: {src:pic}" alt="" class="profile-feedback-pic border-color-red"/>
                                     </div>
-                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center color-white">
+                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center font-name color-white">
 
                                         <span data-bind="text: name"></span>
                                     </div>
@@ -160,7 +158,7 @@ and open the template in the editor.
                     </div>
                 </div>
             </div>
-                </div>
+               
 
 
             <div id="tabs-4">
@@ -178,11 +176,11 @@ and open the template in the editor.
                                 <div class="oj-xl-9 oj-lg-9 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-flex-bar-center-absolute requestCOntent pos-relative">
                                     <div class="transbox"></div>
                                     <div class="oj-flex oj-row ">
-                                        <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center" >
+                                        <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top " >
                                             <img class="profile border-color-green" data-bind="attr:{src: lead_pic }">
 
                                         </div>
-                                        <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item  center" data-bind="text:lead_name ">
+                                        <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item  center font-name" data-bind="text:lead_name ">
 
                                         </div>
                                         <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item padding-feedback center" data-bind="text: lead_role" >
@@ -208,7 +206,7 @@ and open the template in the editor.
                                         <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
                                             <img class="profile border-color-green" data-bind="attr:{src: manager_pic}">
                                         </div>
-                                        <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item  center"  data-bind="text: manager_name ">
+                                        <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item font-name center"  data-bind="text: manager_name ">
 
                                         </div>
                                         <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item padding-feedback center"  data-bind="text: manager_role "> 

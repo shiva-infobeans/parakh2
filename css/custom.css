@@ -553,8 +553,8 @@ div.oj-tabs-panel.oj-tabs-selected{
     color:#607D8B;
     padding-bottom: 5px;
 }
-.rateBuddy-page-icons div:nth-child(2) span a{
-    color:#2981B3;
+#tabs-2 .rateBuddy-page-icons div:nth-child(2) span a{
+    color:#F46547;
     padding-bottom: 5px;
 }
 .rateBuddy-page-icons div:nth-child(3) span a{
@@ -778,7 +778,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 .approveDisapprove{
     border: medium none;
     margin-bottom: -3px;
-    padding: 6px;
+    padding: 4px;
     font-size: 28px;
     width: 50%;
     background-color: #fff;
@@ -1134,9 +1134,18 @@ div.oj-tabs-panel.oj-tabs-selected{
     min-height: 810px;
 
 }
-.transboxRequest2{
-    margin-left:10px;
+.tab1{
+    margin-left: 10px !important;
 }
+#ui-id-8{
+    margin-left: -10px;
+}
+.transboxRequest2{
+    margin-left: 10px;
+}
+ .tab-margin{
+    margin-left: -10px;
+    }
 /*media query for notification*/ 
 @media  screen and (min-width: 363px) and (max-width: 767px) {
     .notification::before {
@@ -1158,6 +1167,7 @@ div.oj-tabs-panel.oj-tabs-selected{
         width: 244px;
         z-index: 1;
     }
+   
 
 }
 @media  screen and (min-width: 320px) and (max-width: 767px) {
@@ -1201,8 +1211,11 @@ div.oj-tabs-panel.oj-tabs-selected{
         margin-left: 20px!important;
     }
     .tab-margin{
-        margin-left: 8px;
+        margin-left: 3px;
     }
+     #ui-id-8{
+    margin-left: 0px;
+}
   
 }
 @media  screen and (min-width: 768px) and (max-width: 1024px) {
@@ -1224,8 +1237,11 @@ div.oj-tabs-panel.oj-tabs-selected{
         margin-left: 18px!important;
     }
     .tab-margin{
-        margin-left: 8px;
+        margin-left: 3px;
     }
+     #ui-id-8{
+    margin-left: 0px;
+}
 }
 @media  screen and (min-width: 1200px) and (max-width: 1366px) {
      #ojDialogWrapper-modalDialog9.oj-dialog,
@@ -1389,6 +1405,7 @@ span.zmdi-plus-request {
 }
 .myDesignBuddies{
     margin-top: -5px;
+    font-size: 15px;
 }
 a{
     outline:none;
