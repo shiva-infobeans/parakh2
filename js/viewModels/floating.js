@@ -145,7 +145,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             self.searchUser.push(new autoSearch(data[counter1]));
                             var item = new Object();
                             item.value = data[counter1]['user_id'];
-                            item.label = data[counter1]['user_name'];
+                            item.label = data[counter1]['google_name'];
                             item.searchPic = data[counter1]['picture'] == "" ? 'images/warning-icon-24.png' : data[counter1]['picture'];
                             self.browsers1.push(item);
                         }

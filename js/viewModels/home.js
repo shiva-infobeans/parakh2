@@ -156,10 +156,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                     }
                 }else
                 {
-                    $('.hoverContent0').hide();
-                    $('.hoverContent1').hide();
-                    $('.hoverContent2').hide();
-                    $('.hoverContent3').hide();
+                    //$('.hoverContent0').hide();
+                    //$('.hoverContent1').hide();
+                    //$('.hoverContent2').hide();
+                    //$('.hoverContent3').hide();
                 }
             }
         });
@@ -394,6 +394,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                             } else {
                                                 $("#noRating80").hide();
                                             }
+
                                             if (obj2.leadPlus12 == 0 && obj2.leadMinus12 == 0) {
                                                 $("#showSlider81").hide();
                                                 $("#noRating81").show();
@@ -401,6 +402,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                                 $("#noRating81").hide();
                                             }
                                             $("#noRating82").hide();
+
                                         }
 
                                     }
@@ -440,6 +442,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                 }
                                 for(i=result['attributes']['data'].length;i<4;i++)
                                 {
+									var obj = new Object();
                                     obj.name = 'No Record';
                                     obj.nameS = '';
                                     obj.image = "/images/warning-icon-24.png";
@@ -465,6 +468,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                         }
                                         for(i=res2['attributes']['data'].length;i<4;i++)
                                         {
+											var obj = new Object();
                                             obj.name = 'No Record';
                                             obj.nameS = '';
                                             obj.image = "/images/warning-icon-24.png";
@@ -490,6 +494,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                                 }
                                                 for(i=res3['attributes']['data'].length;i<4;i++)
                                                 {
+													var obj = new Object();
                                                     obj.name = 'No Record';
                                                     obj.nameS = '';
                                                     obj.image = "/images/warning-icon-24.png";

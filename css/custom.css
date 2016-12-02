@@ -190,6 +190,13 @@ body{
     height: 120px;
     width: 120px;
     border-radius: 50%;
+    margin-top: -10px;
+}
+.profile2{
+    height: 90px;
+    width: 90px;
+    border-radius: 50%;
+    margin-top: -10px;
 }
 .profile-img-div .profile:hover{
     border:2px solid #689F39;
@@ -335,26 +342,36 @@ div.oj-tabs-panel.oj-tabs-selected{
     margin-left: -8px;
 }
 .profile-rating-circle{
-    margin: 5px 50px 20px;
-    height: 25px;
-    width: 25px;
-    border:3px solid;
-    border-radius: 50%;
-    float: left;
+    margin-left: 18px;
+    margin-top: 16px;
 }
 .circle-green{
-    border-color: #D6F6C0;
+ border-color: #dcdcdc;
     background-color: #689F39;
+     height: 69px;
+    width: 60px;
+    text-align: center;
+    font-size: 23px;
+    padding-top: 21px;
+    border-radius: 50%;
+    border: 1px solid;
+    margin-bottom: 26px;
 }
 .circle-red{
-    border-color: #FF7a7a;
-    background-color: #e00000;
-    margin-top:10px;
+   border-color: #dcdcdc;
+    background-color: #FF0000;
+    height: 69px;
+    width: 60px;
+    text-align: center;
+    font-size: 23px;
+    padding-top: 21px;
+    border-radius: 50%;
+    border: 1px solid;
+    margin-bottom: 26px;
 }
 .rating-info{
-    padding: 0px 10px 10px 10px;
-    margin-bottom: 10px;
-    margin-left: 125px;
+    margin-left: 18px;
+    margin-top: 26px;
 }
 /*positive and negative comments*/
 .comment{
@@ -375,12 +392,13 @@ div.oj-tabs-panel.oj-tabs-selected{
     font-size: 30px;
 }
 .transline{
-    width: 3px;
+    width: 1px;
     height: 100%;
-    background-color: #689F39;
+    background-color: #dcdcdc;
     position: absolute;
-    top:25px;
-    left:62;
+    top: 88px;
+    /* left: 62; */
+    left: 179px;
     z-index: -1;
 }
 .rating-comment-div:last-child .transline{display: none;}
@@ -391,7 +409,8 @@ div.oj-tabs-panel.oj-tabs-selected{
     background-color: #e00000;
     position: absolute;
     top:32px;
-    left:62;
+    /*left:62;*/
+    left:217px;
     z-index: -1;
 }
 /* feedback section css */
@@ -725,10 +744,10 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 /*for request send by the user and accept/reject by lead/manager*/
 .textArea-requests{
-   background: none;
-     color: #fff;
-     height: 76px;
-     width: 87%;
+    background: none;
+    color: #fff;
+    height: 76px;
+    width: 87%;
 }
 .textArea-white{
     border:2px solid #fff;
@@ -854,7 +873,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     left: 0px;
     height: 100%;
     width: 100%;
-   background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0,0,0,0.3);
 }
 .loaderDiv{
     position: fixed;
@@ -865,14 +884,14 @@ div.oj-tabs-panel.oj-tabs-selected{
     display: table;
     z-index: 20090;
     background-color: rgba(0,0,0,0.3);
-  
+
 }
 .loaderImgDiv{
     display: table-cell;
     text-align: center;
     width: 100%;
     vertical-align: middle;
-   
+
 }
 .loaderHide{
     display: none !important;
@@ -996,7 +1015,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     .noRatingTxt{
         font-size: 40px;
     }
-    
+
     .greenBtnImg{
 
         background-size: 100px 100px;
@@ -1005,7 +1024,7 @@ div.oj-tabs-panel.oj-tabs-selected{
         width: 120px;
     }
     .redBtnImg{
-      
+
         background-size: 100px 100px;
         background-position: 50% 85%;
         height: 136px;
@@ -1118,65 +1137,244 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 /*media query for notification*/ 
 @media  screen and (min-width: 363px) and (max-width: 767px) {
-   .notification::before {
-    border-bottom: 10px solid #fff;
-    border-left: 16px solid transparent;
-    border-right: 16px solid transparent;
-    content: "";
-    left: 54%;
-    position: absolute;
-    top: -10px;
-}
-.notification {
-    background-color: #fff;
-    border: 1px solid;
-    border-radius: 10px;
-    left: -139px;
-    position: absolute;
-    top: 36px;
-    width: 244px;
-    z-index: 1;
-}
+    .notification::before {
+        border-bottom: 10px solid #fff;
+        border-left: 16px solid transparent;
+        border-right: 16px solid transparent;
+        content: "";
+        left: 54%;
+        position: absolute;
+        top: -10px;
+    }
+    .notification {
+        background-color: #fff;
+        border: 1px solid;
+        border-radius: 10px;
+        left: -139px;
+        position: absolute;
+        top: 36px;
+        width: 244px;
+        z-index: 1;
+    }
 
 }
 @media  screen and (min-width: 320px) and (max-width: 767px) {
-    
     .transboxRequest{
-    position: relative;
-    margin-left: 0px;
-    min-height: 810px;
+        position: relative;
+        margin-left: 0px;
+        min-height: 810px;
 
+    }
+    .area{
+        margin-left: 17px !important;
+    }
+    .transboxRequest2{
+        margin-left: 0px;
+    }
+    #ojDialogWrapper-modalDialog9.oj-dialog,
+    #ojDialogWrapper-modalDialog3.oj-dialog,
+    #ojDialogWrapper-modalDialogRequest.oj-dialog{
+        width: 95% !important; 
+    }
+
+    .areaFloat{
+        margin-left: 4px !important;
+        width: 97% !Important;
+    }
+    .imgArea1{
+        margin-right: 0px !important; 
+    }
+    .mText1{
+        bottom: 28px  !important;
+        left: 28px  !important;
+        font-size: 24px  !important;
+    }
+
+    #ojDialogWrapper-modalDialog8.oj-dialog,
+    #ojDialogWrapper-modalDialog2.oj-dialog,
+   #ojDialogWrapper-modalDialog1.oj-dialog{
+        width: 95% !important;
+    }
+    .area2{
+        margin-left: 20px!important;
+    }
+  
 }
-.transboxRequest2{
-    margin-left: 0px;
+@media  screen and (min-width: 768px) and (max-width: 1024px) {
+
+    #ojDialogWrapper-modalDialog9.oj-dialog,
+    #ojDialogWrapper-modalDialog3.oj-dialog,
+    #ojDialogWrapper-modalDialogRequest.oj-dialog{
+        width: 60% !important;
+
+    }
+    #ojDialogWrapper-modalDialog8.oj-dialog,
+    #ojDialogWrapper-modalDialog2.oj-dialog,
+    #ojDialogWrapper-modalDialog1.oj-dialog{
+        width: 75% !important;
+    }
+    .modalImage {
+        width: 50%!important;
+        margin-top: 3px!important;
+        margin-left: 18px!important;
+    }
+   
 }
+@media  screen and (min-width: 1200px) and (max-width: 1366px) {
+     #ojDialogWrapper-modalDialog9.oj-dialog,
+    #ojDialogWrapper-modalDialog3.oj-dialog,
+    #ojDialogWrapper-modalDialogRequest.oj-dialog{
+        width: 32% !important;
+
+    }
+    #ojDialogWrapper-modalDialog8.oj-dialog,
+    #ojDialogWrapper-modalDialog2.oj-dialog,
+    #ojDialogWrapper-modalDialog1.oj-dialog{
+        width: 32% !important;
+    }
 }
 @media screen  and (max-width: 360px) {
-  .notification::before {
-    border-bottom: 10px solid #fff;
-    border-left: 16px solid transparent;
-    border-right: 16px solid transparent;
-    content: "";
-    left: 54%;
-    position: absolute;
-    top: -10px;
-}
-.notification {
-    background-color: #fff;
-    border: 1px solid;
-    border-radius: 10px;
-    left: -139px;
-    position: absolute;
-    top: 36px;
-    width: 244px;
-    z-index: 1;
-}
+    .notification::before {
+        border-bottom: 10px solid #fff;
+        border-left: 16px solid transparent;
+        border-right: 16px solid transparent;
+        content: "";
+        left: 54%;
+        position: absolute;
+        top: -10px;
+    }
+    .notification {
+        background-color: #fff;
+        border: 1px solid;
+        border-radius: 10px;
+        left: -139px;
+        position: absolute;
+        top: 36px;
+        width: 244px;
+        z-index: 1;
+    }
 
 }
+.div-comment-date{margin: 10px 12px 20px;height: 25px;float: left;font-size:20px;width:115px;}
 .indexerUnderline{
     text-decoration: underline;
 }
 @media screen  and (max-width: 767px) {
     
    
+}
+
+span.zmdi-plus-request {
+  background-attachment: scroll !important;
+  background-clip: border-box !important;
+  background-color: rgba(0, 0, 0, 0) !important;
+  background-image: url("../images/plus-request.png") !important;
+  background-origin: padding-box !important;
+  background-position: 4px 6px;
+  background-repeat: no-repeat !important;
+  background-size: calc(100% - 40%) auto;
+  border: medium none !important;
+}
+/*feedback new design*/
+.feedback-date{
+    display: table-cell;
+    width: 150px;
+    text-align: center;
+    font-style: italic;
+    font-size: 15px;
+}
+.feedback-align{
+    display: table;
+}
+.feedback-circle{
+    height: 48px;
+    width: 48px;
+    border: 3px solid;
+    border-radius: 50%;
+    float: left;
+    padding: 12px 0px 0px 10px;
+}
+.reply-circle{
+    height: 40px;
+    width: 40px;
+    border: 3px solid;
+    border-radius: 50%;
+    float: left;
+    padding: 8px 0px 0px 7px;
+}
+.feedback-comment{
+    margin-left: 80px;
+    padding: 5px;
+    width: 80%;
+}
+.replyDate{
+    font-size: 13px;
+    color: #ddd;
+    font-style: italic;
+}
+.feedback-comment-text{
+    padding: 5px;
+    margin: 5px 3px;
+}
+.circle-purple{
+    background-color: #2780b5;
+    border-color: #144562;
+}
+.feedback-Transbox{
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.5;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    border-radius: 10px;
+    z-index: -1;
+}
+.buttonReply {
+    height: 45px;
+    width: 100px;
+    border-radius: 10px;
+    border: none;
+    font-size: 22px;
+    background-color: #E2FDCB;
+}
+.circle-purple:hover .viewFeedbackName{
+    display: block !important;
+}
+.viewFeedbackName{
+    position: absolute;
+    height: 38px;
+    top: -14px;
+    left: -110px;
+    background-color: #fff;
+    color: #000;
+    border: 2px solid #8DAC6C;
+    padding: 10px;
+    display: none;
+}
+.replyInput div{
+    padding: 10px;
+    border-radius: 10px;
+}
+.replyInput div span input{
+    padding: 5px;
+    height: 35px;
+    width: 80%;
+    border-radius: 5px;
+    border: 1px solid #fff;
+    background-color: rgba(0,0,0,0.5);
+    color:#fff;
+}
+.replyInput div span i{
+    
+    margin-left: 2px;
+    cursor: pointer;
+}
+.replyInput{
+    width: 100%;
+    border-radius: 10px;
+}
+.feedback-comment-text p{
+    margin-top: 5px;
 }
