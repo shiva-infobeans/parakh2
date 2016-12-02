@@ -352,12 +352,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                 for (var i = 0; i < data.length; i++) {
                                     if (data[i]['rating'] == 0) {
                                         minus++;
-                                        var temporaryComment = new dataComment(data[i]['description'], data[i]['given_by_name'], data[i]['created_date'],1);
+                                        var temporaryComment = new dataComment(data[i]['description'], data[i]['given_by_name'], data[i]['created_date'],0);
                                         self.commentDataNegative.push(temporaryComment);
                                     } else {
                                         if (data[i]['rating'] == 1)
                                             plus++;
-                                        var temporaryComment = new dataComment(data[i]['description'], data[i]['given_by_name'], data[i]['created_date'],0);
+                                        var temporaryComment = new dataComment(data[i]['description'], data[i]['given_by_name'], data[i]['created_date'],1);
                                         self.commentDataPositive.push(temporaryComment);
                                     }
                                 }

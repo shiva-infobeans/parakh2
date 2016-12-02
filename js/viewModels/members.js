@@ -12,18 +12,29 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
     /**
      * The view model for the main content view template
      */
-    var dateArray = [];
-    function dataComment(comment1, commenter1, commentDate1) {
+    var dateplusArray = [];
+    var dateminusArray = [];
+    function dataComment(comment1, commenter1, commentDate1, datafor) {
         var com = this; // this is for object of this function
         com.comment = comment1;
         com.shortName = commenter1.replace(/[^A-Z]/g, '');
         com.commenter = commenter1;
         com.commentDate = dateFormatter(commentDate1.substring(0, commentDate1.indexOf(' ')));
-        if(dateArray.indexOf(com.commentDate)==-1){
-            dateArray.push(com.commentDate);
+        if(datafor){
+            if (dateplusArray.indexOf(com.commentDate) == -1) {
+                dateplusArray.push(com.commentDate);
+            } else
+            {
+                com.commentDate = '';
+            }
         }else
         {
-            com.commentDate = '';
+            if (dateminusArray.indexOf(com.commentDate) == -1) {
+                dateminusArray.push(com.commentDate);
+            } else
+            {
+                com.commentDate = '';
+            }
         }
         return com;
     }
@@ -224,12 +235,12 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                                 for (var i = 0; i < data.length; i++) {
                                     if (data[i]['rating'] == 0) {
                                         minus++;
-                                        var ab = new dataComment(data[i]['description'], data[i]['given_by_name'], data[i]['created_date']);
+                                        var ab = new dataComment(data[i]['description'], data[i]['given_by_name'], data[i]['created_date'],0);
                                         self.commentDataNegative.push(ab);
                                     } else {
                                         if (data[i]['rating'] == 1)
                                             plus++;
-                                        var ab = new dataComment(data[i]['description'], data[i]['given_by_name'], data[i]['created_date']);
+                                        var ab = new dataComment(data[i]['description'], data[i]['given_by_name'], data[i]['created_date'],1);
                                         self.commentDataPositive.push(ab);
                                     }
                                 }
