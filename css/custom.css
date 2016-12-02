@@ -1274,6 +1274,102 @@ span.zmdi-plus-request {
   background-size: calc(100% - 40%) auto;
   border: medium none !important;
 }
+/*feedback new design*/
+.feedback-date{
+    display: table-cell;
+    width: 150px;
+    text-align: center;
+    font-style: italic;
+    font-size: 15px;
+}
+.feedback-align{
+    display: table;
+}
+.feedback-circle{
+    height: 48px;
+    width: 48px;
+    border: 3px solid;
+    border-radius: 50%;
+    float: left;
+    padding: 12px 0px 0px 10px;
+}
+.reply-circle{
+    height: 40px;
+    width: 40px;
+    border: 3px solid;
+    border-radius: 50%;
+    float: left;
+    padding: 8px 0px 0px 7px;
+}
+.feedback-comment{
+    margin-left: 80px;
+    padding: 5px;
+    width: 80%;
+}
+.replyDate{
+    font-size: 13px;
+    color: #ddd;
+    font-style: italic;
+}
+.feedback-comment-text{
+    padding: 5px;
+    margin: 5px 3px;
+}
+.circle-purple{
+    background-color: #2780b5;
+    border-color: #144562;
+}
+.feedback-Transbox{
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.5;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    border-radius: 10px;
+    z-index: -1;
+}
+.buttonReply {
+    height: 45px;
+    width: 100px;
+    border-radius: 10px;
+    border: none;
+    font-size: 22px;
+    background-color: #E2FDCB;
+}
+.circle-purple:hover .viewFeedbackName{
+    display: block !important;
+}
+.viewFeedbackName{
+    position: absolute;
+    height: 38px;
+    top: -14px;
+    left: -110px;
+    background-color: #fff;
+    color: #000;
+    border: 2px solid #8DAC6C;
+    padding: 10px;
+    display: none;
+}
+.replyInput div{
+    padding: 10px;
+    border-radius: 10px;
+}
+.replyInput div span input{
+    padding: 5px;
+    height: 35px;
+    width: 80%;
+    border-radius: 5px;
+    border: 1px solid #fff;
+    background-color: rgba(0,0,0,0.5);
+    color:#fff;
+}
+.replyInput div span i{
+    
+    margin-left: 2px;
+    cursor: pointer;
+}
 .replyInput{
     width: 100%;
     border-radius: 10px;
