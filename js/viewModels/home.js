@@ -395,6 +395,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                             } else {
                                                 $("#noRating80").hide();
                                             }
+
                                             if (obj2.leadPlus12 == 0 && obj2.leadMinus12 == 0) {
                                                 $("#showSlider81").hide();
                                                 $("#noRating81").show();
@@ -402,6 +403,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                                 $("#noRating81").hide();
                                             }
                                             $("#noRating82").hide();
+
                                         }
 
                                     }
