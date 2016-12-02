@@ -360,7 +360,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 .circle-red{
    border-color: #dcdcdc;
-    background-color: #FF0000;
+  background-color: #e00000;
     height: 65px;
     /* width: 60px; */
     text-align: center;
@@ -394,7 +394,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     margin-top: -48px;
     width: 20%;
     height: 42%;
-   border: 2px solid  #FF0000;
+   border: 2px solid  #e00000;
     display: none;
 }
 
