@@ -757,7 +757,7 @@
 
 
 #tabs-container .oj-tabs-tab.oj-selected {
-    border-color: green;
+    border-color: #689F39;
     border-radius: 3px #fff !important;
 }
 .searchArea{
@@ -1118,7 +1118,7 @@
 }
 .buddyTab6{
     font-size: 38px;
-    border-radius: 5px !important;
+    border-radius: 5px 5px 0 0 !important;
     width: 90px;
     text-decoration: none;
     text-align: center;
@@ -1781,6 +1781,12 @@
     font-style: italic;
     font-size: 17px;
     color: #dcdcdc;
+}
+.margin-left-cst{
+    margin-left: -20px !important;
+}
+.ml-rating-text{
+    margin-left: 10px !important; 
 }
 a:hover.oj-clickable-icon-nocontext,.oj-hover.oj-clickable-icon-nocontext{ color: white;}
 .text-right{text-align: right}
