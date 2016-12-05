@@ -484,7 +484,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                         yearFetch.fetch({
                                             headers: {secret: secret},
                                             success: function (res3) {
-                                                for (var c = 0; c < res3['attributes']['data'].length; c++) {
+                                                for (var c = 0; c < 4; c++) {
                                                     var obj = new Object();
                                                     obj.personLink = "memberProfile.html?id=" + res3['attributes']['data'][c]['user_id'];
                                                     obj.name = res3['attributes']['data'][c]['google_name'];
