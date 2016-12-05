@@ -264,7 +264,7 @@ ul li.selectedTab div a.oj-tabs-gen-a.oj-tabs-anchor {
     color:#fff !important;
 }
 ul li.selectedTab:not(.oj-selected) *{
-    color:#fff !important;
+    color:#3c3b3a !important;
     text-decoration: none;
 }
 ul li.oj-selected.selectedTab{
