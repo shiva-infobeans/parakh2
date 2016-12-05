@@ -111,6 +111,11 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
         freplies.reply_date = dateFormatter(data['created_date'].substring(0, data['created_date'].indexOf(" ")));// display date
         return freplies;
     }
+    function decodeHtml(html) {
+        var txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+    }
     function membersContentViewModel(person) {
         var self = this;
         var windowLocation = window.location;
@@ -233,14 +238,14 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                                 var minus = 0;
                                 var data = res['attributes']['data'];
                                 for (var i = 0; i < data.length; i++) {
-                                    if (data[i]['rating'] == 0) {
+                                    if (data[i]['rating'] == 0) {   
                                         minus++;
-                                        var ab = new dataComment(data[i]['description'], data[i]['given_by_name'], data[i]['created_date'],0);
+                                        var ab = new dataComment(decodeHtml(data[i]['description']), data[i]['given_by_name'], data[i]['created_date'],0);
                                         self.commentDataNegative.push(ab);
                                     } else {
                                         if (data[i]['rating'] == 1)
                                             plus++;
-                                        var ab = new dataComment(data[i]['description'], data[i]['given_by_name'], data[i]['created_date'],1);
+                                        var ab = new dataComment(decodeHtml(data[i]['description']), data[i]['given_by_name'], data[i]['created_date'],1);
                                         self.commentDataPositive.push(ab);
                                     }
                                 }

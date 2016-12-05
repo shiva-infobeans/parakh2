@@ -281,6 +281,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     {
                         $('.sucessMsgRate').show();
                         self.successful("Nothing is updated");
+                        setTimeout(function () {
+                            $('.sucessMsgRate').hide();
+                        }, 3000);
                         return false;
                     }
                     

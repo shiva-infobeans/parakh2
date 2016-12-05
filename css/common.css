@@ -295,6 +295,10 @@
     float:right;
     font-size:25px;
 }
+.profile-my-class{
+    float: none;
+    font-size:25px;
+}
 .profile-pic{
     float: left;
     font-size: 145px;
@@ -1796,3 +1800,4 @@ a:hover.oj-clickable-icon-nocontext,.oj-hover.oj-clickable-icon-nocontext{ color
     font-size: 15px;
     word-break: break-all;
 }
+.my-performance-slide .border-right-recent:last-child{border-right: none;}
