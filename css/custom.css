@@ -114,11 +114,9 @@ body{
     height: 25px;
     width: 25px;
     font-size: 12px;
+    text-align: center;
 }
 .notif-count span{
-    margin-top: 1px;
-    float: left;
-    margin-left: 2px;
     color:#000 !important;
 }
 .notification-padding{
@@ -141,6 +139,9 @@ body{
 }
 .color-response{
     background-color:#8F6E5F;
+}
+.cursor-class{
+    cursor: pointer;
 }
 .active *{
     color: #fff !important;
@@ -246,6 +247,7 @@ body{
 }
 .left{
     float:left;
+    border-right: 10px solid transparent;
 }
 /*Profile page css*/
 .profile-tabs{
@@ -354,8 +356,8 @@ div.oj-tabs-panel.oj-tabs-selected{
 .circle-green{
     border-color: #e3ffca;
     background-color: #689F39;
-    height: 65px;
-    /* width: 60px; */
+    height: 70px;
+    width: 60px; 
     text-align: center;
     font-size: 23px;
     padding: 18px 8px 9px 8px;
@@ -365,8 +367,8 @@ div.oj-tabs-panel.oj-tabs-selected{
     cursor: pointer;
 }
 .circle-red{
-   border-color: #dcdcdc;
-  background-color: #e00000;
+    border-color: #dcdcdc;
+    background-color: #e00000;
     height: 65px;
     /* width: 60px; */
     text-align: center;
@@ -383,11 +385,11 @@ div.oj-tabs-panel.oj-tabs-selected{
     color: #000;
     font-size: 17px;
     position: absolute;
-   margin-left: -166px;
+    margin-left: -166px;
     margin-top: -48px;
     width: 20%;
     height: 42%;
-   border: 2px solid #689F39;
+    border: 2px solid #689F39;
     display: none;
 }
 .hoverNameN{
@@ -396,11 +398,11 @@ div.oj-tabs-panel.oj-tabs-selected{
     color: #000;
     font-size: 17px;
     position: absolute;
-   margin-left: -166px;
+    margin-left: -166px;
     margin-top: -48px;
     width: 20%;
     height: 42%;
-   border: 2px solid  #e00000;
+    border: 2px solid  #e00000;
     display: none;
 }
 
@@ -513,8 +515,8 @@ div.oj-tabs-panel.oj-tabs-selected{
     display: none;
 }
 .feedbackHeight{
-    margin-top: 60px;
-    height: 78%;
+    margin-top: 70px;
+    height: 86%;
 }
 .heightContent{
     margin-top: -10px;
@@ -786,7 +788,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 .textArea-requests{
     background: none;
     color: #fff;
-    height: 76px;
+    height: 59px;
     width: 87%;
 }
 .textArea-white{
@@ -803,7 +805,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 
 .border-color-red{
-    border:2px solid #bc3a2f;
+    border:1px solid #ff0000;
 }
 /*approve or disapprove request*/
 .approveDisapprove:first-child{
@@ -1169,22 +1171,14 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 .transboxRequest{
     position: relative;
-    margin-left: -10px;
     min-height: 810px;
+    border-right: 3px solid transparent;
 
 }
-.tab1{
-    margin-left: 10px !important;
-}
-#ui-id-8{
-    margin-left: -10px;
-}
 .transboxRequest2{
-    margin-left: 10px;
+    border-left: 3px solid transparent;
 }
- .tab-margin{
-    margin-left: -10px;
-    }
+
 /*media query for notification*/ 
 @media  screen and (min-width: 363px) and (max-width: 767px) {
     .notification::before {
@@ -1206,13 +1200,13 @@ div.oj-tabs-panel.oj-tabs-selected{
         width: 244px;
         z-index: 1;
     }
-   
+
 
 }
 @media  (min-width: 769px) and (max-width: 1366px){
     #oj-combobox-choice-combobox3.oj-combobox-choice, #oj-combobox-choice-combobox2.oj-combobox-choice, #oj-combobox-choice-combobox9.oj-combobox-choice{
     width: 378px !important;
-    margin-left: 8px !important;
+    /*margin-left: 8px !important;*/
     min-width: 278px !important;
     max-width: 100% !important;
 }
@@ -1255,14 +1249,14 @@ div.oj-tabs-panel.oj-tabs-selected{
         width: 95% !important; 
     }
 
-/*    .areaFloat{
-        margin-left: 4px !important;
-        width: 97% !Important;
-    }*/
+    /*    .areaFloat{
+            margin-left: 4px !important;
+            width: 97% !Important;
+        }*/
     /*Namrata*/
     .areaFloat{
-    margin-left: -8px !important;
-    min-width: 280px;
+        margin-left: -8px !important;
+        min-width: 280px;
     }
     .imgArea1{
         margin-right: 0px !important; 
@@ -1282,12 +1276,20 @@ div.oj-tabs-panel.oj-tabs-selected{
         margin-left: 20px!important;
     }
     .tab-margin{
-        margin-left: 3px;
+        margin-left:10px;
     }
-     #ui-id-8{
-    margin-left: 0px;
-}
-  
+    .left {
+        float: left;
+        padding: 8px;
+        border-right: 0px solid transparent; 
+    }
+    #ojDialogWrapper-minMaxDialog.oj-dialog{
+        overflow: hidden;
+        width: 96% !important;
+        border-radius: 5px;
+        background-color: #ffffff;
+    }
+
 }
 @media  screen and (min-width: 768px) and (max-width: 1024px) {
 
@@ -1308,11 +1310,21 @@ div.oj-tabs-panel.oj-tabs-selected{
         margin-left: 18px!important;
     }
     .tab-margin{
-        margin-left: 3px;
+        margin-left:10px;
     }
-     #ui-id-8{
-    margin-left: 0px;
-}
+    .left {
+        float: left;
+        border-right: 5px solid transparent;
+        border-left: 5px solid transparent;
+    }
+    #ojDialogWrapper-minMaxDialog.oj-dialog{
+        overflow: hidden;
+        width: 80% !important;
+        border-radius: 5px;
+        background-color: #ffffff;
+    }
+    .logo{margin-left: 10px;}
+
 }
 @media  screen and (min-width: 1200px) and (max-width: 1366px) {
     #ojDialogWrapper-modalDialog9.oj-dialog,
@@ -1326,6 +1338,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     #ojDialogWrapper-modalDialog1.oj-dialog{
         width: 32% !important;
     }
+
 }
 @media screen  and (max-width: 360px) {
     .notification::before {
@@ -1347,7 +1360,7 @@ div.oj-tabs-panel.oj-tabs-selected{
         width: 244px;
         z-index: 1;
     }
-    
+
     /*Namrata*/
     #oj-combobox-choice-combobox3.oj-combobox-choice,#oj-combobox-choice-combobox2.oj-combobox-choice,#oj-combobox-choice-combobox9.oj-combobox-choice{
         min-width: 285px !important;
@@ -1488,6 +1501,9 @@ span.zmdi-plus-request {
 }
 .myNameBuddies{
     margin-top: 15px;
+}
+.request-margin{
+    margin-top: -1px;
 }
 .myDesignBuddies{
     margin-top: -5px;
