@@ -298,6 +298,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.image($(this).attr("image"));
             self.myname($(this).attr("myname"));
             self.myDesignation($(this).attr("myDesignation"));
+            $('.textArea2').val('');
         });
         //feedbackLead
         $("body").on('click', '.feedbackBuddyLead', function () {
@@ -306,6 +307,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.image($(this).attr("teamImage"));
             self.myname($(this).attr("teamName"));
             self.myDesignation($(this).attr("teamDesig"));
+            $('.textArea-feedback').val('');
         });
         //feedback...
         $("body").on('click', '.feedbackBuddy', function () {
