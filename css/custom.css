@@ -1206,7 +1206,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 @media  (min-width: 769px) and (max-width: 1366px){
     #oj-combobox-choice-combobox3.oj-combobox-choice, #oj-combobox-choice-combobox2.oj-combobox-choice, #oj-combobox-choice-combobox9.oj-combobox-choice{
     width: 378px !important;
-    margin-left: 8px !important;
+    /*margin-left: 8px !important;*/
     min-width: 278px !important;
     max-width: 100% !important;
 }
