@@ -295,6 +295,10 @@
     float:right;
     font-size:25px;
 }
+.profile-my-class{
+    float: none;
+    font-size:25px;
+}
 .profile-pic{
     float: left;
     font-size: 145px;
