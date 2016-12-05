@@ -114,11 +114,9 @@ body{
     height: 25px;
     width: 25px;
     font-size: 12px;
+    text-align: center;
 }
 .notif-count span{
-    margin-top: 1px;
-    float: left;
-    margin-left: 2px;
     color:#000 !important;
 }
 .notification-padding{
