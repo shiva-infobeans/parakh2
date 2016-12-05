@@ -189,10 +189,11 @@ body{
     position: relative;
 }
 .profile{
-    height: 120px;
-    width: 120px;
     border-radius: 50%;
-    margin-top: -4px;/*Namrata*/
+    height: 120px;
+    margin-top: 10px;
+    width: 120px;
+    margin-bottom: -10px;/*Namrata*/
 }
 .profile2{
     height: 90px;
@@ -234,6 +235,9 @@ body{
     border-right:1px solid rgba(136,212,75,0.5);
     margin-top:10px;
     margin-bottom:10px;
+}
+.border-right-recent:nth-child(4) {
+  border-right: medium none !important;
 }
 .showup *{
     color:#fff;
@@ -1198,6 +1202,33 @@ div.oj-tabs-panel.oj-tabs-selected{
     }
 
 
+}
+@media  (min-width: 769px) and (max-width: 1366px){
+    #oj-combobox-choice-combobox3.oj-combobox-choice, #oj-combobox-choice-combobox2.oj-combobox-choice, #oj-combobox-choice-combobox9.oj-combobox-choice{
+    width: 378px !important;
+    margin-left: 8px !important;
+    min-width: 278px !important;
+    max-width: 100% !important;
+}
+    .textArea3 {
+    height: 143px;
+    border: none;
+    margin-left: 2px;
+    max-width: 100%;
+    width: 400px;
+    min-width: 377px;
+    }
+    .areaFloat {
+    width: 100%;
+    height: 148px;
+    border-style: solid;
+    border-color: #305a04;
+    border-width: 1px;
+    margin-top: -8px;
+    background-color: #fff;
+    border-radius: 5px;
+    margin-left: 0px;
+    }
 }
 @media  screen and (min-width: 320px) and (max-width: 767px) {
     .transboxRequest{
