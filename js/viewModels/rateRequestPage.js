@@ -193,14 +193,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     $('#rateTab2').hide();
                     self.selectTab(1);
                     $("#requestHover").addClass("buddyTabRequest");
-                    $('#rateTab1').append(' <i class="zmdi zmdi-mail-send rateme-floatIcons"></i>')
+                    $('#rateTab1').append(' <img src="../../images/send-req.png" alt="" id="Inactive1" />')
                 } else {
                     $('#rateTab2').show();
                     $('#hideLead').hide();
                     $("#requestHover").addClass("hoverTabRequest2");
 
                     $('#rateTab3').append(' <img src="../../images/request-approval-active.png" alt="" />')
-                    $('#rateTab1').append(' <i class="zmdi zmdi-mail-send rateme-floatIcons"></i>')
+                    $('#rateTab1').append(' <img src="../../images/send-req.png" alt="" id="Inactive1" />')
                     //$('#rateTab1').append(' <img src="../../images/+1-icon.png" alt="" id="Inactive1" />')
 
                     $("#rateTab2").click(function () {
@@ -210,7 +210,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             $('#rateTab1 > img').remove();
                             $('#rateTab3 > img').remove();
                             $('#rateTab3').append(' <img src="../../images/request-approval-active.png" alt="" />')
-                            $('#rateTab1').append(' <i class="zmdi zmdi-mail-send floatIcons"></i>');
+                            $('#rateTab1').append(' <img src="../../images/send-req.png" alt="" id="Inactive1" />')
                             //$('#rateTab1').append(' <img src="../../images/+1-icon.png" alt="" id="Inactive1" />')
                         }
                     });
@@ -221,31 +221,31 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             $('#rateTab1 > img').remove();
                             $('#rateTab3 > img').remove();
                             $('#rateTab3').append(' <img src="../../images/request-approval-active.png" alt="" />')
-                            $('#rateTab1').append(' <i class="zmdi zmdi-mail-send floatIcons"></i>')
+                            $('#rateTab1').append(' <img src="../../images/send-req.png" alt="" id="Inactive1" />')
                             //$('#rateTab1').append(' <img src="../../images/+1-icon.png" alt="" id="Inactive1" />')
 
                         }
                     });
 
                     $("#rateTab5").click(function () {
-                        if ($('#rateTab1 > img').attr("src") == "../../images/+1-icon.png")
+                        if ($('#rateTab1 > img').attr("src") == "../../images/send-req.png")
                         {
                             console.log(" no aert");
                             $('#rateTab1 > img').remove();
                             $('#rateTab3 > img').remove();
                             $('#rateTab3').append(' <img src="../../images/request-approval.png" alt="" />');
-                            $('#rateTab1').append(' <img src="../../images/+1-icon-active.png" alt="" id="Inactive1" />');
+                            $('#rateTab1').append(' <img src="../../images/send-req-active.png" alt="" id="Inactive1" />')
                         }
                     });
 
                     $("#rateTab1").click(function () {
-                        if ($('#rateTab1 > img').attr("src") == "../../images/+1-icon.png")
+                        if ($('#rateTab1 > img').attr("src") == "../../images/send-req.png")
                         {
                             console.log(" no aert");
                             $('#rateTab1 > img').remove();
                             $('#rateTab3 > img').remove();
                             $('#rateTab3').append(' <img src="../../images/request-approval.png" alt="" />');
-                            $('#rateTab1').append(' <img src="../../images/+1-icon-active.png" alt="" id="Inactive1" />');
+                            $('#rateTab1').append(' <img src="../../images/send-req-active.png" alt="" id="Inactive1" />')
                         }
                     });
 
