@@ -32,6 +32,7 @@ body{
     max-width: 1170px;
     width: 100% !important;
 }
+.margin-bottom-10{margin-bottom: 10px;}
 .max-width:after, .max-width:before{
     content:'';
     display:table;
