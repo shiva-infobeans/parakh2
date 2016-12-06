@@ -707,7 +707,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                 'ojoptionchange': function (event, data) {
                     // verify that the component firing the event is a component of interest
                     if ($(event.target).is("#filmStrip")) {
-                        if ($("#filmStrip").ojFilmStrip("option", "currentItem") == 1) {
+                        if ($("#filmStrip").ojFilmStrip("option", "currentItem") == 0) {
                             $("#plusSliderTxt").text("Recent +1 Ratings");
                         }
                         ;
