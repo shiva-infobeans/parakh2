@@ -1,3 +1,4 @@
+
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -284,7 +285,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     if(temp==0)
                     {
                         $('.sucessMsgRate').show();
-                        self.successful("Nothing is updated");
+                        self.successful("Profile not updated.");
                         setTimeout(function () {
                             $('.sucessMsgRate').hide();
                         }, 10000);
@@ -308,7 +309,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                 }
                             } else
                             {
-                                self.successful("Profile Updated Successfully");
+                                self.successful("Profile updated successfully.");
                             }
                             setTimeout(function () {
                                 $('.sucessMsgRate').hide();
