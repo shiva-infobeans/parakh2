@@ -424,7 +424,10 @@
     font-weight: bolder !important;
     color: #fff;
 }
-
+.rateme-floatIcons{
+    font-weight: bolder !important;
+    color: #689F39;
+}
 #ojDialogWrapper-modalDialog1.oj-dialog  {
     overflow: hidden;
     width:29%;
