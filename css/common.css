@@ -1807,3 +1807,4 @@ a:hover.oj-clickable-icon-nocontext,.oj-hover.oj-clickable-icon-nocontext{ color
     word-break: break-all;
 }
 .my-performance-slide .border-right-recent:last-child{border-right: none;}
+.remove-hover{border:3px solid #689F39;cursor: pointer;}
