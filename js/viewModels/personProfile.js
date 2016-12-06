@@ -284,10 +284,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     }
                     if(temp==0)
                     {
-                        $('.sucessMsgRate').show();
+                        $('.sucessMsg').show();
                         self.successful("Profile not updated.");
                         setTimeout(function () {
-                            $('.sucessMsgRate').hide();
+                            $('.sucessMsg').hide();
                         }, 10000);
                         return false;
                     }
@@ -299,7 +299,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         data: {user_id: self.id(), desc: self.designation(), location: self.location(), skills: self.skills(), primary_project: self.primary_project(), date: self.date(), projects: self.projects(), interests: self.interests(), mob: self.temporaryNumber()},
                         success: function (res) {
                             response = jQuery.parseJSON(res);
-                            $('.sucessMsgRate').show();
+                            $('.sucessMsg').show();
                             if (response.error == "true")
                             {
                                 self.successful(response.data.error);
@@ -312,7 +312,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                 self.successful("Profile updated successfully.");
                             }
                             setTimeout(function () {
-                                $('.sucessMsgRate').hide();
+                                $('.sucessMsg').hide();
                             }, 10000);
                         },
                         error: function (err) {
