@@ -6,10 +6,10 @@
                 <h2 data-bind="text :myname" class="color-white myname-profile">  </h2>
             </div>
             <div class=" oj-flex-bar-middle profile-my-class oj-flex-item">
-                <span class="sucessMsgRate hide" data-bind="text: successful" ></span>
+                <span class="sucessMsg hide" data-bind="text: successful" ></span>
             </div>
         </div>
-        
+
     </div>
 </div>
 <div id="vtabs" class="max-width profile-page oj-margin-top oj-margin-bottom"
@@ -31,46 +31,48 @@
 
     <div id="tabs-1" class="color-white oj-margin-horizontal pos-relative">
         <div class="transbox"></div>
-      
-        <div class="profile-page-overflow pos-relative">
+
+        <div class="profile-page-overflow pos-relative rating-section">
             
             <div class="noComments" id="noPositiveComment" data-bind="text: NoCommentsP"></div>
             <div class=" oj-row oj-flex rating-comment" data-bind="foreach: commentDataPositive">
-                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex pos-relative oj-margin-top oj-padding-top rating-comment-div">
-                    <div class="  oj-xl-2 oj-lg-2 oj-md-2 oj-sm-3 oj-flex-item oj-margin-start oj-margin-top oj-padding-top commentDate">
-                    <span data-bind="text: commentDate"></span>
-                    
-                    </div>
-            
-                    <div class="  oj-xl-1 oj-lg-1 oj-md-1 oj-sm-1 oj-flex-item profile-rating-circle circle-green ">
-                        <!--circle-green-->
-                        <span class="hoverName" data-bind="text:commenter"></span>
-                           <span data-bind="text:shortName"></span>
-                        <div class="transline"></div>
-                    </div>
-                    <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-8 oj-flex-item oj-margin-top oj-padding-top  rating-info">
-                        <p class="comment"><span data-bind="text: comment"></span></p>
+                <div class="oj-flex oj-flex-item oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 transHide">
+                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex pos-relative  rating-comment-div feedback-align">
+                        <div class="commentDate">
+                            <span data-bind="text: commentDate"></span>
+                        </div>
+                        <div class="profile-rating-circle circle-green pos-relative">
+                            <span class="hoverName" data-bind="text:commenter"></span>
+                            <span data-bind="text:shortName"></span>
+                           
+                        </div>
+                        <div class="rating-info pos-relative">
+                           <span data-bind="text: comment"></span>
+                        </div>
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </div>
+    
     <div id="tabs-2" class="color-white oj-margin-horizontal pos-relative">
         <div class="transbox"></div>
-        <div class="profile-page-overflow">
+        <div class="profile-page-overflow pos-relative rating-section">
             <div class="noComments" id="noNegativeComment" data-bind="text: NoCommentsN"></div>
             <div class="oj-row oj-flex rating-comment" data-bind="foreach: commentDataNegative">
-                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex pos-relative oj-margin-top oj-padding-top rating-comment-div">
-                    <div class=" oj-xl-2 oj-lg-2 oj-md-2 oj-sm-3 oj-flex-item oj-margin-start oj-margin-top oj-padding-top commentDate"><span data-bind="text: commentDate"></span></div>
-                    <div class="oj-xl-1 oj-lg-1 oj-md-1 oj-sm-1 oj-flex-item profile-rating-circle circle-red">
-                         <span class="hoverNameN" data-bind="text:commenter">
-                        </span>
-                        <span data-bind="text:shortName"></span>
-                        <div class="transline"></div>
-                    </div>
-                    <div class="oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6 oj-flex-item oj-margin-top oj-padding-top  rating-info">
-                        <p class="comment"><span data-bind="text: comment"></span></p>
+                  <div class="oj-flex oj-flex-item oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 transHide">
+                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex pos-relative rating-comment-div feedback-align">
+                        <div class="commentDate">
+                            <span data-bind="text: commentDate"></span>
+                        </div>
+                        <div class="profile-rating-circle circle-red pos-relative ">
+                            <span class="hoverNameN" data-bind="text:commenter"></span>
+                            <span data-bind="text:shortName"></span>
+                        </div>
+                        <div class="rating-info pos-relative">
+                            <span data-bind="text: comment"></span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -154,21 +156,21 @@
         </div>
     </div>
     <div id="tabs-4" class="color-white oj-margin-horizontal pos-relative tabMinHeight">
-            <div class="edit-section">
-                <div class="oj-padding oj-margin right custom-zmdi-icons-div" id="edit-all" data-bind="click: openAll" title="Edit Profile">
-                    <span class="edit-height oj-margin" ><i class="zmdi zmdi-edit about-edit"  ></i></span>
-                </div>
-                <div class="oj-padding oj-margin right custom-zmdi-icons-div hide" id="submit-all" data-bind="click: updateAll" title="Save">
-                    <span class="edit-height oj-margin"  ><i class="zmdi zmdi-check about-edit"></i></span>
-                </div>
-                <div class="oj-padding oj-margin right custom-zmdi-icons-div hide" id="cancel-all" data-bind="click: allRevert" title="Cancel">
-                    <span class="edit-height oj-margin"   ><i class="zmdi zmdi-minus about-edit" ></i></span>
-                </div>
-               
+        <div class="edit-section">
+            <div class="oj-padding oj-margin right custom-zmdi-icons-div" id="edit-all" data-bind="click: openAll" title="Edit Profile">
+                <span class="edit-height oj-margin" ><i class="zmdi zmdi-edit about-edit"  ></i></span>
+            </div>
+            <div class="oj-padding oj-margin right custom-zmdi-icons-div hide" id="submit-all" data-bind="click: updateAll" title="Save">
+                <span class="edit-height oj-margin"  ><i class="zmdi zmdi-check about-edit"></i></span>
             </div>
             <div class="oj-padding oj-margin right custom-zmdi-icons-div hide" id="cancel-all" data-bind="click: allRevert" title="Cancel">
                 <span class="edit-height oj-margin"   ><i class="zmdi zmdi-minus about-edit" ></i></span>
             </div>
+
+        </div>
+        <div class="oj-padding oj-margin right custom-zmdi-icons-div hide" id="cancel-all" data-bind="click: allRevert" title="Cancel">
+            <span class="edit-height oj-margin"   ><i class="zmdi zmdi-minus about-edit" ></i></span>
+        </div>
         <div class="transbox"></div>
         <div class="profile-page-overflow">
             <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">

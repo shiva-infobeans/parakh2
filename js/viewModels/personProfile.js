@@ -1,3 +1,4 @@
+
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -283,10 +284,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     }
                     if(temp==0)
                     {
-                        $('.sucessMsgRate').show();
-                        self.successful("Nothing is updated");
+                        $('.sucessMsg').show();
+                        self.successful("Profile not updated.");
                         setTimeout(function () {
-                            $('.sucessMsgRate').hide();
+                            $('.sucessMsg').hide();
                         }, 10000);
                         return false;
                     }
@@ -298,7 +299,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         data: {user_id: self.id(), desc: self.designation(), location: self.location(), skills: self.skills(), primary_project: self.primary_project(), date: self.date(), projects: self.projects(), interests: self.interests(), mob: self.temporaryNumber()},
                         success: function (res) {
                             response = jQuery.parseJSON(res);
-                            $('.sucessMsgRate').show();
+                            $('.sucessMsg').show();
                             if (response.error == "true")
                             {
                                 self.successful(response.data.error);
@@ -308,10 +309,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                 }
                             } else
                             {
-                                self.successful("Profile Updated Successfully");
+                                self.successful("Profile updated successfully.");
                             }
                             setTimeout(function () {
-                                $('.sucessMsgRate').hide();
+                                $('.sucessMsg').hide();
                             }, 10000);
                         },
                         error: function (err) {
