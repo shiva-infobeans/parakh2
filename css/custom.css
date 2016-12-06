@@ -902,6 +902,12 @@ div.oj-tabs-panel.oj-tabs-selected{
 #filmStripDiv .oj-filmstrip-container{
         outline: none;
 }
+#filmStripDiv .oj-filmstrip-container .oj-filmstrip-item{
+    border-right: 2px solid #689F39;
+}
+#filmStripDiv .oj-filmstrip-container .oj-filmstrip-item:nth-child(4n){
+    border-right: none;
+}
 #filmStripDiv8 .oj-filmstrip,
 #filmStripDiv9 .oj-filmstrip{
     outline: none;
