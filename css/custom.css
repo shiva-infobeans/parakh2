@@ -1611,7 +1611,128 @@ a:visited{
 }
 .border-green{border:2px solid #689F39;}
 .border-green:hover{border:2px solid #689F39;}
+.filmStripMargin{
+    margin: 20px;
+}
+#filmStripDiv9{
+    position: relative; 
+    height: 340px;
+    overflow: hidden;
+    width: 100%;
+}
 
+
+
+/* floating button start here */
+.floating-btn{
+    position:fixed;
+    left:90%;
+    bottom:50px;
+    width:56px;
+    height:56px;
+    color:#fff;
+    text-align:center;
+    line-height:63px;
+    cursor:pointer;
+    z-index: 10;
+}
+.float{
+    position:absolute;
+    width:56px;
+    height:56px;
+    bottom:0px;
+    right:0px;
+    background-color:#78A95A;
+    color:#FFF;
+    border-radius:50px;
+    text-align:center;
+    z-index:100;
+    animation: bot-to-top 2s ease-out;
+}
+
+ul.ff{
+    position:absolute;
+    left:-35px;
+    padding-bottom:20px;
+    bottom:23px;
+    z-index:100;
+}
+.feedBackFloat{
+    background-color:#607D8B !important;
+    color:#FFF;
+}
+.rateFloat{
+    background-color:#2780B5 !important;
+    color:#FFF;
+}
+.requestFloat{
+    background-color:#ED6648 !important;
+    color:#FFF;
+}
+ul.ff li{
+    list-style:none;
+    margin-bottom:10px;
+}
+
+ul.ff li a{
+    background-color:#fff;
+    color:#FFF;
+    border-radius:50px;
+    text-align:center;
+    width:45px;
+    height:45px;
+    display:block;
+}
+a#menu-share:active{
+    border-radius: 50%;
+}
+ul.ff:hover{
+    visibility:visible!important;
+    opacity:1!important;
+}
+
+
+.my-float{
+    font-size:24px;
+}
+
+a#menu-share + ul.ff{
+  visibility: hidden;
+}
+
+a#menu-share:hover + ul.ff{
+  visibility: visible;
+  animation: scale-in 0.5s;
+}
+
+a#menu-share i{
+    animation: rotate-in 0.5s;
+}
+
+a#menu-share:hover > i{
+    animation: rotate-out 0.5s;
+}
+
+@keyframes bot-to-top {
+    0%   {bottom:-40px}
+    50%  {bottom:40px}
+}
+
+@keyframes scale-in {
+    from {transform: scale(0);opacity: 0;}
+    to {transform: scale(1);opacity: 1;}
+}
+
+@keyframes rotate-in {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+}
+
+@keyframes rotate-out {
+    from {transform: rotate(360deg);}
+    to {transform: rotate(0deg);}
+}
+/* floating button end here */
 /*Moz hack*/
 /*@-moz-document url-prefix() { 
   .areaFloat {
