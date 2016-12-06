@@ -20,14 +20,19 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         var dateReturn = commentDate1.getDate() + ' ' + monthNames[commentDate1.getMonth()] + ' ' + commentDate1.getFullYear();
         return dateReturn;
     }
+    function decodeHtml(html) {
+        var txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+    }
     function request(data, userid) {
         var req = Object();
         if (data['description'].length > 100) {
-            req.sComment = data['description'].substring(0, 100) + "...";
+            req.sComment = decodeHtml(data['description'].substring(0, 100)) + "...";
         } else {
-            req.sComment = data['description'];
+            req.sComment = decodeHtml(data['description']);
         }
-        req.lComment = data['description'];
+        req.lComment = decodeHtml(data['description']);
         req.request_id = data['request_id'];
 //        console.log(req.request_id);
         req.pic = data['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data['google_picture_link'];
@@ -294,7 +299,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             }
             var descHTML = obj.parent().prev().children().children('#text-area20');
             var descriptionChange = (descHTML.val() != "") ?
-                    descHTML.val() : obj.attr('descComment');
+                    descHTML.val() : decodeHtml(obj.attr('descComment'));
             
             var removeHtml = obj;
             var datas={u_id: userId, rq_id: requestId, st:type, desc: descriptionChange, to_id: to_id};

@@ -83,17 +83,17 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
     function dataFeedback(myId, data) {
         var feedbackObj = new Object();
         if (data['description'].length > 100) {
-            feedbackObj.sComment = data['description'].substring(0, 100) + "...";
+            feedbackObj.sComment = decodeHtml(data['description']).substring(0, 100) + "...";
         } else {
-            feedbackObj.sComment = data['description'];
+            feedbackObj.sComment = decodeHtml(data['description']);
         }
         feedbackObj.shortName = nameFunction(data['given_by_name']);
-        feedbackObj.lComment = data['description'];
+        feedbackObj.lComment = decodeHtml(data['description']);
         feedbackObj.myId = myId;
         feedbackObj.feedbackfrom = data['feedback_from'];
         feedbackObj.name = data['given_by_name'];
         feedbackObj.feedbackId = data['id'];
-        feedbackObj.feedbackDescription = data['description'];
+        feedbackObj.feedbackDescription = decodeHtml(data['description']);
         feedbackObj.feedbackdesignation = data['designation'];
         feedbackObj.replies = ko.observableArray();
         feedbackObj.feedbackImage = data['google_picture_link'];
@@ -115,7 +115,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
         freplies.login_id = lid;
         freplies.freply_to = rtoId;
         freplies.reply_name = data['from_name'];
-        freplies.reply_desc = data['description'];//display desc
+        freplies.reply_desc = decodeHtml(data['description']);//display desc
         freplies.reply_ShortName = nameFunction(data['from_name']);//display name
         freplies.reply_date = dateFormatter(data['created_date'].substring(0, data['created_date'].indexOf(" ")));// display date
         return freplies;
@@ -257,7 +257,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                     ////////// object for reply add
                     var obj = new Object();
                     obj.from_name = self.myselfName();
-                    obj.description = responseDesc.val();
+                    obj.description = decodeHtml(responseDesc.val());
                     obj.created_date = today;
                     data['replies'].push(new feedbackRepliesData(0, 0, obj));
                     data['replies']();
