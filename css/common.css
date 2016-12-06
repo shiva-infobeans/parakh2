@@ -341,7 +341,7 @@
     display: block;
     width: 62px;
     height: 62px;
-    margin: 10px auto 0;
+    margin: 8px auto 0;
     position: relative;
     -webkit-transition: all  0.80s ease-out;
     transition: all 0.30s ease-out;
@@ -419,8 +419,8 @@
 }
 .floatIcons{
     position: absolute;
-    top: 10px;
-    left: 12px;
+    top: 9px;
+    left: 11px;
     font-size: 27px!important;
     font-weight: bolder !important;
     color: #fff;
@@ -481,8 +481,8 @@
     margin-top: -78px;
 }
 .buddyTab1{
-    font-size: 37px;
-    border-radius: 5px !important;
+    font-size: 35px;
+    border-radius: 5px 5px 0px 0px !important;
     width: 90px;
     text-decoration: none;
     text-align: center;
@@ -491,7 +491,7 @@
 }
 .buddyTab2{
     font-size: 35px;
-    border-radius: 5px !important;
+    border-radius: 5px 5px 0px 0px !important;
     width: 90px;
     text-decoration: none;
     text-align: center;
@@ -679,6 +679,22 @@
     box-shadow: 3px 4px 6px rgba(0,0,0,0.3)
 
 }
+#rateTab5 .oj-tabs-tab-content,
+#rateTab2 .oj-tabs-tab-content,
+#home1 .oj-tabs-tab-content,
+#home2 .oj-tabs-tab-content{
+     border-style: none; 
+     border-width: 0px; 
+     border-radius: 0; 
+}
+#rateTab5.oj-tabs-tab,
+#rateTab2.oj-tabs-tab,
+#home1.oj-tabs-tab,
+#home2.oj-tabs-tab
+{
+     border-color: transparent;
+    border-style: none;   
+}
 .modal-submit1{
     background-color: #e3ffca !important;
     color: #000 !important;
@@ -758,7 +774,9 @@
 .countBlock{
     margin-bottom: 20px;
 }
-
+/*#tabs-container .oj-tabs-nav{
+    margin-left: 12px;
+}*/
 
 #tabs-container .oj-tabs-tab.oj-selected {
     border-color: #689F39;
@@ -911,7 +929,7 @@
     max-width:25em !important;
 }
 .hoverTab1{
-    background-color: #fffff0;
+    background-color: #e7fcd5;
     border-radius: 2px;
     color: #000;
     font-size: 13px;
@@ -928,7 +946,7 @@
 }
 
 .hoverTab2{
-    background-color: #fffff0;
+    background-color: #e7fcd5;
     border-radius: 2px;
     color: #000;
     font-size: 13px;
@@ -947,39 +965,37 @@
     display: block;
 }
 .hoverTab5 {
-    background-color: #E7FCD5;
+ background-color: #e7fcd5;
     border-radius: 2px;
     color: #000;
+    display: none;
     font-size: 13px;
-    left: 8px;
-    margin-top: 12px;
-    padding: 12px;
+    left: -4px;
+    padding: 9px;
     position: absolute;
-    top: -72px;
-    display: none; 
     text-decoration: none !important;
+    top: -54px;
 }
 .buddyTab5 :hover .hoverTab5{
     display: block;
 }
 .hoverTab6 {
-    background-color: #E7FCD5;
+   background-color: #e7fcd5;
     border-radius: 2px;
     color: #000;
+    display: none;
     font-size: 13px;
-    left: 96px;
-    margin-top: 12px;
-    padding: 12px;
+    left: 87px;
+    padding: 10px;
     position: absolute;
-    top: -72px;
-    display: none; 
     text-decoration: none !important;
+    top: -55px;
 }
 .buddyTab6 :hover .hoverTab6{
     display: block;
 }
 .hoverTabRequest1{
-    background-color: #fffff0;
+    background-color: #e7fcd5;
     border-radius: 2px;
     color: #000;
     font-size: 13px;
@@ -994,22 +1010,22 @@
     display: block;
 }
 .hoverTabRequest2{
-    background-color: #fffff0;
+  background-color: #e7fcd5;
     border-radius: 2px;
     color: #000;
+    display: none;
     font-size: 13px;
     left: 86px;
     padding: 8px;
     position: absolute;
-    top: -38px;
-    display: none; 
     text-decoration: none !important;
+    top: -38px;
 }
 .buddyTab4 :hover .hoverTabRequest2{
     display: block;
 }
 .buddyTabRequest{
-    background-color: #fffff0;
+    background-color: #e7fcd5;
     border-radius: 2px;
     color: #000;
     font-size: 13px;
@@ -1021,7 +1037,7 @@
     text-decoration: none !important;
 }
 .buddyTabRequest1{
-    background-color: #fffff0;
+    background-color: #e7fcd5;
     border-radius: 2px;
     color: #000;
     font-size: 13px;
@@ -1044,54 +1060,54 @@
 }
 .buddyTab3:hover:before  {
     content: "";
-    border-top: 10px solid #fffff0;
+    border-top: 10px solid #e7fcd5;
     border-left: 16px solid transparent;
     border-right: 16px solid transparent;
     position: absolute;
     top: -10px;
     left: 24px;
-    color: #fffff0;
+    color: #e7fcd5;
 }
 
 .hoverTabRequest2:after{
-    content: "";
-    border-top: 10px solid #fffff0;
     border-left: 16px solid transparent;
     border-right: 16px solid transparent;
+    border-top: 10px solid #e7fcd5;
+    color: #e7fcd5;
+    content: "";
+    left: 32px;
     position: absolute;
-    top: 30px;
-    left: 35px;
-    color: #fffff0;
+    top: 28px;
 }
 .buddyTabRequest:after  {
     content: "";
-    border-top: 10px solid #fffff0;
+    border-top: 10px solid #e7fcd5;
     border-left: 16px solid transparent;
     border-right: 16px solid transparent;
     position: absolute;
     top: 30px;
     left: 35px;
-    color: #fffff0;
+    color: #e7fcd5;
 }
 .buddyTabRequest1:after  {
     content: "";
-    border-top: 10px solid #fffff0;
+    border-top: 10px solid #e7fcd5;
     border-left: 16px solid transparent;
     border-right: 16px solid transparent;
     position: absolute;
     top: 30px;
     left: 23px;
-    color: #fffff0;
+    color: #e7fcd5;
 }
 .hoverTab2:after  {
     content: "";
-    border-top: 10px solid #fffff0;
+    border-top: 10px solid #e7fcd5;
     border-left: 16px solid transparent;
     border-right: 16px solid transparent;
     position: absolute;
     top: 38px;
     left: 26px;
-    color: #fffff0;
+    color: #e7fcd5;
 }
 .buddyTab3{
     font-size: 37px;
@@ -1103,8 +1119,8 @@
     color:green;
 }
 .buddyTab4{
-    font-size: 40px;
-    border-radius: 5px !important;
+    font-size: 38px;
+    border-radius: 5px 5px 0 0 !important;
     width: 90px;
     text-decoration: none;
     text-align: center;
@@ -1112,7 +1128,7 @@
     color:green;
 }
 .buddyTab5{
-    font-size: 40px;
+    font-size: 38px;
     border-radius: 5px 5px 0 0 !important;
     width: 90px;
     text-decoration: none;
@@ -1131,13 +1147,13 @@
 }
 .buddyTab1:hover:before  {
     content: "";
-    border-top: 10px solid #fffff0;
+    border-top: 10px solid #e7fcd5;
     border-left: 16px solid transparent;
     border-right: 16px solid transparent;
     position: absolute;
     top: -10px;
     left: 28px;
-    color: #fffff0;
+    color: #e7fcd5;
 }
 /*.buddyTab2:hover:before  {
     content: "";
@@ -1156,7 +1172,7 @@
     border-right: 13px solid transparent;
     position: absolute;
     top: -9px;
-    left: 44px;
+    left: 32px;
     color: #fffff0;
 }
 .buddyTab6:hover:before  {
@@ -1166,7 +1182,7 @@
     border-right: 13px solid transparent;
     position: absolute;
     top: -9px;
-    left: 130px;
+    left: 123px;
     color: #fffff0;
 }
 #tabs ul li i{
@@ -1506,6 +1522,22 @@
     color: #fff !important;
     font-family: nameHeading;
     text-align: center;
+}
+#text-area::-webkit-input-placeholder
+{
+  color: #333;
+}
+
+#text-area::-moz-placeholder
+{
+  color: #333;
+}
+#text-area:-moz-placeholder {
+    color: #333;
+}
+
+#text-area:-ms-input-placeholder {
+    color: #333;
 }
 
 .View-Other-about{

@@ -240,7 +240,7 @@ body{
     margin-bottom:10px;
 }
 .border-right-recent:nth-child(4) {
-  border-right: medium none !important;
+    border-right: medium none !important;
 }
 .showup *{
     color:#fff;
@@ -443,7 +443,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     background-color: #dcdcdc;
     position: absolute;
     top: 89px;
-    left: 192px;
+    left: 182px;
     z-index: -1;
 }
 .rating-comment-div:last-child .transline{display: none;}
@@ -897,6 +897,14 @@ div.oj-tabs-panel.oj-tabs-selected{
     width:250px;
     height:160px;
     margin-top: 10px;
+    outline:none;
+}
+#filmStripDiv .oj-filmstrip-container{
+        outline: none;
+}
+#filmStripDiv8 .oj-filmstrip,
+#filmStripDiv9 .oj-filmstrip{
+    outline: none;
 }
 .arrow-controls {
     display: inline-block;
@@ -1208,29 +1216,29 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 @media  (min-width: 769px) and (max-width: 1366px){
     #oj-combobox-choice-combobox3.oj-combobox-choice, #oj-combobox-choice-combobox2.oj-combobox-choice, #oj-combobox-choice-combobox9.oj-combobox-choice{
-    width: 378px !important;
-    /*margin-left: 8px !important;*/
-    min-width: 278px !important;
-    max-width: 100% !important;
-}
+        width: 378px !important;
+        /*margin-left: 8px !important;*/
+        min-width: 278px !important;
+        max-width: 100% !important;
+    }
     .textArea3 {
-    height: 143px;
-    border: none;
-    margin-left: 2px;
-    max-width: 100%;
-    width: 400px;
-    min-width: 377px;
+        height: 143px;
+        border: none;
+        margin-left: 2px;
+        max-width: 100%;
+        width: 400px;
+        min-width: 377px;
     }
     .areaFloat {
-    width: 100%;
-    height: 148px;
-    border-style: solid;
-    border-color: #305a04;
-    border-width: 1px;
-    margin-top: -8px;
-    background-color: #fff;
-    border-radius: 5px;
-    margin-left: 0px;
+        width: 100%;
+        height: 148px;
+        border-style: solid;
+        border-color: #305a04;
+        border-width: 1px;
+        margin-top: -8px;
+        background-color: #fff;
+        border-radius: 5px;
+        margin-left: 0px;
     }
 }
 @media  screen and (min-width: 320px) and (max-width: 767px) {
