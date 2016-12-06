@@ -1021,13 +1021,14 @@ class dbmodule {
                 $cnd = " AND request.status = " . $status;
             $query = "select request.id as request_id, user.google_name,user.id as lead_id, "
                     . "user.google_picture_link, user.designation,role.name as role_name, "
-                    . "request.to_id,request.from_id,description,"
+                    . "request.to_id,request.from_id,description,c.comment_text,"
                     . "work.created_date,request_for,rating, request.status "
                     . "from work as work left join "
                     . "request as request on work.id = request.work_id left join "
                     . "rating as rating on work.id=rating.work_id left join  "
                     . "users as user on request.to_id=user.id left join "
-                    . "role_type as role on role.id = user.role_id "
+                    . "role_type as role on role.id = user.role_id left join "
+                    . "comment as c on c.request_id = request.id "
                     . "where request.from_id = " . $user_id . $cnd . " order by work.modified_date desc";
             $user_list = $this->con->prepare($query);
 			//echo($user_list->queryString);
@@ -1533,10 +1534,11 @@ class dbmodule {
 
     /*function to fetch all rejected requests reject by login user*/
     function get_all_rejected_request_by_login_id($lead_id){
-        $query = "SELECT request.id as request_id, user.google_name,user.id as lead_id,user.google_picture_link, user.designation,role.name as role_name,request.to_id,request.from_id,description,work.created_date,request_for,rating, request.status FROM `request` 
+        $query = "SELECT request.id as request_id, user.google_name,user.id as lead_id,user.google_picture_link, user.designation,role.name as role_name,request.to_id,request.from_id,description,c.comment_text as comment_text,work.created_date,request_for,rating, request.status FROM `request` 
                     left join work on work.id = request.work_id 
                     left join rating on rating.work_id = request.work_id 
-                    left join users as user on user.id = request.from_id 
+                    left join users as user on user.id = request.from_id
+                    left join comment c on c.request_id = request.id 
                     left join role_type as role on role.id = user.role_id 
                     WHERE request.to_id = :lead_id AND request.status = 1 order by request.modified_date desc";
 
