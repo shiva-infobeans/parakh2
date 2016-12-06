@@ -509,7 +509,7 @@
     border: solid 1px #000;
     background-color: #fff;
     margin-left: 36px;
-    margin-top: 25px;
+    margin-top: 15px;
     border-radius: 5px;
 }
 .modal-submit{
@@ -754,9 +754,7 @@
 .countBlock{
     margin-bottom: 20px;
 }
-#tabs-container .oj-tabs-nav{
-    margin-left: 12px;
-}
+
 
 #tabs-container .oj-tabs-tab.oj-selected {
     border-color: #689F39;
@@ -1331,7 +1329,12 @@
     background: none;
     resize: none;
     width: 100%;
+    
+    
+
 }
+   
+
 @media screen and (max-width: 420px) {
     .modal-submitRequest1 {
         font-size: 16px;
@@ -1500,12 +1503,7 @@
     font-family: nameHeading;
     text-align: center;
 }
-.home-hr{
-    margin-top: 15px;
-    margin-left: 13px;
-    border: solid #d6dfe6;
-    border-width: 1px 0 0;
-}
+
 .View-Other-about{
     padding: 17px;
     font-size: 23px;

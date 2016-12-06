@@ -191,9 +191,7 @@ body{
 .profile{
     border-radius: 50%;
     height: 120px;
-    margin-top: 10px;
     width: 120px;
-    margin-bottom: -10px;/*Namrata*/
 }
 .profile2{
     height: 90px;
