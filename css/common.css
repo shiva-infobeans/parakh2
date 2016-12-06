@@ -1262,53 +1262,26 @@
 
 
 .sucessMsg{
-    background-color:#E7FCD5;
+    background-color: #e7fcd5;
+    border-radius: 5px;
+    bottom: auto;
     color: #000;
-    top: 138px;
-    left: 620px;
+    font-size: 16px;
+    height: 65px;
+    left: 0;
+    margin: auto;
+    padding: 20px;
     position: absolute;
-    border-radius: 5px;
-    font-size: 16px;
-    padding-top: 14px;
-    padding-bottom: 14px;
-    padding-left: 50px;
-    padding-right: 50px;
-}
-.sucessMsgMyteam{
-    background-color:#E7FCD5;
-    color: #000;
-    top: 0px;
-    /*left: 620px;*/
-    left: 500px;
-    position: fixed;
-    border-radius: 5px;
-    font-size: 16px;
-    padding-top: 14px;
-    padding-bottom: 14px;
-    padding-left: 50px;
-    padding-right: 50px;
-    z-index: 999999;
-    width: 25%;
+    right: 0;
     text-align: center;
-}
-.sucessMsgRate{
-    background-color: #E7FCD5;
-    color: #000;
-    border-radius: 5px;
-    font-size: 17px;
-    padding-top: 24px;
-    padding-bottom: 14px;
-    padding-left: 40px;
-    padding-right: 40px;
-    margin: 0px auto;
+    top: 125px;
+    width: 300px;
 }
 #sucess{
     display:none;
-    margin-left: -6px;
 }
 #sucessFeedback{
     display:none;
-    margin-left: -6px;
 }
 #sucessRate{
     display:none;
@@ -1349,12 +1322,7 @@
     background: none;
     resize: none;
     width: 100%;
-    
-    
-
 }
-   
-
 @media screen and (max-width: 420px) {
     .modal-submitRequest1 {
         font-size: 16px;
