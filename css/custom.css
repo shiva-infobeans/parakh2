@@ -1304,7 +1304,12 @@ div.oj-tabs-panel.oj-tabs-selected{
     .bottom-responsive{
     margin-bottom: 20px;
 }
-
+    .transboxRequest{
+    border-right: 0px;
+}
+.transboxRequest2{
+    border-left: 0px ;
+}
 }
 @media  screen and (min-width: 768px) and (max-width: 1024px) {
 
