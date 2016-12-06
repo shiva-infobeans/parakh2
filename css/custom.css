@@ -439,7 +439,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     background-color: #dcdcdc;
     position: absolute;
     top: 89px;
-    left: 192px;
+    left: 182px;
     z-index: -1;
 }
 .rating-comment-div:last-child .transline{display: none;}

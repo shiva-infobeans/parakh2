@@ -341,7 +341,7 @@
     display: block;
     width: 62px;
     height: 62px;
-    margin: 10px auto 0;
+    margin: 8px auto 0;
     position: relative;
     -webkit-transition: all  0.80s ease-out;
     transition: all 0.30s ease-out;
@@ -419,8 +419,8 @@
 }
 .floatIcons{
     position: absolute;
-    top: 10px;
-    left: 12px;
+    top: 9px;
+    left: 11px;
     font-size: 27px!important;
     font-weight: bolder !important;
     color: #fff;
