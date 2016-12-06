@@ -336,7 +336,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         setTimeout(function () {
                             $("#sucess").hide();
                             self.sucessMsg("");
-                        }, 3000);
+                        }, 10000);
                         self.desc('');
                         self.textError('');
                     },
@@ -368,7 +368,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         setTimeout(function () {
                             $("#sucessFeedback").hide();
                             self.sucessMsgFeedback("");
-                        }, 3000);
+                        }, 10000);
                     },
                     beforeSend: function () {
                         $("#rateMeLoader1").removeClass('loaderHide');
@@ -449,7 +449,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         setTimeout(function () {
                             $("#sucess").hide();
                             self.sucessMsg("");
-                        }, 3000);
+                        }, 10000);
                     },
                     beforeSend: function () {
                         $("#rateMeLoader2").removeClass('loaderHide');
