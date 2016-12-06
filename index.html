@@ -6,6 +6,9 @@
         <link rel="icon" id="favicon" type="image/jpg" href="" />
         
         <link href="css/login.css" rel="stylesheet" type="text/css"/>
+        <style>
+
+        </style>
         <script>
 
             function signinOnclick() {
@@ -94,13 +97,15 @@
             var thisImage = images[Math.floor(Math.random() * images.length)];
             //setting the path
             $(document).ready(function () {
-                $("#login-background").css("background", "url('" + thisImage + "') no-repeat fixed 0 0 /cover");
+                $("#login-background").css("background", "url('" + thisImage + "') no-repeat fixed center top / cover");
             });
         </script>
 
     </head>
     <body id="login-background">
+        <div class="">
         <img class="login-btn" src="images/sign-in-with-google.png" id="my-signin2"/>
+        </div>
         <div  class="login-logo">
             <img src="images/login-logo.png"/>
         </div>

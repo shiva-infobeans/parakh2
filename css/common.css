@@ -71,8 +71,16 @@
     }
     .mobile-menu li{display: inline;float: left;}
     .nav li{
-        font-size: 16px !important ;
+        font-size: 18px !important ;
         margin: 0px 10px !important;
+    }
+    .home-profile-pic {
+        height: 20px !important;
+        width: 20px !important;
+        border-radius: 50%;
+        border: 2px solid #fff !important;
+        display: block;
+        vertical-align: middle;
     }
     .logo{
         height:60px;
@@ -99,6 +107,9 @@
     .navigationlist {
         float: right;
         width: 100%;
+    }
+    .border-right-recent{
+        border-right: none !important;
     }
 }
 .oj-panel {
@@ -460,7 +471,8 @@
 #ojDialogWrapper-modalDialog3.oj-dialog,
 #ojDialogWrapper-modalDialogRequest.oj-dialog{
     overflow: hidden;
-    width: 26%;
+    max-width: 100%;
+    min-width: 500px;
     border-radius: 5px;
 }
 #ojDialogWrapper-minMaxDialog.oj-dialog{
@@ -497,7 +509,7 @@
     font-size: 24px;
 }
 .modalImage{
-    width: 75%;
+    max-width: 100%;
 }
 .area2{
     width: 87%;
@@ -525,15 +537,20 @@
     filter: progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color=#6f6d6d);
 }
 .areaFloat{
-    width: 84%;
+    width: 100%;
     height: 148px;
     border-style: solid;
     border-color: #305a04;
     border-width: 1px;
     margin-top: -8px;
-    background-color: #fff;
+    background-color: transparent;
     border-radius: 5px;
-    margin-left: 37px;
+    margin-left: 0;
+}
+.text-area-custom {
+  background: transparent none repeat scroll 0 0;
+  margin-left: 0 !important;
+  width: 100% !important;
 }
 .area {
     width: 91%;
@@ -573,6 +590,7 @@
     border: none;
     margin-left: 2px;
     width: 100%;
+    background: transparent;
 }
 .imgArea{
     float: right;
@@ -584,9 +602,13 @@
 }
 .areaContent1{
     width: 100%;
+    text-align: center;
+}
+#ojChoiceId_combobox2.oj-combobox.oj-component.oj-enabled.oj-form-control{
+    max-width:  500px !important;
 }
 .oj-textarea{
-    max-width: 24em;
+    max-width: 100%;
 }
 .mText{
     bottom: 0;
@@ -713,7 +735,7 @@
 .oj-dialog-body {
     background-color: #fff !important;
     max-width: 100% !important;
-    min-width: 300px;
+/*    min-width: 300px;*/
     overflow: hidden;
 }
 
@@ -880,14 +902,14 @@
     float: left;
 }
 /*Namrata*/
-#oj-combobox-choice-combobox3.oj-combobox-choice,#oj-combobox-choice-combobox2.oj-combobox-choice,#oj-combobox-choice-combobox9.oj-combobox-choice{
-    background-color: #f3f3f3;
-    border-style: solid;
-    border-color: #305a04;
-    border-width: 1px;
-    border-radius: 7px;
-    width: 377px;
-    margin-left: -11px;
+#oj-combobox-choice-combobox3.oj-combobox-choice, #oj-combobox-choice-combobox2.oj-combobox-choice, #oj-combobox-choice-combobox9.oj-combobox-choice {
+  background-color: #f3f3f3;
+  border-color: #305a04;
+  border-radius: 7px;
+  border-style: solid;
+  border-width: 1px;
+  margin-left: 0;
+  width: 100% !important;
 }
 
 #ui-id-4 .oj-hover{
@@ -899,7 +921,7 @@
     background-color: #f0f0f0;
 }
 #ojChoiceId_combobox3.oj-combobox,#ojChoiceId_combobox2.oj-combobox,#ojChoiceId_combobox9.oj-combobox{
-    max-width:25em !important;
+    max-width:100% !important;
 }
 .hoverTab1{
     background-color: #fffff0;
@@ -1172,14 +1194,14 @@
     width: 100%;
     border-radius: 5px;
 }
-/*.textArea-feedbackFloat{
-   height: 143px;
-    border: solid 1px #000;
+.textArea-feedbackFloat{
+    height: 143px;
+    border: solid 1px #305a04;
     width: 100%;
     border-radius: 5px;
-}*/
+}
 
-.textArea-feedbackFloat {
+/*.textArea-feedbackFloat {
     height: 143px;
     border: solid 1px #305a04;
     width: 452px !important;
@@ -1187,7 +1209,7 @@
     min-width: 376px;
     max-width: 100%;
     margin-left: -18px;
-}
+}*/
 
 .feedbackAlignment{
     text-align: justify;
@@ -1344,6 +1366,9 @@
     background-color: #E7FCD5;
     border-radius: 5px;
     height:30px;display:table;width:216px;margin:0 auto;position:absolute;padding:9px;margin-top:-5px;visibility: hidden;
+}
+.recentInfo3{
+    right: 2px;
 }
 /*.recentInfo0{
     background-color: #E7FCD5;
@@ -1773,7 +1798,7 @@
     color: #dcdcdc;
 }
 .margin-left-cst{
-    margin-left: -20px !important;
+    margin-left: 2px !important;
 }
 .ml-rating-text{
     margin-left: 10px !important; 
