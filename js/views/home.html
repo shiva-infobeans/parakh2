@@ -2,22 +2,23 @@
 <div class="max-width">
     <div id="tabs-container" class="oj-margin-top oj-margin-bottom oj-margin-horizontal">
         <div id="tabs3" data-bind="ojComponent:{component: 'ojTabs'}" >
-            <!-- tab bar -->
-            <ul class="tab-margin">
-                <li class="buddyTab5" id="home1">
-                    <div id="homeTab1">
-                    </div>   
-                    <div class="hoverTab5"> My <br> Performance </div>
-                </li>
-                <li class="buddyTab6" id="home2">
-                    <div id="homeTab2">   
-                    </div>
-                    <div class="hoverTab6">Team’s <br> Performance</div>
-                </li>
-            </ul>
-            <!-- tab contents -->
+                <!-- tab bar -->
+                <ul>
+                    <li class="buddyTab5" id="home1">
+                        <div id="homeTab1">
+                        </div>   
+                        <div class="hoverTab5"> My <br> Performance </div>
+                    </li>
+                    <li class="buddyTab6" id="home2">
+                        <div id="homeTab2">   
+                        </div>
+                        <div class="hoverTab6">Team’s <br> Performance</div>
+                    </li>
+                </ul>
+               <!-- tab contents -->
             <div id="tabs-5">
-                <hr/>
+              <div class="oj-margin-horizontal">
+                <hr class="home-hr">
                 <div class="oj-flex max-width">
                     <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal oj-padding-horizontal">
                         <h2  class="slider-heading">
@@ -46,8 +47,8 @@
                                             <div class="filmstrip-item12" 
                                                  data-bind="attr: {id: 'show9'+$index()},style: {
                display: getItemInitialDisplay9($index())}">
-                                                <div class="" data-bind="attr: {id: 'showSlider9'+$index()}">
-                                                    <div class="slider-text">
+                                                <div class="slider-div" data-bind="attr: {id: 'showSlider9'+$index()}">
+                                                    <div class="slider-text margin-left-cst">
                                                         <p data-bind="text: performanceTxt">
 
                                                         </p>
@@ -108,7 +109,7 @@
                 </div>
                 <div class="oj-web-applayout-content max-width  color-white pos-relative oj-margin-bottom oj-margin-top bottom-feedback">
                     <div class="oj-flex">
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex">
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flexoj-web-applayout-max-width oj-web-applayout-content ">
                             <h3><strong class=" color-white">Recent +1 Ratings</strong></h3> 
                         </div>
                     </div>
@@ -195,6 +196,7 @@
                     </div>
                 </div>
             </div>
+        </div>
             <div id="tabs-6">
 
                 <hr/>
@@ -212,7 +214,7 @@
                             <div class="oj-xl-8 oj-lg-8 oj-md-12 oj-sm-12 oj-flex-item" id="mangerSlider1">
 
                                 <div style="margin: 20px; ">
-                                    <div id="filmStripDiv8" style="position: relative; height: 340px;overflow: hidden; width: 100%;">
+                                    <div id="filmStripDiv8" style="position: relative; height: 340px;overflow: hidden; width: 1175px !important; max-width: 100%; ">
                                         <div id="filmStrip8" 
                                              data-bind="ojComponent: {
                      component: 'ojFilmStrip', 
@@ -224,8 +226,8 @@
                                             <div class="filmstrip-item12" 
                                                  data-bind="attr: {id: 'show8'+$index()},style: {
                        display: getItemInitialDisplay8($index())}">
-                                                <div class="" data-bind="attr: {id: 'showSlider8'+$index()}">
-                                                    <div class="slider-text">
+                                                <div class="slider-div" data-bind="attr: {id: 'showSlider8'+$index()}">
+                                                    <div class="slider-text margin-left-cst">
                                                         <p data-bind="text: performanceTxt">
 
                                                         </p>
@@ -297,8 +299,8 @@
                                             <div class="filmstrip-item12" 
                                                  data-bind="attr: {id: 'show7'+$index()},style: {
                        display: getItemInitialDisplay7($index())}">
-                                                <div class="" data-bind="attr: {id: 'showSlider7'+$index()}">
-                                                    <div class="slider-text">
+                                                <div class="slider-div" data-bind="attr: {id: 'showSlider7'+$index()}">
+                                                    <div class="slider-text margin-left-cst">
                                                         <p data-bind="text: performanceTxt">
 
                                                         </p>
@@ -403,5 +405,5 @@
                 </div>
             </div>
         </div>
-    </div>
+     </div>
 </div>
