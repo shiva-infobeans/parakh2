@@ -283,7 +283,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         self.successful("Nothing is updated");
                         setTimeout(function () {
                             $('.sucessMsgRate').hide();
-                        }, 3000);
+                        }, 10000);
                         return false;
                     }
                     
@@ -308,7 +308,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                             }
                             setTimeout(function () {
                                 $('.sucessMsgRate').hide();
-                            }, 3000);
+                            }, 10000);
                         },
                         error: function (err) {
                             alert(err);

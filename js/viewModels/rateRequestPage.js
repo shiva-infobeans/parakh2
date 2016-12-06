@@ -316,7 +316,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     setTimeout(function () {
                         $("#sucessRate").hide();
                         self.sucessMsg("");
-                    }, 3000);
+                    }, 10000);
                 },
                 beforeSend: function () {
                     $("#requestLoader2").removeClass('loaderHide');
@@ -374,7 +374,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     setTimeout(function () {
                         $("#sucessRate").hide();
                         self.sucessMsg("");
-                    }, 3000);
+                    }, 10000);
                 },
                 beforeSend: function () {
                     $("#requestLoader").removeClass('loaderHide');
@@ -402,7 +402,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     setTimeout(function () {
                         $("#sucessRate").hide();
                         self.sucessMsg("");
-                    }, 3000);
+                    }, 10000);
                 },
                 beforeSend: function () {
                     $("#requestLoader1").removeClass('loaderHide');
