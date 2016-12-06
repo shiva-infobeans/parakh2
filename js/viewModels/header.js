@@ -56,6 +56,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
         obj.notificationComment = comment;
         return obj;
     }
+    function decodeHtml(html) {
+        var txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+    }
     function headerContentViewModel(person) {
         var self = this;
         self.notif = ko.observableArray();
