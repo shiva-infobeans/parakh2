@@ -827,6 +827,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     width: 50%;
     background-color: #fff;
     margin-top: -11px;
+    outline:none;
 }
 .requestApproveDiv{
     padding: 2px;
@@ -1523,7 +1524,7 @@ span.zmdi-plus-request {
     margin-top: -5px;
     font-size: 15px;
 }
-a{
+a {
     outline:none;
 }
 .mailToColor:active{color: #fff;}
