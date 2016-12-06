@@ -205,7 +205,7 @@ body{
 }
 .border-color-green:hover{border:2px solid #689F39;}
 .remove-hover-green{
-   border:3px #689F39 solid;
+    border:3px #689F39 solid;
     cursor: pointer;
 }
 .border-color-green{
@@ -353,60 +353,61 @@ div.oj-tabs-panel.oj-tabs-selected{
     margin-left: -8px;
 }
 .profile-rating-circle{
-    margin-left: 18px;
     margin-top: 16px;
 }
 .circle-green{
     border-color: #e3ffca;
     background-color: #689F39;
-    height: 70px;
-    width: 60px; 
+    height: 48px;
+    width: 48px;
     text-align: center;
-    font-size: 23px;
-    padding: 18px 8px 9px 8px;
+    font-size: 19px;
+    padding: 11px 5px 7px 5px;
     border-radius: 50%;
     border: 2px solid;
-    margin-bottom: 26px;
     cursor: pointer;
+    position: relative;
+    z-index: 10;
+    margin-top: 0px;
 }
 .circle-red{
     border-color: #dcdcdc;
     background-color: #e00000;
-    height: 65px;
-    /* width: 60px; */
+    height: 48px;
+    width: 48px;
     text-align: center;
-    font-size: 23px;
-    padding: 18px 8px 9px 8px;
+    font-size: 19px;
+    padding: 11px 5px 7px 5px;
     border-radius: 50%;
     border: 2px solid;
-    margin-bottom: 26px;
     cursor: pointer;
+    position: relative;
+    z-index: 10;
+    margin-top: 0px;
 }
 .hoverName{
-    padding: 13px 8px 8px 1px;
+    padding: 7px 10px;
     background-color: #fff;
     color: #000;
     font-size: 17px;
     position: absolute;
-    margin-left: -166px;
-    margin-top: -48px;
-    width: 20%;
-    height: 42%;
+    right: 37px;
+    top: -15px;
     border: 2px solid #689F39;
-    display: none;
+    display: none; 
+    white-space: nowrap;
 }
 .hoverNameN{
-    padding: 13px 8px 8px 1px;
+    padding: 7px 10px;
     background-color: #fff;
     color: #000;
     font-size: 17px;
     position: absolute;
-    margin-left: -166px;
-    margin-top: -48px;
-    width: 20%;
-    height: 42%;
-    border: 2px solid  #e00000;
-    display: none;
+    right: 37px;
+    top: -15px;
+    border: 2px solid #e00000;
+    display: none; 
+    white-space: nowrap;
 }
 
 .circle-green:hover .hoverName{
@@ -416,8 +417,22 @@ div.oj-tabs-panel.oj-tabs-selected{
     display: block;
 }
 .rating-info{
-    margin-left: 18px;
-    margin-top: 26px;
+    padding-left: 67px;
+    font-size: 16px;
+    font-weight: lighter;
+    margin-right: 17px;
+    line-height: 22px;
+    background-image: url("../../images/bg-line.png");
+    background-position: 23px 0px;
+    background-repeat: repeat-y;
+    margin-top: -33px;
+    padding-bottom: 57px;
+}
+.rating-section{
+    padding-top: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
 }
 /*positive and negative comments*/
 .comment{
@@ -442,12 +457,12 @@ div.oj-tabs-panel.oj-tabs-selected{
     height: 100%;
     background-color: #dcdcdc;
     position: absolute;
-    top: 89px;
-    left: 182px;
-    z-index: -1;
+    top: 46px;
+    left: 21px;
 }
-.rating-comment-div:last-child .transline{display: none;}
-.rating-comment-red-div:last-child .transline-red{display: none;}
+.rating-comment .transHide:last-child .rating-info{
+    background-image: none;
+}
 .transline-red{
     width: 3px;
     height: 100%;
@@ -901,7 +916,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     outline:none;
 }
 #filmStripDiv .oj-filmstrip-container{
-        outline: none;
+    outline: none;
 }
 #filmStripDiv .oj-filmstrip-container .oj-filmstrip-item{
     border-right: 2px solid #689F39;
@@ -1355,14 +1370,14 @@ div.oj-tabs-panel.oj-tabs-selected{
         background-color: #ffffff;
     }
     .bottom-responsive{
-    margin-bottom: 20px;
-}
+        margin-bottom: 20px;
+    }
     .transboxRequest{
-    border-right: 0px;
-}
-.transboxRequest2{
-    border-left: 0px ;
-}
+        border-right: 0px;
+    }
+    .transboxRequest2{
+        border-left: 0px ;
+    }
 }
 @media  screen and (min-width: 768px) and (max-width: 1024px) {
 
