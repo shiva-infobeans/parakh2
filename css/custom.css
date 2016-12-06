@@ -892,6 +892,14 @@ div.oj-tabs-panel.oj-tabs-selected{
     width:250px;
     height:160px;
     margin-top: 10px;
+    outline:none;
+}
+#filmStripDiv .oj-filmstrip-container{
+        outline: none;
+}
+#filmStripDiv8 .oj-filmstrip,
+#filmStripDiv9 .oj-filmstrip{
+    outline: none;
 }
 .arrow-controls {
     display: inline-block;
