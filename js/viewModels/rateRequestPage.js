@@ -27,8 +27,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
     }
     function request(data, userid) {
         var req = Object();
-        if (data['description'].length > 100) {
-            req.sComment = decodeHtml(data['description'].substring(0, 100)) + "...";
+        if (data['comment_text'] !=null) {
+            req.sComment = decodeHtml(data['comment_text'].substring(0, 100)) + "...";
         } else {
             req.sComment = decodeHtml(data['description']);
         }
