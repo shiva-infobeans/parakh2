@@ -424,7 +424,10 @@
     font-weight: bolder !important;
     color: #fff;
 }
-
+.rateme-floatIcons{
+    font-weight: bolder !important;
+    color: #689F39;
+}
 #ojDialogWrapper-modalDialog1.oj-dialog  {
     overflow: hidden;
     width:29%;
@@ -509,7 +512,7 @@
     border: solid 1px #000;
     background-color: #fff;
     margin-left: 36px;
-    margin-top: 25px;
+    margin-top: 15px;
     border-radius: 5px;
 }
 .modal-submit{
@@ -1347,7 +1350,12 @@
     background: none;
     resize: none;
     width: 100%;
+    
+    
+
 }
+   
+
 @media screen and (max-width: 420px) {
     .modal-submitRequest1 {
         font-size: 16px;

@@ -202,7 +202,7 @@ body{
 .profile-img-div .profile:hover{
     border:2px solid #689F39;
 }
-.border-color-green:hover{border:2px solid #689F39;}
+.border-color-green:hover{border:3px solid #689F39;}
 .border-color-green{
     border:3px #689F39 solid;
     cursor: pointer;
@@ -1321,7 +1321,7 @@ div.oj-tabs-panel.oj-tabs-selected{
         border-radius: 5px;
         background-color: #ffffff;
     }
-    .logo{margin-left: 10px;}
+    .logo{margin-left: 5px;}
 
 }
 @media  screen and (min-width: 1200px) and (max-width: 1366px) {
