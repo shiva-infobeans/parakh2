@@ -1626,7 +1626,7 @@ a:visited{
 /* floating button start here */
 .floating-btn{
     position:fixed;
-    left:90%;
+    right:50px;
     bottom:50px;
     width:56px;
     height:56px;
