@@ -20,19 +20,20 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         member.designation = data['designation'];
         member.role_name = data['role_name'];
         member.google_id = data['google_id'];
-        member.plus = data['pluscount']!=null?data['pluscount']:0;
-        member.minus = data['minuscount']!=null?data['minuscount']:0;
+        member.plus = data['pluscount'] != null ? data['pluscount'] : 0;
+        member.minus = data['minuscount'] != null ? data['minuscount'] : 0;
         return member;
     }
-    function leadTeam(data) {console.log(data);
+    function leadTeam(data) {
+        console.log(data);
         var myTeam = this;
         myTeam.myName = data['google_name'];
         myTeam.myId = data['user_id'];
         myTeam.myDesign = data['designation'];
         myTeam.myEmail = data['google_email'];
         myTeam.myPic = data['picture'] == "" ? 'images/warning-icon-24.png' : data['picture'];
-        myTeam.plus = data['pluscount']!=null?data['pluscount']:0;
-        myTeam.minus = data['minuscount']!=null?data['minuscount']:0;
+        myTeam.plus = data['pluscount'] != null ? data['pluscount'] == 0 ? 0 : "+" + data['pluscount'] : 0;
+        myTeam.minus = data['minuscount'] != null ? data['minuscount'] == 0 ? 0 : "-" + data['minuscount'] : 0;
         return myTeam;
     }
 
@@ -63,6 +64,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.textError = ko.observable();
         self.sucessMsg = ko.observable();
         self.selectTab = ko.observable(0);
+        self.sucessMsgFeedback = ko.observable();
 
         //indexer for other team members
         self.indexer2Letters = ko.observableArray();
@@ -185,7 +187,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         }
                     }
                 }
-                $(".viewProfile").on('click', function () {
+                $(".viewProfile1").on('click', function () {
                     var link = "memberProfile.html?id=" + $(this).attr("myTeamId");
                     window.location = link;
                 });
@@ -200,6 +202,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
             self.handleOKClose = $("#okButton").click(function () {
                 $("#modalDialog8").ojDialog("close");
+                  self.desc('');
+                    self.textError('');
             });
             // feedbackLead...
             self.handleOpen = $(".feedbackBuddyLead").click(function () {
@@ -210,14 +214,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
             self.handleOKClose = $("#okButton").click(function () {
                 $("#modalDialog8").ojDialog("close");
+                  self.desc('');
+                    self.textError('');
             });
-            self.handleOpen = $(".feedbackBuddyLead").click(function () {
-                $("#modalDialog8").ojDialog("open");
-            });
-
-            self.handleOKClose = $("#okButton").click(function () {
-                $("#modalDialog8").ojDialog("close");
-            });
+           
             //rateBuddy...
             self.handleOpen = $(".star").click(function () {
                 $("#modalDialog1").ojDialog("open");
@@ -274,10 +274,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     window.location = link;
                 });
             }
-            $(".viewProfile").on('click', function () {
-                var link = "memberProfile.html?id=" + $(this).attr("myTeamId");
-                window.location = link;
-            });
+           
             self.handleOpen = $(".starTeam").click(function () {
                 $("#modalDialog2").ojDialog("open");
                 self.desc('');
@@ -294,18 +291,24 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         //rateBuddy
         $("body").on('click', '.rateBuddy', function () {
             $("#modalDialog1").ojDialog("open");
+            self.desc('');
+            self.textError('');
             self.for_id($(this).attr("id"));
             self.image($(this).attr("image"));
             self.myname($(this).attr("myname"));
             self.myDesignation($(this).attr("myDesignation"));
+            $('.textArea2').val('');
         });
         //feedbackLead
         $("body").on('click', '.feedbackBuddyLead', function () {
             $("#modalDialog8").ojDialog("open");
+            self.desc('');
+            self.textError('');
             self.for_id($(this).attr("myTeamId"));
             self.image($(this).attr("teamImage"));
             self.myname($(this).attr("teamName"));
             self.myDesignation($(this).attr("teamDesig"));
+            $('.textArea-feedback').val('');
         });
         //feedback...
         $("body").on('click', '.feedbackBuddy', function () {
@@ -333,7 +336,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         setTimeout(function () {
                             $("#sucess").hide();
                             self.sucessMsg("");
-                        }, 3000);
+                        }, 10000);
+                        self.desc('');
+                        self.textError('');
                     },
                     beforeSend: function () {
                         $("#rateMeLoader").removeClass('loaderHide');
@@ -358,11 +363,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     data: {feedback_from: self.userId(), feedback_to: self.for_id(), feedback_description: self.desc()},
                     success: function () {
                         $("#modalDialog8").ojDialog("close");
-                        self.sucessMsg("Feedback is sent!");
+                         $("#sucessFeedback").show();
+                        self.sucessMsgFeedback("Feedback is sent!");
                         setTimeout(function () {
-                            $("#sucess").hide();
-                            self.sucessMsg("");
-                        }, 3000);
+                            $("#sucessFeedback").hide();
+                            self.sucessMsgFeedback("");
+                        }, 10000);
                     },
                     beforeSend: function () {
                         $("#rateMeLoader1").removeClass('loaderHide');
@@ -376,6 +382,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 //        +1/-1 from team lead/manager 
         $("body").on('click', '.rateMyTeam', function () {
             $("#modalDialog2").ojDialog("open");
+            self.desc('');
+            self.textError('');
+            self.p(1);
+            self.image1("../../images/active(+1).png")
+            self.image2("../../images/disable(-1).png");
             self.teamImage($(this).attr("teamImage"));
             self.myId($(this).attr("myTeamId"));
             self.teamName($(this).attr("teamName"));
@@ -393,7 +404,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         });
         //feedbackLead
         $("body").on('click', '.feedbackBuddyLead', function () {
-             $("#modalDialog8").ojDialog("open");
+            $("#modalDialog8").ojDialog("open");
+            self.desc('');
+            self.textError('');
             self.teamImage($(this).attr("teamImage"));
             self.myId($(this).attr("myTeamId"));
             self.teamName($(this).attr("teamName"));
@@ -436,7 +449,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         setTimeout(function () {
                             $("#sucess").hide();
                             self.sucessMsg("");
-                        }, 3000);
+                        }, 10000);
                     },
                     beforeSend: function () {
                         $("#rateMeLoader2").removeClass('loaderHide');
@@ -471,93 +484,97 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     }
                 })
             });
+               $("body").on('click', '.viewProfile1', function () {
+                    var link = "memberProfile.html?id=" + $(this).attr("myTeamId");
+                    window.location = link;
+               });
+           
             
-              if (self.role_name() === 'Team Member') {
-                    self.selectTab(1);
-                    $("#membersHover").addClass("buddyTabRequest1");
-                  
-                    $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />')
-                }        
-            else{
-                   $("#membersHover").addClass("hoverTab2");
-            $('#homeTab1').append(' <img src="../../images/user.png" alt="" />');
-            $('#homeTab2').append(' <img src="../../images/team-active_1.png" alt="" />');
+            if (self.role_name() === 'Team Member') {
+                self.selectTab(1);
+                $("#membersHover").addClass("buddyTabRequest1");
 
-            $("#homeTab2").click(function () {
-                if ($('#homeTab2 > img').attr("src") == "../../images/team-active_1.png") {
-                    $('#homeTab1 > img').remove();
-                    $('#homeTab2 > img').remove();
-                    $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
-                    $('#homeTab2').append(' <img src="../../images/team-inactive.png" alt="" />');
-                    self.members([]);
-                    self.members(self.data2());
-                }
-            });
+                $('#homeTab1').append(' <img src="../../images/team-new-active.png" alt="" />')
+            } else {
+                $("#membersHover").addClass("hoverTab2");
+                $('#homeTab1').append(' <img src="../../images/team-new.png" alt="" />');
+                $('#homeTab2').append(' <img src="../../images/team-active_1.png" alt="" />');
 
-            $("#home2").click(function () {
-                if ($('#homeTab2 > img').attr("src") == "../../images/team-active_1.png") {
-                    $('#homeTab1 > img').remove();
-                    $('#homeTab2 > img').remove();
-                    $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
-                    $('#homeTab2').append(' <img src="../../images/team-inactive.png" alt="" />');
-                    self.members([]);
-                    self.members(self.data2());
-                }
-            });
+                $("#homeTab2").click(function () {
+                    if ($('#homeTab2 > img').attr("src") == "../../images/team-active_1.png") {
+                        $('#homeTab1 > img').remove();
+                        $('#homeTab2 > img').remove();
+                        $('#homeTab1').append(' <img src="../../images/team-new-active.png" alt="" />');
+                        $('#homeTab2').append(' <img src="../../images/team-inactive.png" alt="" />');
+                        self.members([]);
+                        self.members(self.data2());
+                    }
+                });
 
-            $("#homeTab1").click(function () {
-                if ($('#homeTab1 > img').attr("src") == "../../images/user-active.png") {
-                    $('#homeTab1 > img').remove();
-                    $('#homeTab2 > img').remove();
-                    $('#homeTab1').append(' <img src="../../images/user.png" alt="" />');
-                    $('#homeTab2').append(' <img src="../../images/team-active_1.png" alt="" />');
-                    self.members([]);
-                    self.members(self.data2());
-                }
-            });
+                $("#home2").click(function () {
+                    if ($('#homeTab2 > img').attr("src") == "../../images/team-active_1.png") {
+                        $('#homeTab1 > img').remove();
+                        $('#homeTab2 > img').remove();
+                        $('#homeTab1').append(' <img src="../../images/team-new-active.png" alt="" />');
+                        $('#homeTab2').append(' <img src="../../images/team-inactive.png" alt="" />');
+                        self.members([]);
+                        self.members(self.data2());
+                    }
+                });
 
-            $("#home1").click(function () {
-                if ($('#homeTab1 > img').attr("src") == "../../images/user-active.png") {
-                    $('#homeTab1 > img').remove();
-                    $('#homeTab2 > img').remove();
-                    $('#homeTab1').append(' <img src="../../images/user.png" alt="" />');
-                    $('#homeTab2').append(' <img src="../../images/team-active_1.png" alt="" />');
-                    self.members([]);
-                    self.members(self.data2());
-                }
-            });
+                $("#homeTab1").click(function () {
+                    if ($('#homeTab1 > img').attr("src") == "../../images/team-new-active.png") {
+                        $('#homeTab1 > img').remove();
+                        $('#homeTab2 > img').remove();
+                        $('#homeTab1').append(' <img src="../../images/team-new.png" alt="" />');
+                        $('#homeTab2').append(' <img src="../../images/team-active_1.png" alt="" />');
+                        self.members([]);
+                        self.members(self.data2());
+                    }
+                });
 
-                }
+                $("#home1").click(function () {
+                    if ($('#homeTab1 > img').attr("src") == "../../images/team-new-active.png") {
+                        $('#homeTab1 > img').remove();
+                        $('#homeTab2 > img').remove();
+                        $('#homeTab1').append(' <img src="../../images/team-new.png" alt="" />');
+                        $('#homeTab2').append(' <img src="../../images/team-active_1.png" alt="" />');
+                        self.members([]);
+                        self.members(self.data2());
+                    }
+                });
+
+            }
         }, 600);
 
-     self.handleOpen = $(".star").click(function () {
-                $("#modalDialog1").ojDialog("open");
-                self.desc('');
-                self.textError('');
-            });
+        self.handleOpen = $(".star").click(function () {
+            $("#modalDialog1").ojDialog("open");
+            self.desc('');
+            self.textError('');
+        });
 
-            self.handleOpen = $(".starTeam").click(function () {
-                $("#modalDialog2").ojDialog("open");
-                self.desc('');
-                self.textError('');
-                self.p(1);
-                self.image1("css/images/green-button.png")
-                self.image2("css/images/disable.png");
-            });
-           
-            // feedback...
-            self.handleOpen = $(".feedbackBuddy").click(function () {
-                $("#modalDialog8").ojDialog("open");
-                self.desc('');
-                self.textError('');
-            });
-          
-            // feedbackLead...
-            self.handleOpen = $(".feedbackBuddyLead").click(function () {
-                $("#modalDialog8").ojDialog("open");
-                self.desc('');
-                self.textError('');
-            });
+        self.handleOpen = $(".starTeam").click(function () {
+            $("#modalDialog2").ojDialog("open");
+            self.desc('');
+            self.textError('');
+            self.p(1);
+            self.image1("../../images/active(+1).png")
+            self.image2("../../images/disable(-1).png");
+        });
+
+        // feedback...
+        self.handleOpen = $(".feedbackBuddy").click(function () {
+            $("#modalDialog8").ojDialog("open");
+            self.desc('');
+            self.textError('');
+        });
+
+        // feedbackLead...
+        self.handleOpen = $(".feedbackBuddyLead").click(function () {
+            $("#modalDialog8").ojDialog("open");
+            self.desc('');
+            self.textError('');
+        });
 
     }
     return myTeamContentViewModel;

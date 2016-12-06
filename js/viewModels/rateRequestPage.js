@@ -20,14 +20,19 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         var dateReturn = commentDate1.getDate() + ' ' + monthNames[commentDate1.getMonth()] + ' ' + commentDate1.getFullYear();
         return dateReturn;
     }
+    function decodeHtml(html) {
+        var txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+    }
     function request(data, userid) {
         var req = Object();
         if (data['description'].length > 100) {
-            req.sComment = data['description'].substring(0, 100) + "...";
+            req.sComment = decodeHtml(data['description'].substring(0, 100)) + "...";
         } else {
-            req.sComment = data['description'];
+            req.sComment = decodeHtml(data['description']);
         }
-        req.lComment = data['description'];
+        req.lComment = decodeHtml(data['description']);
         req.request_id = data['request_id'];
 //        console.log(req.request_id);
         req.pic = data['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data['google_picture_link'];
@@ -188,14 +193,15 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     $('#rateTab2').hide();
                     self.selectTab(1);
                     $("#requestHover").addClass("buddyTabRequest");
-                    $('#rateTab1').append(' <img src="../../images/+1-icon-active.png" alt="" />')
+                    $('#rateTab1').append(' <img src="../../images/send-req-active.png" alt="" id="Inactive1" />')
                 } else {
                     $('#rateTab2').show();
                     $('#hideLead').hide();
                     $("#requestHover").addClass("hoverTabRequest2");
 
                     $('#rateTab3').append(' <img src="../../images/request-approval-active.png" alt="" />')
-                    $('#rateTab1').append(' <img src="../../images/+1-icon.png" alt="" id="Inactive1" />')
+                    $('#rateTab1').append(' <img src="../../images/send-req.png" alt="" id="Inactive1" />')
+                    //$('#rateTab1').append(' <img src="../../images/+1-icon.png" alt="" id="Inactive1" />')
 
                     $("#rateTab2").click(function () {
 
@@ -204,7 +210,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             $('#rateTab1 > img').remove();
                             $('#rateTab3 > img').remove();
                             $('#rateTab3').append(' <img src="../../images/request-approval-active.png" alt="" />')
-                            $('#rateTab1').append(' <img src="../../images/+1-icon.png" alt="" id="Inactive1" />')
+                            $('#rateTab1').append(' <img src="../../images/send-req.png" alt="" id="Inactive1" />')
+                            //$('#rateTab1').append(' <img src="../../images/+1-icon.png" alt="" id="Inactive1" />')
                         }
                     });
                     $("#rateTab3").click(function () {
@@ -214,30 +221,31 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             $('#rateTab1 > img').remove();
                             $('#rateTab3 > img').remove();
                             $('#rateTab3').append(' <img src="../../images/request-approval-active.png" alt="" />')
-                            $('#rateTab1').append(' <img src="../../images/+1-icon.png" alt="" id="Inactive1" />')
+                            $('#rateTab1').append(' <img src="../../images/send-req.png" alt="" id="Inactive1" />')
+                            //$('#rateTab1').append(' <img src="../../images/+1-icon.png" alt="" id="Inactive1" />')
 
                         }
                     });
 
                     $("#rateTab5").click(function () {
-                        if ($('#rateTab1 > img').attr("src") == "../../images/+1-icon.png")
+                        if ($('#rateTab1 > img').attr("src") == "../../images/send-req.png")
                         {
                             console.log(" no aert");
                             $('#rateTab1 > img').remove();
                             $('#rateTab3 > img').remove();
                             $('#rateTab3').append(' <img src="../../images/request-approval.png" alt="" />');
-                            $('#rateTab1').append(' <img src="../../images/+1-icon-active.png" alt="" id="Inactive1" />');
+                            $('#rateTab1').append(' <img src="../../images/send-req-active.png" alt="" id="Inactive1" />')
                         }
                     });
 
                     $("#rateTab1").click(function () {
-                        if ($('#rateTab1 > img').attr("src") == "../../images/+1-icon.png")
+                        if ($('#rateTab1 > img').attr("src") == "../../images/send-req.png")
                         {
                             console.log(" no aert");
                             $('#rateTab1 > img').remove();
                             $('#rateTab3 > img').remove();
                             $('#rateTab3').append(' <img src="../../images/request-approval.png" alt="" />');
-                            $('#rateTab1').append(' <img src="../../images/+1-icon-active.png" alt="" id="Inactive1" />');
+                            $('#rateTab1').append(' <img src="../../images/send-req-active.png" alt="" id="Inactive1" />')
                         }
                     });
 
@@ -294,7 +302,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             }
             var descHTML = obj.parent().prev().children().children('#text-area20');
             var descriptionChange = (descHTML.val() != "") ?
-                    descHTML.val() : obj.attr('descComment');
+                    descHTML.val() : decodeHtml(obj.attr('descComment'));
             
             var removeHtml = obj;
             var datas={u_id: userId, rq_id: requestId, st:type, desc: descriptionChange, to_id: to_id};
@@ -316,7 +324,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     setTimeout(function () {
                         $("#sucessRate").hide();
                         self.sucessMsg("");
-                    }, 3000);
+                    }, 10000);
                 },
                 beforeSend: function () {
                     $("#requestLoader2").removeClass('loaderHide');
@@ -374,7 +382,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     setTimeout(function () {
                         $("#sucessRate").hide();
                         self.sucessMsg("");
-                    }, 3000);
+                    }, 10000);
                 },
                 beforeSend: function () {
                     $("#requestLoader").removeClass('loaderHide');
@@ -402,7 +410,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     setTimeout(function () {
                         $("#sucessRate").hide();
                         self.sucessMsg("");
-                    }, 3000);
+                    }, 10000);
                 },
                 beforeSend: function () {
                     $("#requestLoader1").removeClass('loaderHide');

@@ -1,3 +1,4 @@
+
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,7 +16,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 var initial = NAME.charAt(0) + NAME.charAt(NAME.lastIndexOf(" ") + 1);
                 return initial;
             }
-
+            function decodeHtml(html) {
+                var txt = document.createElement("textarea");
+                txt.innerHTML = html;
+                return txt.value;
+            }
             var dateplusArray = [];
             var dateminusArray = [];
             function dataComment(comment1, commenter1, commentDate1, datafor) {
@@ -94,7 +99,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 feedbackObj.feedbackto = data['feedback_to'];
                 feedbackObj.name = data['given_by_name'];
                 feedbackObj.feedbackId = data['id'];
-                feedbackObj.feedbackDescription = data['description'];
+                feedbackObj.feedbackDescription = decodeHtml(data['description']);
                 feedbackObj.replies = ko.observableArray();
                 feedbackObj.uniqueId = "feedback" + data['id'];
                 feedbackObj.replyBtnId = "replyBtn" + data['id'];
@@ -117,7 +122,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 freplies.feedback_id = fid;
                 freplies.reply_name = data['from_name'];//display name
                 freplies.reply_ShortName = nameFunction(data['from_name']);//display name
-                freplies.reply_desc = data['description'];//display desc
+                freplies.reply_desc = decodeHtml(data['description']);//display desc
                 freplies.reply_date = dateFormatter(data['created_date'].substring(0, data['created_date'].indexOf(" ")));// display date
                 return freplies;
             }
@@ -279,8 +284,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     }
                     if(temp==0)
                     {
-                        $('.sucessMsgRate').show();
-                        self.successful("Nothing is updated");
+                        $('.sucessMsg').show();
+                        self.successful("Profile not updated.");
+                        setTimeout(function () {
+                            $('.sucessMsg').hide();
+                        }, 10000);
                         return false;
                     }
                     
@@ -291,7 +299,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         data: {user_id: self.id(), desc: self.designation(), location: self.location(), skills: self.skills(), primary_project: self.primary_project(), date: self.date(), projects: self.projects(), interests: self.interests(), mob: self.temporaryNumber()},
                         success: function (res) {
                             response = jQuery.parseJSON(res);
-                            $('.sucessMsgRate').show();
+                            $('.sucessMsg').show();
                             if (response.error == "true")
                             {
                                 self.successful(response.data.error);
@@ -301,11 +309,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                 }
                             } else
                             {
-                                self.successful("Profile Updated Successfully");
+                                self.successful("Profile updated successfully.");
                             }
                             setTimeout(function () {
-                                $('.sucessMsgRate').hide();
-                            }, 3000);
+                                $('.sucessMsg').hide();
+                            }, 10000);
                         },
                         error: function (err) {
                             alert(err);
@@ -388,12 +396,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                 for (var i = 0; i < data.length; i++) {
                                     if (data[i]['rating'] == 0) {
                                         minus++;
-                                        var temporaryComment = new dataComment(data[i]['description'], data[i]['given_by_name'], data[i]['created_date'],0);
+                                        var temporaryComment = new dataComment(decodeHtml(data[i]['description']), data[i]['given_by_name'], data[i]['created_date'],0);
                                         self.commentDataNegative.push(temporaryComment);
                                     } else {
                                         if (data[i]['rating'] == 1)
                                             plus++;
-                                        var temporaryComment = new dataComment(data[i]['description'], data[i]['given_by_name'], data[i]['created_date'],1);
+                                        var temporaryComment = new dataComment(decodeHtml(data[i]['description']), data[i]['given_by_name'], data[i]['created_date'],1);
                                         self.commentDataPositive.push(temporaryComment);
                                     }
                                 }
@@ -732,7 +740,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     ////////// object for reply add
                     var obj = new Object();
                     obj.from_name = self.myname;
-                    obj.description = responseDesc.val();
+                    obj.description = decodeHtml(responseDesc.val());
                     obj.created_date = today;
 
                     data['replies'].push(new feedbackRepliesData(0, 0, 0, obj));
