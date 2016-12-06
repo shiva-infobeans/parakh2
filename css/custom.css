@@ -1300,6 +1300,9 @@ div.oj-tabs-panel.oj-tabs-selected{
         border-radius: 5px;
         background-color: #ffffff;
     }
+    .bottom-responsive{
+    margin-bottom: 20px;
+}
 
 }
 @media  screen and (min-width: 768px) and (max-width: 1024px) {

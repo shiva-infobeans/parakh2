@@ -1525,20 +1525,21 @@
 }
 #text-area::-webkit-input-placeholder
 {
-  color: #333;
+  color: #dcdcdc;
 }
 
 #text-area::-moz-placeholder
 {
-  color: #333;
+  color: #dcdcdc;
 }
 #text-area:-moz-placeholder {
-    color: #333;
+    color: #dcdcdc;
 }
 
 #text-area:-ms-input-placeholder {
-    color: #333;
+    color: #dcdcdc;
 }
+
 
 .View-Other-about{
     padding: 17px;
