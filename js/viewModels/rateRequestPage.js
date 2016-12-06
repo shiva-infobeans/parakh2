@@ -193,7 +193,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     $('#rateTab2').hide();
                     self.selectTab(1);
                     $("#requestHover").addClass("buddyTabRequest");
-                    $('#rateTab1').append(' <img src="../../images/send-req.png" alt="" id="Inactive1" />')
+                    $('#rateTab1').append(' <img src="../../images/send-req-active.png" alt="" id="Inactive1" />')
                 } else {
                     $('#rateTab2').show();
                     $('#hideLead').hide();
