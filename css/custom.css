@@ -924,7 +924,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     border-right: none;
 }*/
 .oj-filmstrip-container.oj-filmstrip-item-container {
-  border-right: 2px solid #689F39;
+  border-right: 1px solid #689F39;
 }
 #filmStrip8 .oj-filmstrip-container.oj-filmstrip-item-container, #filmStripDiv9 .oj-filmstrip-container.oj-filmstrip-item-container {
   border-right: none !important;
