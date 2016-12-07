@@ -249,7 +249,7 @@ body{
 }
 .left{
     float:left;
-    /*border-right: 10px solid transparent;*/
+    border-right: 10px solid transparent;
 }
 /*Profile page css*/
 .profile-tabs{
@@ -925,11 +925,11 @@ div.oj-tabs-panel.oj-tabs-selected{
 .oj-filmstrip-container.oj-filmstrip-item-container {
   border-right: 1px solid #689F39;
 }
-#filmStrip8 .oj-filmstrip-container.oj-filmstrip-item-container, #filmStripDiv9 .oj-filmstrip-container.oj-filmstrip-item-container {
+#filmStrip8 .oj-filmstrip-container.oj-filmstrip-item-container, #filmStripDiv9 .oj-filmstrip-container.oj-filmstrip-item-container, #filmStrip7 .oj-filmstrip-container.oj-filmstrip-item-container {
   border-right: none !important;
 }
 #filmStripDiv8 .oj-filmstrip,
-#filmStripDiv9 .oj-filmstrip{
+#filmStripDiv9 .oj-filmstrip,{
     outline: none;
 }
 .arrow-controls {
@@ -1110,9 +1110,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 		width: 120px;
 		padding-top: 44px;
 }
-.oj-row .oj-flex .oj-xl-6 .oj-lg-6 .oj-md-6 .oj-sm-6 .left {
-        padding: 0px !important; 
-    }
+
 #ojDialogWrapper-modalDialog9.oj-dialog, #ojDialogWrapper-modalDialog3.oj-dialog, #ojDialogWrapper-modalDialogRequest.oj-dialog {
   border-radius: 5px;
   max-width: 100%;
@@ -1133,6 +1131,11 @@ div.oj-tabs-panel.oj-tabs-selected{
     width: 50% !important;
 }
 }
+.left-custom{
+        padding: 0px !important;
+		float: left;
+		border-right none;
+    }
 #mangerSlider .oj-pagingcontrol-nav-dot-bullet.oj-selected,
 #mySlider .oj-pagingcontrol-nav-dot-bullet.oj-selected,
 #mangerSlider1 .oj-pagingcontrol-nav-dot-bullet.oj-selected{
@@ -1157,7 +1160,9 @@ div.oj-tabs-panel.oj-tabs-selected{
     bottom: 0;
     left: 50%;
     -webkit-transform: translateX(-50%);
-    transform: translateX(-58%);
+    transform: translateX(-50%);
+	-moz-transform: translateX(-50%);
+	-o-transform: translateX(-50%);
 }
 
 .demo-stretch-items {
@@ -1369,6 +1374,7 @@ div.oj-tabs-panel.oj-tabs-selected{
         padding: 8px;
         border-right: 0px solid transparent; 
     }*/
+	
 	#filmStripDiv9.oj-row .oj-flex .oj-xl-6 .oj-lg-6 .oj-md-6 .oj-sm-6 left, #filmStripDiv8.oj-row .oj-flex .oj-xl-6 .oj-lg-6 .oj-md-6 .oj-sm-6 left{
 		float: none !important;
 		padding: 0px ;	
@@ -1388,14 +1394,14 @@ div.oj-tabs-panel.oj-tabs-selected{
     .transboxRequest2{
         border-left: 0px ;
     }
+	.slider-div{
+		text-align: center;
+	}
 }
 .transboxRequest2{
     border-left: 0px ;
 }
-.slider-div{
-		text-align: center;
-	}
-}
+
 @media  screen and (min-width: 768px) and (max-width: 1024px) {
 
     #ojDialogWrapper-modalDialog9.oj-dialog,
@@ -1622,10 +1628,6 @@ a {
     outline:none;
 }
 .mailToColor:active{color: #fff;}
-/*Namrata*/
-a:visited{
-    color: #fff !important;
-}
 .border-green{border:2px solid #689F39;}
 .border-green:hover{border:2px solid #689F39;}
 .filmStripMargin{
@@ -1637,9 +1639,6 @@ a:visited{
     overflow: hidden;
     width: 100%;
 }
-
-
-
 /* floating button start here */
 .floating-btn{
     position:fixed;
@@ -1770,4 +1769,20 @@ a#menu-share:hover > i{
     margin-left: 10px;
     margin-right: 10px;
 }
+#text-area::-webkit-input-placeholder
+{
+  color: #777 !important;
+}
 
+:-ms-input-placeholder {
+    color: #777 !important;
+}
+
+
+#text-area::-moz-placeholder
+{
+  color: #777 !important;
+}
+.no-pointer{
+	cursor: default;
+}
