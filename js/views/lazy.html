@@ -1,0 +1,256 @@
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<div class="max-width">
+
+    <div id="tabs-container">
+        <div class="oj-flex oj-row">
+            <div class="oj-lg-12 oj-md-12 oj-sm-12  oj-flex-item oj-col profile-text oj-flex oj-padding oj-margin">
+                <span class="oj-flex-bar-end oj-padding oj-margin color-white">&nbsp;</span>
+                <span id="sucess" class="sucessMsg oj-flex-bar-center" data-bind="text: sucessMsg"></span>
+                <span id="sucessFeedback" class="sucessMsg oj-flex-bar-center" data-bind="text: sucessMsgFeedback"></span>
+            </div>
+        </div>
+
+        <div id="tabs" data-bind="ojComponent:{component: 'ojTabs',selected: selectTab}" class="buddyTab">
+            <!-- tab bar -->
+            <ul class="tab-margin">
+                <li class="buddyTab1 tab1" id="home1" >
+                    <div id="homeTab2">
+                    </div>   
+                    <div class="hoverTab1"> My Team </div>
+                </li>
+                <li class="buddyTab2 " id="home2" >
+                    <div id="homeTab1">   
+                    </div>
+                    <div id="membersHover">  ICC Team</div>
+                </li>
+
+            </ul>
+
+            <!-- tab contents -->
+            <div id="tabs-1">
+                <hr/>
+                <div id="index1" class="oj-margin-top oj-margin-bottom indexer center bold-class" data-bind="click: arrangeIndex1">
+
+                    <!--ko foreach: indexer1Letters-->
+                    <span data-bind="event:{click: $parent.makeUnderLine1},attr: {id:$data+'1'}"><a data-bind="attr: {href: $data},text:$data"></a></span>
+                    <!--/ko-->
+                </div>
+                <hr/>
+                <!--                <div class="color-white noComments"></div>-->
+                <div  data-bind="foreach: myTeam" class="">
+                    <div class="oj-xl-4 oj-lg-4 oj-md-6 oj-sm-12 oj-flex oj-flex-item oj-padding-top left">
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item pos-relative oj-padding">
+                            <div class="transbox border-color-green"></div>
+                            <div class="profile-img-div "><a href="javascript:void(0);" title="View profile" class="viewProfile" data-bind="attr: {myTeamId: myId}"><img class="profile border-color-white" data-bind="attr:{src: myPic}" title="View Profile"/></a></div>
+                            <div class="oj-row oj-padding">
+                                <h4 class="myNameBuddies"><span data-bind="text: myName" class="color-white" ></span></h4>
+                                <h5 class="myDesignBuddies"><span data-bind="text: myDesign" class="color-white"></span></h5>
+                            </div>
+                        </div>
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item pos-relative">
+                            <div class="oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6 oj-flex-item rateBuddy-page-rate-green left" >
+                                <span data-bind="text: plus"> </span>
+                            </div>
+                            <div class="oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6 oj-flex-item rateBuddy-page-rate-red left"> 
+                                <span data-bind="text: minus"> </span>
+                            </div>
+                        </div>
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-flex rateBuddy-page-icons">
+                            <!--                <h4 data-bind="text: userId"></h4>-->
+                            <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-4 oj-flex-item oj-padding-top oj-padding-bottom">
+                                <span>
+                                    <a href="javascript:void(0);" title="Rate Buddy" class="rateMyTeam starTeam " data-bind="attr: {myTeamId:myId, teamImage:myPic,teamName:myName,teamDesig:myDesign}" ><i class="zmdi zmdi-star"></i></a>
+                                </span>
+                            </div>
+                            <!--data-bind="attr: {id:userId, image:pic,myname:name,myDesignation:designation,}"-->
+                            <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-4 oj-flex-item oj-padding-top oj-padding-bottom">
+                                <span>
+                                    <a href="javascript:void(0);" title="Send Feedback" class="feedbackBuddyLead" data-bind="attr: {myTeamId: myId, teamImage: myPic,teamName: myName,teamDesig: myDesign}"> <i class="zmdi zmdi-comment-alt-text"></i></a>
+                                </span>
+                            </div>
+                            <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-4 oj-flex-item oj-padding-top oj-padding-bottom">
+                                <span>
+                                    <!--class is used for js file to identify user-->
+                                    <a href="javascript:void(0);" title="View profile" class="viewProfile" data-bind="attr: {myTeamId: myId}"> <i class="zmdi zmdi-eye"></i></a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>        
+                </div>
+                
+            </div>
+            <div id="tabs-2">     
+                <hr/>
+                <div id="index" class="oj-margin-top oj-margin-bottom indexer center bold-class " data-bind="click:arrangeIndex">
+                    <!--ko foreach: indexer2Letters-->
+
+                    <span data-bind="event:{click: $parent.makeUnderLine2},attr: {id:$data}"><a data-bind="attr: {href: $data},text:$data"></a></span>
+                    <!--/ko-->
+                </div>
+                <hr/>
+                <div data-bind="foreach: lazyAllMembers" class="">
+                    <div class="oj-xl-4 oj-lg-4 oj-md-6 oj-sm-12 oj-flex oj-flex-item oj-padding-top left">
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item pos-relative oj-padding">
+                            <div class="transbox  border-color-green"></div>
+                            <div class="profile-img-div"><a href="javascript:void(0);" title="View profile" class="viewProfile" data-bind="attr: {myTeamId: userId}"><img class="profile border-color-white" data-bind="attr: {src: pic}" title="View Profile"/></a></div>
+                            <div class="oj-row oj-padding">
+                                <h4 class="myNameBuddies"><span data-bind="text: name" class="color-white" ></span></h4>
+                                <h5 class="myDesignBuddies"><span data-bind="text: designation" class="color-white"></span></h5>
+                            </div>
+                        </div>
+                        <div class="rateBuddy-page-rate"><span data-bind="text: plus" class="color-white" ></span></div>
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-flex rateBuddy-page-icons">
+                            <!--                <h4 data-bind="text: userId"></h4>-->
+                            <div class="oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6 oj-flex-item oj-padding-top oj-padding-bottom">
+                                <span>
+                                    <a href="javascript:void(0);" title="Rate Buddy" class="rateBuddy star" data-bind="attr: {id:userId, image:pic,myname:name,myDesignation:designation,role_name:role_name}"><i class="zmdi zmdi-star"></i></a>
+                                </span>
+                            </div>
+                            <div class="oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6 oj-flex-item oj-padding-top oj-padding-bottom">
+                                <span>
+                                    <a href="javascript:void(0);" title="View profile" class="viewProfile1" data-bind="attr: {myTeamId: userId}"> <i class="zmdi zmdi-eye"></i></a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>        
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="text" data-bind="value: rowcountAllMember" class="rowcount">
+</div>
+
+<!--Modal for rating +1 to other team member from rate buddy page--> 
+<div class="oj-row oj-flex">
+    <div id="dialogWrapper" >
+        <div style="display:none" id="modalDialog1" title="Rate Buddy" class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item "
+             data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide'}">
+
+            <div class="oj-dialog-body">
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex oj-flex-item oj-padding"  style="margin-top: -10px;">
+                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                        <img class="profile2 border-color-white" data-bind="attr: {src: image}"/>
+
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
+                            <h4><strong><span data-bind="text: myname"  ></span></strong></h4>
+                            <h5><span data-bind="text: myDesignation"></span></h5>
+                        </div>
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin area">
+                            <div class="oj-xl-9 oj-lg-9 oj-md-8 oj-sm-8 oj-flex-item  oj-flex areaContent   ">
+                                <textarea id="text-area" class="textArea2" aria-label="ojTextArea component no visible label"
+                                          data-bind=" ojComponent: {component: 'ojTextArea', 
+                                     value: desc, 
+                                     placeholder: 'Type your reason here..'}"></textarea>   
+
+                            </div>
+                            <div class="oj-xl-3 oj-lg-3 oj-md-4 oj-sm-4 oj-flex-item imgArea1">
+                                <div class="pos-relative">
+                                    <img class="modalImage"  src="../../images/active(+1).png" alt="+1 image"/>
+                                </div>
+                            </div>                        
+                        </div>
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorTextPlus center" data-bind="text:textError"></div>
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
+                            <button class="modal-submit1"  data-bind="click: submitModal"> Submit </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal for rating +1 or -1  to other team member from rate buddy page only accessed by team lead--> 
+<div class="oj-row oj-flex">
+    <div id="dialogWrapper2" >
+        <div style="display:none" id="modalDialog2" title="Rate Buddy" class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item "
+             data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide'}">
+
+            <div class="oj-dialog-body">
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex oj-flex-item oj-padding">
+                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
+                        <img class="profile2 border-color-white" data-bind="attr: {src:teamImage}"/>
+
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
+                            <h4>  <strong><span data-bind="text:teamName"  ></span></strong></h4>
+                            <h5><span data-bind="text: teamDesig"></span></h5>
+                        </div>
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center area2">
+                            <div class="oj-xl-9 oj-lg-9 oj-md-8 oj-sm-8 oj-flex-item  oj-flex areaContent   ">
+                                <textarea id="textArea4" class="textArea2" aria-label="ojTextArea component no visible label"
+                                          data-bind=" ojComponent: {component: 'ojTextArea', 
+                                     value: desc, 
+                                     placeholder: 'Type your reason here..'}"></textarea>   
+                            </div>
+                            <div class="oj-xl-3 oj-lg-3 oj-md-4 oj-sm-4 oj-flex-item imgArea">
+                                <div class="pos-relative" data-bind="click: plusOne">
+                                    <img class="modalImage" data-bind="attr: {src:image1}" alt=""/>
+                                </div>
+
+                                <div class="pos-relative" data-bind="click: minusOne">
+                                    <img class="modalImage" data-bind="attr: {src:image2}"/>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText center" data-bind="text:textError"></div>
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
+                    <button class="modal-submit" data-bind="click: leadSubmit"> Submit </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="oj-row oj-flex">
+    <div id="dialogWrapper8">
+        <div style="display:none" id="modalDialog8" title="Send Feedback"  class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item "
+             data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide'}">
+            <div class="oj-dialog-body oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item">
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
+                    <img class="profile border-color-white" data-bind="attr: {src: image}"/>
+
+                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
+                        <h4><strong><span data-bind="text: myname"  ></span></strong></h4>
+                        <h5><span data-bind="text: myDesignation"></span></h5>
+                    </div>
+
+                    <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center areaContent1">
+                        <textarea id="text-area8" class="textArea-feedback" aria-label="ojTextArea component no visible label"
+                                  data-bind=" ojComponent: {component: 'ojTextArea', 
+                                     value: desc, 
+                                     placeholder: 'Type your feedback here..'}"></textarea>   
+                    </div>                      
+
+                </div>
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal center errorText" data-bind="text:textError"></div>
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
+                    <button class="modal-submit1"  data-bind="click: submitFeedback"> Submit </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="loaderDiv loaderHide" id="rateMeLoader">
+    <div class="overlay-loader"></div>
+    <div class="loaderImgDiv"><img src="css/images/loader.gif" alt=""/></div>
+</div>
+
+<div class="loaderDiv loaderHide" id="rateMeLoader1">
+    <div class="overlay-loader"></div>
+    <div class="loaderImgDiv"><img src="css/images/loader.gif" alt=""/></div>
+</div>
+
+<div class="loaderDiv loaderHide" id="rateMeLoader2">
+    <div class="overlay-loader"></div>
+    <div class="loaderImgDiv"><img src="css/images/loader.gif" alt=""/></div>
+</div>

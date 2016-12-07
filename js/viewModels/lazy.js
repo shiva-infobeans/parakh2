@@ -5,10 +5,10 @@
  */
 
 /**
- * myTeam module
+ * lazy module
  */
 define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojmodel', , 'ojs/ojtabs', 'ojs/ojconveyorbelt'
-], function (oj, ko, $) {
+], function (oj, ko) {
     /**
      * The view model for the main content view template
      */
@@ -35,8 +35,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         myTeam.minus = data['minuscount'] != null ? data['minuscount'] == 0 ? 0 : "-" + data['minuscount'] : 0;
         return myTeam;
     }
-
-    function myTeamContentViewModel(person) {
+    function lazyContentViewModel(person) {
         var self = this;
         self.image = ko.observable();
         self.myname = ko.observable();
@@ -65,6 +64,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.selectTab = ko.observable(0);
         self.sucessMsgFeedback = ko.observable();
 
+        // code for lazy loading here.
+        self.lazyAllMembers = ko.observableArray();
+        self.rowcountAllMember = ko.observable(50);
+        self.pageNumAllMembers = ko.observable(0);
         //indexer for other team members
         self.indexer2Letters = ko.observableArray();
         self.makeUnderLine2 = function (data, event) {
@@ -152,6 +155,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             self.members.push(new teamMember(data[counter1]));
                         }
                         self.data2(self.members());
+                        for (var c = 0; c < 12; c++) {
+                            self.lazyAllMembers.push(self.data2()[c]);
+                            self.pageNumAllMembers(self.pageNumAllMembers + 1);
+                        }
                         self.indexer2Letters.push("All");
                         $("#All a").addClass('indexerUnderline');
                         for (var c = 0; c < self.data2().length; c++) {
@@ -201,8 +208,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
             self.handleOKClose = $("#okButton").click(function () {
                 $("#modalDialog8").ojDialog("close");
-                  self.desc('');
-                    self.textError('');
+                self.desc('');
+                self.textError('');
             });
             // feedbackLead...
             self.handleOpen = $(".feedbackBuddyLead").click(function () {
@@ -213,10 +220,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
             self.handleOKClose = $("#okButton").click(function () {
                 $("#modalDialog8").ojDialog("close");
-                  self.desc('');
-                    self.textError('');
+                self.desc('');
+                self.textError('');
             });
-           
+
             //rateBuddy...
             self.handleOpen = $(".star").click(function () {
                 $("#modalDialog1").ojDialog("open");
@@ -273,7 +280,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     window.location = link;
                 });
             }
-           
+
             self.handleOpen = $(".starTeam").click(function () {
                 $("#modalDialog2").ojDialog("open");
                 self.desc('');
@@ -362,7 +369,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     data: {feedback_from: self.userId(), feedback_to: self.for_id(), feedback_description: self.desc()},
                     success: function () {
                         $("#modalDialog8").ojDialog("close");
-                         $("#sucessFeedback").show();
+                        $("#sucessFeedback").show();
                         self.sucessMsgFeedback("Feedback is sent!");
                         setTimeout(function () {
                             $("#sucessFeedback").hide();
@@ -483,12 +490,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     }
                 })
             });
-               $("body").on('click', '.viewProfile1', function () {
-                    var link = "memberProfile.html?id=" + $(this).attr("myTeamId");
-                    window.location = link;
-               });
-           
-            
+            $("body").on('click', '.viewProfile1', function () {
+                var link = "memberProfile.html?id=" + $(this).attr("myTeamId");
+                window.location = link;
+            });
+
+
             if (self.role_name() === 'Team Member') {
                 self.selectTab(1);
                 $("#membersHover").addClass("buddyTabRequest1");
@@ -575,9 +582,35 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.textError('');
         });
 
+        $(window).scroll(function () {
+            if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+                var pagenum = parseInt($(".pagenum:last").val()) + 1;
+                
+                if (self.pageNumAllMembers() <= self.rowcountAllMember()) {
+                    console.log(self.pageNumAllMembers());
+//                    $.ajax({
+//                        headers: {secret: secret},
+//                        method: 'POST',
+//                        url: getAllTeamMembersLazy + 37,
+//                        data: {user_id: 37, limit: pagenum, pagearray: 20},
+//                        success: function (task) {
+//
+//                            var data = JSON.parse(task)['data'];
+//                            for (var counter1 = 0; counter1 < data.length; counter1++) {
+//                                var item = new Object();
+//                                item.value = data[counter1]['id'];
+//                                item.label = data[counter1]['google_name'];
+//                                item.counter = counter1;
+//                                item.searchPic = data[counter1]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data[counter1]['google_picture_link'];
+//                                //console.log(item);
+//                                self.users.push(item);
+//                            }
+//                        }
+//                    });
+                }
+            }
+        });
     }
-    return myTeamContentViewModel;
+
+    return lazyContentViewModel;
 });
-
-
-
