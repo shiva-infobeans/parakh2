@@ -49,7 +49,9 @@ var getAllInterests = baseUrl+"/getAllInterests/";
 var getAllDesignations = baseUrl+"/getAllDesignations/";
 var getOtherTeamMembers = baseUrl+"/getOtherTeamMembers/";
 var getAllRejectedRequestsByLoginId = baseUrl+"/getAllRejectedRequestsByLoginId/";
-
+var imageCacheUrl =  baseUrl+"/createImageCache";
+var getCacheImage =  baseUrl+"/getCacheImage";
+var logoutUrl =  baseUrl+"/logout";
 
 //updates for google client id and parakh logo (favicon) 
 var clientId = "791490125018-lcfs9ha89efjtp09v5u8q38ls05hhinl.apps.googleusercontent.com";

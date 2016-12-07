@@ -31,9 +31,13 @@
                         setCookie("name",name,1);
                         setCookie("picture",pic,1);
                         
-                        setTimeout(function () {
-                            window.location = window.location.href + "dashboard.html";
-                        }, 500);
+                        $.post(imageCacheUrl,{img : pic,timestamp : Math.floor(Date.now()),'email':email},function (result) {
+                                window.location = window.location.href + "dashboard.html";
+                        });
+                        
+                        // setTimeout(function () {
+                        //     window.location = window.location.href + "dashboard.html";
+                        // }, 500);
 
                     }
                     ;
