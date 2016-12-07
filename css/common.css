@@ -45,8 +45,8 @@
 
 }
 .menus{display: none;
-      color: #fff;
-      font-size: 35px;
+       color: #fff;
+       font-size: 35px;
 }
 .mobile-menu a:active {
     color:#fff !important;
@@ -352,13 +352,13 @@
 }
 
 .buttons {
-    box-shadow: 0px 5px 11px -2px rgba(0, 0, 0, 0.18), 
-        0px 4px 12px -7px rgba(0, 0, 0, 0.15);
+/*    box-shadow: 0px 5px 11px -2px rgba(0, 0, 0, 0.18), 
+        0px 4px 12px -7px rgba(0, 0, 0, 0.15);*/
     border-radius: 50%;
     display: block;
     width: 62px;
     height: 62px;
-    margin: 8px auto 0;
+    margin: 0px auto 0;
     position: relative;
     -webkit-transition: all  0.80s ease-out;
     transition: all 0.30s ease-out;
@@ -428,8 +428,8 @@
 }
 .floatingIcons{
     position: absolute;
-    top: 12px;
-    left: 19px;
+    top: 10px;
+    left: 16px;
     font-size: 38px!important;
     font-weight: bolder !important;
     color: #fff;
@@ -712,16 +712,16 @@
 #rateTab2 .oj-tabs-tab-content,
 #home1 .oj-tabs-tab-content,
 #home2 .oj-tabs-tab-content{
-     border-style: none; 
-     border-width: 0px; 
-     border-radius: 0; 
+    border-style: none; 
+    border-width: 0px; 
+    border-radius: 0; 
 }
 #rateTab5.oj-tabs-tab,
 #rateTab2.oj-tabs-tab,
 #home1.oj-tabs-tab,
 #home2.oj-tabs-tab
 {
-     border-color: transparent;
+    border-color: transparent;
     border-style: none;   
 }
 .modal-submit1{
@@ -994,7 +994,7 @@
     display: block;
 }
 .hoverTab5 {
- background-color: #e7fcd5;
+    background-color: #e7fcd5;
     border-radius: 2px;
     color: #000;
     display: none;
@@ -1009,7 +1009,7 @@
     display: block;
 }
 .hoverTab6 {
-   background-color: #e7fcd5;
+    background-color: #e7fcd5;
     border-radius: 2px;
     color: #000;
     display: none;
@@ -1039,7 +1039,7 @@
     display: block;
 }
 .hoverTabRequest2{
-  background-color: #e7fcd5;
+    background-color: #e7fcd5;
     border-radius: 2px;
     color: #000;
     display: none;
@@ -1523,12 +1523,12 @@
 }
 #text-area::-webkit-input-placeholder
 {
-  color: #dcdcdc;
+    color: #dcdcdc;
 }
 
 #text-area::-moz-placeholder
 {
-  color: #dcdcdc;
+    color: #dcdcdc;
 }
 #text-area:-moz-placeholder {
     color: #dcdcdc;
@@ -1810,11 +1810,11 @@
     outline: none;
 }
 .commentDate{
-    margin-top: 31px;
-    margin-right: -19px;
+    display: table-cell;
+    width: 130px;
     text-align: center;
     font-style: italic;
-    font-size: 17px;
+    font-size: 15px;
     color: #dcdcdc;
 }
 .margin-left-cst{
