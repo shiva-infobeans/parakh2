@@ -1828,3 +1828,16 @@ a#menu-share:hover > i{
 }
 .margin-top-feedback{margin-top: -15px;}
 .reply_ShortName{margin-left: 2px;}
+
+.moreDots:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+.lessLink{
+    cursor: pointer;
+    text-decoration: underline;
+}
+.minheightFix{
+    min-height: 100%;
+    max-height: 999em;
+}
