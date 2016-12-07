@@ -69,38 +69,15 @@ class dbmodule {
     function getUserByLead($lead_id) {
         if (!filter_var($lead_id, FILTER_VALIDATE_INT) === false) {
             $employeeList = array();
-            $query = 'SELECT uh.user_id,u.google_name,u.google_email,u.mobile_number,u.designation,u.google_picture_link,u.google_email FROM user_hierarchy uh left join users u on u.id = uh.user_id ' .
-                    'WHERE manager_id = :id  AND u.status <> 0 group by user_id';
+            $query = 'SELECT uh.user_id,u.google_name,u.google_email,u.mobile_number,u.designation,u.google_picture_link as picture,u.google_email,
+                    sum(case when r.rating = 1 then 1 end) as pluscount,
+                    sum(case when r.rating = 0 then 1 end) as minuscount
+                    FROM user_hierarchy uh left join users u on u.id = uh.user_id left join rating r on (u.id=r.user_id)
+                    WHERE manager_id = :id AND u.status <> 0 group by uh.user_id order by u.google_name';
             $user_data = $this->con->prepare($query);
             $user_data->execute(array(':id' => $lead_id));
-            while ($row = $user_data->fetch((PDO::FETCH_ASSOC))) {
-                $membresInfo = array();
-                $query_rank = "SELECT MAX(r.created_date) as date,
-                    sum(case when r.rating = 1 then 1  end) as pluscount,
-                    sum(case when r.rating = 0 then 1  end) as minuscount
-                    from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 
-                    and u.id=:id group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC LIMIT 10";
-                $user_rank = $this->con->prepare($query_rank);
-                $user_rank->execute(array(':id' => $row['user_id']));
-                $userRank = $user_rank->fetchAll((PDO::FETCH_ASSOC));
-                if(isset($userRank[0]['pluscount']) && !empty($userRank[0]['pluscount']))
-                {
-                    $userRank[0]['pluscount'] = "+".$userRank[0]['pluscount'];
-                }else
-                {
-                    $userRank[0]['pluscount'] = 0;
-                }
-                if(isset($userRank[0]['minuscount']) && !empty($userRank[0]['minuscount']))
-                {
-                    $userRank[0]['minuscount'] = "-".$userRank[0]['minuscount'];
-                }else
-                {
-                    $userRank[0]['minuscount'] = 0;
-                }
-                $membresInfo = array('user_id' => $row['user_id'], 'user_name' => $row['google_name'],'designation' => $row['designation'],'picture' => $row['google_picture_link'],'email' => $row['google_email'],'mobile_number' => $row['mobile_number'],'pluscount' => $userRank[0]['pluscount'],'minuscount' => $userRank[0]['minuscount']);
-                $employeeList[] = $membresInfo;
-                $this->getUserByLead($row['user_id']);
-            }
+            $employeeList = $user_data->fetchAll((PDO::FETCH_ASSOC));
+            
             return $employeeList;
         } else {
             return 0;
@@ -138,12 +115,7 @@ class dbmodule {
            $user_list = $this->con->prepare($query);
            $user_list->execute(array(':id' => $lead_id));
            $employeeList = $user_list->fetchAll((PDO::FETCH_ASSOC));
-           $id_array = array();
-           foreach ($employeeList as $key => $value) {
-               $id_array[] = $value['id'];
-           }
-           $id_array = implode(",",$id_array);
-
+                      
            $query_rank = "SELECT u.id,u.google_name,
                     sum(case when r.rating = 1 then 1  end) as pluscount,
                     sum(case when r.rating = 0 then 1  end) as minuscount
@@ -389,7 +361,7 @@ class dbmodule {
      */
     function send_notification($email_data) {
         require_once 'notifications.php';
-        send_mail($email_data);
+        //send_mail($email_data);
     }
 
 //end of fun
@@ -756,15 +728,8 @@ class dbmodule {
             
             $user_list = $this->con->prepare($query);
             $user_list->execute(array(':id' => $user_id));
-            $employeeList = $user_list->fetchAll((PDO::FETCH_ASSOC));
+            $employeeList = $user_list->fetchAll();
             
-            
-            $id_array = array();
-            foreach ($employeeList as $key => $value) {
-               $id_array[] = $value['id'];
-            }
-            $id_array = implode(",",$id_array);
-
             $query_rank = "SELECT u.id,u.google_name,
                     sum(case when r.rating = 1 then 1  end) as pluscount,
                     sum(case when r.rating = 0 then 1  end) as minuscount
@@ -813,10 +778,24 @@ class dbmodule {
         $dateTime = new \DateTime(null, new DateTimeZone('Asia/Kolkata'));
         $created_date = $modified_date = $dateTime->format("Y-m-d H:i:s");
 
+		$query = "SELECT * from feedback where id=" . $data['feedback_id'];
+            $feedback = $this->con->prepare($query);
+            $feedback->execute();
+            $row = $feedback->fetchAll((PDO::FETCH_ASSOC));
+			if($data['login_user_id']==$row[0]['feedback_to']) // if current user is team member, not a lead
+			{
+				$feedback_to=$row[0]['feedback_from'];
+			}
+			
+			else // if this is from any of the lead
+			{
+				$feedback_to=$row[0]['feedback_to'];
+			}
+		
         $feedback_insert_query = "INSERT INTO feedback(feedback_to, feedback_description, feedback_from, response_parent, created_date, modified_date) VALUES(:feedback_to,:feedback_description,:feedback_from,:response_parent,:created_date,:modified_date)";
 
         $feedback_insert = $this->con->prepare($feedback_insert_query);
-        $feedback_insert->execute(array(':feedback_to' => $data['feedback_to'],
+        $feedback_insert->execute(array(':feedback_to' => $feedback_to,
             ':feedback_description' => $data['feedback_desc'],
             ':feedback_from' => $data['login_user_id'],
             ':response_parent' => $data['feedback_id'],
@@ -994,12 +973,12 @@ class dbmodule {
             }
 
             /* update msg read count */
-            $query = "SELECT msg_read from users where id=" . $data['u_id'];
+            $query = "SELECT msg_read from users where id=" . $data['l_id'];
             $user_list = $this->con->prepare($query);
             $user_list->execute();
             $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
             if (isset($row) && !empty($row)) {
-                $query = "UPDATE users set msg_read=" . ($row[0]['msg_read'] + 1) . " where id=" . $data['u_id'];
+                $query = "UPDATE users set msg_read=" . ($row[0]['msg_read'] + 1) . " where id=" . $data['l_id'];
                 $user_list = $this->con->prepare($query);
                 $user_list->execute();
             }
@@ -1042,13 +1021,14 @@ class dbmodule {
                 $cnd = " AND request.status = " . $status;
             $query = "select request.id as request_id, user.google_name,user.id as lead_id, "
                     . "user.google_picture_link, user.designation,role.name as role_name, "
-                    . "request.to_id,request.from_id,description,"
+                    . "request.to_id,request.from_id,description,c.comment_text,"
                     . "work.created_date,request_for,rating, request.status "
                     . "from work as work left join "
                     . "request as request on work.id = request.work_id left join "
                     . "rating as rating on work.id=rating.work_id left join  "
                     . "users as user on request.to_id=user.id left join "
-                    . "role_type as role on role.id = user.role_id "
+                    . "role_type as role on role.id = user.role_id left join "
+                    . "comment as c on c.request_id = request.id "
                     . "where request.from_id = " . $user_id . $cnd . " order by work.modified_date desc";
             $user_list = $this->con->prepare($query);
 			//echo($user_list->queryString);
@@ -1291,30 +1271,82 @@ class dbmodule {
     }
 
     function getRecentActivity($user_id) {
-        $query = "SELECT * FROM (SELECT r.user_id AS user_id,re.for_id,
-                     re.status,r.given_by AS given_by,u.google_name AS ratedby,
-                     u1.google_name AS rated_to,IF(r.rating = 1, '+1', '-1') AS rating,
+		$query="SELECT 
+					r.id, r.user_id AS user_id,re.for_id,
+                     re.status,r.given_by AS given_by,u.google_name AS rated_to,
+                     u1.google_name AS ratedby,IF(r.rating = 1, '+1', '-1') AS rating,
                      u.google_picture_link,u1.google_picture_link AS for_picture,
-                     r.modified_date AS created_date FROM rating AS r
+					 if(re.for_id is not null, 'approved','given') as astatus,
+                     r.modified_date AS created_date 
+					FROM rating AS r
                      JOIN request re ON re.id = r.request_id JOIN users AS u ON u.id = r.user_id
                      JOIN users AS u1 ON u1.id = r.given_by
-                     WHERE r.user_id = :user_id OR r.given_by = :user_id
-                     AND re.for_id IS NULL
-                     UNION 
-                     SELECT re.to_id,re.for_id,re.status,re.from_id,u.google_name,u1.google_name AS ratedby,
-                     IF(re.status = 1, 'declined', 'approved') AS rating,u.google_picture_link,
-                     u1.google_picture_link AS for_picture,re.modified_date AS created_date
-                     FROM `request` AS re JOIN users AS u ON (u.id = re.to_id)
-                     JOIN users AS u1 ON u1.id = re.for_id WHERE re.for_id = :user_id
-                     OR re.to_id = :user_id ORDER BY created_date DESC) AS d
-                     WHERE status <> 0 AND (user_id <> for_id OR for_id IS NULL)ORDER BY d.created_date DESC
-                     ";
-        $user_list = $this->con->prepare($query);
+                     WHERE r.user_id = :user_id ORDER BY r.created_date DESC";
+		
+		$user_list = $this->con->prepare($query);
         $user_list->execute(array(':user_id' => $user_id));
         $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
+					 
+       /* $query = "SELECT 
+					re.id, re.to_id,re.for_id,re.status,re.from_id,
+					u.google_name as ratedby,u1.google_name AS ratedby,
+					u.google_picture_link,
+                    u1.google_picture_link AS for_picture,re.modified_date AS created_date
+                FROM `request` AS re 
+					JOIN users AS u ON (u.id = re.to_id)
+					JOIN users AS u1 ON u1.id = re.for_id WHERE  re.to_id = :user_id AND (re.status =0 OR re.status=2) AND re.for_id IS NULL ORDER BY created_date DESC";*/
+					
+		// For lead - pending requests
+		$query1 = "SELECT 
+					re.id, re.to_id,re.status,re.from_id,
+					u1.google_name as ratedby, 
+					u.google_name as rated_to, 
+					u.google_picture_link,
+					u1.google_picture_link AS for_picture,
+					re.modified_date AS created_date,
+					'pending' as rating
+                FROM `request` AS re
+					JOIN users AS u ON (u.id = re.to_id)
+					JOIN users u1 ON (u1.id=re.from_id)
+					WHERE  re.to_id = :user_id AND re.status=0 ORDER BY created_date DESC";
+					 
+        $user_list = $this->con->prepare($query1);
+        $user_list->execute(array(':user_id' => $user_id));
+        $rows_req = $user_list->fetchAll((PDO::FETCH_ASSOC));
+		
+		
+		foreach($rows_req as $row_req)
+		{
+			$row[]=$row_req;
+		}
+		
+		$query2 = "SELECT 
+					re.id, re.to_id,re.status,re.from_id,
+					u1.google_name as ratedby, 
+					u.google_name as rated_to, 
+					u.google_picture_link,
+					u1.google_picture_link AS for_picture,
+					re.modified_date AS created_date,
+					'declined' as rating
+                FROM `request` AS re
+					JOIN users AS u ON (u.id = re.from_id)
+					JOIN users u1 ON (u1.id=re.to_id)
+					WHERE  re.from_id = :user_id AND re.status=1 ORDER BY created_date DESC";
+					 
+        $user_list = $this->con->prepare($query2);
+        $user_list->execute(array(':user_id' => $user_id));
+        $rows_req = $user_list->fetchAll((PDO::FETCH_ASSOC));
+		
+		foreach($rows_req as $row_req)
+		{
+			$row[]=$row_req;
+		}
+	//	print_r($row);
 
         /* query for feedback */
-        $query1 = "SELECT feedback.feedback_to as user_id,feedback.feedback_to as for_id, 3 as status,'response-feedback' as rating,feedback_from as given_by,users.google_name as rated_to,google_picture_link, feedback.created_date  from users join feedback on feedback.feedback_to = users.id where feedback.feedback_to = :user_id";
+        $query1 = "SELECT feedback.id,feedback.feedback_to as user_id,feedback.feedback_to as for_id, 3 as status,
+		feedback.response_parent,
+		feedback_from as given_by,users.google_name as rated_to,google_picture_link, feedback.created_date  from users join feedback on feedback.feedback_to = users.id where feedback.feedback_to = :user_id";
         $user_list1 = $this->con->prepare($query1);
         $user_list1->execute(array(':user_id' => $user_id));
         $row1 = $user_list1->fetchAll((PDO::FETCH_ASSOC));
@@ -1325,22 +1357,35 @@ class dbmodule {
             $row2 = $user_list2->fetchAll((PDO::FETCH_ASSOC));
             $row1[$p]['for_picture'] = $row2[0]['google_picture_link'];
             $row1[$p]['ratedby'] = $row2[0]['google_name'];
+			$row1[$p]['rating'] = (empty($row1[$p]['response_parent']))?'feedback':'response-feedback';
             $row[] = $row1[$p];
         }
 
             /*query for feedback response*/
-            $query3 = "SELECT feedback.feedback_from as user_id,feedback.feedback_from as for_id, 3 as status,'feedback' as rating,feedback_to as given_by,users.google_name as rated_to,google_picture_link, feedback.created_date  from users join feedback on feedback.feedback_from = users.id where feedback.feedback_from = :user_id"; 
+			$query3="select 
+			f.id,
+			f.feedback_from as user_id,
+			f.feedback_from as given_by,
+			f.feedback_to as for_id, 
+			u.google_name as ratedby,
+			3 as status,
+			f.created_date,
+			f.response_parent
+			from feedback f 
+			left join users u on (f.feedback_from=u.id)
+			where f.response_parent in (select f2.id from feedback f2 where f2.feedback_from=:user_id) AND f.feedback_from!=:user_id and f.feedback_to!=:user_id";
             $user_list3 = $this->con->prepare($query3);
             $user_list3->execute(array(':user_id' => $user_id));
             $row3 = $user_list3->fetchAll((PDO::FETCH_ASSOC));
-            for ($t=0;$t<count($row3);$t++) { 
+			for ($t=0;$t < count($row3);$t++) {
                 $query4 = "SELECT id,google_name,google_picture_link from users where users.id = :user_id"; 
                 $user_list4 = $this->con->prepare($query4);
-                $user_list4->execute(array(':user_id' => $row3[$t]['given_by']));
+                $user_list4->execute(array(':user_id' => $row3[$t]['for_id']));
                 $row4 = $user_list4->fetchAll((PDO::FETCH_ASSOC));
-                $row3[$p]['for_picture'] = $row4[0]['google_picture_link'];
-                $row3[$p]['ratedby'] = $row4[0]['google_name'];
-                $row[] = $row3[$p];
+                $row3[$t]['google_picture_link'] = $row4[0]['google_picture_link'];
+                $row3[$t]['rated_to'] = $row4[0]['google_name'];
+				$row3[$t]['rating'] = (empty($row3[$t]['response_parent']))?'feedback':'response-feedback';
+                $row[] = $row3[$t];
             }
             usort($row, function($a, $b) {
                 if($a['created_date']==$b['created_date']) return 0;
@@ -1485,6 +1530,22 @@ class dbmodule {
                 $all_designations->execute();
                 $allDesignations = $all_designations->fetchAll((PDO::FETCH_ASSOC));
                 return $allDesignations;
+    }
+
+    /*function to fetch all rejected requests reject by login user*/
+    function get_all_rejected_request_by_login_id($lead_id){
+        $query = "SELECT request.id as request_id, user.google_name,user.id as lead_id,user.google_picture_link, user.designation,role.name as role_name,request.to_id,request.from_id,description,c.comment_text as comment_text,work.created_date,request_for,rating, request.status FROM `request` 
+                    left join work on work.id = request.work_id 
+                    left join rating on rating.work_id = request.work_id 
+                    left join users as user on user.id = request.from_id
+                    left join comment c on c.request_id = request.id 
+                    left join role_type as role on role.id = user.role_id 
+                    WHERE request.to_id = :lead_id AND request.status = 1 order by request.modified_date desc";
+
+            $user_list = $this->con->prepare($query);
+            $user_list->execute(array(':lead_id' => $lead_id));
+            $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
+            return $row;
     }
 //end of fun
 }

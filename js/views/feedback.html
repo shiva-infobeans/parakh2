@@ -1,63 +1,171 @@
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<div class="oj-web-applayout-content max-width  color-white pos-relative oj-margin-bottom oj-margin-top bottom-feedback">
-    <div class="oj-flex">
-        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex ">
-            <h3><strong class=" color-white">Recent +1 Ratings</strong></h3> 
-        </div>
-    </div>
+<div class="floating-btn">
+    <a href="javascript:void(0);" class="float" id="menu-share">
+        <i class="zmdi zmdi-plus floatingIcons"></i>
+    </a>
+    <ul class="ff">
+        <li id="hideFeedbackFloat">
+            <a href="javascript:void(0);" title="Send Feedback" class="buttons feedBackFloat">
+                <i class="zmdi zmdi-comment-text-alt floatIcons"></i>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:void(0);" title="Rate Buddy" class="buttons rateFloat">
+                <i class="zmdi zmdi-star floatIcons"></i>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:void(0);" title="Send Request" class="buttons requestFloat">
+                <i class="zmdi zmdi-mail-send floatIcons"></i>
+            </a>
+        </li>
+    </ul>
 </div>
-<div class="oj-web-applayout-content max-width  color-white pos-relative oj-margin-bottom oj-margin-top bottom-feedback">
-    <div class="transbox max-width box-shadow border-transbox"></div>
 
-    <div class="oj-flex showup">
-        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex">
-            <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-12 oj-flex oj-flex-item oj-padding border-right">
-                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                        <img class="profile border-color-green" data-bind="attr: {src:image0}" />
-                    </div>
-                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                        <h4 data-bind="text: name0"></h4>
-                    </div>
-                </div>
+<!--feedaback modal in floating button-->
+<div class="oj-row oj-flex">
+<div id="dialogWrapper9">
+    <div style="display:none" id="modalDialog9" title="Feedback" 
+         data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide'}">
+        <div class="oj-dialog-body oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item ">
+            <div class="searchArea">
+                <label for="combobox"></label>
+                <ul id="browsers1" style="display: none">
+                    <!-- ko foreach: browsers1 -->
+                    <li data-bind="attr: {'oj-data-value': value}">
+                        <span class="imgSearch">  <img data-bind="attr: {'src': searchPic}" class="searchImage" /> </span>
+                        <span data-bind="text: label" class="autoName"></span>
+                    </li>
+                    <!-- /ko -->   
+                </ul>
+                <input id="combobox9" 
+                       data-bind="ojComponent: {component: 'ojCombobox',
+                            placeholder:'Search team member',
+                              list: 'browsers1',
+                              value: value1,     
+                              rootAttributes: {style:'max-width:20em'}}"/>
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" id="feedbackFloatSearchError">This field cannot be empty</div>
             </div>
-            <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-12 oj-flex oj-flex-item oj-padding border-right">
-                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                        <img class="profile border-color-green" data-bind="attr: {src:image1}" />
-                    </div>
-                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                        <h4 data-bind="text: name1"></h4>
-                    </div>
+         
+                <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center areaContent1">
+                    <textarea id="text-area9" class="textArea-feedbackFloat" aria-label="ojTextArea component no visible label"
+                              data-bind="ojComponent: {component: 'ojTextArea', 
+                                     value: desc, 
+                                     placeholder: 'Type your feedback here...'}"></textarea>
                 </div>
-            </div>
-            <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-12 oj-flex oj-flex-item  oj-padding border-right">
-                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                        <img class="profile border-color-green" data-bind="attr: {src:image2}" />
-                    </div>
-                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                        <h4 data-bind="text: name2"></h4>
-                    </div>
-                </div>
-                
+           
+            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center errorText" id="feedbackFloatTextError">Please provide a reason for your feedback.</div>
+            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
+                <button class="modal-submitFloatFeddback" data-bind="click: feedbackModal" > Submit </button>
             </div>
 
-            <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-12 oj-flex oj-flex-item  oj-padding border-right">
-                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                        <img class="profile border-color-green" data-bind="attr: {src:image3}" />
-                    </div>
-                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                        <h4 data-bind="text: name3"></h4>
-                    </div>
-                </div>
-                
-            </div>
         </div>
     </div>
+</div>               
+</div>
+
+
+<!--Rate buddy using floating button modal(popUp)-->
+<div class="oj-row oj-flex">
+<div id="dialogWrapper">
+    <div style="display:none" id="modalDialog3"  title="Rate Buddy" class="oj-dialog-body oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item "
+         data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide'}">
+        <div class="oj-dialog-body  oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item">
+
+            <div class="searchArea">
+
+                <form id="form1">
+
+                    <label for="combobox"></label>
+                    <ul id="browsers" style="display: none">
+                        <!-- ko foreach: browsers -->
+                        <li data-bind="attr: {'oj-data-value': value}">
+                            <span class="imgSearch">  <img data-bind="attr: {'src': searchPic}" class="searchImage" /> </span>
+                            <span data-bind="text: label" class="autoName"></span>
+                        </li>
+                        <!-- /ko -->   
+                    </ul>
+                    <input id="combobox2"
+                           data-bind="ojComponent: {component: 'ojCombobox',
+                            placeholder:'Search team member',
+                              list: 'browsers',
+                              value: value,
+                              rootAttributes: {style:'max-width:20em'}}"/>
+                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" data-bind="text: searchError"></div>
+                </form>
+
+            </div>
+
+            <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center areaFloat">
+                <div class="oj-xl-9 oj-lg-9 oj-md-8 oj-sm-8 oj-flex-item  oj-flex areaContent">
+                    <textarea id="text-area" class="textArea3" aria-label="ojTextArea component no visible label"
+                              data-bind="ojComponent: {component: 'ojTextArea', 
+                                     value: desc, 
+                                     placeholder: 'Type your reason here..'}"></textarea>
+                </div>
+                <div class="oj-xl-3 oj-lg-3 oj-md-4 oj-sm-4 oj-flex-item imgArea1 ">
+                    <div class="pos-relative">
+                        <img class="modalImage"  src="../../images/active(+1).png" alt="+1 image"/>
+                    </div>
+                </div>
+                <div>
+
+                </div>
+            </div>
+            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center hide errorTextModal" id="rateFloatTextError">Please provide a reason for rating.</div>
+            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
+                <button class="modal-submit3" data-bind="click: floatModal" > Submit </button>
+            </div>
+
+
+        </div>
+    </div>
+</div>    
+    </div>
+
+<!--Request for +1 modal from floating button-->
+
+<div class="oj-row oj-flex">
+<div id="dialogWrapper">
+    <div style="display:none" id="modalDialogRequest"  title="Send Request" class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item "
+         data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide'}">
+        <div class="oj-dialog-body oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item ">
+
+            <div class="searchArea">
+
+                <label for="combobox"></label>
+                <ul id="browsers2" style="display: none">
+                    <!-- ko foreach: browsers2 -->
+                    <li data-bind="attr: {'oj-data-value': value}">
+                        <span class="imgSearch">  <img data-bind="attr: {'src': autoSearchLeadPic}" class="searchImage" /> </span>
+                        <span data-bind="text: label"  class="autoName"></span> &ndash; <span data-bind="text: autoSearchLeadRole" class="searchLead"></span>
+                    </li> 
+                    <!-- /ko -->   
+                </ul>
+                <input id="combobox3"
+                       data-bind="ojComponent: {component: 'ojCombobox',
+                            placeholder:'Search',
+                                 list: 'browsers2',
+                              value: value2,
+                              rootAttributes: {style:'max-width:20em'}}"/>
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal center errorText" data-bind="text: searchError"></div>
+            </div>
+           
+                <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center areaContent1">
+                    <textarea id="text-area10" class="textArea-feedbackFloat" aria-label="ojTextArea component no visible label"
+                              data-bind="ojComponent: {component: 'ojTextArea', 
+                                     value: desc, 
+                                     placeholder: 'Type your reason here..'}"></textarea>
+                </div>
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal center errorText" data-bind="text:textError"></div>
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
+                    <button class="modal-submitRequest" data-bind="click: requestModal" > Submit</button>
+             
+            </div>  
+        </div>
+    </div>
+</div>    
+</div>
+<div class="loaderDiv loaderHide" id="loaderScreen">
+    <div class="overlay-loader"></div>
+    <div class="loaderImgDiv"><img src="css/images/loader.gif" alt=""/></div>
 </div>

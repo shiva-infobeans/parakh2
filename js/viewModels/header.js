@@ -40,9 +40,26 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
             type1 = "zmdi-comments";
             obj.backColor = '#8F6E5F';
         }
-        obj.element = '<i class="color-black zmdi ' + type1 + '"></i>';
+		if(type=='pending')
+		{
+			type1 = "zmdi-plus-request";
+            obj.backColor = '#607D8B';
+		}
+		if(type=='pending')
+		{
+			obj.element = '<span class="' + type1 + '"></span>';
+		}
+		else
+		{
+			obj.element = '<i class="zmdi ' + type1 + '"></i>';
+		}
         obj.notificationComment = comment;
         return obj;
+    }
+    function decodeHtml(html) {
+        var txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
     }
     function headerContentViewModel(person) {
         var self = this;
@@ -84,49 +101,45 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
                             var notificationData = new Object();
 
                             if (data[c]['rating'] == '+1') {
+								if(data[c]['astatus']=='given') {
                                 notificationData.type = "+1";
-                                if (self.userId() == data[c]['given_by']) {
-//                                    you rated --- +1 ratedby
-                                    notificationData.comment = "You rated " + data[c]['ratedby'] + " +1";
-
-                                } else {
-                                    notificationData.comment = data[c]['rated_to'] + " rated you +1";
-                                }
+                                notificationData.comment = data[c]['ratedby'] + " rated you +1";
+								}
+								else if(data[c]['astatus']=='approved') {
+									notificationData.type = "approved";
+									notificationData.comment = data[c]['ratedby'] + " approved your request";
+								}
+                                
                             }
                             if (data[c]['rating'] == '-1') {
                                 notificationData.type = "-1";
-                                if (self.userId() == data[c]['given_by']) {
-                                    notificationData.comment = "You rated " + data[c]['ratedby'] + " -1";
-
-                                } else {
-                                    notificationData.comment = data[c]['rated_to'] + " rated you -1";
-                                }
+                                notificationData.comment = data[c]['ratedby'] + " rated you -1";
                             }
                             if (data[c]['rating'] == 'feedback') {
+								if(self.userId() == data[c]['for_id']) {
                                 notificationData.type = "feedback";
-                                notificationData.comment = data[c]['ratedby'] + " gave you feedback";
+								notificationData.comment = data[c]['ratedby'] + " gave you feedback";
+								}
                             }
-                            if (data[c]['rating'] == 'approved') {
-                                notificationData.type = "approved";
-                                if (self.userId() == data[c]['given_by']) {
-                                    notificationData.comment = data[c]['ratedby'] + " approved your request";
-
-                                } else {
-                                    notificationData.comment = "You approved " + data[c]['rated_to'] + "'s request";
-                                }
-                            }
+                            
                             if (data[c]['rating'] == 'declined') {
                                 notificationData.type = "declined";
-                                if (self.userId() == data[c]['given_by']) {
-                                    notificationData.comment = data[c]['ratedby'] + " declined your request";
-                                } else {
-                                    notificationData.comment = "You declined " + data[c]['rated_to'] + "'s request";
-                                }
+                                notificationData.comment = data[c]['ratedby'] + " declined your request";
+                                
+                            }
+							 if (data[c]['rating'] == 'pending') {
+                                notificationData.type = "pending";
+                                if (self.userId() == data[c]['to_id']) {
+                                    notificationData.comment = data[c]['ratedby'] + " requested for +1";
+                                } 
                             }
                             if (data[c]['rating'] == 'response-feedback') {
+								if(self.userId()!=data[c]['ratedby']) {
                                 notificationData.type = "response-feedback";
                                 notificationData.comment = data[c]['ratedby'] + " responded on your feedback";
+								}
                             }
+							if(notificationData.type!=undefined)
                             self.notif.push(new notificationContent(notificationData.type, notificationData.comment));
                         }
                     }

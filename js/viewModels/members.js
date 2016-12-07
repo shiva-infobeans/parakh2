@@ -12,12 +12,35 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
     /**
      * The view model for the main content view template
      */
-    function dataComment(comment1, commenter1, commentDate1) {
+    var dateplusArray = [];
+    var dateminusArray = [];
+    function dataComment(comment1, commenter1, commentDate1, datafor) {
         var com = this; // this is for object of this function
         com.comment = comment1;
+        com.shortName = commenter1.replace(/[^A-Z]/g, '');
         com.commenter = commenter1;
         com.commentDate = dateFormatter(commentDate1.substring(0, commentDate1.indexOf(' ')));
+        if(datafor){
+            if (dateplusArray.indexOf(com.commentDate) == -1) {
+                dateplusArray.push(com.commentDate);
+            } else
+            {
+                com.commentDate = '';
+            }
+        }else
+        {
+            if (dateminusArray.indexOf(com.commentDate) == -1) {
+                dateminusArray.push(com.commentDate);
+            } else
+            {
+                com.commentDate = '';
+            }
+        }
         return com;
+    }
+    function nameFunction(NAME) {
+        var initial = NAME.charAt(0) + NAME.charAt(NAME.lastIndexOf(" ") + 1);
+        return initial;
     }
     function dateDiffCalender(Date1) {
         user_date = Date.parse(Date1);
@@ -60,21 +83,25 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
     function dataFeedback(myId, data) {
         var feedbackObj = new Object();
         if (data['description'].length > 100) {
-            feedbackObj.sComment = data['description'].substring(0, 100) + "...";
+            feedbackObj.sComment = decodeHtml(data['description']).substring(0, 100) + "...";
         } else {
-            feedbackObj.sComment = data['description'];
+            feedbackObj.sComment = decodeHtml(data['description']);
         }
-        feedbackObj.lComment = data['description'];
+        feedbackObj.shortName = nameFunction(data['given_by_name']);
+        feedbackObj.lComment = decodeHtml(data['description']);
         feedbackObj.myId = myId;
         feedbackObj.feedbackfrom = data['feedback_from'];
         feedbackObj.name = data['given_by_name'];
         feedbackObj.feedbackId = data['id'];
-        feedbackObj.feedbackDescription = data['description'];
+        feedbackObj.feedbackDescription = decodeHtml(data['description']);
         feedbackObj.feedbackdesignation = data['designation'];
         feedbackObj.replies = ko.observableArray();
         feedbackObj.feedbackImage = data['google_picture_link'];
         feedbackObj.uniqueId = "feedback" + data['id'];
         feedbackObj.replyBtnId = "replyBtn" + data['id'];
+        feedbackObj.replyInput = "replyInput" + data['id'];
+        feedbackObj.replySend = "replySend" + data['id'];
+        feedbackObj.replyClose = "replyClose" + data['id'];
         // 2nd myId with rtoId change it when view profile page;
         var data_reply = data['reply'];
         for (var c = 0; c < data_reply.length; c++) {
@@ -88,9 +115,15 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
         freplies.login_id = lid;
         freplies.freply_to = rtoId;
         freplies.reply_name = data['from_name'];
-        freplies.reply_desc = data['description'];//display desc
+        freplies.reply_desc = decodeHtml(data['description']);//display desc
+        freplies.reply_ShortName = nameFunction(data['from_name']);//display name
         freplies.reply_date = dateFormatter(data['created_date'].substring(0, data['created_date'].indexOf(" ")));// display date
         return freplies;
+    }
+    function decodeHtml(html) {
+        var txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
     }
     function membersContentViewModel(person) {
         var self = this;
@@ -112,6 +145,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
         this.pic = ko.observable();
         this.myname = ko.observable();
         this.email = ko.observable();
+        this.mailTo = ko.observable();
         this.UserId = ko.observable();
         this.shortName = ko.observable();
         this.minusSign = ko.observable('-');
@@ -145,7 +179,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                 self.roleName(userRecord.attributes['data']['role_name']);
                 self.myselfId(userRecord.attributes['data']['id']);
                 self.myselfName(userRecord.attributes['data']['google_name']);
-
+                self.myname;
                 if (self.id() == self.myselfId()) {
                     window.location = "profile.html";
                 }
@@ -170,6 +204,87 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                 });
 
 
+                // open reply button
+                self.openReply = function (data, event) {
+                    $('#' + data['replyBtnId']).fadeOut();
+                    $('#' + data['uniqueId']).fadeOut();
+                    try {
+                        var effectReplyBtn = 'slideOut';
+                        if (effectReplyBtn && oj.AnimationUtils[effectReplyBtn])
+                        {
+                            var jElem = $('#' + data['replyBtnId']);
+                            var animateOptions = {'delay': '0ms',
+                                'duration': '1000ms',
+                                'timingFunction': 'linear'};
+                            $.extend(animateOptions, 'all');
+                            // Invoke the animation effect method with options
+                            oj.AnimationUtils[effectReplyBtn](jElem[0], animateOptions);
+                        }
+                    } catch (e) {
+
+                    }
+                    $('#' + data['uniqueId']).fadeIn();
+
+                }
+                // send respond on feedback
+                self.replySend = function (data, event) { 
+                    //feedback respond from (user) 
+                    var reply_from = data["myId"];
+                    //feedbackId 
+                    var fid = data['feedbackId'];
+                    if (reply_from == data['feedbackFrom']) {
+                        var reply_to = data['feedbackto'];
+                    } else {
+                        var reply_to = data['feedbackfrom'];
+                    }
+                    // feedback respond system date 
+                    var today = new Date();
+                    var dd = today.getDate();
+                    var mm = today.getMonth() + 1; //January is 0!
+                    var yyyy = today.getFullYear();
+                    if (dd < 10) {
+                        dd = '0' + dd
+                    }
+                    if (mm < 10) {
+                        mm = '0' + mm
+                    }
+                    today = yyyy + '-' + mm + '-' + dd + " ";
+
+                    var responseDesc = $('#' + data['replyInput']);
+                    if (responseDesc.val().length == 0) {
+                        return;
+                    }
+                    ////////// object for reply add
+                    var obj = new Object();
+                    obj.from_name = self.myselfName();
+                    obj.description = decodeHtml(responseDesc.val());
+                    obj.created_date = today;
+                    data['replies'].push(new feedbackRepliesData(0, 0, obj));
+                    data['replies']();
+                    $.ajax({
+                        headers: {secret: secret},
+                        method: 'POST',
+                        url: addFeedbackResponse,
+                        data: {login_user_id: reply_from, feedback_to: reply_to, feedback_desc: responseDesc.val(), feedback_id: fid},
+                        success: function () {
+                            responseDesc.val("");
+                        },
+                        beforeSend: function () {
+                            $("#respondLoader").removeClass('loaderHide');
+                        },
+                        complete: function () {
+                            $("#respondLoader").addClass('loaderHide');
+                        }
+                    });
+
+
+                }
+                // close reply input and show reply button
+                self.closeReply = function (data, event) {
+                    $('#' + data['replyBtnId']).fadeIn();
+                    $('#' + data['uniqueId']).fadeOut();
+                }
+
 
                 $.ajax({
                     headers: {secret: secret},
@@ -185,6 +300,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                                 self.myname(data[index]['google_name']);
                                 self.shortName(data[index]['google_name'].substring(0, data[index]['google_name'].indexOf(" ")));
                                 self.email(data[index]['google_email']);
+                                self.mailTo("mailto:"+data[index]['google_email']);
                                 self.location(data[index]["location"]);
                                 self.skills(data[index]["skills"]);
                                 self.primary_project(data[index]["primary_project"]);
@@ -212,14 +328,14 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                                 var minus = 0;
                                 var data = res['attributes']['data'];
                                 for (var i = 0; i < data.length; i++) {
-                                    if (data[i]['rating'] == 0) {
+                                    if (data[i]['rating'] == 0) {   
                                         minus++;
-                                        var ab = new dataComment(data[i]['description'], data[i]['given_by_name'], data[i]['created_date']);
+                                        var ab = new dataComment(decodeHtml(data[i]['description']), data[i]['given_by_name'], data[i]['created_date'],0);
                                         self.commentDataNegative.push(ab);
                                     } else {
                                         if (data[i]['rating'] == 1)
                                             plus++;
-                                        var ab = new dataComment(data[i]['description'], data[i]['given_by_name'], data[i]['created_date']);
+                                        var ab = new dataComment(decodeHtml(data[i]['description']), data[i]['given_by_name'], data[i]['created_date'],1);
                                         self.commentDataPositive.push(ab);
                                     }
                                 }

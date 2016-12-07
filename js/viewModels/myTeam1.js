@@ -20,20 +20,20 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         member.designation = data['designation'];
         member.role_name = data['role_name'];
         member.google_id = data['google_id'];
-        // getOtherTeamMembers + data['id'];
-        member.plus = data['pluscount'];
-        member.minus = data['minuscount'];
+        member.plus = data['pluscount'] != null ? data['pluscount'] : 0;
+        member.minus = data['minuscount'] != null ? data['minuscount'] : 0;
         return member;
     }
     function leadTeam(data) {
+        console.log(data);
         var myTeam = this;
-        myTeam.myName = data['user_name'];
+        myTeam.myName = data['google_name'];
         myTeam.myId = data['user_id'];
         myTeam.myDesign = data['designation'];
-        myTeam.myEmail = data['email'];
+        myTeam.myEmail = data['google_email'];
         myTeam.myPic = data['picture'] == "" ? 'images/warning-icon-24.png' : data['picture'];
-        myTeam.plus = data['pluscount'];
-        myTeam.minus = data['minuscount'];
+        myTeam.plus = data['pluscount'] != null ? data['pluscount'] == 0 ? 0 : "+" + data['pluscount'] : 0;
+        myTeam.minus = data['minuscount'] != null ? data['minuscount'] == 0 ? 0 : "-" + data['minuscount'] : 0;
         return myTeam;
     }
 
@@ -63,7 +63,30 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.desc = ko.observable();
         self.textError = ko.observable();
         self.sucessMsg = ko.observable();
-        
+        self.selectTab = ko.observable(0);
+        self.sucessMsgFeedback = ko.observable();
+
+        //indexer for other team members
+        self.indexer2Letters = ko.observableArray();
+        self.makeUnderLine2 = function (data, event) {
+            $("#index").children("span").each(function () {
+                if ($(this).children().hasClass('indexerUnderline')) {
+                    $(this).children().removeClass('indexerUnderline');
+                }
+            });
+            $(event.target).addClass('indexerUnderline');
+        }
+        //indexer for my team members
+        self.indexer1Letters = ko.observableArray();
+        self.makeUnderLine1 = function (data, event) {
+            $("#index1").children("span").each(function () {
+                if ($(this).children().hasClass('indexerUnderline')) {
+                    $(this).children().removeClass('indexerUnderline');
+                }
+            });
+            $(event.target).addClass('indexerUnderline');
+        }
+        ///
         //user
         var user = oj.Model.extend({
             url: getUserByEmail + person['email']
@@ -78,11 +101,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
                 if (self.role_name() === 'Team Member') {
 
-                    $('#tabs ul li:last-child').hide();
+                    $('#tabs ul li:first-child').hide();
 
                 } else {
 
-                    $('#tabs ul li:last-child').addClass('abc').show();
+                    $('#tabs ul li:first-child').addClass('abc').show();
                     //lead id user
                     $.ajax({
                         headers: {secret: secret},
@@ -99,6 +122,19 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 self.myTeam.push(new leadTeam(data[counter1]));
                             }
                             self.data1(self.myTeam());
+                            self.indexer1Letters.push("All");
+                            $("#All1 a").addClass('indexerUnderline');
+                            for (var c = 0; c < self.data1().length; c++) {
+                                if (c == 0) {
+                                    self.indexer1Letters.push(self.data1()[c]['myName'].substring(0, 1));
+                                } else {
+                                    var letter = self.data1()[c]['myName'].substring(0, 1);
+                                    if (self.data1()[c - 1]['myName'].substring(0, 1) != letter) {
+                                        self.indexer1Letters.push(letter);
+                                    }
+
+                                }
+                            }
                         }
                     });
                 }
@@ -106,7 +142,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 $.ajax({
                     headers: {secret: secret},
                     method: 'POST',
-                    url: getOtherTeamMembers+self.userId(),
+                    url: getOtherTeamMembers + self.userId(),
                     data: {user_id: self.userId()},
                     success: function (task) {
                         var data = JSON.parse(task)['data'];
@@ -117,26 +153,20 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             self.members.push(new teamMember(data[counter1]));
                         }
                         self.data2(self.members());
+                        self.indexer2Letters.push("All");
+                        $("#All a").addClass('indexerUnderline');
+                        for (var c = 0; c < self.data2().length; c++) {
+                            if (c == 0) {
+                                self.indexer2Letters.push(self.data2()[c]['name'].substring(0, 1));
+                            } else {
+                                var letter = self.data2()[c]['name'].substring(0, 1);
+                                if (self.data2()[c - 1]['name'].substring(0, 1) != letter) {
+                                    self.indexer2Letters.push(letter);
+                                }
+                            }
+                        }
                     }
                 });
-                // var TaskRecord = oj.Model.extend({
-                //     url: getOtherTeamMembers + self.userId()
-                // });
-                // var task = new TaskRecord();
-                // task.fetch({
-                //     headers: {secret: secret},
-                //     success: function (res) {
-                //         var data = task.attributes['data'];
-                //         data = data.sort(function (a, b) {
-                //             return (a['google_name'] > b['google_name']) - (a['google_name'] < b['google_name']);
-                //         });
-                //         for (var counter1 = 0; counter1 < data.length; counter1++) {
-                //             self.members.push(new teamMember(data[counter1]));
-                //         }
-                //         self.data2(self.members());
-                //     }
-                // });
-
             }
         });
         self.arrangeIndex = function (data, event) {
@@ -145,7 +175,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 value = value.substr(value.lastIndexOf('/') + 1);
                 var temp_data = [];
                 self.members([]);
-                if (value == "ALL") {
+                if (value == "All") {
                     self.members([]);
                     self.members(self.data2());
                 } else {
@@ -157,10 +187,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         }
                     }
                 }
-                $(".viewProfile").on('click', function () {
-                    console.log($(this).attr("myTeamId"));
+                $(".viewProfile1").on('click', function () {
                     var link = "memberProfile.html?id=" + $(this).attr("myTeamId");
-                    console.log(link);
                     window.location = link;
                 });
 
@@ -174,6 +202,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
             self.handleOKClose = $("#okButton").click(function () {
                 $("#modalDialog8").ojDialog("close");
+                  self.desc('');
+                    self.textError('');
             });
             // feedbackLead...
             self.handleOpen = $(".feedbackBuddyLead").click(function () {
@@ -184,14 +214,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
             self.handleOKClose = $("#okButton").click(function () {
                 $("#modalDialog8").ojDialog("close");
+                  self.desc('');
+                    self.textError('');
             });
-            self.handleOpen = $(".feedbackBuddyLead").click(function () {
-                $("#modalDialog8").ojDialog("open");
-            });
-
-            self.handleOKClose = $("#okButton").click(function () {
-                $("#modalDialog8").ojDialog("close");
-            });
+           
             //rateBuddy...
             self.handleOpen = $(".star").click(function () {
                 $("#modalDialog1").ojDialog("open");
@@ -210,7 +236,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 value = value.substr(value.lastIndexOf('/') + 1);
                 var temp_data = [];
                 self.myTeam([]);
-                if (value == "ALL") {
+                if (value == "All") {
                     self.myTeam([]);
                     self.myTeam(self.data1());
                 } else {
@@ -248,17 +274,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     window.location = link;
                 });
             }
-            $(".viewProfile").on('click', function () {
-                var link = "memberProfile.html?id=" + $(this).attr("myTeamId");
-                window.location = link;
-            });
+           
             self.handleOpen = $(".starTeam").click(function () {
                 $("#modalDialog2").ojDialog("open");
                 self.desc('');
                 self.textError('');
                 self.p(1);
-                self.image1("css/images/green-button.png")
-                self.image2("css/images/disable.png");
+                self.image1("../../images/active(+1).png")
+                self.image2("../../images/disable(-1).png");
             });
 
             self.handleOKClose = $("#okButton").click(function () {
@@ -267,17 +290,25 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         };
         //rateBuddy
         $("body").on('click', '.rateBuddy', function () {
+            $("#modalDialog1").ojDialog("open");
+            self.desc('');
+            self.textError('');
             self.for_id($(this).attr("id"));
             self.image($(this).attr("image"));
             self.myname($(this).attr("myname"));
             self.myDesignation($(this).attr("myDesignation"));
+            $('.textArea2').val('');
         });
         //feedbackLead
         $("body").on('click', '.feedbackBuddyLead', function () {
+            $("#modalDialog8").ojDialog("open");
+            self.desc('');
+            self.textError('');
             self.for_id($(this).attr("myTeamId"));
             self.image($(this).attr("teamImage"));
             self.myname($(this).attr("teamName"));
             self.myDesignation($(this).attr("teamDesig"));
+            $('.textArea-feedback').val('');
         });
         //feedback...
         $("body").on('click', '.feedbackBuddy', function () {
@@ -305,15 +336,17 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         setTimeout(function () {
                             $("#sucess").hide();
                             self.sucessMsg("");
-                        }, 3000);
+                        }, 10000);
+                        self.desc('');
+                        self.textError('');
                     },
-                      beforeSend: function () {
-                            $("#rateMeLoader").removeClass('loaderHide');
-                        },
-                        complete: function () {
-                            $("#rateMeLoader").addClass('loaderHide');
-                        }
-                    
+                    beforeSend: function () {
+                        $("#rateMeLoader").removeClass('loaderHide');
+                    },
+                    complete: function () {
+                        $("#rateMeLoader").addClass('loaderHide');
+                    }
+
                 });
             }
         }
@@ -330,23 +363,30 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     data: {feedback_from: self.userId(), feedback_to: self.for_id(), feedback_description: self.desc()},
                     success: function () {
                         $("#modalDialog8").ojDialog("close");
-                        self.sucessMsg("Feedback is sent!");
+                         $("#sucessFeedback").show();
+                        self.sucessMsgFeedback("Feedback is sent!");
                         setTimeout(function () {
-                            $("#sucess").hide();
-                            self.sucessMsg("");
-                        }, 3000);
+                            $("#sucessFeedback").hide();
+                            self.sucessMsgFeedback("");
+                        }, 10000);
                     },
-                      beforeSend: function () {
-                            $("#rateMeLoader1").removeClass('loaderHide');
-                        },
-                        complete: function () {
-                            $("#rateMeLoader1").addClass('loaderHide');
-                        }
+                    beforeSend: function () {
+                        $("#rateMeLoader1").removeClass('loaderHide');
+                    },
+                    complete: function () {
+                        $("#rateMeLoader1").addClass('loaderHide');
+                    }
                 });
             }
         }
 //        +1/-1 from team lead/manager 
         $("body").on('click', '.rateMyTeam', function () {
+            $("#modalDialog2").ojDialog("open");
+            self.desc('');
+            self.textError('');
+            self.p(1);
+            self.image1("../../images/active(+1).png")
+            self.image2("../../images/disable(-1).png");
             self.teamImage($(this).attr("teamImage"));
             self.myId($(this).attr("myTeamId"));
             self.teamName($(this).attr("teamName"));
@@ -364,6 +404,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         });
         //feedbackLead
         $("body").on('click', '.feedbackBuddyLead', function () {
+            $("#modalDialog8").ojDialog("open");
+            self.desc('');
+            self.textError('');
             self.teamImage($(this).attr("teamImage"));
             self.myId($(this).attr("myTeamId"));
             self.teamName($(this).attr("teamName"));
@@ -373,19 +416,19 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.p = ko.observable(1);
 
         // +1 rating on green button 
-        self.image1 = ko.observable(src = "css/images/green-button.png");
-        self.image2 = ko.observable(src = "css/images/disable.png");
+        self.image1 = ko.observable(src = "../../images/active(+1).png");
+        self.image2 = ko.observable(src = "../../images/disable(-1).png");
         this.plusOne = function () {
             self.p(1);
-            self.image1("css/images/green-button.png")
-            self.image2("css/images/disable.png");
+            self.image1("../../images/active(+1).png")
+            self.image2("../../images/disable(-1).png");
         };
         //-1 ratig on red button image
 
         this.minusOne = function () {
             self.p(0);
-            self.image1("css/images/disable.png")
-            self.image2("css/images/red-button.png");
+            self.image1("../../images/disable(+1).png")
+            self.image2("../../images/active(-1).png");
 
         };
         // default +1 on submit button 
@@ -406,14 +449,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         setTimeout(function () {
                             $("#sucess").hide();
                             self.sucessMsg("");
-                        }, 3000);
+                        }, 10000);
                     },
-                      beforeSend: function () {
-                            $("#rateMeLoader2").removeClass('loaderHide');
-                        },
-                        complete: function () {
-                            $("#rateMeLoader2").addClass('loaderHide');
-                        }
+                    beforeSend: function () {
+                        $("#rateMeLoader2").removeClass('loaderHide');
+                    },
+                    complete: function () {
+                        $("#rateMeLoader2").addClass('loaderHide');
+                    }
                 });
             }
         };
@@ -423,33 +466,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 var link = "memberProfile.html?id=" + $(this).attr("myTeamId");
                 window.location = link;
             });
-
-            $("#index").ready(function () {
-                var AlphaIndexes = [];
-                var alphaCounter = 0; // counter for letters present in indexer
-                for (var index = 0; index < self.members().length; index++) {
-                    //    console.log("here : " + index);
-                    if (self.members()[index]['name'].charAt(0) != AlphaIndexes[alphaCounter - 1]) {
-                        AlphaIndexes[alphaCounter++] = self.members()[index]['name'].charAt(0);
-                    }
-                }
-				//$("#index").addClass("hide");
-                $("#index span").each(function (i, data) {
-                    if (i != 0) {
-                        if($.inArray($(this).children("a").attr("href"),AlphaIndexes)<0)
-						{
-							//console.log($(this).children("a").attr("href"));
-							
-								//console.log(AlphaIndexes[z]);
-                                $(this).addClass("hide");
-						}
-                    }
-                })
-				$("#index").removeClass("hide");
-            });
-
-
-
             $("#index1").ready(function () {
                 var AlphaIndexes = [];
                 var alphaCounter = 0; // counter for letters present in indexer
@@ -468,100 +484,97 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     }
                 })
             });
-
-            self.handleOpen = $(".star").click(function () {
-                $("#modalDialog1").ojDialog("open");
-                self.desc('');
-                self.textError('');
-            });
-
-            self.handleOKClose = $("#okButton").click(function () {
-//                $("#modalDialog1").ojDialog("close");
-            });
-
-            self.handleOpen = $(".starTeam").click(function () {
-                $("#modalDialog2").ojDialog("open");
-                self.desc('');
-                self.textError('');
-                self.p(1);
-                self.image1("css/images/green-button.png")
-                self.image2("css/images/disable.png");
-            });
-
-            self.handleOKClose = $("#okButton").click(function () {
-                $("#modalDialog2").ojDialog("close");
-            });
-            // feedback...
-            self.handleOpen = $(".feedbackBuddy").click(function () {
-                $("#modalDialog8").ojDialog("open");
-                self.desc('');
-                self.textError('');
-            });
-
-            self.handleOKClose = $("#okButton").click(function () {
-                $("#modalDialog8").ojDialog("close");
-            });
-            // feedbackLead...
-            self.handleOpen = $(".feedbackBuddyLead").click(function () {
-                $("#modalDialog8").ojDialog("open");
-                self.desc('');
-                self.textError('');
-            });
-
-            self.handleOKClose = $("#okButton").click(function () {
-                $("#modalDialog8").ojDialog("close");
-            });
+               $("body").on('click', '.viewProfile1', function () {
+                    var link = "memberProfile.html?id=" + $(this).attr("myTeamId");
+                    window.location = link;
+               });
+           
             
-             $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
-                    $('#homeTab2').append(' <img src="../../images/team.png" alt="" />');
-                    
-                     $( "#homeTab2" ).click(function() {
-                          if($('#homeTab2 > img').attr("src")=="../../images/team.png"){
-                          $('#homeTab1 > img').remove();
-                          $('#homeTab2 > img').remove();
-                          $('#homeTab1').append(' <img src="../../images/user.png" alt="" />');
-                          $('#homeTab2').append(' <img src="../../images/team-active.png" alt="" />');
-						  self.members([]);
-                    self.members(self.data2());
-                      }
-                     });
-                         
-                     $( "#home2" ).click(function() {
-                          if($('#homeTab2 > img').attr("src")=="../../images/team.png"){
-                          $('#homeTab1 > img').remove();
-                          $('#homeTab2 > img').remove();
-                          $('#homeTab1').append(' <img src="../../images/user.png" alt="" />');
-                          $('#homeTab2').append(' <img src="../../images/team-active.png" alt="" />');
-						  self.members([]);
-                    self.members(self.data2());
-                      }
-                     });
-                     
-                       $( "#homeTab1" ).click(function() {
-                          if($('#homeTab1 > img').attr("src")=="../../images/user.png"){
-                          $('#homeTab1 > img').remove();
-                          $('#homeTab2 > img').remove();
-                          $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
-                          $('#homeTab2').append(' <img src="../../images/team.png" alt="" />');
-						  self.members([]);
-                    self.members(self.data2());
-                      }
-                     });
-                         
-                     $( "#home1" ).click(function() {
-                         if($('#homeTab1 > img').attr("src")=="../../images/user.png"){
-                          $('#homeTab1 > img').remove();
-                          $('#homeTab2 > img').remove();
-                          $('#homeTab1').append(' <img src="../../images/user-active.png" alt="" />');
-                          $('#homeTab2').append(' <img src="../../images/team.png" alt="" />');
-						  self.members([]);
-                    self.members(self.data2());
-                      }
-                     });
-            
+            if (self.role_name() === 'Team Member') {
+                self.selectTab(1);
+                $("#membersHover").addClass("buddyTabRequest1");
 
+                $('#homeTab1').append(' <img src="../../images/team-new-active.png" alt="" />')
+            } else {
+                $("#membersHover").addClass("hoverTab2");
+                $('#homeTab1').append(' <img src="../../images/team-new.png" alt="" />');
+                $('#homeTab2').append(' <img src="../../images/team-active_1.png" alt="" />');
+
+                $("#homeTab2").click(function () {
+                    if ($('#homeTab2 > img').attr("src") == "../../images/team-active_1.png") {
+                        $('#homeTab1 > img').remove();
+                        $('#homeTab2 > img').remove();
+                        $('#homeTab1').append(' <img src="../../images/team-new-active.png" alt="" />');
+                        $('#homeTab2').append(' <img src="../../images/team-inactive.png" alt="" />');
+                        self.members([]);
+                        self.members(self.data2());
+                    }
+                });
+
+                $("#home2").click(function () {
+                    if ($('#homeTab2 > img').attr("src") == "../../images/team-active_1.png") {
+                        $('#homeTab1 > img').remove();
+                        $('#homeTab2 > img').remove();
+                        $('#homeTab1').append(' <img src="../../images/team-new-active.png" alt="" />');
+                        $('#homeTab2').append(' <img src="../../images/team-inactive.png" alt="" />');
+                        self.members([]);
+                        self.members(self.data2());
+                    }
+                });
+
+                $("#homeTab1").click(function () {
+                    if ($('#homeTab1 > img').attr("src") == "../../images/team-new-active.png") {
+                        $('#homeTab1 > img').remove();
+                        $('#homeTab2 > img').remove();
+                        $('#homeTab1').append(' <img src="../../images/team-new.png" alt="" />');
+                        $('#homeTab2').append(' <img src="../../images/team-active_1.png" alt="" />');
+                        self.members([]);
+                        self.members(self.data2());
+                    }
+                });
+
+                $("#home1").click(function () {
+                    if ($('#homeTab1 > img').attr("src") == "../../images/team-new-active.png") {
+                        $('#homeTab1 > img').remove();
+                        $('#homeTab2 > img').remove();
+                        $('#homeTab1').append(' <img src="../../images/team-new.png" alt="" />');
+                        $('#homeTab2').append(' <img src="../../images/team-active_1.png" alt="" />');
+                        self.members([]);
+                        self.members(self.data2());
+                    }
+                });
+
+            }
         }, 600);
 
+        self.handleOpen = $(".star").click(function () {
+            $("#modalDialog1").ojDialog("open");
+            self.desc('');
+            self.textError('');
+        });
+
+        self.handleOpen = $(".starTeam").click(function () {
+            $("#modalDialog2").ojDialog("open");
+            self.desc('');
+            self.textError('');
+            self.p(1);
+            self.image1("../../images/active(+1).png")
+            self.image2("../../images/disable(-1).png");
+        });
+
+        // feedback...
+        self.handleOpen = $(".feedbackBuddy").click(function () {
+            $("#modalDialog8").ojDialog("open");
+            self.desc('');
+            self.textError('');
+        });
+
+        // feedbackLead...
+        self.handleOpen = $(".feedbackBuddyLead").click(function () {
+            $("#modalDialog8").ojDialog("open");
+            self.desc('');
+            self.textError('');
+        });
 
     }
     return myTeamContentViewModel;

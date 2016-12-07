@@ -247,7 +247,7 @@ $app->post('/updateProfile', function ($request, $response) {
         $post_data['mob'] = '';   
     }
     if($db->isValidUser( $post_data['user_id'] )){
-        if (!preg_replace( '/^[1-9][0-9]*$/', '', $post_data['mob'] )) {
+        if (preg_match( '/^\d{10}$/',  $post_data['mob'] )) {
             //Creating a dbmodule object
             $result = $db->updateProfile($post_data);
 
@@ -938,6 +938,27 @@ $app->post('/getAllDesignations[/]', function ($request, $response, $args) {
     //Creating a dbmodule object
     $db = new dbmodule();
     $result = $db->get_all_designations();
+    if($result != 0){
+        $response_data = makeResponse('false',$result);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3001));
+    }    
+    $response->withJson($response_data);
+    return $response;
+});
+
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getAllRejectedRequestsByLoginId/
+ * Parameters: 
+ * 
+ * Method: POST
+ * */    
+$app->post('/getAllRejectedRequestsByLoginId[/]', function ($request, $response, $args) {
+    $response_data = array();
+    $data = $request->getParsedBody();
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    $result = $db->get_all_rejected_request_by_login_id($data['lead_id']);
     if($result != 0){
         $response_data = makeResponse('false',$result);
     }else{
