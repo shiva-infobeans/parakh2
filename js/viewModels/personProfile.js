@@ -603,6 +603,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     numberDefaultVar = self.myNumber();
                     editVariable = self.myNumber().substring(self.myNumber().indexOf("-") + 1, self.myNumber().length);
                     self.temporaryNumber(self.myNumber().substring(self.myNumber().indexOf("-") + 1, self.myNumber().length));
+                    if(self.myNumber() == "NO NUMBER")
+                    {
+                        numberDefaultVar = '';
+                        self.temporaryNumber("");
+                    }
                     self.temporaryNumber();
                     $('#number-text').addClass('hide');
                     $('#editNumberBox').removeClass('hide');
