@@ -929,7 +929,7 @@ div.oj-tabs-panel.oj-tabs-selected{
   border-right: none !important;
 }
 #filmStripDiv8 .oj-filmstrip,
-#filmStripDiv9 .oj-filmstrip,{
+#filmStripDiv9 .oj-filmstrip{
     outline: none;
 }
 .arrow-controls {
@@ -1132,7 +1132,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 .left-custom{
         padding: 0px !important;
 		float: left;
-		border-right none;
+		border-right: none;
     }
 #mangerSlider .oj-pagingcontrol-nav-dot-bullet.oj-selected,
 #mySlider .oj-pagingcontrol-nav-dot-bullet.oj-selected,
@@ -1465,6 +1465,17 @@ div.oj-tabs-panel.oj-tabs-selected{
     }
     .logo{margin-left: 5px;}
 
+     .achieve-img-align{
+         margin-left: 0px !important;
+     }
+     .achieve-text{
+         margin-left: 0px !important;
+         font-size: 22px;
+         color: #fff;
+     }
+     .ipad-margin{
+         margin: 10px;
+     }
 }
 @media  screen and (min-width: 1200px) and (max-width: 1366px) {
     #ojDialogWrapper-modalDialog9.oj-dialog,
@@ -1794,10 +1805,10 @@ a#menu-share:hover > i{
   width: 18% !important;;
 }
 }*/
-#ui-id-4, #ui-id-5 {
+/*#ui-id-4, #ui-id-5 {
     margin-left: 10px;
     margin-right: 10px;
-}
+}*/
 #text-area::-webkit-input-placeholder
 {
   color: #777 !important;

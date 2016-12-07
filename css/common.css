@@ -352,8 +352,8 @@
 }
 
 .buttons {
-/*    box-shadow: 0px 5px 11px -2px rgba(0, 0, 0, 0.18), 
-        0px 4px 12px -7px rgba(0, 0, 0, 0.15);*/
+    /*    box-shadow: 0px 5px 11px -2px rgba(0, 0, 0, 0.18), 
+            0px 4px 12px -7px rgba(0, 0, 0, 0.15);*/
     border-radius: 50%;
     display: block;
     width: 62px;
@@ -579,9 +579,9 @@
     margin-left: 0;
 }
 .text-area-custom {
-  background: transparent none repeat scroll 0 0;
-  margin-left: 0 !important;
-  width: 100% !important;
+    background: transparent none repeat scroll 0 0;
+    margin-left: 0 !important;
+    width: 100% !important;
 }
 .area {
     width: 91%;
@@ -967,13 +967,13 @@
 }
 /*Namrata*/
 #oj-combobox-choice-combobox3.oj-combobox-choice, #oj-combobox-choice-combobox2.oj-combobox-choice, #oj-combobox-choice-combobox9.oj-combobox-choice {
-  background-color: #f3f3f3;
-  border-color: #305a04;
-  border-radius: 7px;
-  border-style: solid;
-  border-width: 1px;
-  margin-left: 0;
-  width: 100% !important;
+    background-color: #f3f3f3;
+    border-color: #305a04;
+    border-radius: 7px;
+    border-style: solid;
+    border-width: 1px;
+    margin-left: 0;
+    width: 100% !important;
 }
 
 #ui-id-4 .oj-hover{
@@ -1870,3 +1870,70 @@ a:hover.oj-clickable-icon-nocontext,.oj-hover.oj-clickable-icon-nocontext{ color
     word-break: break-all;
 }
 .my-performance-slide .border-right-recent:last-child{border-right: none;}
+
+/*achievements block*/
+
+.block-min-height{
+    min-height: 735px;   
+}
+.achieve-li{
+    list-style: none;
+}
+.nav-achieve li{
+    font-size: 24px;
+    list-style: outside none none;
+    padding: 12px;
+}
+.nav-achieve li a{
+    color:#fff;
+}
+/*.nav-achieve li a:active{
+    background-color: #fff;
+    color: #000;
+    border-bottom: 6px solid green;
+}*/
+.nav-achieve li a:hover, a:focus{
+    text-decoration: none;
+}
+.trophy-img{
+    width: 24px;
+    height: 24px;
+}
+.achieve-heading{
+    color: #F9E81F;
+    font-size: 54px;
+    font-weight: bolder;
+}
+.achieve-img-align{
+    margin-left: 28px;
+}
+.achieve-text{
+    margin-left: -45px;
+    font-size: 22px;
+    color: #fff;
+}
+.float-arrow{
+    font-size: 54px !important;
+        color: #fff !important;
+}
+#listview .oj-listview-group-item{
+    font-weight: bolder;
+    color: #fff;
+    padding: 5px;
+    border: 0 solid #fff;
+    border-width: 2px;
+    font-size: 30px;
+    background-color: #689F39;
+    /* opacity: 0.3; */
+    box-sizing: border-box;
+}
+.accordin-text{
+    font-size: 22px;
+    color:#fff;
+}
+.accordin-img{
+    margin-top: 15px;
+}
+#sm_md ::-webkit-scrollbar{
+        width: 0px;
+}
