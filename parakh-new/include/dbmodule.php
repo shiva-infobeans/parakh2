@@ -1551,7 +1551,7 @@ class dbmodule {
     /*function to create image cache of user via email*/
     function createImageCache($user_email,$to_do)
     {
-        $query = "SELECT users.id,user_log.login_datetime,user_log.logout_datetime from users left join user_log on user_log.user_id = users.id where google_email= :email";
+        $query = "SELECT users.id,user.google_name,user_log.login_datetime,user_log.logout_datetime from users left join user_log on user_log.user_id = users.id where google_email= :email";
         $user_list = $this->con->prepare($query);
         $user_list->execute(array(':email' => $user_email));
         $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
@@ -1564,7 +1564,7 @@ class dbmodule {
             if (file_exists($_SERVER['DOCUMENT_ROOT'] . "/". $folder_name. "/".$row[0]['id'].".txt")) {
                 file_put_contents($_SERVER['DOCUMENT_ROOT'] . "/". $folder_name. "/".$row[0]['id'].".txt", "");
             }
-            $content = base64_encode($_POST['img']."|||".$_POST['timestamp']);
+            $content = base64_encode(file_get_contents($_POST['img'])."|||".$_POST['timestamp']);
             $fp = fopen($_SERVER['DOCUMENT_ROOT'] . "/". $folder_name. "/".$row[0]['id'].".txt","wb");
             fwrite($fp,$content);
             fclose($fp);
@@ -1585,7 +1585,20 @@ class dbmodule {
                     $user_list->execute();
                 }
             }
-            return $_POST['img'];
+            $img1 = file_get_contents($_POST['img']);
+            $img2 = file_get_contents("http://dev.parakh.com/images/photo.png");
+            if($img1 == $img2)
+            {
+                $name = explode(" ", $row[0]['google_name']);
+                $intials = "";
+
+                foreach ($name as $letter) {
+                  $intials .= $letter[0];
+                }
+                return $intials;
+            }else{
+                return $_POST['img'];
+            }
 
         }else
         {
@@ -1598,19 +1611,25 @@ class dbmodule {
     function getCacheImage($user_email)
     {
         $folder_name = 'Profile Images';
-        $query = "SELECT id from users where google_email= :email";
+        $query = "SELECT id,google_name from users where google_email= :email";
         $user_list = $this->con->prepare($query);
         $user_list->execute(array(':email' => $user_email));
         $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
         $id = $row[0]['id'];
         if (file_exists($_SERVER['DOCUMENT_ROOT'] . "/". $folder_name. "/".$id.".txt")) {
             $content = file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/". $folder_name. "/".$id.".txt", "");
-            $content = explode("|||", base64_decode($content));
-            $img1=file_get_contents($content[0]);
-            $img2=file_get_contents("https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg");
+            $content = explode("|||", $content);
+            $img1 = file_get_contents($content[0]);
+            $img2 = file_get_contents("http://dev.parakh.com/images/photo.png");
             if($img1 == $img2)
             {
-                return "AP";
+                $name = explode(" ", $row[0]['google_name']);
+                $intials = "";
+
+                foreach ($name as $letter) {
+                  $intials .= $letter[0];
+                }
+                return $intials;
             }else{
                 return $content[0];
             }
