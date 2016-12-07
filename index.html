@@ -23,7 +23,7 @@
                         client_id: clientId
                     }).attachClickHandler('my-signin2', {}, onSuccess, onFailure);
                     function onSuccess(user) {
-                        console.log(user.getBasicProfile());
+                        //console.log(user.getBasicProfile());
                         var email = user.getBasicProfile().U3;
                         var pic = user.getBasicProfile().Paa;
                         var name = user.getBasicProfile().ig;
@@ -31,8 +31,14 @@
                         setCookie("name",name,1);
                         setCookie("picture",pic,1);
                         
-                        $.post(imageCacheUrl,{img : pic,timestamp : Math.floor(Date.now()),'email':email},function (result) {
+                        $.ajax({
+                            headers: {secret: secret},
+                            type: 'POST',
+                            url: imageCacheUrl,
+                            data: {img : pic,timestamp : Math.floor(Date.now()),'email':email},
+                            success: function(){
                                 window.location = window.location.href + "dashboard.html";
+                            }
                         });
                         
                         // setTimeout(function () {

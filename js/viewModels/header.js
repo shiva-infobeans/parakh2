@@ -70,8 +70,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
             setCookie("email", "", 0);
             setCookie("name", "", 0);
             setCookie("picture", "", 0);
-            $.post(logoutUrl,{'email':person.email},function (result) {
+            $.ajax({
+                headers: {secret: secret},
+                type: 'POST',
+                url: logoutUrl,
+                data: {'email':person.email},
+                success: function(){
                     window.location = "http://" + window.location.hostname;
+                }
             });
             //window.location = "http://" + window.location.hostname;
             function setCookie(cname, cvalue, exdays) {
@@ -185,8 +191,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
             });
 
             $.ajax({
+                headers: {secret: secret},
                 url : getCacheImage,
-                method : 'POST',
+                type : 'POST',
                 data : {img : person.pic,timestamp : Math.floor(Date.now()),email:person.email},
                 success: function(){
                     
