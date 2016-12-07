@@ -448,7 +448,8 @@
 }
 #ojDialogWrapper-modalDialog1.oj-dialog  {
     overflow: hidden;
-    width:29%;
+    max-width: 100%;
+	min-width: 580px;
     box-sizing: border-box;
     display: -webkit-flex;
     display: flex;
@@ -459,7 +460,8 @@
 
 #ojDialogWrapper-modalDialog2.oj-dialog{
     overflow: hidden;
-    width: 29%;
+    max-width: 100%;
+	min-width: 580px;
     box-sizing: border-box;
     display: -webkit-flex;
     display: flex;
@@ -469,7 +471,8 @@
 }
 #ojDialogWrapper-modalDialog8.oj-dialog{
     overflow: hidden;
-    width: 27%;
+    min-width: 580px;
+	max-width:100%;
     box-sizing: border-box;
     display: -webkit-flex;
     display: flex;
@@ -618,8 +621,8 @@
     border: none;
     margin-left: 2px;
     max-width: 100%;
-    width: 300px;
-    min-width: 300px;
+	width: 300px;
+	min-width:100px;
     background: transparent;
     background: transparent;
 }
@@ -792,6 +795,7 @@
 
 #modalDialog2 .oj-dialog-body, #modalDialog8 .oj-dialog-body, #modalDialog3 .oj-dialog-body, #modalDialog9 .oj-dialog-body,#modalDialogRequest .oj-dialog-body{
 	background-color: #fff !important;
+	overflow: hidden;
 }
 .oj-dialog-body h4 strong span, .oj-dialog-body h5  {
   color: #363636;

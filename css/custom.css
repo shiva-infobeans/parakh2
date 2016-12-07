@@ -1127,9 +1127,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     max-width: 100%;
     margin-left: 24px !important;
 }*/
-.modal-submit3{
-    width: 50% !important;
-}
+
 }
 .left-custom{
         padding: 0px !important;
@@ -1332,7 +1330,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     #ojDialogWrapper-modalDialog9.oj-dialog,
     #ojDialogWrapper-modalDialog3.oj-dialog,
     #ojDialogWrapper-modalDialogRequest.oj-dialog{
-        width: 95% !important; 
+        min-width: 60% !important; 
     }
 
     /*    .areaFloat{
@@ -1361,7 +1359,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     #ojDialogWrapper-modalDialog8.oj-dialog,
     #ojDialogWrapper-modalDialog2.oj-dialog,
     #ojDialogWrapper-modalDialog1.oj-dialog{
-        width: 95% !important;
+        min-width: 60% !important;
     }
     .area2{
         margin-left: 20px!important;
@@ -1397,6 +1395,37 @@ div.oj-tabs-panel.oj-tabs-selected{
 	.slider-div{
 		text-align: center;
 	}
+	#ojDialogWrapper-modalDialog2  .oj-dialog-content,
+	#ojDialogWrapper-modalDialog3  .oj-dialog-content,
+	#ojDialogWrapper-modalDialog9  .oj-dialog-content,
+	#ojDialogWrapper-modalDialog8  .oj-dialog-content,
+	#ojDialogWrapper-modalDialogRequest  .oj-dialog-content  {
+		padding: 0px !important;
+	}
+	.modal-submit3{
+    width: 100% !important;
+}
+	.modal-submit{
+		width: 100% !important;
+	}
+	.modal-submit1{
+		width: 100% !important;
+	}
+	.modal-submitRequest{
+		width: 100% !important;
+	}
+	.modal-submitFloatFeddback
+	{
+		width: 100% !important;
+	}
+	.oj-filmstrip-container.oj-filmstrip-item-container:nth-child(2n){
+		border-right: none;
+	}
+}
+@media (max-width: 644px){
+	.oj-filmstrip-container.oj-filmstrip-item-container{
+		border-right: none;
+	}
 }
 .transboxRequest2{
     border-left: 0px ;
@@ -1413,7 +1442,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     #ojDialogWrapper-modalDialog8.oj-dialog,
     #ojDialogWrapper-modalDialog2.oj-dialog,
     #ojDialogWrapper-modalDialog1.oj-dialog{
-        width: 75% !important;
+        width: 60% !important;
     }
     .modalImage {
         width: 50%!important;
