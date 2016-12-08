@@ -1841,3 +1841,15 @@ a#menu-share:hover > i{
     min-height: 100%;
     max-height: 999em;
 }
+.errorVisibilityHide{
+    visibility: hidden;
+    padding: 0px 10px !important;
+    margin: 11px 0px -10px 10px !important;
+}
+.errorVisibilityShow{
+    visibility: visible;
+    padding: 0px 10px !important;
+    margin: 11px 0px -10px 10px !important;
+    /*error color*/
+    color:#ff0000;
+}
