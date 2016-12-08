@@ -67,6 +67,7 @@ class dbmodule {
      * */
 
     function getUserByLead($lead_id) {
+        $img2 = base64_encode(file_get_contents("http://dev.parakh.com/images/photo.jpg"));
         if (!filter_var($lead_id, FILTER_VALIDATE_INT) === false) {
             $employeeList = array();
             $query = 'SELECT uh.user_id,u.google_name,u.google_email,u.mobile_number,u.designation,u.google_picture_link as picture,u.google_email,
@@ -77,7 +78,10 @@ class dbmodule {
             $user_data = $this->con->prepare($query);
             $user_data->execute(array(':id' => $lead_id));
             $employeeList = $user_data->fetchAll((PDO::FETCH_ASSOC));
-            
+            for ($t=0;$t<count($employeeList);$t++) {
+                $image = $this->getCacheImage($employeeList[$t]['google_email'],$img2);
+                $employeeList[$t]['picture'] = $image;
+            }
             return $employeeList;
         } else {
             return 0;
@@ -99,7 +103,8 @@ class dbmodule {
      * */
 
     function getOtherTeamMembers($lead_id) {
-       if (!filter_var($lead_id, FILTER_VALIDATE_INT) === false) {
+        $img2 = base64_encode(file_get_contents("http://dev.parakh.com/images/photo.jpg"));
+        if (!filter_var($lead_id, FILTER_VALIDATE_INT) === false) {
            $employeeList = array();
            $team_members = $this->getUserByLead($lead_id);
            if (count($team_members) > 0) {
@@ -145,7 +150,9 @@ class dbmodule {
                 {
                     $employeeList[$y]['minuscount'] = 0;
                 }
-                
+
+                $image = $this->getCacheImage($employeeList[$y]['google_email'],$img2);
+                $employeeList[$y]['google_picture_link'] = $image;
             }
            return $employeeList;
        } else {
@@ -1550,24 +1557,20 @@ class dbmodule {
     /*function to create image cache of user via email*/
     function createImageCache($user_email,$to_do)
     {
-        $query = "SELECT users.id,users.google_name,user_log.login_datetime,user_log.logout_datetime from users left join user_log on user_log.user_id = users.id where google_email= :email";
+
+        $query = "SELECT users.id,users.google_name,users.img_cache,users.google_picture_link,user_log.login_datetime,user_log.logout_datetime from users left join user_log on user_log.user_id = users.id where google_email= :email";
         $user_list = $this->con->prepare($query);
         $user_list->execute(array(':email' => $user_email));
         $row = $user_list->fetch();
+
+        /*update google picture for user after login*/
+        if(isset($_POST['img']) && !empty($_POST['img'])){
+            $query = "update users set google_picture_link = '".$_POST['img']."',img_cache='".base64_encode(file_get_contents($_POST['img']))."|||".$_POST['timestamp']."' where google_email='".$user_email."'";
+            $user_list = $this->con->prepare($query);
+            $user_list->execute();
+        }
         if(isset($row['id']) && !empty($row['id']))
         {
-            $folder_name = 'Profile Images';
-            if (!file_exists($_SERVER['DOCUMENT_ROOT']."/".$folder_name)) {
-                mkdir($_SERVER['DOCUMENT_ROOT']."/".$folder_name, 0777, true);
-            }
-            if (file_exists($_SERVER['DOCUMENT_ROOT'] . "/". $folder_name. "/".$row['id'].".txt")) {
-                file_put_contents($_SERVER['DOCUMENT_ROOT'] . "/". $folder_name. "/".$row['id'].".txt", "");
-            }
-            $content = base64_encode(file_get_contents($_POST['img']));
-            $content .= "|||".$_POST['timestamp'];
-            $fp = fopen($_SERVER['DOCUMENT_ROOT'] . "/". $folder_name. "/".$row['id'].".txt","wb");
-            fwrite($fp,$content);
-            fclose($fp);
             if($to_do){
                 if($row['login_datetime']==null && $row['logout_datetime']==null){
 
@@ -1585,19 +1588,25 @@ class dbmodule {
                     $user_list->execute();
                 }
             }
-            $img1 = base64_encode(file_get_contents($_POST['img']));
-            $img2 = base64_encode(file_get_contents("http://dev.parakh.com/images/photo.jpg"));
-            if($img1 == $img2)
+            $img = base64_encode(file_get_contents("http://dev.parakh.com/images/photo.jpg"));
+            if(isset($row['img_cache']) && $row['img_cache'] == $img)
             {
-                $name = explode(" ", $row['google_name']);
-                $intials = "";
-
-                foreach ($name as $letter) {
-                  $intials .= $letter[0];
+                return '/images/default.png';
+            }else if(isset($row['google_picture_link']) && !empty($row['google_picture_link']))
+            {
+                $query = "update users set img_cache='".base64_encode(file_get_contents($row['google_picture_link']))."|||".strtotime(date('Y-m-d h:m:s'))."' where google_email='".$user_email."'";
+                $user_list = $this->con->prepare($query);
+                $user_list->execute();
+                if(base64_encode(file_get_contents($row['google_picture_link'])) == $img)
+                {
+                    return '/images/default.png';
+                }else
+                {
+                    return $row['google_picture_link'];
                 }
-                return substr($intials, 0, 2);
-            }else{
-                return $_POST['img'];
+            }else
+            {
+                return $row['google_picture_link'];
             }
 
         }else
@@ -1608,30 +1617,29 @@ class dbmodule {
     }
 
     /*function to get image of user via email*/
-    function getCacheImage($user_email)
+    function getCacheImage($user_email,$img2)
     {
         $folder_name = 'Profile Images';
-        $query = "SELECT id,google_name from users where google_email= :email";
+        $query = "SELECT id,google_name,img_cache,google_picture_link from users where google_email= :email";
         $user_list = $this->con->prepare($query);
         $user_list->execute(array(':email' => $user_email));
         $row = $user_list->fetch();
         $id = $row['id'];
-        if (file_exists($_SERVER['DOCUMENT_ROOT'] . "/". $folder_name. "/".$id.".txt")) {
-            $content = file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/". $folder_name. "/".$id.".txt", "");
+        if (isset($row['img_cache']) && !empty($row['img_cache'])) {
+            $content = $row['img_cache'];
             $content = explode("|||", $content);
-            $img1 = $content[0];
-            $img2 = base64_encode(file_get_contents("http://dev.parakh.com/images/photo.jpg"));
-            if($img1 == $img2)
+            if($img2 == base64_encode(file_get_contents($row['google_picture_link'])))
             {
-                $name = explode(" ", $row['google_name']);
-                $intials = "";
-
-                foreach ($name as $letter) {
-                  $intials .= $letter[0];
+                return '/images/default.png';
+            }else
+            {
+                if(base64_encode(file_get_contents($row['google_picture_link'])) == $img2)
+                {
+                    return '/images/default.png';
+                }else
+                {
+                    return $row['google_picture_link'];
                 }
-                return substr($intials, 0, 2);
-            }else{
-                return $content[0];
             }
         }else
         {
