@@ -1842,6 +1842,7 @@ a#menu-share:hover > i{
     min-height: 100%;
     max-height: 999em;
 }
+
 .myBuddies-profilepic-overlay {
   background: #2780b5 none repeat scroll 0 0;
   border: 2px solid #fff;
@@ -1873,4 +1874,16 @@ a#menu-share:hover > i{
   height: 120px;
   position: relative;
   width: 120px;
+}
+.errorVisibilityHide{
+    visibility: hidden;
+    padding: 0px 10px !important;
+    margin: 11px 0px -10px 10px !important;
+}
+.errorVisibilityShow{
+    visibility: visible;
+    padding: 0px 10px !important;
+    margin: 11px 0px -10px 10px !important;
+    /*error color*/
+    color:#ff0000;
 }

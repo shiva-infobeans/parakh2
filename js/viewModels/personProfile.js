@@ -716,7 +716,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 }
                 // send respond on feedback
                 self.replySend = function (data, event) {
-                    //feedback respond from (user) 
+                    //feedback respond from (user)
                     var reply_from = data["myId"];
                     //feedbackId 
                     var fid = data['feedbackId'];
@@ -739,6 +739,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     today = yyyy + '-' + mm + '-' + dd + " ";
                     var responseDesc = $('#' + data['replyInput']);
                     if (responseDesc.val().trim().length == 0) {
+                        $('#'+data['replyInput']).parent().parent().next().removeClass('errorVisibilityHide').addClass('errorVisibilityShow');
                         return;
                     }
                     ////////// object for reply add
@@ -746,7 +747,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     obj.from_name = self.myname;
                     obj.description = decodeHtml(responseDesc.val());
                     obj.created_date = today;
-
+                    
                     data['replies'].push(new feedbackRepliesData(0, 0, 0, obj));
                     
                     $.ajax({
@@ -771,6 +772,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 self.closeReply = function (data, event) {
                     $('#' + data['replyBtnId']).fadeIn();
                     $('#' + data['uniqueId']).fadeOut();
+                }
+                self.replyInputClick = function(data,event){
+                    $('#'+data['replyInput']).parent().parent().next().removeClass('errorVisibilityShow').addClass('errorVisibilityHide');
                 }
             }
             return dialogModel;
