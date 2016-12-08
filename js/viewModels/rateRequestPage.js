@@ -27,26 +27,32 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
     }
     function request(data, userid) {
         var req = Object();
-        if (data['comment_text'] != null) {
-            if (data['comment_text'].length > 80) {
-                req.sComment = decodeHtml(data['comment_text'].substring(0, 80));
-                req.LongComment = decodeHtml(data['comment_text'].substring(80, data['comment_text'].length));
-                req.viewMore = true;
-            } else {
-                req.sComment = decodeHtml(data['comment_text']);
-                req.viewMore = false;
-            }
-            req.lComment = decodeHtml(data['comment_text']);
+
+        if (typeof data['comment_text'] == 'undefined') {
+            req.lComment = data['description'];
+            req.oldComment = data['description'];
         } else {
-            if (data['description'].length > 80) {
-                req.sComment = decodeHtml(data['description'].substring(0, 80));
-                req.LongComment = decodeHtml(data['description'].substring(80, data['description'].length));
-                req.viewMore = true;
+            if (data['comment_text'] != null) {
+                if (data['comment_text'].length > 80) {
+                    req.sComment = decodeHtml(data['comment_text'].substring(0, 80));
+                    req.LongComment = decodeHtml(data['comment_text'].substring(80, data['comment_text'].length));
+                    req.viewMore = true;
+                } else {
+                    req.sComment = decodeHtml(data['comment_text']);
+                    req.viewMore = false;
+                }
+                req.lComment = decodeHtml(data['comment_text']);
             } else {
-                req.sComment = decodeHtml(data['description']);
-                req.viewMore = false;
+                if (data['description'].length > 80) {
+                    req.sComment = decodeHtml(data['description'].substring(0, 80));
+                    req.LongComment = decodeHtml(data['description'].substring(80, data['description'].length));
+                    req.viewMore = true;
+                } else {
+                    req.sComment = decodeHtml(data['description']);
+                    req.viewMore = false;
+                }
+                req.lComment = decodeHtml(data['description']);
             }
-            req.lComment = decodeHtml(data['description']);
         }
         req.request_id = data['request_id'];
         req.pic = data['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data['google_picture_link'];
@@ -60,7 +66,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         req.declineBtnId = "decline" + data['request_id'];
         req.openMoreLink = "open" + data['request_id'];
         req.lessMoreLink = "close" + data['request_id'];
-//        console.log(req.uniqueId);
         return req;
     }
     function rateRequestPageContentViewModel(person) {
@@ -246,7 +251,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     $("#rateTab5").click(function () {
                         if ($('#rateTab1 > img').attr("src") == "../../images/send-req.png")
                         {
-                            console.log(" no aert");
                             $('#rateTab1 > img').remove();
                             $('#rateTab3 > img').remove();
                             $('#rateTab3').append(' <img src="../../images/request-approval.png" alt="" />');
@@ -257,7 +261,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     $("#rateTab1").click(function () {
                         if ($('#rateTab1 > img').attr("src") == "../../images/send-req.png")
                         {
-                            console.log(" no aert");
                             $('#rateTab1 > img').remove();
                             $('#rateTab3 > img').remove();
                             $('#rateTab3').append(' <img src="../../images/request-approval.png" alt="" />');
@@ -292,7 +295,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             }
         });
 
-        self.approveRequest = function (type, d, requestId, userId, to_id) {
+        self.approveRequest = function (type, d, requestId, userId, to_id, Oldcomment) {
+            $('#yesButton').attr('oldDesc',Oldcomment);
             $("#minMaxDialog").ojDialog("open");
             $('#yesButton').attr("type", type);
             $('#yesButton').attr("d", d);
@@ -307,18 +311,19 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             var requestId = $('#yesButton').attr("requestId");
             var userId = $('#yesButton').attr("userId");
             var to_id = $('#yesButton').attr("to_id");
+            var oldComment = $('#yesButton').attr("oldDesc").trim();
             $("#minMaxDialog").ojDialog("close");
             if (type == 1)
             {
                 var obj = $("#accept" + requestId);
+                console.log(obj);
             } else
             {
                 var obj = $("#decline" + requestId);
             }
             var descHTML = obj.parent().prev().children().children('#text-area20');
-            var descriptionChange = (descHTML.val() != "") ?
-                    descHTML.val() : decodeHtml(obj.attr('descComment'));
-
+            var descriptionChange = (descHTML.val().trim() != "") ?
+                    descHTML.val().trim() : oldComment;
             var removeHtml = obj;
             var datas = {u_id: userId, rq_id: requestId, st: type, desc: descriptionChange, to_id: to_id};
             //console.log(datas);
@@ -380,6 +385,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
         //send request for +1 ratings ajax call
         self.requestManager = function () {
+            self.desc(self.desc().trim());
             if (self.desc() == '' || self.desc() == null) {
                 self.textError("Please provide a reason for your request.");
                 return false;
@@ -408,6 +414,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             });
         }
         self.requestLead = function () {
+            self.desc1(self.desc1().trim());
             if (self.desc1() == '' || self.desc1() == null) {
                 self.textError1("Please provide a reason for your request.");
                 return false;

@@ -113,7 +113,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 } else {
                     $('#hideFeedbackFloat').show();
                 }
-                
+
                 $.ajax({
                     headers: {secret: secret},
                     method: 'POST',
@@ -230,14 +230,15 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
 
         self.feedbackModal = function () {
+            self.desc(self.desc().trim());
             if (self.value1() == '' || self.value1() == null) {
 
-                console.log($("#feedbackFloatSearchError").removeClass('hide'));
+                $("#feedbackFloatSearchError").removeClass('hide');
                 return false;
             }
             if (self.desc() == '' || self.desc() == null) {
                 $("#feedbackFloatSearchError").addClass('hide');
-                console.log($("#feedbackFloatTextError").removeClass('hide'));
+                $("#feedbackFloatTextError").removeClass('hide');
                 return false;
             }
             $.ajax({
@@ -275,6 +276,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         this.sucessMsg("");
 
         self.floatModal = function () {
+            self.desc(self.desc().trim());
             if (self.value() == '' || self.value() == null) {
                 self.searchError("This field cannot be empty");
                 return false;
@@ -314,7 +316,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         //send request for +1 ratings ajax call
         self.requestModal = function (event) {
 
-
+            self.desc(self.desc().trim());
             if (self.value2() == '' || self.value2() == null) {
                 self.searchError("This field cannot be empty");
                 return false;
