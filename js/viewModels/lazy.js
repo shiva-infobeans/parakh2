@@ -66,7 +66,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
         // code for lazy loading here.
         self.lazyAllMembers = ko.observableArray();
-        self.rowcountAllMember = ko.observable(50);
+        self.rowcountAllMember = ko.observable(0);
         self.pageNumAllMembers = ko.observable(0);
         //indexer for other team members
         self.indexer2Letters = ko.observableArray();
@@ -155,9 +155,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             self.members.push(new teamMember(data[counter1]));
                         }
                         self.data2(self.members());
+                        self.rowcountAllMember(self.data2().length);
                         for (var c = 0; c < 12; c++) {
                             self.lazyAllMembers.push(self.data2()[c]);
-                            self.pageNumAllMembers(self.pageNumAllMembers + 1);
+                            self.pageNumAllMembers(self.pageNumAllMembers() + 1);
                         }
                         self.indexer2Letters.push("All");
                         $("#All a").addClass('indexerUnderline');
@@ -585,9 +586,23 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         $(window).scroll(function () {
             if ($(window).scrollTop() == $(document).height() - $(window).height()) {
                 var pagenum = parseInt($(".pagenum:last").val()) + 1;
-                
-                if (self.pageNumAllMembers() <= self.rowcountAllMember()) {
-                    console.log(self.pageNumAllMembers());
+
+                if (self.pageNumAllMembers() < self.rowcountAllMember()) {
+                    var count = self.pageNumAllMembers();
+                    if (self.pageNumAllMembers() + 12 > self.rowcountAllMember()) {
+                        var loadRecordCount = self.rowcountAllMember() - self.pageNumAllMembers();
+                    } else {
+                        var loadRecordCount = 12;
+                    }
+                    for (var c = count; c < count + loadRecordCount; c++) {
+                        try {
+                            self.lazyAllMembers.push(self.data2()[c]);
+                            self.pageNumAllMembers(self.pageNumAllMembers() + 1);
+                        } catch (e) {
+
+                        }
+                    }
+
 //                    $.ajax({
 //                        headers: {secret: secret},
 //                        method: 'POST',
