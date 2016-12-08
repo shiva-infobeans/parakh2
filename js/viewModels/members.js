@@ -7,8 +7,8 @@
 /**
  * members module
  */
-define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 'ojs/ojcomponentcore', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojtable', 'ojs/ojdialog', 'ojs/ojmodel'
-], function (oj, ko) {
+define(['ojs/ojcore', 'knockout','jquery', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 'ojs/ojcomponentcore', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojtable', 'ojs/ojdialog', 'ojs/ojmodel'
+], function (oj, ko, $) {
     /**
      * The view model for the main content view template
      */
@@ -20,14 +20,14 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
         com.shortName = commenter1.replace(/[^A-Z]/g, '');
         com.commenter = commenter1;
         com.commentDate = dateFormatter(commentDate1.substring(0, commentDate1.indexOf(' ')));
-        if(datafor){
+        if (datafor) {
             if (dateplusArray.indexOf(com.commentDate) == -1) {
                 dateplusArray.push(com.commentDate);
             } else
             {
                 com.commentDate = '';
             }
-        }else
+        } else
         {
             if (dateminusArray.indexOf(com.commentDate) == -1) {
                 dateminusArray.push(com.commentDate);
@@ -91,6 +91,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
         feedbackObj.lComment = decodeHtml(data['description']);
         feedbackObj.myId = myId;
         feedbackObj.feedbackfrom = data['feedback_from'];
+        feedbackObj.feedbackto = data['feedback_to'];
         feedbackObj.name = data['given_by_name'];
         feedbackObj.feedbackId = data['id'];
         feedbackObj.feedbackDescription = decodeHtml(data['description']);
@@ -104,7 +105,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
         feedbackObj.replyClose = "replyClose" + data['id'];
         // 2nd myId with rtoId change it when view profile page;
         var data_reply = data['reply'];
-        for (var c = 0; c < data_reply.length; c++) {
+        for (var c = 0; c < data_reply.length; c++) { 
             feedbackObj.replies.push(new feedbackRepliesData(myId, feedbackObj.feedbackfrom, data_reply[c]));
         }
         feedbackObj.feedbackDate = dateFormatter(data['created_date'].substring(0, data['created_date'].indexOf(" ")));
@@ -227,12 +228,12 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
 
                 }
                 // send respond on feedback
-                self.replySend = function (data, event) { 
+                self.replySend = function (data, event) {
                     //feedback respond from (user) 
                     var reply_from = data["myId"];
                     //feedbackId 
                     var fid = data['feedbackId'];
-                    if (reply_from == data['feedbackFrom']) {
+                    if (reply_from == data['feedbackfrom']) {
                         var reply_to = data['feedbackto'];
                     } else {
                         var reply_to = data['feedbackfrom'];
@@ -251,7 +252,8 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                     today = yyyy + '-' + mm + '-' + dd + " ";
 
                     var responseDesc = $('#' + data['replyInput']);
-                    if (responseDesc.val().length == 0) {
+                    if (responseDesc.val().trim().length == 0) {
+                        $('#'+data['replyInput']).parent().parent().next().removeClass('errorVisibilityHide').addClass('errorVisibilityShow');
                         return;
                     }
                     ////////// object for reply add
@@ -300,17 +302,17 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                                 self.myname(data[index]['google_name']);
                                 self.shortName(data[index]['google_name'].substring(0, data[index]['google_name'].indexOf(" ")));
                                 self.email(data[index]['google_email']);
-                                self.mailTo("mailto:"+data[index]['google_email']);
+                                self.mailTo("mailto:" + data[index]['google_email']);
                                 self.location(data[index]["location"]);
                                 self.skills(data[index]["skills"]);
                                 self.primary_project(data[index]["primary_project"]);
                                 self.past_project(data[index]["projects"]);
                                 self.interest(data[index]["interests"]);
                                 self.associated(dateDiffCalender(data[index]["associate_with_infobeans"]));
-                                if(data[index]['google_picture_link']!='')
+                                if (data[index]['google_picture_link'] != '')
                                 {
                                     var image = data[index]['google_picture_link'];
-                                }else
+                                } else
                                 {
                                     var image = '/images/warning-icon-24.png';
                                 }
@@ -334,14 +336,14 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                                 var minus = 0;
                                 var data = res['attributes']['data'];
                                 for (var i = 0; i < data.length; i++) {
-                                    if (data[i]['rating'] == 0) {   
+                                    if (data[i]['rating'] == 0) {
                                         minus++;
-                                        var ab = new dataComment(decodeHtml(data[i]['description']), data[i]['given_by_name'], data[i]['created_date'],0);
+                                        var ab = new dataComment(decodeHtml(data[i]['description']), data[i]['given_by_name'], data[i]['created_date'], 0);
                                         self.commentDataNegative.push(ab);
                                     } else {
                                         if (data[i]['rating'] == 1)
                                             plus++;
-                                        var ab = new dataComment(decodeHtml(data[i]['description']), data[i]['given_by_name'], data[i]['created_date'],1);
+                                        var ab = new dataComment(decodeHtml(data[i]['description']), data[i]['given_by_name'], data[i]['created_date'], 1);
                                         self.commentDataPositive.push(ab);
                                     }
                                 }
@@ -470,6 +472,9 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                 });
             }
         });
+        self.replyInputClick = function (data, event) {
+            $('#' + data['replyInput']).parent().parent().next().removeClass('errorVisibilityShow').addClass('errorVisibilityHide');
+        }
     }
 
     return membersContentViewModel;

@@ -934,7 +934,7 @@ div.oj-tabs-panel.oj-tabs-selected{
   border-right-width: 0px !important;
 }
 #filmStripDiv8 .oj-filmstrip,
-#filmStripDiv9 .oj-filmstrip,{
+#filmStripDiv9 .oj-filmstrip{
     outline: none;
 }
 .arrow-controls {
@@ -1142,7 +1142,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 .left-custom{
         padding: 0px !important;
 		float: left;
-		border-right none;
+		border-right: none;
     }
 #mangerSlider .oj-pagingcontrol-nav-dot-bullet.oj-selected,
 #mySlider .oj-pagingcontrol-nav-dot-bullet.oj-selected,
@@ -1481,6 +1481,17 @@ div.oj-tabs-panel.oj-tabs-selected{
     }
     .logo{margin-left: 5px;}
 
+     .achieve-img-align{
+         margin-left: 0px !important;
+     }
+     .achieve-text{
+         margin-left: 0px !important;
+         font-size: 22px;
+         color: #fff;
+     }
+     .ipad-margin{
+         margin: 10px;
+     }
 }
 @media  screen and (min-width: 1200px) and (max-width: 1366px) {
     #ojDialogWrapper-modalDialog9.oj-dialog,
@@ -1810,10 +1821,10 @@ a#menu-share:hover > i{
   width: 18% !important;;
 }
 }*/
-#ui-id-4, #ui-id-5 {
+/*#ui-id-4, #ui-id-5 {
     margin-left: 10px;
     margin-right: 10px;
-}
+}*/
 #text-area::-webkit-input-placeholder
 {
   color: #777 !important;
@@ -1835,4 +1846,31 @@ a#menu-share:hover > i{
 	border: 1px solid transparent;
 }
 
+.margin-top-feedback{margin-top: -15px;}
+.reply_ShortName{margin-left: 2px;}
+
+.moreDots:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+.lessLink{
+    cursor: pointer;
+    text-decoration: underline;
+}
+.minheightFix{
+    min-height: 100%;
+    max-height: 999em;
+}
+.errorVisibilityHide{
+    visibility: hidden;
+    padding: 0px 10px !important;
+    margin: 11px 0px -10px 10px !important;
+}
+.errorVisibilityShow{
+    visibility: visible;
+    padding: 0px 10px !important;
+    margin: 11px 0px -10px 10px !important;
+    /*error color*/
+    color:#ff0000;
+}
 
