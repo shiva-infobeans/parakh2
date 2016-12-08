@@ -484,14 +484,16 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                         yearFetch.fetch({
                                             headers: {secret: secret},
                                             success: function (res3) {
-                                                for (var c = 0; c < 4; c++) {
-                                                    var obj = new Object();
-                                                    obj.personLink = "memberProfile.html?id=" + res3['attributes']['data'][c]['user_id'];
-                                                    obj.name = res3['attributes']['data'][c]['google_name'];
-                                                    obj.nameS = res3['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
-                                                    obj.image = res3['attributes']['data'][c]['image'];
-                                                    obj.projects = res3['attributes']['data'][c]['primary_project'];
-                                                    self.addteamMembers(obj);
+                                                if(res2['attributes']['data'].length>0){
+                                                    for (var c = 0; c < 4; c++) {
+                                                        var obj = new Object();
+                                                        obj.personLink = "memberProfile.html?id=" + res3['attributes']['data'][c]['user_id'];
+                                                        obj.name = res3['attributes']['data'][c]['google_name'];
+                                                        obj.nameS = res3['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
+                                                        obj.image = res3['attributes']['data'][c]['image'];
+                                                        obj.projects = res3['attributes']['data'][c]['primary_project'];
+                                                        self.addteamMembers(obj);
+                                                    }
                                                 }
                                                 for(i=res3['attributes']['data'].length;i<4;i++)
                                                 {

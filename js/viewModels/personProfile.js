@@ -298,7 +298,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         url: updateProfile,
                         data: {user_id: self.id(), desc: self.designation(), location: self.location(), skills: self.skills(), primary_project: self.primary_project(), date: self.date(), projects: self.projects(), interests: self.interests(), mob: self.temporaryNumber()},
                         success: function (res) {
-                            response = jQuery.parseJSON(res);
+                            var response = jQuery.parseJSON(res);
                             $('.sucessMsg').show();
                             if (response.error == "true")
                             {
@@ -737,9 +737,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         mm = '0' + mm
                     }
                     today = yyyy + '-' + mm + '-' + dd + " ";
-
                     var responseDesc = $('#' + data['replyInput']);
-                    if (responseDesc.val().length == 0) {
+                    if (responseDesc.val().trim().length == 0) {
                         return;
                     }
                     ////////// object for reply add
@@ -749,12 +748,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     obj.created_date = today;
 
                     data['replies'].push(new feedbackRepliesData(0, 0, 0, obj));
-                    data['replies']();
+                    
                     $.ajax({
                         headers: {secret: secret},
                         method: 'POST',
                         url: addFeedbackResponse,
-                        data: {login_user_id: reply_from, feedback_to: reply_to, feedback_desc: responseDesc.val(), feedback_id: fid},
+                        data: {login_user_id: reply_from, feedback_to: reply_to, feedback_desc: responseDesc.val().trim(), feedback_id: fid},
                         success: function () {
                             responseDesc.val("");
                         },
