@@ -1653,10 +1653,12 @@
 }
 .text-height{
     line-height: 32px;
+    word-break: break-all;
 }
 .edit-height{
     font-size: 30px;
 }
+
 .addImage{
     background-image: url("../../images/+1-icon-active.png");
     height: 20px;
