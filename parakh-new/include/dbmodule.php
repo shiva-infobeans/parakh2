@@ -834,7 +834,6 @@ class dbmodule {
                 $message = strtr($temp_data['content'], $vars);
                 $email_data_l['message'] = $message;
                 $this->send_notification($email_data_l);
-                print_r($email_data_l);die;
             }
 
             /* update msg read count */
