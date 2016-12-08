@@ -25,7 +25,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         return member;
     }
     function leadTeam(data) {
-        console.log(data);
         var myTeam = this;
         myTeam.myName = data['google_name'];
         myTeam.myId = data['user_id'];
@@ -329,6 +328,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         });
         //submit for rate buddy
         self.submitModal = function () {
+            self.desc(self.desc().trim());
             if (self.desc() == '' || self.desc() == null) {
                 self.textError("Please Provide a reason for your rating");
                 return false;
@@ -362,6 +362,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         }
         //submit for feedback
         self.submitFeedback = function () {
+            self.desc(self.desc().trim());
             if (self.desc() == '' || self.desc() == null) {
                 self.textError("Please Provide your feedback");
                 return false;
@@ -443,6 +444,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         };
         // default +1 on submit button 
         this.leadSubmit = function () {
+            self.desc(self.desc().trim());
             if (self.desc() == '' || self.desc() == null) {
                 self.textError("Please Provide a reason for your rating");
                 return false;
