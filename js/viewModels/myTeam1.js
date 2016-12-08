@@ -288,6 +288,16 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 $("#modalDialog2").ojDialog("close");
             });
         };
+
+        $("body").on('click','.viewProfile1', function () {
+            var link = "memberProfile.html?id=" + $(this).attr("myTeamId");
+            window.location = link;
+        });
+
+        $("body").on('click','.viewProfile', function () {
+            var link = "memberProfile.html?id=" + $(this).attr("myTeamId");
+            window.location = link;
+        });
         //rateBuddy
         $("body").on('click', '.rateBuddy', function () {
             $("#modalDialog1").ojDialog("open");
