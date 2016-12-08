@@ -29,13 +29,12 @@
                         var name = user.getBasicProfile().ig;
                         setCookie("email",email,1);
                         setCookie("name",name,1);
-                        setCookie("picture",pic,1);
-                        
+                        setCookie("picture",pic,1);                    
                         $.ajax({
                             headers: {secret: secret},
                             type: 'POST',
                             url: imageCacheUrl,
-                            data: {img : pic,timestamp : Math.floor(Date.now()),'email':email},
+                            data: {img : user.getBasicProfile().Paa.replace("s96-c/",""),timestamp : Math.floor(Date.now()),'email':email},
                             success: function(){
                                 window.location = window.location.href + "dashboard.html";
                             }

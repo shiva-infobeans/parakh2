@@ -1551,51 +1551,52 @@ class dbmodule {
     /*function to create image cache of user via email*/
     function createImageCache($user_email,$to_do)
     {
-        $query = "SELECT users.id,user.google_name,user_log.login_datetime,user_log.logout_datetime from users left join user_log on user_log.user_id = users.id where google_email= :email";
+        $query = "SELECT users.id,users.google_name,user_log.login_datetime,user_log.logout_datetime from users left join user_log on user_log.user_id = users.id where google_email= :email";
         $user_list = $this->con->prepare($query);
         $user_list->execute(array(':email' => $user_email));
-        $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
-        if(isset($row[0]['id']) && !empty($row[0]['id']))
+        $row = $user_list->fetch();
+        if(isset($row['id']) && !empty($row['id']))
         {
             $folder_name = 'Profile Images';
             if (!file_exists($_SERVER['DOCUMENT_ROOT']."/".$folder_name)) {
                 mkdir($_SERVER['DOCUMENT_ROOT']."/".$folder_name, 0777, true);
             }
-            if (file_exists($_SERVER['DOCUMENT_ROOT'] . "/". $folder_name. "/".$row[0]['id'].".txt")) {
-                file_put_contents($_SERVER['DOCUMENT_ROOT'] . "/". $folder_name. "/".$row[0]['id'].".txt", "");
+            if (file_exists($_SERVER['DOCUMENT_ROOT'] . "/". $folder_name. "/".$row['id'].".txt")) {
+                file_put_contents($_SERVER['DOCUMENT_ROOT'] . "/". $folder_name. "/".$row['id'].".txt", "");
             }
-            $content = base64_encode(file_get_contents($_POST['img'])."|||".$_POST['timestamp']);
-            $fp = fopen($_SERVER['DOCUMENT_ROOT'] . "/". $folder_name. "/".$row[0]['id'].".txt","wb");
+            $content = base64_encode(file_get_contents($_POST['img']));
+            $content .= "|||".$_POST['timestamp'];
+            $fp = fopen($_SERVER['DOCUMENT_ROOT'] . "/". $folder_name. "/".$row['id'].".txt","wb");
             fwrite($fp,$content);
             fclose($fp);
             if($to_do){
-                if($row[0]['login_datetime']==null && $row[0]['logout_datetime']==null){
+                if($row['login_datetime']==null && $row['logout_datetime']==null){
 
                     $user_log_insert_query = "INSERT INTO user_log(user_id, login_datetime,logout_datetime)
                                       VALUES(:user_id,:login_datetime,:logout_datetime)";
                     $user_log_insert = $this->con->prepare($user_log_insert_query);
-                    $user_log_insert->execute(array(':user_id' => $row[0]['id'],
+                    $user_log_insert->execute(array(':user_id' => $row['id'],
                         ':login_datetime' => date('Y-m-d h:m:s'),
                         ':logout_datetime' => '0000-00-00 00:00:00'));
                     $user_log__last_insert = $this->con->lastInsertId();
                 }else 
                 {
-                    $query = "UPDATE user_log set login_datetime='" . (date('Y-m-d h:m:s')) . "' where user_id=" . $row[0]['id'];
+                    $query = "UPDATE user_log set login_datetime='" . (date('Y-m-d h:m:s')) . "' where user_id=" . $row['id'];
                     $user_list = $this->con->prepare($query);
                     $user_list->execute();
                 }
             }
-            $img1 = file_get_contents($_POST['img']);
-            $img2 = file_get_contents("http://dev.parakh.com/images/photo.png");
+            $img1 = base64_encode(file_get_contents($_POST['img']));
+            $img2 = base64_encode(file_get_contents("http://dev.parakh.com/images/photo.jpg"));
             if($img1 == $img2)
             {
-                $name = explode(" ", $row[0]['google_name']);
+                $name = explode(" ", $row['google_name']);
                 $intials = "";
 
                 foreach ($name as $letter) {
                   $intials .= $letter[0];
                 }
-                return $intials;
+                return substr($intials, 0, 2);
             }else{
                 return $_POST['img'];
             }
@@ -1614,22 +1615,22 @@ class dbmodule {
         $query = "SELECT id,google_name from users where google_email= :email";
         $user_list = $this->con->prepare($query);
         $user_list->execute(array(':email' => $user_email));
-        $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
-        $id = $row[0]['id'];
+        $row = $user_list->fetch();
+        $id = $row['id'];
         if (file_exists($_SERVER['DOCUMENT_ROOT'] . "/". $folder_name. "/".$id.".txt")) {
             $content = file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/". $folder_name. "/".$id.".txt", "");
             $content = explode("|||", $content);
-            $img1 = file_get_contents($content[0]);
-            $img2 = file_get_contents("http://dev.parakh.com/images/photo.png");
+            $img1 = $content[0];
+            $img2 = base64_encode(file_get_contents("http://dev.parakh.com/images/photo.jpg"));
             if($img1 == $img2)
             {
-                $name = explode(" ", $row[0]['google_name']);
+                $name = explode(" ", $row['google_name']);
                 $intials = "";
 
                 foreach ($name as $letter) {
                   $intials .= $letter[0];
                 }
-                return $intials;
+                return substr($intials, 0, 2);
             }else{
                 return $content[0];
             }

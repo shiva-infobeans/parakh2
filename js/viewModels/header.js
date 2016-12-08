@@ -194,7 +194,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
                 headers: {secret: secret},
                 url : getCacheImage,
                 type : 'POST',
-                data : {img : person.pic,timestamp : Math.floor(Date.now()),email:person.email},
+                data : {img : person.pic.replace("s96-c/",""),timestamp : Math.floor(Date.now()),email:person.email},
                 success: function(){
                     
                 }
