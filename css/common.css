@@ -460,7 +460,7 @@
 
 #ojDialogWrapper-modalDialog2.oj-dialog{
     overflow: hidden;
-    max-width: 100%;
+	max-width: 100%;
 	min-width: 580px;
     box-sizing: border-box;
     display: -webkit-flex;
@@ -468,6 +468,19 @@
     -webkit-flex-direction: column;
     flex-direction: column;
     border-radius: 5px;
+}
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+   #ojDialogWrapper-modalDialog2.oj-dialog, #ojDialogWrapper-modalDialog8.oj-dialog{
+    height: 560px;
+	-ms-overflow-style: none;
+	overflow: hidden;
+   }
+    #ojDialogWrapper-modalDialog1.oj-dialog{
+	height: 500px;
+	-ms-overflow-style: none;
+	overflow: hidden;	
+	}
+	
 }
 #ojDialogWrapper-modalDialog8.oj-dialog{
     overflow: hidden;
@@ -586,7 +599,7 @@
 .area {
     width: 91%;
     height: 43%;
-    border: solid 1px #000;
+    border: solid 1px #305a04;
     background-color: #fff;
     margin-left: 22px;
     border-radius: 5px;
@@ -609,12 +622,14 @@
     border: none;
     width: 100%;
     margin-left: 2px;
+	background: #fff;
 }
 .textArea4{
     height: 189px;
     border: none;
     width: 320px;
     margin-left: 2px;
+	background: #fff;
 }
 .textArea3{
     height: 143px;
@@ -623,8 +638,8 @@
     max-width: 100%;
 	width: 300px;
 	min-width:100px;
-    background: transparent;
-    background: transparent;
+    background: #fff;
+    
 }
 .imgArea{
     float: right;
@@ -793,10 +808,14 @@
     overflow: hidden;
 }*/
 
-#modalDialog2 .oj-dialog-body, #modalDialog8 .oj-dialog-body, #modalDialog3 .oj-dialog-body, #modalDialog9 .oj-dialog-body,#modalDialogRequest .oj-dialog-body{
+#modalDialog2 .oj-dialog-body, #modalDialog3 .oj-dialog-body, #modalDialog9 .oj-dialog-body,#modalDialogRequest .oj-dialog-body{
 	background-color: #fff !important;
 	overflow: hidden;
+	padding:26px;
 }
+ #modalDialog8 .oj-dialog-body{
+	background-color: #fff !important;
+ }
 .oj-dialog-body h4 strong span, .oj-dialog-body h5  {
   color: #363636;
 }
@@ -854,7 +873,7 @@
     border-radius: 2px;
     border-style: solid;
     border-width: 1px;
-    color: #555;/*Namrata*/
+    color: #555;
     cursor: pointer;
     font-size: 27px;
     margin-right: -8px;
@@ -912,18 +931,29 @@
     font-size: 22px;
     text-align: center;
 }
-#ojDialogWrapper-modalDialog2  .oj-dialog-content,
 #ojDialogWrapper-modalDialog3  .oj-dialog-content,
 #ojDialogWrapper-modalDialog9  .oj-dialog-content,
 #ojDialogWrapper-modalDialog8  .oj-dialog-content,
 #ojDialogWrapper-modalDialogRequest  .oj-dialog-content  {
     background-color: #fff !important;
 	padding: 26px;
-	min-height: 370px;
+	min-height: 390px;
 	overflow: hidden;
+}
+#ojDialogWrapper-modalDialog2  .oj-dialog-content{
+	background-color: #fff;
 }
 #ojDialogWrapper-modalDialog1 .oj-dialog-body{
     background-color: #fff !important;
+	/*padding: 26px;*/
+    overflow: hidden;
+	min-height: 440px;
+}
+#modalDialog8 .oj-dialog-body{
+	min-height: 440px;
+}
+#ojDialogWrapper-modalDialog2  .oj-dialog-body{
+	min-height: 480px;
 }
 /*.modal-submit3{
     background-color: #e3ffca !important;
