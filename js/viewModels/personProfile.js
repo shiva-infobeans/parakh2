@@ -298,7 +298,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         url: updateProfile,
                         data: {user_id: self.id(), desc: self.designation(), location: self.location(), skills: self.skills(), primary_project: self.primary_project(), date: self.date(), projects: self.projects(), interests: self.interests(), mob: self.temporaryNumber()},
                         success: function (res) {
-                            response = jQuery.parseJSON(res);
+                            var response = jQuery.parseJSON(res);
                             $('.sucessMsg').show();
                             if (response.error == "true")
                             {
@@ -603,6 +603,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     numberDefaultVar = self.myNumber();
                     editVariable = self.myNumber().substring(self.myNumber().indexOf("-") + 1, self.myNumber().length);
                     self.temporaryNumber(self.myNumber().substring(self.myNumber().indexOf("-") + 1, self.myNumber().length));
+                    if(self.myNumber() == "NO NUMBER")
+                    {
+                        numberDefaultVar = '';
+                        self.temporaryNumber("");
+                    }
                     self.temporaryNumber();
                     $('#number-text').addClass('hide');
                     $('#editNumberBox').removeClass('hide');
@@ -711,7 +716,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 }
                 // send respond on feedback
                 self.replySend = function (data, event) {
-                    //feedback respond from (user) 
+                    //feedback respond from (user)
                     var reply_from = data["myId"];
                     //feedbackId 
                     var fid = data['feedbackId'];
@@ -732,9 +737,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         mm = '0' + mm
                     }
                     today = yyyy + '-' + mm + '-' + dd + " ";
-
                     var responseDesc = $('#' + data['replyInput']);
-                    if (responseDesc.val().length == 0) {
+                    if (responseDesc.val().trim().length == 0) {
+                        $('#'+data['replyInput']).parent().parent().next().removeClass('errorVisibilityHide').addClass('errorVisibilityShow');
                         return;
                     }
                     ////////// object for reply add
@@ -742,14 +747,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     obj.from_name = self.myname;
                     obj.description = decodeHtml(responseDesc.val());
                     obj.created_date = today;
-
+                    
                     data['replies'].push(new feedbackRepliesData(0, 0, 0, obj));
-                    data['replies']();
+                    
                     $.ajax({
                         headers: {secret: secret},
                         method: 'POST',
                         url: addFeedbackResponse,
-                        data: {login_user_id: reply_from, feedback_to: reply_to, feedback_desc: responseDesc.val(), feedback_id: fid},
+                        data: {login_user_id: reply_from, feedback_to: reply_to, feedback_desc: responseDesc.val().trim(), feedback_id: fid},
                         success: function () {
                             responseDesc.val("");
                         },
@@ -767,6 +772,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 self.closeReply = function (data, event) {
                     $('#' + data['replyBtnId']).fadeIn();
                     $('#' + data['uniqueId']).fadeOut();
+                }
+                self.replyInputClick = function(data,event){
+                    $('#'+data['replyInput']).parent().parent().next().removeClass('errorVisibilityShow').addClass('errorVisibilityHide');
                 }
             }
             return dialogModel;

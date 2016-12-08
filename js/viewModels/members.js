@@ -91,6 +91,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
         feedbackObj.lComment = decodeHtml(data['description']);
         feedbackObj.myId = myId;
         feedbackObj.feedbackfrom = data['feedback_from'];
+        feedbackObj.feedbackto = data['feedback_to'];
         feedbackObj.name = data['given_by_name'];
         feedbackObj.feedbackId = data['id'];
         feedbackObj.feedbackDescription = decodeHtml(data['description']);
@@ -104,7 +105,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
         feedbackObj.replyClose = "replyClose" + data['id'];
         // 2nd myId with rtoId change it when view profile page;
         var data_reply = data['reply'];
-        for (var c = 0; c < data_reply.length; c++) {
+        for (var c = 0; c < data_reply.length; c++) { 
             feedbackObj.replies.push(new feedbackRepliesData(myId, feedbackObj.feedbackfrom, data_reply[c]));
         }
         feedbackObj.feedbackDate = dateFormatter(data['created_date'].substring(0, data['created_date'].indexOf(" ")));
@@ -227,12 +228,12 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
 
                 }
                 // send respond on feedback
-                self.replySend = function (data, event) { 
+                self.replySend = function (data, event) {
                     //feedback respond from (user) 
                     var reply_from = data["myId"];
                     //feedbackId 
                     var fid = data['feedbackId'];
-                    if (reply_from == data['feedbackFrom']) {
+                    if (reply_from == data['feedbackfrom']) {
                         var reply_to = data['feedbackto'];
                     } else {
                         var reply_to = data['feedbackfrom'];
@@ -307,7 +308,13 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                                 self.past_project(data[index]["projects"]);
                                 self.interest(data[index]["interests"]);
                                 self.associated(dateDiffCalender(data[index]["associate_with_infobeans"]));
-                                var image = data[index]['google_picture_link'];
+                                if(data[index]['google_picture_link']!='')
+                                {
+                                    var image = data[index]['google_picture_link'];
+                                }else
+                                {
+                                    var image = '/images/warning-icon-24.png';
+                                }
                                 self.pic(image);
                                 self.designation(data[index]['designation']);
                                 var num = data[index]['mobile_number'] == "" ? "NO NUMBER" : "+91-" + data[index]['mobile_number'];

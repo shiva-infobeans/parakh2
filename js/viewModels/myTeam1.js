@@ -287,6 +287,16 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 $("#modalDialog2").ojDialog("close");
             });
         };
+
+        $("body").on('click','.viewProfile1', function () {
+            var link = "memberProfile.html?id=" + $(this).attr("myTeamId");
+            window.location = link;
+        });
+
+        $("body").on('click','.viewProfile', function () {
+            var link = "memberProfile.html?id=" + $(this).attr("myTeamId");
+            window.location = link;
+        });
         //rateBuddy
         $("body").on('click', '.rateBuddy', function () {
             $("#modalDialog1").ojDialog("open");
@@ -318,6 +328,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         });
         //submit for rate buddy
         self.submitModal = function () {
+            self.desc(self.desc().trim());
             if (self.desc() == '' || self.desc() == null) {
                 self.textError("Please Provide a reason for your rating");
                 return false;
@@ -351,6 +362,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         }
         //submit for feedback
         self.submitFeedback = function () {
+            self.desc(self.desc().trim());
             if (self.desc() == '' || self.desc() == null) {
                 self.textError("Please Provide your feedback");
                 return false;
@@ -432,6 +444,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         };
         // default +1 on submit button 
         this.leadSubmit = function () {
+            self.desc(self.desc().trim());
             if (self.desc() == '' || self.desc() == null) {
                 self.textError("Please Provide a reason for your rating");
                 return false;

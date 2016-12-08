@@ -114,7 +114,7 @@
                                     <div class="reply-circle circle-purple pos-relative">
 
                                         <div class="viewFeedbackName"  data-bind="text: reply_name"></div>
-                                        <span data-bind="text: reply_ShortName"></span>
+                                        <span data-bind="text: reply_ShortName" class="reply_ShortName"></span>
                                     </div>
                                     <div class="feedback-comment pos-relative">
                                         <div class="feedback-Transbox"></div>
@@ -135,17 +135,18 @@
 
                                 </div>
 
-                                <div class="feedback-comment pos-relative">
+                                <div class="feedback-comment pos-relative margin-top-feedback">
                                     <a class="buttonReply" data-bind="click: $parent.openReply,attr: {id: replyBtnId}">Reply</a>
                                     <div data-bind="attr:{id: uniqueId}" class="replyInput hide">
                                         <div class="pos-relative">
                                             <div class="transbox"></div>
-                                            <span> <input type="text" placeholder="Write your response here" class="left" data-bind="attr: {id:replyInput}"/></span>
+                                            <span> <input type="text" placeholder="Write your response here" class="left" data-bind="click: $parent.replyInputClick, attr: {id: replyInput}"/></span>
                                             <span>
                                                 <i class="zmdi zmdi-mail-reply zmdi-hc-2x left" data-bind="attr: {id: replySend},click: $parent.replySend"></i> 
                                                 <i class="zmdi zmdi-close zmdi-hc-2x" data-bind="attr: {id: replyClose},click: $parent.closeReply"></i>
                                             </span>
                                         </div>
+                                        <div class="errorVisibilityHide">Please enter your response.</div>
                                     </div>
                                 </div>
                             </div>
