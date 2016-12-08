@@ -99,6 +99,36 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.noLeadDeclinedRequest = ko.observable();
         self.selectTab = ko.observable(0);
 
+
+        ////////////////////// tab detect 1 
+        self.pendRejTab = ko.observable(1);
+        self.tabDetect1 = function () {
+            self.pendRejTab(1);
+        }
+        ////////////////////// tab detect 2
+        self.tabDetect2 = function () {
+            self.pendRejTab(2);
+        }
+
+        ////////////////////// lazy loading for declined requests of the user
+        self.lazyTempStorageRejM = ko.observableArray([]);
+        self.lazyMemRejMax = ko.observable(0); // for lazy loading members rejected max count
+        self.lazyMemRejCurrent = ko.observable(0);// for lazy loading members rejected Current count
+        self.lazyMemRejBlock = ko.observable(6);// for lazy loading members rejected block size Loading
+        self.lazyMemRejInitBlock = ko.observable(5);// for lazy loading members rejected Initial count
+
+
+        ////////////////////// lazy loading for declined requests of the user end
+        ////////////////////// lazy loading for declined requests of the user
+        self.lazyTempStoragePendM = ko.observableArray([]);
+        self.lazyMemPendMax = ko.observable(0); // for lazy loading members rejected max count
+        self.lazyMemPendCurrent = ko.observable(0);// for lazy loading members rejected Current count
+        self.lazyMemPendBlock = ko.observable(6);// for lazy loading members rejected block size Loading
+        self.lazyMemPendInitBlock = ko.observable(5);// for lazy loading members rejected Initial count
+
+
+        ////////////////////// lazy loading for declined requests of the user end
+
 //        self.pic = "http://www.freeiconspng.com/uploads/blank-face-person-icon-7.png";
         var user = oj.Model.extend({
             url: getUserByEmail + person['email']
@@ -122,14 +152,24 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         var data1 = res['attributes']['data'];
                         for (var i = 0; i < data1.length; i++) {
                             if (data1[i]['status'] == 0) {
-                                self.requestPendingMember.push(new request(data1[i], self.userId()));
+                                self.lazyTempStoragePendM.push(new request(data1[i], self.userId()));
+                                //self.requestPendingMember.push(new request(data1[i], self.userId()));
                                 $("#request").show();
                             }
                         }
-                        if (self.requestPendingMember().length != 0) {
+                        if (self.lazyTempStoragePendM().length != 0) {
+                            self.lazyMemPendMax(self.lazyTempStoragePendM().length);
                             $("#request").hide();
                             self.noPendingRequest("");
-
+                            if (self.lazyMemPendInitBlock() < self.lazyTempStoragePendM().length) {
+                                var InitCount = self.lazyMemPendInitBlock();
+                            } else {
+                                var InitCount = self.lazyTempStoragePendM().length;
+                            }
+                            for (var count = 0; count < InitCount; count++) {
+                                self.requestPendingMember.push(self.lazyTempStoragePendM()[count]);
+                                self.lazyMemRejCurrent(self.lazyMemRejCurrent() + 1);
+                            }
                         }
                     }
                 });
@@ -143,15 +183,24 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         var data1 = res['attributes']['data'];
                         for (var i = 0; i < data1.length; i++) {
                             if (data1[i]['status'] == 1) {
-                                self.requestRejectedMember.push(new request(data1[i], self.userId()));
+                                self.lazyTempStorageRejM.push(new request(data1[i], self.userId()));
                                 $("#request1").show();
                             }
                         }
-                        if (self.requestRejectedMember().length != 0) {
+                        if (self.lazyTempStorageRejM().length != 0) {
+                            self.lazyMemRejMax(self.lazyTempStorageRejM().length);
                             $("#request1").hide();
                             self.noRejectRequest("");
+                            if (self.lazyMemRejInitBlock() < self.lazyTempStorageRejM().length) {
+                                var InitCount = self.lazyMemRejInitBlock();
+                            } else {
+                                var InitCount = self.lazyTempStorageRejM().length;
+                            }
+                            for (var count = 0; count < InitCount; count++) {
+                                self.requestRejectedMember.push(self.lazyTempStorageRejM()[count]);
+                                self.lazyMemRejCurrent(self.lazyMemRejCurrent() + 1);
+                            }
                         }
-
                     }
                 });
                 // for lead or manager
@@ -296,17 +345,17 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         });
 
         self.approveRequest = function (type, d, requestId, userId, to_id, Oldcomment) {
-            $('#yesButton').attr('oldDesc',Oldcomment);
+            $('#yesButton').attr('oldDesc', Oldcomment);
             $("#minMaxDialog").ojDialog("open");
             $('#yesButton').attr("type", type);
             $('#yesButton').attr("d", d);
             $('#yesButton').attr("requestId", requestId);
             $('#yesButton').attr("userId", userId);
             $('#yesButton').attr("to_id", to_id);
-            if(type)
+            if (type)
             {
                 $('#rateme-status').html('approve');
-            }else
+            } else
             {
                 $('#rateme-status').html('decline');
             }
@@ -323,7 +372,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             if (type == 1)
             {
                 var obj = $("#accept" + requestId);
-                console.log(obj);
             } else
             {
                 var obj = $("#decline" + requestId);
@@ -436,6 +484,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     self.textError1('');
                     $("#sucessRate").show();
                     self.sucessMsg("Your Request is sent.");
+
                     setTimeout(function () {
                         $("#sucessRate").hide();
                         self.sucessMsg("");
@@ -474,6 +523,57 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             moreTextId.next().next().fadeIn();
             lessTextId.parent().addClass('hide');
         }
+        ///////////////lazy loading function for declined request for user start
+
+        $(window).scroll(function () {
+            if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+                var pagenum = parseInt($(".pagenum:last").val()) + 1;
+                if (self.pendRejTab() == 1) {
+                    if (self.lazyMemPendCurrent() < self.lazyMemPendMax()) {
+                        var count = self.lazyMemPendCurrent();
+                        if (self.lazyMemPendCurrent() + self.lazyMemPendBlock() > self.lazyMemPendMax()) {
+                            var loadRecordCount = self.lazyMemPendMax() - self.lazyMemPendCurrent();
+                        } else {
+                            var loadRecordCount = self.lazyMemPendBlock();
+                        }
+                        for (var c = count; c < count + loadRecordCount; c++) { //count is current count from start and loadRecordCount is for total  page size;
+                            try {
+                                self.requestPendingMember.push(self.lazyTempStoragePendM()[c]);
+                                self.lazyMemPendCurrent(self.lazyMemPendCurrent() + 1);
+                            } catch (e) {
+
+                            }
+                        }
+                    } else {
+                        $("#PendingRequestLoading").hide();
+                    }
+                }
+                if (self.pendRejTab() == 2) {
+                    if (self.lazyMemRejCurrent() < self.lazyMemRejMax()) {
+                        var count = self.lazyMemRejCurrent();
+                        if (self.lazyMemRejCurrent() + self.lazyMemRejBlock() > self.lazyMemRejMax()) {
+                            var loadRecordCount = self.lazyMemRejMax() - self.lazyMemRejCurrent();
+                        } else {
+                            var loadRecordCount = self.lazyMemRejBlock();
+                        }
+                        for (var c = count; c < count + loadRecordCount; c++) { //count is current count from start and loadRecordCount is for total  page size;
+                            try {
+                                self.requestRejectedMember.push(self.lazyTempStorageRejM()[c]);
+                                self.lazyMemRejCurrent(self.lazyMemRejCurrent() + 1);
+                            } catch (e) {
+
+                            }
+                        }
+                    } else {
+                        $("#RejectedRequestLoading").hide();
+                    }
+                }
+            }
+        });
+
+
+        ///////////////lazy loading function for declined request for user end
+
     }
 
     return rateRequestPageContentViewModel;

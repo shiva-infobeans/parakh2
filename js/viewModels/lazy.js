@@ -8,7 +8,7 @@
  * lazy module
  */
 define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojmodel', , 'ojs/ojtabs', 'ojs/ojconveyorbelt'
-], function (oj, ko) {
+], function (oj, ko, $) {
     /**
      * The view model for the main content view template
      */
@@ -38,6 +38,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
     function lazyContentViewModel(person) {
         var self = this;
         self.image = ko.observable();
+        self.lazyLoadingSize = ko.observable(8);
         self.myname = ko.observable();
         self.myDesignation = ko.observable();
         self.role_name = ko.observable();
@@ -156,7 +157,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         }
                         self.data2(self.members());
                         self.rowcountAllMember(self.data2().length);
-                        for (var c = 0; c < 12; c++) {
+                        for (var c = 0; c < self.lazyLoadingSize(); c++) {
                             self.lazyAllMembers.push(self.data2()[c]);
                             self.pageNumAllMembers(self.pageNumAllMembers() + 1);
                         }
@@ -178,19 +179,20 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         });
         self.arrangeIndex = function (data, event) {
             if (event.target.tagName == 'A') {
+                self.pageNumAllMembers(self.rowcountAllMember());
                 var value = event.target.href;
                 value = value.substr(value.lastIndexOf('/') + 1);
                 var temp_data = [];
-                self.members([]);
+                self.lazyAllMembers([]);
                 if (value == "All") {
-                    self.members([]);
-                    self.members(self.data2());
+                    self.lazyAllMembers([]);
+                    self.lazyAllMembers(self.data2());
                 } else {
                     var temp_data = [];
-                    self.members([]);
+                    self.lazyAllMembers([]);
                     for (var counter = 0; counter < self.data2().length; counter++) {
                         if (self.data2()[counter]['name'].charAt(0) == value) {
-                            self.members.push(self.data2()[counter]);
+                            self.lazyAllMembers.push(self.data2()[counter]);
                         }
                     }
                 }
@@ -589,15 +591,19 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
                 if (self.pageNumAllMembers() < self.rowcountAllMember()) {
                     var count = self.pageNumAllMembers();
-                    if (self.pageNumAllMembers() + 12 > self.rowcountAllMember()) {
+                    console.log("pageCountPrintVar"+count);
+                    if (self.pageNumAllMembers() + self.lazyLoadingSize() > self.rowcountAllMember()) {
                         var loadRecordCount = self.rowcountAllMember() - self.pageNumAllMembers();
+                        console.log("1.loadRecordCOunt: "+loadRecordCount);
                     } else {
-                        var loadRecordCount = 12;
+                        var loadRecordCount = self.lazyLoadingSize();
+                        console.log("2.loadRecordCOunt: "+loadRecordCount);
                     }
                     for (var c = count; c < count + loadRecordCount; c++) {
                         try {
                             self.lazyAllMembers.push(self.data2()[c]);
                             self.pageNumAllMembers(self.pageNumAllMembers() + 1);
+                        console.log("forLOOP:"+self.pageNumAllMembers());
                         } catch (e) {
 
                         }
