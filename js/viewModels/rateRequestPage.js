@@ -303,6 +303,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             $('#yesButton').attr("requestId", requestId);
             $('#yesButton').attr("userId", userId);
             $('#yesButton').attr("to_id", to_id);
+            if(type)
+            {
+                $('#rateme-status').html('approve');
+            }else
+            {
+                $('#rateme-status').html('decline');
+            }
         }
 
         self.yesProcess = function () {
