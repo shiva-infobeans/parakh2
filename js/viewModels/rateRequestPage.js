@@ -7,7 +7,7 @@
 /**
  * rateRequestPage module
  */
-define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojmodel', 'ojs/ojinputtext', 'ojs/ojtabs', 'ojs/ojconveyorbelt' , 'ojs/ojdialog'
+define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojmodel', 'ojs/ojinputtext', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 'ojs/ojdialog'
 ], function (oj, ko, $) {
     /**
      * The view model for the main content view template
@@ -27,14 +27,28 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
     }
     function request(data, userid) {
         var req = Object();
-        if (data['comment_text'] !=null) {
-            req.sComment = decodeHtml(data['comment_text'].substring(0, 100)) + "...";
+        if (data['comment_text'] != null) {
+            if (data['comment_text'].length > 80) {
+                req.sComment = decodeHtml(data['comment_text'].substring(0, 80));
+                req.LongComment = decodeHtml(data['comment_text'].substring(80, data['comment_text'].length));
+                req.viewMore = true;
+            } else {
+                req.sComment = decodeHtml(data['comment_text']);
+                req.viewMore = false;
+            }
+            req.lComment = decodeHtml(data['comment_text']);
         } else {
-            req.sComment = decodeHtml(data['description']);
+            if (data['description'].length > 80) {
+                req.sComment = decodeHtml(data['description'].substring(0, 80));
+                req.LongComment = decodeHtml(data['description'].substring(80, data['description'].length));
+                req.viewMore = true;
+            } else {
+                req.sComment = decodeHtml(data['description']);
+                req.viewMore = false;
+            }
+            req.lComment = decodeHtml(data['description']);
         }
-        req.lComment = decodeHtml(data['description']);
         req.request_id = data['request_id'];
-//        console.log(req.request_id);
         req.pic = data['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data['google_picture_link'];
         req.name = data['google_name'];
         req.designation = data['designation'];
@@ -44,6 +58,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         req.uniqueId = "pending" + data['request_id'];
         req.acceptBtnId = "accept" + data['request_id'];
         req.declineBtnId = "decline" + data['request_id'];
+        req.openMoreLink = "open" + data['request_id'];
+        req.lessMoreLink = "close" + data['request_id'];
 //        console.log(req.uniqueId);
         return req;
     }
@@ -102,13 +118,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         for (var i = 0; i < data1.length; i++) {
                             if (data1[i]['status'] == 0) {
                                 self.requestPendingMember.push(new request(data1[i], self.userId()));
-                              $("#request").show();
+                                $("#request").show();
                             }
                         }
                         if (self.requestPendingMember().length != 0) {
-                             $("#request").hide();
+                            $("#request").hide();
                             self.noPendingRequest("");
-                           
+
                         }
                     }
                 });
@@ -123,72 +139,72 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         for (var i = 0; i < data1.length; i++) {
                             if (data1[i]['status'] == 1) {
                                 self.requestRejectedMember.push(new request(data1[i], self.userId()));
-                                 $("#request1").show();
+                                $("#request1").show();
                             }
                         }
                         if (self.requestRejectedMember().length != 0) {
-                               $("#request1").hide();
+                            $("#request1").hide();
                             self.noRejectRequest("");
                         }
 
                     }
                 });
                 // for lead or manager
-				
+
                 if (self.role() != "Team Member") {
                     var requestUrl1 = oj.Model.extend({
                         url: getTeamMembersRequest + self.userId() // get all pending requests for the lead to approve or reject.
                     });
-					var requestFetch1 = new requestUrl1();
-					requestFetch1.fetch({
+                    var requestFetch1 = new requestUrl1();
+                    requestFetch1.fetch({
                         headers: {secret: secret},
-						error:function(ee)
-						{
-							
-						},
+                        error: function (ee)
+                        {
+
+                        },
                         success: function (res) {
-							
+
                             var data1 = res['attributes']['data'];
-							
+
                             for (var i = 0; i < data1.length; i++) {
                                 if (data1[i]['status'] == 0) {
                                     self.requestPendingLead.push(new request(data1[i], self.userId()));
-                                      $("#request2").show();
+                                    $("#request2").show();
                                 }
                             }
                             if (self.requestPendingLead().length != 0) {
-                                   $("#request2").hide();
+                                $("#request2").hide();
                                 self.noLeadPendingRequest("");
                             }
                         }
                     });
                 }
-                
+
                 // get all requests that has been declined by lead or manager.
-                 if (self.role() != "Team Member") {
-                     $.ajax({
-                         headers: {secret: secret},
-                         url: getAllRejectedRequestsByLoginId,
-                         method: 'POST',
-                         data: {lead_id: self.userId()},
-                         success: function (result) {
-                             var data2 = JSON.parse(result)['data'];
-                             for (var i = 0; i < data2.length; i++) {
-                                   self.requestDeclinedLead.push(new request(data2[i]));
-                                    }
-                                 if (data2.length === 0) {
-                                     self.noLeadDeclinedRequest("No Declined Request.");
-                                     $("#request3").show();
-                                 } else {
-                                     self.noLeadDeclinedRequest("");
-                                     $("#request3").hide();
-                                 }
-                            
-                         }
-                     });
-                 }
-                
-                
+                if (self.role() != "Team Member") {
+                    $.ajax({
+                        headers: {secret: secret},
+                        url: getAllRejectedRequestsByLoginId,
+                        method: 'POST',
+                        data: {lead_id: self.userId()},
+                        success: function (result) {
+                            var data2 = JSON.parse(result)['data'];
+                            for (var i = 0; i < data2.length; i++) {
+                                self.requestDeclinedLead.push(new request(data2[i]));
+                            }
+                            if (data2.length === 0) {
+                                self.noLeadDeclinedRequest("No Declined Request.");
+                                $("#request3").show();
+                            } else {
+                                self.noLeadDeclinedRequest("");
+                                $("#request3").hide();
+                            }
+
+                        }
+                    });
+                }
+
+
                 if (self.role_name() === 'Team Member') {
                     $('#rateTab2').hide();
                     self.selectTab(1);
@@ -276,36 +292,42 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             }
         });
 
-        self.approveRequest = function (type,d,requestId,userId,to_id) {
+        self.approveRequest = function (type, d, requestId, userId, to_id) {
             $("#minMaxDialog").ojDialog("open");
-            $('#yesButton').attr("type",type);
-            $('#yesButton').attr("d",d);
-            $('#yesButton').attr("requestId",requestId);
-            $('#yesButton').attr("userId",userId);
-            $('#yesButton').attr("to_id",to_id);
+            $('#yesButton').attr("type", type);
+            $('#yesButton').attr("d", d);
+            $('#yesButton').attr("requestId", requestId);
+            $('#yesButton').attr("userId", userId);
+            $('#yesButton').attr("to_id", to_id);
+            if(type)
+            {
+                $('#rateme-status').html('approve');
+            }else
+            {
+                $('#rateme-status').html('decline');
+            }
         }
 
-        self.yesProcess = function(){
+        self.yesProcess = function () {
             var type = $('#yesButton').attr("type");
             var d = $('#yesButton').attr("d");
             var requestId = $('#yesButton').attr("requestId");
             var userId = $('#yesButton').attr("userId");
             var to_id = $('#yesButton').attr("to_id");
             $("#minMaxDialog").ojDialog("close");
-            if(type==1)
+            if (type == 1)
             {
-              var obj = $("#accept" + requestId);
-            }
-            else
+                var obj = $("#accept" + requestId);
+            } else
             {
-              var obj = $("#decline" + requestId);
+                var obj = $("#decline" + requestId);
             }
             var descHTML = obj.parent().prev().children().children('#text-area20');
             var descriptionChange = (descHTML.val() != "") ?
                     descHTML.val() : decodeHtml(obj.attr('descComment'));
-            
+
             var removeHtml = obj;
-            var datas={u_id: userId, rq_id: requestId, st:type, desc: descriptionChange, to_id: to_id};
+            var datas = {u_id: userId, rq_id: requestId, st: type, desc: descriptionChange, to_id: to_id};
             //console.log(datas);
             $.ajax({
                 headers: {secret: secret},
@@ -334,35 +356,35 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 }
             });
         }
-        
-        self.noProcess = function(type,d,requestId,userId,to_id){
+
+        self.noProcess = function (type, d, requestId, userId, to_id) {
             $("#minMaxDialog").ojDialog("close");
         }
-        self.requestMore = function (e, data) {      
-           
+        self.requestMore = function (e, data) {
+
             var obj = $("#pending" + e.request_id);
             if (obj.children("span").children("span:nth-child(2)").html() == "More") {
                 obj.parent().prev().prev().addClass("hide");
                 obj.children("span").children("span:nth-child(2)").html("Less");
                 obj.children("span").children("span").children("i").removeClass("zmdi-caret-down");
-               obj.children("span").children("span").children("i").addClass("zmdi-caret-up");
+                obj.children("span").children("span").children("i").addClass("zmdi-caret-up");
                 var lmsg = obj.children("span").children("span:nth-child(3)").text();
-               obj.parent().prev().prev().children('span').text(lmsg);
-               obj.parent().prev('.open-more').slideToggle();
+                obj.parent().prev().prev().children('span').text(lmsg);
+                obj.parent().prev('.open-more').slideToggle();
             } else {
                 if (obj.children("span").children("span:nth-child(2)").html() == "Less") {
-                   obj.parent().prev('.open-more').slideToggle();
-                   obj.children("span").children("span:nth-child(2)").html("More");
+                    obj.parent().prev('.open-more').slideToggle();
+                    obj.children("span").children("span:nth-child(2)").html("More");
                     obj.children("span").children("span").children("i").removeClass("zmdi-caret-up");
                     obj.children("span").children("span").children("i").addClass("zmdi-caret-down");
                     var smsg = obj.children("span").children("span:nth-child(3)").text().substring(0, 100) + "...";
-                   obj.parent().prev().prev().children('span').text(smsg);
+                    obj.parent().prev().prev().children('span').text(smsg);
                     obj.parent().prev().prev().removeClass("hide");
                 }
             }
 
         }
-      
+
         //send request for +1 ratings ajax call
         self.requestManager = function () {
             if (self.desc() == '' || self.desc() == null) {
@@ -428,7 +450,24 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 //            }
 //        });
 //        },500);
+
+        self.openMore = function (data, event) {
+            var moreTextId = $("#" + data['openMoreLink']);
+            var lessTextId = $("#" + data['lessMoreLink']);
+            moreTextId.next('span').slideToggle();
+            moreTextId.next().fadeIn();
+            moreTextId.next().next().fadeOut();
+            lessTextId.parent().removeClass('hide');
+        };
+        self.openLess = function (data, event) {
+            var moreTextId = $("#" + data['openMoreLink']);
+            var lessTextId = $("#" + data['lessMoreLink']);
+            moreTextId.next('span').slideToggle();
+            moreTextId.next().fadeOut();
+            moreTextId.next().next().fadeIn();
+            lessTextId.parent().addClass('hide');
+        }
     }
-    
+
     return rateRequestPageContentViewModel;
 });

@@ -307,7 +307,13 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                                 self.past_project(data[index]["projects"]);
                                 self.interest(data[index]["interests"]);
                                 self.associated(dateDiffCalender(data[index]["associate_with_infobeans"]));
-                                var image = data[index]['google_picture_link'];
+                                if(data[index]['google_picture_link']!='')
+                                {
+                                    var image = data[index]['google_picture_link'];
+                                }else
+                                {
+                                    var image = '/images/warning-icon-24.png';
+                                }
                                 self.pic(image);
                                 self.designation(data[index]['designation']);
                                 var num = data[index]['mobile_number'] == "" ? "NO NUMBER" : "+91-" + data[index]['mobile_number'];

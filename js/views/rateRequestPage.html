@@ -89,7 +89,7 @@ and open the template in the editor.
                               }">
                                 <div class="oj-dialog-body">
                                     <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                                        Are you sure you want to approve/decline this request ?
+                                        Are you sure you want to <span id="rateme-status">approve/decline</span> this request ?
                                     </div>
                                     <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-margin-top oj-padding  center ">
                                         <div class=" oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6 oj-flex-item oj-padding oj-margin-top text-right ">
@@ -136,20 +136,15 @@ and open the template in the editor.
                                         <span data-bind="text:date"></span>
                                     </div>
                                     <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-margin-horizontal font-descrip color-white">
-                                        <span data-bind="text: sComment"></span>
+                                        <span data-bind="text: sComment,attr: {id: openMoreLink}"></span>
+                                        <!--ko if: viewMore-->
+                                        <span data-bind="text: LongComment" class="hide"></span>
+                                        <span title="Show More" data-bind='click: $parent.openMore' class="moreDots">...</span>
+                                        <!--/ko-->
                                     </div>
-                                    <!--                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item open-more oj-flex oj-margin overflow-class">
-                                                                            <span class="color-white" data-bind="text: lComment"></span>
-                                                                        </div>-->
-                                    <!--                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex replyBox">
-                                                                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item openDiv oj-flex-bar oj-margin-top more-alignment " data-bind="click: $parent.requestMore,attr:{id: uniqueId}">
-                                                                                <span class="oj-flex-bar-end oj-margin-bottom " id="openMore">
-                                                                                    <span class="oj-padding-right "><i class="zmdi zmdi-caret-down color-white Moreless-fix"></i></span>
-                                                                                    <span class=" color-white oj-margin-start">More</span>
-                                                                                    <span class="hide color-white" data-bind="text: lComment"></span>                 
-                                                                                </span>
-                                                                            </div>
-                                                                        </div>-->
+                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-margin-horizontal font-descrip color-white  oj-flex-bar hide">
+                                        <span data-bind="click: $parent.openLess, attr: {id: lessMoreLink}" class="oj-flex-bar-end lessLink">Less</span>
+                                    </div>
                                 </div>
                             </div>
                             <!-- /ko -->
@@ -250,8 +245,8 @@ and open the template in the editor.
                                                 <!--repeat block starts here-->
                                                 <!-- ko foreach: requestPendingMember -->
                                                 <div class="oj-xl-8 oj-lg-8 oj-md-10 oj-sm-8 pos-relative oj-margin-top oj-padding-top space-block oj-flex-bar-center-absolute">
-                                                    <div class="transbox1  feedbackHeight"></div>
-                                                    <div class="transbox feedbackHeight"></div>
+                                                    <div class="transbox1  feedbackHeight minheightFix"></div>
+                                                    <div class="transbox feedbackHeight minheightFix"></div>
                                                     <div class="oj-flex oj-row">
                                                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top oj-padding-top">
                                                             <img data-bind="attr: {src:pic}" alt="" class="profile-feedback-pic border-color-yellow"/>
@@ -268,23 +263,16 @@ and open the template in the editor.
 
                                                             <span class="color-white" data-bind="text:date"></span>
                                                         </div>
-                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-margin-horizontal font-descrip">
-                                                            <span class="color-white" data-bind="text: sComment"></span>
+                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-margin-horizontal font-descrip color-white">
+                                                            <span data-bind="text: sComment,attr: {id: openMoreLink}"></span>
+                                                            <!--ko if: viewMore-->
+                                                            <span data-bind="text: LongComment" class="hide"></span>
+                                                            <span title="Show More" data-bind='click: $parent.openMore' class="moreDots">...</span>
+                                                            <!--/ko-->
                                                         </div>
-                                                        <!--                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item open-more oj-flex oj-margin overflow-class">
-                                                                                                                    <span class="color-white" data-bind="text: lComment"></span>
-                                                                                                                </div>-->
-                                                        <!--                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-margin replyBox">
-                                                        
-                                                                                                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item openDiv oj-flex-bar oj-margin" data-bind="click: $parent.requestMore,attr:{id: uniqueId}">
-                                                                                                                        <span class="oj-flex-bar-end oj-margin-bottom" id="openMore">
-                                                                                                                            <span class="oj-padding-right "><i class="zmdi zmdi-caret-down color-white Moreless-fix"></i></span>
-                                                                                                                            <span class=" color-white oj-margin-start">More</span>
-                                                                                                                            <span class="hide color-white" data-bind="text: lComment"></span>                 
-                                                                                                                        </span>
-                                                        
-                                                                                                                    </div>
-                                                                                                                </div>-->
+                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-margin-horizontal font-descrip color-white  oj-flex-bar hide">
+                                                            <span data-bind="click: $parent.openLess, attr: {id: lessMoreLink}" class="oj-flex-bar-end lessLink">Less</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <!-- /ko -->
@@ -299,8 +287,8 @@ and open the template in the editor.
                                                 <!--repeat block starts here-->
                                                 <!-- ko foreach: requestRejectedMember-->
                                                 <div class="oj-xl-8 oj-lg-8 oj-md-10 oj-sm-8 pos-relative oj-margin-top oj-padding-top space-block oj-flex-bar-center-absolute">
-                                                    <div class="transbox2  feedbackHeight"></div>
-                                                    <div class="transbox  feedbackHeight"></div>
+                                                    <div class="transbox2  feedbackHeight minheightFix"></div>
+                                                    <div class="transbox  feedbackHeight minheightFix"></div>
                                                     <div class="oj-flex oj-row">
                                                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top oj-padding-top">
                                                             <img data-bind="attr: {src:pic}" alt="" class="profile-feedback-pic border-color-red"/>
@@ -318,22 +306,15 @@ and open the template in the editor.
                                                             <span data-bind="text:date"></span>
                                                         </div>
                                                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-margin-horizontal font-descrip color-white">
-
-                                                            <span data-bind="text: sComment"></span>
+                                                            <span data-bind="text: sComment,attr: {id: openMoreLink}"></span>
+                                                            <!--ko if: viewMore-->
+                                                            <span data-bind="text: LongComment" class="hide"></span>
+                                                            <span title="Show More" data-bind='click: $parent.openMore' class="moreDots">...</span>
+                                                            <!--/ko-->
                                                         </div>
-                                                        <!--                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item open-more oj-flex oj-margin color-white overflow-class">
-                                                                                                                    <span data-bind="text: lComment"></span>-->
-                                                        <!--                                                        </div>
-                                                                                                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-margin replyBox color-white">
-                                                        
-                                                                                                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item openDiv oj-flex-bar oj-margin" data-bind="click: $parent.requestMore,attr:{id: uniqueId}">
-                                                                                                                        <span class="oj-flex-bar-end oj-margin-bottom">
-                                                                                                                            <span class="oj-padding-right "><i class="zmdi zmdi-caret-down Moreless-fix"></i></span>
-                                                                                                                            <span class=" color-white oj-margin-start">More</span>
-                                                                                                                            <span class="hide" data-bind="text: lComment"></span>
-                                                                                                                        </span>
-                                                                                                                    </div>
-                                                                                                                </div>-->
+                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-margin-horizontal font-descrip color-white  oj-flex-bar hide">
+                                                            <span data-bind="click: $parent.openLess, attr: {id: lessMoreLink}" class="oj-flex-bar-end lessLink">Less</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <!-- /ko -->
