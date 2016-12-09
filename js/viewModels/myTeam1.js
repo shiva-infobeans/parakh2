@@ -16,7 +16,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         var member = this;
         member.name = data['google_name'];
         member.userId = data['id'];
-        member.pic = data['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data['google_picture_link'];
+        member.pic = data['google_picture_link'] == "" ? '/images/default.png' : data['google_picture_link'];
+        if(member.pic == '/images/default.png')
+        {
+            member.intials = nameFunction(data['google_name']);
+        }else
+        {
+            member.intials = '';
+        }
         member.designation = data['designation'];
         member.role_name = data['role_name'];
         member.google_id = data['google_id'];
@@ -27,6 +34,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
     function leadTeam(data) {
         var myTeam = this;
         myTeam.myName = data['google_name'];
+        if(data['picture'] == '/images/default.png')
+        {
+            myTeam.intials = nameFunction(data['google_name']);
+        }else
+        {
+            myTeam.intials = '';
+        }
         myTeam.myId = data['user_id'];
         myTeam.myDesign = data['designation'];
         myTeam.myEmail = data['google_email'];
@@ -35,7 +49,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         myTeam.minus = data['minuscount'] != null ? data['minuscount'] == 0 ? 0 : "-" + data['minuscount'] : 0;
         return myTeam;
     }
-
+    function nameFunction(NAME) {
+        var initial = NAME.charAt(0) + NAME.charAt(NAME.lastIndexOf(" ") + 1);
+        return initial;
+    }
     function myTeamContentViewModel(person) {
         var self = this;
         self.image = ko.observable();

@@ -3,7 +3,10 @@
 <div class="oj-web-applayout-max-width oj-web-applayout-content">
     <div class="oj-flex oj-row">
         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding">
-            <img data-bind="attr: {src: pic}" class="oj-margin profile-pic" />
+            <div class="person-profile-intials">
+                <img data-bind="attr: {src: pic}" class="oj-margin profile-pic" />
+                <span class="person-profile-intials-text" data-bind="text:intials"></span>
+            </div>
             <div class="oj-padding oj-margin left">
                 <h2 data-bind="text :myname" class="color-white myname-profile">  </h2>
             </div>
