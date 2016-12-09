@@ -1953,4 +1953,9 @@ a#menu-share:hover > i{
   margin-left: 10px;
   margin-right: 10px;
 }
-
+.top-margin-custom{
+	margin-top: 8px;
+}
+.height-fix{
+	height: 200px;
+}
