@@ -268,7 +268,7 @@ ul.profile-ul{
     margin-left: 10px !important;
     margin-right: 10px !important;
     /*height:700px;*/
-    width: 20%;
+    width: 22%;
 }
 ul li.selectedTab div a.oj-tabs-gen-a.oj-tabs-anchor,
 ul li.selectedTab-mobile div a.oj-tabs-gen-a.oj-tabs-anchor {
@@ -336,7 +336,10 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 .about-label{color: yellow;width: 240px;}
 .about-text{margin-left:200px !important;width: 240px;}
-.about-edit{font-size:1em !important;margin: 5px 0px;}
+.about-edit{
+    font-size:1em !important;
+    margin: 2px -1px;
+}
 .profile-tab1-data:not(:nth-child(1)) i{
     font-size: 50px;
     margin: 20px 0px 0px 30px;
@@ -1394,11 +1397,11 @@ div.oj-tabs-panel.oj-tabs-selected{
     .tab-margin{
         margin-left:10px;
     }
-    /*.left {
+    .left {
         float: left;
         padding: 8px;
         border-right: 0px solid transparent; 
-    }*/
+    }
 	
 	#filmStripDiv9.oj-row .oj-flex .oj-xl-6 .oj-lg-6 .oj-md-6 .oj-sm-6 left, #filmStripDiv8.oj-row .oj-flex .oj-xl-6 .oj-lg-6 .oj-md-6 .oj-sm-6 left{
 		float: none !important;
@@ -1472,12 +1475,13 @@ div.oj-tabs-panel.oj-tabs-selected{
     font-size: 20px !important;
 }
 .feedback-comment {
-    margin-left: 69px !important
+    margin-left: 69px !important;
     padding: 5px !important;
     width: 70% !important;
 }
 .feedback-date {
-     width: 110px !important;
+    width: 80px !important;
+    font-size: 12px !important;
 }
 .commentDate-mobile{
    float: right !important;
@@ -1487,14 +1491,125 @@ div.oj-tabs-panel.oj-tabs-selected{
     font-size: 18px;
 }
 .circle-purple{
-    margin-left: 15px !important;
+    margin-left: 12px !important;
+}
+.hoverName{
+   left: 30px !important;
+    top: -20px !important;
+    padding: 8px 111px 7px 8px;
+    background-color: #fff;
+    color: #000;
+    font-size: 13px;
+    position: absolute;
+    border: 2px solid #689F39;
+    display: none;
+    white-space: nowrap;
+}
+.hoverNameN{
+   left: 30px !important;
+    top: -20px !important;
+    padding: 8px 111px 7px 8px;
+    background-color: #fff;
+    color: #000;
+    font-size: 13px;
+    position: absolute;
+    border: 2px solid #e00000;
+    display: none; 
+    white-space: nowrap;
+}
+.viewFeedbackName {
+    position: absolute;
+    background-color: #fff;
+    color: #000;
+    font-size: 13px !important;
+    border: 2px solid #8DAC6C;
+     left: 30px !important;
+    top: -20px !important;
+    padding: 8px 111px 7px 8px !important;
+    display: none;
+     white-space: nowrap;
+}
+.textArea-skills {
+    width:auto !important;
+         padding: 0px !important; 
+
+}
+#ojChoiceId_selectInterests .oj-select-choices, #ojChoiceId_selectProjects .oj-select-choices{
+         width: auto !important;  
+}
+#editNumberBox {
+    font-size: 75% !important;
+}
+.View-Other-about {
+        font-size: 18px !important;
+}
+.profile-margin-bottom{
+    margin-bottom: 15px;
+}
+.about-edit{
+    margin: 8px 1px;
+}
+.replyInput div span input{
+        height: 24px !important;
+        margin-top: -5px !important;
+}
+.replyInput div span i{
+       margin-left: 4px !important;
+    padding: 1px!important;
+}
+.mobile-trans{
+ width: 90% !important;   
+}
+.mailToColor {
+    word-break: break-all !important;
+}
+/*.oj-fwk-icon-caret-w:before{
+        color: #fff !important;
+    margin-top: 1px !important;
+    font-size: 20px !important;
+}*/
+#vtabs .oj-conveyorbelt-overflow-indicator.oj-default .oj-conveyorbelt-overflow-icon{
+        color: #fff;
+    margin-top: 4px;
+    font-size: 18px;
 }
 }
 
 .transboxRequest2{
     border-left: 0px ;
 }
-
+@media  screen and (min-width: 320px) and (max-width: 530px) {
+    .custom-zmdi-icons-div {
+       height: 35px !important;
+       width: 35px !important;
+    }
+    .edit-height {
+    font-size: 17px !important;
+}
+.about-edit {
+    margin-left: -10px !important;
+    margin-top: -3px !important;
+}
+.cancel-button{
+    margin-top: 40px !important;
+    margin-right: -46px !important;
+}
+.edit-section {
+     top: -173px !important;
+     right: -8px !important;
+}
+.update-button{
+    margin-top: -7px !important;
+}    
+.mobile-trans{
+ width: 100% !important;   
+}
+.mailToColor {
+    word-break: break-all !important;
+    font-size: 15px !important;
+    line-height: 36px !important;
+}
+}
 @media  screen and (min-width: 768px) and (max-width: 1024px) {
 
     #ojDialogWrapper-modalDialog9.oj-dialog,
@@ -1541,12 +1656,32 @@ div.oj-tabs-panel.oj-tabs-selected{
          margin: 10px;
      }
      .profile-font-tabs {
-    font-size: 23px !important;
+    font-size: 20px !important;
     text-align: left;
 }
-
+.textArea-skills{
+    width: 355px !important;
+    margin-left: 8px !important;
+}
+#ojChoiceId_selectInterests .oj-select-choices, #ojChoiceId_selectProjects .oj-select-choices{
+    width: 355px !important;
+    margin-left: 8px !important;
+}
+#oj-select-choice-selectPrimaryProjects.oj-select-choice{
+    margin-left: 10px !important;
+}
+#input-date.oj-inputdatetime-input{
+        margin-left: -19px !important;
+}
+#oj-select-choice-selectDesignation.oj-select-choice, #oj-select-choice-selectLocation.oj-select-choice{
+    margin-left: 8px;
+}                  
+               
+#editNumberBox{
+    margin-left: 12px;
+}
 .profile-tabs {
-    padding: 61px 33px 59px 4px !important;
+    padding: 64px 33px 59px 4px !important;
 }
 .replyInput div span i {
     margin-left: 4px !important;
@@ -1554,9 +1689,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 .text-about {
     display: block;
     margin-left: 36px !important;
-    width: 100%;
-    color: #F9E81F;
-    font-size: 20px !important;
+    font-size: 18px !important;
     /* font-weight: bolder; */
 }
 .info-text{
@@ -1641,20 +1774,23 @@ span.zmdi-plus-request {
     display: table;
 }
 .feedback-circle{
-    height: 48px;
+   height: 48px;
     width: 48px;
-    border: 3px solid;
+    border: 2px solid;
     border-radius: 50%;
     float: left;
-    padding: 12px 0px 0px 10px;
+    font-size: 19px;
+    padding: 11px 5px 7px 5px;
+    margin-left: -8px;
 }
 .reply-circle{
     height: 40px;
     width: 40px;
-    border: 3px solid;
+    border: 2px solid;
     border-radius: 50%;
     float: left;
     padding: 8px 0px 0px 7px;
+    margin-left: -5px;
 }
 .feedback-comment{
     margin-left: 80px;
@@ -1688,10 +1824,13 @@ span.zmdi-plus-request {
 .buttonReply {
     height: 45px;
     width: 100px;
-    font-size: 22px;
+    font-size: 17px;
     border-bottom: 2px solid #fff;
     font-style: italic;
     color:#fff;
+}
+.feedback-margin{
+    margin-top: 12px;
 }
 .buttonReply:hover, .buttonReply:focus {
     text-decoration: none;
@@ -1704,15 +1843,16 @@ span.zmdi-plus-request {
     display: block !important;
 }
 .viewFeedbackName{
-    position: absolute;
-    height: 38px;
-    top: -14px;
-    left: -110px;
+    padding: 7px 5px;
     background-color: #fff;
     color: #000;
-    border: 2px solid #8DAC6C;
-    padding: 10px;
-    display: none;
+    font-size: 17px;
+    position: absolute;
+    right: 30px;
+    top: -20px;
+    border: 2px solid #689F39;
+    display: none; 
+    white-space: nowrap;
 }
 .replyInput div{
     padding: 10px;
@@ -1928,7 +2068,7 @@ a#menu-share:hover > i{
     text-decoration: underline;
 }
 .minheightFix{
-    min-height: 100%;
+    min-height: 86%;
     max-height: 999em;
 }
 .errorVisibilityHide{

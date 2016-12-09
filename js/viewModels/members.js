@@ -167,7 +167,10 @@ define(['ojs/ojcore', 'knockout','jquery', 'ojs/ojcollectiontabledatasource', 'o
             window.location = "rateBuddy.html";
         }
         var abc = "Not Assigned";
+  var lgQuery = oj.ResponsiveUtils.getFrameworkQuery(
+                        oj.ResponsiveUtils.FRAMEWORK_QUERY_KEY.LG_UP);
 
+                self.large = oj.ResponsiveKnockoutUtils.createMediaQueryObservable('(min-width: 767px)');
 
 //service for id of the user.
         var userIdSearch = oj.Model.extend({
