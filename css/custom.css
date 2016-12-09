@@ -1343,6 +1343,17 @@ div.oj-tabs-panel.oj-tabs-selected{
 }   
 }*/
 @media  screen and (min-width: 320px) and (max-width: 767px) {
+    .person-profile-intials {
+        height: 80px !important;
+        width: 80px !important;
+        position: relative;
+        float: left;
+    }
+    .person-profile-intials-text {
+        margin: 36px 20px !important;
+        font-size: 30px !important;
+        text-align: center; 
+    }
     .transboxRequest{
         position: relative;
         margin-left: 0px;
@@ -1977,4 +1988,79 @@ a#menu-share:hover > i{
     /*error color*/
     color:#ff0000;
 }
-
+.person-profile-intials {
+    height: 120px;
+    width: 120px;
+    position: relative;
+    float: left;
+}
+.person-profile-intials-text{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: 32px 16px;
+    font-size: 46px;
+    color: #fff;
+    text-align: center;
+}
+.header_profile_image a {
+    position: relative;
+    float: left;
+    height: 24px;
+    width: 24px;
+}
+.header_profile_image_initials{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    text-align: center;
+    font-size: 10px;
+    margin: 8px 2px;
+}
+.profile_image_lead {
+    position: relative;
+    height: 120px;
+}
+.profile_image_lead_initials_text{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    text-align: center;
+    margin: 28px 15px;
+    font-size: 50px;
+    color: #ffffff;
+}
+.profile_image_red{
+    position: relative;
+    height: 120px;
+}
+.profile_image_red_initials_text{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    text-align: center;
+    margin: 20px 15px;
+    font-size: 38px;
+    color: #ffffff;
+}
+.slider_profile_image {
+    position: relative;
+}
+.slider_profile_image_initials {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: 26px 16px;
+    font-size: 50px;
+    text-align: center;
+}

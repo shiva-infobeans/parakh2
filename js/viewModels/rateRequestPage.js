@@ -61,12 +61,27 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         req.from_id = data['from_id'];
         req.date = dateformat(data['created_date']);
         req.userID = userid;
+        if(data['google_picture_link'] == '/images/default.png')
+        {
+            req.intials = nameFunction(data['google_name']);
+            req.intials_yellow = nameFunction(data['google_name']);
+            req.intials_red = nameFunction(data['google_name']);
+        }else
+        {
+            req.intials = '';
+            req.intials_yellow = '';
+            req.intials_red = '';
+        }
         req.uniqueId = "pending" + data['request_id'];
         req.acceptBtnId = "accept" + data['request_id'];
         req.declineBtnId = "decline" + data['request_id'];
         req.openMoreLink = "open" + data['request_id'];
         req.lessMoreLink = "close" + data['request_id'];
         return req;
+    }
+    function nameFunction(NAME) {
+        var initial = NAME.charAt(0) + NAME.charAt(NAME.lastIndexOf(" ") + 1);
+        return initial;
     }
     function rateRequestPageContentViewModel(person) {
         var self = this;
@@ -75,6 +90,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.role_name = ko.observable();
         self.lead_name = ko.observable();
         self.lead_pic = ko.observable();
+        self.intials_lead = ko.observable("");
+        self.intials_manager = ko.observable("");
+        self.intials_yellow = ko.observable("");
+        self.intials_red = ko.observable("");
         self.lead_id = ko.observable();
         self.lead_role = ko.observable();
         self.manager_name = ko.observable();
@@ -87,6 +106,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.textError1 = ko.observable();
         this.sucessMsg = ko.observable("");
         this.sucessMsg("");
+        self.intials = ko.observable("");
         self.requestRejectedMember = ko.observableArray();
         self.requestPendingMember = ko.observableArray();
         self.requestPendingLead = ko.observableArray();
@@ -122,6 +142,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         var data1 = res['attributes']['data'];
                         for (var i = 0; i < data1.length; i++) {
                             if (data1[i]['status'] == 0) {
+                                if(data1[i]['google_picture_link'] == '/images/default.png')
+                                {
+                                    data1[i]['intials_yellow'] = nameFunction(data1[i]['google_name']);
+                                }
                                 self.requestPendingMember.push(new request(data1[i], self.userId()));
                                 $("#request").show();
                             }
@@ -143,6 +167,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         var data1 = res['attributes']['data'];
                         for (var i = 0; i < data1.length; i++) {
                             if (data1[i]['status'] == 1) {
+                                if(data1[i]['google_picture_link'] == '/images/default.png')
+                                {
+                                    data1[i]['intials_red'] = nameFunction(data1[i]['google_name']);
+                                }
                                 self.requestRejectedMember.push(new request(data1[i], self.userId()));
                                 $("#request1").show();
                             }
@@ -173,6 +201,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
                             for (var i = 0; i < data1.length; i++) {
                                 if (data1[i]['status'] == 0) {
+                                    // if(data2[i]['google_picture_link'] == '/images/default.png')
+                                    // {
+                                        //data1[i]['intials_yellow'] = "AP";
+                                    // }else
+                                    // {
+                                    //     data2[i]['intials'] = ''
+                                    // }
                                     self.requestPendingLead.push(new request(data1[i], self.userId()));
                                     $("#request2").show();
                                 }
@@ -195,6 +230,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         success: function (result) {
                             var data2 = JSON.parse(result)['data'];
                             for (var i = 0; i < data2.length; i++) {
+                                if(data2[i]['google_picture_link'] == '/images/default.png')
+                                {
+                                    //data2[i]['intials_red'] = nameFunction(data2[i]['google_name']);
+                                }else
+                                {
+                                    //data2[i]['intials_red'] = ''
+                                }
                                 self.requestDeclinedLead.push(new request(data2[i]));
                             }
                             if (data2.length === 0) {
@@ -280,6 +322,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         var data = result['attributes']['data'];
                         self.lead_name(result['attributes']['data'][0]['manager_name']);
                         self.lead_pic(result['attributes']['data'][0]['google_picture_link']);
+                        if(result['attributes']['data'][0]['google_picture_link'] == '/images/default.png')
+                        {
+                            self.intials_lead(nameFunction(result['attributes']['data'][0]['manager_name']));
+                        }
                         self.lead_id(result['attributes']['data'][0]['manager_id']);
                         self.lead_role(result['attributes']['data'][0]['role_name']);
                         // console.log(result['attributes']['data'][0]['role_name']);
@@ -288,6 +334,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             self.manager_pic(result['attributes']['data'][1]['google_picture_link']);
                             self.manager_id(result['attributes']['data'][1]['manager_id']);
                             self.manager_role(result['attributes']['data'][1]['role_name']);
+                            self.intials_manager(nameFunction(result['attributes']['data'][1]['manager_name']));
+                            
                         }
                         //console.log(result['attributes']['data'][1]['role_name']);
                     }

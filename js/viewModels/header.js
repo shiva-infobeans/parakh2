@@ -61,6 +61,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
         txt.innerHTML = html;
         return txt.value;
     }
+    function nameFunction(NAME) {
+        var initial = NAME.charAt(0) + NAME.charAt(NAME.lastIndexOf(" ") + 1);
+        return initial;
+    }
     function headerContentViewModel(person) {
         var self = this;
         self.notif = ko.observableArray();
@@ -88,6 +92,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
             }
         }
         this.mypic = ko.observable(person['pic']);
+        if(person['pic'] == '/images/default.png')
+        {
+            this.intials = nameFunction(person['name']);
+        }else
+        {
+            this.intials = '';
+        }
         this.memberName = "My Profile";
         var pgurl = window.location.href.substr(window.location.href.lastIndexOf("/") + 1);
         var getUser = oj.Model.extend({
