@@ -67,7 +67,7 @@ class dbmodule {
      * */
 
     function getUserByLead($lead_id) {
-        $img2 = base64_encode(file_get_contents("http://dev.parakh.com/images/photo.jpg"));
+        $default_img = DEFAULT_IMAGE;
         if (!filter_var($lead_id, FILTER_VALIDATE_INT) === false) {
             $employeeList = array();
             $query = 'SELECT uh.user_id,u.google_name,u.google_email,u.mobile_number,u.designation,u.google_picture_link as picture,u.google_email,
@@ -79,7 +79,7 @@ class dbmodule {
             $user_data->execute(array(':id' => $lead_id));
             $employeeList = $user_data->fetchAll((PDO::FETCH_ASSOC));
             for ($t=0;$t<count($employeeList);$t++) {
-                $image = $this->getCacheImage($employeeList[$t]['google_email'],$img2);
+                $image = $this->getCacheImage($employeeList[$t]['google_email'],$default_img);
                 $employeeList[$t]['picture'] = $image;
             }
             return $employeeList;
@@ -103,7 +103,7 @@ class dbmodule {
      * */
 
     function getOtherTeamMembers($lead_id) {
-        $img2 = base64_encode(file_get_contents("http://dev.parakh.com/images/photo.jpg"));
+        $default_img = DEFAULT_IMAGE;
         if (!filter_var($lead_id, FILTER_VALIDATE_INT) === false) {
            $employeeList = array();
            $team_members = $this->getUserByLead($lead_id);
@@ -151,7 +151,7 @@ class dbmodule {
                     $employeeList[$y]['minuscount'] = 0;
                 }
 
-                $image = $this->getCacheImage($employeeList[$y]['google_email'],$img2);
+                $image = $this->getCacheImage($employeeList[$y]['google_email'],$default_img);
                 $employeeList[$y]['google_picture_link'] = $image;
             }
            return $employeeList;
@@ -1555,7 +1555,7 @@ class dbmodule {
     }
 
     /*function to create image cache of user via email*/
-    function createImageCache($user_email,$to_do)
+    function createImageCache($user_email,$to_do,$default_img)
     {
 
         $query = "SELECT users.id,users.google_name,users.img_cache,users.google_picture_link,user_log.login_datetime,user_log.logout_datetime from users left join user_log on user_log.user_id = users.id where google_email= :email";
@@ -1588,8 +1588,9 @@ class dbmodule {
                     $user_list->execute();
                 }
             }
-            $img = base64_encode(file_get_contents("http://dev.parakh.com/images/photo.jpg"));
-            if(isset($row['img_cache']) && $row['img_cache'] == $img)
+            $content = $row['img_cache'];
+            $content = explode("|||", $content);
+            if(isset($content[0]) && $content[0] == $default_img)
             {
                 return '/images/default.png';
             }else if(isset($row['google_picture_link']) && !empty($row['google_picture_link']))
@@ -1597,7 +1598,7 @@ class dbmodule {
                 $query = "update users set img_cache='".base64_encode(file_get_contents($row['google_picture_link']))."|||".strtotime(date('Y-m-d h:m:s'))."' where google_email='".$user_email."'";
                 $user_list = $this->con->prepare($query);
                 $user_list->execute();
-                if(base64_encode(file_get_contents($row['google_picture_link'])) == $img)
+                if(base64_encode(file_get_contents($row['google_picture_link'])) == $default_img)
                 {
                     return '/images/default.png';
                 }else
@@ -1606,7 +1607,7 @@ class dbmodule {
                 }
             }else
             {
-                return $row['google_picture_link'];
+                return '/images/default.png';
             }
 
         }else
@@ -1617,7 +1618,7 @@ class dbmodule {
     }
 
     /*function to get image of user via email*/
-    function getCacheImage($user_email,$img2)
+    function getCacheImage($user_email,$default_img)
     {
         $folder_name = 'Profile Images';
         $query = "SELECT id,google_name,img_cache,google_picture_link from users where google_email= :email";
@@ -1628,12 +1629,12 @@ class dbmodule {
         if (isset($row['img_cache']) && !empty($row['img_cache'])) {
             $content = $row['img_cache'];
             $content = explode("|||", $content);
-            if($img2 == base64_encode(file_get_contents($row['google_picture_link'])))
+            if($default_img == $content[0])
             {
                 return '/images/default.png';
             }else
             {
-                if(base64_encode(file_get_contents($row['google_picture_link'])) == $img2)
+                if(base64_encode(file_get_contents($row['google_picture_link'])) == $default_img)
                 {
                     return '/images/default.png';
                 }else
@@ -1643,7 +1644,7 @@ class dbmodule {
             }
         }else
         {
-            return $this->createImageCache($user_email,0);
+            return $this->createImageCache($user_email,0,$default_img);
         }
         
         
