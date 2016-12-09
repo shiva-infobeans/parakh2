@@ -137,12 +137,13 @@
                                 <div data-bind="attr:{id: uniqueId}" class="replyInput hide">
                                     <div class="pos-relative">
                                         <div class="transbox"></div>
-                                        <span> <input type="text" placeholder="Write your response here" class="left" data-bind="attr: {id:replyInput}"/></span>
+                                        <span> <input type="text" placeholder="Write your response here" class="left" data-bind="click: $parent.replyInputClick, attr: {id: replyInput}"/></span>
                                         <span>
                                             <i class="zmdi zmdi-mail-reply zmdi-hc-2x left" data-bind="attr: {id: replySend},click: $parent.replySend"></i> 
                                             <i class="zmdi zmdi-close zmdi-hc-2x" data-bind="attr: {id: replyClose},click: $parent.closeReply"></i>
                                         </span>
                                     </div>
+                                    <div class="errorVisibilityHide">Please enter your response.</div>
                                 </div>
                             </div>
                         </div>
