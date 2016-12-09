@@ -576,9 +576,62 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             lessTextId.parent().addClass('hide');
         }
         ///////////////lazy loading function for declined request for user start
+        var lgQuery = oj.ResponsiveUtils.getFrameworkQuery(
+                oj.ResponsiveUtils.FRAMEWORK_QUERY_KEY.SM_ONLY);
 
+        self.large = oj.ResponsiveKnockoutUtils.createMediaQueryObservable(lgQuery);
+
+        self.itemOnly = function (context)
+        {
+            return context['leaf'];
+        }
+        self.loadMorePendingLead = function (data, event) {
+            if (self.lazyMemleadPendingCurrent() < self.lazyMemleadPendingMax()) {
+                var count = self.lazyMemleadPendingCurrent();
+                if (self.lazyMemleadPendingCurrent() + self.lazyMemleadPendingBlock() > self.lazyMemleadPendingMax()) {
+                    var loadRecordCount = self.lazyMemleadPendingMax() - self.lazyMemleadPendingCurrent();
+                    $(event.target).hide();
+                } else {
+                    var loadRecordCount = self.lazyMemleadPendingBlock();
+                }
+                for (var c = count; c < count + loadRecordCount; c++) { //count is current count from start and loadRecordCount is for total  page size;
+                    try {
+                        self.requestPendingLead.push(self.lazyTempStorageleadPending()[c]);
+                        self.lazyMemleadPendingCurrent(self.lazyMemleadPendingCurrent() + 1);
+                    } catch (e) {
+
+                    }
+                }
+            } else {
+                $(event.target).hide();
+            }
+        }
+        self.loadMoreRejectLead = function (data, event) {
+
+            if (self.lazyMemleadRejCurrent() < self.lazyMemleadRejMax()) {
+                var count = self.lazyMemleadRejCurrent();
+                if (self.lazyMemleadRejCurrent() + self.lazyMemleadRejBlock() > self.lazyMemleadRejMax()) {
+                    var loadRecordCount = self.lazyMemleadRejMax() - self.lazyMemleadRejCurrent();
+                    $(event.target).hide();
+                } else {
+                    var loadRecordCount = self.lazyMemleadRejBlock();
+                }
+                for (var c = count; c < count + loadRecordCount; c++) { //count is current count from start and loadRecordCount is for total  page size;
+                    try {
+                        self.requestDeclinedLead.push(self.lazyTempStorageleadRej()[c]);
+                        self.lazyMemleadRejCurrent(self.lazyMemleadRejCurrent() + 1);
+                    } catch (e) {
+
+                    }
+                }
+            } else {
+                $(event.target).hide();
+            }
+
+
+        }
         $(window).scroll(function () {
-            if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+            if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
                 var pagenum = parseInt($(".pagenum:last").val()) + 1;
                 if (self.reqTabValue() == 2) {
                     if (self.pendRejTab() == 1) {
@@ -586,6 +639,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             var count = self.lazyMemPendCurrent();
                             if (self.lazyMemPendCurrent() + self.lazyMemPendBlock() > self.lazyMemPendMax()) {
                                 var loadRecordCount = self.lazyMemPendMax() - self.lazyMemPendCurrent();
+                                $("#PendingRequestLoading").hide();
                             } else {
                                 var loadRecordCount = self.lazyMemPendBlock();
                             }
@@ -606,6 +660,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             var count = self.lazyMemRejCurrent();
                             if (self.lazyMemRejCurrent() + self.lazyMemRejBlock() > self.lazyMemRejMax()) {
                                 var loadRecordCount = self.lazyMemRejMax() - self.lazyMemRejCurrent();
+                                $("#RejectedRequestLoading").hide();
                             } else {
                                 var loadRecordCount = self.lazyMemRejBlock();
                             }
@@ -624,11 +679,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
                 }
                 if (self.reqTabValue() == 1) {
-
-
-
-
-                    if (self.lazyMemleadRejCurrent() < self.lazyMemleadRejMax()) {
+                    if ((self.lazyMemleadRejCurrent() < self.lazyMemleadRejMax()) && ($(window).width() > 767)) {
                         var count = self.lazyMemleadRejCurrent();
                         if (self.lazyMemleadRejCurrent() + self.lazyMemleadRejBlock() > self.lazyMemleadRejMax()) {
                             var loadRecordCount = self.lazyMemleadRejMax() - self.lazyMemleadRejCurrent();
@@ -643,8 +694,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
                             }
                         }
-                    }
-                    else{
+                    } else {
                         $('#leadRejectLoading').hide();
                     }
                     if (self.lazyMemleadPendingCurrent() < self.lazyMemleadPendingMax()) {
@@ -662,7 +712,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
                             }
                         }
-                    }else{
+                    } else {
                         $('#leadPendingLoading').hide();
                     }
                 }
