@@ -100,6 +100,36 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.selectTab = ko.observable(0);
 
 
+        ////////////////////// tab detect send request 
+        self.reqTabValue = ko.observable(2);
+        self.reqTab = function () {
+            self.reqTabValue(1);
+        }
+        ////////////////////// tab detect request
+        self.sendReqTab = function () {
+            self.reqTabValue(2);
+        }
+        ////////////////////// lazy loading for Lead declined requests of the user
+        self.lazyTempStorageleadRej = ko.observableArray([]);
+        self.lazyMemleadRejMax = ko.observable(0); // for lazy loading lead rejected max count
+        self.lazyMemleadRejCurrent = ko.observable(0);// for lazy loading lead rejected Current count
+        self.lazyMemleadRejBlock = ko.observable(6);// for lazy loading lead rejected block size Loading
+        self.lazyMemleadRejInitBlock = ko.observable(5);// for lazy loading lead rejected Initial count
+
+        ////////////////////// lazy loading for Lead declined requests of the user
+        self.lazyTempStorageleadPending = ko.observableArray([]);
+        self.lazyMemleadPendingMax = ko.observable(0); // for lazy loading lead rejected max count
+        self.lazyMemleadPendingCurrent = ko.observable(0);// for lazy loading lead rejected Current count
+        self.lazyMemleadPendingBlock = ko.observable(6);// for lazy loading lead rejected block size Loading
+        self.lazyMemleadPendingInitBlock = ko.observable(5);// for lazy loading lead rejected Initial count
+
+
+
+
+
+
+
+
         ////////////////////// tab detect 1 
         self.pendRejTab = ko.observable(1);
         self.tabDetect1 = function () {
@@ -153,7 +183,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         for (var i = 0; i < data1.length; i++) {
                             if (data1[i]['status'] == 0) {
                                 self.lazyTempStoragePendM.push(new request(data1[i], self.userId()));
-                                //self.requestPendingMember.push(new request(data1[i], self.userId()));
                                 $("#request").show();
                             }
                         }
@@ -217,16 +246,29 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
                         },
                         success: function (res) {
-
+                            self.reqTabValue(1);
                             var data1 = res['attributes']['data'];
 
                             for (var i = 0; i < data1.length; i++) {
                                 if (data1[i]['status'] == 0) {
-                                    self.requestPendingLead.push(new request(data1[i], self.userId()));
+                                    self.lazyTempStorageleadPending.push(new request(data1[i], self.userId()));
+                                    //self.requestPendingLead.push(new request(data1[i], self.userId()));
                                     $("#request2").show();
                                 }
                             }
-                            if (self.requestPendingLead().length != 0) {
+                            if (self.lazyTempStorageleadPending().length != 0) {
+
+                                self.lazyMemleadPendingMax(self.lazyTempStorageleadPending().length);
+                                self.noLeadDeclinedRequest("");
+                                if (self.lazyMemleadPendingInitBlock() < self.lazyTempStorageleadPending().length) {
+                                    var InitCount = self.lazyMemleadPendingInitBlock();
+                                } else {
+                                    var InitCount = self.lazyTempStorageleadPending().length;
+                                }
+                                for (var count = 0; count < InitCount; count++) {
+                                    self.requestPendingLead.push(self.lazyTempStorageleadPending()[count]);
+                                    self.lazyMemleadPendingCurrent(self.lazyMemleadPendingCurrent() + 1);
+                                }
                                 $("#request2").hide();
                                 self.noLeadPendingRequest("");
                             }
@@ -244,13 +286,23 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         success: function (result) {
                             var data2 = JSON.parse(result)['data'];
                             for (var i = 0; i < data2.length; i++) {
-                                self.requestDeclinedLead.push(new request(data2[i]));
+                                self.lazyTempStorageleadRej.push(new request(data2[i]));
                             }
                             if (data2.length === 0) {
                                 self.noLeadDeclinedRequest("No Declined Request.");
                                 $("#request3").show();
                             } else {
+                                self.lazyMemleadRejMax(self.lazyTempStorageleadRej().length);
                                 self.noLeadDeclinedRequest("");
+                                if (self.lazyMemleadRejInitBlock() < self.lazyTempStorageleadRej().length) {
+                                    var InitCount = self.lazyMemleadRejInitBlock();
+                                } else {
+                                    var InitCount = self.lazyTempStorageleadRej().length;
+                                }
+                                for (var count = 0; count < InitCount; count++) {
+                                    self.requestDeclinedLead.push(self.lazyTempStorageleadRej()[count]);
+                                    self.lazyMemleadRejCurrent(self.lazyMemleadRejCurrent() + 1);
+                                }
                                 $("#request3").hide();
                             }
 
@@ -528,44 +580,90 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         $(window).scroll(function () {
             if ($(window).scrollTop() == $(document).height() - $(window).height()) {
                 var pagenum = parseInt($(".pagenum:last").val()) + 1;
-                if (self.pendRejTab() == 1) {
-                    if (self.lazyMemPendCurrent() < self.lazyMemPendMax()) {
-                        var count = self.lazyMemPendCurrent();
-                        if (self.lazyMemPendCurrent() + self.lazyMemPendBlock() > self.lazyMemPendMax()) {
-                            var loadRecordCount = self.lazyMemPendMax() - self.lazyMemPendCurrent();
-                        } else {
-                            var loadRecordCount = self.lazyMemPendBlock();
-                        }
-                        for (var c = count; c < count + loadRecordCount; c++) { //count is current count from start and loadRecordCount is for total  page size;
-                            try {
-                                self.requestPendingMember.push(self.lazyTempStoragePendM()[c]);
-                                self.lazyMemPendCurrent(self.lazyMemPendCurrent() + 1);
-                            } catch (e) {
-
+                if (self.reqTabValue() == 2) {
+                    if (self.pendRejTab() == 1) {
+                        if (self.lazyMemPendCurrent() < self.lazyMemPendMax()) {
+                            var count = self.lazyMemPendCurrent();
+                            if (self.lazyMemPendCurrent() + self.lazyMemPendBlock() > self.lazyMemPendMax()) {
+                                var loadRecordCount = self.lazyMemPendMax() - self.lazyMemPendCurrent();
+                            } else {
+                                var loadRecordCount = self.lazyMemPendBlock();
                             }
+                            for (var c = count; c < count + loadRecordCount; c++) { //count is current count from start and loadRecordCount is for total  page size;
+                                try {
+                                    self.requestPendingMember.push(self.lazyTempStoragePendM()[c]);
+                                    self.lazyMemPendCurrent(self.lazyMemPendCurrent() + 1);
+                                } catch (e) {
+
+                                }
+                            }
+                        } else {
+                            $("#PendingRequestLoading").hide();
                         }
-                    } else {
-                        $("#PendingRequestLoading").hide();
                     }
-                }
-                if (self.pendRejTab() == 2) {
-                    if (self.lazyMemRejCurrent() < self.lazyMemRejMax()) {
-                        var count = self.lazyMemRejCurrent();
-                        if (self.lazyMemRejCurrent() + self.lazyMemRejBlock() > self.lazyMemRejMax()) {
-                            var loadRecordCount = self.lazyMemRejMax() - self.lazyMemRejCurrent();
+                    if (self.pendRejTab() == 2) {
+                        if (self.lazyMemRejCurrent() < self.lazyMemRejMax()) {
+                            var count = self.lazyMemRejCurrent();
+                            if (self.lazyMemRejCurrent() + self.lazyMemRejBlock() > self.lazyMemRejMax()) {
+                                var loadRecordCount = self.lazyMemRejMax() - self.lazyMemRejCurrent();
+                            } else {
+                                var loadRecordCount = self.lazyMemRejBlock();
+                            }
+                            for (var c = count; c < count + loadRecordCount; c++) { //count is current count from start and loadRecordCount is for total  page size;
+                                try {
+                                    self.requestRejectedMember.push(self.lazyTempStorageRejM()[c]);
+                                    self.lazyMemRejCurrent(self.lazyMemRejCurrent() + 1);
+                                } catch (e) {
+
+                                }
+                            }
                         } else {
-                            var loadRecordCount = self.lazyMemRejBlock();
+                            $("#RejectedRequestLoading").hide();
+                        }
+                    }
+
+                }
+                if (self.reqTabValue() == 1) {
+
+
+
+
+                    if (self.lazyMemleadRejCurrent() < self.lazyMemleadRejMax()) {
+                        var count = self.lazyMemleadRejCurrent();
+                        if (self.lazyMemleadRejCurrent() + self.lazyMemleadRejBlock() > self.lazyMemleadRejMax()) {
+                            var loadRecordCount = self.lazyMemleadRejMax() - self.lazyMemleadRejCurrent();
+                        } else {
+                            var loadRecordCount = self.lazyMemleadRejBlock();
                         }
                         for (var c = count; c < count + loadRecordCount; c++) { //count is current count from start and loadRecordCount is for total  page size;
                             try {
-                                self.requestRejectedMember.push(self.lazyTempStorageRejM()[c]);
-                                self.lazyMemRejCurrent(self.lazyMemRejCurrent() + 1);
+                                self.requestDeclinedLead.push(self.lazyTempStorageleadRej()[c]);
+                                self.lazyMemleadRejCurrent(self.lazyMemleadRejCurrent() + 1);
                             } catch (e) {
 
                             }
                         }
-                    } else {
-                        $("#RejectedRequestLoading").hide();
+                    }
+                    else{
+                        $('#leadRejectLoading').hide();
+                    }
+                    if (self.lazyMemleadPendingCurrent() < self.lazyMemleadPendingMax()) {
+                        var count = self.lazyMemleadPendingCurrent();
+                        if (self.lazyMemleadPendingCurrent() + self.lazyMemleadPendingBlock() > self.lazyMemleadPendingMax()) {
+                            var loadRecordCount = self.lazyMemleadPendingMax() - self.lazyMemleadPendingCurrent();
+                        } else {
+                            var loadRecordCount = self.lazyMemleadPendingBlock();
+                        }
+                        for (var c = count; c < count + loadRecordCount; c++) { //count is current count from start and loadRecordCount is for total  page size;
+                            try {
+                                self.requestPendingLead.push(self.lazyTempStorageleadPending()[c]);
+                                self.lazyMemleadPendingCurrent(self.lazyMemleadPendingCurrent() + 1);
+                            } catch (e) {
+
+                            }
+                        }
+                    }else{
+                        $('#leadPendingLoading').hide();
                     }
                 }
             }

@@ -14,12 +14,12 @@ and open the template in the editor.
         <div id="tabs1" data-bind="ojComponent:{component: 'ojTabs',selected: selectTab}" class="buddyTab">
             <!-- tab bar -->
             <ul class="tab-margin">
-                <li class="buddyTab3 " id="rateTab2"> 
+                <li class="buddyTab3 " id="rateTab2" data-bind="click: reqTab"> 
                     <div id="rateTab3">
                     </div>             
                     <div class="hoverTabRequest1"> Requests </div>
                 </li>
-                <li class="buddyTab4" id="rateTab5"> 
+                <li class="buddyTab4" id="rateTab5" data-bind="click: sendReqTab"> 
                     <div id="rateTab1">   
                     </div>
                     <div id="requestHover"> Send Request </div>
@@ -77,6 +77,9 @@ and open the template in the editor.
                                     </div>
                                 </div>
                                 <!--/ko-->
+                                <div class ="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding center" id="leadPendingLoading">
+                                    <img src="css/images/loader.gif" alt=""/>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -148,6 +151,9 @@ and open the template in the editor.
                                 </div>
                             </div>
                             <!-- /ko -->
+                            <div class ="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding center" id="leadRejectLoading">
+                                <img src="css/images/loader.gif" alt=""/>
+                            </div>
                         </div>
                     </div>
                 </div>
