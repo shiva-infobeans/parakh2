@@ -1908,7 +1908,7 @@ a#menu-share:hover > i{
     text-decoration: underline;
 }
 .minheightFix{
-    min-height: 100%;
+    min-height: 86%;
     max-height: 999em;
 }
 .errorVisibilityHide{
