@@ -943,7 +943,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 	border-right-width: 0px !important;
 }
 .oj-filmstrip-container.oj-filmstrip-item-container {
-  border-right: 2px solid #689F39;
+  border-right: 1px solid #689F39;
 }
 #filmStrip8 .oj-filmstrip-container.oj-filmstrip-item-container, #filmStripDiv9 .oj-filmstrip-container.oj-filmstrip-item-container, #filmStrip7 .oj-filmstrip-container.oj-filmstrip-item-container {
   border-right-style: none !important;
@@ -1942,5 +1942,15 @@ a#menu-share:hover > i{
     margin: 11px 0px -10px 10px !important;
     /*error color*/
     color:#ff0000;
+}
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+   #ojDialogWrapper-minMaxDialog.oj-dialog{
+	height: 200px;
+	}
+}
+.margin-10LR {
+  margin-left: 10px;
+  margin-right: 10px;
 }
 

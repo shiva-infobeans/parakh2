@@ -449,7 +449,7 @@
 #ojDialogWrapper-modalDialog1.oj-dialog  {
     overflow: hidden;
     max-width: 100%;
-	min-width: 580px;
+	min-width: 480px;
     box-sizing: border-box;
     display: -webkit-flex;
     display: flex;
@@ -461,7 +461,7 @@
 #ojDialogWrapper-modalDialog2.oj-dialog{
     overflow: hidden;
 	max-width: 100%;
-	min-width: 580px;
+	min-width: 480px;
     box-sizing: border-box;
     display: -webkit-flex;
     display: flex;
@@ -484,7 +484,7 @@
 }
 #ojDialogWrapper-modalDialog8.oj-dialog{
     overflow: hidden;
-    min-width: 580px;
+    min-width: 480px;
 	max-width:100%;
     box-sizing: border-box;
     display: -webkit-flex;
@@ -947,7 +947,7 @@
     background-color: #fff !important;
 	/*padding: 26px;*/
     overflow: hidden;
-	min-height: 440px;
+	min-height: 450px;
 }
 #modalDialog8 .oj-dialog-body{
 	min-height: 440px;
