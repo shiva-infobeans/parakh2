@@ -87,7 +87,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
                 document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
             }
         }
-        this.mypic = person['pic'];
+        this.mypic = ko.observable(person['pic']);
         this.memberName = "My Profile";
         var pgurl = window.location.href.substr(window.location.href.lastIndexOf("/") + 1);
         var getUser = oj.Model.extend({
@@ -188,16 +188,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
                     }
                 });
 
-            });
-
-            $.ajax({
-                headers: {secret: secret},
-                url : getCacheImage,
-                type : 'POST',
-                data : {img : person.pic.replace("s96-c/",""),timestamp : Math.floor(Date.now()),email:person.email},
-                success: function(){
-                    
-                }
             });
 
         }, 500);

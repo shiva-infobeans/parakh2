@@ -972,11 +972,12 @@ $app->post('/getAllRejectedRequestsByLoginId[/]', function ($request, $response,
  * Method: POST
  * */    
 $app->post('/createImageCache[/]', function ($request, $response, $args) {
+    $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
     $response_data = array();
     $data = $request->getParsedBody();
     //Creating a dbmodule object
     $db = new dbmodule();
-    $result = $db->createImageCache($data['email'],1);
+    $result = $db->createImageCache($data['email'],1,$default_img);
     if(count($result) != 0){
         $response_data = makeResponse('false',$result);
     }else{
@@ -993,11 +994,12 @@ $app->post('/createImageCache[/]', function ($request, $response, $args) {
  * Method: POST
  * */    
 $app->post('/getCacheImage[/]', function ($request, $response, $args) {
+    $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
     $response_data = array();
     $data = $request->getParsedBody();
     //Creating a dbmodule object
     $db = new dbmodule();
-    $result = $db->getCacheImage($data['email']);
+    $result = $db->getCacheImage($data['email'],$default_img);
     if(count($result) != 0){
         $response_data = makeResponse('false',$result);
     }else{
