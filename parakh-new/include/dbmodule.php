@@ -67,7 +67,7 @@ class dbmodule {
      * */
 
     function getUserByLead($lead_id) {
-        $default_img = DEFAULT_IMAGE;
+        $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
         if (!filter_var($lead_id, FILTER_VALIDATE_INT) === false) {
             $employeeList = array();
             $query = 'SELECT uh.user_id,u.google_name,u.google_email,u.mobile_number,u.designation,u.google_picture_link as picture,u.google_email,
@@ -103,7 +103,7 @@ class dbmodule {
      * */
 
     function getOtherTeamMembers($lead_id) {
-        $default_img = DEFAULT_IMAGE;
+        $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
         if (!filter_var($lead_id, FILTER_VALIDATE_INT) === false) {
            $employeeList = array();
            $team_members = $this->getUserByLead($lead_id);
