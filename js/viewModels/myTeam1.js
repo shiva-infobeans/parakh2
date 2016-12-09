@@ -65,6 +65,25 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.selectTab = ko.observable(0);
         self.sucessMsgFeedback = ko.observable();
 
+
+
+
+
+        // code for lazy loading for all members here.
+        self.lazyAllMembers = ko.observableArray();
+        self.rowcountAllMember = ko.observable(0);
+        self.pageNumAllMembers = ko.observable(0);
+        self.lazyAllBlock = ko.observable(6);
+        self.lazyAllInitBlock = ko.observable(6);
+
+        // code for lazy loading for My team members here.
+        self.lazyMyMembers = ko.observableArray();
+        self.rowcountMyMember = ko.observable(0);
+        self.pageNumMyMembers = ko.observable(0);
+        self.lazyMyBlock = ko.observable(0);
+        self.lazyMyInitBlock = ko.observable(0);
+
+
         //indexer for other team members
         self.indexer2Letters = ko.observableArray();
         self.makeUnderLine2 = function (data, event) {
@@ -120,6 +139,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             for (var counter1 = 0; counter1 < data.length; counter1++) {
                                 self.myTeam.push(new leadTeam(data[counter1]));
                             }
+
                             self.data1(self.myTeam());
                             self.indexer1Letters.push("All");
                             $("#All1 a").addClass('indexerUnderline');
@@ -149,9 +169,24 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             return (a['google_name'] > b['google_name']) - (a['google_name'] < b['google_name']);
                         });
                         for (var counter1 = 0; counter1 < data.length; counter1++) {
-                            self.members.push(new teamMember(data[counter1]));
+                            self.lazyAllMembers.push(new teamMember(data[counter1]));
                         }
-                        self.data2(self.members());
+                        if (data.length != 0) {
+                            self.rowcountAllMember(data.length);
+                            self.rowcountAllMember();
+                            
+                            if (data.length < self.lazyAllInitBlock())
+                            {
+                                var loadData = data.length;
+                            } else {
+                                var loadData = self.lazyAllInitBlock();
+                            }
+                            for (var c = 0; c < loadData; c++) {
+                                self.members.push(self.lazyAllMembers()[c]);
+                                self.pageNumAllMembers(self.pageNumAllMembers() + 1);
+                            }
+                        }
+                        self.data2(self.lazyAllMembers());
                         self.indexer2Letters.push("All");
                         $("#All a").addClass('indexerUnderline');
                         for (var c = 0; c < self.data2().length; c++) {
@@ -170,6 +205,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         });
         self.arrangeIndex = function (data, event) {
             if (event.target.tagName == 'A') {
+                self.pageNumAllMembers(self.rowcountAllMember());
                 var value = event.target.href;
                 value = value.substr(value.lastIndexOf('/') + 1);
                 var temp_data = [];
@@ -201,8 +237,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
             self.handleOKClose = $("#okButton").click(function () {
                 $("#modalDialog8").ojDialog("close");
-                  self.desc('');
-                    self.textError('');
+                self.desc('');
+                self.textError('');
             });
             // feedbackLead...
             self.handleOpen = $(".feedbackBuddyLead").click(function () {
@@ -213,10 +249,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
             self.handleOKClose = $("#okButton").click(function () {
                 $("#modalDialog8").ojDialog("close");
-                  self.desc('');
-                    self.textError('');
+                self.desc('');
+                self.textError('');
             });
-           
+
             //rateBuddy...
             self.handleOpen = $(".star").click(function () {
                 $("#modalDialog1").ojDialog("open");
@@ -273,7 +309,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     window.location = link;
                 });
             }
-           
+
             self.handleOpen = $(".starTeam").click(function () {
                 $("#modalDialog2").ojDialog("open");
                 self.desc('');
@@ -288,12 +324,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             });
         };
 
-        $("body").on('click','.viewProfile1', function () {
+        $("body").on('click', '.viewProfile1', function () {
             var link = "memberProfile.html?id=" + $(this).attr("myTeamId");
             window.location = link;
         });
 
-        $("body").on('click','.viewProfile', function () {
+        $("body").on('click', '.viewProfile', function () {
             var link = "memberProfile.html?id=" + $(this).attr("myTeamId");
             window.location = link;
         });
@@ -374,7 +410,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     data: {feedback_from: self.userId(), feedback_to: self.for_id(), feedback_description: self.desc()},
                     success: function () {
                         $("#modalDialog8").ojDialog("close");
-                         $("#sucessFeedback").show();
+                        $("#sucessFeedback").show();
                         self.sucessMsgFeedback("Feedback is sent!");
                         setTimeout(function () {
                             $("#sucessFeedback").hide();
@@ -496,12 +532,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     }
                 })
             });
-               $("body").on('click', '.viewProfile1', function () {
-                    var link = "memberProfile.html?id=" + $(this).attr("myTeamId");
-                    window.location = link;
-               });
-           
-            
+            $("body").on('click', '.viewProfile1', function () {
+                var link = "memberProfile.html?id=" + $(this).attr("myTeamId");
+                window.location = link;
+            });
+
+
             if (self.role_name() === 'Team Member') {
                 self.selectTab(1);
                 $("#membersHover").addClass("buddyTabRequest1");
@@ -586,6 +622,60 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             $("#modalDialog8").ojDialog("open");
             self.desc('');
             self.textError('');
+        });
+
+        $(window).scroll(function () {
+
+//            
+//             self.lazyAllMembers = ko.observableArray();
+//        self.rowcountAllMember = ko.observable(0);
+//        self.pageNumAllMembers = ko.observable(0);
+//        self.lazyAllBlock = ko.observable(5);
+//        self.lazyAllInitBlock = ko.observable(6);
+//        
+
+
+            if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+                var pagenum = parseInt($(".pagenum:last").val()) + 1;
+
+                if (self.pageNumAllMembers() < self.rowcountAllMember()) {
+                    var count = self.pageNumAllMembers();
+                    console.log("pageCountPrintVar" + count);
+                    if (self.pageNumAllMembers() + self.lazyAllBlock() > self.rowcountAllMember()) {
+                        var loadRecordCount = self.rowcountAllMember() - self.pageNumAllMembers();
+                    } else {
+                        var loadRecordCount = self.lazyAllBlock();
+                    }
+                    for (var c = count; c < count + loadRecordCount; c++) {
+                        try {
+                            self.members.push(self.data2()[c]);
+                            self.pageNumAllMembers(self.pageNumAllMembers() + 1);
+                        } catch (e) {
+
+                        }
+                    }
+
+//                    $.ajax({
+//                        headers: {secret: secret},
+//                        method: 'POST',
+//                        url: getAllTeamMembersLazy + 37,
+//                        data: {user_id: 37, limit: pagenum, pagearray: 20},
+//                        success: function (task) {
+//
+//                            var data = JSON.parse(task)['data'];
+//                            for (var counter1 = 0; counter1 < data.length; counter1++) {
+//                                var item = new Object();
+//                                item.value = data[counter1]['id'];
+//                                item.label = data[counter1]['google_name'];
+//                                item.counter = counter1;
+//                                item.searchPic = data[counter1]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data[counter1]['google_picture_link'];
+//                                //console.log(item);
+//                                self.users.push(item);
+//                            }
+//                        }
+//                    });
+                }
+            }
         });
 
     }
