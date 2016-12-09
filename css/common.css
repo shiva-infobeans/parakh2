@@ -46,7 +46,7 @@
 }
 .menus{display: none;
        color: #fff;
-       font-size: 35px;
+       font-size: 30px;
 }
 .mobile-menu a:active {
     color:#fff !important;
@@ -117,6 +117,13 @@
     .border-right-recent{
         border-right: none !important;
     }
+}
+@media (min-width:320px) and (max-width: 350px) {
+    .nav li {
+    font-size: 18px !important;
+    margin: 0px 8px !important;
+}
+
 }
 .oj-panel {
     padding-bottom:0px;
@@ -1683,10 +1690,12 @@
 }
 .text-height{
     line-height: 32px;
+    word-break: break-all;
 }
 .edit-height{
     font-size: 30px;
 }
+
 .addImage{
     background-image: url("../../images/+1-icon-active.png");
     height: 20px;
@@ -1828,10 +1837,12 @@
     }
 }
 .custom-zmdi-icons-div{
-    border-radius:50%;
-    border:2px solid #fff;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    height: 60px;
     cursor: pointer;
     color: white;
+    width: 60px;
 }
 .custom-zmdi-icons-div:hover{
     border:2px solid #689F39;cursor: pointer;color: #689F39;

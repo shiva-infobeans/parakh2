@@ -35,14 +35,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 com.shortName = commenter1.replace(/[^A-Z]/g, '');
                 com.commenter = commenter1;
                 com.commentDate = commentDate1.getDate() + ' ' + monthNames[commentDate1.getMonth()] + ' ' + commentDate1.getFullYear();
-                if(datafor){
+                if (datafor) {
                     if (dateplusArray.indexOf(com.commentDate) == -1) {
                         dateplusArray.push(com.commentDate);
                     } else
                     {
                         com.commentDate = '';
                     }
-                }else
+                } else
                 {
                     if (dateminusArray.indexOf(com.commentDate) == -1) {
                         dateminusArray.push(com.commentDate);
@@ -167,7 +167,16 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 this.plusSign = ko.observable('+');
                 self.selectedTab = ko.observable(0);
 
+                var lgQuery = oj.ResponsiveUtils.getFrameworkQuery(
+                        oj.ResponsiveUtils.FRAMEWORK_QUERY_KEY.LG_UP);
 
+                self.large = oj.ResponsiveKnockoutUtils.createMediaQueryObservable('(min-width: 767px)');
+
+                self.itemOnly = function (context)
+                {
+                    return context['leaf'];
+                }
+                
                 var editVariable;
                 var windowLocation = window.location;
                 var id = windowLocation.search.substring(windowLocation.search.indexOf("=") + 1, windowLocation.search.length);
@@ -250,39 +259,39 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 //update profile submit button ajax call
                 self.updateProfile = function () {
                     var temp = 0;
-                    if(designationsDefaultVar!=self.designation())
+                    if (designationsDefaultVar != self.designation())
                     {
                         temp = 1;
                     }
-                    if(locationDefaultVar!=self.location() && temp == 0)
+                    if (locationDefaultVar != self.location() && temp == 0)
                     {
                         temp = 1;
                     }
-                    if(skillsDefaultVal.replace(/ /g,'')!=self.skills() && temp == 0)
+                    if (skillsDefaultVal.replace(/ /g, '') != self.skills() && temp == 0)
                     {
                         temp = 1;
                     }
-                    if(projectsDefaultVal!=self.projects() && temp == 0)
+                    if (projectsDefaultVal != self.projects() && temp == 0)
                     {
                         temp = 1;
                     }
-                    if(interestsDefaultVar!=self.interests() && temp == 0)
+                    if (interestsDefaultVar != self.interests() && temp == 0)
                     {
                         temp = 1;
                     }
-                    if(primaryProjectDefaultVar!=self.primary_project() && temp == 0)
+                    if (primaryProjectDefaultVar != self.primary_project() && temp == 0)
                     {
                         temp = 1;
                     }
-                    if(numberDefaultVar.substring(numberDefaultVar.indexOf("-")+1)!=self.temporaryNumber())
+                    if (numberDefaultVar.substring(numberDefaultVar.indexOf("-") + 1) != self.temporaryNumber())
                     {
                         temp = 1;
                     }
-                    if(associateDefaultVar!=dateDiffCalender(self.date()))
+                    if (associateDefaultVar != dateDiffCalender(self.date()))
                     {
                         temp = 1;
                     }
-                    if(temp==0)
+                    if (temp == 0)
                     {
                         $('.sucessMsg').show();
                         self.successful("Profile not updated.");
@@ -291,7 +300,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         }, 10000);
                         return false;
                     }
-                    
+
                     $.ajax({
                         headers: {secret: secret},
                         method: 'POST',
@@ -396,12 +405,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                 for (var i = 0; i < data.length; i++) {
                                     if (data[i]['rating'] == 0) {
                                         minus++;
-                                        var temporaryComment = new dataComment(decodeHtml(data[i]['description']), data[i]['given_by_name'], data[i]['created_date'],0);
+                                        var temporaryComment = new dataComment(decodeHtml(data[i]['description']), data[i]['given_by_name'], data[i]['created_date'], 0);
                                         self.commentDataNegative.push(temporaryComment);
                                     } else {
                                         if (data[i]['rating'] == 1)
                                             plus++;
-                                        var temporaryComment = new dataComment(decodeHtml(data[i]['description']), data[i]['given_by_name'], data[i]['created_date'],1);
+                                        var temporaryComment = new dataComment(decodeHtml(data[i]['description']), data[i]['given_by_name'], data[i]['created_date'], 1);
                                         self.commentDataPositive.push(temporaryComment);
                                     }
                                 }
@@ -515,7 +524,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
 
                     /*******************************Open Edit Skills block***********************/
                     skillsDefaultVal = self.skills();
-                    self.skills(skillsDefaultVal.replace(/ /g,''));
+                    self.skills(skillsDefaultVal.replace(/ /g, ''));
                     $('#skills-text').addClass('hide');
                     $('#skills').removeClass('hide');
                     /*******************************Open Edit Skills block***********************/
@@ -544,7 +553,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                 self.primaryProjectOptions.push(obj);
                             }
                             $('#selectPrimaryProjects').ojSelect("refresh");
-                            self.primary_project(res['attributes']['data'][0]['name']);
+//                            self.primary_project(res['attributes']['data'][0]['name']);
                         }
                     });
                     $('#primary-project-text').addClass('hide');
@@ -603,7 +612,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     numberDefaultVar = self.myNumber();
                     editVariable = self.myNumber().substring(self.myNumber().indexOf("-") + 1, self.myNumber().length);
                     self.temporaryNumber(self.myNumber().substring(self.myNumber().indexOf("-") + 1, self.myNumber().length));
-                    if(self.myNumber() == "NO NUMBER")
+                    if (self.myNumber() == "NO NUMBER")
                     {
                         numberDefaultVar = '';
                         self.temporaryNumber("");
@@ -739,7 +748,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     today = yyyy + '-' + mm + '-' + dd + " ";
                     var responseDesc = $('#' + data['replyInput']);
                     if (responseDesc.val().trim().length == 0) {
-                        $('#'+data['replyInput']).parent().parent().next().removeClass('errorVisibilityHide').addClass('errorVisibilityShow');
+                        $('#' + data['replyInput']).parent().parent().next().removeClass('errorVisibilityHide').addClass('errorVisibilityShow');
                         return;
                     }
                     ////////// object for reply add
@@ -747,9 +756,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     obj.from_name = self.myname;
                     obj.description = decodeHtml(responseDesc.val());
                     obj.created_date = today;
-                    
+
                     data['replies'].push(new feedbackRepliesData(0, 0, 0, obj));
-                    
+
                     $.ajax({
                         headers: {secret: secret},
                         method: 'POST',
@@ -773,8 +782,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     $('#' + data['replyBtnId']).fadeIn();
                     $('#' + data['uniqueId']).fadeOut();
                 }
-                self.replyInputClick = function(data,event){
-                    $('#'+data['replyInput']).parent().parent().next().removeClass('errorVisibilityShow').addClass('errorVisibilityHide');
+                self.replyInputClick = function (data, event) {
+                    $('#' + data['replyInput']).parent().parent().next().removeClass('errorVisibilityShow').addClass('errorVisibilityHide');
                 }
             }
             return dialogModel;
