@@ -498,6 +498,31 @@ $app->post('/getAllTeamMembers[/{userId}]', function ($request, $response, $args
     return $response;
 });
 
+
+
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getAllTeamMembers/<userId>
+ * Parameters: none
+ * 
+ * Method: Post
+ * */    
+$app->post('/getAllTeamMembersLazy[/{userId}]', function ($request, $response, $args) {
+    $response_data = array();
+    //Creating a dbmodule object
+    $data = $request->getParsedBody();
+    $db = new dbmodule();
+    $result = $db->get_all_team_members_lazy($args['userId'],$data['limit'],$data['pagearray']);
+    if($result != 0){
+        $response_data = makeResponse('false',$result);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3002));
+    }    
+    $response->withJson($response_data);
+    return $response;
+});
+
+
+
 /* *
  * URL: http://localhost/parakh-new/v1/index.php/addFeedbackResponce
  * Parameters: 
