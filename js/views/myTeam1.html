@@ -17,12 +17,12 @@ and open the template in the editor.
         <div id="tabs" data-bind="ojComponent:{component: 'ojTabs',selected: selectTab}" class="buddyTab">
             <!-- tab bar -->
             <ul class="tab-margin">
-                <li class="buddyTab1 tab1" id="home1" >
+                <li class="buddyTab1 tab1" id="home1" data-bind="click: myTeamTab1" >
                     <div id="homeTab2">
                     </div>   
                     <div class="hoverTab1"> My Team </div>
                 </li>
-                <li class="buddyTab2 " id="home2" >
+                <li class="buddyTab2 " id="home2" data-bind="click: myTeamTab2">
                     <div id="homeTab1">   
                     </div>
                     <div id="membersHover">  ICC Team</div>

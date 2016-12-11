@@ -65,9 +65,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.selectTab = ko.observable(0);
         self.sucessMsgFeedback = ko.observable();
 
-
-
-
+        self.myTeamTab = ko.observable(2);
+        ///////////// tab switching ///////////
+        self.myTeamTab1 = function () {
+            self.myTeamTab(1);
+        }
+        self.myTeamTab2 = function () {
+            self.myTeamTab(2);
+        }
 
         // code for lazy loading for all members here.
         self.lazyAllMembers = ko.observableArray();
@@ -80,8 +85,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.lazyMyMembers = ko.observableArray();
         self.rowcountMyMember = ko.observable(0);
         self.pageNumMyMembers = ko.observable(0);
-        self.lazyMyBlock = ko.observable(0);
-        self.lazyMyInitBlock = ko.observable(0);
+        self.lazyMyBlock = ko.observable(6);
+        self.lazyMyInitBlock = ko.observable(6);
 
 
         //indexer for other team members
@@ -131,16 +136,31 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         url: getUserByLead + self.lead_id(),
                         data: {user_id: res['attributes']['data']['id']},
                         success: function (task) {
-
+                            self.myTeamTab(1);
                             var data = JSON.parse(task)['data'];
                             data = data.sort(function (a, b) {
                                 return (a['user_name'] > b['user_name']) - (a['user_name'] < b['user_name']);
                             });
                             for (var counter1 = 0; counter1 < data.length; counter1++) {
-                                self.myTeam.push(new leadTeam(data[counter1]));
+                                self.lazyMyMembers.push(new leadTeam(data[counter1]));
+                                //self.myTeam.push(new leadTeam(data[counter1]));
                             }
+                            if (data.length != 0) {
+                                self.rowcountMyMember(data.length);
 
-                            self.data1(self.myTeam());
+                                if (data.length < self.lazyMyInitBlock())
+                                {
+                                    var loadData = data.length;
+                                } else {
+                                    var loadData = self.lazyMyInitBlock();
+                                }
+
+                                for (var c = 0; c < loadData; c++) {
+                                    self.myTeam.push(self.lazyMyMembers()[c]);
+                                    self.pageNumMyMembers(self.pageNumMyMembers() + 1);
+                                }
+                            }
+                            self.data1(self.lazyMyMembers());
                             self.indexer1Letters.push("All");
                             $("#All1 a").addClass('indexerUnderline');
                             for (var c = 0; c < self.data1().length; c++) {
@@ -151,7 +171,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                     if (self.data1()[c - 1]['myName'].substring(0, 1) != letter) {
                                         self.indexer1Letters.push(letter);
                                     }
-
                                 }
                             }
                         }
@@ -174,13 +193,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         if (data.length != 0) {
                             self.rowcountAllMember(data.length);
                             self.rowcountAllMember();
-                            
+
                             if (data.length < self.lazyAllInitBlock())
                             {
                                 var loadData = data.length;
                             } else {
                                 var loadData = self.lazyAllInitBlock();
                             }
+
                             for (var c = 0; c < loadData; c++) {
                                 self.members.push(self.lazyAllMembers()[c]);
                                 self.pageNumAllMembers(self.pageNumAllMembers() + 1);
@@ -554,8 +574,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         $('#homeTab2 > img').remove();
                         $('#homeTab1').append(' <img src="../../images/team-new-active.png" alt="" />');
                         $('#homeTab2').append(' <img src="../../images/team-inactive.png" alt="" />');
-                        self.members([]);
-                        self.members(self.data2());
+//                        self.members([]);
+//                        self.members(self.data2());
                     }
                 });
 
@@ -565,8 +585,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         $('#homeTab2 > img').remove();
                         $('#homeTab1').append(' <img src="../../images/team-new-active.png" alt="" />');
                         $('#homeTab2').append(' <img src="../../images/team-inactive.png" alt="" />');
-                        self.members([]);
-                        self.members(self.data2());
+//                        self.members([]);
+//                        self.members(self.data2());
                     }
                 });
 
@@ -576,8 +596,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         $('#homeTab2 > img').remove();
                         $('#homeTab1').append(' <img src="../../images/team-new.png" alt="" />');
                         $('#homeTab2').append(' <img src="../../images/team-active_1.png" alt="" />');
-                        self.members([]);
-                        self.members(self.data2());
+//                        self.members([]);
+//                        self.members(self.data2());
                     }
                 });
 
@@ -587,8 +607,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         $('#homeTab2 > img').remove();
                         $('#homeTab1').append(' <img src="../../images/team-new.png" alt="" />');
                         $('#homeTab2').append(' <img src="../../images/team-active_1.png" alt="" />');
-                        self.members([]);
-                        self.members(self.data2());
+//                        self.members([]);
+//                        self.members(self.data2());
                     }
                 });
 
@@ -625,59 +645,46 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         });
 
         $(window).scroll(function () {
-
-//            
-//             self.lazyAllMembers = ko.observableArray();
-//        self.rowcountAllMember = ko.observable(0);
-//        self.pageNumAllMembers = ko.observable(0);
-//        self.lazyAllBlock = ko.observable(5);
-//        self.lazyAllInitBlock = ko.observable(6);
-//        
-
-
             if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-                var pagenum = parseInt($(".pagenum:last").val()) + 1;
+                if (self.myTeamTab() == 2) {
+                    if (self.pageNumAllMembers() < self.rowcountAllMember()) {
+                        var count = self.pageNumAllMembers();
+                        if (self.pageNumAllMembers() + self.lazyAllBlock() > self.rowcountAllMember()) {
+                            var loadRecordCount = self.rowcountAllMember() - self.pageNumAllMembers();
+                            console.log("1");
+                        } else {
+                            var loadRecordCount = self.lazyAllBlock();
+                        }
+                        for (var c = count; c < count + loadRecordCount; c++) {
+                            try {
+                                self.members.push(self.data2()[c]);
+                                self.pageNumAllMembers(self.pageNumAllMembers() + 1);
+                            } catch (e) {
 
-                if (self.pageNumAllMembers() < self.rowcountAllMember()) {
-                    var count = self.pageNumAllMembers();
-                    console.log("pageCountPrintVar" + count);
-                    if (self.pageNumAllMembers() + self.lazyAllBlock() > self.rowcountAllMember()) {
-                        var loadRecordCount = self.rowcountAllMember() - self.pageNumAllMembers();
-                    } else {
-                        var loadRecordCount = self.lazyAllBlock();
-                    }
-                    for (var c = count; c < count + loadRecordCount; c++) {
-                        try {
-                            self.members.push(self.data2()[c]);
-                            self.pageNumAllMembers(self.pageNumAllMembers() + 1);
-                        } catch (e) {
-
+                            }
                         }
                     }
+                }
+                if (self.myTeamTab() == 1) {
+                    if (self.pageNumMyMembers() < self.rowcountMyMember()) {
+                        var count = self.pageNumMyMembers();
+                        if (self.pageNumMyMembers() + self.lazyMyBlock() > self.rowcountMyMember()) {
+                            var loadRecordCount = self.rowcountMyMember() - self.pageNumMyMembers();
+                        } else {
+                            var loadRecordCount = self.lazyMyBlock();
+                        }
+                        for (var c = count; c < count + loadRecordCount; c++) {
+                            try {
+                                self.myTeam.push(self.lazyMyMembers()[c]);
+                                self.pageNumMyMembers(self.pageNumMyMembers() + 1);
+                            } catch (e) {
 
-//                    $.ajax({
-//                        headers: {secret: secret},
-//                        method: 'POST',
-//                        url: getAllTeamMembersLazy + 37,
-//                        data: {user_id: 37, limit: pagenum, pagearray: 20},
-//                        success: function (task) {
-//
-//                            var data = JSON.parse(task)['data'];
-//                            for (var counter1 = 0; counter1 < data.length; counter1++) {
-//                                var item = new Object();
-//                                item.value = data[counter1]['id'];
-//                                item.label = data[counter1]['google_name'];
-//                                item.counter = counter1;
-//                                item.searchPic = data[counter1]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data[counter1]['google_picture_link'];
-//                                //console.log(item);
-//                                self.users.push(item);
-//                            }
-//                        }
-//                    });
+                            }
+                        }
+                    }
                 }
             }
         });
-
     }
     return myTeamContentViewModel;
 });
