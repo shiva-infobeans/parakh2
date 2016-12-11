@@ -20,12 +20,12 @@
 
     <ul class="profile-ul pos-relative tabHeight">
         <div class="transbox"></div>
-        <li class="profile-tabs profile-font-tabs selectedTab" title="Positive Rating"><span><i class="zmdi zmdi-trending-up"></i> 
+        <li class="profile-tabs profile-font-tabs selectedTab" title="Positive Rating" data-bind="click: tabPositive"><span><i class="zmdi zmdi-trending-up"></i> 
                 <span data-bind='text: plusSign'></span><span data-bind="text: plus"></span></span>
         </li>
-        <li class="profile-tabs profile-font-tabs selectedTab" title="Negative Rating"><span><i class="zmdi zmdi-trending-down"></i> 
+        <li class="profile-tabs profile-font-tabs selectedTab" title="Negative Rating" data-bind="click: tabNegative"><span><i class="zmdi zmdi-trending-down"></i> 
                 <span data-bind='text: minusSign'></span><span data-bind="text: minus"></span></span></li>
-        <li class="profile-tabs profile-font-tabs selectedTab"><span><i class="zmdi zmdi-comment-alt-text"></i> Feedback</span></li>
+        <li class="profile-tabs profile-font-tabs selectedTab" data-bind="click: tabFeedback"><span><i class="zmdi zmdi-comment-alt-text"></i> Feedback</span></li>
         <li class="profile-tabs profile-font-tabs selectedTab"><span><i class="zmdi zmdi-account"></i> About Me</span></li>
     </ul>
 
