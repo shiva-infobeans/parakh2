@@ -1714,13 +1714,13 @@ class dbmodule {
                 return '/images/default.png';
             }else
             {
-                if(base64_encode(file_get_contents($row['google_picture_link'])) == $default_img)
+                /*if(base64_encode(file_get_contents($row['google_picture_link'])) == $default_img)
                 {
                     return '/images/default.png';
                 }else
-                {
+                {*/
                     return $row['google_picture_link'];
-                }
+                //}
             }
         }else
         {
