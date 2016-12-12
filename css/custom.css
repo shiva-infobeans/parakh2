@@ -2119,6 +2119,7 @@ a#menu-share:hover > i{
   position: absolute;
   right: 0;
   width: 120px;
+  top: 0;
 }
 /*.intials-name {
   bottom: 0;
@@ -2182,11 +2183,12 @@ a#menu-share:hover > i{
   display: inline-block;
   font-size: 10px;
   height: 25px;
-  padding: 5px;
+  padding: 7px;
   position: absolute;
   right: 0;
   text-align: center;
   width: 25px;
+  top: 0;
 }
 .profile_image_lead {
     position: relative;
