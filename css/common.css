@@ -46,7 +46,7 @@
 }
 .menus{display: none;
        color: #fff;
-       font-size: 35px;
+       font-size: 30px;
 }
 .mobile-menu a:active {
     color:#fff !important;
@@ -91,12 +91,16 @@
     .logo{
         height:60px;
     }
-    .menus{display: block;}
+    .menus{
+		display: block;
+		font-size: 22px;
+	
+	}
     .nav1 li{float: none;}
     .logo {
         height: 56px;
         margin-top: -8px;
-        padding-left: 10px;
+        /*padding-left: 10px;*/
     }
     ul.mobile-menu {
 
@@ -117,6 +121,13 @@
     .border-right-recent{
         border-right: none !important;
     }
+}
+@media (min-width:320px) and (max-width: 350px) {
+    .nav li {
+    font-size: 18px !important;
+    margin: 0px 8px !important;
+}
+
 }
 .oj-panel {
     padding-bottom:0px;
@@ -449,7 +460,7 @@
 #ojDialogWrapper-modalDialog1.oj-dialog  {
     overflow: hidden;
     max-width: 100%;
-	min-width: 580px;
+	min-width: 480px;
     box-sizing: border-box;
     display: -webkit-flex;
     display: flex;
@@ -461,7 +472,7 @@
 #ojDialogWrapper-modalDialog2.oj-dialog{
     overflow: hidden;
 	max-width: 100%;
-	min-width: 580px;
+	min-width: 480px;
     box-sizing: border-box;
     display: -webkit-flex;
     display: flex;
@@ -484,7 +495,7 @@
 }
 #ojDialogWrapper-modalDialog8.oj-dialog{
     overflow: hidden;
-    min-width: 580px;
+    min-width: 480px;
 	max-width:100%;
     box-sizing: border-box;
     display: -webkit-flex;
@@ -953,7 +964,7 @@
 	min-height: 440px;
 }
 #ojDialogWrapper-modalDialog2  .oj-dialog-body{
-	min-height: 480px;
+	min-height: 450px;
 }
 /*.modal-submit3{
     background-color: #e3ffca !important;
@@ -1419,10 +1430,10 @@
     color:#fff;
 }
 #tabs-container1 .oj-tabs-tab.oj-selected {
-    border-color: green;
+    border-color: #689F39;
 }
 #tabs-container3 .oj-tabs-tab.oj-selected {
-    border-color: green;
+    border-color: #689F39;
 }
 .rate1Inactive{
     display:none;
@@ -1434,6 +1445,7 @@
     background-color: #E7FCD5;
     border-radius: 5px;
     height:30px;display:table;width:216px;margin:0 auto;position:absolute;padding:9px;margin-top:-5px;visibility: hidden;
+    z-index: 10;
 }
 .recentInfo3{
     right: 2px;
@@ -1830,10 +1842,12 @@
     }
 }
 .custom-zmdi-icons-div{
-    border-radius:50%;
-    border:2px solid #fff;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    height: 60px;
     cursor: pointer;
     color: white;
+    width: 60px;
 }
 .custom-zmdi-icons-div:hover{
     border:2px solid #689F39;cursor: pointer;color: #689F39;

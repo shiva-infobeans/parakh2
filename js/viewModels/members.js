@@ -160,6 +160,7 @@ define(['ojs/ojcore', 'knockout','jquery', 'ojs/ojcollectiontabledatasource', 'o
         self.associated = ko.observable();
         self.myLead = ko.observable();
         self.myManager = ko.observable();
+        self.intials = ko.observable("");
 
         if (id) {
             self.id(id);
@@ -167,7 +168,10 @@ define(['ojs/ojcore', 'knockout','jquery', 'ojs/ojcollectiontabledatasource', 'o
             window.location = "rateBuddy.html";
         }
         var abc = "Not Assigned";
+  var lgQuery = oj.ResponsiveUtils.getFrameworkQuery(
+                        oj.ResponsiveUtils.FRAMEWORK_QUERY_KEY.LG_UP);
 
+                self.large = oj.ResponsiveKnockoutUtils.createMediaQueryObservable('(min-width: 767px)');
 
 //service for id of the user.
         var userIdSearch = oj.Model.extend({
@@ -291,7 +295,7 @@ define(['ojs/ojcore', 'knockout','jquery', 'ojs/ojcollectiontabledatasource', 'o
                 $.ajax({
                     headers: {secret: secret},
                     method: 'POST',
-                    url: getAllTeamMembers + userRecord.attributes['data']['id'],
+                    url: getATeamMember + self.id(),
                     data: {},
                     success: function (task) {
                         var data = JSON.parse(task)['data'];
@@ -315,6 +319,13 @@ define(['ojs/ojcore', 'knockout','jquery', 'ojs/ojcollectiontabledatasource', 'o
                                 } else
                                 {
                                     var image = '/images/warning-icon-24.png';
+                                }
+                                if(data[index]['google_picture_link'] == '/images/default.png')
+                                {
+                                    self.intials(nameFunction(data[index]['google_name']));
+                                }else
+                                {
+                                    self.intials('');
                                 }
                                 self.pic(image);
                                 self.designation(data[index]['designation']);
