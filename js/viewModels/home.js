@@ -452,7 +452,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                         obj.intials = nameFunction(result['attributes']['data'][c]['google_name']);
                                     }else
                                     {
-                                        obj.intials = "AP";
+                                        obj.intials = "";
                                     }
                                     obj.personLink = "memberProfile.html?id=" + result['attributes']['data'][c]['user_id'];
                                     self.addteamMembers(obj);

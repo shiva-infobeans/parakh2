@@ -95,7 +95,7 @@
                     <div data-bind="foreach: feedbackContent1">
                         <div class="oj-flex oj-flex-item oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12">
 
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div feedback-align">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div feedback-margin feedback-align">
                                 <div class="feedback-date">
                                     <span data-bind="text: feedbackDate"></span>
                                 </div>
@@ -335,7 +335,7 @@
     <div id="tabs-1" class="color-white oj-margin-horizontal pos-relative">
         <div class="transbox"></div>
 
-        <div class="profile-page-overflow pos-relative rating-section oj-margin-top">
+        <div class="profile-page-overflow pos-relative rating-section oj-margin-top profile-margin-bottom">
             
             <div class="noComments" id="noPositiveComment" data-bind="text: NoCommentsP"></div>
             <div class=" oj-row oj-flex rating-comment" data-bind="foreach: commentDataPositive">
@@ -361,7 +361,7 @@
     
     <div id="tabs-2" class="color-white oj-margin-horizontal pos-relative">
         <div class="transbox"></div>
-        <div class="profile-page-overflow pos-relative rating-section oj-margin-top">
+        <div class="profile-page-overflow pos-relative rating-section oj-margin-top profile-margin-bottom">
             <div class="noComments" id="noNegativeComment" data-bind="text: NoCommentsN"></div>
             <div class="oj-row oj-flex rating-comment" data-bind="foreach: commentDataNegative">
                   <div class="oj-flex oj-flex-item oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 transHide">
@@ -382,7 +382,7 @@
         </div>
     </div>
     <div id="tabs-3" class="color-white oj-margin-horizontal pos-relative ">
-        <div class="feedbackSection oj-margin-top">
+        <div class="feedbackSection oj-margin-top profile-margin-bottom">
             <div class="transbox"></div>
             <div id="noFeedback" class="noComments"> No feedback available !!</div>
             <div class="oj-row oj-flex">
@@ -393,10 +393,7 @@
                     <div data-bind="foreach: feedbackContent1">
                         <div class="oj-flex oj-flex-item oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12">
 
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div feedback-align">
-                               
-                                   
-                                
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div feedback-align"> 
                                 <div class="feedback-circle circle-purple pos-relative">
                                     <div class="viewFeedbackName" data-bind="text: name"></div>
                                     <span data-bind="text: shortName"></span>
@@ -412,9 +409,6 @@
                             <!--repeat replies start-->
                             <div data-bind="foreach: replies">
                                 <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div feedback-align">
-                                    <div class="feedback-date">
-
-                                    </div>
                                     <div class="reply-circle circle-purple pos-relative">
 
                                         <div class="viewFeedbackName"  data-bind="text: reply_name"></div>
@@ -435,19 +429,15 @@
                             <!--repeat replies end-->
                             <!--reply button here-->
                             <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div feedback-align">
-                                <div class="feedback-date">
-
-                                </div>
-
                                 <div class="feedback-comment pos-relative margin-top-feedback">
                                     <a class="buttonReply" data-bind="click: $parent.openReply,attr: {id: replyBtnId}">Reply</a>
                                     <div data-bind="attr:{id: uniqueId}" class="replyInput hide">
                                         <div class="pos-relative">
-                                            <div class="transbox"></div>
+                                            <div class="transbox mobile-trans"></div>
                                             <span> <input type="text" placeholder="Write your response here" class="left" data-bind="click: $parent.replyInputClick, attr: {id: replyInput}"/></span>
                                             <span>
-                                                <i class="zmdi zmdi-mail-reply zmdi-hc-2x left" data-bind="attr: {id: replySend},click: $parent.replySend"></i> 
-                                                <i class="zmdi zmdi-close zmdi-hc-2x" data-bind="attr: {id: replyClose},click: $parent.closeReply"></i>
+                                                <i class="zmdi zmdi-mail-reply" data-bind="attr: {id: replySend},click: $parent.replySend"></i> 
+                                                <i class="zmdi zmdi-close" data-bind="attr: {id: replyClose},click: $parent.closeReply"></i>
                                             </span>
                                         </div>
                                         <div class="errorVisibilityHide">Please enter your response.</div>
@@ -465,10 +455,10 @@
             <div class="oj-padding oj-margin right custom-zmdi-icons-div" id="edit-all" data-bind="click: openAll" title="Edit Profile">
                 <span class="edit-height oj-margin" ><i class="zmdi zmdi-edit about-edit"  ></i></span>
             </div>
-            <div class="oj-padding oj-margin right custom-zmdi-icons-div hide" id="submit-all" data-bind="click: updateAll" title="Save">
+            <div class="oj-padding oj-margin right custom-zmdi-icons-div hide update-button" id="submit-all" data-bind="click: updateAll" title="Save">
                 <span class="edit-height oj-margin"  ><i class="zmdi zmdi-check about-edit"></i></span>
             </div>
-            <div class="oj-padding oj-margin right custom-zmdi-icons-div hide" id="cancel-all" data-bind="click: allRevert" title="Cancel">
+            <div class="oj-padding oj-margin right custom-zmdi-icons-div hide cancel-button" id="cancel-all" data-bind="click: allRevert" title="Cancel">
                 <span class="edit-height oj-margin"   ><i class="zmdi zmdi-minus about-edit" ></i></span>
             </div>
 
@@ -477,7 +467,7 @@
             <span class="edit-height oj-margin"   ><i class="zmdi zmdi-minus about-edit" ></i></span>
         </div>
         <div class="transbox"></div>
-        <div class="profile-page-overflow oj-margin-top">
+        <div class="profile-page-overflow oj-margin-top profile-margin-bottom">
             <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
                 <div class="oj-xl-2 oj-lg-2 oj-md-2 oj-sm-2 oj-flex-item">
                     <span class="icon-div"><i class="zmdi zmdi-email about-icons"></i></span>

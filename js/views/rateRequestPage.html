@@ -86,7 +86,7 @@ and open the template in the editor.
 
                     <div class="oj-row oj-flex">
                         <div id="dialogWrapper">
-                            <div style="display:none" id="minMaxDialog" title="Confirmation"  class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item "
+                            <div style="display:block" id="minMaxDialog" title="Confirmation"  class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item custom-height"
                                  data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide', modality: 'modeless',cancelBehavior: 'escape',
                               rootAttributes: { style: ''}
                               }">
@@ -119,8 +119,8 @@ and open the template in the editor.
                                 <span class="errorText1" data-bind="text: noLeadDeclinedRequest"></span>
                             </div>
                             <!-- ko foreach: requestDeclinedLead-->
-                            <div class="oj-xl-8 oj-lg-8 oj-md-10 oj-sm-10 pos-relative oj-flex-bar-center-absolute  space-block">
-                                <div class="transbox2  declineHeight"></div>
+                            <div class="oj-xl-8 oj-lg-8 oj-md-10 oj-sm-10 pos-relative oj-flex-bar-center-absolute  space-block top-margin-custom">
+                                <div class="transbox2  declineHeight height-fix"></div>
                                 <div class="transbox  declineHeight"></div>
                                 <div class="oj-flex oj-row">
                                     <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
