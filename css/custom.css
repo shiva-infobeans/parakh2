@@ -593,8 +593,8 @@ div.oj-tabs-panel.oj-tabs-selected{
     font-size: 18px;
 }
 .feedbackSection{
-    overflow-x: auto;
-    overflow-y: no-content;
+/*    overflow-x: auto;
+    overflow-y: no-content;*/
     /*height:100%;*/
 }
 .colcount{
@@ -1547,7 +1547,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 .textArea-skills {
     width:auto !important;
-         padding: 0px !important; 
+    font-size: 16px !important;
 
 }
 #ojChoiceId_selectInterests .oj-select-choices, #ojChoiceId_selectProjects .oj-select-choices{
@@ -1572,6 +1572,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 .replyInput div span i{
        margin-left: 4px !important;
     padding: 1px!important;
+   
 }
 .mobile-trans{
  width: 90% !important;   
@@ -1588,6 +1589,25 @@ div.oj-tabs-panel.oj-tabs-selected{
         color: #fff;
     margin-top: 4px;
     font-size: 18px;
+}
+.margin-top-feedback{
+    margin-bottom: -55px  !important;
+}
+.noComments{
+    padding: 117px !important;
+    text-align: center !important;
+    font-size: 19px !important;
+    min-height: 266px !important;
+    margin:0px !important;
+}
+.bottom-padding{
+    padding-bottom: 15px !important;
+}
+.margin-top-feedback {
+    margin-top: -22px !important;
+}
+.rating-section{
+    min-height: 300px;
 }
 }
 
@@ -1624,6 +1644,16 @@ div.oj-tabs-panel.oj-tabs-selected{
     word-break: break-all !important;
     font-size: 15px !important;
     line-height: 36px !important;
+}
+.noComments{
+    padding: 117px !important;
+    text-align: center !important;
+    font-size: 14px !important;
+    min-height: 266px !important;
+    margin:0px !important;
+}
+.replyInput div span input{
+    font-size: 10px !important;
 }
 }
 @media  screen and (min-width: 768px) and (max-width: 1024px) {
