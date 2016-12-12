@@ -56,6 +56,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
     function myTeamContentViewModel(person) {
         var self = this;
         self.image = ko.observable();
+        self.intials_feedback = ko.observable("");
+        self.intials_rate = ko.observable("");
+        self.intials_icc = ko.observable("");
         self.myname = ko.observable();
         self.myDesignation = ko.observable();
         self.role_name = ko.observable();
@@ -322,6 +325,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.for_id($(this).attr("id"));
             self.image($(this).attr("image"));
             self.myname($(this).attr("myname"));
+            if($(this).attr("image") == '/images/default.png')
+            {
+                self.intials_icc(nameFunction($(this).attr("myname")));
+            }
             self.myDesignation($(this).attr("myDesignation"));
             $('.textArea2').val('');
         });
@@ -333,6 +340,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.for_id($(this).attr("myTeamId"));
             self.image($(this).attr("teamImage"));
             self.myname($(this).attr("teamName"));
+            if($(this).attr("teamImage") == '/images/default.png')
+            {
+                self.intials_feedback(nameFunction($(this).attr("teamName")));
+            }else
+            {
+                self.intials_feedback('');
+            }
             self.myDesignation($(this).attr("teamDesig"));
             $('.textArea-feedback').val('');
         });
@@ -341,6 +355,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.for_id($(this).attr("id"));
             self.image($(this).attr("image"));
             self.myname($(this).attr("myname"));
+            if($(this).attr("image") == '/images/default.png')
+            {
+                self.intials_feedback(nameFunction($(this).attr("myname")));
+            }
             self.myDesignation($(this).attr("myDesignation"));
         });
         //submit for rate buddy
@@ -416,6 +434,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.image1("../../images/active(+1).png")
             self.image2("../../images/disable(-1).png");
             self.teamImage($(this).attr("teamImage"));
+            if($(this).attr("teamImage") == '/images/default.png')
+            {
+                self.intials_rate(nameFunction($(this).attr("teamName")));
+            }else
+            {
+                self.intials_rate = '';
+            }
             self.myId($(this).attr("myTeamId"));
             self.teamName($(this).attr("teamName"));
             self.teamDesig($(this).attr("teamDesig"));
@@ -425,6 +450,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         //feedback...
         $("body").on('click', '.feedbackBuddy', function () {
             self.teamImage($(this).attr("teamImage"));
+            if($(this).attr("teamImage") == '/images/default.png')
+            {
+                self.intials_rate(nameFunction($(this).attr("teamName")));
+            }
             self.myId($(this).attr("myTeamId"));
             self.teamName($(this).attr("teamName"));
             self.teamDesig($(this).attr("teamDesig"));
@@ -436,6 +465,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.desc('');
             self.textError('');
             self.teamImage($(this).attr("teamImage"));
+            if($(this).attr("teamImage") == '/images/default.png')
+            {
+                self.intials_rate(nameFunction($(this).attr("teamName")));
+            }
             self.myId($(this).attr("myTeamId"));
             self.teamName($(this).attr("teamName"));
             self.teamDesig($(this).attr("teamDesig"));

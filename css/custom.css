@@ -2223,3 +2223,23 @@ a#menu-share:hover > i{
 .height-fix{
 	height: 200px;
 }
+.text-area-both img {
+    width: 60%;
+}
+
+.text-area-both-margin-top{
+    margin-top: 8px !important;
+}
+.search-text-profile-image {
+    height: 40px;
+    display: inline-block;
+    position: relative;
+}
+.search-text-profile-image-initials {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 5px 4px;
+    color: #ffffff;
+}
