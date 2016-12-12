@@ -103,7 +103,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
             success: function (res) {
                 var data1 = res['attributes']['data'];
                 for (var counter = 0; counter < data1.length; counter++) {
-                    self.data12.push(Rankers1((10 - counter), data1[counter]['pluscount'], (90 - (counter * 5)), data1[counter]['google_name'],data1[counter]['user_id']));
+                    self.data12.push(Rankers1((counter+1), data1[counter]['pluscount'], (90 - (counter * 5)), data1[counter]['google_name'],data1[counter]['user_id']));
                 }
                 for (var i = 0; i < self.data12().length; i++) {
                     self.bubbleSeries()[i].items.push({
@@ -153,6 +153,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
                 majorTick: {
                     lineWidth: self.xMajorTickWidth1(),
                     lineStyle: self.xMajorTickStyle1()[0]
+                },
+                tickLabel: {
+                    style : 'color:#fff'
                 }
             };
         });
@@ -169,7 +172,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
                     lineStyle: self.yMajorTickStyle1()[0]
                 },
                 tickLabel: {
-                    position: self.yTickLabelPosition1()[0]
+                    position: self.yTickLabelPosition1()[0],
+                    style : 'color:#fff'
                 }
             };
         });
