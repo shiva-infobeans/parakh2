@@ -170,19 +170,31 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 self.tabValue = ko.observable(1);
                 self.tabPositive = function () {
                     self.tabValue(1);
-                    console.log(self.tabValue());
                 }
                 self.tabNegative = function () {
                     self.tabValue(2);
-                    console.log(self.tabValue());
-
                 }
                 self.tabFeedback = function () {
                     self.tabValue(3);
-                    console.log(self.tabValue());
-
                 }
-
+                ///////////////////// lazy loading positive comment .............
+                self.allPos = ko.observableArray();
+                self.currentPos = ko.observable();
+                self.countPos = ko.observable();
+                self.initBlockPos = ko.observable(10);
+                self.blockPos = ko.observable(10);
+                ///////////////////// lazy loading Negative comment .............
+                self.allNeg = ko.observableArray();
+                self.currentNeg = ko.observable();
+                self.countNeg = ko.observable();
+                self.initBlockNeg = ko.observable(10);
+                self.blockNeg = ko.observable(10);
+                ///////////////////// lazy loading Feedback .............
+                self.allFeedback = ko.observableArray();
+                self.currentFeedback = ko.observable();
+                self.countFeedback = ko.observable();
+                self.initBlockFeedback = ko.observable(10);
+                self.blockFeedback = ko.observable(10);
                 //..................
 
                 var editVariable;
@@ -414,7 +426,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                     if (data[i]['rating'] == 0) {
                                         minus++;
                                         var temporaryComment = new dataComment(decodeHtml(data[i]['description']), data[i]['given_by_name'], data[i]['created_date'], 0);
-                                        self.commentDataNegative.push(temporaryComment);
+                                        //self.commentDataNegative.push(temporaryComment);
+                                        self.allNeg.push(temporaryComment);
                                     } else {
                                         if (data[i]['rating'] == 1)
                                             plus++;
@@ -422,9 +435,22 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                         self.commentDataPositive.push(temporaryComment);
                                     }
                                 }
-                                if (self.commentDataNegative().length == 0) {
+                                if (self.allNeg().length == 0) {
                                     self.NoCommentsN("No Ratings Available ...!!");
                                     $("#noNegativeComment").show();
+                                } else {
+                                    self.countNeg(self.allNeg().length);
+                                    self.currentNeg(0);
+                                    var loadDataNeg;
+                                    if (self.initBlockNeg() > self.countNeg()) {
+                                        loadDataNeg = self.countNeg();
+                                    } else {
+                                        loadDataNeg = self.initBlockNeg();
+                                    }
+                                    for (var c = 0; c < loadDataNeg; c++) {
+                                        self.commentDataNegative.push(self.allNeg()[c]);
+                                        self.currentNeg(self.currentNeg() + 1);
+                                    }
                                 }
                                 if (self.commentDataNegative().length != 0) {
                                     $("#noNegativeComment").hide();
@@ -793,6 +819,38 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 self.replyInputClick = function (data, event) {
                     $('#' + data['replyInput']).parent().parent().next().removeClass('errorVisibilityShow').addClass('errorVisibilityHide');
                 }
+                $(window).scroll(function () {
+                    if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
+                        if (self.tabValue() == 1) {
+                            console.log("positive");
+                        }
+                        if (self.tabValue() == 2) {
+                            if ((self.currentNeg() < self.countNeg())) {
+
+                                var count = self.currentNeg();
+                                if (self.currentNeg() + self.blockNeg() > self.countNeg()) {
+                                    var loadRecordCount = self.countNeg() - self.currentNeg();
+                                } else {
+                                    var loadRecordCount = self.blockNeg();
+                                    console.log(loadRecordCount);
+                                }
+                                for (var c = count; c < count + loadRecordCount; c++) { //count is current count from start and loadRecordCount is for total  page size;
+                                    try {
+                                        self.commentDataNegative.push(self.allNeg()[c]);
+                                        self.currentNeg(self.currentNeg() + 1);
+                                    } catch (e) {
+
+                                    }
+                                }
+                            } else {
+                                //$('#leadRejectLoading').hide();
+                            }
+                        }
+                        if (self.tabValue() == 3) {
+                            console.log("feedback");
+                        }
+                    }
+                });
             }
             return dialogModel;
         });

@@ -648,6 +648,9 @@ div.oj-tabs-panel.oj-tabs-selected{
     margin: 5px 10px;
     color:#fff;
 }
+.indexer span a:focus{
+    text-decoration: underline;
+}
 /*Edit profile */
 /*edit profile modal*/
 /*scroll bar in all the pages*/
