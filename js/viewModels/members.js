@@ -7,8 +7,8 @@
 /**
  * members module
  */
-define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 'ojs/ojcomponentcore', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojtable', 'ojs/ojdialog', 'ojs/ojmodel'
-], function (oj, ko) {
+define(['ojs/ojcore', 'knockout','jquery', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 'ojs/ojcomponentcore', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojtable', 'ojs/ojdialog', 'ojs/ojmodel'
+], function (oj, ko, $) {
     /**
      * The view model for the main content view template
      */
@@ -20,14 +20,14 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
         com.shortName = commenter1.replace(/[^A-Z]/g, '');
         com.commenter = commenter1;
         com.commentDate = dateFormatter(commentDate1.substring(0, commentDate1.indexOf(' ')));
-        if(datafor){
+        if (datafor) {
             if (dateplusArray.indexOf(com.commentDate) == -1) {
                 dateplusArray.push(com.commentDate);
             } else
             {
                 com.commentDate = '';
             }
-        }else
+        } else
         {
             if (dateminusArray.indexOf(com.commentDate) == -1) {
                 dateminusArray.push(com.commentDate);
@@ -160,6 +160,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
         self.associated = ko.observable();
         self.myLead = ko.observable();
         self.myManager = ko.observable();
+        self.intials = ko.observable("");
 
         if (id) {
             self.id(id);
@@ -167,7 +168,10 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
             window.location = "rateBuddy.html";
         }
         var abc = "Not Assigned";
+  var lgQuery = oj.ResponsiveUtils.getFrameworkQuery(
+                        oj.ResponsiveUtils.FRAMEWORK_QUERY_KEY.LG_UP);
 
+                self.large = oj.ResponsiveKnockoutUtils.createMediaQueryObservable('(min-width: 767px)');
 
 //service for id of the user.
         var userIdSearch = oj.Model.extend({
@@ -252,7 +256,8 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                     today = yyyy + '-' + mm + '-' + dd + " ";
 
                     var responseDesc = $('#' + data['replyInput']);
-                    if (responseDesc.val().length == 0) {
+                    if (responseDesc.val().trim().length == 0) {
+                        $('#'+data['replyInput']).parent().parent().next().removeClass('errorVisibilityHide').addClass('errorVisibilityShow');
                         return;
                     }
                     ////////// object for reply add
@@ -290,7 +295,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                 $.ajax({
                     headers: {secret: secret},
                     method: 'POST',
-                    url: getAllTeamMembers + userRecord.attributes['data']['id'],
+                    url: getATeamMember + self.id(),
                     data: {},
                     success: function (task) {
                         var data = JSON.parse(task)['data'];
@@ -301,19 +306,26 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                                 self.myname(data[index]['google_name']);
                                 self.shortName(data[index]['google_name'].substring(0, data[index]['google_name'].indexOf(" ")));
                                 self.email(data[index]['google_email']);
-                                self.mailTo("mailto:"+data[index]['google_email']);
+                                self.mailTo("mailto:" + data[index]['google_email']);
                                 self.location(data[index]["location"]);
                                 self.skills(data[index]["skills"]);
                                 self.primary_project(data[index]["primary_project"]);
                                 self.past_project(data[index]["projects"]);
                                 self.interest(data[index]["interests"]);
                                 self.associated(dateDiffCalender(data[index]["associate_with_infobeans"]));
-                                if(data[index]['google_picture_link']!='')
+                                if (data[index]['google_picture_link'] != '')
                                 {
                                     var image = data[index]['google_picture_link'];
-                                }else
+                                } else
                                 {
                                     var image = '/images/warning-icon-24.png';
+                                }
+                                if(data[index]['google_picture_link'] == '/images/default.png')
+                                {
+                                    self.intials(nameFunction(data[index]['google_name']));
+                                }else
+                                {
+                                    self.intials('');
                                 }
                                 self.pic(image);
                                 self.designation(data[index]['designation']);
@@ -335,14 +347,14 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                                 var minus = 0;
                                 var data = res['attributes']['data'];
                                 for (var i = 0; i < data.length; i++) {
-                                    if (data[i]['rating'] == 0) {   
+                                    if (data[i]['rating'] == 0) {
                                         minus++;
-                                        var ab = new dataComment(decodeHtml(data[i]['description']), data[i]['given_by_name'], data[i]['created_date'],0);
+                                        var ab = new dataComment(decodeHtml(data[i]['description']), data[i]['given_by_name'], data[i]['created_date'], 0);
                                         self.commentDataNegative.push(ab);
                                     } else {
                                         if (data[i]['rating'] == 1)
                                             plus++;
-                                        var ab = new dataComment(decodeHtml(data[i]['description']), data[i]['given_by_name'], data[i]['created_date'],1);
+                                        var ab = new dataComment(decodeHtml(data[i]['description']), data[i]['given_by_name'], data[i]['created_date'], 1);
                                         self.commentDataPositive.push(ab);
                                     }
                                 }
@@ -471,6 +483,9 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs
                 });
             }
         });
+        self.replyInputClick = function (data, event) {
+            $('#' + data['replyInput']).parent().parent().next().removeClass('errorVisibilityShow').addClass('errorVisibilityHide');
+        }
     }
 
     return membersContentViewModel;

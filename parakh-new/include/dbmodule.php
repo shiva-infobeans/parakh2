@@ -67,6 +67,7 @@ class dbmodule {
      * */
 
     function getUserByLead($lead_id) {
+        $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
         if (!filter_var($lead_id, FILTER_VALIDATE_INT) === false) {
             $employeeList = array();
             $query = 'SELECT uh.user_id,u.google_name,u.google_email,u.mobile_number,u.designation,u.google_picture_link as picture,u.google_email,
@@ -77,7 +78,10 @@ class dbmodule {
             $user_data = $this->con->prepare($query);
             $user_data->execute(array(':id' => $lead_id));
             $employeeList = $user_data->fetchAll((PDO::FETCH_ASSOC));
-            
+            for ($t=0;$t<count($employeeList);$t++) {
+                $image = $this->getCacheImage($employeeList[$t]['google_email'],$default_img);
+                $employeeList[$t]['picture'] = $image;
+            }
             return $employeeList;
         } else {
             return 0;
@@ -99,7 +103,8 @@ class dbmodule {
      * */
 
     function getOtherTeamMembers($lead_id) {
-       if (!filter_var($lead_id, FILTER_VALIDATE_INT) === false) {
+        $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
+        if (!filter_var($lead_id, FILTER_VALIDATE_INT) === false) {
            $employeeList = array();
            $team_members = $this->getUserByLead($lead_id);
            if (count($team_members) > 0) {
@@ -145,7 +150,9 @@ class dbmodule {
                 {
                     $employeeList[$y]['minuscount'] = 0;
                 }
-                
+
+                $image = $this->getCacheImage($employeeList[$y]['google_email'],$default_img);
+                $employeeList[$y]['google_picture_link'] = $image;
             }
            return $employeeList;
        } else {
@@ -552,15 +559,18 @@ class dbmodule {
      * */
 
     function get_recent_ratings() {
-
+        $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
         $MonthFirstDate = date('Y-m-01');
-        $query = "SELECT r.user_id,u.google_name,u.google_picture_link,u.projects,u.primary_project,u.designation"
+        $query = "SELECT r.user_id,u.google_name,u.google_email,u.google_picture_link,u.projects,u.primary_project,u.designation"
                 . " FROM rating as r "
                 . " JOIN users AS u ON (u.id = r.user_id) WHERE r.rating <> 0 ORDER BY r.created_date DESC LIMIT 4";
         $rank_data = $this->con->prepare($query);
         $rank_data->execute();
         $row = $rank_data->fetchAll((PDO::FETCH_ASSOC));
-
+        for($y=0;$y<count($row);$y++)
+        {
+            $row[$y]['google_picture_link'] = $this->getCacheImage($row[$y]['google_email'],$default_img);
+        }
         return $row;
     }
 
@@ -723,6 +733,7 @@ class dbmodule {
      * */
 
     function get_all_team_members($user_id) {
+        $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
         if ($user_id) {
             $query = "SELECT id, google_name, google_email, mobile_number, designation, google_picture_link,location,skills,interests,associate_with_infobeans,projects,primary_project FROM users WHERE id <>:id AND id <> 1 AND status <> 0 ORDER BY google_name";
             
@@ -760,6 +771,62 @@ class dbmodule {
                 {
                     $employeeList[$y]['minuscount'] = 0;
                 }
+                $image = $this->getCacheImage($employeeList[$y]['google_email'],$default_img);
+                $employeeList[$y]['google_picture_link'] = $image;
+                
+            }
+
+            return $employeeList;
+        } else {
+            return 0;
+        }
+    }
+
+    /*     *
+     * get get_a_team_members except given id (self id)
+     * */
+
+    function get_a_team_member($user_id) {
+        $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
+        if ($user_id) {
+            $query = "SELECT id, google_name, google_email, mobile_number, designation, google_picture_link,location,skills,interests,associate_with_infobeans,projects,primary_project FROM users WHERE id = :id";
+            
+            $user_list = $this->con->prepare($query);
+            $user_list->execute(array(':id' => $user_id));
+            $employeeList = $user_list->fetchAll();
+            
+            $query_rank = "SELECT u.id,u.google_name,
+                    sum(case when r.rating = 1 then 1  end) as pluscount,
+                    sum(case when r.rating = 0 then 1  end) as minuscount
+                    from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 
+                    group by r.user_id ORDER BY u.google_name";
+                $user_rank = $this->con->prepare($query_rank);
+                $user_rank->execute();
+                $userRank = $user_rank->fetchAll((PDO::FETCH_ASSOC));
+
+            foreach ($userRank as $key => $value) {
+               $rank_array[$value['id']]['pluscount'] = $value['pluscount'];
+               $rank_array[$value['id']]['minuscount'] = $value['minuscount'];
+            }
+            
+            for($y=0;$y<count($employeeList);$y++)
+            {
+                if(isset($rank_array[$employeeList[$y]['id']]['pluscount']) && !empty($rank_array[$employeeList[$y]['id']]['pluscount']))
+                {
+                    $employeeList[$y]['pluscount'] = "+".$rank_array[$employeeList[$y]['id']]['pluscount'];
+                }else
+                {
+                    $employeeList[$y]['pluscount'] = 0;
+                }
+                if(isset($rank_array[$employeeList[$y]['id']]['minuscount']) && !empty($rank_array[$employeeList[$y]['id']]['minuscount']))
+                {
+                    $employeeList[$y]['minuscount'] = "-".$rank_array[$employeeList[$y]['id']]['minuscount'];
+                }else
+                {
+                    $employeeList[$y]['minuscount'] = 0;
+                }
+                $image = $this->getCacheImage($employeeList[$y]['google_email'],$default_img);
+                $employeeList[$y]['google_picture_link'] = $image;
                 
             }
 
@@ -1041,8 +1108,9 @@ class dbmodule {
 //end of fun
     // Get all the requests available for any user
     function getTeamMembersRequest($user_id = null) {
+        $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
         if (isset($user_id)) {
-            $query = "SELECT user.google_name,user.google_picture_link,user.designation,request.id as request_id, "
+            $query = "SELECT user.google_name,user.google_picture_link,user.google_email,user.designation,request.id as request_id, "
                     . "request.to_id,request.from_id,request.status, request.for_id, description, "
                     . "work.created_date, request_for, work.id AS work_id "
                     . "FROM work AS work LEFT JOIN request AS request ON work.id = request.work_id "
@@ -1054,6 +1122,10 @@ class dbmodule {
 			//echo($user_list->queryString);
             $user_list->execute();
             $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
+            for($y=0;$y<count($row);$y++)
+            {
+                $row[$y]['google_picture_link'] = $this->getCacheImage($row[$y]['google_email'],$default_img);
+            }
             return $row;
             /* if(count($row) > 0){
               return $row;
@@ -1066,11 +1138,12 @@ class dbmodule {
 //end of fun()
 
     function getUserPendingRequest($user_id, $status = 0) {
+        $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
         if (isset($user_id)) {
             $cnd = '';
             if ($status != '')
                 $cnd = " AND request.status = " . $status;
-            $query = "select request.id as request_id, user.google_name,user.id as lead_id, "
+            $query = "select request.id as request_id, user.google_name,user.google_email,user.id as lead_id, "
                     . "user.google_picture_link, user.designation,role.name as role_name, "
                     . "request.to_id,request.from_id,description,c.comment_text,"
                     . "work.created_date,request_for,rating, request.status "
@@ -1085,6 +1158,10 @@ class dbmodule {
 			//echo($user_list->queryString);
             $user_list->execute();
             $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
+            for($y=0;$y<count($row);$y++)
+            {
+                $row[$y]['google_picture_link'] = $this->getCacheImage($row[$y]['google_email'],$default_img);
+            }
             return $row;
         }
     }
@@ -1467,8 +1544,8 @@ class dbmodule {
 
     /*get top four ranker of current month*/
     function get_top_four_ranker_for_current_month(){
-
-        $query_rank = "SELECT r.created_date as date,r.user_id,u.google_name,u.primary_project,u.projects,u.google_picture_link as image,
+        $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
+        $query_rank = "SELECT r.created_date as date,r.user_id,u.google_name,u.google_email,u.primary_project,u.projects,u.google_picture_link as image,
                     sum(case when r.rating = 1 then 1  end) as pluscount,
                     sum(case when r.rating = 0 then 1  end) as minuscount
                     from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 AND MONTH(r.created_date) = MONTH(CURDATE())
@@ -1477,13 +1554,17 @@ class dbmodule {
                 $user_rank = $this->con->prepare($query_rank);
                 $user_rank->execute();
                 $userRank = $user_rank->fetchAll((PDO::FETCH_ASSOC));
+                for($y=0;$y<count($userRank);$y++)
+                {
+                    $userRank[$y]['image'] = $this->getCacheImage($userRank[$y]['google_email'],$default_img);
+                }
                 return $userRank;
     }
 
     /*get top ranker of project wise*/
     function get_top_rankers_project_wise($manager_id){
-
-       $query_rank = "SELECT MAX(r.created_date) as date,r.user_id,u.google_name,u.google_picture_link as image,u.projects,u.primary_project,
+       $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
+       $query_rank = "SELECT MAX(r.created_date) as date,r.user_id,u.google_name,u.google_email,u.google_picture_link as image,u.projects,u.primary_project,
                    sum(case when r.rating = 1 then 1  end) as pluscount,
                    sum(case when r.rating = 0 then 1  end) as minuscount
                    from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 
@@ -1511,6 +1592,7 @@ class dbmodule {
                        }
                        $totalUserRank[$userRank[$k]['primary_project']] = $userRank[$k]['primary_project'].",".$userRank[$k]['pluscount'].",".$userRank[$k]['minuscount'];
                    }
+
                }
                $new_array = array();
                foreach ($totalUserRank as $key => $value) {
@@ -1585,7 +1667,8 @@ class dbmodule {
 
     /*function to fetch all rejected requests reject by login user*/
     function get_all_rejected_request_by_login_id($lead_id){
-        $query = "SELECT request.id as request_id, user.google_name,user.id as lead_id,user.google_picture_link, user.designation,role.name as role_name,request.to_id,request.from_id,description,c.comment_text as comment_text,work.created_date,request_for,rating, request.status FROM `request` 
+        $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
+        $query = "SELECT request.id as request_id, user.google_name,user.id as lead_id,user.google_picture_link, user.google_email, user.designation,role.name as role_name,request.to_id,request.from_id,description,c.comment_text as comment_text,work.created_date,request_for,rating, request.status FROM `request` 
                     left join work on work.id = request.work_id 
                     left join rating on rating.work_id = request.work_id 
                     left join users as user on user.id = request.from_id
@@ -1596,7 +1679,147 @@ class dbmodule {
             $user_list = $this->con->prepare($query);
             $user_list->execute(array(':lead_id' => $lead_id));
             $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
+            for($y=0;$y<count($row);$y++)
+            {
+                $row[$y]['google_picture_link'] = $this->getCacheImage($row[$y]['google_email'],$default_img);
+            }
             return $row;
+    }
+
+    /*function to create image cache of user via email*/
+    function createImageCache($user_email,$to_do,$default_img)
+    {
+
+        $query = "SELECT users.id,users.google_name,users.img_cache,users.google_email,users.google_picture_link,user_log.login_datetime,user_log.logout_datetime from users left join user_log on user_log.user_id = users.id where google_email= :email";
+        $user_list = $this->con->prepare($query);
+        $user_list->execute(array(':email' => $user_email));
+        $row = $user_list->fetch();
+
+        /*update google picture for user after login*/
+        if(isset($_POST['img']) && !empty($_POST['img'])){
+            $query = "update users set google_picture_link = '".$_POST['img']."',img_cache='".base64_encode(file_get_contents($_POST['img']))."|||".$_POST['timestamp']."' where google_email='".$user_email."'";
+            $user_list = $this->con->prepare($query);
+            $user_list->execute();
+        }
+        if(isset($row['id']) && !empty($row['id']))
+        {
+            if($to_do){
+                if($row['login_datetime']==null && $row['logout_datetime']==null){
+
+                    $user_log_insert_query = "INSERT INTO user_log(user_id, login_datetime,logout_datetime)
+                                      VALUES(:user_id,:login_datetime,:logout_datetime)";
+                    $user_log_insert = $this->con->prepare($user_log_insert_query);
+                    $user_log_insert->execute(array(':user_id' => $row['id'],
+                        ':login_datetime' => date('Y-m-d h:m:s'),
+                        ':logout_datetime' => '0000-00-00 00:00:00'));
+                    $user_log__last_insert = $this->con->lastInsertId();
+                }else 
+                {
+                    $query = "UPDATE user_log set login_datetime='" . (date('Y-m-d h:m:s')) . "' where user_id=" . $row['id'];
+                    $user_list = $this->con->prepare($query);
+                    $user_list->execute();
+                }
+            }
+            $content = $row['img_cache'];
+            $content = explode("|||", $content);
+            if(isset($content[0]) && $content[0] == $default_img)
+            {
+                return '/images/default.png';
+            }else if(isset($row['google_picture_link']) && !empty($row['google_picture_link']))
+            {
+                $google_pic = base64_encode(file_get_contents($row['google_picture_link']));
+                $query = "update users set img_cache='".$google_pic."|||".strtotime(date('Y-m-d h:m:s'))."' where google_email='".$row['google_email']."'";
+                $user_list = $this->con->prepare($query);
+                $user_list->execute();
+                if($google_pic == $default_img)
+                {
+                    return '/images/default.png';
+                }else
+                {
+                    return $row['google_picture_link'];
+                }
+            }else
+            {
+                return '/images/default.png';
+            }
+
+        }else
+        {
+            return '';
+        }
+        
+    }
+
+    /*function to get image of user via email*/
+    function getCacheImage($user_email,$default_img)
+    {
+        $query = "SELECT id,google_name,img_cache,google_picture_link from users where google_email= :email";
+        $user_list = $this->con->prepare($query);
+        $user_list->execute(array(':email' => $user_email));
+        $row = $user_list->fetch();
+        $id = $row['id'];
+        if (isset($row['img_cache']) && !empty($row['img_cache'])) {
+            $content = $row['img_cache'];
+            $content = explode("|||", $content);
+            if($default_img == $content[0])
+            {
+                return '/images/default.png';
+            }else
+            {
+                /*if(base64_encode(file_get_contents($row['google_picture_link'])) == $default_img)
+                {
+                    return '/images/default.png';
+                }else
+                {*/
+                    return $row['google_picture_link'];
+                //}
+            }
+        }else
+        {
+            return $this->createImageCache($user_email,0,$default_img);
+        }
+        
+        
+    }
+
+    /*function to update logout data*/
+    function logoutUser($user_email)
+    {
+        $query = "SELECT users.id,user_log.login_datetime,user_log.logout_datetime from users left join user_log on user_log.user_id = users.id where google_email= :email";
+        $user_list = $this->con->prepare($query);
+        $user_list->execute(array(':email' => $user_email));
+        $row = $user_list->fetchAll((PDO::FETCH_ASSOC));
+
+        $query = "UPDATE user_log set logout_datetime='" . (date('Y-m-d h:m:s')) . "' where user_id=" . $row[0]['id'];
+        $user_list = $this->con->prepare($query);
+        $user_list->execute();
+        return 1;
+    }
+
+    /*     *
+     * get 4 till now Ranking list
+     * */
+
+    function get_four_till_now_ranking_list() {
+        $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
+        $result = array();
+        $query = "SELECT MAX(r.created_date) as date,r.user_id,u.google_name,u.google_email,u.projects,u.primary_project,u.google_picture_link as image,
+                          sum(case when r.rating = 1 then 1  end) as pluscount,
+                          sum(case when r.rating = 0 then 1  end) as minuscount
+                          from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 
+                          group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC LIMIT 4";
+        $ranking_data = $this->con->prepare($query);
+        $ranking_data->execute();
+        $rating = '';
+        $name = '';
+        $data = '';
+        $flag = 'FALSE';
+        $data = $ranking_data->fetchAll((PDO::FETCH_ASSOC));
+        for ($t=0;$t<count($data);$t++) {
+            $image = $this->getCacheImage($data[$t]['google_email'],$default_img);
+            $data[$t]['image'] = $image;
+        }
+        return $data;
     }
 //end of fun
 }

@@ -46,7 +46,7 @@
 }
 .menus{display: none;
        color: #fff;
-       font-size: 35px;
+       font-size: 30px;
 }
 .mobile-menu a:active {
     color:#fff !important;
@@ -91,12 +91,16 @@
     .logo{
         height:60px;
     }
-    .menus{display: block;}
+    .menus{
+		display: block;
+		font-size: 22px;
+	
+	}
     .nav1 li{float: none;}
     .logo {
         height: 56px;
         margin-top: -8px;
-        padding-left: 10px;
+        /*padding-left: 10px;*/
     }
     ul.mobile-menu {
 
@@ -117,6 +121,13 @@
     .border-right-recent{
         border-right: none !important;
     }
+}
+@media (min-width:320px) and (max-width: 350px) {
+    .nav li {
+    font-size: 18px !important;
+    margin: 0px 8px !important;
+}
+
 }
 .oj-panel {
     padding-bottom:0px;
@@ -449,7 +460,7 @@
 #ojDialogWrapper-modalDialog1.oj-dialog  {
     overflow: hidden;
     max-width: 100%;
-	min-width: 580px;
+	min-width: 480px;
     box-sizing: border-box;
     display: -webkit-flex;
     display: flex;
@@ -460,8 +471,8 @@
 
 #ojDialogWrapper-modalDialog2.oj-dialog{
     overflow: hidden;
-    max-width: 100%;
-	min-width: 580px;
+	max-width: 100%;
+	min-width: 480px;
     box-sizing: border-box;
     display: -webkit-flex;
     display: flex;
@@ -469,9 +480,22 @@
     flex-direction: column;
     border-radius: 5px;
 }
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+   #ojDialogWrapper-modalDialog2.oj-dialog, #ojDialogWrapper-modalDialog8.oj-dialog{
+    height: 560px;
+	-ms-overflow-style: none;
+	overflow: hidden;
+   }
+    #ojDialogWrapper-modalDialog1.oj-dialog{
+	height: 500px;
+	-ms-overflow-style: none;
+	overflow: hidden;	
+	}
+	
+}
 #ojDialogWrapper-modalDialog8.oj-dialog{
     overflow: hidden;
-    min-width: 580px;
+    min-width: 480px;
 	max-width:100%;
     box-sizing: border-box;
     display: -webkit-flex;
@@ -586,7 +610,7 @@
 .area {
     width: 91%;
     height: 43%;
-    border: solid 1px #000;
+    border: solid 1px #305a04;
     background-color: #fff;
     margin-left: 22px;
     border-radius: 5px;
@@ -609,12 +633,14 @@
     border: none;
     width: 100%;
     margin-left: 2px;
+	background: #fff;
 }
 .textArea4{
     height: 189px;
     border: none;
     width: 320px;
     margin-left: 2px;
+	background: #fff;
 }
 .textArea3{
     height: 143px;
@@ -623,8 +649,8 @@
     max-width: 100%;
 	width: 300px;
 	min-width:100px;
-    background: transparent;
-    background: transparent;
+    background: #fff;
+    
 }
 .imgArea{
     float: right;
@@ -793,10 +819,14 @@
     overflow: hidden;
 }*/
 
-#modalDialog2 .oj-dialog-body, #modalDialog8 .oj-dialog-body, #modalDialog3 .oj-dialog-body, #modalDialog9 .oj-dialog-body,#modalDialogRequest .oj-dialog-body{
+#modalDialog2 .oj-dialog-body, #modalDialog3 .oj-dialog-body, #modalDialog9 .oj-dialog-body,#modalDialogRequest .oj-dialog-body{
 	background-color: #fff !important;
 	overflow: hidden;
+	padding:26px;
 }
+ #modalDialog8 .oj-dialog-body{
+	background-color: #fff !important;
+ }
 .oj-dialog-body h4 strong span, .oj-dialog-body h5  {
   color: #363636;
 }
@@ -854,7 +884,7 @@
     border-radius: 2px;
     border-style: solid;
     border-width: 1px;
-    color: #555;/*Namrata*/
+    color: #555;
     cursor: pointer;
     font-size: 27px;
     margin-right: -8px;
@@ -912,18 +942,29 @@
     font-size: 22px;
     text-align: center;
 }
-#ojDialogWrapper-modalDialog2  .oj-dialog-content,
 #ojDialogWrapper-modalDialog3  .oj-dialog-content,
 #ojDialogWrapper-modalDialog9  .oj-dialog-content,
 #ojDialogWrapper-modalDialog8  .oj-dialog-content,
 #ojDialogWrapper-modalDialogRequest  .oj-dialog-content  {
     background-color: #fff !important;
 	padding: 26px;
-	min-height: 370px;
+	min-height: 390px;
 	overflow: hidden;
+}
+#ojDialogWrapper-modalDialog2  .oj-dialog-content{
+	background-color: #fff;
 }
 #ojDialogWrapper-modalDialog1 .oj-dialog-body{
     background-color: #fff !important;
+	/*padding: 26px;*/
+    overflow: hidden;
+	min-height: 440px;
+}
+#modalDialog8 .oj-dialog-body{
+	min-height: 440px;
+}
+#ojDialogWrapper-modalDialog2  .oj-dialog-body{
+	min-height: 450px;
 }
 /*.modal-submit3{
     background-color: #e3ffca !important;
@@ -1389,10 +1430,10 @@
     color:#fff;
 }
 #tabs-container1 .oj-tabs-tab.oj-selected {
-    border-color: green;
+    border-color: #689F39;
 }
 #tabs-container3 .oj-tabs-tab.oj-selected {
-    border-color: green;
+    border-color: #689F39;
 }
 .rate1Inactive{
     display:none;
@@ -1404,6 +1445,7 @@
     background-color: #E7FCD5;
     border-radius: 5px;
     height:30px;display:table;width:216px;margin:0 auto;position:absolute;padding:9px;margin-top:-5px;visibility: hidden;
+    z-index: 10;
 }
 .recentInfo3{
     right: 2px;
@@ -1653,10 +1695,12 @@
 }
 .text-height{
     line-height: 32px;
+    word-break: break-all;
 }
 .edit-height{
     font-size: 30px;
 }
+
 .addImage{
     background-image: url("../../images/+1-icon-active.png");
     height: 20px;
@@ -1798,10 +1842,12 @@
     }
 }
 .custom-zmdi-icons-div{
-    border-radius:50%;
-    border:2px solid #fff;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    height: 60px;
     cursor: pointer;
     color: white;
+    width: 60px;
 }
 .custom-zmdi-icons-div:hover{
     border:2px solid #689F39;cursor: pointer;color: #689F39;
@@ -1878,6 +1924,7 @@ a:hover.oj-clickable-icon-nocontext,.oj-hover.oj-clickable-icon-nocontext{ color
 }
 .achieve-li{
     list-style: none;
+    margin-left: -32px;
 }
 .nav-achieve li{
     font-size: 24px;
@@ -1892,12 +1939,22 @@ a:hover.oj-clickable-icon-nocontext,.oj-hover.oj-clickable-icon-nocontext{ color
     color: #000;
     border-bottom: 6px solid green;
 }*/
-.nav-achieve li a:hover, a:focus{
+.nav-achieve li a:hover{
     text-decoration: none;
+   border-bottom: 2px solid #fff;
+}
+.nav-achieve li a:focus{
+    text-decoration: none;
+   border-bottom: 0px;
 }
 .trophy-img{
     width: 24px;
     height: 24px;
+}
+.floating-btn a:active {
+    color: #78A95A;
+    font-weight: normal;
+    border-radius: 50%;
 }
 .achieve-heading{
     color: #F9E81F;
@@ -1937,3 +1994,61 @@ a:hover.oj-clickable-icon-nocontext,.oj-hover.oj-clickable-icon-nocontext{ color
 #sm_md ::-webkit-scrollbar{
         width: 0px;
 }
+#a a.oj-clickable-icon-nocontext,
+#b a.oj-clickable-icon-nocontext,
+#c a.oj-clickable-icon-nocontext,
+#d a.oj-clickable-icon-nocontext{
+        color: #fff !important;
+}
+#safe .oj-listview-item.oj-selected,
+#preAccess .oj-listview-item.oj-selected,
+#storeFront .oj-listview-item.oj-selected,
+#wnsGpd .oj-listview-item.oj-selected{
+    background:none !important; 
+    border : none;
+}
+#safe .oj-listview.oj-focus-ancestor .oj-listview-item.oj-focus,
+#preAccess .oj-listview.oj-focus-ancestor .oj-listview-item.oj-focus,
+#storeFront .oj-listview.oj-focus-ancestor .oj-listview-item.oj-focus,
+#wnsGpd .oj-listview.oj-focus-ancestor .oj-listview-item.oj-focus{
+    background:none;
+}
+ #safe .oj-listview-item.oj-hover,
+ #preAccess .oj-listview-item.oj-hover,
+ #storeFront .oj-listview-item.oj-hover,
+ #wnsGpd .oj-listview-item.oj-hover{
+    background: none !important;
+    border-top: 0px !important;
+    border-bottom: none !important;
+}
+
+#a .oj-listview-item,
+#b .oj-listview-item,
+#c .oj-listview-item,
+#d .oj-listview-item{
+    background-image: none;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size: 100% 1px;
+    border-top: 0px solid transparent;
+    box-sizing: border-box;
+    padding: 0.8571rem;
+}
+                
+			.main.style1 > .content {
+				-moz-transition: 1s ease;
+				-webkit-transition:  1s ease;
+				-ms-transition: 1s ease;
+				transition:  1s ease;
+				-moz-transform: translateZ(0);
+				-webkit-transform: translateZ(0);
+				-ms-transform: translateZ(0);
+				transform: translateZ(0);
+				opacity: 1.0;
+				margin: 30px 0 0 20px;
+			}
+
+			.main.style1.inactive > .content {
+				opacity: 1;
+			}
+			

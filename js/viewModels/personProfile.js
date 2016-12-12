@@ -131,6 +131,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 var self = this;
 
                 this.pic = person['pic'];
+                if(person['pic'] == '/images/default.png')
+                {
+                    this.intials = nameFunction(person['name']);
+                }else
+                {
+                    this.intials = '';
+                }
                 this.myname = person['name'];
                 this.email = person['email'];
                 var abc = "Not Assigned";
@@ -166,6 +173,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 this.minusSign = ko.observable('-');
                 this.plusSign = ko.observable('+');
                 self.selectedTab = ko.observable(0);
+
+                var lgQuery = oj.ResponsiveUtils.getFrameworkQuery(
+                        oj.ResponsiveUtils.FRAMEWORK_QUERY_KEY.LG_UP);
                 ///////////////////// lazy loading .............
                 self.tabValue = ko.observable(1);
                 self.tabPositive = function () {
@@ -197,6 +207,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 self.blockFeedback = ko.observable(10);
                 //..................
 
+                self.large = oj.ResponsiveKnockoutUtils.createMediaQueryObservable('(min-width: 767px)');
+
+                self.itemOnly = function (context)
+                {
+                    return context['leaf'];
+                }
+                
                 var editVariable;
                 var windowLocation = window.location;
                 var id = windowLocation.search.substring(windowLocation.search.indexOf("=") + 1, windowLocation.search.length);
@@ -587,7 +604,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                 self.primaryProjectOptions.push(obj);
                             }
                             $('#selectPrimaryProjects').ojSelect("refresh");
-                            self.primary_project(res['attributes']['data'][0]['name']);
+//                            self.primary_project(res['attributes']['data'][0]['name']);
                         }
                     });
                     $('#primary-project-text').addClass('hide');

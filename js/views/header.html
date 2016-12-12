@@ -15,7 +15,7 @@
                         <ul class="nav">
                             <li title="More"><a href="javascript:void(0)" ><i class="zmdi zmdi-more-vert zmdi"></i> </a></li>
                             <li title="Sign out"><a href="javascript:void(0)" id="signOut" data-bind="click: signout"><i class="zmdi zmdi-power  zmdi-hc-lg"></i></a></li>
-                            <li><a href="profile.html" data-bind="attr: {title: memberName}"><img data-bind="attr: {src: mypic}" class="home-profile-pic" /></a></li>
+                            <li class="header_profile_image"><a href="profile.html" data-bind="attr: {title: memberName}"><img data-bind="attr: {src: mypic}" class="home-profile-pic" /><span class="header_profile_image_initials" data-bind="text:intials"></span></a></li>
                             <li class="pos-relative openCloseNotify">
                                 <div class="notif-count"><span data-bind="text: notifCount"></span></div>
                                 <div class="notification hide border-green">
@@ -41,7 +41,7 @@
                                     </div>
                                 </div>
                                 <a href="javascript:void(0)" title="Notification" id="notificationOpen"><i class="zmdi zmdi-notifications  zmdi-hc-lg"></i></a></li>
-                            <li title="Achievements"><a href="achievements.html"><img class="trophy-img" src="../../images/trophy-icon.png" alt="achievements-icon"/></a></li>
+                            <li title="Achievements"><a href="achievements.html"><img class="trophy-img" src="../../images/trophy-white.png" alt="achievements-icon"/></a></li>
                          
                         </ul>
                     </div>

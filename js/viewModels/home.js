@@ -17,7 +17,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
         this.minus = minus;
         return this;
     }
-
+    function nameFunction(NAME) {
+        var initial = NAME.charAt(0) + NAME.charAt(NAME.lastIndexOf(" ") + 1);
+        return initial;
+    }
     function homeContentViewModel(person) {
         var self = this;
         self.id = ko.observable();
@@ -42,8 +45,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
         self.link1 = ko.observable();
         self.link2 = ko.observable();
         self.link3 = ko.observable();
-
-
+        self.intials0 = ko.observable("");
+        self.intials1 = ko.observable("");
+        self.intials2 = ko.observable("");
+        self.intials3 = ko.observable("");
         self.vieMyProfile = ko.observable();
         self.roleName = ko.observable();
 
@@ -126,6 +131,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                         self.image0(img0);
                         var person0 = "memberProfile.html?id=" + data.attributes['data'][0]['user_id'];
                         self.link0(person0);
+                        if(data.attributes['data'][0]['google_picture_link'] == '/images/default.png') { self.intials0(nameFunction(data.attributes['data'][0]['google_name'])); }else{ self.intials0(''); }
 
                         var img1 = data.attributes['data'][1]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][1]['google_picture_link'];
                         self.name1(data.attributes['data'][1]['google_name'].substr(0, data.attributes['data'][1]['google_name'].indexOf(' ')));
@@ -134,6 +140,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                         self.image1(img1);
                         var person1 = "memberProfile.html?id=" + data.attributes['data'][1]['user_id'];
                         self.link1(person1);
+                        if(data.attributes['data'][1]['google_picture_link'] == '/images/default.png') { self.intials1(nameFunction(data.attributes['data'][1]['google_name'])); }else{ self.intials1(''); }
 
                         var img2 = data.attributes['data'][2]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][2]['google_picture_link'];
                         self.name2(data.attributes['data'][2]['google_name'].substr(0, data.attributes['data'][2]['google_name'].indexOf(' ')));
@@ -142,6 +149,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                         self.image2(img2);
                         var person2 = "memberProfile.html?id=" + data.attributes['data'][2]['user_id'];
                         self.link2(person2);
+                        if(data.attributes['data'][2]['google_picture_link'] == '/images/default.png') { self.intials2(nameFunction(data.attributes['data'][2]['google_name'])); }else{ self.intials2(''); }
 
                         var img3 = data.attributes['data'][3]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][3]['google_picture_link'];
                         self.name3(data.attributes['data'][3]['google_name'].substr(0, data.attributes['data'][3]['google_name'].indexOf(' ')));
@@ -149,6 +157,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                         self.project3hover(data.attributes['data'][3]['primary_project']);
                         self.image3(img3);
                         var person3 = "memberProfile.html?id=" + data.attributes['data'][3]['user_id'];
+                        if(data.attributes['data'][3]['google_picture_link'] == '/images/default.png') { self.intials3(nameFunction(data.attributes['data'][3]['google_name'])); }else{ self.intials3(''); }
                         self.link3(person3);
                     }catch(e)
                     {
@@ -192,7 +201,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
         self.sliderText1 = ko.observable();
         self.sliderText2 = ko.observable();
         self.sliderText3 = ko.observable();
-
+        
         self.teamMembers = ko.observableArray();
         self.addteamMembers = function (obj) {
             self.teamMembers.push(obj);
@@ -438,6 +447,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                     obj.nameS = result['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
                                     obj.image = result['attributes']['data'][c]['google_picture_link'];
                                     obj.projects = result['attributes']['data'][c]['primary_project'];
+                                    if(result['attributes']['data'][c]['google_picture_link'] == '/images/default.png')
+                                    {
+                                        obj.intials = nameFunction(result['attributes']['data'][c]['google_name']);
+                                    }else
+                                    {
+                                        obj.intials = "";
+                                    }
                                     obj.personLink = "memberProfile.html?id=" + result['attributes']['data'][c]['user_id'];
                                     self.addteamMembers(obj);
                                 }
@@ -449,6 +465,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                     obj.image = "/images/warning-icon-24.png";
                                     obj.projects = "";
                                     obj.personLink = "";
+                                    obj.intials = ""
                                     self.addteamMembers(obj);
                                 }
                                 var monthUrl = oj.Model.extend({
@@ -464,6 +481,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                             obj.nameS = res2['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
                                             obj.image = res2['attributes']['data'][c]['image'];
                                             obj.projects = res2['attributes']['data'][c]['primary_project'];
+                                            if(res2['attributes']['data'][c]['image'] == '/images/default.png')
+                                            {
+                                                obj.intials = nameFunction(res2['attributes']['data'][c]['google_name']);
+                                            }else
+                                            {
+                                                obj.intials = "";
+                                            }
                                             obj.personLink = "memberProfile.html?id=" + res2['attributes']['data'][c]['user_id'];
                                             self.addteamMembers(obj);
                                         }
@@ -475,16 +499,17 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                             obj.image = "/images/warning-icon-24.png";
                                             obj.projects = "";
                                             obj.personLink = "";
+                                            obj.intials = "";
                                             self.addteamMembers(obj);
                                         }
                                         var yearUrl = oj.Model.extend({
-                                            url: getRankingList
+                                            url: getFourTillNowRankingList
                                         });
                                         var yearFetch = new yearUrl();
                                         yearFetch.fetch({
                                             headers: {secret: secret},
                                             success: function (res3) {
-                                                if(res2['attributes']['data'].length>0){
+                                                if(res3['attributes']['data'].length>0){
                                                     for (var c = 0; c < 4; c++) {
                                                         var obj = new Object();
                                                         obj.personLink = "memberProfile.html?id=" + res3['attributes']['data'][c]['user_id'];
@@ -492,6 +517,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                                         obj.nameS = res3['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
                                                         obj.image = res3['attributes']['data'][c]['image'];
                                                         obj.projects = res3['attributes']['data'][c]['primary_project'];
+                                                        if(res3['attributes']['data'][c]['image'] == '/images/default.png')
+                                                        {
+                                                            obj.intials = nameFunction(res3['attributes']['data'][c]['google_name']);
+                                                        }else
+                                                        {
+                                                            obj.intials = "";
+                                                        }
                                                         self.addteamMembers(obj);
                                                     }
                                                 }
@@ -503,6 +535,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                                     obj.image = "/images/warning-icon-24.png";
                                                     obj.projects = "";
                                                     obj.personLink = "";
+                                                    obj.intials = "";
                                                     self.addteamMembers(obj);
                                                 }
                                             }
