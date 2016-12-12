@@ -675,6 +675,9 @@ div.oj-tabs-panel.oj-tabs-selected{
     margin: 5px 10px;
     color:#fff;
 }
+.indexer span a:focus{
+    text-decoration: underline;
+}
 /*Edit profile */
 /*edit profile modal*/
 /*scroll bar in all the pages*/
@@ -2279,6 +2282,7 @@ a#menu-share:hover > i{
 .height-fix{
 	height: 200px;
 }
+<<<<<<< HEAD
 .text-area-both img {
     width: 60%;
 }
@@ -2316,4 +2320,10 @@ a#menu-share:hover > i{
     width: 90px;
     text-align: center;
     color: #ffffff;
+}
+/* z-index my buddy page */
+.loading-fix{
+    clear: both;
+    display: block;
+
 }

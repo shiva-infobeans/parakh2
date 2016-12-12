@@ -849,6 +849,58 @@ class dbmodule {
             return 0;
         }
     }
+    
+    
+    /*     *
+     * Lazy loading my team members ($user_id,$limit,$pagearray)
+     * */
+
+    function get_all_team_members_lazy($user_id,$limit,$pagearray) {
+        if ($user_id) {
+            $query = "SELECT id, google_name, google_email, mobile_number, designation, google_picture_link,location,skills,interests,associate_with_infobeans,projects,primary_project FROM users WHERE id <>:id AND id <> 1 AND status <> 0 ORDER BY google_name LIMIT ".$pagearray.",".$limit; 
+            
+            $user_list = $this->con->prepare($query);
+            $user_list->execute(array(':id' => $user_id));
+            $employeeList = $user_list->fetchAll();
+            
+            $query_rank = "SELECT u.id,u.google_name,
+                    sum(case when r.rating = 1 then 1  end) as pluscount,
+                    sum(case when r.rating = 0 then 1  end) as minuscount
+                    from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 
+                    group by r.user_id ORDER BY u.google_name";
+                $user_rank = $this->con->prepare($query_rank);
+                $user_rank->execute();
+                $userRank = $user_rank->fetchAll((PDO::FETCH_ASSOC));
+
+            foreach ($userRank as $key => $value) {
+               $rank_array[$value['id']]['pluscount'] = $value['pluscount'];
+               $rank_array[$value['id']]['minuscount'] = $value['minuscount'];
+            }
+            
+            for($y=0;$y<count($employeeList);$y++)
+            {
+                if(isset($rank_array[$employeeList[$y]['id']]['pluscount']) && !empty($rank_array[$employeeList[$y]['id']]['pluscount']))
+                {
+                    $employeeList[$y]['pluscount'] = "+".$rank_array[$employeeList[$y]['id']]['pluscount'];
+                }else
+                {
+                    $employeeList[$y]['pluscount'] = 0;
+                }
+                if(isset($rank_array[$employeeList[$y]['id']]['minuscount']) && !empty($rank_array[$employeeList[$y]['id']]['minuscount']))
+                {
+                    $employeeList[$y]['minuscount'] = "-".$rank_array[$employeeList[$y]['id']]['minuscount'];
+                }else
+                {
+                    $employeeList[$y]['minuscount'] = 0;
+                }
+                
+            }
+
+            return $employeeList;
+        } else {
+            return 0;
+        }
+    }
 
     /*     *
      * save feedback responce
