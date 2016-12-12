@@ -2129,7 +2129,29 @@ a#menu-share:hover > i{
   right: 0;
   top: 0;
 }
+.center-fix {
+  display: inline-block;
+  text-align: center;
+}
+.profile-img-div a {
+  display: inline-block;
+  height: 120px;
+  position: relative;
+  text-align: center;
+  width: 120px;
+}
 .intials-name {
+  color: #fff;
+  display: inline-block;
+  font-size: 60px;
+  height: 120px;
+  padding: 20px 10px;
+  position: absolute;
+  right: 0;
+  width: 120px;
+  top: 0;
+}
+/*.intials-name {
   bottom: 0;
   color: #fff;
   display: block;
@@ -2140,7 +2162,7 @@ a#menu-share:hover > i{
   top: 0;
   z-index: 0;
   margin: 22px 12px;
-}
+}*/
 .myBuddies-profile-image a img {
   max-height: 100%;
   max-width: 100%;
@@ -2181,19 +2203,22 @@ a#menu-share:hover > i{
 }
 .header_profile_image a {
     position: relative;
-    float: left;
+    float: right;
     height: 24px;
     width: 24px;
+	display: inline-block;
 }
-.header_profile_image_initials{
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    text-align: center;
-    font-size: 10px;
-    margin: 8px 2px;
+
+.header_profile_image_initials {
+  display: inline-block;
+  font-size: 10px;
+  height: 25px;
+  padding: 7px;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  width: 25px;
+  top: 0;
 }
 .profile_image_lead {
     position: relative;
