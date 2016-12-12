@@ -131,10 +131,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 var self = this;
 
                 this.pic = person['pic'];
-                if(person['pic'] == '/images/default.png')
+                if (person['pic'] == '/images/default.png')
                 {
                     this.intials = nameFunction(person['name']);
-                }else
+                } else
                 {
                     this.intials = '';
                 }
@@ -203,7 +203,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 self.allFeedback = ko.observableArray();
                 self.currentFeedback = ko.observable();
                 self.countFeedback = ko.observable();
-                self.initBlockFeedback = ko.observable(10);
+                self.initBlockFeedback = ko.observable(6);
                 self.blockFeedback = ko.observable(10);
                 //..................
 
@@ -213,7 +213,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 {
                     return context['leaf'];
                 }
-                
+
                 var editVariable;
                 var windowLocation = window.location;
                 var id = windowLocation.search.substring(windowLocation.search.indexOf("=") + 1, windowLocation.search.length);
@@ -417,12 +417,28 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                 var data = res['attributes']['data'];
                                 var index;
                                 for (index = 0; index < data.length; index++) {
-                                    self.feedbackContent1.push(new dataFeedback(self.id(), data[index]));
+                                    self.allFeedback.push(new dataFeedback(self.id(), data[index]));
                                 }
-                                if (self.feedbackContent1().length == 0) {
+                                if (self.allFeedback().length == 0) {
                                     $("#noFeedback").show();
+                                    $('#lazyProfileFeedback').hide();
                                 } else {
                                     $("#noFeedback").hide();
+                                    //lazy loading for feedback........................
+                                    self.countFeedback(self.allFeedback().length);
+                                    self.currentFeedback(0);
+                                    var loadDataFeedback;
+                                    if (self.initBlockFeedback() > self.countFeedback()) {
+                                        loadDataFeedback = self.countFeedback();
+                                        $('#lazyProfileFeedback').hide();
+                                    } else {
+                                        loadDataFeedback = self.initBlockFeedback();
+                                    }
+                                    for (var c = 0; c < loadDataFeedback; c++) {
+                                        self.feedbackContent1.push(self.allFeedback()[c]);
+                                        self.currentFeedback(self.currentFeedback() + 1);
+                                    }
+                                    
                                 }
                             }
                         });
@@ -449,18 +465,21 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                         if (data[i]['rating'] == 1)
                                             plus++;
                                         var temporaryComment = new dataComment(decodeHtml(data[i]['description']), data[i]['given_by_name'], data[i]['created_date'], 1);
-                                        self.commentDataPositive.push(temporaryComment);
+                                        self.allPos.push(temporaryComment);
                                     }
                                 }
                                 if (self.allNeg().length == 0) {
                                     self.NoCommentsN("No Ratings Available ...!!");
                                     $("#noNegativeComment").show();
+                                    $("#lazyProfileNeg").hide();
+                                    
                                 } else {
                                     self.countNeg(self.allNeg().length);
                                     self.currentNeg(0);
                                     var loadDataNeg;
                                     if (self.initBlockNeg() > self.countNeg()) {
                                         loadDataNeg = self.countNeg();
+                                        $("#lazyProfileNeg").hide();
                                     } else {
                                         loadDataNeg = self.initBlockNeg();
                                     }
@@ -469,15 +488,31 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                         self.currentNeg(self.currentNeg() + 1);
                                     }
                                 }
-                                if (self.commentDataNegative().length != 0) {
+                                if (self.allNeg().length != 0) {
                                     $("#noNegativeComment").hide();
                                 }
-                                if (self.commentDataPositive().length != 0) {
+                                if (self.allPos().length != 0) {
                                     $("#noPositiveComment").hide();
+
+                                    /// +1 rating lazy loading code
+                                    self.countPos(self.allPos().length);
+                                    self.currentPos(0);
+                                    var loadDataPos;
+                                    if (self.initBlockPos() > self.countPos()) {
+                                        loadDataPos = self.countPos();
+                                        $("#lazyProfilePos").hide();
+                                    } else {
+                                        loadDataPos = self.initBlockPos();
+                                    }
+                                    for (var c = 0; c < loadDataPos; c++) {
+                                        self.commentDataPositive.push(self.allPos()[c]);
+                                        self.currentPos(self.currentPos() + 1);
+                                    }
                                 }
-                                if (self.commentDataPositive().length == 0) {
+                                if (self.allPos().length == 0) {
                                     self.NoCommentsP("No Ratings Available ...!!");
                                     $("#noPositiveComment").show();
+                                    $("#lazyProfilePos").hide();
                                 }
                                 self.plus(plus);
                                 self.minus(minus);
@@ -839,17 +874,36 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 $(window).scroll(function () {
                     if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
                         if (self.tabValue() == 1) {
-                            console.log("positive");
+                            if ((self.currentPos() < self.countPos())) {
+
+                                var count = self.currentPos();
+                                if (self.currentPos() + self.blockPos() >= self.countPos()) {
+                                    var loadRecordCount = self.countPos() - self.currentPos();
+                                    $("#lazyProfilePos").hide();
+                                } else {
+                                    var loadRecordCount = self.blockPos();
+                                }
+                                for (var c = count; c < count + loadRecordCount; c++) { //count is current count from start and loadRecordCount is for total  page size;
+                                    try {
+                                        self.commentDataPositive.push(self.allPos()[c]);
+                                        self.currentPos(self.currentPos() + 1);
+                                    } catch (e) {
+
+                                    }
+                                }
+                            } else {
+                                //$('#leadRejectLoading').hide();
+                            }
                         }
-                        if (self.tabValue() == 2) {
+                        if (self.tabValue() == 2) { //negative rating tab
                             if ((self.currentNeg() < self.countNeg())) {
 
                                 var count = self.currentNeg();
-                                if (self.currentNeg() + self.blockNeg() > self.countNeg()) {
+                                if (self.currentNeg() + self.blockNeg() >= self.countNeg()) {
                                     var loadRecordCount = self.countNeg() - self.currentNeg();
+                                    $("#lazyProfileNeg").hide();
                                 } else {
                                     var loadRecordCount = self.blockNeg();
-                                    console.log(loadRecordCount);
                                 }
                                 for (var c = count; c < count + loadRecordCount; c++) { //count is current count from start and loadRecordCount is for total  page size;
                                     try {
@@ -860,11 +914,30 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                     }
                                 }
                             } else {
-                                //$('#leadRejectLoading').hide();
+                               $("#lazyProfileNeg").hide();
                             }
                         }
                         if (self.tabValue() == 3) {
-                            console.log("feedback");
+                            if ((self.currentFeedback() < self.countFeedback())) {
+
+                                var count = self.currentFeedback();
+                                if (self.currentFeedback() + self.blockFeedback() >= self.countFeedback()) {
+                                    var loadRecordCount = self.countFeedback() - self.currentFeedback();
+                                    $('#lazyProfileFeedback').hide();
+                                } else {
+                                    var loadRecordCount = self.blockFeedback();
+                                }
+                                for (var c = count; c < count + loadRecordCount; c++) { //count is current count from start and loadRecordCount is for total  page size;
+                                    try {
+                                        self.feedbackContent1.push(self.allFeedback()[c]);
+                                        self.currentFeedback(self.currentFeedback() + 1);
+                                    } catch (e) {
+
+                                    }
+                                }
+                            } else {
+                                $('#lazyProfileFeedback').hide();
+                            }
                         }
                     }
                 });

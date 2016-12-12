@@ -2226,3 +2226,8 @@ a#menu-share:hover > i{
 .height-fix{
 	height: 200px;
 }
+/* z-index my buddy page */
+.loading-fix{
+    clear: both;
+    display: block;
+}

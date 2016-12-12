@@ -61,12 +61,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         req.from_id = data['from_id'];
         req.date = dateformat(data['created_date']);
         req.userID = userid;
-        if(data['google_picture_link'] == '/images/default.png')
+        if (data['google_picture_link'] == '/images/default.png')
         {
             req.intials = nameFunction(data['google_name']);
             req.intials_yellow = nameFunction(data['google_name']);
             req.intials_red = nameFunction(data['google_name']);
-        }else
+        } else
         {
             req.intials = '';
             req.intials_yellow = '';
@@ -169,7 +169,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
 
         ////////////////////// lazy loading for declined requests of the user end
-        ////////////////////// lazy loading for declined requests of the user
+        ////////////////////// lazy loading for pending requests of the user
         self.lazyTempStoragePendM = ko.observableArray([]);
         self.lazyMemPendMax = ko.observable(0); // for lazy loading members rejected max count
         self.lazyMemPendCurrent = ko.observable(0);// for lazy loading members rejected Current count
@@ -202,7 +202,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         var data1 = res['attributes']['data'];
                         for (var i = 0; i < data1.length; i++) {
                             if (data1[i]['status'] == 0) {
-                                if(data1[i]['google_picture_link'] == '/images/default.png')
+                                if (data1[i]['google_picture_link'] == '/images/default.png')
                                 {
                                     data1[i]['intials_yellow'] = nameFunction(data1[i]['google_name']);
                                 }
@@ -219,11 +219,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 var InitCount = self.lazyMemPendInitBlock();
                             } else {
                                 var InitCount = self.lazyTempStoragePendM().length;
+                                $("#PendingRequestLoading").hide();
                             }
                             for (var count = 0; count < InitCount; count++) {
                                 self.requestPendingMember.push(self.lazyTempStoragePendM()[count]);
-                                self.lazyMemRejCurrent(self.lazyMemRejCurrent() + 1);
+                                self.lazyMemPendCurrent(self.lazyMemPendCurrent() + 1);
                             }
+                        }else{
+                            $("#PendingRequestLoading").hide();
                         }
                     }
                 });
@@ -237,11 +240,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         var data1 = res['attributes']['data'];
                         for (var i = 0; i < data1.length; i++) {
                             if (data1[i]['status'] == 1) {
-                                if(data1[i]['google_picture_link'] == '/images/default.png')
+                                if (data1[i]['google_picture_link'] == '/images/default.png')
                                 {
                                     data1[i]['intials_red'] = nameFunction(data1[i]['google_name']);
                                 }
-                                self.requestRejectedMember.push(new request(data1[i], self.userId()));
+                                //self.requestRejectedMember.push(new request(data1[i], self.userId()));
                                 self.lazyTempStorageRejM.push(new request(data1[i], self.userId()));
                                 $("#request1").show();
                             }
@@ -254,11 +257,15 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 var InitCount = self.lazyMemRejInitBlock();
                             } else {
                                 var InitCount = self.lazyTempStorageRejM().length;
+                                $("#RejectedRequestLoading").hide();
                             }
                             for (var count = 0; count < InitCount; count++) {
                                 self.requestRejectedMember.push(self.lazyTempStorageRejM()[count]);
                                 self.lazyMemRejCurrent(self.lazyMemRejCurrent() + 1);
                             }
+                        }
+                        else{
+                            $("#RejectedRequestLoading").hide();
                         }
                     }
                 });
@@ -294,6 +301,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                     var InitCount = self.lazyMemleadPendingInitBlock();
                                 } else {
                                     var InitCount = self.lazyTempStorageleadPending().length;
+                                    $('#leadPendingLoading').hide();
                                 }
                                 for (var count = 0; count < InitCount; count++) {
                                     self.requestPendingLead.push(self.lazyTempStorageleadPending()[count]);
@@ -301,6 +309,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 }
                                 $("#request2").hide();
                                 self.noLeadPendingRequest("");
+                            }else{
+                                $('#leadPendingLoading').hide();
                             }
                         }
                     });
@@ -321,6 +331,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             if (data2.length === 0) {
                                 self.noLeadDeclinedRequest("No Declined Request.");
                                 $("#request3").show();
+                                $('#leadRejectLoading').hide();
                             } else {
                                 self.lazyMemleadRejMax(self.lazyTempStorageleadRej().length);
                                 self.noLeadDeclinedRequest("");
@@ -328,6 +339,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                     var InitCount = self.lazyMemleadRejInitBlock();
                                 } else {
                                     var InitCount = self.lazyTempStorageleadRej().length;
+                                    $('#leadRejectLoading').hide();
                                 }
                                 for (var count = 0; count < InitCount; count++) {
                                     self.requestDeclinedLead.push(self.lazyTempStorageleadRej()[count]);
@@ -411,7 +423,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         var data = result['attributes']['data'];
                         self.lead_name(result['attributes']['data'][0]['manager_name']);
                         self.lead_pic(result['attributes']['data'][0]['google_picture_link']);
-                        if(result['attributes']['data'][0]['google_picture_link'] == '/images/default.png')
+                        if (result['attributes']['data'][0]['google_picture_link'] == '/images/default.png')
                         {
                             self.intials_lead(nameFunction(result['attributes']['data'][0]['manager_name']));
                         }
@@ -424,7 +436,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             self.manager_id(result['attributes']['data'][1]['manager_id']);
                             self.manager_role(result['attributes']['data'][1]['role_name']);
                             self.intials_manager(nameFunction(result['attributes']['data'][1]['manager_name']));
-                            
+
                         }
                         //console.log(result['attributes']['data'][1]['role_name']);
                     }
@@ -673,7 +685,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     if (self.pendRejTab() == 1) {
                         if (self.lazyMemPendCurrent() < self.lazyMemPendMax()) {
                             var count = self.lazyMemPendCurrent();
-                            if (self.lazyMemPendCurrent() + self.lazyMemPendBlock() > self.lazyMemPendMax()) {
+                            if (self.lazyMemPendCurrent() + self.lazyMemPendBlock() >= self.lazyMemPendMax()) {
                                 var loadRecordCount = self.lazyMemPendMax() - self.lazyMemPendCurrent();
                                 $("#PendingRequestLoading").hide();
                             } else {
@@ -694,7 +706,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     if (self.pendRejTab() == 2) {
                         if (self.lazyMemRejCurrent() < self.lazyMemRejMax()) {
                             var count = self.lazyMemRejCurrent();
-                            if (self.lazyMemRejCurrent() + self.lazyMemRejBlock() > self.lazyMemRejMax()) {
+                            if (self.lazyMemRejCurrent() + self.lazyMemRejBlock() >= self.lazyMemRejMax()) {
                                 var loadRecordCount = self.lazyMemRejMax() - self.lazyMemRejCurrent();
                                 $("#RejectedRequestLoading").hide();
                             } else {
@@ -717,8 +729,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 if (self.reqTabValue() == 1) {
                     if ((self.lazyMemleadRejCurrent() < self.lazyMemleadRejMax()) && ($(window).width() > 767)) {
                         var count = self.lazyMemleadRejCurrent();
-                        if (self.lazyMemleadRejCurrent() + self.lazyMemleadRejBlock() > self.lazyMemleadRejMax()) {
+                        if (self.lazyMemleadRejCurrent() + self.lazyMemleadRejBlock() >= self.lazyMemleadRejMax()) {
                             var loadRecordCount = self.lazyMemleadRejMax() - self.lazyMemleadRejCurrent();
+                            $('#leadRejectLoading').hide();
                         } else {
                             var loadRecordCount = self.lazyMemleadRejBlock();
                         }
@@ -735,8 +748,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     }
                     if (self.lazyMemleadPendingCurrent() < self.lazyMemleadPendingMax()) {
                         var count = self.lazyMemleadPendingCurrent();
-                        if (self.lazyMemleadPendingCurrent() + self.lazyMemleadPendingBlock() > self.lazyMemleadPendingMax()) {
+                        if (self.lazyMemleadPendingCurrent() + self.lazyMemleadPendingBlock() >= self.lazyMemleadPendingMax()) {
                             var loadRecordCount = self.lazyMemleadPendingMax() - self.lazyMemleadPendingCurrent();
+                            $('#leadPendingLoading').hide();
                         } else {
                             var loadRecordCount = self.lazyMemleadPendingBlock();
                         }
