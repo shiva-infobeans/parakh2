@@ -131,6 +131,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 var self = this;
 
                 this.pic = person['pic'];
+                if(person['pic'] == '/images/default.png')
+                {
+                    this.intials = nameFunction(person['name']);
+                }else
+                {
+                    this.intials = '';
+                }
                 this.myname = person['name'];
                 this.email = person['email'];
                 var abc = "Not Assigned";
@@ -328,7 +335,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                             alert(err);
                         }
                     });
-                }
+                };
                 //////////////////// edit profile page
 
 //service for id of the user.
@@ -553,7 +560,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                 self.primaryProjectOptions.push(obj);
                             }
                             $('#selectPrimaryProjects').ojSelect("refresh");
-                            self.primary_project(res['attributes']['data'][0]['name']);
+//                            self.primary_project(res['attributes']['data'][0]['name']);
                         }
                     });
                     $('#primary-project-text').addClass('hide');
