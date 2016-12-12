@@ -131,6 +131,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 var self = this;
 
                 this.pic = person['pic'];
+                if(person['pic'] == '/images/default.png')
+                {
+                    this.intials = nameFunction(person['name']);
+                }else
+                {
+                    this.intials = '';
+                }
                 this.myname = person['name'];
                 this.email = person['email'];
                 var abc = "Not Assigned";

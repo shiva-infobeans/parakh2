@@ -200,8 +200,12 @@ body{
     border-radius: 50%;
     margin-top: -10px;
 }
-.profile-img-div .profile:hover{
+/*.profile-img-div .profile:hover{
     border:2px solid #689F39;
+}*/
+.profile-img-div:hover .profile {
+  border: 2px solid #689f39;
+  transition: all 200ms ease-in-out;
 }
 .border-color-green:hover{border:2px solid #689F39;}
 .remove-hover-green{
@@ -662,6 +666,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     float:left;
     width: 100px;
     margin-right: 30px;
+    position: relative;
 }
 
 /*indexer*/
@@ -946,7 +951,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 	border-right-width: 0px !important;
 }
 .oj-filmstrip-container.oj-filmstrip-item-container {
-  border-right: 2px solid #689F39;
+  border-right: 1px solid #689F39;
 }
 #filmStrip8 .oj-filmstrip-container.oj-filmstrip-item-container, #filmStripDiv9 .oj-filmstrip-container.oj-filmstrip-item-container, #filmStrip7 .oj-filmstrip-container.oj-filmstrip-item-container {
   border-right-style: none !important;
@@ -1345,6 +1350,17 @@ div.oj-tabs-panel.oj-tabs-selected{
 }   
 }*/
 @media  screen and (min-width: 320px) and (max-width: 767px) {
+    .person-profile-intials {
+        height: 80px !important;
+        width: 80px !important;
+        position: relative;
+        float: left;
+    }
+    .person-profile-intials-text {
+        margin: 36px 20px !important;
+        font-size: 30px !important;
+        text-align: center; 
+    }
     .transboxRequest{
         position: relative;
         margin-left: 0px;
@@ -2071,6 +2087,39 @@ a#menu-share:hover > i{
     min-height: 86%;
     max-height: 999em;
 }
+
+.myBuddies-profilepic-overlay {
+  background: #2780b5 none repeat scroll 0 0;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  bottom: 0;
+  display: block;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.intials-name {
+  bottom: 0;
+  color: #fff;
+  display: block;
+  font-size: 60px;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 0;
+  margin: 22px 12px;
+}
+.myBuddies-profile-image a img {
+  max-height: 100%;
+  max-width: 100%;
+}
+.myBuddies-profile-image {
+  height: 120px;
+  position: relative;
+  width: 120px;
+}
 .errorVisibilityHide{
     visibility: hidden;
     padding: 0px 10px !important;
@@ -2083,4 +2132,94 @@ a#menu-share:hover > i{
     /*error color*/
     color:#ff0000;
 }
-
+.person-profile-intials {
+    height: 120px;
+    width: 120px;
+    position: relative;
+    float: left;
+}
+.person-profile-intials-text{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: 32px 16px;
+    font-size: 46px;
+    color: #fff;
+    text-align: center;
+}
+.header_profile_image a {
+    position: relative;
+    float: left;
+    height: 24px;
+    width: 24px;
+}
+.header_profile_image_initials{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    text-align: center;
+    font-size: 10px;
+    margin: 8px 2px;
+}
+.profile_image_lead {
+    position: relative;
+    height: 120px;
+}
+.profile_image_lead_initials_text{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    text-align: center;
+    margin: 28px 15px;
+    font-size: 50px;
+    color: #ffffff;
+}
+.profile_image_red{
+    position: relative;
+    height: 120px;
+}
+.profile_image_red_initials_text{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    text-align: center;
+    margin: 20px 15px;
+    font-size: 38px;
+    color: #ffffff;
+}
+.slider_profile_image {
+    position: relative;
+}
+.slider_profile_image_initials {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: 26px 16px;
+    font-size: 50px;
+    text-align: center;
+}
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+   #ojDialogWrapper-minMaxDialog.oj-dialog{
+	height: 200px;
+	}
+}
+.margin-10LR {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.top-margin-custom{
+	margin-top: 8px;
+}
+.height-fix{
+	height: 200px;
+}

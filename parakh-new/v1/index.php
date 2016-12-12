@@ -498,6 +498,28 @@ $app->post('/getAllTeamMembers[/{userId}]', function ($request, $response, $args
     return $response;
 });
 
+
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getATeamMember/<userId>
+ * Parameters: none
+ * 
+ * Method: Post
+ * */    
+$app->post('/getATeamMember[/{userId}]', function ($request, $response, $args) {
+    $response_data = array();
+    //Creating a dbmodule object
+    
+    $db = new dbmodule();
+    $result = $db->get_a_team_member($args['userId']);
+    if($result != 0){
+        $response_data = makeResponse('false',$result);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3002));
+    }    
+    $response->withJson($response_data);
+    return $response;
+});
+
 /* *
  * URL: http://localhost/parakh-new/v1/index.php/addFeedbackResponce
  * Parameters: 
@@ -963,6 +985,94 @@ $app->post('/getAllRejectedRequestsByLoginId[/]', function ($request, $response,
     $response->withJson($response_data);
     return $response;
 });
+
+
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/createImageCache/
+ * Parameters: 
+ * 
+ * Method: POST
+ * */    
+$app->post('/createImageCache[/]', function ($request, $response, $args) {
+    $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
+    $response_data = array();
+    $data = $request->getParsedBody();
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    $result = $db->createImageCache($data['email'],1,$default_img);
+    if(count($result) != 0){
+        $response_data = makeResponse('false',$result);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3001));
+    }    
+    $response->withJson($response_data);
+    return $response;
+});
+
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getCacheImage/
+ * Parameters: 
+ * 
+ * Method: POST
+ * */    
+$app->post('/getCacheImage[/]', function ($request, $response, $args) {
+    $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
+    $response_data = array();
+    $data = $request->getParsedBody();
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    $result = $db->getCacheImage($data['email'],$default_img);
+    if(count($result) != 0){
+        $response_data = makeResponse('false',$result);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3001));
+    }    
+    $response->withJson($response_data);
+    return $response;
+});
+
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/logout/
+ * Parameters: 
+ * 
+ * Method: POST
+ * */    
+$app->post('/logout[/]', function ($request, $response, $args) {
+    $response_data = array();
+    $data = $request->getParsedBody();
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    $result = $db->logoutUser($data['email']);
+    if(count($result) != 0){
+        $response_data = makeResponse('false',$result);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3001));
+    }    
+    $response->withJson($response_data);
+    return $response;
+});
+
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getFourTillNowRankingList/
+ * Parameters: none
+ * 
+ * Method: GET
+ * */    
+$app->get('/getFourTillNowRankingList[/]', function ($request, $response, $args) {
+    $response_data = array();
+    
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    $result = $db->get_four_till_now_ranking_list();
+    if($result != 0){
+        $response_data = makeResponse('false',$result);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3001));
+    }    
+    $response->withJson($response_data);
+    return $response;
+});
+
 /**
  * Step 4: Run the Slim application
  *
