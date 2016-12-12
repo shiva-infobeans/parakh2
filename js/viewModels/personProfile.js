@@ -365,7 +365,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                             alert(err);
                         }
                     });
-                }
+                };
                 //////////////////// edit profile page
 
 //service for id of the user.
