@@ -951,13 +951,13 @@
     background-color: #fff !important;
 	/*padding: 26px;*/
     overflow: hidden;
-	min-height: 480px;
+	min-height: 440px;
 }
 #modalDialog8 .oj-dialog-body{
 	min-height: 440px;
 }
 #ojDialogWrapper-modalDialog2  .oj-dialog-body{
-	min-height: 480px;
+	min-height: 450px;
 }
 /*.modal-submit3{
     background-color: #e3ffca !important;

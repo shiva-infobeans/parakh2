@@ -200,8 +200,12 @@ body{
     border-radius: 50%;
     margin-top: -10px;
 }
-.profile-img-div .profile:hover{
+/*.profile-img-div .profile:hover{
     border:2px solid #689F39;
+}*/
+.profile-img-div:hover .profile {
+  border: 2px solid #689f39;
+  transition: all 200ms ease-in-out;
 }
 .border-color-green:hover{border:2px solid #689F39;}
 .remove-hover-green{
@@ -1406,11 +1410,11 @@ div.oj-tabs-panel.oj-tabs-selected{
     .tab-margin{
         margin-left:10px;
     }
-    /*.left {
+    .left {
         float: left;
         padding: 8px;
         border-right: 0px solid transparent; 
-    }*/
+    }
 	
 	#filmStripDiv9.oj-row .oj-flex .oj-xl-6 .oj-lg-6 .oj-md-6 .oj-sm-6 left, #filmStripDiv8.oj-row .oj-flex .oj-xl-6 .oj-lg-6 .oj-md-6 .oj-sm-6 left{
 		float: none !important;
