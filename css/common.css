@@ -2097,10 +2097,10 @@ a:hover.oj-clickable-icon-nocontext,.oj-hover.oj-clickable-icon-nocontext{ color
     background-size: contain;
 }
 .tab-padding{
-    padding-left: 200px;
-    padding-right: 236px;
+    padding-left: 217px;
+    padding-right: 220px;
     font-size: 30px;
-    color: #689F39;
+    color: #606060;
 }
 .ul-top{
     margin-top: 35px;
@@ -2112,7 +2112,7 @@ a:hover.oj-clickable-icon-nocontext,.oj-hover.oj-clickable-icon-nocontext{ color
 
 
 #tabs-container-help .oj-tabs-title{
-     text-decoration: none;
+    text-decoration: none;
 }
 #tabs-container-help .oj-tabs-tab{
     border-color: none;
@@ -2132,22 +2132,71 @@ ul.help-ul{
 }
 #selcted-tab .oj-tabs-tab.oj-selected,
 #selcted-tab1 .oj-tabs-tab.oj-selected{
-      background-color: transparent;
+    background-color: transparent;
     border: none;
     outline: none;
 }
 #selcted-tab .oj-tabs-tab.oj-selected .oj-tabs-tab-content,
 #selcted-tab1 .oj-tabs-tab.oj-selected .oj-tabs-tab-content{
-    /*border-color: transparent;*/
+    border-color: transparent;
 }
 .tab-help-side-padding{
-   padding: 2px 4px 5px 10px;
+    padding: 2px 0px 3px 0px;
     color: #363636;
 }
 .help-side-icons{
     font-size:40px!important;
+
 }
 .help-side-text{
-    /*line-height: 40px;*/
+    line-height: 42px;
     font-size: 25px;
+    /*padding: 0px;*/
+    padding-left: 10px;
+    margin-right: 0px;
+}
+#selcted-tab .oj-tabs-tab.oj-selected .oj-tabs-tab-content div,
+#selcted-tab1 .oj-tabs-tab.oj-selected .oj-tabs-tab-content div{
+    color:#F9E81F !important;
+
+}
+#selcted-tab .oj-tabs-tab.oj-selected .oj-tabs-tab-content a,
+#selcted-tab1 .oj-tabs-tab.oj-selected .oj-tabs-tab-content a{
+    /*border-bottom: 2px solid #333;*/
+}
+.transbox-help-tabs{
+    margin-left: auto;
+    margin-right: auto;
+    width: 100% !important;
+    background-color: #b7b7b7;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    z-index: -1;
+}
+#help-top-tab .oj-tabs-tab.oj-selected .oj-tabs-tab-content div{
+    color:#689F39 !important;
+}
+.white-color-underline{
+    color:#fff;
+    text-decoration: underline;
+    font-weight: bolder;
+}
+.help-text-div{
+    font-size: 20px;
+    text-align: justify;
+    line-height: 27px;
+}
+.helpTabMinHeight{
+    min-height: 1200px !important;
+}
+.question-text{
+    margin-top: 258px;
+    color: #F9E81F !important;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 20px;
+    text-align: justify;
+    line-height: 27px;
 }

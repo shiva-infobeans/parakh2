@@ -6,8 +6,8 @@ and open the template in the editor.
 <div class="max-width">
     <div id="tabs-container-help">
         <div id="tabs-help" data-bind="ojComponent:{component: 'ojTabs'}"> 
-            <ul class="cursor-class pos-relative ul-top">
-                <div class="transbox"></div>
+            <ul class="cursor-class pos-relative ul-top" id="help-top-tab">
+                <div class="transbox-help-tabs"></div>
                 <li> 
                     <div class="oj-flex oj-row">
                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding tab-padding ">
@@ -26,62 +26,221 @@ and open the template in the editor.
                 </li>
             </ul>
             <div id="tabs-help-1">
-                <div id="vtabs-1" class="max-width profile-page oj-margin-top margin-bottom-10"
+                <div id="vtabs-1" class="max-width profile-page oj-margin-top margin-bottom-10 "
                      data-bind="ojComponent:{component: 'ojTabs', 
                             orientation: 'vertical',
                             selected: 0}">
                     <ul class="help-ul pos-relative" id="selcted-tab">
                         <div class="transbox"></div>
-                         <li class="help-page-tabs">
+
+                        <li class="help-page-tabs">
                             <div class="oj-flex oj-row tab-help-side-padding">
-                                <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item help-side-icons">
-                                  <i class="zmdi zmdi-accounts"></i>
+                                <div class="oj-xl-2 oj-lg-2 oj-md-2 oj-sm-2 oj-flex-item help-side-icons">
+                                    <i class="zmdi zmdi-accounts"></i>
                                 </div>
-                                <div class="oj-xl-9 oj-lg-9 oj-md-9 oj-sm-9 oj-flex-item help-side-text">
-                                   Team Member
-                                   <i class="zmdi zmdi-caret-right "></i>
+                                <div class="oj-xl-10 oj-lg-10 oj-md-10 oj-sm-10 oj-flex-item help-side-text">
+                                    <span class="help-side-text"> Team Member </span>
+                                    <span> <i class="zmdi zmdi-caret-right zmdi-hc-lg"></i></span>
                                 </div>
-                               
+
+
                             </div>
                         </li>
-                         <li class="help-page-tabs">
+                        <li class="help-page-tabs">
                             <div class="oj-flex oj-row tab-help-side-padding">
                                 <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item help-side-icons">
-                                 <i class="zmdi zmdi-account"></i>
-                                </div>
-                              <div class="oj-xl-9 oj-lg-9 oj-md-9 oj-sm-9 oj-flex-item help-side-text">
-                                   Team Lead
-                                    <i class="zmdi zmdi-caret-right "></i>
-                                </div>
-                               
-                            </div>
-                        </li>
-                          <li class="help-page-tabs">
-                            <div class="oj-flex oj-row tab-help-side-padding">
-                                <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item help-side-icons">
-                                  <i class="zmdi zmdi-face"></i>
+                                    <i class="zmdi zmdi-account"></i>
                                 </div>
                                 <div class="oj-xl-9 oj-lg-9 oj-md-9 oj-sm-9 oj-flex-item help-side-text">
-                                   Manager
-                                      <i class="zmdi zmdi-caret-right "></i>
+                                    Team Lead
+                                    <span>  <i class="zmdi zmdi-caret-right zmdi-hc-lg"></i></span>
                                 </div>
-                               
+
+                            </div>
+                        </li>
+                        <li class="help-page-tabs">
+                            <div class="oj-flex oj-row tab-help-side-padding">
+                                <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item help-side-icons">
+                                    <i class="zmdi zmdi-face"></i>
+                                </div>
+                                <div class="oj-xl-9 oj-lg-9 oj-md-9 oj-sm-9 oj-flex-item help-side-text">
+                                    Manager
+                                    <span><i class="zmdi zmdi-caret-right zmdi-hc-lg"></i></span>
+                                </div>
+
                             </div>
                         </li>
                     </ul>
-                    <div id="tabs-1" class="color-white oj-margin-horizontal pos-relative tabMinHeight">
+                    <div id="tabs-1" class="color-white oj-margin-horizontal pos-relative helpTabMinHeight">
                         <div class="transbox"></div>
-                        hello
+                        <div class="oj-flex-oj-row oj-padding">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding-top oj-margin-start oj-margin-top">
+                                <h2 class="white-color-underline"> Why Parakh? </h2>
+                            </div>
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding help-text-div">
+                                <p>Feedbacks can make or break careers. Hence right feedback and timeliness in giving feedback are very important.
+                                    Parakh helps you do that all year long without the need to wait for quarter or year ending.</p>
+                                <p> If someone does good appreciate them by giving +1 right that moment, if
+                                    someone is making a repeated mistake, help them by pointing it out with a-</p>
+                                <p>1. Makes sense, right?</p>
+                            </div>
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-start ">
+                                <h2 class="white-color-underline"> What can you do?</h2>
+                            </div>
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item help-text-div oj-padding ">
+                                <ul>
+                                    <li class="oj-margin-bottom oj-padding-bottom">
+                                        You can rate your team members and colleagues +1 if you feel that they
+                                        have done an exceptional job or if your colleague has helped you do
+                                        your job better.
+                                    </li>
+                                    <li class="oj-margin-bottom oj-padding-bottom">
+                                        You can request your team lead or manager to give a positive rating as
+                                        well if you have shown good work or accomplished something outside
+                                        your work area.
+                                    </li>
+                                    <li class="oj-margin-bottom oj-padding-bottom">
+                                        Keep your profile up to date on Parakh and give your colleagues a
+                                        chance to know more about you and connect with you. You can also see
+                                        your colleagues’ profile.
+                                    </li>
+                                    <li>
+                                        Also, see the top performers within the ICC team and see where you
+                                        stand.
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-start">
+                                <h2 class="white-color-underline"> What it is not?</h2>
+                            </div>
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding  help-text-div">
+                                Parakh is only to track the ups and downs in your work every day. It is in no
+                                way related to the Quarterly or Annual feedback process followed by the
+                                organization.
+                            </div>
+                            <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item oj-padding oj-flex-bar-end question-text">
+                                Got a Question ?
+                            </div>
+                        </div>
                     </div>
 
-                    <div id="tabs-2" class="color-white oj-margin-horizontal pos-relative tabMinHeight">
+                    <div id="tabs-2" class="color-white oj-margin-horizontal pos-relative helpTabMinHeight">
                         <div class="transbox"></div>
-                        hello 12
+                        <div class="oj-flex-oj-row oj-padding">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding-top oj-margin-start oj-margin-top">
+                                <h2 class="white-color-underline"> Why Parakh? </h2>
+                            </div>
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding help-text-div">
+                                As a lead you tend to forget the daily good or the bad that team members
+                                have done in the year. And it’s tough to honestly rate them at the end of the
+                                year. Parakh helps solve that problem as you can continue to rate the team
+                                members all year long, every single day as they do excellent work.
+                                Later on you can cite incidences when the TMs did excellent during the year
+                                and where the lacked, helping them to grow.
+                            </div>
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-start ">
+                                <h2 class="white-color-underline"> What can you do?</h2>
+                            </div>
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item help-text-div oj-padding ">
+                                <ul>
+                                    <li class="oj-margin-bottom oj-padding-bottom">
+                                        You can always rate your team members +1 if you feel that they have
+                                        done an exceptional job or if your colleague has helped you do your job
+                                        better.
+                                    </li>
+                                    <li class="oj-margin-bottom oj-padding-bottom">
+                                        You can also give your team member a -1 rating if you feel that the
+                                        member went down the track for some time and showed low
+                                        performance.
+                                    </li>
+                                    <li class="oj-margin-bottom oj-padding-bottom">
+                                        You can request your lead or manager to give a positive rating as well if
+                                        you have shown good work or work outside your work area.
+                                    </li>
+                                    <li class="oj-margin-bottom oj-padding-bottom">
+                                        You can approve or decline the requests you have received from your
+                                        team members by adding your comments if you wish too.
+                                    </li>
+                                    <li class="oj-margin-bottom oj-padding-bottom">
+                                        As a lead you can give feedback to your team members to provide them
+                                        an insight to their performance, as well as advice to solve any problem.
+                                    </li>
+                                    <li>
+                                        Keep your profile up to date on Parakh and give your colleagues a
+                                        chance to know more about you. You can also see your team members’
+                                        profile and keep a track on their performance.
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding  help-text-div">
+                                Also, see the top performers within the ICC team and know where you
+                                stand.
+                            </div>
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-start">
+                                <h2 class="white-color-underline"> What it is not?</h2>
+                            </div>
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding  help-text-div">
+                                Parakh is only to track the ups and downs in your work every day. It is in no
+                                way related to the Quarterly or Annual feedback process followed by the
+                                organization.
+                            </div>
+                            <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item oj-padding oj-flex-bar-end question-text">
+                                Got a Question ?
+                            </div>
+                        </div>
                     </div>
 
-                    <div id="tabs-3" class="color-white oj-margin-horizontal pos-relative tabMinHeight">
+                    <div id="tabs-3" class="color-white oj-margin-horizontal pos-relative helpTabMinHeight">
                         <div class="transbox"></div>
-                        hello 34
+                        <div class="oj-flex-oj-row oj-padding">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding-top oj-margin-start oj-margin-top">
+                                <h2 class="white-color-underline"> Why Parakh? </h2>
+                            </div>
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding help-text-div">
+                                <p>Feedbacks can make or break careers. Hence right feedback and timeliness in giving feedback are very important.
+                                    Parakh helps you do that all year long without the need to wait for quarter or year ending.</p>
+                                <p> If someone does good appreciate them by giving +1 right that moment, if
+                                    someone is making a repeated mistake, help them by pointing it out with a-</p>
+                                <p>1. Makes sense, right?</p>
+                            </div>
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-start ">
+                                <h2 class="white-color-underline"> What can you do?</h2>
+                            </div>
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item help-text-div oj-padding ">
+                                <ul>
+                                    <li class="oj-margin-bottom oj-padding-bottom">
+                                        You can rate your team members and colleagues +1 if you feel that they
+                                        have done an exceptional job or if your colleague has helped you do
+                                        your job better.
+                                    </li>
+                                    <li class="oj-margin-bottom oj-padding-bottom">
+                                        You can request your team lead or manager to give a positive rating as
+                                        well if you have shown good work or accomplished something outside
+                                        your work area.
+                                    </li>
+                                    <li class="oj-margin-bottom oj-padding-bottom">
+                                        Keep your profile up to date on Parakh and give your colleagues a
+                                        chance to know more about you and connect with you. You can also see
+                                        your colleagues’ profile.
+                                    </li>
+                                    <li>
+                                        Also, see the top performers within the ICC team and see where you
+                                        stand.
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-start">
+                                <h2 class="white-color-underline"> What it is not?</h2>
+                            </div>
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding  help-text-div">
+                                Parakh is only to track the ups and downs in your work every day. It is in no
+                                way related to the Quarterly or Annual feedback process followed by the
+                                organization.
+                            </div>
+                            <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item oj-padding oj-flex-bar-end question-text">
+                                Got a Question ?
+                            </div>
+                        </div>
                     </div>
 
                 </div>
