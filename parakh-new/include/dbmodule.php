@@ -1694,14 +1694,17 @@ class dbmodule {
         $user_list = $this->con->prepare($query);
         $user_list->execute(array(':email' => $user_email));
         $row = $user_list->fetch();
-
+$img_updated=false;
+$code='';
         /*update google picture for user after login*/
         if(isset($_POST['img']) && !empty($_POST['img'])){
 			$code=base64_encode(file_get_contents($_POST['img']));
+			//$code='';
 			if(!empty($code)) {
             $query = "update users set google_picture_link = '".$_POST['img']."',img_cache='".$code."|||".$_POST['timestamp']."' where google_email='".$user_email."'";
             $user_list = $this->con->prepare($query);
             $user_list->execute();
+			$img_updated=true;
 			}
         }
         if(isset($row['id']) && !empty($row['id']))
@@ -1723,14 +1726,23 @@ class dbmodule {
                     $user_list->execute();
                 }
             }
+			
+			if(empty($code)) {
             $content = $row['img_cache'];
             $content = explode("|||", $content);
-            if(!empty($content[0]) && $content[0] == $default_img)
+			$google_img=$content[0];
+			}
+			else
+			{
+				$google_img=$code;
+			}
+            if(!empty($google_img) && $google_img == $default_img)
             {
                 return '/images/default.png';
             }else if(isset($row['google_picture_link']) && !empty($row['google_picture_link']))
             {
                 $google_pic = base64_encode(file_get_contents($row['google_picture_link']));
+				//$google_pic='';
 				if(!empty($google_pic)) {
                 $query = "update users set img_cache='".$google_pic."|||".strtotime(date('Y-m-d h:m:s'))."' where google_email='".$row['google_email']."'";
                 $user_list = $this->con->prepare($query);
