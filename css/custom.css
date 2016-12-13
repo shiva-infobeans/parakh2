@@ -2374,3 +2374,8 @@ a#menu-share:hover > i{
     color: #fff;
     text-decoration: none;
 }
+@media screen  and (max-width: 364px) and (min-width: 320px) {
+    .mobile320fix{
+        margin-bottom: 25px;
+    }
+}

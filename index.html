@@ -38,7 +38,7 @@
                             success: function(result){
                                 data = jQuery.parseJSON(result);
                                 setCookie("picture",data.data,1);
-                                window.location = window.location.href + "dashboard.html";
+                                window.location = "dashboard.html";
                             }
                         });
                         
@@ -102,7 +102,6 @@
         <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js'></script>
         <script>
             //Add images
-            console.log(getCookie('image') == "");
             var images = ['images/parakh.jpg', 'images/parakh2.jpg'];
             
             var thisImage = images[Math.floor(Math.random() * images.length)];
