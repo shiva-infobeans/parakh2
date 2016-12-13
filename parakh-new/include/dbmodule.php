@@ -1769,6 +1769,15 @@ class dbmodule {
         }
         return $data;
     }
+
+    /*get parakh video for login page*/
+    function get_parakh_video(){
+        $video = '<video class="video" id="parakh_video" controls="" loop="" width="572" height="320"><source type="video/ogg" src="Parakh Teaser.mp4"><source type="video/mp4" src="Parakh Teaser.mp4"><object  type="application/x-shockwave-flash" data="Parakh Teaser.mp4" wmode="transparent"><param name="movie" value="Parakh Teaser.mp4"><param name="wmode" value="transparent"><param name="autostart" value="false"></object></video>';
+
+        $data['video'] = $video;
+        return $data;
+        
+    }
 //end of fun
 }
 
