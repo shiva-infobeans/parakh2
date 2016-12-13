@@ -1823,30 +1823,31 @@ class dbmodule {
     }
     
     /*send feedback function*/
-    function send_feedback(){
-        if(isset($_POST['message'])){
-            $email_data = [];
-//            $temp_data = $this->getEmailTemplateByCode('PRKE01');
-            $email_data['to']['email'] = $user_data['FEEDBACK_EMAIL'];
-            $email_data['to']['name'] = "Feedack Parakh";
-            $email_data['subject'] = "Feedback Email";
-            // $email_data['subject'] = $temp_data['subject'];
-            $vars = array();
-            // $vars = array(
-            //     "{username}" => $email_data['to']['name'],
-            //     "{rating}" => $rating,
-            //     "{parakh}" => $this->getParakhLink(),
-            // );
-            $temp_data['content'] = $_POST['message'];
-            $message = strtr($temp_data['content'], $vars);
-            $email_data['message'] = $message;
-            $this->send_notification($email_data);
-            return 1;
-        }else
-        {
-            return 0;
-        }
-    }
+ /*send feedback function*/
+   function send_feedback(){
+       if(isset($_POST['message'])){
+           $email_data = [];
+           $temp_data = $this->getEmailTemplateByCode('PRKE01');
+           $email_data['to']['email'] = FEEDBACK_EMAIL;
+           $email_data['to']['name'] = "Feedack Parakh";
+           $email_data['subject'] = "Feedback Email";
+           // $email_data['subject'] = $temp_data['subject'];
+           $vars = array();
+           // $vars = array(
+           //     "{username}" => $email_data['to']['name'],
+           //     "{rating}" => $rating,
+           //     "{parakh}" => $this->getParakhLink(),
+           // );
+           //$temp_data['content'] = $_POST['message'];
+           $message = strtr($_POST['message'], $vars);
+           $email_data['message'] = $_POST['message'];;
+           $this->send_notification($email_data);
+           return 1;
+       }else
+       {
+           return 0;
+       }
+   }
 //end of fun
 }
 
