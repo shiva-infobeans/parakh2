@@ -1722,7 +1722,7 @@ class dbmodule {
             }
             $content = $row['img_cache'];
             $content = explode("|||", $content);
-            if(isset($content[0]) && $content[0] == $default_img)
+            if(!empty($content[0]) && $content[0] == $default_img)
             {
                 return '/images/default.png';
             }else if(isset($row['google_picture_link']) && !empty($row['google_picture_link']))
