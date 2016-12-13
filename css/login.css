@@ -85,3 +85,13 @@ img#my-signin2{
   }   
 }
 
+.achivementLink{
+    position: fixed;
+    top: 20px;
+    right:101px;
+    padding: 5px;
+}
+.achivementLink a{
+    color:#df4a32;
+    font-size: 30px;
+}
