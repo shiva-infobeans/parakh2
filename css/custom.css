@@ -2213,15 +2213,15 @@ a#menu-share:hover > i{
 }
 
 .header_profile_image_initials {
-  display: inline-block;
-  font-size: 10px;
-  height: 25px;
-  padding: 7px;
-  position: absolute;
-  right: 0;
-  text-align: center;
-  width: 25px;
-  top: 0;
+    display: inline-block;
+    font-size: 10px;
+    height: 25px;
+    padding: 5px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    width: 25px;
 }
 .profile_image_lead {
     position: relative;
