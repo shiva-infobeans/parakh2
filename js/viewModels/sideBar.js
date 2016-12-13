@@ -14,17 +14,59 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
      */
     function sideBarContentViewModel() {
         var self = this;
-        setTimeout( function(){
-              self.handleOpen = $(".sideBar-feedback").click(function () {
+        self.message = ko.observable();
+        self.textError = ko.observable();
+        self.sucessMsg = ko.observable();
+
+        self.userFeedback = function () {
+            self.message(self.message().trim());
+            if (self.message() === '' || self.message() === null) {
+                self.textError("Please enter your feedback.");
+                return false;
+            } else {
+                $.ajax({
+                    headers: {secret: secret},
+                    method: 'POST',
+                    url: sendFeedback,
+                    data: {desc: self.message()},
+                    success: function () {
+                        console.log('sent');
+                        console.log(self.message());
+                        $("#modalDialog-userFeedback").ojDialog("close");
+                        $("#sucess").show();
+                        self.sucessMsg("Feedback sent successfully!");
+                        setTimeout(function () {
+                            $("#sucess").hide();
+                            self.sucessMsg("");
+                        }, 10000);
+                    },
+                    beforeSend: function () {
+                        $("#userToParakh").removeClass('loaderHide');
+                    },
+                    complete: function () {
+                        $("#userToParakh").addClass('loaderHide');
+                    }
+
+                });
+            }
+        }
+
+
+        setTimeout(function () {
+            self.handleOpen = $(".sideBar-feedback").click(function () {
                 $("#modalDialog-userFeedback").ojDialog("open");
+                self.message('');
+                self.textError('');
             });
 
-         
-        },  
-               500);
-        
+
+        },
+                500);
+
 
     }
-    
+
+
+
     return sideBarContentViewModel;
 });
