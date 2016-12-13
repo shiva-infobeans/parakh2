@@ -2096,3 +2096,58 @@ a:hover.oj-clickable-icon-nocontext,.oj-hover.oj-clickable-icon-nocontext{ color
     background-color: #78A95A;
     background-size: contain;
 }
+.tab-padding{
+    padding-left: 200px;
+    padding-right: 236px;
+    font-size: 30px;
+    color: #689F39;
+}
+.ul-top{
+    margin-top: 35px;
+}
+
+#tabs-container-help ul li.oj-selected {
+    border-bottom: 4px solid #6BA034;
+}
+
+
+#tabs-container-help .oj-tabs-title{
+     text-decoration: none;
+}
+#tabs-container-help .oj-tabs-tab{
+    border-color: none;
+    border-style: none;
+}
+ul.help-ul{
+    height: 240px;
+    width: 330px;
+    padding: 0px !important;
+}
+.help-page-tabs{
+    border-bottom: 1px solid #85D44B;
+    border-left: none;
+    cursor: pointer;
+    font-size: 22px;
+    text-align: left;
+}
+#selcted-tab .oj-tabs-tab.oj-selected,
+#selcted-tab1 .oj-tabs-tab.oj-selected{
+      background-color: transparent;
+    border: none;
+    outline: none;
+}
+#selcted-tab .oj-tabs-tab.oj-selected .oj-tabs-tab-content,
+#selcted-tab1 .oj-tabs-tab.oj-selected .oj-tabs-tab-content{
+    /*border-color: transparent;*/
+}
+.tab-help-side-padding{
+   padding: 2px 4px 5px 10px;
+    color: #363636;
+}
+.help-side-icons{
+    font-size:40px!important;
+}
+.help-side-text{
+    /*line-height: 40px;*/
+    font-size: 25px;
+}

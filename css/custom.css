@@ -593,8 +593,8 @@ div.oj-tabs-panel.oj-tabs-selected{
     font-size: 18px;
 }
 .feedbackSection{
-    overflow-x: auto;
-    overflow-y: no-content;
+    /*overflow-x: auto;*/
+    /*overflow-y: no-content;*/
     /*height:100%;*/
 }
 .colcount{
@@ -1983,6 +1983,11 @@ ul.ff{
     color: #FFF;
 
 }
+.side-bar-img{
+    margin-top: -13px;
+    margin-left: 0px;
+    padding: 1px;
+}
 ul.ff li{
     list-style:none;
     margin-bottom:10px;
@@ -2022,17 +2027,17 @@ ul.ff1 li{
 }
 
 
-ul.ff1 li a{
+/*ul.ff1 li a{
  background-color: #78A95A;
     color: #FFF;
     border-radius: 3px;
     text-align: center;
     width: 40px;
-    height: 130px;
+    height: 160px;
     display: block;
     padding: 12px;
     font-size: 18px;
-}
+}*/
 ul.ff1 li a:hover , ul.ff1 li a:focus{
     text-decoration: none;
 }

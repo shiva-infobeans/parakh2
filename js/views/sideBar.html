@@ -4,25 +4,24 @@
         <div class="side-bar">
             <ul class="ff1">
                 <li >
-                    <a href="javascript:void(0);"  class="buttons sideBar-feedback">
-                        <div class="rotate">
-                            <span>Feedback</span>  
-                            <!--<span>  <i class="zmdi zmdi-comment-text-alt"></i></span>-->
+                    <a href="javascript:void(0);"  class=" sideBar-feedback">
+                        <div class="side-bar-img">
+                            <img src="../../images/home-feedback-btn.png" alt=""/>
                         </div>   
                     </a>
                 </li>
                 <li>
-                    <a href="help.html"  class="buttons sideBar-help">
-                        <div class="rotate">  Help 
-                            <!--<i class="zmdi zmdi-star"></i>-->
+                    <a href="help.html"  class=" sideBar-help">
+                        <div class="side-bar-img">  
+                            <img src="../../images/home-help-btn.png" alt=""/>
                         </div>
                     </a>
                 </li>
-                 <li>
-                    <a href="javascript:void(0);"  class="buttons sideBar-tour">
-                       <div class="rotate">   Tour 
-                           <!--<i class="zmdi zmdi-star"></i>-->
-                       </div>
+                <li>
+                    <a href="javascript:void(0);"  class=" sideBar-tour">
+                        <div class="side-bar-img">
+                            <img src="../../images/home-tour-btn.png" alt=""/>
+                        </div>
                     </a>
                 </li>
             </ul>
@@ -34,24 +33,24 @@
 
 <!--feedaback modal in Side bar-->
 <div class="oj-row oj-flex">
-   <div id="dialogWrapperSideBar">
-  <div style="display:none" id="modalDialog-userFeedback" title="Feedback" 
-       data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide'}">
-     <div class="oj-dialog-body">
-         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center feedbck-text ">
-             Hello,we'd love to hear your feedback about our Parakh...
-         </div>
-        <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center areaContent1 ">
+    <div id="dialogWrapperSideBar">
+        <div style="display:none" id="modalDialog-userFeedback" title="Feedback" 
+             data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide'}">
+            <div class="oj-dialog-body">
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center feedbck-text ">
+                    Hello,we'd love to hear your feedback about our Parakh...
+                </div>
+                <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center areaContent1 ">
                     <textarea id="text-area9" class="textArea-feedbackFloat" aria-label="ojTextArea component no visible label"
-                              
-                          ></textarea>
+
+                              ></textarea>
                 </div>
 
                 <!--<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center errorText" id="feedbackFloatTextError">Please provide a reason for your feedback.</div>-->
                 <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
                     <button class="modal-submitUserFeedback" > Send Feedback </button>
                 </div>
-     </div>
-  </div>
-</div>        
+            </div>
+        </div>
+    </div>        
 </div>

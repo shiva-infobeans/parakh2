@@ -7,7 +7,7 @@
 /**
  * helpPage module
  */
-define(['ojs/ojcore', 'knockout'
+define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojmodel', 'ojs/ojinputtext', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 'ojs/ojdialog'
 ], function (oj, ko) {
     /**
      * The view model for the main content view template
