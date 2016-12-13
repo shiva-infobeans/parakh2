@@ -7,7 +7,7 @@
 /**
  * members module
  */
-define(['ojs/ojcore', 'knockout','jquery', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 'ojs/ojcomponentcore', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojtable', 'ojs/ojdialog', 'ojs/ojmodel'
+define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojcollectiontabledatasource', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 'ojs/ojcomponentcore', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojtable', 'ojs/ojdialog', 'ojs/ojmodel'
 ], function (oj, ko, $) {
     /**
      * The view model for the main content view template
@@ -105,7 +105,7 @@ define(['ojs/ojcore', 'knockout','jquery', 'ojs/ojcollectiontabledatasource', 'o
         feedbackObj.replyClose = "replyClose" + data['id'];
         // 2nd myId with rtoId change it when view profile page;
         var data_reply = data['reply'];
-        for (var c = 0; c < data_reply.length; c++) { 
+        for (var c = 0; c < data_reply.length; c++) {
             feedbackObj.replies.push(new feedbackRepliesData(myId, feedbackObj.feedbackfrom, data_reply[c]));
         }
         feedbackObj.feedbackDate = dateFormatter(data['created_date'].substring(0, data['created_date'].indexOf(" ")));
@@ -162,16 +162,49 @@ define(['ojs/ojcore', 'knockout','jquery', 'ojs/ojcollectiontabledatasource', 'o
         self.myManager = ko.observable();
         self.intials = ko.observable("");
 
+
+        ///////////////////// lazy loading .............
+        self.tabValue = ko.observable(1);
+        self.tabPositive = function () {
+            self.tabValue(1);
+        }
+        self.tabNegative = function () {
+            self.tabValue(2);
+        }
+        self.tabFeedback = function () {
+            self.tabValue(3);
+        }
+        ///////////////////// lazy loading positive comment .............
+        self.allPos = ko.observableArray();
+        self.currentPos = ko.observable();
+        self.countPos = ko.observable();
+        self.initBlockPos = ko.observable(10);
+        self.blockPos = ko.observable(10);
+        ///////////////////// lazy loading Negative comment .............
+        self.allNeg = ko.observableArray();
+        self.currentNeg = ko.observable();
+        self.countNeg = ko.observable();
+        self.initBlockNeg = ko.observable(10);
+        self.blockNeg = ko.observable(10);
+        ///////////////////// lazy loading Feedback .............
+        self.allFeedback = ko.observableArray();
+        self.currentFeedback = ko.observable();
+        self.countFeedback = ko.observable();
+        self.initBlockFeedback = ko.observable(6);
+        self.blockFeedback = ko.observable(10);
+        //..................
+
+
         if (id) {
             self.id(id);
         } else {
             window.location = "rateBuddy.html";
         }
         var abc = "Not Assigned";
-  var lgQuery = oj.ResponsiveUtils.getFrameworkQuery(
-                        oj.ResponsiveUtils.FRAMEWORK_QUERY_KEY.LG_UP);
+        var lgQuery = oj.ResponsiveUtils.getFrameworkQuery(
+                oj.ResponsiveUtils.FRAMEWORK_QUERY_KEY.LG_UP);
 
-                self.large = oj.ResponsiveKnockoutUtils.createMediaQueryObservable('(min-width: 767px)');
+        self.large = oj.ResponsiveKnockoutUtils.createMediaQueryObservable('(min-width: 767px)');
 
 //service for id of the user.
         var userIdSearch = oj.Model.extend({
@@ -257,7 +290,7 @@ define(['ojs/ojcore', 'knockout','jquery', 'ojs/ojcollectiontabledatasource', 'o
 
                     var responseDesc = $('#' + data['replyInput']);
                     if (responseDesc.val().trim().length == 0) {
-                        $('#'+data['replyInput']).parent().parent().next().removeClass('errorVisibilityHide').addClass('errorVisibilityShow');
+                        $('#' + data['replyInput']).parent().parent().next().removeClass('errorVisibilityHide').addClass('errorVisibilityShow');
                         return;
                     }
                     ////////// object for reply add
@@ -320,10 +353,10 @@ define(['ojs/ojcore', 'knockout','jquery', 'ojs/ojcollectiontabledatasource', 'o
                                 {
                                     var image = '/images/warning-icon-24.png';
                                 }
-                                if(data[index]['google_picture_link'] == '/images/default.png')
+                                if (data[index]['google_picture_link'] == '/images/default.png')
                                 {
                                     self.intials(nameFunction(data[index]['google_name']));
-                                }else
+                                } else
                                 {
                                     self.intials('');
                                 }
@@ -350,25 +383,59 @@ define(['ojs/ojcore', 'knockout','jquery', 'ojs/ojcollectiontabledatasource', 'o
                                     if (data[i]['rating'] == 0) {
                                         minus++;
                                         var ab = new dataComment(decodeHtml(data[i]['description']), data[i]['given_by_name'], data[i]['created_date'], 0);
-                                        self.commentDataNegative.push(ab);
+                                        //self.commentDataNegative.push(ab);
+                                        self.allNeg.push(ab);
                                     } else {
                                         if (data[i]['rating'] == 1)
                                             plus++;
                                         var ab = new dataComment(decodeHtml(data[i]['description']), data[i]['given_by_name'], data[i]['created_date'], 1);
-                                        self.commentDataPositive.push(ab);
+                                        //self.commentDataPositive.push(ab);
+                                        self.allPos.push(ab);
                                     }
                                 }
-                                if (self.commentDataNegative().length == 0) {
+                                if (self.allNeg().length == 0) {
                                     self.NoCommentsN("No Ratings Available ...!!");
                                     $("#noNegativeComment").show();
+                                    $("#lazyProfileNeg").hide();
+                                } else {
+                                    self.countNeg(self.allNeg().length);
+                                    self.currentNeg(0);
+                                    var loadDataNeg;
+                                    if (self.initBlockNeg() > self.countNeg()) {
+                                        loadDataNeg = self.countNeg();
+                                        $("#lazyProfileNeg").hide();
+                                    } else {
+                                        loadDataNeg = self.initBlockNeg();
+                                    }
+                                    for (var c = 0; c < loadDataNeg; c++) {
+                                        self.commentDataNegative.push(self.allNeg()[c]);
+                                        self.currentNeg(self.currentNeg() + 1);
+                                    }
                                 }
-                                if (self.commentDataNegative().length != 0) {
+                                if (self.allNeg().length != 0) {
                                     $("#noNegativeComment").hide();
                                 }
-                                if (self.commentDataPositive().length != 0) {
+                                if (self.allPos().length != 0) {
                                     $("#noPositiveComment").hide();
+
+                                    /// +1 rating lazy loading code
+                                    self.countPos(self.allPos().length);
+                                    self.currentPos(0);
+                                    var loadDataPos;
+                                    if (self.initBlockPos() > self.countPos()) {
+                                        loadDataPos = self.countPos();
+                                        $("#lazyProfilePos").hide();
+                                    } else {
+                                        loadDataPos = self.initBlockPos();
+                                    }
+                                    for (var c = 0; c < loadDataPos; c++) {
+                                        self.commentDataPositive.push(self.allPos()[c]);
+                                        self.currentPos(self.currentPos() + 1);
+                                    }
+                                } else {
+                                    $("#lazyProfilePos").hide();
                                 }
-                                if (self.commentDataPositive().length == 0) {
+                                if (self.allPos().length == 0) {
                                     self.NoCommentsP("No Ratings Available ...!!");
                                     $("#noPositiveComment").show();
                                 }
@@ -395,16 +462,34 @@ define(['ojs/ojcore', 'knockout','jquery', 'ojs/ojcollectiontabledatasource', 'o
                                         var data = res['attributes']['data'];
                                         var index;
                                         for (index = 0; index < data.length; index++) {
-                                            if (index % 2 == 0) {
-                                                self.feedbackContent1.push(new dataFeedback(self.myselfId(), data[index]));
+                                            //if (index % 2 == 0) {
+                                            self.allFeedback.push(new dataFeedback(self.myselfId(), data[index]));
+                                            //} else {
+                                            //self.feedbackContent2.push(new dataFeedback(self.myselfId(), data[index]));
+                                            //}
+                                        }
+                                        if (self.allFeedback().length == 0) {//&& self.feedbackContent2().length == 0) {
+                                            $("#noFeedback").show();
+                                        } else {
+                                            $("#noFeedback").hide();
+                                        }
+                                        if (self.allFeedback().length != 0) {
+                                            //lazy loading for feedback........................
+                                            self.countFeedback(self.allFeedback().length);
+                                            self.currentFeedback(0);
+                                            var loadDataFeedback;
+                                            if (self.initBlockFeedback() > self.countFeedback()) {
+                                                loadDataFeedback = self.countFeedback();
+                                                $("#lazyProfileFeedback").hide();
                                             } else {
-                                                self.feedbackContent2.push(new dataFeedback(self.myselfId(), data[index]));
+                                                loadDataFeedback = self.initBlockFeedback();
                                             }
-                                            if (self.feedbackContent1().length == 0 && self.feedbackContent2().length == 0) {
-                                                $("#noFeedback").show();
-                                            } else {
-                                                $("#noFeedback").hide();
+                                            for (var c = 0; c < loadDataFeedback; c++) {
+                                                self.feedbackContent1.push(self.allFeedback()[c]);
+                                                self.currentFeedback(self.currentFeedback() + 1);
                                             }
+                                        } else {
+                                            $("#lazyProfileFeedback").hide();
                                         }
                                         /// open feedback more option
 
@@ -486,6 +571,76 @@ define(['ojs/ojcore', 'knockout','jquery', 'ojs/ojcollectiontabledatasource', 'o
         self.replyInputClick = function (data, event) {
             $('#' + data['replyInput']).parent().parent().next().removeClass('errorVisibilityShow').addClass('errorVisibilityHide');
         }
+        $(window).scroll(function () {
+            if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
+                if (self.tabValue() == 1) {
+                    if ((self.currentPos() < self.countPos())) {
+
+                        var count = self.currentPos();
+                        if (self.currentPos() + self.blockPos() >= self.countPos()) {
+                            var loadRecordCount = self.countPos() - self.currentPos();
+                            $("#lazyProfilePos").hide();
+                        } else {
+                            var loadRecordCount = self.blockPos();
+                        }
+                        for (var c = count; c < count + loadRecordCount; c++) { //count is current count from start and loadRecordCount is for total  page size;
+                            try {
+                                self.commentDataPositive.push(self.allPos()[c]);
+                                self.currentPos(self.currentPos() + 1);
+                            } catch (e) {
+
+                            }
+                        }
+                    } else {
+                        $("#lazyProfilePos").hide();
+                    }
+                }
+                if (self.tabValue() == 2) {
+                    if ((self.currentNeg() < self.countNeg())) {
+
+                        var count = self.currentNeg();
+                        if (self.currentNeg() + self.blockNeg() >= self.countNeg()) {
+                            var loadRecordCount = self.countNeg() - self.currentNeg();
+                            $("#lazyProfileNeg").hide();
+                        } else {
+                            var loadRecordCount = self.blockNeg();
+                        }
+                        for (var c = count; c < count + loadRecordCount; c++) { //count is current count from start and loadRecordCount is for total  page size;
+                            try {
+                                self.commentDataNegative.push(self.allNeg()[c]);
+                                self.currentNeg(self.currentNeg() + 1);
+                            } catch (e) {
+
+                            }
+                        }
+                    } else {
+                        $("#lazyProfileNeg").hide();
+                    }
+                }
+                if (self.tabValue() == 3) {
+                    if ((self.currentFeedback() < self.countFeedback())) {
+
+                        var count = self.currentFeedback();
+                        if (self.currentFeedback() + self.blockFeedback() > self.countFeedback()) {
+                            var loadRecordCount = self.countFeedback() - self.currentFeedback();
+                            $("#lazyProfileFeedback").hide();
+                        } else {
+                            var loadRecordCount = self.blockFeedback();
+                        }
+                        for (var c = count; c < count + loadRecordCount; c++) { //count is current count from start and loadRecordCount is for total  page size;
+                            try {
+                                self.feedbackContent1.push(self.allFeedback()[c]);
+                                self.currentFeedback(self.currentFeedback() + 1);
+                            } catch (e) {
+
+                            }
+                        }
+                    } else {
+                        $("#lazyProfileFeedback").hide();
+                    }
+                }
+            }
+        });
     }
 
     return membersContentViewModel;

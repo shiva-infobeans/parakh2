@@ -674,6 +674,9 @@ div.oj-tabs-panel.oj-tabs-selected{
     margin: 5px 10px;
     color:#fff;
 }
+.indexer span a:focus{
+    text-decoration: underline;
+}
 /*Edit profile */
 /*edit profile modal*/
 /*scroll bar in all the pages*/
@@ -1660,7 +1663,8 @@ div.oj-tabs-panel.oj-tabs-selected{
 
     #ojDialogWrapper-modalDialog9.oj-dialog,
     #ojDialogWrapper-modalDialog3.oj-dialog,
-    #ojDialogWrapper-modalDialogRequest.oj-dialog{
+    #ojDialogWrapper-modalDialogRequest.oj-dialog,
+    #ojDialogWrapper-modalDialog-userFeedback.oj-dialog{
         width: 60% !important;
 
     }
@@ -1745,7 +1749,8 @@ div.oj-tabs-panel.oj-tabs-selected{
 @media  screen and (min-width: 1200px) and (max-width: 1366px) {
     #ojDialogWrapper-modalDialog9.oj-dialog,
     #ojDialogWrapper-modalDialog3.oj-dialog,
-    #ojDialogWrapper-modalDialogRequest.oj-dialog{
+    #ojDialogWrapper-modalDialogRequest.oj-dialog,
+   #ojDialogWrapper-modalDialog-userFeedback.oj-dialog{
         width: 32% !important;
 
     }
@@ -1985,6 +1990,7 @@ ul.ff{
     bottom:23px;
     z-index:100;
 }
+
 .feedBackFloat{
     background-color:#607D8B !important;
     color:#FFF;
@@ -1997,11 +2003,23 @@ ul.ff{
     background-color:#ED6648 !important;
     color:#FFF;
 }
+.sideBar-feedback{
+     background-color:#ED6648 !important;
+    color:#FFF;
+}
+.sideBar-help{
+    background-color: #607D8B !important;
+    color: #FFF;
+}
+.sideBar-tour{
+        background-color: #2780B5 !important;
+    color: #FFF;
+
+}
 ul.ff li{
     list-style:none;
     margin-bottom:10px;
 }
-
 ul.ff li a{
     background-color:#fff;
     color:#FFF;
@@ -2010,6 +2028,51 @@ ul.ff li a{
     width:45px;
     height:45px;
     display:block;
+}
+/*side bar*/
+.side-bar{
+  position: fixed;
+    color: #fff;
+    left: -39px;
+/*    top: 300px;*/
+    text-align: center;
+    line-height: 63px;
+    cursor: pointer;
+    z-index: 10;
+    bottom: 65%;
+    right: auto;
+}
+ul.ff1{
+    position:absolute;
+    /*left:-35px;*/
+    padding-bottom:20px;
+    /*top: 150px;*/
+    z-index:100;
+}
+ul.ff1 li{
+    list-style:none;
+    margin-bottom:10px;
+}
+
+
+ul.ff1 li a{
+ background-color: #78A95A;
+    color: #FFF;
+    border-radius: 3px;
+    text-align: center;
+    width: 40px;
+    height: 130px;
+    display: block;
+    padding: 12px;
+    font-size: 18px;
+}
+ul.ff1 li a:hover , ul.ff1 li a:focus{
+    text-decoration: none;
+}
+.rotate{
+     -ms-transform: rotate(90deg); /* IE 9 */
+    -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+    transform: rotate(90deg);
 }
 a#menu-share:active{
     border-radius: 50%;
@@ -2277,4 +2340,9 @@ a#menu-share:hover > i{
 }
 .height-fix{
 	height: 200px;
+}
+/* z-index my buddy page */
+.loading-fix{
+    clear: both;
+    display: block;
 }
