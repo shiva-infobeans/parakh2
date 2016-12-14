@@ -19,22 +19,35 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.message = ko.observable();
         self.textError = ko.observable();
         self.sucessMsg = ko.observable();
+        self.userName = ko.observable();
+
+ var user = oj.Model.extend({
+            url: getUserByEmail + person['email']
+        });
+        var getId = new user();
+        getId.fetch({
+            headers: {secret: secret},
+            success: function (res) {
+                self.userName(res['attributes']['data']['google_name']);               
+            }
+        });
 
         self.userFeedback = function () {
             self.message(self.message().trim());
             if (self.message() === '' || self.message() === null) {
-                self.textError("Please enter your feedback.");
+                self.textError("Please provide comments for your feedback.");
                 return false;
             } else {
                 $.ajax({
                     headers: {secret: secret},
                     method: 'POST',
                     url: sendFeedback,
-                    data: {desc: self.message(),from: self.email},
+                    data: {desc: self.message(),from: self.email,from_name: self.userName()},
                     success: function () {
                         console.log('sent');
                         console.log(self.email);
                         console.log(self.message());
+                         console.log( self.userName());
                         $("#modalDialog-userFeedback").ojDialog("close");
                         $("#sucess").show();
                         self.sucessMsg("Feedback sent successfully!");

@@ -368,7 +368,7 @@ class dbmodule {
      */
     function send_notification($email_data) {
         require_once 'notifications.php';
-        //send_mail($email_data);
+        send_mail($email_data);
     }
 
 //end of fun
@@ -1831,7 +1831,8 @@ class dbmodule {
            $email_data['to']['email'] = FEEDBACK_EMAIL;
            $email_data['to']['name'] = "Feedack Parakh";
            $email_data['from'] = $data['from'];
-           $email_data['subject'] = "Feedback Email";
+           $email_data['from_name'] = $data['from_name'];
+           $email_data['subject'] = "Feedback";
            // $email_data['subject'] = $temp_data['subject'];
            $vars = array();
            // $vars = array(
