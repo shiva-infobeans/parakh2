@@ -315,9 +315,17 @@ ul li.selectedTab-mobile div {
 div.profile-page{
     /*    height: 600px;*/
 }
-.tabWidth{
-     width: 334px !important;
-}
+.tabWidth-personProfile{
+       width: 334px !important;
+  }
+ .tabWidth{
+     width: 323px !important;
+     display: flex;
+     list-style: none;
+ }
+ .tabWidth2{
+      width:162px !important
+ }
 div.oj-tabs-panel.oj-tabs-selected{
     background: none;
     border:none;
@@ -1418,7 +1426,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     }
     .left {
         float: left;
-        padding: 8px;
+        padding: 9px 22px;
         border-right: 0px solid transparent; 
     }
 	
