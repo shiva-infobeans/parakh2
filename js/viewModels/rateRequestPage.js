@@ -100,8 +100,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.manager_pic = ko.observable();
         self.manager_id = ko.observable();
         self.manager_role = ko.observable();
-        self.desc = ko.observable();
-        self.desc1 = ko.observable();
+        self.desc = ko.observable("");
+        self.desc1 = ko.observable("");
         self.textError = ko.observable();
         self.textError1 = ko.observable();
         this.sucessMsg = ko.observable("");
@@ -439,7 +439,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             self.manager_pic(result['attributes']['data'][1]['google_picture_link']);
                             self.manager_id(result['attributes']['data'][1]['manager_id']);
                             self.manager_role(result['attributes']['data'][1]['role_name']);
-                            self.intials_manager(nameFunction(result['attributes']['data'][1]['manager_name']));
+                            if (result['attributes']['data'][1]['google_picture_link'] == '/images/default.png')
+                           {
+                               self.intials_manager(nameFunction(result['attributes']['data'][1]['manager_name']));
+                           }else
+                           {
+                               self.intials_manager("");
+                           }
 
                         }
                         //console.log(result['attributes']['data'][1]['role_name']);
@@ -545,7 +551,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         //send request for +1 ratings ajax call
         self.requestManager = function () {
             self.desc(self.desc().trim());
-            if (self.desc() == '' || self.desc() == null) {
+            if (self.desc().length == 0 || self.desc() == null) {
                 self.textError("Please provide a reason for your request.");
                 return false;
             }
@@ -573,11 +579,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             });
         }
         self.requestLead = function () {
-            self.desc1(self.desc1().trim());
             if (self.desc1() == '' || self.desc1() == null) {
                 self.textError1("Please provide a reason for your request.");
                 return false;
             }
+            self.desc1(self.desc1().trim());
             $.ajax({
                 headers: {secret: secret},
                 method: 'POST',
