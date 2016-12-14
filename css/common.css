@@ -2123,6 +2123,11 @@ ul.help-ul{
     width: 330px;
     padding: 0px !important;
 }
+ul.help-ul2{
+    height: 340px;
+    width: 330px;
+    padding: 0px !important;
+}
 .help-page-tabs{
     border-bottom: 1px solid #85D44B;
     border-left: none;
