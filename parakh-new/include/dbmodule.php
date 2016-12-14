@@ -269,16 +269,16 @@ class dbmodule {
         if ($rating_last_insert) {
             $email_data = [];
             $user_data = $this->getEmailById($data['to_id']);
-            $temp_data = $this->getEmailTemplateByCode('PRKE01');
+            $temp_data = ($data['rating'] == 1) ? $this->getEmailTemplateByCode('PRKE01') : $this->getEmailTemplateByCode('PRKE02');
+            $link = ($data['rating'] == 1) ? $this->getTargetLink(MY_BUDDIES_URL,"Go for it!") : $this->getTargetLink(RATE_ME_URL,"request");
             $email_data['to']['email'] = $user_data['google_email'];
             $email_data['to']['name'] = $user_data['google_name'];
             $email_data['subject'] = $temp_data['subject'];
-            $this->getParakhLink();
+            
             $rating = ($data['rating'] == 0) ? '-1' : 1;
             $vars = array(
-                "{username}" => $email_data['to']['name'],
-                "{rating}" => $rating,
-                "{parakh}" => $this->getParakhLink(),
+                "{Username}" => $email_data['to']['name'],
+                "{Link}" => $link,
             );
             $message = strtr($temp_data['content'], $vars);
             $email_data['message'] = $message;
@@ -322,6 +322,10 @@ class dbmodule {
 
     function getParakhLink() {
         return '<a href="' . $this->site_url . '" >' . $this->site_name . '</a>';
+    }
+
+    function getTargetLink($url,$text) {
+        return '<a href="' . $this->site_url . '?target_url='.$url.'" >' . $text . '</a>';
     }
 
     function getEmailById($id) {
@@ -368,7 +372,7 @@ class dbmodule {
      */
     function send_notification($email_data) {
         require_once 'notifications.php';
-        //send_mail($email_data);
+        send_mail($email_data);
     }
 
 //end of fun
@@ -686,30 +690,29 @@ class dbmodule {
 
             $vars = array(
                 "{Username}" => $email_data['to']['name'],
-                "{Member}" => $from_data['google_name'],
-                "{Parakh}" => $this->getParakhLink(),
-                "{Feedback}" => $data['feedback_description'],
+                "{Manager}" => $this->get_role_name($data['u_id']),
+                "{Link}" => $this->getTargetLink(PROFILE_URL,"Parakh");
             );
             $message = strtr($temp_data['content'], $vars);
             $email_data['message'] = $message;
             $this->send_notification($email_data);
 
             // send notification to manager
-            $email_data_l = [];
-            $temp_data_l = $this->getEmailTemplateByCode('PRKE22');
-            $email_data_l['to']['email'] = $this->manager_email;
+            // $email_data_l = [];
+            // $temp_data_l = $this->getEmailTemplateByCode('PRKE22');
+            // $email_data_l['to']['email'] = $this->manager_email;
 
-            $email_data_l['to']['name'] = $this->manager_name;
-            $email_data_l['subject'] = $temp_data_l['subject'];
+            // $email_data_l['to']['name'] = $this->manager_name;
+            // $email_data_l['subject'] = $temp_data_l['subject'];
 
-            $vars = array(
-                "{Member}" => $email_data['to']['name'],
-                "{Lead}" => $from_data['google_name'],
-                "{Feedback}" => $data['feedback_description'],
-            );
-            $message = strtr($temp_data_l['content'], $vars);
-            $email_data_l['message'] = $message;
-            $this->send_notification($email_data_l);
+            // $vars = array(
+            //     "{Member}" => $email_data['to']['name'],
+            //     "{Lead}" => $from_data['google_name'],
+            //     "{Feedback}" => $data['feedback_description'],
+            // );
+            // $message = strtr($temp_data_l['content'], $vars);
+            // $email_data_l['message'] = $message;
+            // $this->send_notification($email_data_l);
 
 
             /* update msg read count */
@@ -933,8 +936,7 @@ class dbmodule {
 
             $vars = array(
                 "{Username}" => $user_data['google_name'],
-                "{Parakh}" => $this->getParakhLink(),
-                "{Member}" => $user_data['google_name'],
+                "{Link}" => $this->getTargetLink(PROFILE_URL,'Parakh');
                 "{Comment}" => '"' . $data['feedback_desc'] . '"'
             );
 
@@ -944,15 +946,15 @@ class dbmodule {
 
             // // send notification to manager
             if ($this->manager_email != $user_data['google_email']) {
-                $email_data_l = [];
-                $temp_data_l = $this->getEmailTemplateByCode('PRKE05');
-                $email_data_l['to']['email'] = $this->manager_email;
-                $email_data_l['to']['name'] = $this->manager_name;
-                $email_data_l['subject'] = $temp_data_l['subject'];
+                // $email_data_l = [];
+                // $temp_data_l = $this->getEmailTemplateByCode('PRKE05');
+                // $email_data_l['to']['email'] = $this->manager_email;
+                // $email_data_l['to']['name'] = $this->manager_name;
+                // $email_data_l['subject'] = $temp_data_l['subject'];
 
-                $message = strtr($temp_data['content'], $vars);
-                $email_data_l['message'] = $message;
-                $this->send_notification($email_data_l);
+                // $message = strtr($temp_data['content'], $vars);
+                // $email_data_l['message'] = $message;
+                // $this->send_notification($email_data_l);
             }
 
             /* update msg read count */
@@ -1071,7 +1073,7 @@ class dbmodule {
 
             $vars = array(
                 "{Username}" => $user_data['google_name'],
-                "{Parakh}" => $this->getParakhLink(),
+                "{Link}" => $this->getTargetLink(PROFILE_URL,'My Profile'),
             );
 
             $message = strtr($temp_data['content'], $vars);
@@ -1080,14 +1082,14 @@ class dbmodule {
 
             // // send notification to manager
             if ($this->manager_email != $user_data['google_email']) {
-                $email_data_l = [];
-                $email_data_l['to']['email'] = $this->manager_email;
-                $email_data_l['to']['name'] = $this->manager_name;
-                $email_data_l['subject'] = (!empty($temp_data_l['subject']))?$temp_data_l['subject']:"";
+                // $email_data_l = [];
+                // $email_data_l['to']['email'] = $this->manager_email;
+                // $email_data_l['to']['name'] = $this->manager_name;
+                // $email_data_l['subject'] = (!empty($temp_data_l['subject']))?$temp_data_l['subject']:"";
 
-                $message = strtr($temp_data['content'], $vars);
-                $email_data_l['message'] = $message;
-                $this->send_notification($email_data_l);
+                // $message = strtr($temp_data['content'], $vars);
+                // $email_data_l['message'] = $message;
+                // $this->send_notification($email_data_l);
             }
 
             /* update msg read count */
@@ -1209,7 +1211,7 @@ class dbmodule {
 
         /* send email to user when decline */
         $email_data = [];
-        $user_data = $this->getEmailById($data['u_id']);
+        $user_data = $this->getEmailById($data['to_id']);
         $temp_data = $this->getEmailTemplateByCode('PRKE04');
         $email_data['to']['email'] = $user_data['google_email'];
         $email_data['to']['name'] = $user_data['google_name'];
@@ -1217,7 +1219,8 @@ class dbmodule {
 
         $vars = array(
             "{Username}" => $user_data['google_name'],
-            "{Parakh}" => $this->getParakhLink(),
+            "{Manager}" => $this->get_role_name($data['u_id']),
+            "{Link}" => $this->getTargetLink(MY_BUDDIES_URL,'Parakh'),
         );
 
         $message = strtr($temp_data['content'], $vars);
@@ -1225,16 +1228,16 @@ class dbmodule {
         $this->send_notification($email_data);
 
         // // send notification to manager
-        if ($this->manager_email != $user_data['google_email']) {
-            $email_data_l = [];
-            $email_data_l['to']['email'] = $this->manager_email;
-            $email_data_l['to']['name'] = $this->manager_name;
-            $email_data_l['subject'] = $temp_data_l['subject'];
+        // if ($this->manager_email != $user_data['google_email']) {
+        //     $email_data_l = [];
+        //     $email_data_l['to']['email'] = $this->manager_email;
+        //     $email_data_l['to']['name'] = $this->manager_name;
+        //     $email_data_l['subject'] = $temp_data_l['subject'];
 
-            $message = strtr($temp_data['content'], $vars);
-            $email_data_l['message'] = $message;
-            $this->send_notification($email_data_l);
-        }
+        //     $message = strtr($temp_data['content'], $vars);
+        //     $email_data_l['message'] = $message;
+        //     $this->send_notification($email_data_l);
+        // }
 
         $update__work_ = "Update work SET description ='" . $data['desc'] . "', modified_date = '" . $modified_date . "' WHERE id = '" . $id . "'";
         $work_update = $this->con->prepare($update_comment);
@@ -1315,19 +1318,21 @@ class dbmodule {
                 . "modified_date = '" . $modified_date . "' WHERE id = '" . $data['rq_id'] . "'";
         $query = $this->con->prepare($sql);
         $data2 = $query->execute();
+
         /* send email to user when accept */
         if ($email) {
 
             $email_data = [];
-            $user_data = $this->getEmailById($data['u_id']);
+            $user_data = $this->getEmailById($data['to_id']);
             $temp_data = $this->getEmailTemplateByCode('PRKE03');
             $email_data['to']['email'] = $user_data['google_email'];
             $email_data['to']['name'] = $user_data['google_name'];
             $email_data['subject'] = $temp_data['subject'];
-
+            $lead_manager = (isset($lead_manager_result['name']) && $lead_manager_result['name']!='') ? $lead_manager_result['name'] : '';
             $vars = array(
                 "{Username}" => $user_data['google_name'],
-                "{Parakh}" => $this->getParakhLink(),
+                "{Manager}" => $this->get_role_name($data['u_id']),
+                "{Link}" => $this->getTargetLink(PROFILE_URL,'My Profile')
             );
 
             $message = strtr($temp_data['content'], $vars);
@@ -1335,16 +1340,17 @@ class dbmodule {
             $this->send_notification($email_data);
 
             // // send notification to manager
-            if ($this->manager_email != $user_data['google_email']) {
-                $email_data_l = [];
-                $email_data_l['to']['email'] = $this->manager_email;
-                $email_data_l['to']['name'] = $this->manager_name;
-                $email_data_l['subject'] = $temp_data_l['subject'];
+            // if ($this->manager_email != $user_data['google_email']) {
+            //     $email_data_l = [];
+            //     $temp_data = $this->getEmailTemplateByCode('PRKE13');
+            //     $email_data_l['to']['email'] = $this->manager_email;
+            //     $email_data_l['to']['name'] = $this->manager_name;
+            //     $email_data_l['subject'] = $temp_data_l['subject'];
 
-                $message = strtr($temp_data['content'], $vars);
-                $email_data_l['message'] = $message;
-                $this->send_notification($email_data_l);
-            }
+            //     $message = strtr($temp_data['content'], $vars);
+            //     $email_data_l['message'] = $message;
+            //     $this->send_notification($email_data_l);
+            // }
 
             /* update msg read count */
             $query = "SELECT msg_read from users where id=" . $data['to_id'];
@@ -1362,6 +1368,19 @@ class dbmodule {
     }
 
 //end of fun
+    function get_role_name($user_id){
+        //select role type of manager or team
+        $lead_manager_query = "SELECT name from role_type join users on users.role_id = role_type.id where users.id = ".$user_id;
+        $lead_manager = $this->con->prepare($lead_manager_query);
+        $lead_manager->execute();
+        $lead_manager_result = $lead_manager->fetch();
+        if(isset($lead_manager_result['name']) && !empty($lead_manager_result['name'])){
+            return $lead_manager_result['name'];
+        }else
+        {
+            return '';
+        }
+    }
 
     function unread_request($request_id = null) {
         $query = "UPDATE request SET read_status = '1' WHERE id = :id";
@@ -1745,7 +1764,7 @@ class dbmodule {
 
         }else
         {
-            return '';
+            return '/images/default.png';
         }
         
     }
