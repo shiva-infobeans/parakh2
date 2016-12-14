@@ -1782,7 +1782,6 @@ div.oj-tabs-panel.oj-tabs-selected{
         z-index: 1;
     }
 
-    /*Namrata*/
     #oj-combobox-choice-combobox3.oj-combobox-choice,#oj-combobox-choice-combobox2.oj-combobox-choice,#oj-combobox-choice-combobox9.oj-combobox-choice{
 /*        min-width: 285px !important;*/
         max-width: 100% !important;
@@ -2194,7 +2193,7 @@ a#menu-share:hover > i{
 }
 .center-fix {
   display: inline-block;
-  text-align: center;
+  /*text-align: center;*/
 }
 .profile-img-div a {
   display: inline-block;

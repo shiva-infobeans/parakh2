@@ -579,7 +579,7 @@
     font-size: 24px;
 }
 .modalImage{
-    max-width: 100%;
+    max-width: 66%;
 }
 .area2{
     width: 87%;
@@ -685,6 +685,8 @@
     float: right;
     cursor: pointer;
     padding: 5px;
+	border-left: 1px solid #dcdcdc;
+	margin-top: 15px;
 }
 .areaContent{
     float:left;
