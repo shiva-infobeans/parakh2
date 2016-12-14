@@ -1612,20 +1612,34 @@
 }
 #text-area::-webkit-input-placeholder
 {
-    color: #dcdcdc;
+    color: #dcdcdc !important;
 }
 
 #text-area::-moz-placeholder
 {
-    color: #dcdcdc;
+    color: #dcdcdc !important;
 }
 #text-area:-moz-placeholder {
-    color: #dcdcdc;
+    color: #dcdcdc !important;
 }
 
 #text-area:-ms-input-placeholder {
-    color: #dcdcdc;
+    color: #dcdcdc !important;
 }
+#text-area-manager::-webkit-input-placeholder
+ {
+     color: #dcdcdc !important;
+ }
+ #text-area-manager::-moz-placeholder
+ {
+     color: #dcdcdc !important;
+ }
+ #text-area-manager:-moz-placeholder {
+     color: #dcdcdc !important;
+ }
+ #text-area-manager:-ms-input-placeholder {
+     color: #dcdcdc !important;
+  }
 
 
 .View-Other-about{
@@ -1724,6 +1738,9 @@
     width: 30px;   
 }
 #negetiveTab , #feedbackTab{
+    display:none;
+}
+#negetiveTab1 , #feedbackTab1{
     display:none;
 }
 #filmStrip .oj-filmstrip-arrow.oj-default .oj-filmstrip-arrow-icon{

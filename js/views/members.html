@@ -271,11 +271,11 @@
                             selected: 0}">
 
 
-            <ul class="profile-ul pos-relative tabWidth">
+            <ul class="profile-ul pos-relative  tabWidth2" id="responsiveTab">
                 <div class="transbox"></div>
                 <li class="profile-tabs-mobile selectedTab-mobile" title="Positive Rating" data-bind="click: tabPositive"><span><i class="zmdi zmdi-trending-up"></i></span></li>
-                <li class="profile-tabs-mobile selectedTab-mobile" title="Negative Rating"  data-bind="click: tabNegative"><span><i class="zmdi zmdi-trending-down"></i> </span></li>
-                <li class="profile-tabs-mobile selectedTab-mobile" data-bind="click: tabFeedback"><span><i class="zmdi zmdi-comment-alt-text"></i></span></li>
+                <li class="profile-tabs-mobile selectedTab-mobile" id="negetiveTab1" title="Negative Rating"  data-bind="click: tabNegative"><span><i class="zmdi zmdi-trending-down"></i> </span></li>
+                <li class="profile-tabs-mobile selectedTab-mobile" id="feedbackTab1" data-bind="click: tabFeedback"><span><i class="zmdi zmdi-comment-alt-text"></i></span></li>
                 <li class="profile-tabs-mobile selectedTab-mobile"><span><i class="zmdi zmdi-account"></i></span></li>
             </ul>
 
@@ -333,30 +333,7 @@
                     </div>
                 </div>
             </div>
-            <div id="tabs-3" class="color-white oj-margin-horizontal pos-relative ">
-                <div class="feedbackSection oj-margin-top profile-margin-bottom">
-                    <div class="transbox"></div>
-                    <div id="noFeedback" class="noComments"> No feedback available !!</div>
-                    <div class="oj-row oj-flex">
-
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex">
-
-                            <!--repeat block-->
-                            <div data-bind="foreach: feedbackContent1">
-                                <div class="oj-flex oj-flex-item oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12">
-
-                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div feedback-align bottom-padding">                                         <div class="feedback-circle circle-purple pos-relative">
-                                            <div class="viewFeedbackName" data-bind="text: name"></div>
-                                            <span data-bind="text: shortName"></span>
-                                        </div>
-                                        <div class="feedback-comment pos-relative">
-                                            <div class="feedback-Transbox"></div>
-                                            <p class="feedback-comment-text"><span data-bind="text: feedbackDescription"></span></p>
-                                            <span  class="feedback-date" data-bind="text: feedbackDate"></span>
-                                        </div>
-                                    </div>
-        </div>
-    </div>
+         
     <div id="tabs-3" class="color-white oj-margin-horizontal pos-relative ">
         <div class="feedbackSection oj-margin-top profile-margin-bottom">
             <div class="transbox"></div>
@@ -519,7 +496,7 @@
                 </div>
             </div>
         </div>
-
+    </div>
         <div class="loaderDiv loaderHide" id="respondLoader">
             <div class="overlay-loader"></div>
             <div class="loaderImgDiv"><img src="css/images/loader.gif" alt=""/></div>
