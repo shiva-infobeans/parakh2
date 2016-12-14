@@ -2379,3 +2379,6 @@ a#menu-share:hover > i{
         margin-bottom: 25px;
     }
 }
+.font-responsive{
+    font-size: 25px !important;
+}
