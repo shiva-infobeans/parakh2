@@ -1082,10 +1082,10 @@ $app->get('/getFourTillNowRankingList[/]', function ($request, $response, $args)
  * */    
 $app->post('/sendFeedback[/]', function ($request, $response, $args) {
     $response_data = array();
-    echo $data;  $data = $request->getParsedBody();
+    $data = $request->getParsedBody();
     //Creating a dbmodule object
     $db = new dbmodule();
-    $result = $db->send_feedback();
+    $result = $db->send_feedback($data);
     if($result != 0){
         $response_data = makeResponse('false',$result);
     }else{
