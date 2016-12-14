@@ -315,8 +315,16 @@ ul li.selectedTab-mobile div {
 div.profile-page{
     /*    height: 600px;*/
 }
-.tabWidth{
+.tabWidth-personProfile{
      width: 334px !important;
+}
+.tabWidth{
+    width: 323px !important;
+    display: flex;
+    list-style: none;
+}
+.tabWidth2{
+     width:162px !important
 }
 div.oj-tabs-panel.oj-tabs-selected{
     background: none;
@@ -611,7 +619,11 @@ div.oj-tabs-panel.oj-tabs-selected{
     /*Firefox*/ 
     column-gap: 40px;
 
-
+}
+.side-bar-img{
+     margin-top: -13px;
+     margin-left: 0px;
+    padding: 1px;
 }
 /*rate buddy page ui*/
 .rateBuddy-page-icons{
@@ -1418,7 +1430,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     }
     .left {
         float: left;
-        padding: 8px;
+        padding:9px 22px;
         border-right: 0px solid transparent; 
     }
 	
@@ -1612,6 +1624,20 @@ div.oj-tabs-panel.oj-tabs-selected{
 .rating-section{
     min-height: 300px;
 }
+#ojDialogWrapper-modalDialog-userFeedback.oj-dialog{
+    min-width: 345px !important;
+}
+.modal-submitUserFeedback{
+    margin-top: 0px !important;
+    width: 95% !important;
+}
+#modalDialog-userFeedback .oj-dialog-body{
+    background: #fff !important;
+    height: 345px !important;
+}
+.textArea-feedbackFloat{
+        height: 132px!important;
+}
 }
 
 .transboxRequest2{
@@ -1657,6 +1683,11 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 .replyInput div span input{
     font-size: 10px !important;
+}
+}
+@media  screen and (min-width: 320px) and (max-width: 400px) {
+#ojDialogWrapper-modalDialog-userFeedback.oj-dialog {
+    min-width: 300px !important;
 }
 }
 @media  screen and (min-width: 768px) and (max-width: 1024px) {
@@ -2056,7 +2087,7 @@ ul.ff1 li{
 
 
 ul.ff1 li a{
- background-color: #78A95A;
+/* background-color: #78A95A;
     color: #FFF;
     border-radius: 3px;
     text-align: center;
@@ -2064,7 +2095,7 @@ ul.ff1 li a{
     height: 130px;
     display: block;
     padding: 12px;
-    font-size: 18px;
+    font-size: 18px;*/
 }
 ul.ff1 li a:hover , ul.ff1 li a:focus{
     text-decoration: none;
