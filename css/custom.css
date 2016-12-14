@@ -2213,15 +2213,19 @@ a#menu-share:hover > i{
 }
 
 .header_profile_image_initials {
-  display: inline-block;
-  font-size: 10px;
-  height: 25px;
-  padding: 7px;
-  position: absolute;
-  right: 0;
-  text-align: center;
-  width: 25px;
-  top: 0;
+    display: inline-block;
+    font-size: 10px;
+    height: 25px;
+    padding: 5px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    width: 25px;
+	line-height:14px;
+}
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+ .header_profile_image_initials  { line-height:16px;  }
 }
 .profile_image_lead {
     position: relative;
@@ -2285,4 +2289,10 @@ a#menu-share:hover > i{
 .loading-fix{
     clear: both;
     display: block;
+}
+@media(min-width:320px) and (max-width:767px){
+
+	@media screen and (-webkit-min-device-pixel-ratio:0) {
+	 .header_profile_image_initials  { line-height:13px;  }
+	}
 }
