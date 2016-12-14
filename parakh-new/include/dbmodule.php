@@ -691,7 +691,7 @@ class dbmodule {
             $vars = array(
                 "{Username}" => $email_data['to']['name'],
                 "{Manager}" => $this->get_role_name($data['u_id']),
-                "{Link}" => $this->getTargetLink(PROFILE_URL,"Parakh");
+                "{Link}" => $this->getTargetLink(PROFILE_URL,"Parakh")
             );
             $message = strtr($temp_data['content'], $vars);
             $email_data['message'] = $message;
@@ -936,7 +936,7 @@ class dbmodule {
 
             $vars = array(
                 "{Username}" => $user_data['google_name'],
-                "{Link}" => $this->getTargetLink(PROFILE_URL,'Parakh');
+                "{Link}" => $this->getTargetLink(PROFILE_URL,'Parakh'),
                 "{Comment}" => '"' . $data['feedback_desc'] . '"'
             );
 
