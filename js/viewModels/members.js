@@ -235,8 +235,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojcollectiontabledatasource', '
                         if (self.myselfId() === self.myLead() || self.myselfId() === self.myManager()) {
                             $('#negetiveTab').show();
                             $('#feedbackTab').show();
+                            $('#negetiveTab1').show();
+                            $('#feedbackTab1').show();
                             $("#ulTab").addClass("tabHeight");
                             $("#ulTab").removeClass("tabHeightNew");
+                            $('#responsiveTab').addClass('tabWidth');
+                            $('#responsiveTab').removeClass('tabWidth2');
                         }
                     }
                 });

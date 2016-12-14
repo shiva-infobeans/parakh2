@@ -12,8 +12,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
     /**
      * The view model for the main content view template
      */
-    function sideBarContentViewModel() {
+    function sideBarContentViewModel(person) {
         var self = this;
+
+        this.email = person['email'];       
         self.message = ko.observable();
         self.textError = ko.observable();
         self.sucessMsg = ko.observable();
@@ -28,9 +30,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     headers: {secret: secret},
                     method: 'POST',
                     url: sendFeedback,
-                    data: {desc: self.message()},
+                    data: {desc: self.message(),from: self.email},
                     success: function () {
                         console.log('sent');
+                        console.log(self.email);
                         console.log(self.message());
                         $("#modalDialog-userFeedback").ojDialog("close");
                         $("#sucess").show();

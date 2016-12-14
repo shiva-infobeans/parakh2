@@ -951,7 +951,8 @@
 
 #ojDialogWrapper-modalDialog9 .oj-dialog-title::before,
 #ojDialogWrapper-modalDialog8 .oj-dialog-title::before,
-#ojDialogWrapper-modalDialog3 .oj-dialog-title::before
+#ojDialogWrapper-modalDialog3 .oj-dialog-title::before,
+#ojDialogWrapper-modalDialog-userFeedback .oj-dialog-title::before
 { 
     background-repeat: no-repeat;
     background-size: 15px 15px;
@@ -978,13 +979,18 @@
     background-size: 30px 30px;
 }
 #ojDialogWrapper-modalDialog9 .oj-dialog-title::before,
-#ojDialogWrapper-modalDialog8 .oj-dialog-title::before,
-#ojDialogWrapper-modalDialog-userFeedback .oj-dialog-title::before
+#ojDialogWrapper-modalDialog8 .oj-dialog-title::before
 {
     background-image: url("../../css/images/feedback-icon (1).png");
     background-position: 12px 3px;
     background-size: 24px 23px;
 
+}
+#ojDialogWrapper-modalDialog-userFeedback .oj-dialog-title::before
+{
+    background-image: url("../../css/images/feedback-icon (1).png");
+    background-position: 13px 7px;
+    background-size: 23px 19px;
 }
 #ojDialogWrapper-modalDialog9 .oj-dialog-title,
 #ojDialogWrapper-modalDialog8 .oj-dialog-title,
@@ -1661,19 +1667,33 @@
 }
 #text-area::-webkit-input-placeholder
 {
-    color: #dcdcdc;
+    color: #dcdcdc !important;
 }
 
 #text-area::-moz-placeholder
 {
-    color: #dcdcdc;
+    color: #dcdcdc !important;
 }
 #text-area:-moz-placeholder {
-    color: #dcdcdc;
+    color: #dcdcdc !important;
 }
 
 #text-area:-ms-input-placeholder {
-    color: #dcdcdc;
+    color: #dcdcdc !important;
+}
+#text-area-manager::-webkit-input-placeholder
+{
+    color: #dcdcdc !important;
+}
+#text-area-manager::-moz-placeholder
+{
+    color: #dcdcdc !important;
+}
+#text-area-manager:-moz-placeholder {
+    color: #dcdcdc !important;
+}
+#text-area-manager:-ms-input-placeholder {
+    color: #dcdcdc !important;
 }
 
 
@@ -1773,6 +1793,9 @@
     width: 30px;   
 }
 #negetiveTab , #feedbackTab{
+    display:none;
+}
+#negetiveTab1 , #feedbackTab1{
     display:none;
 }
 #filmStrip .oj-filmstrip-arrow.oj-default .oj-filmstrip-arrow-icon{
