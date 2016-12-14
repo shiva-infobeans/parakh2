@@ -75,13 +75,13 @@ and open the template in the editor.
                             <!--                <h4 data-bind="text: userId"></h4>-->
                             <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-4 oj-flex-item oj-padding-top oj-padding-bottom">
                                 <span>
-                                    <a href="javascript:void(0);" title="Rate Buddy" class="rateMyTeam starTeam " data-bind="attr: {myTeamId:myId, teamImage:myPic,teamName:myName,teamDesig:myDesign}" ><i class="zmdi zmdi-star"></i></a>
+                                    <a href="javascript:void(0);" title="Rate Buddy" class="rateMyTeam starTeam " data-bind="attr: {myTeamId:myId, teamImage:myPic,teamName:myName,teamDesig:myDesign,intials:intials}" ><i class="zmdi zmdi-star"></i></a>
                                 </span>
                             </div>
                             <!--data-bind="attr: {id:userId, image:pic,myname:name,myDesignation:designation,}"-->
                             <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-4 oj-flex-item oj-padding-top oj-padding-bottom">
                                 <span>
-                                    <a href="javascript:void(0);" title="Send Feedback" class="feedbackBuddyLead" data-bind="attr: {myTeamId: myId, teamImage: myPic,teamName: myName,teamDesig: myDesign}"> <i class="zmdi zmdi-comment-alt-text"></i></a>
+                                    <a href="javascript:void(0);" title="Send Feedback" class="feedbackBuddyLead" data-bind="attr: {myTeamId: myId, teamImage: myPic,teamName: myName,teamDesig: myDesign,intials:intials}"> <i class="zmdi zmdi-comment-alt-text"></i></a>
                                 </span>
                             </div>
                             <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-4 oj-flex-item oj-padding-top oj-padding-bottom">
@@ -135,7 +135,7 @@ and open the template in the editor.
                             <!--                <h4 data-bind="text: userId"></h4>-->
                             <div class="oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6 oj-flex-item oj-padding-top oj-padding-bottom">
                                 <span>
-                                    <a href="javascript:void(0);" title="Rate Buddy" class="rateBuddy star" data-bind="attr: {id:userId, image:pic,myname:name,myDesignation:designation,role_name:role_name}"><i class="zmdi zmdi-star"></i></a>
+                                    <a href="javascript:void(0);" title="Rate Buddy" class="rateBuddy star" data-bind="attr: {id:userId, image:pic,myname:name,myDesignation:designation,role_name:role_name,intials:intials}"><i class="zmdi zmdi-star"></i></a>
                                 </span>
                             </div>
                             <div class="oj-xl-6 oj-lg-6 oj-md-6 oj-sm-6 oj-flex-item oj-padding-top oj-padding-bottom">
@@ -163,8 +163,10 @@ and open the template in the editor.
             <div class="oj-dialog-body">
                 <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex oj-flex-item oj-padding"  style="margin-top: -10px;">
                     <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
-                        <img class="profile2 border-color-white" data-bind="attr: {src: image}"/>
-
+                        <div class="profile_img_rateme">
+                            <img class="profile2 border-color-white" data-bind="attr: {src: image}"/>   
+                            <span class="profile_intials_rateme" data-bind="text:intials"></span>
+                        </div>
                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
                             <h4><strong><span data-bind="text: myname"  ></span></strong></h4>
                             <h5><span data-bind="text: myDesignation"></span></h5>
@@ -205,7 +207,10 @@ and open the template in the editor.
             <div class="oj-dialog-body">
                 <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex oj-flex-item oj-padding">
                     <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                        <img class="profile2 border-color-white" data-bind="attr: {src:teamImage}"/>
+                        <div class="profile_img_rateme">
+                            <img class="profile2 border-color-white" data-bind="attr: {src:teamImage}"/>
+                            <span class="profile_intials_rateme" data-bind="text:intials"></span>
+                        </div>
 
                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
                             <h4>  <strong><span data-bind="text:teamName"  ></span></strong></h4>
@@ -245,8 +250,10 @@ and open the template in the editor.
              data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide'}">
             <div class="oj-dialog-body oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item">
                 <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                    <img class="profile border-color-white" data-bind="attr: {src: image}"/>
-
+                    <div class="profile_img_rateme">
+                        <img class="profile2 border-color-white" data-bind="attr: {src: image}"/>
+                        <span class="profile_intials_rateme" data-bind="text:intials"></span>
+                    </div>
                     <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
                         <h4><strong><span data-bind="text: myname"  ></span></strong></h4>
                         <h5><span data-bind="text: myDesignation"></span></h5>

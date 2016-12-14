@@ -2304,3 +2304,20 @@ a#menu-share:hover > i{
 	 .header_profile_image_initials  { line-height:13px;  }
 	}
 }
+
+.profile_img_rateme {
+    position: relative;
+    display: inline-block;
+}
+.profile_intials_rateme {
+    position: absolute;
+    display: inline-block;
+    text-align: center;
+    top: 0;
+    right: 0;
+    padding: 14px;
+    font-size: 33px;
+    color: #fff;
+    bottom: 0;
+    left: 0;
+}
