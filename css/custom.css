@@ -905,7 +905,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 .NorequestMsgAlignment{
     display: table;
     font-size: 35px;
-    height: 100%;
+    height: aotu;
     text-align: center;
 }
 
@@ -1612,6 +1612,11 @@ div.oj-tabs-panel.oj-tabs-selected{
 .rating-section{
     min-height: 300px;
 }
+.recentInfo0, .recentInfo1, .recentInfo2, .recentInfo3 {
+  left: 0;
+  right: 0;
+  margin: -10px auto 0 !important;
+}
 }
 
 .transboxRequest2{
@@ -1782,7 +1787,6 @@ div.oj-tabs-panel.oj-tabs-selected{
         z-index: 1;
     }
 
-    /*Namrata*/
     #oj-combobox-choice-combobox3.oj-combobox-choice,#oj-combobox-choice-combobox2.oj-combobox-choice,#oj-combobox-choice-combobox9.oj-combobox-choice{
 /*        min-width: 285px !important;*/
         max-width: 100% !important;
@@ -2158,11 +2162,9 @@ a#menu-share:hover > i{
 {
   color: #777 !important;
 }
+
 .no-pointer{
 	cursor: default;
-}
-.ms-fix{
-	border: 1px solid transparent;
 }
 
 .margin-top-feedback{margin-top: -15px;}
@@ -2177,7 +2179,7 @@ a#menu-share:hover > i{
     text-decoration: underline;
 }
 .minheightFix{
-    min-height: 86%;
+    min-height: 100%;
     max-height: 999em;
 }
 
@@ -2194,7 +2196,7 @@ a#menu-share:hover > i{
 }
 .center-fix {
   display: inline-block;
-  text-align: center;
+  /*text-align: center;*/
 }
 .profile-img-div a {
   display: inline-block;
@@ -2330,6 +2332,10 @@ a#menu-share:hover > i{
    #ojDialogWrapper-minMaxDialog.oj-dialog{
 	height: 200px;
 	}
+	.ms-fix{
+	border: 1px solid transparent;
+}
+
 }
 .margin-10LR {
   margin-left: 10px;
