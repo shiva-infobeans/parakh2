@@ -123,7 +123,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
             success: function () {
 //                assgning values to the varibles.
                 if (typeof data.attributes['data'] !== 'undefined' && data.attributes['data'].length > 0) {
-                    try{
+                    try {
                         var img0 = data.attributes['data'][0]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][0]['google_picture_link'];
                         self.name0(data.attributes['data'][0]['google_name'].substr(0, data.attributes['data'][0]['google_name'].indexOf(' ')));
                         self.name0hover(data.attributes['data'][0]['google_name']);
@@ -131,7 +131,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                         self.image0(img0);
                         var person0 = "memberProfile.html?id=" + data.attributes['data'][0]['user_id'];
                         self.link0(person0);
-                        if(data.attributes['data'][0]['google_picture_link'] == '/images/default.png') { self.intials0(nameFunction(data.attributes['data'][0]['google_name'])); }else{ self.intials0(''); }
+                        if (data.attributes['data'][0]['google_picture_link'] == '/images/default.png') {
+                            self.intials0(nameFunction(data.attributes['data'][0]['google_name']));
+                        } else {
+                            self.intials0('');
+                        }
 
                         var img1 = data.attributes['data'][1]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][1]['google_picture_link'];
                         self.name1(data.attributes['data'][1]['google_name'].substr(0, data.attributes['data'][1]['google_name'].indexOf(' ')));
@@ -140,7 +144,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                         self.image1(img1);
                         var person1 = "memberProfile.html?id=" + data.attributes['data'][1]['user_id'];
                         self.link1(person1);
-                        if(data.attributes['data'][1]['google_picture_link'] == '/images/default.png') { self.intials1(nameFunction(data.attributes['data'][1]['google_name'])); }else{ self.intials1(''); }
+                        if (data.attributes['data'][1]['google_picture_link'] == '/images/default.png') {
+                            self.intials1(nameFunction(data.attributes['data'][1]['google_name']));
+                        } else {
+                            self.intials1('');
+                        }
 
                         var img2 = data.attributes['data'][2]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][2]['google_picture_link'];
                         self.name2(data.attributes['data'][2]['google_name'].substr(0, data.attributes['data'][2]['google_name'].indexOf(' ')));
@@ -149,7 +157,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                         self.image2(img2);
                         var person2 = "memberProfile.html?id=" + data.attributes['data'][2]['user_id'];
                         self.link2(person2);
-                        if(data.attributes['data'][2]['google_picture_link'] == '/images/default.png') { self.intials2(nameFunction(data.attributes['data'][2]['google_name'])); }else{ self.intials2(''); }
+                        if (data.attributes['data'][2]['google_picture_link'] == '/images/default.png') {
+                            self.intials2(nameFunction(data.attributes['data'][2]['google_name']));
+                        } else {
+                            self.intials2('');
+                        }
 
                         var img3 = data.attributes['data'][3]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data.attributes['data'][3]['google_picture_link'];
                         self.name3(data.attributes['data'][3]['google_name'].substr(0, data.attributes['data'][3]['google_name'].indexOf(' ')));
@@ -157,13 +169,17 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                         self.project3hover(data.attributes['data'][3]['primary_project']);
                         self.image3(img3);
                         var person3 = "memberProfile.html?id=" + data.attributes['data'][3]['user_id'];
-                        if(data.attributes['data'][3]['google_picture_link'] == '/images/default.png') { self.intials3(nameFunction(data.attributes['data'][3]['google_name'])); }else{ self.intials3(''); }
+                        if (data.attributes['data'][3]['google_picture_link'] == '/images/default.png') {
+                            self.intials3(nameFunction(data.attributes['data'][3]['google_name']));
+                        } else {
+                            self.intials3('');
+                        }
                         self.link3(person3);
-                    }catch(e)
+                    } catch (e)
                     {
                         console.log(e);
                     }
-                }else
+                } else
                 {
                     //$('.hoverContent0').hide();
                     //$('.hoverContent1').hide();
@@ -201,7 +217,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
         self.sliderText1 = ko.observable();
         self.sliderText2 = ko.observable();
         self.sliderText3 = ko.observable();
-        
+
         self.teamMembers = ko.observableArray();
         self.addteamMembers = function (obj) {
             self.teamMembers.push(obj);
@@ -391,7 +407,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                         if (obj3.leadPlus12 == 0 && obj3.leadMinus12 == 0) {
                                             self.addLeadSlider(obj3);
                                             $("#show80").hide();
-											$("#showSlider80").hide();
+                                            $("#showSlider80").hide();
                                             $("#noRating80").show();
 
                                         } else {
@@ -447,19 +463,19 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                     obj.nameS = result['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
                                     obj.image = result['attributes']['data'][c]['google_picture_link'];
                                     obj.projects = result['attributes']['data'][c]['primary_project'];
-                                    if(result['attributes']['data'][c]['google_picture_link'] == '/images/default.png')
+                                    if (result['attributes']['data'][c]['google_picture_link'] == '/images/default.png')
                                     {
                                         obj.intials = nameFunction(result['attributes']['data'][c]['google_name']);
-                                    }else
+                                    } else
                                     {
                                         obj.intials = "";
                                     }
                                     obj.personLink = "memberProfile.html?id=" + result['attributes']['data'][c]['user_id'];
                                     self.addteamMembers(obj);
                                 }
-                                for(i=result['attributes']['data'].length;i<4;i++)
+                                for (i = result['attributes']['data'].length; i < 4; i++)
                                 {
-									var obj = new Object();
+                                    var obj = new Object();
                                     obj.name = 'No Record';
                                     obj.nameS = '';
                                     obj.image = "/images/warning-icon-24.png";
@@ -481,19 +497,19 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                             obj.nameS = res2['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
                                             obj.image = res2['attributes']['data'][c]['image'];
                                             obj.projects = res2['attributes']['data'][c]['primary_project'];
-                                            if(res2['attributes']['data'][c]['image'] == '/images/default.png')
+                                            if (res2['attributes']['data'][c]['image'] == '/images/default.png')
                                             {
                                                 obj.intials = nameFunction(res2['attributes']['data'][c]['google_name']);
-                                            }else
+                                            } else
                                             {
                                                 obj.intials = "";
                                             }
                                             obj.personLink = "memberProfile.html?id=" + res2['attributes']['data'][c]['user_id'];
                                             self.addteamMembers(obj);
                                         }
-                                        for(i=res2['attributes']['data'].length;i<4;i++)
+                                        for (i = res2['attributes']['data'].length; i < 4; i++)
                                         {
-											var obj = new Object();
+                                            var obj = new Object();
                                             obj.name = 'No Record';
                                             obj.nameS = '';
                                             obj.image = "/images/warning-icon-24.png";
@@ -509,7 +525,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                         yearFetch.fetch({
                                             headers: {secret: secret},
                                             success: function (res3) {
-                                                if(res3['attributes']['data'].length>0){
+                                                if (res3['attributes']['data'].length > 0) {
                                                     for (var c = 0; c < 4; c++) {
                                                         var obj = new Object();
                                                         obj.personLink = "memberProfile.html?id=" + res3['attributes']['data'][c]['user_id'];
@@ -517,19 +533,19 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                                         obj.nameS = res3['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
                                                         obj.image = res3['attributes']['data'][c]['image'];
                                                         obj.projects = res3['attributes']['data'][c]['primary_project'];
-                                                        if(res3['attributes']['data'][c]['image'] == '/images/default.png')
+                                                        if (res3['attributes']['data'][c]['image'] == '/images/default.png')
                                                         {
                                                             obj.intials = nameFunction(res3['attributes']['data'][c]['google_name']);
-                                                        }else
+                                                        } else
                                                         {
                                                             obj.intials = "";
                                                         }
                                                         self.addteamMembers(obj);
                                                     }
                                                 }
-                                                for(i=res3['attributes']['data'].length;i<4;i++)
+                                                for (i = res3['attributes']['data'].length; i < 4; i++)
                                                 {
-													var obj = new Object();
+                                                    var obj = new Object();
                                                     obj.name = 'No Record';
                                                     obj.nameS = '';
                                                     obj.image = "/images/warning-icon-24.png";
@@ -645,7 +661,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                         /// rating calculation end here
                     }
                 });
-                $(".oj-pagingcontrol-nav-dot").attr("title","");
+                $(".oj-pagingcontrol-nav-dot").attr("title", "");
             }
         });
         var ManagerSlider = 0;
@@ -653,12 +669,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
         setInterval(function () {
 
 
-            if ($("#filmStrip").find("#ui-id-9").attr("style") == "visibility: hidden;") {
-                $("#filmStrip").ojFilmStrip("option", "currentItem", 0);
-            } else {
-                $("#filmStrip").find("#ui-id-9").click();
-            }
-            
+
             /// slider my team
             if ($('#filmStrip8').ojFilmStrip("option", "currentItem") == 0) {
                 try {
@@ -714,15 +725,17 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                 }
             }
             /// manager slider
-            
-            
-            if($('#filmStrip7').ojFilmStrip("option", "currentItem") == (ManagerSlider)
-                    || $('#filmStrip7').ojFilmStrip("option", "currentItem") == ("show7"+ManagerSlider)){
+
+
+            if ($('#filmStrip7').ojFilmStrip("option", "currentItem") == (ManagerSlider)
+                    || $('#filmStrip7').ojFilmStrip("option", "currentItem") == ("show7" + ManagerSlider)) {
                 try {
-                    if(ManagerSlider==(self.projects().length-1)) ManagerSlider=0;
-                    else ManagerSlider++;
+                    if (ManagerSlider == (self.projects().length - 1))
+                        ManagerSlider = 0;
+                    else
+                        ManagerSlider++;
                     $('#filmStrip7').ojFilmStrip("option", "currentItem", ManagerSlider);
-                    
+
                 } catch (e)
                 {
                     ManagerSlider = 0;
@@ -730,13 +743,42 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
             }
 
         }, 6000);
-        self.redirectPlus = function(){
+
+        var sliderTimeout = 6000;
+        var rotatorPerformanceSlider = 0;
+        setInterval(function () {
+
+            if ($("#filmStrip").find("#ui-id-9").attr("style") == "visibility: hidden;") {
+                $("#filmStrip").ojFilmStrip("option", "currentItem", 0);
+                rotatorPerformanceSlider = 0;
+            } else {
+                if ($(window).width() >= 1164) {
+                    $("#filmStrip").ojFilmStrip("option", "currentItem", 4);
+                } else {
+                    if ($(window).width() >= 904 && $(window).width() <= 1163) {
+                        $("#filmStrip").ojFilmStrip("option", "currentItem", 3);
+                    } else {
+                        if ($(window).width() >= 644 && $(window).width() <= 903) {
+                            $("#filmStrip").ojFilmStrip("option", "currentItem", 2);
+                        } else {
+                            $("#filmStrip").ojFilmStrip("option", "currentItem", 1);
+                        }
+
+                    }
+                }
+                //$("#filmStrip").find("#ui-id-9").click();
+            }
+
+        }, sliderTimeout);
+
+
+        self.redirectPlus = function () {
             window.location = "profile.html";
         }
-        self.redirectMinus = function(){
+        self.redirectMinus = function () {
             window.location = "profile.html?id=1";
         }
-        
+
         setTimeout(function () {
             $("#filmStrip").on({
                 'ojoptionchange': function (event, data) {
