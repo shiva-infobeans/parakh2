@@ -774,24 +774,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                 }
             });
         }, 500);
-        function myTimer() {
-            var sec = 15;
-            var timer = setInterval(function () {
-                $('#timer').text(sec--);
-                if (sec == -1)
-                {
-                    clearInterval(timer);
-                    alert('done');
-                }
-            }, 1000);
-        }
-        $("#knap").click(function () {
-            myTimer();
-        });
-        $("#reset").click(function () { // set timer to 15 sec again.. });
-        });
+       
 
-        
+
 
     }
 
