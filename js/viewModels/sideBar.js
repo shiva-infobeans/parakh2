@@ -17,11 +17,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         setTimeout( function(){
               self.handleOpen = $(".sideBar-feedback").click(function () {
                 $("#modalDialog-userFeedback").ojDialog("open");
-            });
-
-         
-        },  
-               500);
+            });         
+        },500);
+        
+        
         
 
     }
