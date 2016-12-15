@@ -70,20 +70,46 @@ class dbmodule {
         $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
         if (!filter_var($lead_id, FILTER_VALIDATE_INT) === false) {
             $employeeList = array();
-            $query = 'SELECT uh.user_id,u.google_name,u.google_email,u.mobile_number,u.designation,u.google_picture_link as picture,u.google_email,
-                    sum(case when r.rating = 1 then 1 end) as pluscount,
-                    sum(case when r.rating = 0 then 1 end) as minuscount
-                    FROM user_hierarchy uh left join users u on u.id = uh.user_id left join rating r on (u.id=r.user_id)
-                    WHERE manager_id = :id AND u.status <> 0 group by uh.user_id order by u.google_name';
+            $query = 'SELECT uh.user_id,u.google_name,u.google_email,u.mobile_number,u.designation,u.google_picture_link as picture,u.google_email
+                     FROM user_hierarchy uh left join users u on u.id = uh.user_id
+                     WHERE manager_id = :id AND u.status <> 0 group by uh.user_id order by u.google_name';
+
+            // $query = 'SELECT uh.user_id,u.google_name,u.google_email,u.mobile_number,u.designation,u.google_picture_link as picture,u.google_email,
+            //         sum(case when r.rating = 1 then 1 end) as pluscount,
+            //         sum(case when r.rating = 0 then 1 end) as minuscount
+            //         FROM user_hierarchy uh left join users u on u.id = uh.user_id left join rating r on (u.id=r.user_id)
+            //         WHERE manager_id = :id AND u.status <> 0 group by uh.user_id order by u.google_name';
             $user_data = $this->con->prepare($query);
             $user_data->execute(array(':id' => $lead_id));
             $employeeList = $user_data->fetchAll((PDO::FETCH_ASSOC));
+
             for ($t=0;$t<count($employeeList);$t++) {
                 $image = $this->getCacheImage($employeeList[$t]['google_email'],$default_img);
                 $employeeList[$t]['picture'] = $image;
+                $employeeList[$t]['pluscount'] = $this->getRating(1,$employeeList[$t]['user_id']);
+                $employeeList[$t]['minuscount'] = $this->getRating(0,$employeeList[$t]['user_id']);
             }
             return $employeeList;
         } else {
+            return 0;
+        }
+    }
+
+    function getRating($rating_for,$user_id)
+    {
+        $query  = 'SELECT count(r.rating) as total
+                    FROM rating AS r
+                    JOIN request re ON re.id = r.request_id JOIN users AS u ON u.id = r.user_id
+                    JOIN users AS u1 ON u1.id = r.given_by
+                    WHERE r.user_id = :user_id AND r.rating= :rating_for';
+        $rating_data = $this->con->prepare($query);
+        $rating_data->execute(array(':user_id' => $user_id,':rating_for' => $rating_for));
+        $rating = $rating_data->fetch();
+        if(isset($rating['total']) && !empty($rating))
+        {
+            return $rating['total'];
+        }else
+        {
             return 0;
         }
     }
