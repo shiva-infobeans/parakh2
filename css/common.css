@@ -13,6 +13,7 @@
     list-style: outside none none;
     margin-left: 23px;
     margin-right: 17px;
+	display: inline-block;
 
 }
 .navigationlist{
@@ -85,9 +86,25 @@
         width: 20px !important;
         border-radius: 50%;
         border: 2px solid #fff !important;
-        display: block;
+        display: inline-block;
         vertical-align: middle;
+		position: relative;
+		
     }
+	.header_profile_image_initials {
+	  display: inline-block;
+	  font-size: 10px;
+	  height: 20px;
+	  padding: 6px 4px;
+	  position: absolute;
+	  width: 20px;
+	  margin: 0;
+	  right: 0;
+	  bottom: 0;
+	  top: 0;
+	  left: 0;
+	  
+	}
     .logo{
         height:60px;
     }

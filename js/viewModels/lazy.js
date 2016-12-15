@@ -5,7 +5,7 @@
  */
 
 /**
- * myTeam module
+ * lazy module
  */
 define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojmodel', , 'ojs/ojtabs', 'ojs/ojconveyorbelt'
 ], function (oj, ko, $) {
@@ -16,14 +16,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         var member = this;
         member.name = data['google_name'];
         member.userId = data['id'];
-        member.pic = data['google_picture_link'] == "" ? '/images/default.png' : data['google_picture_link'];
-        if(member.pic == '/images/default.png')
-        {
-            member.intials = nameFunction(data['google_name']);
-        }else
-        {
-            member.intials = '';
-        }
+        member.pic = data['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data['google_picture_link'];
         member.designation = data['designation'];
         member.role_name = data['role_name'];
         member.google_id = data['google_id'];
@@ -34,13 +27,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
     function leadTeam(data) {
         var myTeam = this;
         myTeam.myName = data['google_name'];
-        if(data['picture'] == '/images/default.png')
-        {
-            myTeam.intials = nameFunction(data['google_name']);
-        }else
-        {
-            myTeam.intials = '';
-        }
         myTeam.myId = data['user_id'];
         myTeam.myDesign = data['designation'];
         myTeam.myEmail = data['google_email'];
@@ -49,13 +35,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         myTeam.minus = data['minuscount'] != null ? data['minuscount'] == 0 ? 0 : "-" + data['minuscount'] : 0;
         return myTeam;
     }
-    function nameFunction(NAME) {
-        var initial = NAME.charAt(0) + NAME.charAt(NAME.lastIndexOf(" ") + 1);
-        return initial;
-    }
-    function myTeamContentViewModel(person) {
+    function lazyContentViewModel(person) {
         var self = this;
         self.image = ko.observable();
+        self.lazyLoadingSize = ko.observable(8);
         self.myname = ko.observable();
         self.myDesignation = ko.observable();
         self.role_name = ko.observable();
@@ -82,30 +65,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.selectTab = ko.observable(0);
         self.sucessMsgFeedback = ko.observable();
 
-        self.myTeamTab = ko.observable(2);
-        ///////////// tab switching ///////////
-        self.myTeamTab1 = function () {
-            self.myTeamTab(1);
-        }
-        self.myTeamTab2 = function () {
-            self.myTeamTab(2);
-        }
-
-        // code for lazy loading for all members here.
+        // code for lazy loading here.
         self.lazyAllMembers = ko.observableArray();
         self.rowcountAllMember = ko.observable(0);
         self.pageNumAllMembers = ko.observable(0);
-        self.lazyAllBlock = ko.observable(6);
-        self.lazyAllInitBlock = ko.observable(9);
-
-        // code for lazy loading for My team members here.
-        self.lazyMyMembers = ko.observableArray();
-        self.rowcountMyMember = ko.observable(0);
-        self.pageNumMyMembers = ko.observable(0);
-        self.lazyMyBlock = ko.observable(6);
-        self.lazyMyInitBlock = ko.observable(9);
-
-
         //indexer for other team members
         self.indexer2Letters = ko.observableArray();
         self.makeUnderLine2 = function (data, event) {
@@ -153,34 +116,15 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         url: getUserByLead + self.lead_id(),
                         data: {user_id: res['attributes']['data']['id']},
                         success: function (task) {
-                            self.myTeamTab(1);
+
                             var data = JSON.parse(task)['data'];
                             data = data.sort(function (a, b) {
                                 return (a['user_name'] > b['user_name']) - (a['user_name'] < b['user_name']);
                             });
                             for (var counter1 = 0; counter1 < data.length; counter1++) {
-                                self.lazyMyMembers.push(new leadTeam(data[counter1]));
-                                //self.myTeam.push(new leadTeam(data[counter1]));
+                                self.myTeam.push(new leadTeam(data[counter1]));
                             }
-                            if (data.length != 0) {
-                                self.rowcountMyMember(data.length);
-
-                                if (data.length < self.lazyMyInitBlock())
-                                {
-                                    var loadData = data.length;
-                                    $("#myTeamLazy").hide();
-                                } else {
-                                    var loadData = self.lazyMyInitBlock();
-                                }
-
-                                for (var c = 0; c < loadData; c++) {
-                                    self.myTeam.push(self.lazyMyMembers()[c]);
-                                    self.pageNumMyMembers(self.pageNumMyMembers() + 1);
-                                }
-                            }else{
-                                $("#myTeamLazy").hide();
-                            }
-                            self.data1(self.lazyMyMembers());
+                            self.data1(self.myTeam());
                             self.indexer1Letters.push("All");
                             $("#All1 a").addClass('indexerUnderline');
                             for (var c = 0; c < self.data1().length; c++) {
@@ -191,6 +135,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                     if (self.data1()[c - 1]['myName'].substring(0, 1) != letter) {
                                         self.indexer1Letters.push(letter);
                                     }
+
                                 }
                             }
                         }
@@ -208,28 +153,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             return (a['google_name'] > b['google_name']) - (a['google_name'] < b['google_name']);
                         });
                         for (var counter1 = 0; counter1 < data.length; counter1++) {
-                            self.lazyAllMembers.push(new teamMember(data[counter1]));
+                            self.members.push(new teamMember(data[counter1]));
                         }
-                        if (data.length != 0) {
-                            self.rowcountAllMember(data.length);
-                            self.rowcountAllMember();
-
-                            if (data.length < self.lazyAllInitBlock())
-                            {
-                                var loadData = data.length;
-                                $("#otherTeamLazy").hide();
-                            } else {
-                                var loadData = self.lazyAllInitBlock();
-                            }
-
-                            for (var c = 0; c < loadData; c++) {
-                                self.members.push(self.lazyAllMembers()[c]);
-                                self.pageNumAllMembers(self.pageNumAllMembers() + 1);
-                            }
-                        }else{
-                            $("#otherTeamLazy").hide();
+                        self.data2(self.members());
+                        self.rowcountAllMember(self.data2().length);
+                        for (var c = 0; c < self.lazyLoadingSize(); c++) {
+                            self.lazyAllMembers.push(self.data2()[c]);
+                            self.pageNumAllMembers(self.pageNumAllMembers() + 1);
                         }
-                        self.data2(self.lazyAllMembers());
                         self.indexer2Letters.push("All");
                         $("#All a").addClass('indexerUnderline');
                         for (var c = 0; c < self.data2().length; c++) {
@@ -248,21 +179,20 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         });
         self.arrangeIndex = function (data, event) {
             if (event.target.tagName == 'A') {
-                $("#otherTeamLazy").hide();
                 self.pageNumAllMembers(self.rowcountAllMember());
                 var value = event.target.href;
                 value = value.substr(value.lastIndexOf('/') + 1);
                 var temp_data = [];
-                self.members([]);
+                self.lazyAllMembers([]);
                 if (value == "All") {
-                    self.members([]);
-                    self.members(self.data2());
+                    self.lazyAllMembers([]);
+                    self.lazyAllMembers(self.data2());
                 } else {
                     var temp_data = [];
-                    self.members([]);
+                    self.lazyAllMembers([]);
                     for (var counter = 0; counter < self.data2().length; counter++) {
                         if (self.data2()[counter]['name'].charAt(0) == value) {
-                            self.members.push(self.data2()[counter]);
+                            self.lazyAllMembers.push(self.data2()[counter]);
                         }
                     }
                 }
@@ -311,8 +241,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         };
         self.arrangeIndex1 = function (data, event) {
             if (event.target.tagName == 'A') {
-                $("#myTeamLazy").hide();
-                self.pageNumMyMembers(self.rowcountMyMember());
                 var value = event.target.href;
                 value = value.substr(value.lastIndexOf('/') + 1);
                 var temp_data = [];
@@ -369,16 +297,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 $("#modalDialog2").ojDialog("close");
             });
         };
-
-        $("body").on('click', '.viewProfile1', function () {
-            var link = "memberProfile.html?id=" + $(this).attr("myTeamId");
-            window.location = link;
-        });
-
-        $("body").on('click', '.viewProfile', function () {
-            var link = "memberProfile.html?id=" + $(this).attr("myTeamId");
-            window.location = link;
-        });
         //rateBuddy
         $("body").on('click', '.rateBuddy', function () {
             $("#modalDialog1").ojDialog("open");
@@ -410,7 +328,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         });
         //submit for rate buddy
         self.submitModal = function () {
-            self.desc(self.desc().trim());
             if (self.desc() == '' || self.desc() == null) {
                 self.textError("Please Provide a reason for your rating");
                 return false;
@@ -444,7 +361,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         }
         //submit for feedback
         self.submitFeedback = function () {
-            self.desc(self.desc().trim());
             if (self.desc() == '' || self.desc() == null) {
                 self.textError("Please Provide your feedback");
                 return false;
@@ -526,7 +442,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         };
         // default +1 on submit button 
         this.leadSubmit = function () {
-            self.desc(self.desc().trim());
             if (self.desc() == '' || self.desc() == null) {
                 self.textError("Please Provide a reason for your rating");
                 return false;
@@ -600,8 +515,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         $('#homeTab2 > img').remove();
                         $('#homeTab1').append(' <img src="../../images/team-new-active.png" alt="" />');
                         $('#homeTab2').append(' <img src="../../images/team-inactive.png" alt="" />');
-//                        self.members([]);
-//                        self.members(self.data2());
+                        self.members([]);
+                        self.members(self.data2());
                     }
                 });
 
@@ -611,8 +526,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         $('#homeTab2 > img').remove();
                         $('#homeTab1').append(' <img src="../../images/team-new-active.png" alt="" />');
                         $('#homeTab2').append(' <img src="../../images/team-inactive.png" alt="" />');
-//                        self.members([]);
-//                        self.members(self.data2());
+                        self.members([]);
+                        self.members(self.data2());
                     }
                 });
 
@@ -622,8 +537,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         $('#homeTab2 > img').remove();
                         $('#homeTab1').append(' <img src="../../images/team-new.png" alt="" />');
                         $('#homeTab2').append(' <img src="../../images/team-active_1.png" alt="" />');
-//                        self.members([]);
-//                        self.members(self.data2());
+                        self.members([]);
+                        self.members(self.data2());
                     }
                 });
 
@@ -633,8 +548,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         $('#homeTab2 > img').remove();
                         $('#homeTab1').append(' <img src="../../images/team-new.png" alt="" />');
                         $('#homeTab2').append(' <img src="../../images/team-active_1.png" alt="" />');
-//                        self.members([]);
-//                        self.members(self.data2());
+                        self.members([]);
+                        self.members(self.data2());
                     }
                 });
 
@@ -672,53 +587,51 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
         $(window).scroll(function () {
             if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-                if (self.myTeamTab() == 2) {
-                    if (self.pageNumAllMembers() < self.rowcountAllMember()) {
-                        var count = self.pageNumAllMembers();
-                        if (self.pageNumAllMembers() + self.lazyAllBlock() >= self.rowcountAllMember()) {
-                            var loadRecordCount = self.rowcountAllMember() - self.pageNumAllMembers();
-                            $("#otherTeamLazy").hide();
-                        } else {
-                            var loadRecordCount = self.lazyAllBlock();
-                        }
-                        for (var c = count; c < count + loadRecordCount; c++) {
-                            try {
-                                self.members.push(self.data2()[c]);
-                                self.pageNumAllMembers(self.pageNumAllMembers() + 1);
-                            } catch (e) {
+                var pagenum = parseInt($(".pagenum:last").val()) + 1;
 
-                            }
-                        }
-                    }else{
-                        $("#otherTeamLazy").hide();
+                if (self.pageNumAllMembers() < self.rowcountAllMember()) {
+                    var count = self.pageNumAllMembers();
+                    console.log("pageCountPrintVar"+count);
+                    if (self.pageNumAllMembers() + self.lazyLoadingSize() > self.rowcountAllMember()) {
+                        var loadRecordCount = self.rowcountAllMember() - self.pageNumAllMembers();
+                        console.log("1.loadRecordCOunt: "+loadRecordCount);
+                    } else {
+                        var loadRecordCount = self.lazyLoadingSize();
+                        console.log("2.loadRecordCOunt: "+loadRecordCount);
                     }
-                }
-                if (self.myTeamTab() == 1) {
-                    if (self.pageNumMyMembers() < self.rowcountMyMember()) {
-                        var count = self.pageNumMyMembers();
-                        if (self.pageNumMyMembers() + self.lazyMyBlock() >= self.rowcountMyMember()) {
-                            var loadRecordCount = self.rowcountMyMember() - self.pageNumMyMembers();
-                        } else {
-                            var loadRecordCount = self.lazyMyBlock();
-                            $("#myTeamLazy").hide();
-                        }
-                        for (var c = count; c < count + loadRecordCount; c++) {
-                            try {
-                                self.myTeam.push(self.lazyMyMembers()[c]);
-                                self.pageNumMyMembers(self.pageNumMyMembers() + 1);
-                            } catch (e) {
+                    for (var c = count; c < count + loadRecordCount; c++) {
+                        try {
+                            self.lazyAllMembers.push(self.data2()[c]);
+                            self.pageNumAllMembers(self.pageNumAllMembers() + 1);
+                        console.log("forLOOP:"+self.pageNumAllMembers());
+                        } catch (e) {
 
-                            }
                         }
-                    }else{
-                        $("#myTeamLazy").hide();
                     }
+
+//                    $.ajax({
+//                        headers: {secret: secret},
+//                        method: 'POST',
+//                        url: getAllTeamMembersLazy + 37,
+//                        data: {user_id: 37, limit: pagenum, pagearray: 20},
+//                        success: function (task) {
+//
+//                            var data = JSON.parse(task)['data'];
+//                            for (var counter1 = 0; counter1 < data.length; counter1++) {
+//                                var item = new Object();
+//                                item.value = data[counter1]['id'];
+//                                item.label = data[counter1]['google_name'];
+//                                item.counter = counter1;
+//                                item.searchPic = data[counter1]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data[counter1]['google_picture_link'];
+//                                //console.log(item);
+//                                self.users.push(item);
+//                            }
+//                        }
+//                    });
                 }
             }
         });
     }
-    return myTeamContentViewModel;
+
+    return lazyContentViewModel;
 });
-
-
-
