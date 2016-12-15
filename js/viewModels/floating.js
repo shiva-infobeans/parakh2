@@ -278,7 +278,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.floatModal = function () {
             self.desc(self.desc().trim());
             if (self.value() == '' || self.value() == null) {
-                self.searchError("This field cannot be empty");
+                self.searchError("This field cannot be empty.");
                 return false;
             }
             if (self.desc() == '' || self.desc() == null) {
@@ -318,7 +318,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
             self.desc(self.desc().trim());
             if (self.value2() == '' || self.value2() == null) {
-                self.searchError("This field cannot be empty");
+                self.searchError("This field cannot be empty.");
                 return false;
             }
             if (self.desc() == '' || self.desc() == null) {
@@ -334,7 +334,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 success: function () {
                     $("#modalDialogRequest").ojDialog("close");
                     $("#sucess").show();
-                    self.sucessMsg("Your request is sent!");
+                    self.sucessMsg("Your request is sent.");
                     setTimeout(function () {
                         $("#sucess").hide();
                         self.sucessMsg("");
