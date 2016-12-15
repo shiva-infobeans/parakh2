@@ -329,7 +329,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 self.lazyTempStorageleadRej.push(new request(data2[i]));
                             }
                             if (data2.length === 0) {
-                                self.noLeadDeclinedRequest("No Declined Requests.");
+                                self.noLeadDeclinedRequest("All your requests have been addressed!");
                                 $("#request3").show();
                                 $('#leadRejectLoading').hide();
                             } else {
@@ -492,9 +492,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     $("#sucessRate").show();
                     if (type == 0) {
 
-                        self.sucessMsg("Rating request declined.");
+                        self.sucessMsg("Rating request declined successfully!");
                     } else {
-                        self.sucessMsg("Rating request approved");
+                        self.sucessMsg("Rating request approved successfully!");
                     }
                     setTimeout(function () {
                         $("#sucessRate").hide();

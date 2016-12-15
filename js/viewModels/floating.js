@@ -250,7 +250,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     $("#modalDialog9").ojDialog("close");
                     self.value('');
                     $("#sucess").show();
-                    self.sucessMsg("Feedback is sent!");
+                    self.sucessMsg("Feedback sent successfully!");
                     setTimeout(function () {
                         $("#sucess").hide();
                         self.sucessMsg("");

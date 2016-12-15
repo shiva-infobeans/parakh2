@@ -359,7 +359,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                             {
                                 $('.sucessMsg').show();
                                 self.moberror("");
-                                self.successful("Profile updated successfully.");
+                                self.successful("Profile updated successfully!");
                                 $('#designation-text').removeClass('hide');
                                 $('#designation-div').addClass('hide');
                                 $('#location-text').removeClass('hide');
@@ -900,7 +900,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                     }
                                 }
                             } else {
-                                //$('#leadRejectLoading').hide();
+                                $("#lazyProfilePos").hide();
                             }
                         }
                         if (self.tabValue() == 2) { //negative rating tab
