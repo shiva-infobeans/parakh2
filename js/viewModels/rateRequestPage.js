@@ -113,9 +113,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.requestRejectedLead = ko.observableArray();
         self.requestDeclinedLead = ko.observableArray();
         self.role = ko.observable();
-        self.noPendingRequest = ko.observable("No Pending Requests.");
-        self.noRejectRequest = ko.observable("No Declined Requests.");
-        self.noLeadPendingRequest = ko.observable("No Pending Requests.");
+        self.noPendingRequest = ko.observable("All your requests have been addressed!");
+        self.noRejectRequest = ko.observable("No declined requests!");
+        self.noLeadPendingRequest = ko.observable("Hooray, you have addressed all the pending requests!");
         self.noLeadDeclinedRequest = ko.observable();
         self.selectTab = ko.observable(0);
 
@@ -542,7 +542,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.requestManager = function () {
             self.desc(self.desc().trim());
             if (self.desc() == '' || self.desc() == null) {
-                self.textError("Please provide a reason for your request.");
+                self.textError("Please provide a reason for your rating request.");
                 return false;
             }
             $.ajax({
@@ -554,7 +554,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     self.desc('');
                     self.textError('');
                     $("#sucessRate").show();
-                    self.sucessMsg("Your Request is sent.");
+                    self.sucessMsg("Request sent successfully!");
                     setTimeout(function () {
                         $("#sucessRate").hide();
                         self.sucessMsg("");
@@ -571,7 +571,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.requestLead = function () {
             self.desc1(self.desc1().trim());
             if (self.desc1() == '' || self.desc1() == null) {
-                self.textError1("Please provide a reason for your request.");
+                self.textError1("Please provide a reason for your rating request.");
                 return false;
             }
             $.ajax({
@@ -583,7 +583,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     self.desc1('');
                     self.textError1('');
                     $("#sucessRate").show();
-                    self.sucessMsg("Your Request is sent.");
+                    self.sucessMsg("Request sent successfully!");
 
                     setTimeout(function () {
                         $("#sucessRate").hide();

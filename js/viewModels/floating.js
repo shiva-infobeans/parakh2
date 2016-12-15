@@ -323,7 +323,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             }
             if (self.desc() == '' || self.desc() == null) {
                 self.searchError("");
-                self.textError("Please provide a reason for your request.");
+                self.textError("Please provide a reason for your rating request.");
                 return false;
             }
             $.ajax({
@@ -334,7 +334,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 success: function () {
                     $("#modalDialogRequest").ojDialog("close");
                     $("#sucess").show();
-                    self.sucessMsg("Your request is sent.");
+                    self.sucessMsg("Request sent successfully!");
                     setTimeout(function () {
                         $("#sucess").hide();
                         self.sucessMsg("");
