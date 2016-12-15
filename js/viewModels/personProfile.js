@@ -791,6 +791,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 self.openReply = function (data, event) {
                     $('#' + data['replyBtnId']).fadeOut();
                     $('#' + data['uniqueId']).fadeOut();
+                     $('#' + data['replyInput']).parent().parent().next().addClass('errorVisibilityHide').removeClass('errorVisibilityShow');
                     try {
                         var effectReplyBtn = 'slideOut';
                         if (effectReplyBtn && oj.AnimationUtils[effectReplyBtn])
