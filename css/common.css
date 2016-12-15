@@ -13,7 +13,7 @@
     list-style: outside none none;
     margin-left: 23px;
     margin-right: 17px;
-	display: inline-block;
+    display: inline-block;
 
 }
 .navigationlist{
@@ -88,23 +88,23 @@
         border: 2px solid #fff !important;
         display: inline-block;
         vertical-align: middle;
-		position: relative;
-		
+        position: relative;
+
     }
-	.header_profile_image_initials {
-	  display: inline-block;
-	  font-size: 10px;
-	  height: 20px;
-	  padding: 6px 4px;
-	  position: absolute;
-	  width: 20px;
-	  margin: 0;
-	  right: 0;
-	  bottom: 0;
-	  top: 0;
-	  left: 0;
-	  
-	}
+    .header_profile_image_initials {
+        display: inline-block;
+        font-size: 10px;
+        height: 20px;
+        padding: 6px 4px;
+        position: absolute;
+        width: 20px;
+        margin: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        left: 0;
+
+    }
     .logo{
         height:60px;
     }
@@ -2163,17 +2163,18 @@ ul.help-ul2{
     border-color: transparent;
 }
 .tab-help-side-padding{
-    padding: 2px 0px 1px 0px;
+    padding: 7px 0px 6px 0px;
     color: #363636;
 }
 .help-side-icons{
     font-size:40px!important;
+    margin-top: -8px !important;
 
 }
 .help-side-text{
-    line-height: 42px;
+    line-height: 29px;
     font-size: 25px;
-    /*padding: 0px;*/
+    /* padding: 0px; */
     padding-left: 10px;
     margin-right: 0px;
 }
@@ -2181,9 +2182,12 @@ ul.help-ul2{
 #selcted-tab1 .oj-tabs-tab.oj-selected .oj-tabs-tab-content div{
     color:#F9E81F !important;
 }
-#selcted-tab .oj-tabs-tab.oj-selected .oj-tabs-tab-content div.icon-after:last-child::after,
-#selcted-tab1 .oj-tabs-tab.oj-selected .oj-tabs-tab-content div.icon-after:last-child::after{
-     content:  url("../css/images/icon-active-help.png");
+#selcted-tab .oj-tabs-tab.oj-selected .oj-tabs-tab-content::after,
+#selcted-tab1 .oj-tabs-tab.oj-selected .oj-tabs-tab-content::after{
+    content:  url("../css/images/icon-active-help.png");
+    float: right;
+    margin-right: 16px;
+    margin-top: 21px;
 }
 #selcted-tab .oj-tabs-tab.oj-selected .oj-tabs-tab-content a,
 #selcted-tab1 .oj-tabs-tab.oj-selected .oj-tabs-tab-content a{
@@ -2191,9 +2195,9 @@ ul.help-ul2{
 }
 #tabs-help-1 .oj-tabs-tab ,
 #tabs-help-2 .oj-tabs-tab {
-     border-bottom: 2px solid #333;
+    border-bottom: 2px solid #333;
 }
-   
+
 
 .transbox-help-tabs{
     margin-left: auto;
@@ -2230,4 +2234,22 @@ ul.help-ul2{
     font-size: 20px;
     text-align: justify;
     line-height: 27px;
+}
+.role-tab-1 {
+    margin-right: 11px;
+}
+.role-tab-2{
+    margin-right: 25px;
+}
+.role-tab-3{
+    margin-right: 12px;
+}
+.role-tab-01{
+    margin-right: 16px;
+}
+.role-tab-04{
+    margin-right: 13px;
+}
+.role-tab-03{
+        margin-left: -4px;
 }
