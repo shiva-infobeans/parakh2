@@ -271,7 +271,7 @@ ul.profile-ul{
     padding: 0px !important;
     margin-left: 10px !important;
     margin-right: 10px !important;
-    /*height:700px;*/
+    /*height:705px;*/
     width: 22%;
 }
 ul li.selectedTab div a.oj-tabs-gen-a.oj-tabs-anchor,
@@ -604,6 +604,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 /*    overflow-x: auto;
     overflow-y: no-content;*/
     /*height:100%;*/
+        padding-bottom: 11px;
 }
 .colcount{
     /*float:left;*/
@@ -2189,9 +2190,10 @@ a#menu-share:hover > i{
 }
 .errorVisibilityShow{
     visibility: visible;
-    padding: 0px 10px !important;
-    margin: 11px 0px -10px 10px !important;
+    /*padding: 0px 10px !important;*/
+   /* margin: 11px 0px -10px 10px !important;*/
     /*error color*/
+    margin-bottom: -20px;
     color:#ff0000;
 }
 .person-profile-intials {
