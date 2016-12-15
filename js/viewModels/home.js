@@ -746,6 +746,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
 
         var sliderTimeout = 6000;
         var rotatorPerformanceSlider = 0;
+//        $("#filmStrip").find("#ui-id-9").click(function(){
+//            sliderTimeout
+//        });
         setInterval(function () {
 
             if ($("#filmStrip").find("#ui-id-9").attr("style") == "visibility: hidden;") {
@@ -753,15 +756,19 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                 rotatorPerformanceSlider = 0;
             } else {
                 if ($(window).width() >= 1164) {
-                    $("#filmStrip").ojFilmStrip("option", "currentItem", 4);
+                    $("#filmStrip").ojFilmStrip("option", "currentItem", rotatorPerformanceSlider);
+                    rotatorPerformanceSlider += 4;
                 } else {
                     if ($(window).width() >= 904 && $(window).width() <= 1163) {
                         $("#filmStrip").ojFilmStrip("option", "currentItem", 3);
+                        rotatorPerformanceSlider += 3;
                     } else {
                         if ($(window).width() >= 644 && $(window).width() <= 903) {
                             $("#filmStrip").ojFilmStrip("option", "currentItem", 2);
+                            rotatorPerformanceSlider += 2;
                         } else {
                             $("#filmStrip").ojFilmStrip("option", "currentItem", 1);
+                            rotatorPerformanceSlider += 1;
                         }
 
                     }
