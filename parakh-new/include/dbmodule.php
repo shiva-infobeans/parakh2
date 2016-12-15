@@ -269,6 +269,7 @@ class dbmodule {
         if ($rating_last_insert) {
             $email_data = [];
             $user_data = $this->getEmailById($data['to_id']);
+            $from_data = $this->getEmailById($data['from_id']);
             $temp_data = ($data['rating'] == 1) ? $this->getEmailTemplateByCode('PRKE01') : $this->getEmailTemplateByCode('PRKE02');
             $link = ($data['rating'] == 1) ? $this->getTargetLink(MY_BUDDIES_URL,"Go for it!") : $this->getTargetLink(RATE_ME_URL,"request");
             $email_data['to']['email'] = $user_data['google_email'];
@@ -278,6 +279,7 @@ class dbmodule {
             $rating = ($data['rating'] == 0) ? '-1' : 1;
             $vars = array(
                 "{Username}" => $email_data['to']['name'],
+                "{Member}" => $from_data['google_name'],
                 "{Link}" => $link,
             );
             $message = strtr($temp_data['content'], $vars);
@@ -320,8 +322,11 @@ class dbmodule {
 
 //end of fun
 
-    function getParakhLink() {
-        return '<a href="' . $this->site_url . '" >' . $this->site_name . '</a>';
+    // function getParakhLink() {
+    //     return '<a href="' . $this->site_url . '" >' . $this->site_name . '</a>';
+    // }
+    function getParakhLink($text) {
+        return '<a href="' . $this->site_url . '" >' . $text . '</a>';
     }
 
     function getTargetLink($url,$text) {
@@ -372,7 +377,7 @@ class dbmodule {
      */
     function send_notification($email_data) {
         require_once 'notifications.php';
-        send_mail($email_data);
+        //send_mail($email_data);
     }
 
 //end of fun
@@ -389,6 +394,7 @@ class dbmodule {
         $data['comment'] = $data['desc'];
         $data['user_id'] = $data['for_id'];
         $data['work_title'] = null;
+        $getOldRatingPostion = $this->get_position_of_user_in_ranking($data['user_id']);
         $work_insert_query = "INSERT INTO work(user_id,title, description, created_by, for_id, request_for, created_date, modified_date, work_date)
                               VALUES(:user_id,:work_title,:description,:created_by,:for_id,:request_for,:created_date,:modified_date,:work_date)";
         $work_insert = $this->con->prepare($work_insert_query);
@@ -431,16 +437,17 @@ class dbmodule {
         if ($rating_last_insert) {
             $email_data = [];
             $user_data = $this->getEmailById($data['for_id']);
+            $from_data = $this->getEmailById($data['user_id']);
             $temp_data = $this->getEmailTemplateByCode('PRKE01');
             $email_data['to']['email'] = $user_data['google_email'];
             $email_data['to']['name'] = $user_data['google_name'];
             $email_data['subject'] = $temp_data['subject'];
-            $this->getParakhLink();
+                
             $rating = 1;
             $vars = array(
-                "{username}" => $email_data['to']['name'],
-                "{rating}" => $rating,
-                "{parakh}" => $this->getParakhLink(),
+                "{Username}" => $email_data['to']['name'],
+                "{Member}" => $from_data['google_name'],
+                "{Link}" => $this->getTargetLink(MY_BUDDIES_URL,"Go for it!"),
             );
             $message = strtr($temp_data['content'], $vars);
             $email_data['message'] = $message;
@@ -475,6 +482,26 @@ class dbmodule {
                 $query = "UPDATE users set msg_read=" . ($row[0]['msg_read'] + 1) . " where id=" . $data['for_id'];
                 $user_list = $this->con->prepare($query);
                 $user_list->execute();
+            }
+
+            /*send mail if users is in top 10 or rating position is changes*/
+            $getNewRatingPostion = $this->get_position_of_user_in_ranking($data['for_id']);
+            if($getNewRatingPostion <= 10 || $getoldRatingPostion > $getNewRatingPostion)
+            {
+                $email_data = [];
+                $temp_data = $this->getEmailTemplateByCode('PRKE15');
+                $email_data['to']['email'] = $user_data['google_email'];
+                $email_data['to']['name'] = $user_data['google_name'];
+                $email_data['subject'] = $temp_data['subject'];
+
+                $vars = array(
+                    "{Username}" => $user_data['google_name'],
+                    "{Link}" => $this->getTargetLink(SITE_URL,'Parakh'),
+                );
+
+                $message = strtr($temp_data['content'], $vars);
+                $email_data['message'] = $message;
+                $this->send_notification($email_data);
             }
         }
         return true;
@@ -686,7 +713,6 @@ class dbmodule {
             $email_data['to']['email'] = $user_data['google_email'];
             $email_data['to']['name'] = $user_data['google_name'];
             $email_data['subject'] = $temp_data['subject'];
-            $this->getParakhLink();
 
             $vars = array(
                 "{Username}" => $email_data['to']['name'],
@@ -1839,6 +1865,55 @@ class dbmodule {
             $data[$t]['image'] = $image;
         }
         return $data;
+    }
+
+    /*find last month login users only and send mail to them*/
+    function get_last_month_login_users()
+    {
+        $query = "SELECT u.google_email,u.google_name from user_log as ul join users as u on u.id = ul.user_id
+                  WHERE ul.login_datetime < DATE_SUB(NOW(), INTERVAL 1 MONTH)";
+        $users_data = $this->con->prepare($query);
+        $users_data->execute();
+        $last_login_users = $users_data->fetchAll((PDO::FETCH_ASSOC));
+        foreach ($last_login_users as $value) {
+            if(isset($value['google_email']) && !empty($value['google_email']))
+            {
+                $email_data = [];
+                $temp_data = $this->getEmailTemplateByCode('PRKE14');
+                $email_data['to']['email'] = $value['google_email'];
+                $email_data['to']['name'] = $value['google_name'];
+                $email_data['subject'] = $temp_data['subject'];
+
+                $vars = array(
+                    "{Username}" => $value['google_name'],
+                    "{Link}" => $this->getTargetLink(SITE_URL,'Parakh'),
+                );
+
+                $message = strtr($temp_data['content'], $vars);
+                $email_data['message'] = $message;
+                $this->send_notification($email_data);
+            } 
+        }
+    }
+
+    /*get position of the users after geting +1*/
+    function get_position_of_user_in_ranking($user_id)
+    {
+        $query = "select x.user_id,x.position,x.google_email from (SELECT MAX(r.created_date) as date,r.user_id,u.google_name,u.google_email,@rownum := @rownum + 1 AS position,
+                  sum(case when r.rating = 1 then 1  end) as pluscount,
+                  sum(case when r.rating = 0 then 1  end) as minuscount
+                  from rating as r join users as u ON (u.id =r.user_id) JOIN (SELECT @rownum := 0) rate WHERE u.status <> 0
+                  group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC LIMIT 10) x where x.user_id = :user_id";
+        $users_data = $this->con->prepare($query);
+        $users_data->execute(array(':user_id' => $user_id));
+        $last_login_users = $users_data->fetch();
+        if(isset($last_login_users['position']) && !empty($last_login_users['position']))
+        {
+            return $last_login_users['position'];
+        }else
+        {
+            return 0;
+        }
     }
 //end of fun
 }
