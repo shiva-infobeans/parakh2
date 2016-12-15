@@ -1601,9 +1601,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     margin-top: 4px;
     font-size: 18px;
 }
-.margin-top-feedback{
-    margin-bottom: -55px  !important;
-}
+
 .noComments{
     padding: 117px !important;
     text-align: center !important;
@@ -1614,8 +1612,9 @@ div.oj-tabs-panel.oj-tabs-selected{
 .bottom-padding{
     padding-bottom: 15px !important;
 }
-.margin-top-feedback {
-    margin-top: -22px !important;
+
+.errorVisibilityShow{
+        margin: 5px 0px -5px 10px !important;
 }
 .rating-section{
     min-height: 300px;
