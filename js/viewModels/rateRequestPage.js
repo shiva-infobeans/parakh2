@@ -296,7 +296,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             if (self.lazyTempStorageleadPending().length != 0) {
 
                                 self.lazyMemleadPendingMax(self.lazyTempStorageleadPending().length);
-                                self.noLeadDeclinedRequest("");
+                                self.noLeadPendingRequest("");
                                 if (self.lazyMemleadPendingInitBlock() < self.lazyTempStorageleadPending().length) {
                                     var InitCount = self.lazyMemleadPendingInitBlock();
                                 } else {
@@ -329,7 +329,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 self.lazyTempStorageleadRej.push(new request(data2[i]));
                             }
                             if (data2.length === 0) {
-                                self.noLeadDeclinedRequest("No Declined Request.");
+                                self.noLeadDeclinedRequest("No Declined Requests.");
                                 $("#request3").show();
                                 $('#leadRejectLoading').hide();
                             } else {
