@@ -42,7 +42,34 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
     }
     function floatingContentViewModel(person) {
         var self = this;
+/////////////////////help text///////////////////
+        self.tracker = ko.observable();
 
+        self.msgsCustomArray = ko.observableArray();
+        var summary = "Info Summary Text";
+        var detail = "Info Detail Text";
+        var severity = "info";
+        var msgs = [];
+        msgs.push({summary: summary, detail: detail, severity: severity});
+        self.msgsCustomArray(msgs);
+        self.showHiddenMessagesAndFocus = function ()
+        {
+            var trackerObj = ko.utils.unwrapObservable(self.tracker);
+            trackerObj.showMessages()
+            trackerObj.focusOnFirstInvalid();
+        };
+        oj.Components.setDefaultOptions({
+            'editableValue':
+                    {
+                        'displayOptions':
+                                {
+                                    'messages': ['notewindow']
+                                }
+                    }
+        });
+
+
+/////////////////////////////////////
         setTimeout(function () {
             //rate other team member modal from floating button 
             self.handleOpen = $(".rateFloat").click(function () {

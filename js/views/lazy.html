@@ -5,24 +5,152 @@ and open the template in the editor.
 -->
 
 <div class="max-width">
-    
-    <div class="oj-form-layout">
-        <div class="oj-form oj-sm-odd-cols-12 oj-md-odd-cols-4 oj-md-labels-inline oj-form-no-dividers
-             oj-form-cols-labels-inline oj-form-cols-max2"    >
 
-            <div class="oj-flex">
-                <div class="oj-flex-item">
-                    <label for="inputcontrol">input</label>
+    <div id="form-container" class="oj-flex">
+
+        <div style="display:none" id="dialogForm" title="Modal Dialog"
+             data-bind="ojComponent:{
+        component: 'ojDialog', 
+        initialVisibility: 'hide', 
+        rootAttributes: {
+          style: 'height: 600px; width: 500px; max-width:95%'}}">
+            <div class="oj-dialog-body">
+                
+                <br/>
+                <hr>  
+
+                <div class="oj-sm-12 oj-lg-6 oj-flex-item">
+                    <div class="oj-form oj-md-odd-cols-4 oj-md-labels-inline">
+
+                        <div class="oj-flex">
+                            <div class="oj-flex-item">
+                                <label for="inputcontrol">input</label>
+                            </div>
+                            <div class="oj-flex-item">
+                                <input id="inputcontrol" required  
+                                       data-bind="ojComponent: {
+                  component: 'ojInputText',
+                  help: {definition: 'inputText Help definition', source:'http://www.oracle.com'  }, 
+                  value: textValue, 
+                  messagesCustom: msgsCustomArray, 
+                  invalidComponentTracker: tracker}">
+                            </div>
+                        </div>
+                        <div class="oj-flex">
+                            <div class="oj-flex-item">
+                                <label for="textareacontrol">textarea</label>
+                            </div>
+                            <div class="oj-flex-item">
+                                <textarea id="textareacontrol" rows="6" required 
+                                          data-bind="ojComponent: {
+                  component: 'ojTextArea', 
+                  value: textAreaValue, 
+                  messagesCustom: msgsCustomArray, 
+                  invalidComponentTracker: tracker}"></textarea>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="oj-flex-item">
-                    <input id="inputcontrol"
-                           data-bind="ojComponent: {
-              component: 'ojInputText', 
-              help: {definition: 'inputText Help definition', source:'http://www.oracle.com'  },            
-              value: textValue, 
-              messagesCustom: appMessages}">
+                <div class="oj-sm-12 oj-lg-6 oj-flex-item">
+                    <div class="oj-form oj-md-odd-cols-4 oj-md-labels-inline">
+                        <div class="oj-flex">
+                            <div class="oj-flex-item">
+                                <label for="combobox">combobox</label>
+                            </div>
+                            <div class="oj-flex-item">
+                                <input id="combobox" list="severityTypes" required 
+                                       data-bind="ojComponent: {
+                  component: 'ojCombobox', 
+                  value: comboboxValue, 
+                  messagesCustom: msgsCustomArray, 
+                  invalidComponentTracker: tracker}"/>
+                                <datalist id="severityTypes">
+                                    <option value="fatal">Fatal</option>
+                                    <option value="error">Error</option>
+                                    <option value="warning">Warning</option>
+                                    <option value="info">Info</option>
+                                    <option value="confirmation">Confirmation</option>
+                                </datalist>
+                            </div>
+                        </div>
+                        <div class="oj-flex">
+                            <div class="oj-flex-item">
+                                <label for="comboboxMulti">combobox multiple</label>
+                            </div>
+                            <div class="oj-flex-item">
+
+                                <input id="comboboxMulti" list="severityTypes" required 
+                                       data-bind="ojComponent: {
+                  component: 'ojCombobox', 
+                  multiple: true,
+                  value: comboboxMultiValue, 
+                  messagesCustom: msgsCustomArray, 
+                  invalidComponentTracker: tracker}"/>
+                            </div>
+                        </div>
+
+                        <div class="oj-flex">
+                            <div class="oj-flex-item">
+                                <label for="select">select</label>
+                            </div>
+                            <div class="oj-flex-item">
+                                <select id="select" 
+                                        data-bind="ojComponent: {
+                  component: 'ojSelect', 
+                  required: true,
+                  placeholder: '',
+                  value: selectValue, 
+                  messagesCustom: msgsCustomArray, 
+                  invalidComponentTracker: tracker}">
+
+                                    <option value="fatal">Fatal</option>
+                                    <option value="error">Error</option>
+                                    <option value="warning">Warning</option>
+                                    <option value="info">Info</option>
+                                    <option value="confirmation">Confirmation</option>
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="oj-flex">
+                            <div class="oj-flex-item">
+                                <label for="inputSearch">input search</label>
+                            </div>
+                            <div class="oj-flex-item">
+                                <input id="inputSearch" list="severityTypes" required 
+                                       data-bind="ojComponent: {
+                  component: 'ojInputSearch', 
+                  value: inputSearchValue, 
+                  messagesCustom: msgsCustomArray, 
+                  invalidComponentTracker: tracker}"/>
+                            </div>
+                        </div>
+                    </div>
+
+
+
                 </div>
-            </div>      
+            </div>
         </div>
+
+        <div class="oj-dialog-footer">
+            <button id="okButton" 
+                    data-bind="ojComponent: {
+          component: 'ojButton', 
+          label: 'Close'}"> </button>
+            <button id="cancelButton" 
+                    data-bind="ojComponent: {
+          component: 'ojButton', 
+          label: 'Cancel'}"> </button>
+        </div>
+
     </div>
+    <button id="openDialogBtn" 
+            data-bind="ojComponent: {
+      component: 'ojButton', 
+      label: 'Open Dialog'}">
+
+    </button>      
+
 </div>
