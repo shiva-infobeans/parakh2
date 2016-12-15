@@ -298,7 +298,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                 obj1.leadPlus12 = 0;
                                 obj1.leadMinus12 = 0;
                                 obj1.performanceTxt = "";
-                                obj1.noRatingTxt = "You have not assigned any projects yet !!";
+                                obj1.noRatingTxt = "You do not have any projects assigned!!";
                                 self.addProject(obj1);
                                 $("#showSlider7" + 0 + "").hide();
                             }
