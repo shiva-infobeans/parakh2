@@ -173,6 +173,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 this.minusSign = ko.observable('-');
                 this.plusSign = ko.observable('+');
                 self.selectedTab = ko.observable(0);
+                self.moberror = ko.observable("");
 
                 var lgQuery = oj.ResponsiveUtils.getFrameworkQuery(
                         oj.ResponsiveUtils.FRAMEWORK_QUERY_KEY.LG_UP);
@@ -332,8 +333,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     {
                         $('.sucessMsg').show();
                         self.successful("Profile not updated.");
-                        $('.errorTextProfile').html('');
-                        $('.errorTextProfile').hide();
+                        self.moberror("");
                         setTimeout(function () {
                             $('.sucessMsg').hide();
                         }, 10000);
@@ -353,12 +353,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                 {
                                     self.myNumber(numberDefaultVar);
                                 }
-                                $('.errorTextProfile').html(response.data.error);
-                                $('.errorTextProfile').show();
+                                self.moberror(response.data.error);
                                 $('#editNumberBox').focus();
                             } else
                             {
                                 $('.sucessMsg').show();
+                                self.moberror("");
                                 self.successful("Profile updated successfully.");
                                 $('#designation-text').removeClass('hide');
                                 $('#designation-div').addClass('hide');
