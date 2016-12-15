@@ -359,7 +359,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                             {
                                 $('.sucessMsg').show();
                                 self.moberror("");
-                                self.successful("Profile updated successfully.");
+                                self.successful("Profile updated successfully!");
                                 $('#designation-text').removeClass('hide');
                                 $('#designation-div').addClass('hide');
                                 $('#location-text').removeClass('hide');
@@ -494,7 +494,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                     }
                                 }
                                 if (self.allNeg().length == 0) {
-                                    self.NoCommentsN("No Ratings Available ...!!");
+                                    self.NoCommentsN("No ratings available.");
                                     $("#noNegativeComment").show();
                                     $("#lazyProfileNeg").hide();
                                     
@@ -535,7 +535,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                     }
                                 }
                                 if (self.allPos().length == 0) {
-                                    self.NoCommentsP("No Ratings Available ...!!");
+                                    self.NoCommentsP("No ratings available.");
                                     $("#noPositiveComment").show();
                                     $("#lazyProfilePos").hide();
                                 }
@@ -900,7 +900,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                     }
                                 }
                             } else {
-                                //$('#leadRejectLoading').hide();
+                                $("#lazyProfilePos").hide();
                             }
                         }
                         if (self.tabValue() == 2) { //negative rating tab

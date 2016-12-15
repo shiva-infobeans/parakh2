@@ -113,9 +113,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.requestRejectedLead = ko.observableArray();
         self.requestDeclinedLead = ko.observableArray();
         self.role = ko.observable();
-        self.noPendingRequest = ko.observable("No Pending Requests.");
-        self.noRejectRequest = ko.observable("No Declined Requests.");
-        self.noLeadPendingRequest = ko.observable("No Pending Requests.");
+        self.noPendingRequest = ko.observable("All your requests have been addressed!");
+        self.noRejectRequest = ko.observable("No declined requests!");
+        self.noLeadPendingRequest = ko.observable("Hooray, you have addressed all the pending requests!");
         self.noLeadDeclinedRequest = ko.observable();
         self.selectTab = ko.observable(0);
 
@@ -329,7 +329,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 self.lazyTempStorageleadRej.push(new request(data2[i]));
                             }
                             if (data2.length === 0) {
-                                self.noLeadDeclinedRequest("No Declined Requests.");
+                                self.noLeadDeclinedRequest("All your requests have been addressed!");
                                 $("#request3").show();
                                 $('#leadRejectLoading').hide();
                             } else {
@@ -491,9 +491,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     $("#sucessRate").show();
                     if (type == 0) {
 
-                        self.sucessMsg("Rating request declined.");
+                        self.sucessMsg("Rating request declined successfully!");
                     } else {
-                        self.sucessMsg("Rating request approved");
+                        self.sucessMsg("Rating request approved successfully!");
                     }
 
                     // get all requests that has been declined by lead or manager.
@@ -580,7 +580,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.requestManager = function () {
             self.desc(self.desc().trim());
             if (self.desc() == '' || self.desc() == null) {
-                self.textError("Please provide a reason for your request.");
+                self.textError("Please provide a reason for your rating request.");
                 return false;
             }
             $.ajax({
@@ -592,7 +592,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     self.desc('');
                     self.textError('');
                     $("#sucessRate").show();
-                    self.sucessMsg("Your Request is sent.");
+                    self.sucessMsg("Request sent successfully!");
 
                     /*again refresh after submit requests pending*/
                     self.requestPendingMember([]);
@@ -654,7 +654,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.requestLead = function () { 
             // self.desc1(self.desc1().trim());
             if (self.desc1() == 'undefined' || self.desc1() == '' || self.desc1() == null) {
-                self.textError1("Please provide a reason for your request.");
+                self.textError1("Please provide a reason for your rating request.");
                 return false;
             }
             $.ajax({
@@ -666,7 +666,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     self.desc1('');
                     self.textError1('');
                     $("#sucessRate").show();
-                    self.sucessMsg("Your Request is sent.");
+                    self.sucessMsg("Request sent successfully!");
 
 
                     /*again refresh after submit requests pending*/
