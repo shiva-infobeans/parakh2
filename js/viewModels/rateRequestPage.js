@@ -568,9 +568,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 }
             });
         }
-        self.requestLead = function () {
-            self.desc1(self.desc1().trim());
-            if (self.desc1() == '' || self.desc1() == null) {
+        self.requestLead = function () { 
+            // self.desc1(self.desc1().trim());
+            if (self.desc1() == 'undefined' || self.desc1() == '' || self.desc1() == null) {
                 self.textError1("Please provide a reason for your request.");
                 return false;
             }
