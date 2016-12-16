@@ -73,7 +73,7 @@ img#my-signin2{
     }
     .authFailed{
         margin: 100px auto !important;
-        background-color: rgba(231, 252, 213, 1);
+        background-color: #f00;
         font-size: 32px !important;
         padding: 5px 0px;
     }  
@@ -123,10 +123,11 @@ img#my-signin2{
     text-align: center;
 }
 .authFailed span{
-    background-color: rgba(231, 252, 213, 1);
+    background-color: #f00;
     padding: 5px 100px;
     text-align: center;
-
+    color: #fff !important;
+    border-radius: 0px 0px 5px 5px;
 }
 .loaderImgDivLogin{
     position: fixed;
