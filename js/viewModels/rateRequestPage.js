@@ -116,7 +116,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.requestDeclinedLead = ko.observableArray();
         self.role = ko.observable();
         self.noPendingRequest = ko.observable("All your requests have been addressed!");
-        self.noRejectRequest = ko.observable("No declined requests!");
+        self.noRejectRequest = ko.observable("No declined request.");
         self.noLeadPendingRequest = ko.observable("Hooray, you have addressed all the pending requests!");
         self.noLeadDeclinedRequest = ko.observable();
         self.selectTab = ko.observable(0);
@@ -331,7 +331,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 self.lazyTempStorageleadRej.push(new request(data2[i]));
                             }
                             if (data2.length === 0) {
-                                self.noLeadDeclinedRequest("All your requests have been addressed!");
+                                self.noLeadDeclinedRequest("No declined request.");
                                 $("#request3").show();
                                 $('#leadRejectLoading').hide();
                             } else {
