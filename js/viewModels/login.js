@@ -24,20 +24,24 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                 data: {},
                 success: function(result){
                     var data = JSON.parse(result)['data'];
-                    $('.oj-dialog-body').html(data.video);
+                    //$('.oj-dialog-body').html(data.video);
                 }
             });
     	}
 
-    	var bg = $('#login-background').css('background-image');
-        bg = bg.replace('url(','').replace(')','').replace(/\"/gi, "");
-        if(bg==document.location.href+'images/parakh.jpg')
-        {
-        	
-        }else if(bg==document.location.href+'images/parakh2.jpg')
-        {
-        	
-        }
+    	$(function(){
+            var bg = $('#login-background').css('background-image');
+            bg = bg.replace('url(','').replace(')','').replace(/\"/gi, "");
+            if(bg==document.location.href+'images/parakh.jpg')
+            {
+                $('#top-image').show();
+                $('#bottom-image').hide();
+            }else if(bg==document.location.href+'images/parakh2.jpg')
+            {
+                $('#top-image').hide();
+                $('#bottom-image').show();
+            }
+        })
     }
 
     return loginContentViewModel;
