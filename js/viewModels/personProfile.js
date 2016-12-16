@@ -173,6 +173,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 this.minusSign = ko.observable('-');
                 this.plusSign = ko.observable('+');
                 self.selectedTab = ko.observable(0);
+                self.moberror = ko.observable("");
 
                 var lgQuery = oj.ResponsiveUtils.getFrameworkQuery(
                         oj.ResponsiveUtils.FRAMEWORK_QUERY_KEY.LG_UP);
@@ -332,6 +333,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     {
                         $('.sucessMsg').show();
                         self.successful("Profile not updated.");
+                        self.moberror("");
                         setTimeout(function () {
                             $('.sucessMsg').hide();
                         }, 10000);
@@ -345,17 +347,40 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         data: {user_id: self.id(), desc: self.designation(), location: self.location(), skills: self.skills(), primary_project: self.primary_project(), date: self.date(), projects: self.projects(), interests: self.interests(), mob: self.temporaryNumber()},
                         success: function (res) {
                             var response = jQuery.parseJSON(res);
-                            $('.sucessMsg').show();
                             if (response.error == "true")
                             {
-                                self.successful(response.data.error);
                                 if (response.data.code == "3013")
                                 {
                                     self.myNumber(numberDefaultVar);
                                 }
+                                self.moberror(response.data.error);
+                                $('#editNumberBox').focus();
                             } else
                             {
-                                self.successful("Profile updated successfully.");
+                                $('.sucessMsg').show();
+                                self.moberror("");
+                                self.successful("Profile updated successfully!");
+                                $('#designation-text').removeClass('hide');
+                                $('#designation-div').addClass('hide');
+                                $('#location-text').removeClass('hide');
+                                $('#location-div').addClass('hide');
+                                $('#skills-text').removeClass('hide');
+                                $('#skills').addClass('hide');
+                                $('#associate-text').removeClass('hide');
+                                $('#associate-div').addClass('hide');
+                                $('#primary-project-text').removeClass('hide');
+                                $('#primary-project-div').addClass('hide');
+                                $('#projects-text').removeClass('hide');
+                                $('#projects-div').addClass('hide');
+                                $('#interest-text').removeClass('hide');
+                                $('#interest-div').addClass('hide');
+                                $('#number-text').removeClass('hide');
+                                $('#editNumberBox').addClass('hide');
+                                $('#edit-all').removeClass('hide');
+                                $('#submit-all').addClass('hide');
+                                $('#cancel-all').addClass('hide');
+                                $('.errorTextProfile').html('');
+                                $('.errorTextProfile').hide();
                             }
                             setTimeout(function () {
                                 $('.sucessMsg').hide();
@@ -469,7 +494,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                     }
                                 }
                                 if (self.allNeg().length == 0) {
-                                    self.NoCommentsN("No Ratings Available ...!!");
+                                    self.NoCommentsN("No ratings available.");
                                     $("#noNegativeComment").show();
                                     $("#lazyProfileNeg").hide();
                                     
@@ -510,7 +535,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                     }
                                 }
                                 if (self.allPos().length == 0) {
-                                    self.NoCommentsP("No Ratings Available ...!!");
+                                    self.NoCommentsP("No ratings available.");
                                     $("#noPositiveComment").show();
                                     $("#lazyProfilePos").hide();
                                 }
@@ -596,6 +621,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                 self.designationOptions.push(obj);
                             }
                             $('#selectDesignation').ojSelect("refresh");
+                            $('#selectDesignation').ojSelect({"value": [designationsDefaultVar]});
                         }
                     });
                     $('#designation-text').addClass('hide');
@@ -639,7 +665,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                 self.primaryProjectOptions.push(obj);
                             }
                             $('#selectPrimaryProjects').ojSelect("refresh");
-//                            self.primary_project(res['attributes']['data'][0]['name']);
+                            $('#selectPrimaryProjects').ojSelect({"value": [primaryProjectDefaultVar]});
                         }
                     });
                     $('#primary-project-text').addClass('hide');
@@ -733,25 +759,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     {
                         self.myNumber("+91-" + self.temporaryNumber());
                     }
-                    $('#designation-text').removeClass('hide');
-                    $('#designation-div').addClass('hide');
-                    $('#location-text').removeClass('hide');
-                    $('#location-div').addClass('hide');
-                    $('#skills-text').removeClass('hide');
-                    $('#skills').addClass('hide');
-                    $('#associate-text').removeClass('hide');
-                    $('#associate-div').addClass('hide');
-                    $('#primary-project-text').removeClass('hide');
-                    $('#primary-project-div').addClass('hide');
-                    $('#projects-text').removeClass('hide');
-                    $('#projects-div').addClass('hide');
-                    $('#interest-text').removeClass('hide');
-                    $('#interest-div').addClass('hide');
-                    $('#number-text').removeClass('hide');
-                    $('#editNumberBox').addClass('hide');
-                    $('#edit-all').removeClass('hide');
-                    $('#submit-all').addClass('hide');
-                    $('#cancel-all').addClass('hide');
                 }
 
                 self.allRevert = function () {
@@ -791,6 +798,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 self.openReply = function (data, event) {
                     $('#' + data['replyBtnId']).fadeOut();
                     $('#' + data['uniqueId']).fadeOut();
+                     $('#' + data['replyInput']).parent().parent().next().addClass('errorVisibilityHide').removeClass('errorVisibilityShow');
                     try {
                         var effectReplyBtn = 'slideOut';
                         if (effectReplyBtn && oj.AnimationUtils[effectReplyBtn])
@@ -892,7 +900,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                     }
                                 }
                             } else {
-                                //$('#leadRejectLoading').hide();
+                                $("#lazyProfilePos").hide();
                             }
                         }
                         if (self.tabValue() == 2) { //negative rating tab
