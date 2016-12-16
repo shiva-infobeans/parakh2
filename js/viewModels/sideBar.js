@@ -12,18 +12,51 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
     /**
      * The view model for the main content view template
      */
-    function sideBarContentViewModel() {
+    function sideBarContentViewModel(person) {
         var self = this;
-        setTimeout( function(){
-              self.handleOpen = $(".sideBar-feedback").click(function () {
+        self.desktopImg = ko.observable();
+
+
+        self.mobileImg = ko.observable();
+        
+        var lgQuery = oj.ResponsiveUtils.getFrameworkQuery(oj.ResponsiveUtils.FRAMEWORK_QUERY_KEY.LG_UP);
+
+        self.large = oj.ResponsiveKnockoutUtils.createMediaQueryObservable(lgQuery);
+
+        setTimeout(function () {
+            self.handleOpen = $(".sideBar-feedback").click(function () {
                 $("#modalDialog-userFeedback").ojDialog("open");
-            });         
-        },500);
-        
-        
-        
+            });
+        }, 500);
+        self.openTour = function () {
+            var getUser = oj.Model.extend({
+                url: getUserByEmail + person['email']
+            });
+            var getId = new getUser();
+            getId.fetch({
+                headers: {secret: secret},
+                success: function (res) {
+                    var role = res['attributes']['data']['role_name'];
+                    if (role == "Team Member") {
+                        self.desktopImg('images/home-new(overlay-userGuide-mamber).jpg');
+                        self.mobileImg('images/userGuide-mobile.jpg');
+                    } else {
+                        self.mobileImg('images/userGuide-mobile.jpg');
+                        self.desktopImg('images/home-new(overlay-userGuide-manager).jpg');
+                    }
+                    console.log(self.desktopImg());
+
+                }
+            });
+
+            $("#guideTour").removeClass('hide');
+        }
+        self.closeTour = function () {
+
+            $("#guideTour").addClass('hide');
+        }
 
     }
-    
+
     return sideBarContentViewModel;
 });

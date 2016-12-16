@@ -18,11 +18,11 @@
                         </div>
                     </a>
                 </li>
-                 <li>
-                    <a href="javascript:void(0);"  class="buttons sideBar-tour">
-                       <div class="rotate">   Tour 
-                           <!--<i class="zmdi zmdi-star"></i>-->
-                       </div>
+                <li>
+                    <a href="javascript:void(0);"  class="buttons sideBar-tour" data-bind="click: openTour">
+                        <div class="rotate">   Tour 
+                            <!--<i class="zmdi zmdi-star"></i>-->
+                        </div>
                     </a>
                 </li>
             </ul>
@@ -34,28 +34,31 @@
 
 <!--feedaback modal in Side bar-->
 <div class="oj-row oj-flex">
-   <div id="dialogWrapperSideBar">
-  <div style="display:none" id="modalDialog-userFeedback" title="Feedback" 
-       data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide'}">
-     <div class="oj-dialog-body">
-         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center feedbck-text ">
-             Hello,we'd love to hear your feedback about our Parakh...
-         </div>
-        <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center areaContent1 ">
+    <div id="dialogWrapperSideBar">
+        <div style="display:none" id="modalDialog-userFeedback" title="Feedback" 
+             data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide'}">
+            <div class="oj-dialog-body">
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center feedbck-text ">
+                    Hello,we'd love to hear your feedback about our Parakh...
+                </div>
+                <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center areaContent1 ">
                     <textarea id="text-area9" class="textArea-feedbackFloat" aria-label="ojTextArea component no visible label"
-                              
-                          ></textarea>
+
+                              ></textarea>
                 </div>
 
                 <!--<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center errorText" id="feedbackFloatTextError">Please provide a reason for your feedback.</div>-->
                 <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
                     <button class="modal-submitUserFeedback" > Send Feedback </button>
                 </div>
-     </div>
-  </div>
-</div>        
+            </div>
+        </div>
+    </div>        
 </div>
-<div class="overlay-tour">
-    <img src="../../images/home-new(overlay-userGuide-mamber).jpg"  class="tourImg"/>
-    <span style="font-size: 50px;position: fixed;top: 100px;right: 100px;">Close</span>
+
+<div class="hide" id="guideTour">
+    <img alt="guide tour" id="puzzle" class="tourImg"
+       data-bind="attr: { src: large() ? desktopImg :
+                                         mobileImg}" >
+    <a class="tourClose"  data-bind="click: closeTour"><i class="zmdi zmdi-close zmdi-hc-3x"></i></a>
 </div>
