@@ -358,6 +358,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                 $('#editNumberBox').focus();
                             } else
                             {
+                                self.successful("Profile updated successfully!");
                                 $('.sucessMsg').show();
                                 self.allRevert();
                             }
