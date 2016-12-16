@@ -499,6 +499,14 @@
     border-radius: 5px;
     top: 150px !important;
 }
+@media screen and (max-height:780px){
+    #ojDialogWrapper-modalDialog2.oj-dialog{
+        top: 80px !important;
+    }
+    #ojDialogWrapper-modalDialog8.oj-dialog{
+         top: 80px !important;
+    }
+}
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
    #ojDialogWrapper-modalDialog2.oj-dialog, #ojDialogWrapper-modalDialog8.oj-dialog{
     height: 560px;
