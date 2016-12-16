@@ -1757,14 +1757,17 @@ class dbmodule {
     function createImageCache($user_email,$to_do,$default_img)
     {
 
-        $query = "SELECT users.id,users.google_name,users.img_cache,users.google_email,users.google_picture_link,user_log.login_datetime,user_log.logout_datetime from users left join user_log on user_log.user_id = users.id where google_email= :email";
+        $query = "SELECT users.id,users.google_name,users.img_cache,users.google_email,users.google_picture_link,user_log.login_datetime,user_log.logout_datetime from users left join user_log on user_log.user_id = users.id where google_email= :email AND users.status=1";
         $user_list = $this->con->prepare($query);
         $user_list->execute(array(':email' => $user_email));
         $row = $user_list->fetch();
+        
+//        print_r($row);die;
 $img_updated=false;
 $code='';
         /*update google picture for user after login*/
-        if(isset($_POST['img']) && !empty($_POST['img'])){
+
+        if(isset($_POST['img']) && !empty($_POST['img']) && isset($row) && !empty($row)){
 			$code=base64_encode(file_get_contents($_POST['img']));
 			//$code='';
 			if(!empty($code)) {
@@ -1774,7 +1777,7 @@ $code='';
 			$img_updated=true;
 			}
         }
-        if(isset($row['id']) && !empty($row['id']))
+        if(isset($row) && !empty($row))
         {
             if($to_do){
                 if($row['login_datetime']==null && $row['logout_datetime']==null){
