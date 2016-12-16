@@ -377,7 +377,7 @@ class dbmodule {
      */
     function send_notification($email_data) {
         require_once 'notifications.php';
-        //send_mail($email_data);
+        send_mail($email_data);
     }
 
 //end of fun
@@ -496,7 +496,7 @@ class dbmodule {
 
                 $vars = array(
                     "{Username}" => $user_data['google_name'],
-                    "{Link}" => $this->getTargetLink(SITE_URL,'Parakh'),
+                    "{Link}" => $this->getTargetLink(RANKING_URL,'Parakh'),
                 );
 
                 $message = strtr($temp_data['content'], $vars);
@@ -717,7 +717,7 @@ class dbmodule {
             $vars = array(
                 "{Username}" => $email_data['to']['name'],
                 "{Manager}" => $this->get_role_name($data['u_id']),
-                "{Link}" => $this->getTargetLink(PROFILE_URL,"Parakh")
+                "{Link}" => $this->getTargetLink(PROFILE_URL."&id=2","Parakh")
             );
             $message = strtr($temp_data['content'], $vars);
             $email_data['message'] = $message;
@@ -962,7 +962,7 @@ class dbmodule {
 
             $vars = array(
                 "{Username}" => $user_data['google_name'],
-                "{Link}" => $this->getTargetLink(PROFILE_URL,'Parakh'),
+                "{Link}" => $this->getTargetLink(PROFILE_URL."&id=2",'Parakh'),
                 "{Comment}" => '"' . $data['feedback_desc'] . '"'
             );
 

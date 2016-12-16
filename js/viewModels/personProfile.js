@@ -218,8 +218,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 var windowLocation = window.location;
                 var id = windowLocation.search.substring(windowLocation.search.indexOf("=") + 1, windowLocation.search.length);
 
-                if (id == "1") {
-                    self.selectedTab(1);
+                if (typeof id!='undefined' && id!='') {
+                    self.selectedTab(parseInt(id));
                 }
 
                 self.feedbackMore1 = function (e, data) {
