@@ -585,7 +585,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         this.leadSubmit = function () {
             self.desc(self.desc().trim());
             if (self.desc() == '' || self.desc() == null) {
-                self.textError("Please provide a reason for your rating request.");
+                self.textError("Please provide a reason for your rating.");
                 return false;
             } else {
                 $.ajax({
