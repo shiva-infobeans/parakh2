@@ -6,6 +6,8 @@
         <link rel="icon" id="favicon" type="image/jpg" href="" />
         
         <link href="css/login.css" rel="stylesheet" type="text/css"/>
+        <link href="css/custom.css" rel="stylesheet" type="text/css"/>
+        <link href="css/common.css" rel="stylesheet" type="text/css"/>
         <style>
 
         </style>
@@ -62,6 +64,29 @@
 
             }
 
+            function login()
+            {
+                var email = $('#email').val();
+                if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))  
+                {  
+                    $.ajax({
+                        headers: {secret: secret},
+                        type: 'GET',
+                        url: getUserByEmail+email,
+                        data: {},
+                        success: function(result){
+                            data = jQuery.parseJSON(result);
+                            setCookie("email",data.data.google_email,1);
+                            setCookie("name",data.data.google_name,1);
+                            setCookie("picture",data.data.google_picture_link,1);
+                            window.location = window.location.href + "dashboard.html";
+                        }
+                    }); 
+                }else
+                {
+                    alert('Please enter correct email');
+                }
+            }
 
             function callBackFunction() {
                 renderButton();
@@ -114,8 +139,10 @@
 
     </head>
     <body id="login-background">
-        <div class="">
-        <img class="login-btn" src="images/sign-in-with-google.png" id="my-signin2"/>
+        <div class="login-btn">
+        <input type="text" name="email" value='' class="" id="email">
+        <button onclick="login()">Submit</button>
+        <img class="login-btn hide" src="images/sign-in-with-google.png" id="my-signin2"/>
         </div>
         <div  class="login-logo">
             <img src="images/login-logo.png"/>
