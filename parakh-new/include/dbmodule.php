@@ -43,6 +43,7 @@ class dbmodule {
      * */
 
     function getUserByEmail($email) {
+        $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
         if (!filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
             $query = "select u.*,rt.name as role_name from users as u, role_type as rt where google_email = :email AND u.role_id = rt.id";
 
@@ -51,6 +52,8 @@ class dbmodule {
             $row = $profile_data->fetch((PDO::FETCH_ASSOC));
 
             if (isset($row) && !empty($row)) {
+                $image = $this->getCacheImage($row['google_email'],$default_img);
+                $row['google_picture_link'] = $image;
                 return $row;
             } else {
                 return 0;
