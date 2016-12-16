@@ -29,22 +29,22 @@
                         var name = user.getBasicProfile().ig;
                         setCookie("email",email,1);
                         setCookie("name",name,1);
-                        setCookie("picture",pic,1);                    
-                        // $.ajax({
-                        //     headers: {secret: secret},
-                        //     type: 'POST',
-                        //     url: imageCacheUrl,
-                        //     data: {img : user.getBasicProfile().Paa.replace("s96-c/",""),timestamp : Math.floor(Date.now()),'email':email},
-                        //     success: function(result){
-                        //         data = jQuery.parseJSON(result);
-                        //         setCookie("picture",data.data,1);
-                        //         window.location = window.location.href + "dashboard.html";
-                        //     }
-                        // });
+                        //setCookie("picture",pic,1);                    
+                        $.ajax({
+                            headers: {secret: secret},
+                            type: 'POST',
+                            url: imageCacheUrl,
+                            data: {img : user.getBasicProfile().Paa.replace("s96-c/",""),timestamp : Math.floor(Date.now()),'email':email},
+                            success: function(result){
+                                data = jQuery.parseJSON(result);
+                                setCookie("picture",data.data,1);
+                                window.location = window.location.href + "dashboard.html";
+                            }
+                        });
                         
-                        setTimeout(function () {
-                            window.location = window.location.href + "dashboard.html";
-                        }, 500);
+                        // setTimeout(function () {
+                        //     window.location = window.location.href + "dashboard.html";
+                        // }, 500);
 
                     }
                     ;

@@ -422,7 +422,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     headers: {secret: secret},
                     success: function (result) {
                         var data = result['attributes']['data'];
-                        console.log(result['attributes']['data']);
+                   
                         
                           if (result['attributes']['data'].length == 1){
                                 $('#hideLead').hide();
