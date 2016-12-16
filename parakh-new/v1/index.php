@@ -1000,10 +1000,10 @@ $app->post('/createImageCache[/]', function ($request, $response, $args) {
     //Creating a dbmodule object
     $db = new dbmodule();
     $result = $db->createImageCache($data['email'],1,$default_img);
-    if(count($result) != 0){
+    if($result != ''){
         $response_data = makeResponse('false',$result);
     }else{
-        $response_data = makeResponse('true',get_site_error(3001));
+        $response_data = makeResponse('true',get_site_error(3014));
     }    
     $response->withJson($response_data);
     return $response;
