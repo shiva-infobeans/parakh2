@@ -219,8 +219,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 var windowLocation = window.location;
                 var id = windowLocation.search.substring(windowLocation.search.indexOf("=") + 1, windowLocation.search.length);
 
-                if (id == "1") {
-                    self.selectedTab(1);
+                if (typeof id!='undefined' && id!='') {
+                    self.selectedTab(parseInt(id));
                 }
 
                 self.feedbackMore1 = function (e, data) {
@@ -387,12 +387,16 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         self.id(task.attributes['data']['id']);
                         self.myname
                         self.designation(abc);
-                        var num = task.attributes['data']['mobile_number'] == "" ? "NO NUMBER" : "+91-" + task.attributes['data']['mobile_number'].replace("+91-", "");
+                        if(typeof task.attributes['data']['mobile_number'] != 'undefined'){
+                            var num = task.attributes['data']['mobile_number'] == "" ? "NO NUMBER" : "+91-" + task.attributes['data']['mobile_number'].replace("+91-", "");
+                        }
                         self.myNumber(num);
                         var regex = new RegExp(',', 'g');
-                        self.skills(task.attributes['data']['skills'].replace(regex, ", "));
+                        if(typeof task.attributes['data']['skills'] != 'undefined'){
+                            self.skills(task.attributes['data']['skills'].replace(regex, ", "));
+                        }
                         self.location(task.attributes['data']['location']);
-                        if (task.attributes['data']['interests'].length != 0) {
+                        if (typeof task.attributes['data']['interests']!='undefined' && task.attributes['data']['interests'].length != 0) {
                             interest = task.attributes['data']['interests'].split(",");
                             for (k = 0; k < interest.length; k++) {
                                 self.interests(interest);
@@ -401,7 +405,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                             self.interests([]);
                         }
                         // task.attributes['data']['projects'] = task.attributes['data']['projects'].replace(",",", ");
-                        if (task.attributes['data']['projects'].length != 0) {
+                        if (typeof task.attributes['data']['projects']!='undefined' && task.attributes['data']['projects'].length != 0) {
                             project = task.attributes['data']['projects'].split(",");
                             self.projects(project);
                         } else {

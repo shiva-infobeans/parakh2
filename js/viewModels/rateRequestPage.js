@@ -84,8 +84,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         return initial;
     }
     function rateRequestPageContentViewModel(person) {
+        var windowLocation = window.location;
         var self = this;
         self.userId = ko.observable();
+        var id = windowLocation.search.substring(windowLocation.search.indexOf("=") + 1, windowLocation.search.length);
         self.lead_id = ko.observable();
         self.role_name = ko.observable();
         self.lead_name = ko.observable();
@@ -130,6 +132,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         ////////////////////// tab detect request
         self.sendReqTab = function () {
             self.reqTabValue(2);
+        }
+
+        if (typeof id != 'undefined' && id!='') {
+            self.selectTab(parseInt(id));
         }
         ////////////////////// lazy loading for Lead declined requests of the user
         self.lazyTempStorageleadRej = ko.observableArray([]);
