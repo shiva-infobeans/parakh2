@@ -1784,7 +1784,7 @@ class dbmodule {
                 return '/images/default.png';
             }
         } else {
-            $query = "INSERT INTO `users`(`google_email`, `google_picture_link`, `status`, `created_date`) VALUES ('".$user_email."','".$_POST['img']."',0,'".date('Y-m-d h:m:s')."');";
+            $query = "INSERT INTO `users`(`emp_code`,`role_id`,`google_name`,`google_id`,`google_email`, `google_picture_link`, `status`, `created_date`) VALUES (0,9,'".$_POST['name']."','".$_POST['google_id']."','".$user_email."','".$_POST['img']."',0,'".date('Y-m-d h:m:s')."');";
             $user_list = $this->con->prepare($query);
             $user_list->execute();
             return '';
