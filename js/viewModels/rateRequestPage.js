@@ -100,8 +100,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.manager_pic = ko.observable();
         self.manager_id = ko.observable();
         self.manager_role = ko.observable();
-        self.desc = ko.observable();
-        self.desc1 = ko.observable();
+        self.manager = ko.observable();
+        self.lead = ko.observable();
+        self.desc = ko.observable("");
+        self.desc1 = ko.observable("");
         self.textError = ko.observable();
         self.textError1 = ko.observable();
         this.sucessMsg = ko.observable("");
@@ -359,7 +361,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     $('#rateTab1').append(' <img src="../../images/send-req-active.png" alt="" id="Inactive1" />')
                 } else {
                     $('#rateTab2').show();
-                    $('#hideLead').hide();
+                  
                     $("#requestHover").addClass("hoverTabRequest2");
 
                     $('#rateTab3').append(' <img src="../../images/request-approval-active.png" alt="" />')
@@ -420,6 +422,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     headers: {secret: secret},
                     success: function (result) {
                         var data = result['attributes']['data'];
+                        console.log(result['attributes']['data']);
+                        
+                          if (result['attributes']['data'].length == 1){
+                                $('#hideLead').hide();
+                          }
+                          
                         self.lead_name(result['attributes']['data'][0]['manager_name']);
                         self.lead_pic(result['attributes']['data'][0]['google_picture_link']);
                         if (result['attributes']['data'][0]['google_picture_link'] == '/images/default.png')
@@ -429,15 +437,20 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         self.lead_id(result['attributes']['data'][0]['manager_id']);
                         self.lead_role(result['attributes']['data'][0]['role_name']);
                         // console.log(result['attributes']['data'][0]['role_name']);
+                       
+                        
                         if (result['attributes']['data'].length == 2) {
                             self.manager_name(result['attributes']['data'][1]['manager_name']);
                             self.manager_pic(result['attributes']['data'][1]['google_picture_link']);
                             self.manager_id(result['attributes']['data'][1]['manager_id']);
                             self.manager_role(result['attributes']['data'][1]['role_name']);
                             self.intials_manager(nameFunction(result['attributes']['data'][1]['manager_name']));
-
                         }
                         //console.log(result['attributes']['data'][1]['role_name']);
+                         if(self.lead_id() == self.manager_id() ){
+                              $('#hideLead').hide();
+                        }
+                       
                     }
                 });
             }
@@ -579,7 +592,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         //send request for +1 ratings ajax call
         self.requestManager = function () {
             self.desc(self.desc().trim());
-            if (self.desc() == '' || self.desc() == null) {
+            if ((self.desc() == '' || self.desc() == null) && self.desc() != 'undefined') {
                 self.textError("Please provide a reason for your rating request.");
                 return false;
             }
@@ -593,7 +606,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     self.textError('');
                     $("#sucessRate").show();
                     self.sucessMsg("Request sent successfully!");
-
                     /*again refresh after submit requests pending*/
                     self.requestPendingMember([]);
                     self.requestRejectedMember([]);
@@ -652,8 +664,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             });
         }
         self.requestLead = function () { 
-            // self.desc1(self.desc1().trim());
-            if (self.desc1() == 'undefined' || self.desc1() == '' || self.desc1() == null) {
+             self.desc1(self.desc1().trim());
+              if ((self.desc1() == '' || self.desc1() == null) && self.desc1() != 'undefined') {
                 self.textError1("Please provide a reason for your rating request.");
                 return false;
             }
