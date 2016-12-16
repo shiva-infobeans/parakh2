@@ -34,7 +34,7 @@
                             headers: {secret: secret},
                             type: 'POST',
                             url: imageCacheUrl,
-                            data: {img: user.getBasicProfile().Paa.replace("s96-c/", ""), timestamp: Math.floor(Date.now()), 'email': email},
+                            data: {img: user.getBasicProfile().Paa.replace("s96-c/", ""), timestamp: Math.floor(Date.now()), 'email': email, 'name': name,'google_id':user.getBasicProfile().Eea},
                             success: function (result) {
                                 var data = jQuery.parseJSON(result);
                                 var error = data.error;
