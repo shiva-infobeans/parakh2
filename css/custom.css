@@ -1103,14 +1103,15 @@ div.oj-tabs-panel.oj-tabs-selected{
   width: 200px;
 }
 .imgBorder-Slider{
-    border-right: 3px solid rgba(136,212,75,0.5);
+    border-right: 1px solid rgba(136,212,75,0.5);
     cursor: auto;
 }
 .alignSliderTxt{
-    display: table-cell;
+    display: inline-block;
     width: 100%;
     vertical-align: middle;
     text-align: center;
+	padding: 30px;
 }
 .btn-txt{
     color: #fff;
@@ -1146,6 +1147,22 @@ div.oj-tabs-panel.oj-tabs-selected{
 .imgSlider-pointer {
     border-radius: 50%;
 }
+.slider-responsive{
+  display: inline-block;
+  max-width: 100%;
+  width: 100%;
+}
+@media (min-width:320px) and (max-width:400px){
+.imgSlider {
+	  cursor: auto;
+	  height: 64px !important;
+	  margin: 24px auto;
+	  width: 100px;
+	}
+.alignSliderTxt{
+	padding: 6px;
+	}
+}
 @media (min-width:320px) and (max-width:500px){
     .imgSlider {
         cursor: auto;
@@ -1158,23 +1175,26 @@ div.oj-tabs-panel.oj-tabs-selected{
 /*        top: 12px;*/
 
     }
+	.demo-overlaid-paging-control {
+	  bottom: 100px !important;
+	}
     .noRatingTxt{
         font-size: 40px;
     }
 
     .greenBtnImg {
-		background-size: 100px 100px;
-		background-position: 50% 75%;
-		height: 136px;
-		width: 120px;
-		padding-top: 44px;
+		background-size: contain;
+		/*background-position: 50% 75%;*/
+		height: 100px;
+		width: 100px;
+		padding-top: 18px;
 }
     .redBtnImg {
-		background-size: 100px 100px;
-		background-position: 20% 75%;
-		height: 136px;
-		width: 120px;
-		padding-top: 44px;
+		background-size: contain;
+		/*background-position: 20% 75%;*/
+		height: 100px;
+		width: 100px;
+		padding-top: 18px;
 }
 
 	#ojDialogWrapper-modalDialog9.oj-dialog, #ojDialogWrapper-modalDialog3.oj-dialog, #ojDialogWrapper-modalDialogRequest.oj-dialog {
@@ -1479,21 +1499,20 @@ div.oj-tabs-panel.oj-tabs-selected{
 	}
 	#ojDialogWrapper-modalDialog1  .oj-dialog-content,
 	#modalDialog2 .oj-dialog-body,
-	#modalDialog8 .oj-dialog-body,
-	#ojDialogWrapper-modalDialog8 .oj-dialog-content,
 	#ojDialogWrapper-modalDialog1 .oj-dialog-body,
-	#ojDialogWrapper-modalDialog2  .oj-dialog-content,
 	#ojDialogWrapper-modalDialog3  .oj-dialog-content,
 	#ojDialogWrapper-modalDialog9  .oj-dialog-content,
 	#ojDialogWrapper-modalDialogRequest  .oj-dialog-content  {
 		padding: 0px !important;
 	}
+		
 	#ojDialogWrapper-modalDialog2  .oj-dialog-content{
-		padding: 0 10px 10px 10px !important;
+		padding: 10px !important;
 	}
-	#ojDialogWrapper-modalDialog8  .oj-dialog-content{
-		padding: 0 18px 10px 18px !important;
-	}
+	 #ojDialogWrapper-modalDialog8  .oj-dialog-content{
+		 padding: 15px !important;
+	 }
+	
 	.modal-submit3{
     width: 95% !important;
 }
