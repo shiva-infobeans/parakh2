@@ -2253,3 +2253,21 @@ ul.help-ul2{
 .role-tab-03{
         margin-left: -4px;
 }
+.question-text2{
+    margin-top: 484px;
+    color: #F9E81F !important;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 20px;
+    text-align: justify;
+    line-height: 27px;
+}
+.question-text3{
+    margin-top: 546px;
+    color: #F9E81F !important;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 20px;
+    text-align: justify;
+    line-height: 27px;
+}
