@@ -56,7 +56,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
             function dateDiffCalender(Date1) {
                 user_date = Date.parse(Date1);
                 today_date = new Date();
-                if (Date1 != '') {
+                if (Date1 != '' && Date1!=null) {
                     diff_date = today_date - user_date;
 
                     num_years = diff_date / 31536000000;
@@ -174,9 +174,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 this.plusSign = ko.observable('+');
                 self.selectedTab = ko.observable(0);
                 self.moberror = ko.observable("");
-
+                
                 var lgQuery = oj.ResponsiveUtils.getFrameworkQuery(
-                        oj.ResponsiveUtils.FRAMEWORK_QUERY_KEY.LG_UP);
+                oj.ResponsiveUtils.FRAMEWORK_QUERY_KEY.LG_UP);
                 ///////////////////// lazy loading .............
                 self.tabValue = ko.observable(1);
                 self.tabPositive = function () {
@@ -334,6 +334,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         $('.sucessMsg').show();
                         self.successful("Profile not updated.");
                         self.moberror("");
+                        self.allRevert();
                         setTimeout(function () {
                             $('.sucessMsg').hide();
                         }, 10000);
@@ -358,29 +359,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                             } else
                             {
                                 $('.sucessMsg').show();
-                                self.moberror("");
-                                self.successful("Profile updated successfully!");
-                                $('#designation-text').removeClass('hide');
-                                $('#designation-div').addClass('hide');
-                                $('#location-text').removeClass('hide');
-                                $('#location-div').addClass('hide');
-                                $('#skills-text').removeClass('hide');
-                                $('#skills').addClass('hide');
-                                $('#associate-text').removeClass('hide');
-                                $('#associate-div').addClass('hide');
-                                $('#primary-project-text').removeClass('hide');
-                                $('#primary-project-div').addClass('hide');
-                                $('#projects-text').removeClass('hide');
-                                $('#projects-div').addClass('hide');
-                                $('#interest-text').removeClass('hide');
-                                $('#interest-div').addClass('hide');
-                                $('#number-text').removeClass('hide');
-                                $('#editNumberBox').addClass('hide');
-                                $('#edit-all').removeClass('hide');
-                                $('#submit-all').addClass('hide');
-                                $('#cancel-all').addClass('hide');
-                                $('.errorTextProfile').html('');
-                                $('.errorTextProfile').hide();
+                                self.allRevert();
                             }
                             setTimeout(function () {
                                 $('.sucessMsg').hide();
@@ -762,7 +741,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 }
 
                 self.allRevert = function () {
-
+                    self.moberror("");
                     $('#designation-text').removeClass('hide');
                     $('#designation-div').addClass('hide');
                     $('#location-text').removeClass('hide');
