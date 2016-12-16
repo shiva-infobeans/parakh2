@@ -171,10 +171,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
                 getNotifyId.fetch({
                     headers: {secret: secret},
                     success: function (res) {
-                        if (res['attributes']['data'][0]['msg_read'] == 0) {
-                            $('.notif-count').hide();
-                        } else {
-                            self.notifCount(res['attributes']['data'][0]['msg_read']);
+                        if(res['attributes']['data'].length>0){
+                            if (res['attributes']['data'][0]['msg_read'] == 0) {
+                                $('.notif-count').hide();
+                            } else {
+                                self.notifCount(res['attributes']['data'][0]['msg_read']);
+                            }
                         }
                     }
                 });
