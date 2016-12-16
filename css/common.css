@@ -93,7 +93,7 @@
     }
 	.header_profile_image_initials {
 	  display: inline-block;
-	  font-size: 10px;
+	  font-size: 7px;
 	  height: 20px;
 	  padding: 6px 4px;
 	  position: absolute;
@@ -728,6 +728,12 @@
     margin-left: -2px;
     margin-bottom: 10px;
 }
+.errorTextProfile{
+    color: red;
+    margin-left: -2px;
+    margin-bottom: 10px;
+    font-size: 17px;
+}
 .errorText1{
     color: #fff;
     display: table-cell;
@@ -911,7 +917,9 @@
 /*#tabs-container .oj-tabs-nav{
     margin-left: 12px;
 }*/
-
+.request-top{
+        margin-top: 21px;
+}
 #tabs-container .oj-tabs-tab.oj-selected {
     border-color: #689F39;
     border-radius: 3px #fff !important;
@@ -1661,20 +1669,34 @@
 }
 #text-area::-webkit-input-placeholder
 {
-    color: #dcdcdc;
+    color: #dcdcdc !important;
 }
 
 #text-area::-moz-placeholder
 {
-    color: #dcdcdc;
+    color: #dcdcdc !important;
 }
 #text-area:-moz-placeholder {
-    color: #dcdcdc;
+    color: #dcdcdc !important;
 }
 
 #text-area:-ms-input-placeholder {
-    color: #dcdcdc;
+    color: #dcdcdc !important;
 }
+#text-area-manager::-webkit-input-placeholder
+ {
+     color: #dcdcdc !important;
+ }
+ #text-area-manager::-moz-placeholder
+ {
+     color: #dcdcdc !important;
+ }
+ #text-area-manager:-moz-placeholder {
+     color: #dcdcdc !important;
+ }
+ #text-area-manager:-ms-input-placeholder {
+     color: #dcdcdc !important;
+  }
 
 
 .View-Other-about{
@@ -1773,6 +1795,9 @@
     width: 30px;   
 }
 #negetiveTab , #feedbackTab{
+    display:none;
+}
+#negetiveTab1 , #feedbackTab1{
     display:none;
 }
 #filmStrip .oj-filmstrip-arrow.oj-default .oj-filmstrip-arrow-icon{
@@ -2100,6 +2125,7 @@ a:hover.oj-clickable-icon-nocontext,.oj-hover.oj-clickable-icon-nocontext{ color
     box-sizing: border-box;
     padding: 0.8571rem;
 }
+
 /*sidebar css*/ 
 .sideFeedback,
 .sideHelp,
@@ -2112,4 +2138,21 @@ a:hover.oj-clickable-icon-nocontext,.oj-hover.oj-clickable-icon-nocontext{ color
     display: block;
     background-color: #78A95A;
     background-size: contain;
+}
+              
+.main.style1 > .content {
+	-moz-transition: 1s ease;
+	-webkit-transition:  1s ease;
+	-ms-transition: 1s ease;
+	transition:  1s ease;
+	-moz-transform: translateZ(0);
+	-webkit-transform: translateZ(0);
+	-ms-transform: translateZ(0);
+	transform: translateZ(0);
+	opacity: 1.0;
+	margin: 30px 0 0 20px;
+}
+
+.main.style1.inactive > .content {
+	opacity: 1;
 }

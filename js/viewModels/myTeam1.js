@@ -74,6 +74,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.data2 = ko.observable();
         self.userId = ko.observable();
         self.name = ko.observable();
+        self.intials = ko.observable("");
         self.for_id = ko.observable();
         self.role_name = ko.observable();
         self.desc = ko.observable();
@@ -388,6 +389,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.image($(this).attr("image"));
             self.myname($(this).attr("myname"));
             self.myDesignation($(this).attr("myDesignation"));
+            self.intials($(this).attr("intials"))
             $('.textArea2').val('');
         });
         //feedbackLead
@@ -412,7 +414,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.submitModal = function () {
             self.desc(self.desc().trim());
             if (self.desc() == '' || self.desc() == null) {
-                self.textError("Please Provide a reason for your rating");
+                self.textError("Please provide a reason for your rating.");
                 return false;
             } else {
 
@@ -446,7 +448,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.submitFeedback = function () {
             self.desc(self.desc().trim());
             if (self.desc() == '' || self.desc() == null) {
-                self.textError("Please Provide your feedback");
+                self.textError("Please provide comments for your feedback.");
                 return false;
             } else {
                 $.ajax({
@@ -457,7 +459,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     success: function () {
                         $("#modalDialog8").ojDialog("close");
                         $("#sucessFeedback").show();
-                        self.sucessMsgFeedback("Feedback is sent!");
+                        self.sucessMsgFeedback("Feedback sent successfully!");
                         setTimeout(function () {
                             $("#sucessFeedback").hide();
                             self.sucessMsgFeedback("");
@@ -484,6 +486,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.myId($(this).attr("myTeamId"));
             self.teamName($(this).attr("teamName"));
             self.teamDesig($(this).attr("teamDesig"));
+            self.intials($(this).attr("intials"));
 
         });
 
@@ -504,7 +507,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.myId($(this).attr("myTeamId"));
             self.teamName($(this).attr("teamName"));
             self.teamDesig($(this).attr("teamDesig"));
-
+            self.intials($(this).attr("intials"));
         });
         self.p = ko.observable(1);
 
@@ -528,7 +531,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         this.leadSubmit = function () {
             self.desc(self.desc().trim());
             if (self.desc() == '' || self.desc() == null) {
-                self.textError("Please Provide a reason for your rating");
+                self.textError("Please provide a reason for your rating request.");
                 return false;
             } else {
                 $.ajax({

@@ -235,8 +235,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojcollectiontabledatasource', '
                         if (self.myselfId() === self.myLead() || self.myselfId() === self.myManager()) {
                             $('#negetiveTab').show();
                             $('#feedbackTab').show();
+                            $('#negetiveTab1').show();
+                            $('#feedbackTab1').show();
                             $("#ulTab").addClass("tabHeight");
                             $("#ulTab").removeClass("tabHeightNew");
+                            $('#responsiveTab').addClass('tabWidth');
+                            $('#responsiveTab').removeClass('tabWidth2');
                         }
                     }
                 });
@@ -246,6 +250,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojcollectiontabledatasource', '
                 self.openReply = function (data, event) {
                     $('#' + data['replyBtnId']).fadeOut();
                     $('#' + data['uniqueId']).fadeOut();
+                    $('#' + data['replyInput']).parent().parent().next().addClass('errorVisibilityHide').removeClass('errorVisibilityShow');
                     try {
                         var effectReplyBtn = 'slideOut';
                         if (effectReplyBtn && oj.AnimationUtils[effectReplyBtn])
@@ -394,7 +399,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojcollectiontabledatasource', '
                                     }
                                 }
                                 if (self.allNeg().length == 0) {
-                                    self.NoCommentsN("No Ratings Available ...!!");
+                                    self.NoCommentsN("No ratings available.");
                                     $("#noNegativeComment").show();
                                     $("#lazyProfileNeg").hide();
                                 } else {
@@ -436,7 +441,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojcollectiontabledatasource', '
                                     $("#lazyProfilePos").hide();
                                 }
                                 if (self.allPos().length == 0) {
-                                    self.NoCommentsP("No Ratings Available ...!!");
+                                    self.NoCommentsP("No ratings available.");
                                     $("#noPositiveComment").show();
                                 }
                                 self.plus(plus);
