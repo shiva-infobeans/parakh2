@@ -115,10 +115,22 @@
 
             var thisImage = images[Math.floor(Math.random() * images.length)];
             //setting the path
-            $(document).ready(function () {
-                $("#authMsg").hide();
+            
+            $(function () {
+                 $("#authMsg").hide();
                 $("#login-background").css("background", "url('" + thisImage + "') no-repeat fixed center top / cover");
+                var bg = $('#login-background').css('background-image');
+                bg = bg.replace('url(', '').replace(')', '').replace(/\"/gi, "");
+                if (bg == document.location.href + 'images/parakh.jpg')
+                {
+                } else if (bg == document.location.href + 'images/parakh2.jpg')
+                {
+                    $("#authMsg").addClass('imageWiseMsg1');
+                    
+                }
+               
             });
+
         </script>
 
     </head>
