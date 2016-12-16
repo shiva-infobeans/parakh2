@@ -6,6 +6,7 @@ and open the template in the editor.
 <div class="max-width">
     <div id="tabs-container-help">
         <div id="tabs-help" data-bind="ojComponent:{component: 'ojTabs'}"> 
+           
             <ul class="cursor-class pos-relative ul-top" id="help-top-tab">
                 <div class="transbox-help-tabs"></div>
                 <li> 
@@ -25,6 +26,7 @@ and open the template in the editor.
 
                 </li>
             </ul>
+ 
             <div id="tabs-help-1">
                 <div id="vtabs-1" class="max-width profile-page oj-margin-top margin-bottom-10 "
                      data-bind="ojComponent:{component: 'ojTabs', 
@@ -113,7 +115,7 @@ and open the template in the editor.
                                 way related to the Quarterly or Annual feedback process followed by the
                                 organization.
                             </div>
-                            <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item oj-padding oj-flex-bar-end question-text">
+                            <div class="oj-xl-3 oj-lg-4 oj-md-6 oj-sm-8 oj-flex-item oj-padding oj-flex-bar-end question-text help-feedback">
                                 Got a Question ?
                             </div>
                         </div>
@@ -179,7 +181,7 @@ and open the template in the editor.
                                 way related to the Quarterly or Annual feedback process followed by the
                                 organization.
                             </div>
-                            <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item oj-padding oj-flex-bar-end question-text">
+                            <div class="oj-xl-3 oj-lg-4 oj-md-6 oj-sm-8  oj-flex-item oj-padding oj-flex-bar-end question-text help-feedback">
                                 Got a Question ?
                             </div>
                         </div>
@@ -248,7 +250,7 @@ and open the template in the editor.
                                 Parakh is only to track the ups and downs in your work every day. It is in no way related to the Quarterly or 
                                 Annual feedback process followed by the organization.
                             </div>
-                            <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item oj-padding oj-flex-bar-end question-text">
+                            <div class="oj-xl-3 oj-lg-4 oj-md-6 oj-sm-8  oj-flex-item oj-padding oj-flex-bar-end question-text help-feedback">
                                 Got a Question ?
                             </div>
                         </div>
@@ -346,7 +348,7 @@ and open the template in the editor.
                                 Giving a +1 helps to motivate the other person to continually do a better work, and also motivates others to improve performance or   Contribute more within the organization
 
                             </div>
-                            <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item oj-padding oj-flex-bar-end question-text">
+                            <div class="oj-xl-3 oj-lg-4 oj-md-6 oj-sm-8  oj-flex-item oj-padding oj-flex-bar-end question-text help-feedback">
                                 Got a Question ?
                             </div>
                         </div>
@@ -360,7 +362,7 @@ and open the template in the editor.
                             <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding help-text-div">
                                 If you feel you have done a good job recently, let you lead or manager know about it by requesting them with the reason.
                             </div>
-                            <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item oj-padding oj-flex-bar-end question-text2">
+                            <div class="oj-xl-3 oj-lg-4 oj-md-6 oj-sm-8  oj-flex-item oj-padding oj-flex-bar-end question-text2 help-feedback">
                                 Got a Question ?
                             </div>
                         </div>
@@ -388,7 +390,7 @@ and open the template in the editor.
                             <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding help-text-div">
                                 After receiving feedback, a team member is very likely to be make him reflect on his work and he/she may get motivated to do it better.
                             </div>
-                            <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item oj-padding oj-flex-bar-end question-text">
+                            <div class="oj-xl-3 oj-lg-4 oj-md-6 oj-sm-8  oj-flex-item oj-padding oj-flex-bar-end question-text help-feedback">
                                 Got a Question ?
                             </div>
                         </div>
@@ -400,7 +402,7 @@ and open the template in the editor.
                                 This page displays the top performers within ICC team for the week, month
                                 and quarter. You can also get to know about your rank in the team.
                             </div>
-                            <div class="oj-xl-3 oj-lg-3 oj-md-3 oj-sm-3 oj-flex-item oj-padding oj-flex-bar-end question-text3">
+                            <div class="oj-xl-3 oj-lg-4 oj-md-6 oj-sm-8  oj-flex-item oj-padding oj-flex-bar-end question-text3 help-feedback">
                                 Got a Question ?
                             </div>
                         </div>
@@ -410,4 +412,35 @@ and open the template in the editor.
             </div>
         </div>
     </div>
+</div>
+
+<!--feedaback modal in got a question link-->
+
+<div class="oj-row oj-flex">
+    <div id="dialogWrapperSideBar">
+        <div style="display:none" id="modalDialog-userFeedback" title="Feedback" 
+             data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide'}">
+            <div class="oj-dialog-body">
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center feedbck-text ">
+                    Hello,we'd love to hear your feedback about our Parakh...
+                </div>
+                <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center areaContent1 ">
+                    <textarea id="text-area9" class="textArea-feedbackFloat" aria-label="ojTextArea component no visible label"
+                              data-bind=" ojComponent: {component: 'ojTextArea', 
+                                     value: message, 
+                                     placeholder: 'Type your feedback here..'}"></textarea>   
+                </div>
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal center errorText" data-bind="text:textError"></div>
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
+                    <button class="modal-submitUserFeedback"  data-bind="click: userFeedback" > Send Feedback </button>
+                </div>
+            </div>
+        </div>
+    </div>        
+</div>
+
+<!--loader-->
+<div class="loaderDiv loaderHide" id="userToParakh">
+    <div class="overlay-loader"></div>
+    <div class="loaderImgDiv"><img src="css/images/loader.gif" alt=""/></div>
 </div>
