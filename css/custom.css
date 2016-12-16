@@ -913,7 +913,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 .NorequestMsgAlignment{
     display: table;
     font-size: 35px;
-    height: auto;
+    height: 100%;
     text-align: center;
 }
 
@@ -1047,7 +1047,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     margin: 24px auto;
     width: 200px;
 }
-.greenBtnImg{
+/*.greenBtnImg{
     background-image: url('images/green-button.png');
     background-repeat: no-repeat;
     background-attachment: initial;
@@ -1076,6 +1076,31 @@ div.oj-tabs-panel.oj-tabs-selected{
     border-radius: 54% 40%;
     -moz-border-radius: 54% 40%;
     -webkit-border-radius: 54% 40%;
+}*/
+.greenBtnImg {
+  background-image: url("images/green-button.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  border-radius: 0;
+  cursor: pointer;
+  display: inline-block;
+  height: 200px;
+  padding-top: 42px;
+  text-align: center;
+  width: 200px;
+}
+.redBtnImg {
+  background-attachment: initial;
+  background-image: url("images/red-button.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  border-radius: 0;
+  cursor: pointer;
+  display: inline-block;
+  height: 200px;
+  padding-top: 42px;
+  text-align: center;
+  width: 200px;
 }
 .imgBorder-Slider{
     border-right: 3px solid rgba(136,212,75,0.5);
@@ -2318,4 +2343,7 @@ a#menu-share:hover > i{
     color: #fff;
     bottom: 0;
     left: 0;
+}
+.no-margin{
+	margin: 0;
 }
