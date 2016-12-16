@@ -990,6 +990,7 @@ class dbmodule {
      * */
 
     function getAllLeads($user_id) {
+        $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
         if ($user_id) {
             $leadList = [];
             $query = "SELECT * FROM user_hierarchy WHERE user_id = :id ";
@@ -999,14 +1000,14 @@ class dbmodule {
 
             if (isset($leadList) && !empty($leadList)) {
                 foreach ($leadList as $key => $val) {
-                    $user_query = "SELECT google_name,google_picture_link "
+                    $user_query = "SELECT google_name,google_email,google_picture_link "
                             . "FROM users WHERE id = :id";
                     $manager_name = $this->con->prepare($user_query);
                     $manager_name->execute(array(':id' => $val['manager_id']));
                     $manager_name = $manager_name->fetch((PDO::FETCH_ASSOC));
 
                     $leadList[$key]['manager_name'] = $manager_name['google_name'];
-                    $leadList[$key]['google_picture_link'] = $manager_name['google_picture_link'];
+                    //$leadList[$key]['google_picture_link'] = $manager_name['google_picture_link'];
 
                     $role_query = "SELECT name FROM role_type "
                             . "WHERE id = :role_type_id";
@@ -1014,6 +1015,8 @@ class dbmodule {
                     $role_name->execute(array(':role_type_id' => $val['role_type_id']));
                     $role_name = $role_name->fetch((PDO::FETCH_ASSOC));
                     $leadList[$key]['role_name'] = $role_name['name'];
+                    $image = $this->getCacheImage($manager_name['google_email'], $default_img);
+                    $leadList[$key]['google_picture_link'] = $image;
                 }
                 return $leadList;
             } else {
