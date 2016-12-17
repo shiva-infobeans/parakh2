@@ -1510,7 +1510,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 		padding: 10px !important;
 	}
 	 #ojDialogWrapper-modalDialog8  .oj-dialog-content{
-		 padding: 15px !important;
+		 padding: 10px !important;
 	 }
 	
 	.modal-submit3{
@@ -2149,6 +2149,7 @@ a#menu-share:hover > i{
 {
   color: #777 !important;
 }
+
 .no-pointer{
 	cursor: default;
 }

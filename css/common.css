@@ -567,7 +567,7 @@
     font-size: 24px;
 }
 .modalImage{
-    max-width: 100%;
+    max-width: 70%;
 }
 .area2{
     width: 87%;
@@ -672,7 +672,9 @@
 .imgArea{
     float: right;
     cursor: pointer;
-    padding: 5px;
+    /*padding: 5px;*/
+	border-left: 1px solid #dcdcdc;
+	margin-top: 8px;
 }
 .areaContent{
     float:left;
@@ -983,11 +985,11 @@
     background-color: #fff !important;
 	/*padding: 26px;*/
     overflow: hidden;
-	min-height: 440px;
+	min-height: 460px;
 }
-#modalDialog8 .oj-dialog-body{
+/*#modalDialog8 .oj-dialog-body{
 	min-height: 440px;
-}
+}*/
 #ojDialogWrapper-modalDialog2  .oj-dialog-body{
 	min-height: 450px;
 }
