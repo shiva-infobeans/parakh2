@@ -1810,8 +1810,8 @@ div.oj-tabs-panel.oj-tabs-selected{
     #ojDialogWrapper-modalDialog1.oj-dialog{
         width: 32% !important;
     }
-
 }
+
 @media screen  and (max-width: 360px) {
     .notification::before {
         border-bottom: 10px solid #fff;
@@ -1833,7 +1833,7 @@ div.oj-tabs-panel.oj-tabs-selected{
         z-index: 1;
     }
 
-    /*Namrata*/
+
     #oj-combobox-choice-combobox3.oj-combobox-choice,#oj-combobox-choice-combobox2.oj-combobox-choice,#oj-combobox-choice-combobox9.oj-combobox-choice{
 /*        min-width: 285px !important;*/
         max-width: 100% !important;
@@ -2204,7 +2204,6 @@ a#menu-share:hover > i{
     color: #777 !important;
 }
 
-
 #text-area::-moz-placeholder
 {
   color: #777 !important;
@@ -2406,8 +2405,20 @@ a#menu-share:hover > i{
 	@media screen and (-webkit-min-device-pixel-ratio:0) {
 	 .header_profile_image_initials  { line-height:13px;  }
 	}
+	.searchArea.mb-cst{
+			margin-bottom: 46px !important;
+	}
 }
-
+@media (min-width: 320px) and (max-width: 768px){
+	.searchArea.mb-cst{
+			margin-bottom: 46px !important;
+		}
+}
+@media (min-width: 769px) and (max-width: 1366px){
+	.searchArea.mb-cst{
+			margin-bottom: 38px !important;
+		}
+}
 .profile_img_rateme {
     position: relative;
     display: inline-block;
@@ -2426,4 +2437,13 @@ a#menu-share:hover > i{
 }
 .no-margin{
 	margin: 0;
+}
+.mt-2 {
+    margin-top: 2px;
+}
+.mb0{
+	margin-bottom: 0 !important;
+}
+.mb-cst{
+	margin-bottom: 46px !important;
 }

@@ -484,6 +484,7 @@
     -webkit-flex-direction: column;
     flex-direction: column;
     border-radius: 5px;
+	top: 150px !important;
 }
 #ojDialogWrapper-modalDialog1.oj-dialog  {
     overflow: hidden;
@@ -495,6 +496,7 @@
     -webkit-flex-direction: column;
     flex-direction: column;
     border-radius: 5px;
+	top: 150px !important;
 }
 
 
@@ -508,6 +510,7 @@
     -webkit-flex-direction: column;
     flex-direction: column;
     border-radius: 5px;
+	top: 150px !important;
 }
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
     #ojDialogWrapper-modalDialog2.oj-dialog, #ojDialogWrapper-modalDialog8.oj-dialog{
@@ -532,6 +535,19 @@
     -webkit-flex-direction: column;
     flex-direction: column;
     border-radius: 5px;
+	top: 150px !important;
+}
+@media screen and (max-height:780px){
+    #ojDialogWrapper-modalDialog2.oj-dialog{
+        top: 80px !important;
+    }
+    #ojDialogWrapper-modalDialog8.oj-dialog{
+         top: 80px !important;
+    }
+	#ojDialogWrapper-modalDialog1.oj-dialog{
+		top: 80px !important;
+	}
+
 }
 .errorTextPlus{
     color: red;
@@ -544,6 +560,32 @@
     max-width: 100%;
     min-width: 500px;
     border-radius: 5px;
+	top: 150px !important;
+}
+@media screen and (max-width:767px){
+	#ojDialogWrapper-modalDialog9.oj-dialog,
+	#ojDialogWrapper-modalDialog3.oj-dialog,
+	#ojDialogWrapper-modalDialogRequest.oj-dialog{
+		overflow: hidden;
+		max-width: 100%;
+		min-width: 500px;
+		border-radius: 5px;
+		top: 50px !important;
+	}	
+	#ojDialogWrapper-modalDialog2.oj-dialog{
+		top:20px !important;
+		height:500px;
+	}
+	.submit-btn-modal {
+    margin: 6px 0 !important;
+	}
+	#modalDialog2 .oj-dialog-body, #ojDialogWrapper-modalDialog8 .oj-dialog-content, #ojDialogWrapper-modalDialog1 .oj-dialog-content, #ojDialogWrapper-modalDialogRequest .oj-dialog-content{
+		height:auto !important;
+	}
+	#ojDialogWrapper-modalDialog8.oj-dialog, #ojDialogWrapper-modalDialog1.oj-dialog{
+		top: 20px !important;
+	}
+
 }
 #ojDialogWrapper-minMaxDialog.oj-dialog{
     overflow: hidden;
@@ -583,11 +625,11 @@
 }
 .area2{
     width: 87%;
-    height: 53%;
+    height: 180px;
     border: solid 1px #305a04;
     background-color: #fff;
     margin-left: 36px;
-    margin-top: 15px;
+    margin-top: 8px;
     border-radius: 5px;
 }
 /*.modal-submit{
@@ -617,12 +659,12 @@
     cursor: pointer !important;
     font-size: 24px;
     height: 48px;
-    margin-top: 25px;
-    width: 38%;
+    /*margin-top: 20px;*/
+    width: 36%;
 }
 .areaFloat{
     width: 100%;
-    height: 148px;
+    height: 180px;
     border-style: solid;
     border-color: #305a04;
     border-width: 1px;
@@ -638,7 +680,7 @@
 }
 .area {
     width: 91%;
-    height: 43%;
+    height: 182px;
     border: solid 1px #305a04;
     background-color: #fff;
     margin-left: 22px;
@@ -658,7 +700,7 @@
     margin-left: 26px;
 }
 .textArea2{
-    height: 140px;
+    height: 172px;
     border: none;
     width: 100%;
     margin-left: 2px;
@@ -782,7 +824,7 @@
     cursor: pointer !important;
     font-size: 24px;
     height: 48px;
-    margin-top: 25px;
+    /*margin-top: 25px;*/
     width: 38%;
     border-radius: 8px;
     border-style: solid;
@@ -834,7 +876,7 @@
     cursor: pointer !important;
     font-size: 24px;
     height: 48px;
-    margin-top: 25px;
+    /*margin-top: 25px;*/
     width: 38%;
 }
 #ojDialogWrapper-modalDialog2 .oj-dialog-title::before {
@@ -863,7 +905,7 @@
 }
 .imgArea1 {
     float: right;
-    margin-top: 35px;
+    margin-top: 55px;
     cursor: pointer;
     border-left: 1px solid #dcdcdc;
 }
@@ -874,12 +916,17 @@
         min-width: 300px;
     overflow: hidden;
 }*/
-
+#modalDialog2 .oj-dialog-body, #ojDialogWrapper-modalDialog1 .oj-dialog-content, #ojDialogWrapper-modalDialog8  .oj-dialog-content{
+	height: 490px;
+}
 #modalDialog2 .oj-dialog-body, #modalDialog3 .oj-dialog-body, #modalDialog9 .oj-dialog-body,#modalDialogRequest .oj-dialog-body{
     background-color: #fff !important;
     overflow: hidden;
     padding:26px;
 }
+/*#ojDialogWrapper-modalDialogRequest .oj-dialog-content, #ojDialogWrapper-modalDialog3 .oj-dialog-content, #ojDialogWrapper-modalDialog9 .oj-dialog-content{
+	min-height: 430px;
+}*/
 #modalDialog8 .oj-dialog-body{
     background-color: #fff !important;
 }
@@ -1008,7 +1055,12 @@
 #ojDialogWrapper-modalDialogRequest  .oj-dialog-content  {
     background-color: #fff !important;
     padding: 26px;
-    min-height: 390px;
+    overflow: hidden;
+}
+#ojDialogWrapper-modalDialog8  .oj-dialog-content{
+    background-color: #fff !important;
+    padding: 26px;
+    /*min-height: 440px;*/
     overflow: hidden;
 }
 #ojDialogWrapper-modalDialog-userFeedback .oj-dialog-content  {
@@ -1020,18 +1072,25 @@
 #ojDialogWrapper-modalDialog2  .oj-dialog-content{
     background-color: #fff;
 }
-#ojDialogWrapper-modalDialog1 .oj-dialog-body{
+#ojDialogWrapper-modalDialog1 .oj-dialog-content{
     background-color: #fff !important;
-    /*padding: 26px;*/
+    padding: 20px;
     overflow: hidden;
-	min-height: 460px;
+	/*min-height: 440px;*/
+	
+}
+#ojDialogWrapper-modalDialog1 .oj-dialog-body {
+    background-color: #fff !important;
+    overflow: hidden;
+    padding: 0;
+    min-height: 450px;
 }
 /*#modalDialog8 .oj-dialog-body{
     min-height: 440px;
-}*/
+}
 #ojDialogWrapper-modalDialog2  .oj-dialog-body{
     min-height: 450px;
-}
+}*/
 /*.modal-submit3{
     background-color: #e3ffca !important;
     color: #000 !important;
@@ -1043,14 +1102,13 @@
     width: 38%;
 }
 */
-/*Namrata*/
 .modal-submit3 {
     background-color: #e3ffca !important;
     color: #363636 !important;
     cursor: pointer !important;
     font-size: 24px;
     height: 48px;
-    margin-top: 25px;
+    /*margin-top: 25px;*/
     width: 38%;
     border-radius: 8px;
     border-style: solid;
@@ -1366,13 +1424,13 @@
     text-decoration: none !important;
 }
 .textArea-feedback{
-    height: 143px;
+    height: 180px;
     border: solid 1px #305a04;
     width: 100%;
     border-radius: 5px;
 }
 .textArea-feedbackFloat{
-    height: 143px;
+    height: 180px;
     border: solid 1px #305a04;
     width: 100%;
     border-radius: 5px;
@@ -1422,7 +1480,7 @@
     cursor: pointer !important;
     font-size: 24px;
     height: 48px;
-    margin-top: 25px;
+    /*margin-top: 11px;*/
     width: 38%;
     border-radius: 8px;
     border-style: solid;
@@ -1486,6 +1544,9 @@
     -webkit-box-shadow: 3px 3px 3px #6f6d6d;
     box-shadow: 3px 3px 3px #6f6d6d;
     filter: progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color=#6f6d6d);
+}
+.submit-btn-modal {
+    margin: 25px 0;
 }
 .textArea-request {
     height: 120px;
