@@ -612,6 +612,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
                             self.lazyMyMembers([]);
                             self.myTeam([]);
+                            self.pageNumMyMembers();
                             self.indexer1Letters([]);
                             self.lazyMyInitBlock(9);
                             $.ajax({
