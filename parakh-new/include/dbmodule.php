@@ -737,19 +737,19 @@ class dbmodule {
             $this->send_notification($email_data);
 
             // send notification to manager
-            // $email_data_l = [];
-            // $temp_data_l = $this->getEmailTemplateByCode('PRKE22');
-            // $email_data_l['to']['email'] = $this->manager_email;
-            // $email_data_l['to']['name'] = $this->manager_name;
-            // $email_data_l['subject'] = $temp_data_l['subject'];
-            // $vars = array(
-            //     "{Member}" => $email_data['to']['name'],
-            //     "{Lead}" => $from_data['google_name'],
-            //     "{Feedback}" => $data['feedback_description'],
-            // );
-            // $message = strtr($temp_data_l['content'], $vars);
-            // $email_data_l['message'] = $message;
-            // $this->send_notification($email_data_l);
+            $email_data_l = [];
+            $temp_data_l = $this->getEmailTemplateByCode('PRKE22');
+            $email_data_l['to']['email'] = $this->manager_email;
+            $email_data_l['to']['name'] = $this->manager_name;
+            $email_data_l['subject'] = $temp_data_l['subject'];
+            $vars = array(
+                "{Username}" => $this->manager_name,
+                "{Manager}" => $this->get_role_name($data['u_id']),
+                "{Link}" => $this->getTargetLink(PROFILE_URL . "&id=2", "Parakh")
+            );
+            $message = strtr($temp_data_l['content'], $vars);
+            $email_data_l['message'] = $message;
+            $this->send_notification($email_data_l);
 
 
             /* update msg read count */
@@ -1101,13 +1101,13 @@ class dbmodule {
 
             // // send notification to manager
             if ($this->manager_email != $user_data['google_email']) {
-                // $email_data_l = [];
-                // $email_data_l['to']['email'] = $this->manager_email;
-                // $email_data_l['to']['name'] = $this->manager_name;
-                // $email_data_l['subject'] = (!empty($temp_data_l['subject']))?$temp_data_l['subject']:"";
-                // $message = strtr($temp_data['content'], $vars);
-                // $email_data_l['message'] = $message;
-                // $this->send_notification($email_data_l);
+                $email_data_l = [];
+                $email_data_l['to']['email'] = $this->manager_email;
+                $email_data_l['to']['name'] = $this->manager_name;
+                $email_data_l['subject'] = (!empty($temp_data['subject']))?$temp_data['subject']:"";
+                $message = strtr($temp_data['content'], $vars);
+                $email_data_l['message'] = $message;
+                $this->send_notification($email_data_l);
             }
 
             /* update msg read count */
