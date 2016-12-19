@@ -40,6 +40,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         autoSearchLead.autoSearchLeadRole = data['role_name'];
         return autoSearchLead;
     }
+    function nameFunction(NAME) {
+        var initial = NAME.charAt(0) + NAME.charAt(NAME.lastIndexOf(" ") + 1);
+        return initial;
+    }
     function floatingContentViewModel(person) {
         var self = this;
 
@@ -96,6 +100,89 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.textError = ko.observable();
         self.searchError = ko.observable();
         self.role_name = ko.observable();
+        self.currentChangeid = ko.observable(0);
+
+        self.rateValueChangeHandler = function(context, valueParam){
+            if(!isNaN(valueParam.value[0]))
+            {
+                self.currentChangeid(valueParam.value[0]);
+            }
+            if(valueParam.option == 'rawValue')
+            {
+                try{
+                    spaceCount = (valueParam.value.split(" ").length - 1);
+                    name = valueParam.value.replace(/ /g,"");
+                    if(spaceCount>2){
+                        name = name.substring(0, name.length - 2);
+                    }
+                    name = name.replace(/([A-Z])/g, ' $1').trim();
+                    id = "#"+name.replace(/ /g,"_").toLowerCase();
+                    $('#oj-combobox-input-combobox2').val(name);
+                    if(typeof $(id).val()!='undefined' && $(id).val()==1)
+                    {
+                        $('.text-area-plus-one').hide();
+                        $('.text-area-both').show();
+                    }else
+                    {
+                        $('.text-area-plus-one').show();
+                        $('.text-area-both').hide();
+                    }
+                }catch(e)
+                {
+                    console.log(e);
+                }
+            }
+
+            // $('.search-text-profile-image').each(function(){
+            //     alert($("."+$(this).attr('class')+" .autoName").html());
+            // });
+        }
+
+        self.feedbackValueChangeHandler = function(context, valueParam){
+            if(!isNaN(valueParam.value[0]))
+            {
+                self.currentChangeid(valueParam.value[0]);
+            }
+            if(valueParam.option == 'rawValue')
+            {
+                try{
+                    spaceCount = (valueParam.value.split(" ").length - 1);
+                    name = valueParam.value.replace(/ /g,"");
+                    if(spaceCount>2){
+                        name = name.substring(0, name.length - 2);
+                    }
+                    name = name.replace(/([A-Z])/g, ' $1').trim();
+                    id = "#"+name.replace(/ /g,"_").toLowerCase();
+                    $('#oj-combobox-input-combobox9').val(name);
+                }catch(e)
+                {
+                    console.log(e);
+                }
+            }
+        }
+
+        self.requestValueChangeHandler = function(context, valueParam){
+            if(!isNaN(valueParam.value[0]))
+            {
+                self.currentChangeid(valueParam.value[0]);
+            }
+            if(valueParam.option == 'rawValue')
+            {
+                try{
+                    spaceCount = (valueParam.value.split(" ").length - 1);
+                    name = valueParam.value.replace(/ /g,"");
+                    if(spaceCount>6){
+                        name = name.substring(0, name.length - 2);
+                    }
+                    name = name.replace(/([A-Z])/g, ' $1').trim();
+                    id = "#"+name.replace(/ /g,"_").toLowerCase();
+                    $('#oj-combobox-input-combobox3').val(name);
+                }catch(e)
+                {
+                    console.log(e);
+                }
+            }
+        }
 
         var userFloat = oj.Model.extend({
             url: getUserByEmail + person['email']
@@ -128,6 +215,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             item.value = data[counter1]['id'];
                             item.label = data[counter1]['google_name'];
                             item.searchPic = data[counter1]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data[counter1]['google_picture_link'];
+                            if(data[counter1]['google_picture_link'] == '/images/default.png')
+                            {
+                                item.intials_rate = nameFunction(data[counter1]['google_name']);
+                            }else
+                            {
+                                item.intials_rate = '';
+                            }
                             self.browsers.push(item);
                         }
                     }
@@ -147,6 +241,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             item.value = data[counter1]['user_id'];
                             item.label = data[counter1]['google_name'];
                             item.searchPic = data[counter1]['picture'] == "" ? 'images/warning-icon-24.png' : data[counter1]['picture'];
+                            if(data[counter1]['picture'] == '/images/default.png')
+                            {
+                                item.intials_feedback = nameFunction(data[counter1]['google_name']);
+                            }else
+                            {
+                                item.intials_feedback = '';
+                            }
                             self.browsers1.push(item);
                         }
                     }
@@ -201,6 +302,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             item1.label = data[0]['manager_name'];
                             item1.autoSearchLeadPic = data[0]['google_picture_link'];
                             item1.autoSearchLeadRole = data[0]['role_name'];
+                            if(data[0]['google_picture_link'] == '/images/default.png')
+                            {
+                                item1.intials_request = nameFunction(data[0]['manager_name']);
+                            }else
+                            {
+                                item1.intials_request = '';
+                            }
 
                             var item2 = new Object();
                             item2.value = data[1]['manager_id'];
@@ -214,12 +322,26 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 self.browsers2.push(item1);
                                 self.browsers2.push(item2);
                             }
+                            if(data[1]['google_picture_link'] == '/images/default.png')
+                            {
+                                item2.intials_request = nameFunction(data[1]['manager_name']);
+                            }else
+                            {
+                                item2.intials_request = '';
+                            }
                         } else {
                             var item1 = new Object();
                             item1.value = data[0]['manager_id'];
                             item1.label = data[0]['manager_name'];
                             item1.autoSearchLeadPic = data[0]['google_picture_link'];
                             item1.autoSearchLeadRole = data[0]['role_name'];
+                            if(data[0]['google_picture_link'] == '/images/default.png')
+                            {
+                                item1.intials_request = nameFunction(item1.label);
+                            }else
+                            {
+                                item1.intials_request = '';
+                            }
                             self.browsers2.push(item1);
                         }
                     }
@@ -245,7 +367,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 headers: {secret: secret},
                 method: 'POST',
                 url: addFeedback,
-                data: {feedback_from: self.userIdFloat(), feedback_to: self.value1()[0], feedback_description: self.desc()},
+                data: {feedback_from: self.userIdFloat(), feedback_to: self.currentChangeid(), feedback_description: self.desc()},
                 success: function () {
                     $("#modalDialog9").ojDialog("close");
                     self.value('');
@@ -291,7 +413,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 headers: {secret: secret},
                 method: 'POST',
                 url: rateOtherMember,
-                data: {user_id: self.userIdFloat(), for_id: self.value()[0], rating: 1, desc: self.desc()},
+                data: {user_id: self.userIdFloat(), for_id: self.currentChangeid(), rating: 1, desc: self.desc()},
                 success: function () {
                     $("#modalDialog3").ojDialog("close");
                     self.value('');
@@ -330,7 +452,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 headers: {secret: secret},
                 method: 'POST',
                 url: requestForOne,
-                data: {u_id: self.userIdFloat(), l_id: self.value2()[0], desc: self.desc()},
+                data: {u_id: self.userIdFloat(), l_id: self.currentChangeid(), desc: self.desc()},
                 success: function () {
                     $("#modalDialogRequest").ojDialog("close");
                     $("#sucess").show();
