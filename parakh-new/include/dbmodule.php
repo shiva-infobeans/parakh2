@@ -393,7 +393,7 @@ class dbmodule {
      */
     function send_notification($email_data) {
         require_once 'notifications.php';
-        send_mail($email_data);
+        //send_mail($email_data);
     }
 
 //end of fun
@@ -1922,6 +1922,64 @@ class dbmodule {
         } else {
             return 0;
         }
+    }
+
+    /* get top 10 rankers of the current month */
+
+    function get_top_ten_rankers_of_current_month() {
+        $query = "SELECT r.created_date as date,r.user_id,u.google_name,u.google_email,u.primary_project,u.projects,u.google_picture_link as image,
+                    sum(case when r.rating = 1 then 1  end) as pluscount,
+                    sum(case when r.rating = 0 then 1  end) as minuscount
+                    from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 AND MONTH(r.created_date) = MONTH(CURDATE())
+                    AND YEAR(r.created_date) = YEAR(CURDATE())
+                    group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC LIMIT 10";
+        $rankers_data = $this->con->prepare($query);
+        $rankers_data->execute();
+        $rankers = $rankers_data->fetchAll((PDO::FETCH_ASSOC));
+        return $rankers;
+    }
+
+    /* get top 10 rankers of the past 90 days */
+
+    function get_top_ten_rankers_of_past_90_days() {
+        $query = "SELECT r.created_date as date,r.user_id,u.google_name,u.google_email,u.primary_project,u.projects,u.google_picture_link as image,
+                    sum(case when r.rating = 1 then 1  end) as pluscount,
+                    sum(case when r.rating = 0 then 1  end) as minuscount
+                    from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 AND r.created_date > DATE_SUB(NOW(), INTERVAL 90 DAY)
+                    group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC LIMIT 10";
+        $rankers_data = $this->con->prepare($query);
+        $rankers_data->execute();
+        $rankers = $rankers_data->fetchAll((PDO::FETCH_ASSOC));
+        return $rankers;
+    }
+
+    /* get login rankers of the current month */
+
+    function get_top_rankers_current_month() {
+        $query = "SELECT r.created_date as date,r.user_id,u.google_name,u.google_email,u.primary_project,u.projects,u.google_picture_link as image,
+                    sum(case when r.rating = 1 then 1  end) as pluscount,
+                    sum(case when r.rating = 0 then 1  end) as minuscount
+                    from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 AND MONTH(r.created_date) = MONTH(CURDATE())
+                    AND YEAR(r.created_date) = YEAR(CURDATE())
+                    group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC";
+        $rankers_data = $this->con->prepare($query);
+        $rankers_data->execute();
+        $rankers = $rankers_data->fetchAll((PDO::FETCH_ASSOC));
+        return $rankers;
+    }
+
+    /* get login rankers of the past 90 days */
+
+    function get_top_rankers_of_90_days() {
+        $query = "SELECT r.created_date as date,r.user_id,u.google_name,u.google_email,u.primary_project,u.projects,u.google_picture_link as image,
+                    sum(case when r.rating = 1 then 1  end) as pluscount,
+                    sum(case when r.rating = 0 then 1  end) as minuscount
+                    from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 AND r.created_date > DATE_SUB(NOW(), INTERVAL 90 DAY)
+                    group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC";
+        $rankers_data = $this->con->prepare($query);
+        $rankers_data->execute();
+        $rankers = $rankers_data->fetchAll((PDO::FETCH_ASSOC));
+        return $rankers;
     }
 
 //end of fun

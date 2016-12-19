@@ -1113,7 +1113,86 @@ $app->get('/getPositionOfUserInRanking[/]', function ($request, $response, $args
     $response->withJson($response_data);
     return $response;
 });
-
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getTopTenRankersOfCurrentMonth/
+ * Parameters: none
+ * 
+ * Method: GET
+ * */    
+$app->get('/getTopTenRankersOfCurrentMonth[/]', function ($request, $response, $args) {
+    $response_data = array();
+    
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    $result = $db->get_top_ten_rankers_of_current_month();
+    if($result != 0){
+        $response_data = makeResponse('false',$result);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3001));
+    }    
+    $response->withJson($response_data);
+    return $response;
+});
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getTopTenRankersOfPast90Days/
+ * Parameters: none
+ * 
+ * Method: GET
+ * */    
+$app->get('/getTopTenRankersOfPast90Days[/]', function ($request, $response, $args) {
+    $response_data = array();
+    
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    $result = $db->get_top_ten_rankers_of_past_90_days();
+    if($result != 0){
+        $response_data = makeResponse('false',$result);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3001));
+    }    
+    $response->withJson($response_data);
+    return $response;
+});
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getTopRankersOfCurrentMonth/
+ * Parameters: none
+ * 
+ * Method: GET
+ * */    
+$app->get('/getTopRankersOfCurrentMonth[/]', function ($request, $response, $args) {
+    $response_data = array();
+    
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    $result = $db->get_top_rankers_current_month();
+    if($result != 0){
+        $response_data = makeResponse('false',$result);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3001));
+    }    
+    $response->withJson($response_data);
+    return $response;
+});
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getTopRankersOfPast90Days/
+ * Parameters: none
+ * 
+ * Method: GET
+ * */    
+$app->get('/getTopRankersOfPast90Days[/]', function ($request, $response, $args) {
+    $response_data = array();
+    
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    $result = $db->get_top_rankers_of_90_days();
+    if($result != 0){
+        $response_data = makeResponse('false',$result);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3001));
+    }    
+    $response->withJson($response_data);
+    return $response;
+});
 /**
  * Step 4: Run the Slim application
  *
