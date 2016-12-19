@@ -1628,7 +1628,7 @@ div.oj-tabs-panel.oj-tabs-selected{
         min-width: 345px !important;
     }
     .modal-submitUserFeedback{
-        margin-top: 0px !important;
+        margin-top: -6px !important;
         width: 95% !important;
     }
     #modalDialog-userFeedback .oj-dialog-body{
