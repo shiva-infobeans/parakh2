@@ -323,7 +323,7 @@ $app->post('/rateOtherMember', function ($request, $response) {
     $post_data['rating'] = filter_var($data['rating'], FILTER_SANITIZE_NUMBER_INT);
     $post_data['desc'] = filter_var($data['desc'], FILTER_SANITIZE_STRING);
     
-    if($post_data['user_id'] > 0 && $post_data['for_id'] > 0 && $post_data['rating'] == 1 ){
+    if($post_data['user_id'] > 0 && $post_data['for_id'] > 0 && isset($post_data['rating']) ){
         //Creating a dbmodule object
         $db = new dbmodule();
         if($db->isValidUser( $post_data['user_id'] )){
