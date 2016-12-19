@@ -39,14 +39,18 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     var role = res['attributes']['data']['role_name'];
                     if (role == "Team Member") {
                         if ($(window).width() == 768) {
-                            self.desktopImg('images/ipad-member.jpg');
+                            self.desktopImg('images/help-ipad(member).jpg');
                         } else {
-                            self.desktopImg('images/home-new(overlay-userGuide-mamber).jpg');
-                            self.mobileImg('images/userGuide-mobile.jpg');
+                            self.desktopImg('images/userGuide(member).jpg');
+                            self.mobileImg('images/userGuide-member-mobile.jpg');
                         }
                     } else {
-                        self.mobileImg('images/userGuide-mobile.jpg');
-                        self.desktopImg('images/home-new(overlay-userGuide-manager).jpg');
+                        if ($(window).width() == 768) {
+                            self.desktopImg('images/help-ipad(manager).jpg');
+                        } else {
+                            self.mobileImg('images/userGuide-manager-mobile.jpg');
+                            self.desktopImg('images/help(manager-desktop).jpg');
+                        }
                     }
 
                 }
