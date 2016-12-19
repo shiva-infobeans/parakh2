@@ -2,6 +2,7 @@
 <html>
     <head>
         <title> Parakh-Login </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta id="meta" name="google-signin-client_id" content="">
         <link rel="icon" id="favicon" type="image/jpg" href="" />
         
@@ -107,6 +108,12 @@
             var thisImage = images[Math.floor(Math.random() * images.length)];
             //setting the path
             $(document).ready(function () {
+                if(thisImage == images[0]){
+                    $('.achivementLink').addClass('linkPos1');
+                }
+                else{
+                    $('.achivementLink').addClass('linkPos2');
+                }
                 $("#login-background").css("background", "url('" + thisImage + "') no-repeat fixed center top / cover");
             });
         </script>
