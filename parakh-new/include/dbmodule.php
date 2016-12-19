@@ -728,7 +728,7 @@ class dbmodule {
 
             $vars = array(
                 "{Username}" => $email_data['to']['name'],
-                "{Manager}" => $this->get_role_name($data['u_id']),
+                "{Manager}" => $from_data['google_name'],
                 "{Link}" => $this->getTargetLink(PROFILE_URL . "&id=2", "Parakh")
             );
 
@@ -738,14 +738,14 @@ class dbmodule {
 
             // send notification to manager
             $email_data_l = [];
-            $temp_data_l = $this->getEmailTemplateByCode('PRKE22');
+            $temp_data_l = $this->getEmailTemplateByCode('PRKE16');
             $email_data_l['to']['email'] = $this->manager_email;
             $email_data_l['to']['name'] = $this->manager_name;
             $email_data_l['subject'] = $temp_data_l['subject'];
             $vars = array(
-                "{Username}" => $this->manager_name,
-                "{Manager}" => $this->get_role_name($data['u_id']),
-                "{Link}" => $this->getTargetLink(PROFILE_URL . "&id=2", "Parakh")
+                "{Member}" => $email_data['to']['name'],
+                "{Manager}" => $from_data['google_name'],
+                "{Feedback}" => $data['feedback_description']
             );
             $message = strtr($temp_data_l['content'], $vars);
             $email_data_l['message'] = $message;
@@ -943,6 +943,7 @@ class dbmodule {
         if (isset($data['feedback_desc']) && !empty($data['feedback_desc'])) {
             $email_data = [];
             $user_data = $this->getEmailById($feedback_to);
+            $from_data = $this->getEmailById($data['login_user_id']);
             $temp_data = $this->getEmailTemplateByCode('PRKE05');
             $email_data['to']['email'] = $user_data['google_email'];
             $email_data['to']['name'] = $user_data['google_name'];
@@ -950,8 +951,9 @@ class dbmodule {
 
             $vars = array(
                 "{Username}" => $user_data['google_name'],
+                "{Member}" => $from_data['google_name'],
                 "{Link}" => $this->getTargetLink(PROFILE_URL . "&id=2", 'Parakh'),
-                "{Comment}" => '"' . $data['feedback_desc'] . '"'
+                "{Comment}" => $data['feedback_desc']
             );
 
             $message = strtr($temp_data['content'], $vars);
@@ -960,13 +962,20 @@ class dbmodule {
 
             // // send notification to manager
             if ($this->manager_email != $user_data['google_email']) {
+                $feedback_from = $this->getEmailById($feedback_to);
+                $vars_manager = array(
+                    "{Username}" => $this->manager_name,
+                    "{Member}" => $user_data['google_name'],
+                    "{Manager}" => $feedback_from['google_name'],
+                    "{Feedback}" => $data['feedback_desc']
+                );
                 $email_data_l = [];
-                $temp_data_l = $this->getEmailTemplateByCode('PRKE05');
+                $temp_data_l = $this->getEmailTemplateByCode('PRKE17');
                 $email_data_l['to']['email'] = $this->manager_email;
                 $email_data_l['to']['name'] = $this->manager_name;
                 $email_data_l['subject'] = $temp_data_l['subject'];
 
-                $message = strtr($temp_data['content'], $vars);
+                $message = strtr($temp_data_l['content'], $vars_manager);
                 $email_data_l['message'] = $message;
                 $this->send_notification($email_data_l);
             }
@@ -1101,11 +1110,16 @@ class dbmodule {
 
             // // send notification to manager
             if ($this->manager_email != $user_data['google_email']) {
+                $vars_manager = array(
+                    "{Username}" => $this->manager_name,
+                    "{Member}" => $from_data['google_name'],
+                    "{Link}" => $this->getTargetLink(PROFILE_URL, 'My Profile'),
+                );
                 $email_data_l = [];
                 $email_data_l['to']['email'] = $this->manager_email;
                 $email_data_l['to']['name'] = $this->manager_name;
                 $email_data_l['subject'] = (!empty($temp_data['subject']))?$temp_data['subject']:"";
-                $message = strtr($temp_data['content'], $vars);
+                $message = strtr($temp_data['content'], $vars_manager);
                 $email_data_l['message'] = $message;
                 $this->send_notification($email_data_l);
             }
