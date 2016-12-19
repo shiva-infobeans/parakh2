@@ -2048,7 +2048,7 @@ ul.ff li a{
     line-height: 63px;
     cursor: pointer;
     z-index: 10;
-    bottom: 65%;
+    top: 25%;
     right: auto;
 }
 ul.ff1{
@@ -2413,4 +2413,12 @@ a#menu-share:hover > i{
     right: 21px;
     z-index: 12;
     color: #fff;
+    cursor: pointer;
+}
+@media screen  and (max-width: 767px) and (min-width: 320px) {
+    .sideBarFix{
+        position: absolute;
+        top:212px;
+        bottom: auto;
+    }
 }
