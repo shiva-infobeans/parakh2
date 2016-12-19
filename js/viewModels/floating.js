@@ -61,6 +61,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 self.imagerank3("../../images/disable(-1).png");
                 $('.text-area-plus-one').show();
                 $('.text-area-both').hide();
+                self.p(1);
             });
 
             self.handleOKClose = $("#okButton").click(function () {
