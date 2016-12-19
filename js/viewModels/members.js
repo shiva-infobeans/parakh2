@@ -399,7 +399,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojcollectiontabledatasource', '
                                     }
                                 }
                                 if (self.allNeg().length == 0) {
-                                    self.NoCommentsN("No Ratings Available ...!!");
+                                    self.NoCommentsN("No ratings available.");
                                     $("#noNegativeComment").show();
                                     $("#lazyProfileNeg").hide();
                                 } else {
@@ -441,7 +441,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojcollectiontabledatasource', '
                                     $("#lazyProfilePos").hide();
                                 }
                                 if (self.allPos().length == 0) {
-                                    self.NoCommentsP("No Ratings Available ...!!");
+                                    self.NoCommentsP("No ratings available.");
                                     $("#noPositiveComment").show();
                                 }
                                 self.plus(plus);

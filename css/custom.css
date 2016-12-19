@@ -271,7 +271,7 @@ ul.profile-ul{
     padding: 0px !important;
     margin-left: 10px !important;
     margin-right: 10px !important;
-    /*height:700px;*/
+    /*height:705px;*/
     width: 22%;
 }
 ul li.selectedTab div a.oj-tabs-gen-a.oj-tabs-anchor,
@@ -604,6 +604,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 /*    overflow-x: auto;
     overflow-y: no-content;*/
     /*height:100%;*/
+        padding-bottom: 11px;
 }
 .colcount{
     /*float:left;*/
@@ -1596,7 +1597,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     border: 2px solid #8DAC6C;
      left: 30px !important;
     top: -20px !important;
-    padding: 8px 111px 7px 8px !important;
+    padding: 0px 113px 0px 9px !important;
     display: none;
      white-space: nowrap;
 }
@@ -1876,23 +1877,28 @@ span.zmdi-plus-request {
     display: table;
 }
 .feedback-circle{
-   height: 48px;
+       height: 48px;
     width: 48px;
     border: 2px solid;
     border-radius: 50%;
     float: left;
     font-size: 19px;
-    padding: 11px 5px 7px 5px;
+    line-height: 44px;
     margin-left: -8px;
+    text-align: center;
 }
 .reply-circle{
-    height: 40px;
+   height: 40px;
     width: 40px;
     border: 2px solid;
     border-radius: 50%;
+    font-size: 15px;
     float: left;
-    padding: 8px 0px 0px 7px;
-    margin-left: -5px;
+    line-height: 35px;
+    text-align: center;
+}
+.reply-circle-alignment{
+    margin-left: -4px;
 }
 .feedback-comment{
     margin-left: 80px;
@@ -1945,15 +1951,15 @@ span.zmdi-plus-request {
     display: block !important;
 }
 .viewFeedbackName{
-    padding: 7px 5px;
+   padding: 0px 7px 0px 7px;
     background-color: #fff;
     color: #000;
     font-size: 17px;
     position: absolute;
-    right: 30px;
-    top: -20px;
+    right: 29px;
+    top: -33px;
     border: 2px solid #689F39;
-    display: none; 
+    display: none;
     white-space: nowrap;
 }
 .replyInput div{
@@ -2213,7 +2219,6 @@ a#menu-share:hover > i{
 	cursor: default;
 }
 .margin-top-feedback{margin-top: -15px;}
-.reply_ShortName{margin-left: 2px;}
 
 .moreDots:hover{
     cursor: pointer;
@@ -2289,9 +2294,10 @@ a#menu-share:hover > i{
 }
 .errorVisibilityShow{
     visibility: visible;
-    padding: 0px 10px !important;
-    margin: 11px 0px -10px 10px !important;
+    /*padding: 0px 10px !important;*/
+   /* margin: 11px 0px -10px 10px !important;*/
     /*error color*/
+    margin-bottom: -20px;
     color:#ff0000;
 }
 .person-profile-intials {
