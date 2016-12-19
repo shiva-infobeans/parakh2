@@ -14,7 +14,6 @@
             if (document.cookie.indexOf("email") >= 0 && document.cookie.indexOf("name") >= 0 && document.cookie.indexOf("pic") >= 0) {
                 myInfo = new person(email, name, profilePic);
             } else {
-                console.log("error");
                 setTimeout(function () {
                     window.location = "http://" + window.location.hostname;
                 }, 500);

@@ -325,7 +325,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     self.myTeam(self.data1());
                 } else {
                     var temp_data = [];
-                    self.members([]);
+                    self.myTeam([]);
                     for (var counter = 0; counter < self.data1().length; counter++) {
                         if (self.data1()[counter]['myName'].charAt(0) == value) {
                             self.myTeam.push(self.data1()[counter]);
