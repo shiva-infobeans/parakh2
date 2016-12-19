@@ -306,7 +306,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 var teamLeadSearch = new getautoSearchLead();
                 teamLeadSearch.fetch({
                     headers: {secret: secret},
-                    success: function () {
+                    success: function () { 
                         var data = teamLeadSearch.attributes['data'];
                         if (data.length == 2) {
 
@@ -318,7 +318,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             item1.autoSearchLeadRole = data[0]['role_name'];
                             if(data[0]['google_picture_link'] == '/images/default.png')
                             {
-                                item1.intials_request = nameFunction(data[0]['google_name']);
+                                item1.intials_request = nameFunction(data[0]['manager_name']);
                             }else
                             {
                                 item1.intials_request = '';
@@ -337,7 +337,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             }
                             if(data[1]['google_picture_link'] == '/images/default.png')
                             {
-                                item2.intials_request = nameFunction(data[1]['google_name']);
+                                item2.intials_request = nameFunction(data[1]['manager_name']);
                             }else
                             {
                                 item2.intials_request = '';
@@ -348,6 +348,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             item1.label = data[0]['manager_name'];
                             item1.autoSearchLeadPic = data[0]['google_picture_link'];
                             item1.autoSearchLeadRole = data[0]['role_name'];
+                            if(data[0]['google_picture_link'] == '/images/default.png')
+                            {
+                                item1.intials_request = nameFunction(item1.label);
+                            }else
+                            {
+                                item1.intials_request = '';
+                            }
                             self.browsers2.push(item1);
                         }
                     }
