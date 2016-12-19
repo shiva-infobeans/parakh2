@@ -1737,7 +1737,13 @@ class dbmodule {
         $user_list->execute(array(':email' => $user_email));
         $row = $user_list->fetch();
 
-//        print_r($row);die;
+        /*check users is already in DB with status 0 or not*/
+        $query_user_exists = "SELECT users.id from users where google_email= :email";
+        $user_exists_list = $this->con->prepare($query_user_exists);
+        $user_exists_list->execute(array(':email' => $user_email));
+        $row_user_exists = $user_exists_list->fetch();
+        /*end check users is exists or not*/
+        // print_r($row);die;
         $img_updated = false;
         $code = '';
         /* update google picture for user after login */
@@ -1798,9 +1804,11 @@ class dbmodule {
                 return '/images/default.png';
             }
         } else {
-            $query = "INSERT INTO `users`(`emp_code`,`role_id`,`google_name`,`google_id`,`google_email`, `google_picture_link`, `status`, `created_date`) VALUES (0,9,'".$_POST['name']."','".$_POST['google_id']."','".$user_email."','".$_POST['img']."',0,'".date('Y-m-d h:m:s')."');";
-            $user_list = $this->con->prepare($query);
-            $user_list->execute();
+            if(empty($row_user_exists)){
+                $query = "INSERT INTO `users`(`emp_code`,`role_id`,`google_name`,`google_id`,`google_email`, `google_picture_link`, `status`, `created_date`) VALUES (0,9,'".$_POST['name']."','".$_POST['google_id']."','".$user_email."','".$_POST['img']."',0,'".date('Y-m-d h:m:s')."');";
+                $user_list = $this->con->prepare($query);
+                $user_list->execute();
+            }
             return '';
         }
     }
