@@ -24,7 +24,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                 data: {},
                 success: function(result){
                     var data = JSON.parse(result)['data'];
-                    //$('.oj-dialog-body').html(data.video);
+                    $('.oj-dialog-body').html(data.video);
                 }
             });
     	}
