@@ -602,7 +602,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.requestManager = function () {
             self.desc(self.desc().trim());
             if ((self.desc() == '' || self.desc() == null) && self.desc() != 'undefined') {
-                self.textError("Please provide a reason for your rating request.");
+                self.textError("Please provide a reason for your rating.");
                 return false;
             }
             $.ajax({
@@ -675,7 +675,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.requestLead = function () { 
              self.desc1(self.desc1().trim());
               if ((self.desc1() == '' || self.desc1() == null) && self.desc1() != 'undefined') {
-                self.textError1("Please provide a reason for your rating request.");
+                self.textError1("Please provide a reason for your rating.");
                 return false;
             }
             $.ajax({
