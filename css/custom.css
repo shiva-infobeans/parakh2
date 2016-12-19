@@ -1639,13 +1639,15 @@ div.oj-tabs-panel.oj-tabs-selected{
         height: 132px!important;
     }
     .tab-padding {
-    padding-left:110px !important;
-    padding-right: 122px !important;
+    width: 341px !important;
+    text-align: center !important;
     font-size: 24px !important;
     }
-    .ul-top{
-    margin-left: 12px !important;
-    }
+    
+.ul-top{
+        margin-left: 10px !important;
+}
+ 
 }
 
 .transboxRequest2{
@@ -1790,7 +1792,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     }
 
     .ul-top{
-        margin-left: 4px !important;
+        margin-left: 5px !important;
     }
     ul.help-ul{
         height: 240px !important;
@@ -1805,6 +1807,9 @@ div.oj-tabs-panel.oj-tabs-selected{
     width: 295px !important;
     padding: 0px !important;
     margin-left: 5px !important;
+    }
+    .tab-padding {
+    width: 472px !important;
     }
 }
 @media  screen and (min-width: 1200px) and (max-width: 1366px) {

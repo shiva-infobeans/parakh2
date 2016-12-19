@@ -1009,7 +1009,7 @@
 #ojDialogWrapper-modalDialog-userFeedback .oj-dialog-content  {
     background-color: #fff !important;
     padding: 26px;
-    height: 352px;
+    height: 365px;
     overflow: hidden;
 }
 #ojDialogWrapper-modalDialog2  .oj-dialog-content{
@@ -1987,7 +1987,7 @@
 .ml-rating-text{
     margin-left: 10px !important; 
 }
-a:hover.oj-clickable-icon-nocontext,.oj-hover.oj-clickable-icon-nocontext{ color: white;}
+/*a:hover.oj-clickable-icon-nocontext,.oj-hover.oj-clickable-icon-nocontext{ color: white;}*/
 .text-right{text-align: right}
 .text-left{text-align: left}
 .textArea-skills:focus,#editNumberBox:focus{border:2px solid #689F39;}
@@ -2136,8 +2136,8 @@ a:hover.oj-clickable-icon-nocontext,.oj-hover.oj-clickable-icon-nocontext{ color
     background-size: contain;
 }
 .tab-padding{
-    padding-left: 208px;
-    padding-right: 228px;
+    width: 552px;
+    text-align: center;
     font-size: 30px;
     color: #606060;
 }
@@ -2183,6 +2183,7 @@ ul.help-ul2{
 #selcted-tab .oj-tabs-tab.oj-selected .oj-tabs-tab-content,
 #selcted-tab1 .oj-tabs-tab.oj-selected .oj-tabs-tab-content{
     border-color: transparent;
+    position: relative;
 }
 .tab-help-side-padding{
     padding: 7px 0px 6px 0px;
@@ -2207,9 +2208,9 @@ ul.help-ul2{
 #selcted-tab .oj-tabs-tab.oj-selected .oj-tabs-tab-content::after,
 #selcted-tab1 .oj-tabs-tab.oj-selected .oj-tabs-tab-content::after{
     content:  url("../css/images/icon-active-help.png");
-    float: right;
-    margin-right: 16px;
-    margin-top: 21px;
+    position: absolute;
+    right: 20px;
+    top: 22px;
 }
 #selcted-tab .oj-tabs-tab.oj-selected .oj-tabs-tab-content a,
 #selcted-tab1 .oj-tabs-tab.oj-selected .oj-tabs-tab-content a{
@@ -2273,7 +2274,7 @@ ul.help-ul2{
     margin-right: 13px;
 }
 .role-tab-03{
-        margin-left: -4px;
+    margin-left: -4px;
 }
 .question-text2{
     margin-top: 484px;
@@ -2292,4 +2293,81 @@ ul.help-ul2{
     font-size: 20px;
     text-align: justify;
     line-height: 27px;
+}
+#listview-1 .oj-listview-group-item {
+    padding: 17px;
+    border: 0px;
+    /* border-width: 1px; */
+    font-size: 25px;
+    background-color: rgba(255,255,255,0.3);
+    box-sizing: border-box;
+    color: #F9E81F;
+    outline: none;
+}
+#listview-2 .oj-listview-group-item {
+    padding: 17px;
+    border: 0px;
+    /* border-width: 1px; */
+    font-size: 25px;
+    background-color: rgba(255,255,255,0.3);
+    box-sizing: border-box;
+    color: #F9E81F;
+    outline: none;
+}
+.accordin-margin{
+    margin:10px;
+}
+#a1 .oj-component-icon,
+#b1 .oj-component-icon,
+#c1 .oj-component-icon{
+    float: right !important;
+    color: #333;
+}
+#a2 .oj-component-icon,
+#b2 .oj-component-icon,
+#c2 .oj-component-icon,
+#d2 .oj-component-icon{
+    float: right !important;
+    color: #333;
+}
+#tabs-help-1 .oj-listview,
+#tabs-help-2 .oj-listview{
+    border-width: 0px;
+    border-color: transparent;
+}
+#listview-2 ul li.oj-selected.oj-tabs-tab-content div{
+    color: #F9E81F !important;
+}
+.oj-listview.oj-focus-ancestor .oj-listview-item.oj-focus{
+    background-color: transparent !important;
+}
+#listview-1 .oj-listview-item-element.oj-collapsed .oj-listview-group-item,
+#listview-2 .oj-listview-item-element.oj-collapsed .oj-listview-group-item {
+    border: 0px;
+    color: #333;
+    border-bottom: 2px solid #333;
+}
+#member .oj-listview-item.oj-selected,
+#manager .oj-listview-item.oj-selected,
+#lead .oj-listview-item.oj-selected,
+#plusOne .oj-listview-item.oj-selected,
+#requestHelp .oj-listview-item.oj-selected,
+#feedbackHelp .oj-listview-item.oj-selected,
+#rankHelp .oj-listview-item.oj-selected{
+    background-color: transparent;
+    border-top: 0px ;
+    background-size: 0;
+}
+#a1 a.oj-clickable-icon-nocontext{
+    /*color: #F9E81F;*/
+}
+#a1 a.oj-component-icon.oj-clickable-icon-nocontext.oj-listview-expand-icon,
+#b1 a.oj-component-icon.oj-clickable-icon-nocontext.oj-listview-expand-icon,
+#c1 a.oj-component-icon.oj-clickable-icon-nocontext.oj-listview-expand-icon,
+#a2 a.oj-component-icon.oj-clickable-icon-nocontext.oj-listview-expand-icon,
+#b2 a.oj-component-icon.oj-clickable-icon-nocontext.oj-listview-expand-icon,
+#c2 a.oj-component-icon.oj-clickable-icon-nocontext.oj-listview-expand-icon,
+#d2 a.oj-component-icon.oj-clickable-icon-nocontext.oj-listview-expand-icon
+{
+    color: #F9E81F;
 }
