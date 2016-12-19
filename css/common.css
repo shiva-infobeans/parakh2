@@ -724,7 +724,7 @@
 }
 
 .errorText{
-    color: red;
+    color: #f00000;
     margin-left: -2px;
     margin-bottom: 10px;
 }
