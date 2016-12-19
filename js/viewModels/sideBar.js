@@ -8,7 +8,7 @@
  * sideBar module
  */
 define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojselectcombobox', 'ojs/ojmodel'
-], function (oj, ko) {
+], function (oj, ko, $) {
     /**
      * The view model for the main content view template
      */
@@ -18,8 +18,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
 
         self.mobileImg = ko.observable();
-        
-        var lgQuery = oj.ResponsiveUtils.getFrameworkQuery(oj.ResponsiveUtils.FRAMEWORK_QUERY_KEY.LG_UP);
+
+        var lgQuery = oj.ResponsiveUtils.getFrameworkQuery(oj.ResponsiveUtils.FRAMEWORK_QUERY_KEY.MD_UP);
 
         self.large = oj.ResponsiveKnockoutUtils.createMediaQueryObservable(lgQuery);
 
@@ -38,13 +38,16 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 success: function (res) {
                     var role = res['attributes']['data']['role_name'];
                     if (role == "Team Member") {
-                        self.desktopImg('images/home-new(overlay-userGuide-mamber).jpg');
-                        self.mobileImg('images/userGuide-mobile.jpg');
+                        if ($(window).width() == 768) {
+                            self.desktopImg('images/ipad-member.jpg');
+                        } else {
+                            self.desktopImg('images/home-new(overlay-userGuide-mamber).jpg');
+                            self.mobileImg('images/userGuide-mobile.jpg');
+                        }
                     } else {
                         self.mobileImg('images/userGuide-mobile.jpg');
                         self.desktopImg('images/home-new(overlay-userGuide-manager).jpg');
                     }
-                    console.log(self.desktopImg());
 
                 }
             });

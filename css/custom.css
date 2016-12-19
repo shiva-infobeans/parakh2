@@ -2349,7 +2349,7 @@ a#menu-share:hover > i{
 /* tour image location */
 @media screen and (max-width: 767px){
     .tourImg{
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         right: 0;
@@ -2361,7 +2361,7 @@ a#menu-share:hover > i{
 }
 @media screen and (min-width: 768px){
     .tourImg{
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         right: 0;
@@ -2372,7 +2372,7 @@ a#menu-share:hover > i{
     }
 }
 .tourClose,a.tourClose:active,a.tourClose:focus{
-    position: absolute;
+    position: fixed;
     top: 12px;
     right: 21px;
     z-index: 12;
