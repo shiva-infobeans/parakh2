@@ -417,8 +417,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             $.ajax({
                 headers: {secret: secret},
                 method: 'POST',
-                url: rateOtherMember,
-                data: {user_id: self.userIdFloat(), for_id: self.value()[0], rating: self.p(), desc: self.desc()},
+                url: addRating,
+                data: {from_id: self.userIdFloat(), to_id: self.value()[0], rating: self.p(), desc: self.desc()},
                 success: function () {
                     $("#modalDialog3").ojDialog("close");
                     self.value('');
