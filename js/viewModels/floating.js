@@ -426,8 +426,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 headers: {secret: secret},
                 method: 'POST',
                 url: addRating,
-                data: {from_id: self.userIdFloat(), to_id: self.value()[0], rating: self.p(), desc: self.desc()},
-                success: function () {
+                data: {from_id: self.userIdFloat(), to_id: self.value()[0], rating: self.p(), desc: self.desc(),'from_floating':1},
+                success: function (result) {
                     $("#modalDialog3").ojDialog("close");
                     self.value('');
                     $("#sucess").show();
