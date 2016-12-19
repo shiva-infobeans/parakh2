@@ -323,7 +323,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     self.myTeam(self.data1());
                 } else {
                     var temp_data = [];
-                    self.members([]);
+                    self.myTeam([]);
                     for (var counter = 0; counter < self.data1().length; counter++) {
                         if (self.data1()[counter]['myName'].charAt(0) == value) {
                             self.myTeam.push(self.data1()[counter]);
@@ -431,6 +431,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         /*refersh other team member div*/
                         self.lazyAllMembers([]);
                         self.members([]);
+                        self.pageNumAllMembers(0);
                         self.indexer2Letters([]);
                         self.lazyAllInitBlock(9);
                         $.ajax({
@@ -611,6 +612,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
                             self.lazyMyMembers([]);
                             self.myTeam([]);
+                            self.pageNumMyMembers();
                             self.indexer1Letters([]);
                             self.lazyMyInitBlock(9);
                             $.ajax({
