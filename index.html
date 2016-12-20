@@ -2,6 +2,7 @@
 <html>
     <head>
         <title> Parakh-Login </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta id="meta" name="google-signin-client_id" content="">
         <link rel="icon" id="favicon" type="image/jpg" href="" />
         
@@ -38,7 +39,7 @@
                             success: function(result){
                                 data = jQuery.parseJSON(result);
                                 setCookie("picture",data.data,1);
-                                window.location = window.location.href + "dashboard.html";
+                                window.location = "dashboard.html";
                             }
                         });
                         
@@ -102,12 +103,17 @@
         <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js'></script>
         <script>
             //Add images
-            console.log(getCookie('image') == "");
             var images = ['images/parakh.jpg', 'images/parakh2.jpg'];
             
             var thisImage = images[Math.floor(Math.random() * images.length)];
             //setting the path
             $(document).ready(function () {
+                if(thisImage == images[0]){
+                    $('.achivementLink').addClass('linkPos1');
+                }
+                else{
+                    $('.achivementLink').addClass('linkPos2');
+                }
                 $("#login-background").css("background", "url('" + thisImage + "') no-repeat fixed center top / cover");
             });
         </script>
@@ -117,6 +123,7 @@
         <div class="">
         <img class="login-btn" src="images/sign-in-with-google.png" id="my-signin2"/>
         </div>
+        <div  class="achivementLink"><a href="achievements.html">Achievements</a></div>
         <div  class="login-logo">
             <img src="images/login-logo.png"/>
         </div>
