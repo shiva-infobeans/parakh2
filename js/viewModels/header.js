@@ -61,6 +61,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
         txt.innerHTML = html;
         return txt.value;
     }
+    function nameFunction(NAME) {
+        var initial = NAME.charAt(0) + NAME.charAt(NAME.lastIndexOf(" ") + 1);
+        return initial;
+    }
     function headerContentViewModel(person) {
         var self = this;
         self.notif = ko.observableArray();
@@ -70,7 +74,16 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
             setCookie("email", "", 0);
             setCookie("name", "", 0);
             setCookie("picture", "", 0);
-            window.location = "http://" + window.location.hostname;
+            $.ajax({
+                headers: {secret: secret},
+                type: 'POST',
+                url: logoutUrl,
+                data: {'email':person.email},
+                success: function(){
+                    window.location = "http://" + window.location.hostname;
+                }
+            });
+            //window.location = "http://" + window.location.hostname;
             function setCookie(cname, cvalue, exdays) {
                 var d = new Date();
                 d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
@@ -78,7 +91,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
                 document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
             }
         }
-        this.mypic = person['pic'];
+        this.mypic = ko.observable(person['pic']);
+        if(person['pic'] == '/images/default.png')
+        {
+            this.intials = nameFunction(person['name']);
+        }else
+        {
+            this.intials = '';
+        }
         this.memberName = "My Profile";
         var pgurl = window.location.href.substr(window.location.href.lastIndexOf("/") + 1);
         var getUser = oj.Model.extend({
@@ -151,10 +171,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
                 getNotifyId.fetch({
                     headers: {secret: secret},
                     success: function (res) {
-                        if (res['attributes']['data'][0]['msg_read'] == 0) {
-                            $('.notif-count').hide();
-                        } else {
-                            self.notifCount(res['attributes']['data'][0]['msg_read']);
+                        if(res['attributes']['data'].length>0){
+                            if (res['attributes']['data'][0]['msg_read'] == 0) {
+                                $('.notif-count').hide();
+                            } else {
+                                self.notifCount(res['attributes']['data'][0]['msg_read']);
+                            }
                         }
                     }
                 });
@@ -180,8 +202,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel'
                 });
 
             });
-
-            
 
         }, 500);
 

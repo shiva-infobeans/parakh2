@@ -3,247 +3,511 @@
 <div class="oj-web-applayout-max-width oj-web-applayout-content">
     <div class="oj-flex oj-row">
         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding">
-            <img data-bind="attr: {src: pic}" class="oj-margin profile-pic" />
-            <div class="oj-padding oj-margin left">
+            <div class="person-profile-intials">
+                <img data-bind="attr: {src: pic}" class="oj-margin profile-pic" />
+                <span class="person-profile-intials-text" data-bind="text:intials"></span>
+            </div>
+            <div class="oj-padding oj-margin-top left">
                 <h2 data-bind="text :myname" class="color-white myname-profile">  </h2>
             </div>
         </div>
     </div>
 </div>
 
-<div id="vtabs" class="max-width profile-page oj-margin-top margin-bottom-10"
-     data-bind="ojComponent:{component: 'ojTabs', 
+<script type="text/html" id="lg_xl_template">
+    <div id="lg_xl">
+        <div id="vtabs" class="max-width profile-page oj-margin-top margin-bottom-10"
+             data-bind="ojComponent:{component: 'ojTabs', 
                             orientation: 'vertical',
                             selected: 0}">
 
 
-    <ul class="profile-ul pos-relative tabHeightNew" id="ulTab">
-        <div class="transbox"></div>
-        <li class="profile-tabs profile-font-tabs selectedTab" title="Positive Rating"><span><i class="zmdi zmdi-trending-up"></i> 
-                <span data-bind='text: plusSign'></span><span data-bind="text: plus"></span></span>
-        </li>
-        <li class="profile-tabs profile-font-tabs selectedTab" id="negetiveTab" title="Negative Rating"><span><i class="zmdi zmdi-trending-down"></i> 
-                <span data-bind='text: minusSign'></span><span data-bind="text: minus"></span></span></li>
-        <li class="profile-tabs profile-font-tabs selectedTab" id="feedbackTab"><span><i class="zmdi zmdi-comment-alt-text"></i> Feedback</span></li>
-        <li class="profile-tabs profile-font-tabs selectedTab"><span><i class="zmdi zmdi-account"></i> About</span></li>
-    </ul>
+            <ul class="profile-ul pos-relative tabHeightNew" id="ulTab">
+                <div class="transbox"></div>
+                <li class="profile-tabs profile-font-tabs selectedTab" title="Positive Rating" data-bind="click: tabPositive"><span><i class="zmdi zmdi-trending-up"></i> 
+                        <span data-bind='text: plusSign'></span><span data-bind="text: plus"></span></span>
+                </li>
+                <li class="profile-tabs profile-font-tabs selectedTab" id="negetiveTab" title="Negative Rating"  data-bind="click: tabNegative"><span><i class="zmdi zmdi-trending-down"></i> 
+                        <span data-bind='text: minusSign'></span><span data-bind="text: minus"></span></span></li>
+                <li class="profile-tabs profile-font-tabs selectedTab" id="feedbackTab" data-bind="click: tabFeedback"><span><i class="zmdi zmdi-comment-alt-text"></i> Feedback</span></li>
+                <li class="profile-tabs profile-font-tabs selectedTab"><span><i class="zmdi zmdi-account"></i> About</span></li>
+            </ul>
 
-    <div id="tabs-1" class="color-white oj-margin-horizontal pos-relative tabMinHeight">
-        <div class="transbox"></div>
-        <div class="profile-page-overflow pos-relative rating-section">
-            <div class="noComments" id="noPositiveComment" data-bind="text: NoCommentsP"></div>
-           <div class=" oj-row oj-flex rating-comment" data-bind="foreach: commentDataPositive">
-               <div class="oj-flex oj-flex-item oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 transHide">
-                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex pos-relative  rating-comment-div feedback-align">
-                        <div class="commentDate">
-                            <span data-bind="text: commentDate"></span>
-                        </div>
-                        <div class="profile-rating-circle circle-green pos-relative">
-                            <span class="hoverName" data-bind="text:commenter"></span>
-                            <span data-bind="text:shortName"></span>
-                           
-                        </div>
-                        <div class="rating-info pos-relative">
-                           <span data-bind="text: comment"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="tabs-2" class="color-white oj-margin-horizontal pos-relative tabMinHeight">
-        <div class="transbox"></div>
-        <div class="profile-page-overflow pos-relative rating-section">
-            <div class="noComments" id="noNegativeComment" data-bind="text: NoCommentsN"></div>
-           <div class="oj-row oj-flex rating-comment" data-bind="foreach: commentDataNegative">
-                <div class="oj-flex oj-flex-item oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 transHide">
-                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex pos-relative rating-comment-div feedback-align">
-                        <div class="commentDate">
-                            <span data-bind="text: commentDate"></span>
-                        </div>
-                        <div class="profile-rating-circle circle-red pos-relative ">
-                            <span class="hoverNameN" data-bind="text:commenter"></span>
-                            <span data-bind="text:shortName"></span>
-                        </div>
-                        <div class="rating-info pos-relative">
-                            <span data-bind="text: comment"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="tabs-3" class="color-white oj-margin-horizontal pos-relative tabMinHeight">
-        <div class="feedbackSection">
-            <div class="transbox"></div>
-            <div id="noFeedback" class="noComments color-white"> No feedback available !!</div>
-            <div class="oj-row oj-flex">
-                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding">
-
-                    <!--repeat block-->
-                    <!--ko foreach: feedbackContent1-->
-                    
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div feedback-align">
-                            <div class="feedback-date">
-                                <span data-bind="text: feedbackDate"></span>
-                            </div>
-                            <div class="feedback-circle circle-purple pos-relative">
-                                <div class="viewFeedbackName" data-bind="text: name"></div>
-                                <span data-bind="text: shortName"></span>
-                            </div>
-                            <div class="feedback-comment pos-relative">
-                                <div class="feedback-Transbox"></div>
-                                <p class="feedback-comment-text"><span data-bind="text: feedbackDescription"></span></p>
-                            </div>
-                        </div>
-                        
-                        <!--repeat here-->
-                        <!--ko foreach: replies-->
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div feedback-align">
-                            <div class="feedback-date">
-
-                            </div>
-                            <div class="reply-circle circle-purple pos-relative">
-
-                                <div class="viewFeedbackName"  data-bind="text: reply_name"></div>
-                                <span data-bind="text: reply_ShortName"></span>
-                            </div>
-                            <div class="feedback-comment pos-relative">
-                                <div class="feedback-Transbox"></div>
-                                <div class="feedback-comment-text">
-                                    <div><span data-bind="text: reply_desc"></span></div>
-                                    <p>
-                                        <span class="right replyDate" data-bind="text: reply_date"></span>
-                                    </p>
+            <div id="tabs-1" class="color-white oj-margin-horizontal pos-relative tabMinHeight">
+                <div class="transbox"></div>
+                <div class="profile-page-overflow pos-relative rating-section">
+                    <div class="noComments" id="noPositiveComment" data-bind="text: NoCommentsP"></div>
+                    <div class=" oj-row oj-flex rating-comment" data-bind="foreach: commentDataPositive">
+                        <div class="oj-flex oj-flex-item oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 transHide">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex pos-relative  rating-comment-div feedback-align">
+                                <div class="commentDate">
+                                    <span data-bind="text: commentDate"></span>
                                 </div>
+                                <div class="profile-rating-circle circle-green pos-relative">
+                                    <span class="hoverName" data-bind="text:commenter"></span>
+                                    <span data-bind="text:shortName"></span>
 
+                                </div>
+                                <div class="rating-info pos-relative">
+                                    <span data-bind="text: comment"></span>
+                                </div>
                             </div>
-                            <!-- <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex replyComent">
-                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item"><span data-bind="text: reply_desc"></span></div>
-                                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex-bar replyDate"><span class="oj-flex-bar-end" data-bind="text: reply_date"></span></div>
-                            </div> -->
                         </div>
-                        <!--/ko-->
-                        <!--repeat end-->
-
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div feedback-align">
-                            <div class="feedback-date">
-
+                    </div>
+                    <div class ="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding center" id="lazyProfilePos">
+                        <img src="images/2016-12-11.gif" alt=""/>
+                    </div>
+                </div>
+            </div>
+            <div id="tabs-2" class="color-white oj-margin-horizontal pos-relative tabMinHeight">
+                <div class="transbox"></div>
+                <div class="profile-page-overflow pos-relative rating-section">
+                    <div class="noComments" id="noNegativeComment" data-bind="text: NoCommentsN"></div>
+                    <div class="oj-row oj-flex rating-comment" data-bind="foreach: commentDataNegative">
+                        <div class="oj-flex oj-flex-item oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 transHide">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex pos-relative rating-comment-div feedback-align">
+                                <div class="commentDate">
+                                    <span data-bind="text: commentDate"></span>
+                                </div>
+                                <div class="profile-rating-circle circle-red pos-relative ">
+                                    <span class="hoverNameN" data-bind="text:commenter"></span>
+                                    <span data-bind="text:shortName"></span>
+                                </div>
+                                <div class="rating-info pos-relative">
+                                    <span data-bind="text: comment"></span>
+                                </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class ="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding center" id="lazyProfileNeg">
+                        <img src="images/2016-12-11.gif" alt=""/>
+                    </div>
+                </div>
+            </div>
 
-                            <div class="feedback-comment pos-relative">
-                                <a class="buttonReply" data-bind="click: $parent.openReply,attr: {id: replyBtnId}">Reply</a>
-                                <div data-bind="attr:{id: uniqueId}" class="replyInput hide">
-                                    <div class="pos-relative">
-                                        <div class="transbox"></div>
-                                        <span> <input type="text" placeholder="Write your response here" class="left" data-bind="attr: {id:replyInput}"/></span>
-                                        <span>
-                                            <i class="zmdi zmdi-mail-reply zmdi-hc-2x left" data-bind="attr: {id: replySend},click: $parent.replySend"></i> 
-                                            <i class="zmdi zmdi-close zmdi-hc-2x" data-bind="attr: {id: replyClose},click: $parent.closeReply"></i>
-                                        </span>
+            <div id="tabs-3" class="color-white oj-margin-horizontal pos-relative ">
+                <div class="feedbackSection">
+                    <div class="transbox"></div>
+                    <div id="noFeedback" class="noComments"> No feedback available.</div>
+                    <div class="oj-row oj-flex">
+
+                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex">
+
+                            <!--repeat block-->
+                            <div data-bind="foreach: feedbackContent1">
+                                <div class="oj-flex oj-flex-item oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12">
+
+                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div feedback-margin feedback-align">
+                                        <div class="feedback-date">
+                                            <span data-bind="text: feedbackDate"></span>
+                                        </div>
+                                        <div class="feedback-circle circle-purple pos-relative">
+                                            <div class="viewFeedbackName" data-bind="text: name"></div>
+                                            <span data-bind="text: shortName"></span>
+                                        </div>
+                                        <div class="feedback-comment pos-relative">
+                                            <div class="feedback-Transbox"></div>
+                                            <p class="feedback-comment-text"><span data-bind="text: feedbackDescription"></span></p>
+                                        </div>
+                                    </div>
+
+
+                                    <!--                            repeat replies start-->
+                                    <div data-bind="foreach: replies">
+                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div feedback-align">
+                                            <div class="feedback-date">
+
+                                            </div>
+                                            <div class="reply-circle circle-purple pos-relative reply-circle-alignment">
+
+                                                <div class="viewFeedbackName"  data-bind="text: reply_name"></div>
+                                                <span data-bind="text: reply_ShortName" class="reply_ShortName"></span>
+                                            </div>
+                                            <div class="feedback-comment pos-relative">
+                                                <div class="feedback-Transbox"></div>
+                                                <div class="feedback-comment-text">
+                                                    <div><span data-bind="text: reply_desc"></span></div>
+                                                    <p>
+                                                        <span class="right replyDate" data-bind="text: reply_date"></span>
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--                            repeat replies end
+                                                                reply button here-->
+                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div feedback-align">
+                                        <div class="feedback-date">
+
+                                        </div>
+
+                                        <div class="feedback-comment pos-relative margin-top-feedback">
+                                            <a class="buttonReply" data-bind="click: $parent.openReply,attr: {id: replyBtnId}">Reply</a>
+                                            <div data-bind="attr:{id: uniqueId}" class="replyInput hide">
+                                                <div class="pos-relative">
+                                                    <div class="transbox"></div>
+                                                    <span> <input type="text" placeholder="Write your response here" class="left" data-bind="click: $parent.replyInputClick, attr: {id: replyInput}"/></span>
+                                                    <span>
+                                                        <i class="zmdi zmdi-mail-reply zmdi-hc-2x left" data-bind="attr: {id: replySend},click: $parent.replySend"></i> 
+                                                        <i class="zmdi zmdi-close zmdi-hc-2x" data-bind="attr: {id: replyClose},click: $parent.closeReply"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="errorVisibilityHide margin-error-reply-feedback">Please enter your response.</div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class ="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding center" id="lazyProfileFeedback">
+                                <img src="images/2016-12-11.gif" alt=""/>
+                            </div>
                         </div>
-               
-                    <!--/ko-->
-                    <!--repeat end-->
+                    </div>
+                </div>
+            </div>
+            <div id="tabs-4" class="color-white oj-margin-horizontal pos-relative tabMinHeight">
+                <div class="transbox"></div>
+                <div class="profile-page-overflow">
+                    <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                        <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                            <span class="icon-div"><i class="zmdi zmdi-email about-icons"></i></span>
+                            <span class="text-about heightCol"> Email</span>
+                        </div>
+                        <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-6 oj-flex-item">
+                            <a class="mailToColor" data-bind="attr:{href: mailTo}"><span data-bind="text: email" title="Send mail"></span> </a>
+                        </div>
+
+                    </div>
+                    <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                        <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                            <span class="icon-div"><i class="zmdi zmdi-case about-icons"></i> </span> 
+                            <span class="text-about heightCol2">Designation</span>
+                        </div>
+                        <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-6 oj-flex-item">
+                            <span  data-bind="text: designation"></span>
+                        </div>
+                    </div>
+                    <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                        <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                            <span class="icon-div"><i class="zmdi zmdi-pin about-icons"></i> </span>
+                            <span class="text-about heightCol">Location</span>
+                        </div>
+                        <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-6 oj-flex-item">
+                            <span data-bind="text: location" ></span>
+                        </div>
+                    </div>
+                    <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                        <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                            <span class="icon-div"><i class="zmdi zmdi-graduation-cap about-icons"></i> </span>
+                            <span class="text-about heightCol">Skills</span>
+                        </div>
+                        <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-6 oj-flex-item">
+                            <span data-bind="text: skills"></span>
+                        </div>
+                    </div>
+                    <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                        <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                            <span class="icon-div"><i class="zmdi zmdi-time-interval about-icons"></i>  </span>
+                            <span class="text-about heightCol5">With Infobeans <br/>since</span>
+
+                        </div>
+                        <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-6 oj-flex-item">
+                            <span data-bind="text: associated"></span>
+                        </div>
+                    </div>
+                    <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                        <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                            <span class="icon-div"><i class="zmdi zmdi-file-text about-icons"></i></span>
+                            <span class="text-about heightCol">Primary Project</span>
+                        </div>
+                        <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-6 oj-flex-item">
+                            <span data-bind="text: primary_project"></span>
+                        </div>
+                    </div>
+                    <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                        <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                            <span class="icon-div"><i class="zmdi zmdi-file-text about-icons"></i></span>
+                            <span class="text-about heightCol"> Past Project(s)</span>
+                        </div>
+                        <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-6 oj-flex-item">
+                            <span data-bind="text: past_project"></span>
+                        </div>
+                    </div>
+                    <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                        <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                            <span class="icon-div"><i class="zmdi zmdi-favorite about-icons"></i></span>
+                            <span class="text-about heightCol"> Interests</span>
+                        </div>
+                        <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-6 oj-flex-item">
+                            <span data-bind="text: interest"></span>
+                        </div>
+                    </div>
+                    <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                        <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
+                            <span class="icon-div"><i class="zmdi zmdi-phone about-icons"></i></span>
+                            <span class="text-about heightCol"> Phone</span>
+                        </div>
+                        <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-6 oj-flex-item">
+                            <span data-bind="text: myNumber"></span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
+        <div class="loaderDiv loaderHide" id="respondLoader1">
+            <div class="overlay-loader"></div>
+            <div class="loaderImgDiv"><img src="css/images/loader.gif" alt=""/></div>
+        </div>
     </div>
-    <div id="tabs-4" class="color-white oj-margin-horizontal pos-relative tabMinHeight">
-        <div class="transbox"></div>
-        <div class="profile-page-overflow">
-            <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
-                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
-                    <span class="icon-div"><i class="zmdi zmdi-email about-icons"></i></span>
-                    <span class="text-about heightCol"> Email</span>
-                </div>
-                <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-6 oj-flex-item">
-                    <a class="mailToColor" data-bind="attr:{href: mailTo}"><span data-bind="text: email" title="Send mail"></span> </a>
-                </div>
+</script>
 
-            </div>
-            <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
-                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
-                    <span class="icon-div"><i class="zmdi zmdi-case about-icons"></i> </span> 
-                    <span class="text-about heightCol2">Designation</span>
-                </div>
-                <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-6 oj-flex-item">
-                    <span  data-bind="text: designation"></span>
-                </div>
-            </div>
-            <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
-                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
-                    <span class="icon-div"><i class="zmdi zmdi-pin about-icons"></i> </span>
-                    <span class="text-about heightCol">Location</span>
-                </div>
-                <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-6 oj-flex-item">
-                    <span data-bind="text: location" ></span>
-                </div>
-            </div>
-            <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
-                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
-                    <span class="icon-div"><i class="zmdi zmdi-graduation-cap about-icons"></i> </span>
-                    <span class="text-about heightCol">Skills</span>
-                </div>
-                <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-6 oj-flex-item">
-                    <span data-bind="text: skills"></span>
-                </div>
-            </div>
-            <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
-                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
-                    <span class="icon-div"><i class="zmdi zmdi-time-interval about-icons"></i>  </span>
-                    <span class="text-about heightCol5">With Infobeans <br/>since</span>
-                   
-                </div>
-                <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-6 oj-flex-item">
-                    <span data-bind="text: associated"></span>
-                </div>
-            </div>
-            <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
-                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
-                    <span class="icon-div"><i class="zmdi zmdi-file-text about-icons"></i></span>
-                    <span class="text-about heightCol">Primary Project</span>
-                </div>
-                <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-6 oj-flex-item">
-                    <span data-bind="text: primary_project"></span>
+<script type="text/html" id="sm_md_template">
+
+    <div id="sm_md" >
+        <div id="vtabs" class="max-width profile-page oj-margin-top oj-margin-bottom"
+             data-bind="ojComponent:{component: 'ojTabs', 
+                            orientation: 'horizontal',
+                            selected: 0}">
+
+
+            <ul class="profile-ul pos-relative  tabWidth2" id="responsiveTab">
+                <div class="transbox"></div>
+                <li class="profile-tabs-mobile selectedTab-mobile" title="Positive Rating" data-bind="click: tabPositive"><span><i class="zmdi zmdi-trending-up"></i></span></li>
+                <li class="profile-tabs-mobile selectedTab-mobile" id="negetiveTab1" title="Negative Rating"  data-bind="click: tabNegative"><span><i class="zmdi zmdi-trending-down"></i> </span></li>
+                <li class="profile-tabs-mobile selectedTab-mobile" id="feedbackTab1" data-bind="click: tabFeedback"><span><i class="zmdi zmdi-comment-alt-text"></i></span></li>
+                <li class="profile-tabs-mobile selectedTab-mobile"><span><i class="zmdi zmdi-account"></i></span></li>
+            </ul>
+
+            <div id="tabs-1" class="color-white oj-margin-horizontal pos-relative">
+                <div class="transbox"></div>
+
+                <div class="profile-page-overflow pos-relative rating-section oj-margin-top profile-margin-bottom">
+
+                    <div class="noComments" id="noPositiveComment" data-bind="text: NoCommentsP"></div>
+                    <div class=" oj-row oj-flex rating-comment" data-bind="foreach: commentDataPositive">
+                        <div class="oj-flex oj-flex-item oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 transHide">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex pos-relative  rating-comment-div feedback-align">
+                                <div class="profile-rating-circle circle-green pos-relative">
+                                    <span class="hoverName" data-bind="text:commenter"></span>
+                                    <span data-bind="text:shortName"></span>
+
+                                </div>
+                                <div class="commentDate-mobile">
+                                    <span data-bind="text: commentDate"></span>
+                                </div>
+                                <div class="rating-info pos-relative">
+                                    <span data-bind="text: comment"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class ="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding center" id="lazyProfilePos">
+                        <img src="images/2016-12-11.gif" alt=""/>
+                    </div>
                 </div>
             </div>
-               <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
-                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
-                    <span class="icon-div"><i class="zmdi zmdi-file-text about-icons"></i></span>
-                    <span class="text-about heightCol"> Past Project(s)</span>
-                </div>
-                <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-6 oj-flex-item">
-                    <span data-bind="text: past_project"></span>
+
+            <div id="tabs-2" class="color-white oj-margin-horizontal pos-relative">
+                <div class="transbox"></div>
+                <div class="profile-page-overflow pos-relative rating-section oj-margin-top profile-margin-bottom">
+                    <div class="noComments" id="noNegativeComment" data-bind="text: NoCommentsN"></div>
+                    <div class="oj-row oj-flex rating-comment" data-bind="foreach: commentDataNegative">
+                        <div class="oj-flex oj-flex-item oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 transHide">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex pos-relative rating-comment-div feedback-align">
+                                <div class="profile-rating-circle circle-red pos-relative ">
+                                    <span class="hoverNameN" data-bind="text:commenter"></span>
+                                    <span data-bind="text:shortName"></span>
+                                </div>
+                                <div class="commentDate-mobile">
+                                    <span data-bind="text: commentDate"></span>
+                                </div>
+                                <div class="rating-info pos-relative">
+                                    <span data-bind="text: comment"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class ="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding center" id="lazyProfileNeg">
+                        <img src="images/2016-12-11.gif" alt=""/>
+                    </div>
                 </div>
             </div>
-            <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
-                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
-                    <span class="icon-div"><i class="zmdi zmdi-favorite about-icons"></i></span>
-                    <span class="text-about heightCol"> Interests</span>
-                </div>
-                <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-6 oj-flex-item">
-                    <span data-bind="text: interest"></span>
+         
+    <div id="tabs-3" class="color-white oj-margin-horizontal pos-relative ">
+        <div class="feedbackSection oj-margin-top profile-margin-bottom">
+            <div class="transbox"></div>
+            <div id="noFeedback" class="noComments"> No feedback available.</div>
+            <div class="oj-row oj-flex">
+
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-padding">
+
+                    <!--repeat block-->
+                    <div data-bind="foreach: feedbackContent1">
+                        <div class="oj-flex oj-flex-item oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12">
+
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div feedback-align bottom-padding"> 
+                                <div class="feedback-circle circle-purple pos-relative">
+                                    <div class="viewFeedbackName" data-bind="text: name"></div>
+                                    <span data-bind="text: shortName"></span>
+                                </div>
+                                <div class="feedback-comment pos-relative">
+                                    <div class="feedback-Transbox"></div>
+                                    <p class="feedback-comment-text"><span data-bind="text: feedbackDescription"></span></p>
+                                     <span  class="feedback-date" data-bind="text: feedbackDate"></span>
+                                </div>
+                            </div>
+
+
+
+                                    <!--repeat replies start-->
+                                    <div data-bind="foreach: replies">
+                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div feedback-align">
+                                            <div class="reply-circle circle-purple pos-relative">
+
+                                                <div class="viewFeedbackName"  data-bind="text: reply_name"></div>
+                                                <span data-bind="text: reply_ShortName" class="reply_ShortName"></span>
+                                            </div>
+                                            <div class="feedback-comment pos-relative">
+                                                <div class="feedback-Transbox"></div>
+                                                <div class="feedback-comment-text">
+                                                    <div><span data-bind="text: reply_desc"></span></div>
+                                                    <p>
+                                                        <span class="right replyDate" data-bind="text: reply_date"></span>
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--repeat replies end-->
+                                    <!--reply button here-->
+                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div feedback-align">
+                                        <div class="feedback-comment pos-relative margin-top-feedback">
+                                            <a class="buttonReply" data-bind="click: $parent.openReply,attr: {id: replyBtnId}">Reply</a>
+                                            <div data-bind="attr:{id: uniqueId}" class="replyInput hide">
+                                                <div class="pos-relative">
+                                                    <div class="transbox mobile-trans"></div>
+                                                    <span> <input type="text" placeholder="Write your response here" class="left" data-bind="click: $parent.replyInputClick, attr: {id: replyInput}"/></span>
+                                                    <span>
+                                                        <i class="zmdi zmdi-mail-reply" data-bind="attr: {id: replySend},click: $parent.replySend"></i> 
+                                                        <i class="zmdi zmdi-close" data-bind="attr: {id: replyClose},click: $parent.closeReply"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="errorVisibilityHide">Please enter your response.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!--reply button here--><!--repeat end feedback-->
+                            <div class ="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding center" id="lazyProfileFeedback">
+                                <img src="images/2016-12-11.gif" alt=""/>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
-                <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-6 oj-flex-item">
-                    <span class="icon-div"><i class="zmdi zmdi-phone about-icons"></i></span>
-                    <span class="text-about heightCol"> Phone</span>
-                </div>
-                <div class="oj-xl-8 oj-lg-8 oj-md-8 oj-sm-6 oj-flex-item">
-                    <span data-bind="text: myNumber"></span>
+            <div id="tabs-4" class="color-white oj-margin-horizontal pos-relative tabMinHeight">
+                <div class="transbox"></div>
+                <div class="profile-page-overflow oj-margin-top profile-margin-bottom">
+                    <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                        <div class="oj-xl-2 oj-lg-2 oj-md-2 oj-sm-2 oj-flex-item">
+                            <span class="icon-div"><i class="zmdi zmdi-email about-icons"></i></span>
+                            <span class="text-about heightCol"></span>
+                        </div>
+                        <div class="oj-xl-10 oj-lg-10 oj-md-10 oj-sm-10 oj-flex-item"> 
+                            <a class="mailToColor" data-bind="attr:{href: mailTo}"><span data-bind="text: email" title="Send mail"></span> </a>
+                        </div>
+
+                    </div>
+                    <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                        <div class="oj-xl-2 oj-lg-2 oj-md-2 oj-sm-2 oj-flex-item">
+                            <span class="icon-div"><i class="zmdi zmdi-case about-icons"></i> </span> 
+
+                        </div>
+                        <div class="oj-xl-10 oj-lg-10 oj-md-10 oj-sm-10 oj-flex-item"> 
+                            <span  data-bind="text: designation"></span>
+                        </div>
+                    </div>
+                    <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                        <div class="oj-xl-2 oj-lg-2 oj-md-2 oj-sm-2 oj-flex-item">
+                            <span class="icon-div"><i class="zmdi zmdi-pin about-icons"></i> </span>
+
+                        </div>
+                        <div class="oj-xl-10 oj-lg-10 oj-md-10 oj-sm-10 oj-flex-item"> 
+                            <span data-bind="text: location" ></span>
+                        </div>
+                    </div>
+                    <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                        <div class="oj-xl-2 oj-lg-2 oj-md-2 oj-sm-2 oj-flex-item">
+                            <span class="icon-div"><i class="zmdi zmdi-graduation-cap about-icons"></i> </span>
+
+                        </div>
+                        <div class="oj-xl-10 oj-lg-10 oj-md-10 oj-sm-10 oj-flex-item"> 
+                            <span data-bind="text: skills"></span>
+                        </div>
+                    </div>
+                    <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                        <div class="oj-xl-2 oj-lg-2 oj-md-2 oj-sm-2 oj-flex-item">
+                            <span class="icon-div"><i class="zmdi zmdi-time-interval about-icons"></i>  </span>
+
+
+                        </div>
+                        <div class="oj-xl-10 oj-lg-10 oj-md-10 oj-sm-10 oj-flex-item"> 
+                            <span data-bind="text: associated"></span>
+                        </div>
+                    </div>
+                    <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                        <div class="oj-xl-2 oj-lg-2 oj-md-2 oj-sm-2 oj-flex-item">
+                            <span class="icon-div"><i class="zmdi zmdi-file-text about-icons"></i></span>
+
+                        </div>
+                        <div class="oj-xl-10 oj-lg-10 oj-md-10 oj-sm-10 oj-flex-item"> 
+                            <span data-bind="text: primary_project"></span>
+                        </div>
+                    </div>
+                    <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                        <div class="oj-xl-2 oj-lg-2 oj-md-2 oj-sm-2 oj-flex-item">
+                            <span class="icon-div"><i class="zmdi zmdi-file-text about-icons"></i></span>
+
+                        </div>
+                        <div class="oj-xl-10 oj-lg-10 oj-md-10 oj-sm-10 oj-flex-item"> 
+                            <span data-bind="text: past_project"></span>
+                        </div>
+                    </div>
+                    <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                        <div class="oj-xl-2 oj-lg-2 oj-md-2 oj-sm-2 oj-flex-item">
+                            <span class="icon-div"><i class="zmdi zmdi-favorite about-icons"></i></span>
+
+                        </div>
+                        <div class="oj-xl-10 oj-lg-10 oj-md-10 oj-sm-10 oj-flex-item"> 
+                            <span data-bind="text: interest"></span>
+                        </div>
+                    </div>
+                    <div class="View-Other-about-members oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
+                        <div class="oj-xl-2 oj-lg-2 oj-md-2 oj-sm-2 oj-flex-item">
+                            <span class="icon-div"><i class="zmdi zmdi-phone about-icons"></i></span>
+
+                        </div>
+                        <div class="oj-xl-10 oj-lg-10 oj-md-10 oj-sm-10 oj-flex-item"> 
+                            <span data-bind="text: myNumber"></span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+        <div class="loaderDiv loaderHide" id="respondLoader">
+            <div class="overlay-loader"></div>
+            <div class="loaderImgDiv"><img src="css/images/loader.gif" alt=""/></div>
+        </div>
+
+    </div>
 </div>
-<div class="loaderDiv loaderHide" id="respondLoader1">
-    <div class="overlay-loader"></div>
-    <div class="loaderImgDiv"><img src="css/images/loader.gif" alt=""/></div>
-</div>
+</script>
+
+<div data-bind="template: {name: large() ? 'lg_xl_template' : 
+                                             'sm_md_template'}"></div>
+
+
+

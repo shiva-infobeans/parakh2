@@ -35,14 +35,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 com.shortName = commenter1.replace(/[^A-Z]/g, '');
                 com.commenter = commenter1;
                 com.commentDate = commentDate1.getDate() + ' ' + monthNames[commentDate1.getMonth()] + ' ' + commentDate1.getFullYear();
-                if(datafor){
+                if (datafor) {
                     if (dateplusArray.indexOf(com.commentDate) == -1) {
                         dateplusArray.push(com.commentDate);
                     } else
                     {
                         com.commentDate = '';
                     }
-                }else
+                } else
                 {
                     if (dateminusArray.indexOf(com.commentDate) == -1) {
                         dateminusArray.push(com.commentDate);
@@ -56,7 +56,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
             function dateDiffCalender(Date1) {
                 user_date = Date.parse(Date1);
                 today_date = new Date();
-                if (Date1 != '') {
+                if (Date1 != '' && Date1!=null) {
                     diff_date = today_date - user_date;
 
                     num_years = diff_date / 31536000000;
@@ -131,6 +131,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 var self = this;
 
                 this.pic = person['pic'];
+                if (person['pic'] == '/images/default.png')
+                {
+                    this.intials = nameFunction(person['name']);
+                } else
+                {
+                    this.intials = '';
+                }
                 this.myname = person['name'];
                 this.email = person['email'];
                 var abc = "Not Assigned";
@@ -166,14 +173,54 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 this.minusSign = ko.observable('-');
                 this.plusSign = ko.observable('+');
                 self.selectedTab = ko.observable(0);
+                self.moberror = ko.observable("");
+                
+                var lgQuery = oj.ResponsiveUtils.getFrameworkQuery(
+                oj.ResponsiveUtils.FRAMEWORK_QUERY_KEY.LG_UP);
+                ///////////////////// lazy loading .............
+                self.tabValue = ko.observable(1);
+                self.tabPositive = function () {
+                    self.tabValue(1);
+                }
+                self.tabNegative = function () {
+                    self.tabValue(2);
+                }
+                self.tabFeedback = function () {
+                    self.tabValue(3);
+                }
+                ///////////////////// lazy loading positive comment .............
+                self.allPos = ko.observableArray();
+                self.currentPos = ko.observable();
+                self.countPos = ko.observable();
+                self.initBlockPos = ko.observable(10);
+                self.blockPos = ko.observable(10);
+                ///////////////////// lazy loading Negative comment .............
+                self.allNeg = ko.observableArray();
+                self.currentNeg = ko.observable();
+                self.countNeg = ko.observable();
+                self.initBlockNeg = ko.observable(10);
+                self.blockNeg = ko.observable(10);
+                ///////////////////// lazy loading Feedback .............
+                self.allFeedback = ko.observableArray();
+                self.currentFeedback = ko.observable();
+                self.countFeedback = ko.observable();
+                self.initBlockFeedback = ko.observable(6);
+                self.blockFeedback = ko.observable(10);
+                //..................
 
+                self.large = oj.ResponsiveKnockoutUtils.createMediaQueryObservable('(min-width: 767px)');
+
+                self.itemOnly = function (context)
+                {
+                    return context['leaf'];
+                }
 
                 var editVariable;
                 var windowLocation = window.location;
                 var id = windowLocation.search.substring(windowLocation.search.indexOf("=") + 1, windowLocation.search.length);
 
-                if (id == "1") {
-                    self.selectedTab(1);
+                if (typeof id!='undefined' && id!='') {
+                    self.selectedTab(parseInt(id));
                 }
 
                 self.feedbackMore1 = function (e, data) {
@@ -250,66 +297,70 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 //update profile submit button ajax call
                 self.updateProfile = function () {
                     var temp = 0;
-                    if(designationsDefaultVar!=self.designation())
+                    if (designationsDefaultVar != self.designation())
                     {
                         temp = 1;
                     }
-                    if(locationDefaultVar!=self.location() && temp == 0)
+                    if (locationDefaultVar != self.location() && temp == 0)
                     {
                         temp = 1;
                     }
-                    if(skillsDefaultVal.replace(/ /g,'')!=self.skills() && temp == 0)
+                    if (skillsDefaultVal.replace(/ /g, '') != self.skills() && temp == 0)
                     {
                         temp = 1;
                     }
-                    if(projectsDefaultVal!=self.projects() && temp == 0)
+                    if (projectsDefaultVal != self.projects() && temp == 0)
                     {
                         temp = 1;
                     }
-                    if(interestsDefaultVar!=self.interests() && temp == 0)
+                    if (interestsDefaultVar != self.interests() && temp == 0)
                     {
                         temp = 1;
                     }
-                    if(primaryProjectDefaultVar!=self.primary_project() && temp == 0)
+                    if (primaryProjectDefaultVar != self.primary_project() && temp == 0)
                     {
                         temp = 1;
                     }
-                    if(numberDefaultVar.substring(numberDefaultVar.indexOf("-")+1)!=self.temporaryNumber())
+                    if (numberDefaultVar.substring(numberDefaultVar.indexOf("-") + 1) != self.temporaryNumber())
                     {
                         temp = 1;
                     }
-                    if(associateDefaultVar!=dateDiffCalender(self.date()))
+                    if (associateDefaultVar != dateDiffCalender(self.date()))
                     {
                         temp = 1;
                     }
-                    if(temp==0)
+                    if (temp == 0)
                     {
                         $('.sucessMsg').show();
                         self.successful("Profile not updated.");
+                        self.moberror("");
+                        self.allRevert();
                         setTimeout(function () {
                             $('.sucessMsg').hide();
                         }, 10000);
                         return false;
                     }
-                    
+
                     $.ajax({
                         headers: {secret: secret},
                         method: 'POST',
                         url: updateProfile,
                         data: {user_id: self.id(), desc: self.designation(), location: self.location(), skills: self.skills(), primary_project: self.primary_project(), date: self.date(), projects: self.projects(), interests: self.interests(), mob: self.temporaryNumber()},
                         success: function (res) {
-                            response = jQuery.parseJSON(res);
-                            $('.sucessMsg').show();
+                            var response = jQuery.parseJSON(res);
                             if (response.error == "true")
                             {
-                                self.successful(response.data.error);
                                 if (response.data.code == "3013")
                                 {
                                     self.myNumber(numberDefaultVar);
                                 }
+                                self.moberror(response.data.error);
+                                $('#editNumberBox').focus();
                             } else
                             {
-                                self.successful("Profile updated successfully.");
+                                self.successful("Profile updated successfully!");
+                                $('.sucessMsg').show();
+                                self.allRevert();
                             }
                             setTimeout(function () {
                                 $('.sucessMsg').hide();
@@ -319,7 +370,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                             alert(err);
                         }
                     });
-                }
+                };
                 //////////////////// edit profile page
 
 //service for id of the user.
@@ -336,12 +387,16 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         self.id(task.attributes['data']['id']);
                         self.myname
                         self.designation(abc);
-                        var num = task.attributes['data']['mobile_number'] == "" ? "NO NUMBER" : "+91-" + task.attributes['data']['mobile_number'].replace("+91-", "");
+                        if(typeof task.attributes['data']['mobile_number'] != 'undefined'){
+                            var num = task.attributes['data']['mobile_number'] == "" ? "NO NUMBER" : "+91-" + task.attributes['data']['mobile_number'].replace("+91-", "");
+                        }
                         self.myNumber(num);
                         var regex = new RegExp(',', 'g');
-                        self.skills(task.attributes['data']['skills'].replace(regex, ", "));
+                        if(typeof task.attributes['data']['skills'] != 'undefined'){
+                            self.skills(task.attributes['data']['skills'].replace(regex, ", "));
+                        }
                         self.location(task.attributes['data']['location']);
-                        if (task.attributes['data']['interests'].length != 0) {
+                        if (typeof task.attributes['data']['interests']!='undefined' && task.attributes['data']['interests'].length != 0) {
                             interest = task.attributes['data']['interests'].split(",");
                             for (k = 0; k < interest.length; k++) {
                                 self.interests(interest);
@@ -350,7 +405,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                             self.interests([]);
                         }
                         // task.attributes['data']['projects'] = task.attributes['data']['projects'].replace(",",", ");
-                        if (task.attributes['data']['projects'].length != 0) {
+                        if (typeof task.attributes['data']['projects']!='undefined' && task.attributes['data']['projects'].length != 0) {
                             project = task.attributes['data']['projects'].split(",");
                             self.projects(project);
                         } else {
@@ -371,12 +426,28 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                 var data = res['attributes']['data'];
                                 var index;
                                 for (index = 0; index < data.length; index++) {
-                                    self.feedbackContent1.push(new dataFeedback(self.id(), data[index]));
+                                    self.allFeedback.push(new dataFeedback(self.id(), data[index]));
                                 }
-                                if (self.feedbackContent1().length == 0) {
+                                if (self.allFeedback().length == 0) {
                                     $("#noFeedback").show();
+                                    $('#lazyProfileFeedback').hide();
                                 } else {
                                     $("#noFeedback").hide();
+                                    //lazy loading for feedback........................
+                                    self.countFeedback(self.allFeedback().length);
+                                    self.currentFeedback(0);
+                                    var loadDataFeedback;
+                                    if (self.initBlockFeedback() > self.countFeedback()) {
+                                        loadDataFeedback = self.countFeedback();
+                                        $('#lazyProfileFeedback').hide();
+                                    } else {
+                                        loadDataFeedback = self.initBlockFeedback();
+                                    }
+                                    for (var c = 0; c < loadDataFeedback; c++) {
+                                        self.feedbackContent1.push(self.allFeedback()[c]);
+                                        self.currentFeedback(self.currentFeedback() + 1);
+                                    }
+                                    
                                 }
                             }
                         });
@@ -396,28 +467,61 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                 for (var i = 0; i < data.length; i++) {
                                     if (data[i]['rating'] == 0) {
                                         minus++;
-                                        var temporaryComment = new dataComment(decodeHtml(data[i]['description']), data[i]['given_by_name'], data[i]['created_date'],0);
-                                        self.commentDataNegative.push(temporaryComment);
+                                        var temporaryComment = new dataComment(decodeHtml(data[i]['description']), data[i]['given_by_name'], data[i]['created_date'], 0);
+                                        //self.commentDataNegative.push(temporaryComment);
+                                        self.allNeg.push(temporaryComment);
                                     } else {
                                         if (data[i]['rating'] == 1)
                                             plus++;
-                                        var temporaryComment = new dataComment(decodeHtml(data[i]['description']), data[i]['given_by_name'], data[i]['created_date'],1);
-                                        self.commentDataPositive.push(temporaryComment);
+                                        var temporaryComment = new dataComment(decodeHtml(data[i]['description']), data[i]['given_by_name'], data[i]['created_date'], 1);
+                                        self.allPos.push(temporaryComment);
                                     }
                                 }
-                                if (self.commentDataNegative().length == 0) {
-                                    self.NoCommentsN("No Ratings Available ...!!");
+                                if (self.allNeg().length == 0) {
+                                    self.NoCommentsN("No ratings available.");
                                     $("#noNegativeComment").show();
+                                    $("#lazyProfileNeg").hide();
+                                    
+                                } else {
+                                    self.countNeg(self.allNeg().length);
+                                    self.currentNeg(0);
+                                    var loadDataNeg;
+                                    if (self.initBlockNeg() > self.countNeg()) {
+                                        loadDataNeg = self.countNeg();
+                                        $("#lazyProfileNeg").hide();
+                                    } else {
+                                        loadDataNeg = self.initBlockNeg();
+                                    }
+                                    for (var c = 0; c < loadDataNeg; c++) {
+                                        self.commentDataNegative.push(self.allNeg()[c]);
+                                        self.currentNeg(self.currentNeg() + 1);
+                                    }
                                 }
-                                if (self.commentDataNegative().length != 0) {
+                                if (self.allNeg().length != 0) {
                                     $("#noNegativeComment").hide();
                                 }
-                                if (self.commentDataPositive().length != 0) {
+                                if (self.allPos().length != 0) {
                                     $("#noPositiveComment").hide();
+
+                                    /// +1 rating lazy loading code
+                                    self.countPos(self.allPos().length);
+                                    self.currentPos(0);
+                                    var loadDataPos;
+                                    if (self.initBlockPos() > self.countPos()) {
+                                        loadDataPos = self.countPos();
+                                        $("#lazyProfilePos").hide();
+                                    } else {
+                                        loadDataPos = self.initBlockPos();
+                                    }
+                                    for (var c = 0; c < loadDataPos; c++) {
+                                        self.commentDataPositive.push(self.allPos()[c]);
+                                        self.currentPos(self.currentPos() + 1);
+                                    }
                                 }
-                                if (self.commentDataPositive().length == 0) {
-                                    self.NoCommentsP("No Ratings Available ...!!");
+                                if (self.allPos().length == 0) {
+                                    self.NoCommentsP("No ratings available.");
                                     $("#noPositiveComment").show();
+                                    $("#lazyProfilePos").hide();
                                 }
                                 self.plus(plus);
                                 self.minus(minus);
@@ -501,6 +605,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                 self.designationOptions.push(obj);
                             }
                             $('#selectDesignation').ojSelect("refresh");
+                            $('#selectDesignation').ojSelect({"value": [designationsDefaultVar]});
                         }
                     });
                     $('#designation-text').addClass('hide');
@@ -515,7 +620,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
 
                     /*******************************Open Edit Skills block***********************/
                     skillsDefaultVal = self.skills();
-                    self.skills(skillsDefaultVal.replace(/ /g,''));
+                    self.skills(skillsDefaultVal.replace(/ /g, ''));
                     $('#skills-text').addClass('hide');
                     $('#skills').removeClass('hide');
                     /*******************************Open Edit Skills block***********************/
@@ -544,7 +649,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                                 self.primaryProjectOptions.push(obj);
                             }
                             $('#selectPrimaryProjects').ojSelect("refresh");
-                            self.primary_project(res['attributes']['data'][0]['name']);
+                            $('#selectPrimaryProjects').ojSelect({"value": [primaryProjectDefaultVar]});
                         }
                     });
                     $('#primary-project-text').addClass('hide');
@@ -603,6 +708,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     numberDefaultVar = self.myNumber();
                     editVariable = self.myNumber().substring(self.myNumber().indexOf("-") + 1, self.myNumber().length);
                     self.temporaryNumber(self.myNumber().substring(self.myNumber().indexOf("-") + 1, self.myNumber().length));
+                    if (self.myNumber() == "NO NUMBER")
+                    {
+                        numberDefaultVar = '';
+                        self.temporaryNumber("");
+                    }
                     self.temporaryNumber();
                     $('#number-text').addClass('hide');
                     $('#editNumberBox').removeClass('hide');
@@ -633,29 +743,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     {
                         self.myNumber("+91-" + self.temporaryNumber());
                     }
-                    $('#designation-text').removeClass('hide');
-                    $('#designation-div').addClass('hide');
-                    $('#location-text').removeClass('hide');
-                    $('#location-div').addClass('hide');
-                    $('#skills-text').removeClass('hide');
-                    $('#skills').addClass('hide');
-                    $('#associate-text').removeClass('hide');
-                    $('#associate-div').addClass('hide');
-                    $('#primary-project-text').removeClass('hide');
-                    $('#primary-project-div').addClass('hide');
-                    $('#projects-text').removeClass('hide');
-                    $('#projects-div').addClass('hide');
-                    $('#interest-text').removeClass('hide');
-                    $('#interest-div').addClass('hide');
-                    $('#number-text').removeClass('hide');
-                    $('#editNumberBox').addClass('hide');
-                    $('#edit-all').removeClass('hide');
-                    $('#submit-all').addClass('hide');
-                    $('#cancel-all').addClass('hide');
                 }
 
                 self.allRevert = function () {
-
+                    self.moberror("");
                     $('#designation-text').removeClass('hide');
                     $('#designation-div').addClass('hide');
                     $('#location-text').removeClass('hide');
@@ -691,6 +782,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 self.openReply = function (data, event) {
                     $('#' + data['replyBtnId']).fadeOut();
                     $('#' + data['uniqueId']).fadeOut();
+                     $('#' + data['replyInput']).parent().parent().next().addClass('errorVisibilityHide').removeClass('errorVisibilityShow');
                     try {
                         var effectReplyBtn = 'slideOut';
                         if (effectReplyBtn && oj.AnimationUtils[effectReplyBtn])
@@ -711,7 +803,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 }
                 // send respond on feedback
                 self.replySend = function (data, event) {
-                    //feedback respond from (user) 
+                    //feedback respond from (user)
                     var reply_from = data["myId"];
                     //feedbackId 
                     var fid = data['feedbackId'];
@@ -732,9 +824,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         mm = '0' + mm
                     }
                     today = yyyy + '-' + mm + '-' + dd + " ";
-
                     var responseDesc = $('#' + data['replyInput']);
-                    if (responseDesc.val().length == 0) {
+                    if (responseDesc.val().trim().length == 0) {
+                        $('#' + data['replyInput']).parent().parent().next().removeClass('errorVisibilityHide').addClass('errorVisibilityShow');
                         return;
                     }
                     ////////// object for reply add
@@ -744,12 +836,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     obj.created_date = today;
 
                     data['replies'].push(new feedbackRepliesData(0, 0, 0, obj));
-                    data['replies']();
+
                     $.ajax({
                         headers: {secret: secret},
                         method: 'POST',
                         url: addFeedbackResponse,
-                        data: {login_user_id: reply_from, feedback_to: reply_to, feedback_desc: responseDesc.val(), feedback_id: fid},
+                        data: {login_user_id: reply_from, feedback_to: reply_to, feedback_desc: responseDesc.val().trim(), feedback_id: fid},
                         success: function () {
                             responseDesc.val("");
                         },
@@ -768,6 +860,79 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     $('#' + data['replyBtnId']).fadeIn();
                     $('#' + data['uniqueId']).fadeOut();
                 }
+                self.replyInputClick = function (data, event) {
+                    $('#' + data['replyInput']).parent().parent().next().removeClass('errorVisibilityShow').addClass('errorVisibilityHide');
+                }
+                $(window).scroll(function () {
+                    if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
+                        if (self.tabValue() == 1) {
+                            if ((self.currentPos() < self.countPos())) {
+
+                                var count = self.currentPos();
+                                if (self.currentPos() + self.blockPos() >= self.countPos()) {
+                                    var loadRecordCount = self.countPos() - self.currentPos();
+                                    $("#lazyProfilePos").hide();
+                                } else {
+                                    var loadRecordCount = self.blockPos();
+                                }
+                                for (var c = count; c < count + loadRecordCount; c++) { //count is current count from start and loadRecordCount is for total  page size;
+                                    try {
+                                        self.commentDataPositive.push(self.allPos()[c]);
+                                        self.currentPos(self.currentPos() + 1);
+                                    } catch (e) {
+
+                                    }
+                                }
+                            } else {
+                                $("#lazyProfilePos").hide();
+                            }
+                        }
+                        if (self.tabValue() == 2) { //negative rating tab
+                            if ((self.currentNeg() < self.countNeg())) {
+
+                                var count = self.currentNeg();
+                                if (self.currentNeg() + self.blockNeg() >= self.countNeg()) {
+                                    var loadRecordCount = self.countNeg() - self.currentNeg();
+                                    $("#lazyProfileNeg").hide();
+                                } else {
+                                    var loadRecordCount = self.blockNeg();
+                                }
+                                for (var c = count; c < count + loadRecordCount; c++) { //count is current count from start and loadRecordCount is for total  page size;
+                                    try {
+                                        self.commentDataNegative.push(self.allNeg()[c]);
+                                        self.currentNeg(self.currentNeg() + 1);
+                                    } catch (e) {
+
+                                    }
+                                }
+                            } else {
+                               $("#lazyProfileNeg").hide();
+                            }
+                        }
+                        if (self.tabValue() == 3) {
+                            if ((self.currentFeedback() < self.countFeedback())) {
+
+                                var count = self.currentFeedback();
+                                if (self.currentFeedback() + self.blockFeedback() >= self.countFeedback()) {
+                                    var loadRecordCount = self.countFeedback() - self.currentFeedback();
+                                    $('#lazyProfileFeedback').hide();
+                                } else {
+                                    var loadRecordCount = self.blockFeedback();
+                                }
+                                for (var c = count; c < count + loadRecordCount; c++) { //count is current count from start and loadRecordCount is for total  page size;
+                                    try {
+                                        self.feedbackContent1.push(self.allFeedback()[c]);
+                                        self.currentFeedback(self.currentFeedback() + 1);
+                                    } catch (e) {
+
+                                    }
+                                }
+                            } else {
+                                $('#lazyProfileFeedback').hide();
+                            }
+                        }
+                    }
+                });
             }
             return dialogModel;
         });

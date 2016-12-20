@@ -1,0 +1,57 @@
+<div class="oj-web-applayout-max-width oj-web-applayout-content  ">
+    <div class="oj-flex oj-row">
+
+        <div class="side-bar">
+            <ul class="ff1">
+                <li >
+                    <a href="javascript:void(0);"  class="buttons sideBar-feedback">
+                        <div class="rotate">
+                            <span>Feedback</span>  
+                            <!--<span>  <i class="zmdi zmdi-comment-text-alt"></i></span>-->
+                        </div>   
+                    </a>
+                </li>
+                <li>
+                    <a href="help.html"  class="buttons sideBar-help">
+                        <div class="rotate">  Help 
+                            <!--<i class="zmdi zmdi-star"></i>-->
+                        </div>
+                    </a>
+                </li>
+                 <li>
+                    <a href="javascript:void(0);"  class="buttons sideBar-tour">
+                       <div class="rotate">   Tour 
+                           <!--<i class="zmdi zmdi-star"></i>-->
+                       </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+
+    </div>
+</div>
+
+<!--feedaback modal in Side bar-->
+<div class="oj-row oj-flex">
+   <div id="dialogWrapperSideBar">
+  <div style="display:none" id="modalDialog-userFeedback" title="Feedback" 
+       data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide'}">
+     <div class="oj-dialog-body">
+         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center feedbck-text ">
+             Hello,we'd love to hear your feedback about our Parakh...
+         </div>
+        <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center areaContent1 ">
+                    <textarea id="text-area9" class="textArea-feedbackFloat" aria-label="ojTextArea component no visible label"
+                              
+                          ></textarea>
+                </div>
+
+                <!--<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center errorText" id="feedbackFloatTextError">Please provide a reason for your feedback.</div>-->
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
+                    <button class="modal-submitUserFeedback" > Send Feedback </button>
+                </div>
+     </div>
+  </div>
+</div>        
+</div>
