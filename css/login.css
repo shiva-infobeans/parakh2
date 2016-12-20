@@ -1,6 +1,7 @@
 body{
     margin:0px;
     padding:0px;
+    font-family: 'Montserrat', sans-serif !important;
 }
 /*.login{
     width:100%;
@@ -65,16 +66,33 @@ img#my-signin2{
         width: 70%;
         left: 0;
         margin:auto;
-
-    }    
+    }
+    .imageWiseMsg1{
+        bottom:375px !important;
+        top: auto !important;
+    }
+    .authFailed{
+        margin: 100px auto !important;
+        background-color: #f00;
+        font-size: 32px !important;
+        padding: 5px 0px;
+    }  
+    .authFailed span{
+        padding: 0px !important;
+    }
 }
 @media (min-device-width:768px) and (max-device-width: 991px){
     .login-btn {
         position: absolute;
         right: 30px;
-        top: 70px;
+        top: 24px;
         width: 350px;
     }   
+    .authFailed span{
+        padding-left: 50px !important; 
+        padding-right: 50px !important; 
+        font-size: 12px !important;
+    }
 }
 @media (min-device-width:992px) and (max-device-width: 1199px){
     .login-btn {
@@ -104,4 +122,57 @@ img#my-signin2{
         bottom: 85px;
         right: 100px;
     }
+        top: 20px;
+        width: 350px;
+    }
+    .authFailed span{
+        font-size: 14px !important;
+        padding-left: 50px !important; 
+        padding-right: 50px !important; 
+    }
+
+.errorMsg{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.accessDeniedBackground{
+    position: fixed;
+    width: 100%;
+}
+.authFailed{
+    width: 100%;
+    margin: 0px auto;
+    text-align: center;
+}
+.authFailed span{
+    background-color: #f00;
+    padding: 5px 100px;
+    text-align: center;
+    color: #fff !important;
+    border-radius: 0px 0px 5px 5px;
+}
+.loaderImgDivLogin{
+    position: fixed;
+    top:0px;
+    left: 0px;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    height: 168px;
+    width: 195px;
+    z-index: 10;
+}
+
+.loaderHide{
+    display: none !important;
+}
+.overlay-loader{
+    position: fixed;
+    top:0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,0.7);
 }
