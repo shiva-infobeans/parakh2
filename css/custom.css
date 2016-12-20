@@ -316,7 +316,7 @@ div.profile-page{
     /*    height: 600px;*/
 }
 .tabWidth-personProfile{
-     width: 334px !important;
+    width: 334px !important;
 }
 .tabWidth{
     width: 323px !important;
@@ -324,7 +324,7 @@ div.profile-page{
     list-style: none;
 }
 .tabWidth2{
-     width:162px !important
+    width:162px !important
 }
 div.oj-tabs-panel.oj-tabs-selected{
     background: none;
@@ -601,8 +601,8 @@ div.oj-tabs-panel.oj-tabs-selected{
     font-size: 18px;
 }
 .feedbackSection{
-    /*    overflow-x: auto;
-        overflow-y: no-content;*/
+    /*overflow-x: auto;*/
+    /*overflow-y: no-content;*/
     /*height:100%;*/
 }
 .colcount{
@@ -621,8 +621,8 @@ div.oj-tabs-panel.oj-tabs-selected{
 
 }
 .side-bar-img{
-     margin-top: -13px;
-     margin-left: 0px;
+    margin-top: -13px;
+    margin-left: 0px;
     padding: 1px;
 }
 /*rate buddy page ui*/
@@ -1611,41 +1611,56 @@ div.oj-tabs-panel.oj-tabs-selected{
     }*/
     #vtabs .oj-conveyorbelt-overflow-indicator.oj-default .oj-conveyorbelt-overflow-icon{
         color: #fff;
-    margin-top: 4px;
-    font-size: 18px;
-}
-.margin-top-feedback{
-    margin-bottom: -55px  !important;
-}
-.noComments{
-    padding: 117px !important;
-    text-align: center !important;
-    font-size: 19px !important;
-    min-height: 266px !important;
-    margin:0px !important;
-}
-.bottom-padding{
-    padding-bottom: 15px !important;
-}
-.margin-top-feedback {
-    margin-top: -22px !important;
-}
-.rating-section{
-    min-height: 300px;
-}
-#ojDialogWrapper-modalDialog-userFeedback.oj-dialog{
-    min-width: 345px !important;
-}
-.modal-submitUserFeedback{
-    margin-top: 0px !important;
-    width: 95% !important;
-}
-#modalDialog-userFeedback .oj-dialog-body{
-    background: #fff !important;
-    height: 345px !important;
-}
-.textArea-feedbackFloat{
+        margin-top: 4px;
+        font-size: 18px;
+    }
+    .margin-top-feedback{
+        margin-bottom: -55px  !important;
+    }
+    .noComments{
+        padding: 117px !important;
+        text-align: center !important;
+        font-size: 19px !important;
+        min-height: 266px !important;
+        margin:0px !important;
+    }
+    .bottom-padding{
+        padding-bottom: 15px !important;
+    }
+    .margin-top-feedback {
+        margin-top: -22px !important;
+    }
+    .rating-section{
+        min-height: 300px;
+    }
+    #ojDialogWrapper-modalDialog-userFeedback.oj-dialog{
+        min-width: 345px !important;
+    }
+    .modal-submitUserFeedback{
+        margin-top: -6px !important;
+        width: 95% !important;
+    }
+    #modalDialog-userFeedback .oj-dialog-body{
+        background: #fff !important;
+        height: 345px !important;
+    }
+    .textArea-feedbackFloat{
         height: 132px!important;
+    }
+    .tab-padding {
+    width: 341px !important;
+    text-align: center !important;
+    font-size: 24px !important;
+    }
+    
+.ul-top{
+        margin-left: 10px !important;
+}
+.question-text3{
+    margin-top:0px !important;
+}
+.question-text2{
+     margin-top:0px !important;
 }
 }
 
@@ -1695,19 +1710,23 @@ div.oj-tabs-panel.oj-tabs-selected{
     }
 }
 @media  screen and (min-width: 320px) and (max-width: 400px) {
-#ojDialogWrapper-modalDialog-userFeedback.oj-dialog {
-    min-width: 300px !important;
-}
+    #ojDialogWrapper-modalDialog-userFeedback.oj-dialog {
+        min-width: 300px !important;
+    }
 }
 @media  screen and (min-width: 768px) and (max-width: 1024px) {
 
     #ojDialogWrapper-modalDialog9.oj-dialog,
     #ojDialogWrapper-modalDialog3.oj-dialog,
-    #ojDialogWrapper-modalDialogRequest.oj-dialog,
-    #ojDialogWrapper-modalDialog-userFeedback.oj-dialog{
+    #ojDialogWrapper-modalDialogRequest.oj-dialog
+    {
         width: 60% !important;
 
     }
+    #ojDialogWrapper-modalDialog-userFeedback.oj-dialog{
+         width: 40% !important;
+    }
+    
     #ojDialogWrapper-modalDialog8.oj-dialog,
     #ojDialogWrapper-modalDialog2.oj-dialog,
     #ojDialogWrapper-modalDialog1.oj-dialog{
@@ -1784,6 +1803,33 @@ div.oj-tabs-panel.oj-tabs-selected{
     }
     .info-text{
         margin-left: 28px !important;
+    }
+
+    .ul-top{
+        margin-left: 5px !important;
+    }
+    ul.help-ul{
+        height: 240px !important;
+        width: 295px !important;
+        padding: 0px !important;
+        margin-left: 5px !important;
+    }
+    #selcted-tab .oj-tabs-tab.oj-selected .oj-tabs-tab-content::after, #selcted-tab1 .oj-tabs-tab.oj-selected .oj-tabs-tab-content::after{
+        right: 8px !important;
+    }
+    .question-text2{
+      margin-top: 53px !important;  
+    }
+    .question-text3{
+        margin-top: 122px !important;
+    }
+    ul.help-ul2{
+    width: 295px !important;
+    padding: 0px !important;
+    margin-left: 5px !important;
+    }
+    .tab-padding {
+    width: 472px !important;
     }
 }
 @media  screen and (min-width: 1200px) and (max-width: 1366px) {
@@ -2056,6 +2102,11 @@ ul.ff{
     color: #FFF;
 
 }
+.side-bar-img{
+    margin-top: -13px;
+    margin-left: 0px;
+    padding: 1px;
+}
 ul.ff li{
     list-style:none;
     margin-bottom:10px;
@@ -2096,15 +2147,15 @@ ul.ff1 li{
 
 
 ul.ff1 li a{
-/* background-color: #78A95A;
-    color: #FFF;
-    border-radius: 3px;
-    text-align: center;
-    width: 40px;
-    height: 130px;
-    display: block;
-    padding: 12px;
-    font-size: 18px;*/
+    /* background-color: #78A95A;
+        color: #FFF;
+        border-radius: 3px;
+        text-align: center;
+        width: 40px;
+        height: 160px;
+        display: block;
+        padding: 12px;
+        font-size: 18px;*/
 }
 ul.ff1 li a:hover , ul.ff1 li a:focus{
     text-decoration: none;
