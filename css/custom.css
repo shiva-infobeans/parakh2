@@ -2524,3 +2524,28 @@ a#menu-share:hover > i{
     color: #fff;
     cursor: pointer;
 }
+@media  screen and (min-width: 1024px){
+    .backToLoginAchivement {
+        margin-right: 0px !important;
+    }
+}
+@media  screen and (min-width: 320px) and (max-width: 767px) {
+    .backToLoginAchivement {
+        margin-top: 45px !important;
+        padding-bottom: 15px !important;
+    }
+}
+.backToLoginAchivement {
+    border-bottom: 5px solid #fff;
+    font-weight: bolder;
+    float: right;
+    margin-top: 99px;
+    padding-bottom: 15px;
+    color: #fff;
+    font-size: 20px;
+    margin-right: 10px;
+}
+.backToLoginAchivement a,.backToLoginAchivement a:hover {
+    color: #fff;
+    text-decoration: none;
+}
