@@ -2130,7 +2130,7 @@ ul.ff li a{
     line-height: 63px;
     cursor: pointer;
     z-index: 10;
-    bottom: 65%;
+    top: 25%;
     right: auto;
 }
 ul.ff1{
@@ -2463,4 +2463,44 @@ a#menu-share:hover > i{
 }
 .font-responsive{
     font-size: 25px !important;
+}
+/* tour image location */
+@media screen and (max-width: 767px){
+    .tourImg{
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 11;
+    }
+}
+@media screen and (min-width: 768px){
+    .tourImg{
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 11;
+    }
+}
+.tourClose,a.tourClose:active,a.tourClose:focus{
+    position: fixed;
+    top: 12px;
+    right: 21px;
+    z-index: 12;
+    color: #fff;
+    cursor: pointer;
+}
+@media screen  and (max-width: 767px) and (min-width: 320px) {
+    .sideBarFix{
+        position: absolute;
+        top:212px;
+        bottom: auto;
+    }
 }
