@@ -1445,6 +1445,7 @@
     text-align: center;
     top: 125px;
     width: 300px;
+    z-index: 30;
 }
 #sucess{
     display:none;
@@ -2247,16 +2248,16 @@ ul.help-ul2{
     line-height: 27px;
 }
 .helpTabMinHeight{
-    min-height: 1200px !important;
+    /*min-height: 1200px !important;*/
 }
 .question-text{
-    margin-top: 258px;
+    /*margin-top: 258px;*/
     color: #F9E81F !important;
     text-decoration: underline;
     cursor: pointer;
     font-size: 20px;
     text-align: justify;
-    line-height: 27px;
+    /*line-height: 27px;*/
 }
 .role-tab-1 {
     margin-right: 11px;
@@ -2277,7 +2278,7 @@ ul.help-ul2{
     margin-left: -4px;
 }
 .question-text2{
-    margin-top: 484px;
+    margin-top: 112px;
     color: #F9E81F !important;
     text-decoration: underline;
     cursor: pointer;
@@ -2286,7 +2287,7 @@ ul.help-ul2{
     line-height: 27px;
 }
 .question-text3{
-    margin-top: 546px;
+    margin-top: 175px;
     color: #F9E81F !important;
     text-decoration: underline;
     cursor: pointer;
@@ -2370,4 +2371,7 @@ ul.help-ul2{
 #d2 a.oj-component-icon.oj-clickable-icon-nocontext.oj-listview-expand-icon
 {
     color: #F9E81F;
+}
+.help-bottom{
+    margin-bottom: 25px;
 }

@@ -1656,7 +1656,12 @@ div.oj-tabs-panel.oj-tabs-selected{
 .ul-top{
         margin-left: 10px !important;
 }
- 
+.question-text3{
+    margin-top:0px !important;
+}
+.question-text2{
+     margin-top:0px !important;
+}
 }
 
 .transboxRequest2{
@@ -1810,7 +1815,13 @@ div.oj-tabs-panel.oj-tabs-selected{
         margin-left: 5px !important;
     }
     #selcted-tab .oj-tabs-tab.oj-selected .oj-tabs-tab-content::after, #selcted-tab1 .oj-tabs-tab.oj-selected .oj-tabs-tab-content::after{
-        margin-right: 6px !important;
+        right: 8px !important;
+    }
+    .question-text2{
+      margin-top: 53px !important;  
+    }
+    .question-text3{
+        margin-top: 122px !important;
     }
     ul.help-ul2{
     width: 295px !important;
