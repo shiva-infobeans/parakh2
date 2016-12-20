@@ -2362,6 +2362,12 @@ ul.help-ul2{
 #a1 a.oj-clickable-icon-nocontext{
     /*color: #F9E81F;*/
 }
+#tabs-help .oj-conveyorbelt-overflow-indicator.oj-default,
+#tabs-help .oj-conveyorbelt-overflow-indicator.oj-active,
+#tabs-help .oj-conveyorbelt-overflow-indicator.oj-hover{
+    top: 12px !important;
+    color: #878c90 !important;
+}
 #a1 a.oj-component-icon.oj-clickable-icon-nocontext.oj-listview-expand-icon,
 #b1 a.oj-component-icon.oj-clickable-icon-nocontext.oj-listview-expand-icon,
 #c1 a.oj-component-icon.oj-clickable-icon-nocontext.oj-listview-expand-icon,
