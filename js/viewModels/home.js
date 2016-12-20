@@ -274,7 +274,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                 var obj1 = new Object();
                                 obj1.leadPlus12 = dat[1] == 0 ? 0 : "+" + dat[1];
                                 obj1.leadMinus12 = dat[2] == 0 ? 0 : "-" + dat[2];
-                                obj1.performanceTxt = "Performance of " + dat[0] + " team";
+                                obj1.performanceTxt = "Performance of " + dat[0] + " team...";
                                 obj1.noRatingTxt = dat[0] + " team not rated yet!!";
                                 self.addProject(obj1);
                                 if (dat[1] == 0 && dat[2] == 0)
@@ -291,7 +291,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                 obj1.leadPlus12 = 0;
                                 obj1.leadMinus12 = 0;
                                 obj1.performanceTxt = "";
-                                obj1.noRatingTxt = "You have not assigned any projects yet !!";
+                                obj1.noRatingTxt = "You do not have any projects assigned!!";
                                 self.addProject(obj1);
                                 $("#showSlider7" + 0 + "").hide();
                             }
@@ -321,7 +321,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                 obj3.leadPlus12 = result['attributes']['data']['till_now']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['till_now']['plus'];
                                 obj3.leadMinus12 = result['attributes']['data']['till_now']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['till_now']['minus'];
                                 obj3.performanceTxt = "My Team’s Performance till now…";
-                                obj3.noRatingTxt = "Your team has not been rated till now!!";
+                                obj3.noRatingTxt = "Your team has not been rated yet!!";
                                 if (obj3.leadPlus12 == 0 && obj3.leadMinus12 == 0) {
                                     self.addLeadSlider(obj3);
                                     $("#showSlider80").hide();
@@ -376,7 +376,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                         obj3.leadPlus12 = result['attributes']['data']['till_now']['plus'] == 0 ? 0 : "+" + result['attributes']['data']['till_now']['plus'];
                                         obj3.leadMinus12 = result['attributes']['data']['till_now']['minus'] == 0 ? 0 : "-" + result['attributes']['data']['till_now']['minus'];
                                         obj3.performanceTxt = "My Team’s Performance till now…";
-                                        obj3.noRatingTxt = "Your team has not been rated till now!!";
+                                        obj3.noRatingTxt = "Your team has not been rated yet!!";
                                         if (obj3.leadPlus12 == 0 && obj3.leadMinus12 == 0) {
                                             self.addLeadSlider(obj3);
                                             $("#show80").hide();
@@ -746,7 +746,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
         setTimeout(function () {
             $("#filmStrip").on({
                 'ojoptionchange': function (event, data) {
-                    // verify that the component firing the event is a component of interest
+// verify that the component firing the event is a component of interest
                     if ($(event.target).is("#filmStrip")) {
                         if ($("#filmStrip").ojFilmStrip("option", "currentItem") == 0) {
                             $("#plusSliderTxt").text("Recent +1 Ratings");
@@ -799,6 +799,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                 }
             });
         }, 500);
+
+
     }
 
     return homeContentViewModel;

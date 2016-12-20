@@ -55,6 +55,7 @@ var logoutUrl =  baseUrl+"/logout";
 var getFourTillNowRankingList = baseUrl+"/getFourTillNowRankingList";
 var getATeamMember = baseUrl+"/getATeamMember/";
 var getParakhVideo = baseUrl+"/getParakhVideo/";
+var sendFeedback = baseUrl+"/sendFeedback/";
 
 //updates for google client id and parakh logo (favicon) 
 var clientId = "791490125018-lcfs9ha89efjtp09v5u8q38ls05hhinl.apps.googleusercontent.com";
