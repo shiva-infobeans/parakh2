@@ -74,6 +74,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.data2 = ko.observable();
         self.userId = ko.observable();
         self.name = ko.observable();
+        self.intials = ko.observable("");
         self.for_id = ko.observable();
         self.role_name = ko.observable();
         self.desc = ko.observable();
@@ -387,6 +388,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.for_id($(this).attr("id"));
             self.image($(this).attr("image"));
             self.myname($(this).attr("myname"));
+            self.intials($(this).attr("intials"));
             self.myDesignation($(this).attr("myDesignation"));
             $('.textArea2').val('');
         });
@@ -478,10 +480,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.desc('');
             self.textError('');
             self.p(1);
-            self.image1("../../images/active(+1).png")
+            self.image1("../../images/active(+1).png");
             self.image2("../../images/disable(-1).png");
             self.teamImage($(this).attr("teamImage"));
             self.myId($(this).attr("myTeamId"));
+            self.intials($(this).attr("intials"));
             self.teamName($(this).attr("teamName"));
             self.teamDesig($(this).attr("teamDesig"));
 
@@ -504,7 +507,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.myId($(this).attr("myTeamId"));
             self.teamName($(this).attr("teamName"));
             self.teamDesig($(this).attr("teamDesig"));
-
+            self.intials($(this).attr("intials"));
         });
         self.p = ko.observable(1);
 
