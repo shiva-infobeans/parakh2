@@ -1000,10 +1000,10 @@ $app->post('/createImageCache[/]', function ($request, $response, $args) {
     //Creating a dbmodule object
     $db = new dbmodule();
     $result = $db->createImageCache($data['email'],1,$default_img);
-    if(count($result) != 0){
+    if($result != ''){
         $response_data = makeResponse('false',$result);
     }else{
-        $response_data = makeResponse('true',get_site_error(3001));
+        $response_data = makeResponse('true',get_site_error(3014));
     }    
     $response->withJson($response_data);
     return $response;
@@ -1096,6 +1096,47 @@ $app->post('/sendFeedback[/]', function ($request, $response, $args) {
 });
 
 
+
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getLastMonthLoginUsers/
+ * Parameters: none
+ * 
+ * Method: GET
+ * */    
+$app->get('/getLastMonthLoginUsers[/]', function ($request, $response, $args) {
+    $response_data = array();
+    
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    $result = $db->get_last_month_login_users();
+    if($result != 0){
+        $response_data = makeResponse('false',$result);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3001));
+    }    
+    $response->withJson($response_data);
+    return $response;
+});
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getPositionOfUserInRanking/
+ * Parameters: none
+ * 
+ * Method: GET
+ * */    
+$app->get('/getPositionOfUserInRanking[/]', function ($request, $response, $args) {
+    $response_data = array();
+    
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    $result = $db->get_position_of_user_in_ranking();
+    if($result != 0){
+        $response_data = makeResponse('false',$result);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3001));
+    }    
+    $response->withJson($response_data);
+    return $response;
+});
 
 /**
  * Step 4: Run the Slim application

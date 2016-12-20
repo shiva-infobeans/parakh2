@@ -140,6 +140,88 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             }
         }
 
+        self.rateValueChangeHandler = function(context, valueParam){
+            if(!isNaN(valueParam.value[0]))
+            {
+                self.currentChangeid(valueParam.value[0]);
+            }
+            if(valueParam.option == 'rawValue')
+            {
+                try{
+                    spaceCount = (valueParam.value.split(" ").length - 1);
+                    name = valueParam.value.replace(/ /g,"");
+                    if(spaceCount>2){
+                        name = name.substring(0, name.length - 2);
+                    }
+                    name = name.replace(/([A-Z])/g, ' $1').trim();
+                    id = "#"+name.replace(/ /g,"_").toLowerCase();
+                    $('#oj-combobox-input-combobox2').val(name);
+                    if(typeof $(id).val()!='undefined' && $(id).val()==1)
+                    {
+                        $('.text-area-plus-one').hide();
+                        $('.text-area-both').show();
+                    }else
+                    {
+                        $('.text-area-plus-one').show();
+                        $('.text-area-both').hide();
+                    }
+                }catch(e)
+                {
+                    console.log(e);
+                }
+            }
+
+            // $('.search-text-profile-image').each(function(){
+            //     alert($("."+$(this).attr('class')+" .autoName").html());
+            // });
+        }
+
+        self.feedbackValueChangeHandler = function(context, valueParam){
+            if(!isNaN(valueParam.value[0]))
+            {
+                self.currentChangeid(valueParam.value[0]);
+            }
+            if(valueParam.option == 'rawValue')
+            {
+                try{
+                    spaceCount = (valueParam.value.split(" ").length - 1);
+                    name = valueParam.value.replace(/ /g,"");
+                    if(spaceCount>2){
+                        name = name.substring(0, name.length - 2);
+                    }
+                    name = name.replace(/([A-Z])/g, ' $1').trim();
+                    id = "#"+name.replace(/ /g,"_").toLowerCase();
+                    $('#oj-combobox-input-combobox9').val(name);
+                }catch(e)
+                {
+                    console.log(e);
+                }
+            }
+        }
+
+        self.requestValueChangeHandler = function(context, valueParam){
+            if(!isNaN(valueParam.value[0]))
+            {
+                self.currentChangeid(valueParam.value[0]);
+            }
+            if(valueParam.option == 'rawValue')
+            {
+                try{
+                    spaceCount = (valueParam.value.split(" ").length - 1);
+                    name = valueParam.value.replace(/ /g,"");
+                    if(spaceCount>6){
+                        name = name.substring(0, name.length - 2);
+                    }
+                    name = name.replace(/([A-Z])/g, ' $1').trim();
+                    id = "#"+name.replace(/ /g,"_").toLowerCase();
+                    $('#oj-combobox-input-combobox3').val(name);
+                }catch(e)
+                {
+                    console.log(e);
+                }
+            }
+        }
+
         self.feedbackValueChangeHandler = function(context, valueParam){
             if(!isNaN(valueParam.value[0]))
             {
@@ -395,7 +477,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     $("#modalDialog9").ojDialog("close");
                     self.value('');
                     $("#sucess").show();
-                    self.sucessMsg("Feedback is sent!");
+                    self.sucessMsg("Feedback sent successfully!");
                     setTimeout(function () {
                         $("#sucess").hide();
                         self.sucessMsg("");
@@ -423,7 +505,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.floatModal = function () {
             self.desc(self.desc().trim());
             if (self.value() == '' || self.value() == null) {
-                self.searchError("This field cannot be empty");
+                self.searchError("This field cannot be empty.");
                 return false;
             }
             if (self.desc() == '' || self.desc() == null) {
@@ -463,12 +545,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
             self.desc(self.desc().trim());
             if (self.value2() == '' || self.value2() == null) {
-                self.searchError("This field cannot be empty");
+                self.searchError("This field cannot be empty.");
                 return false;
             }
             if (self.desc() == '' || self.desc() == null) {
                 self.searchError("");
-                self.textError("Please provide a reason for your request.");
+                self.textError("Please provide a reason for your rating.");
                 return false;
             }
             $.ajax({
@@ -479,7 +561,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 success: function () {
                     $("#modalDialogRequest").ojDialog("close");
                     $("#sucess").show();
-                    self.sucessMsg("Your request is sent!");
+                    self.sucessMsg("Request sent successfully!");
                     setTimeout(function () {
                         $("#sucess").hide();
                         self.sucessMsg("");
