@@ -47,13 +47,17 @@
                     <ul id="browsers1" style="display: none">
                         <!-- ko foreach: browsers1 -->
                         <li data-bind="attr: {'oj-data-value': value}">
-                            <span class="imgSearch">  <img data-bind="attr: {'src': searchPic}" class="searchImage" /> </span>
-                            <span data-bind="text: label" class="autoName"></span>
+                            <div class="search-text-profile-image">
+                                <span class="imgSearch">  <img data-bind="attr: {'src': searchPic}" class="searchImage" /> </span>
+                                <span data-bind="text: label" class="autoName"></span>
+                                <span class="search-text-profile-image-initials" data-bind="text:intials_feedback"></span>
+                            </div>
                         </li>
                         <!-- /ko -->   
                     </ul>
                     <input id="combobox9" 
                            data-bind="ojComponent: {component: 'ojCombobox',
+                           optionChange: feedbackValueChangeHandler,
                             placeholder:'Search team member',
                               list: 'browsers1',
                               value: value1,     
@@ -96,13 +100,17 @@
                         <ul id="browsers" style="display: none">
                             <!-- ko foreach: browsers -->
                             <li data-bind="attr: {'oj-data-value': value}">
-                                <span class="imgSearch">  <img data-bind="attr: {'src': searchPic}" class="searchImage" /> </span>
-                                <span data-bind="text: label" class="autoName"></span>
+                                <div class="search-text-profile-image">
+                                    <span class="imgSearch">  <img data-bind="attr: {'src': searchPic}" class="searchImage" /> </span>
+                                    <span data-bind="text: label" class="autoName"></span>
+                                    <span class="search-text-profile-image-initials" data-bind="text:intials_rate"></span>
+                                </div>
                             </li>
                             <!-- /ko -->   
                         </ul>
                         <input id="combobox2"
                                data-bind="ojComponent: {component: 'ojCombobox',
+                               optionChange: rateValueChangeHandler,
                             placeholder:'Search team member',
                               list: 'browsers',
                               value: value,
@@ -155,13 +163,17 @@
                     <ul id="browsers2" style="display: none">
                         <!-- ko foreach: browsers2 -->
                         <li data-bind="attr: {'oj-data-value': value}">
-                            <span class="imgSearch">  <img data-bind="attr: {'src': autoSearchLeadPic}" class="searchImage" /> </span>
-                            <span data-bind="text: label"  class="autoName"></span> &ndash; <span data-bind="text: autoSearchLeadRole" class="searchLead"></span>
+                            <div class="search-text-profile-image">
+                                <span class="imgSearch">  <img data-bind="attr: {'src': autoSearchLeadPic}" class="searchImage" /> </span>
+                                <span data-bind="text: label"  class="autoName"></span> &ndash; <span data-bind="text: autoSearchLeadRole" class="searchLead"></span>
+                                <!-- <span class="search-text-profile-image-initials" data-bind="text:intials_request"></span> -->
+                            </div>
                         </li> 
                         <!-- /ko -->   
                     </ul>
                     <input id="combobox3"
                            data-bind="ojComponent: {component: 'ojCombobox',
+                           optionChange: requestValueChangeHandler,
                             placeholder:'Search',
                                  list: 'browsers2',
                               value: value2,

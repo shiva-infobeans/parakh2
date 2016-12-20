@@ -2401,6 +2401,44 @@ a#menu-share:hover > i{
 .height-fix{
 	height: 200px;
 }
+.text-area-both img {
+    width: 60%;
+}
+
+.text-area-both-margin-top{
+    margin-top: 8px !important;
+}
+.search-text-profile-image {
+    height: 40px;
+    display: inline-block;
+    position: relative;
+}
+.search-text-profile-image-initials {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 5px 4px;
+    color: #ffffff;
+}
+.profile-img-div-rate {
+    position: relative;
+    height: 80px;
+    display: inline-block;
+}
+
+.profile-img-div-rate-initials{
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: inline-block;
+    padding: 10px;
+    font-size: 40px;
+    height: 90px;
+    width: 90px;
+    text-align: center;
+    color: #ffffff;
+}
 /* z-index my buddy page */
 .loading-fix{
     clear: both;
