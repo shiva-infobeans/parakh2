@@ -1,34 +1,36 @@
 <div class="oj-web-applayout-max-width oj-web-applayout-content  ">
     <div class="oj-flex oj-row">
-
-        <div class="side-bar sideBarFix">
+        <div class="oj-lg-12 oj-md-12 oj-sm-12  oj-flex-item oj-col profile-text oj-flex oj-padding oj-margin">
+            <span class="oj-flex-bar-end oj-padding oj-margin color-white">&nbsp;</span>
+            <span id="sucess" class="sucessMsg oj-flex-bar-center" data-bind="text: sucessMsg"></span>
+        </div>
+    </div>
+    <div class="oj-flex oj-row">
+        <div class="side-bar">
             <ul class="ff1">
                 <li >
-                    <a href="javascript:void(0);"  class="buttons sideBar-feedback">
-                        <div class="rotate">
-                            <span>Feedback</span>  
-                            <!--<span>  <i class="zmdi zmdi-comment-text-alt"></i></span>-->
-                        </div>   
-                    </a>
+                     <a href="javascript:void(0);"  class=" sideBar-feedback">
+                         <div class="side-bar-img">
+                             <img src="../../images/home-feedback-btn.png" alt=""/>
+                          </div>   
+                      </a>
                 </li>
                 <li>
-                    <a href="help.html"  class="buttons sideBar-help">
-                        <div class="rotate">  Help 
-                            <!--<i class="zmdi zmdi-star"></i>-->
-                        </div>
-                    </a>
+                     <a href="help.html"  class=" sideBar-help">
+                         <div class="side-bar-img">  
+                             <img src="../../images/home-help-btn.png" alt=""/>
+                          </div>
+                      </a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);"  class="buttons sideBar-tour" data-bind="click: openTour">
-                        <div class="rotate">   Tour 
-                            <!--<i class="zmdi zmdi-star"></i>-->
-                        </div>
-                    </a>
+                    <a href="javascript:void(0);"  class=" sideBar-tour" data-bind="click: openTour">
+                         <div class="side-bar-img">
+                             <img src="../../images/home-tour-btn.png" alt=""/>
+                         </div>
+                      </a>
                 </li>
             </ul>
         </div>
-
-
     </div>
 </div>
 
@@ -43,19 +45,24 @@
                 </div>
                 <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center areaContent1 ">
                     <textarea id="text-area9" class="textArea-feedbackFloat" aria-label="ojTextArea component no visible label"
-
-                              ></textarea>
+                              data-bind=" ojComponent: {component: 'ojTextArea', 
+                                     value: message, 
+                                     placeholder: 'Type your feedback here..'}"></textarea>   
                 </div>
-
-                <!--<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center errorText" id="feedbackFloatTextError">Please provide a reason for your feedback.</div>-->
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal center errorText" data-bind="text:textError"></div>
                 <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                    <button class="modal-submitUserFeedback" > Send Feedback </button>
+                    <button class="modal-submitUserFeedback"  data-bind="click: userFeedback" > Send Feedback </button>
                 </div>
             </div>
         </div>
     </div>        
 </div>
 
+<!--loader-->
+<div class="loaderDiv loaderHide" id="userToParakh">
+    <div class="overlay-loader"></div>
+    <div class="loaderImgDiv"><img src="css/images/loader.gif" alt=""/></div>
+</div>
 <div class="hide" id="guideTour">
     <img alt="guide tour" id="puzzle" class="tourImg"
        data-bind="attr: { src: large() ? desktopImg :
