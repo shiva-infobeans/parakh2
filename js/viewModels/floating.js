@@ -106,9 +106,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.textError = ko.observable();
         self.searchError = ko.observable();
         self.role_name = ko.observable();
-
+        self.currentChangeid = ko.observable(0);
+        
         self.rateValueChangeHandler = function(context, valueParam){
-            
+            if(!isNaN(valueParam.value[0]))
+            {
+                self.currentChangeid(valueParam.value[0]);
+            }
             if(valueParam.option == 'rawValue')
             {
                 try{
@@ -137,7 +141,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         }
 
         self.feedbackValueChangeHandler = function(context, valueParam){
-            
+            if(!isNaN(valueParam.value[0]))
+            {
+                self.currentChangeid(valueParam.value[0]);
+            }
             if(valueParam.option == 'rawValue')
             {
                 try{
@@ -157,7 +164,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         }
 
         self.requestValueChangeHandler = function(context, valueParam){
-            
+            if(!isNaN(valueParam.value[0]))
+            {
+                self.currentChangeid(valueParam.value[0]);
+            }
             if(valueParam.option == 'rawValue')
             {
                 try{
@@ -380,7 +390,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 headers: {secret: secret},
                 method: 'POST',
                 url: addFeedback,
-                data: {feedback_from: self.userIdFloat(), feedback_to: self.value1()[0], feedback_description: self.desc()},
+                data: {feedback_from: self.userIdFloat(), feedback_to: self.currentChangeid(), feedback_description: self.desc()},
                 success: function () {
                     $("#modalDialog9").ojDialog("close");
                     self.value('');
@@ -426,7 +436,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 headers: {secret: secret},
                 method: 'POST',
                 url: addRating,
-                data: {from_id: self.userIdFloat(), to_id: self.value()[0], rating: self.p(), desc: self.desc(),'from_floating':1},
+                data: {from_id: self.userIdFloat(), to_id: self.currentChangeid(), rating: self.p(), desc: self.desc(),'from_floating':1},
                 success: function (result) {
                     $("#modalDialog3").ojDialog("close");
                     self.value('');
@@ -465,7 +475,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 headers: {secret: secret},
                 method: 'POST',
                 url: requestForOne,
-                data: {u_id: self.userIdFloat(), l_id: self.value2()[0], desc: self.desc()},
+                data: {u_id: self.userIdFloat(), l_id: self.currentChangeid(), desc: self.desc()},
                 success: function () {
                     $("#modalDialogRequest").ojDialog("close");
                     $("#sucess").show();
