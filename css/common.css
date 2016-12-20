@@ -486,6 +486,21 @@
     border-radius: 5px;
 	top: 150px !important;
 }
+#ojDialogWrapper-modalVideo.oj-dialog  {
+    overflow: hidden;
+    max-width: 100%;
+    min-width: 470px;
+    box-sizing: border-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    top: 150px !important;
+    }
+    .video{
+        width: 440px;
+        height: 250px;
+    }
 #ojDialogWrapper-modalDialog1.oj-dialog  {
     overflow: hidden;
     max-width: 100%;
