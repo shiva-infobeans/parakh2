@@ -56,6 +56,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
     function myTeamContentViewModel(person) {
         var self = this;
         self.image = ko.observable();
+        self.intials_feedback = ko.observable("");
+        self.intials_rate = ko.observable("");
+        self.intials_icc = ko.observable("");
         self.myname = ko.observable();
         self.myDesignation = ko.observable();
         self.role_name = ko.observable();
@@ -74,6 +77,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.data2 = ko.observable();
         self.userId = ko.observable();
         self.name = ko.observable();
+        self.intials = ko.observable("");
         self.for_id = ko.observable();
         self.role_name = ko.observable();
         self.desc = ko.observable();
@@ -387,7 +391,15 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.for_id($(this).attr("id"));
             self.image($(this).attr("image"));
             self.myname($(this).attr("myname"));
+            if($(this).attr("image") == '/images/default.png')
+            {
+                self.intials_icc(nameFunction($(this).attr("myname")));
+            }else
+            {
+                self.intials_icc("");
+            }
             self.myDesignation($(this).attr("myDesignation"));
+            self.intials($(this).attr("intials"))
             $('.textArea2').val('');
         });
         //feedbackLead
@@ -398,6 +410,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.for_id($(this).attr("myTeamId"));
             self.image($(this).attr("teamImage"));
             self.myname($(this).attr("teamName"));
+            if($(this).attr("teamImage") == '/images/default.png')
+            {
+                self.intials_feedback(nameFunction($(this).attr("teamName")));
+            }else
+            {
+                self.intials_feedback('');
+            }
             self.myDesignation($(this).attr("teamDesig"));
             $('.textArea-feedback').val('');
         });
@@ -406,13 +425,20 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.for_id($(this).attr("id"));
             self.image($(this).attr("image"));
             self.myname($(this).attr("myname"));
+            if($(this).attr("image") == '/images/default.png')
+            {
+                self.intials_feedback(nameFunction($(this).attr("myname")));
+            }else
+            {
+                self.intials_feedback('');
+            }
             self.myDesignation($(this).attr("myDesignation"));
         });
         //submit for rate buddy
         self.submitModal = function () {
             self.desc(self.desc().trim());
             if (self.desc() == '' || self.desc() == null) {
-                self.textError("Please Provide a reason for your rating");
+                self.textError("Please provide a reason for your rating.");
                 return false;
             } else {
 
@@ -425,6 +451,61 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         $("#modalDialog1").ojDialog("close");
                         $("#sucess").show();
                         self.sucessMsg("Member rated successfully!");
+
+                        /*refersh other team member div*/
+                        self.lazyAllMembers([]);
+                        self.members([]);
+                        self.pageNumAllMembers(0);
+                        self.indexer2Letters([]);
+                        self.lazyAllInitBlock(9);
+                        $.ajax({
+                            headers: {secret: secret},
+                            method: 'POST',
+                            url: getOtherTeamMembers + self.userId(),
+                            data: {user_id: self.userId()},
+                            success: function (task) {
+                                var data = JSON.parse(task)['data'];
+                                data = data.sort(function (a, b) {
+                                    return (a['google_name'] > b['google_name']) - (a['google_name'] < b['google_name']);
+                                });
+                                for (var counter1 = 0; counter1 < data.length; counter1++) {
+                                    self.lazyAllMembers.push(new teamMember(data[counter1]));
+                                }
+                                if (data.length != 0) {
+                                    self.rowcountAllMember(data.length);
+                                    self.rowcountAllMember();
+
+                                    if (data.length < self.lazyAllInitBlock())
+                                    {
+                                        var loadData = data.length;
+                                        $("#otherTeamLazy").hide();
+                                    } else {
+                                        var loadData = self.lazyAllInitBlock();
+                                    }
+
+                                    for (var c = 0; c < loadData; c++) {
+                                        self.members.push(self.lazyAllMembers()[c]);
+                                        self.pageNumAllMembers(self.pageNumAllMembers() + 1);
+                                    }
+                                }else{
+                                    $("#otherTeamLazy").hide();
+                                }
+                                self.data2(self.lazyAllMembers());
+                                self.indexer2Letters.push("All");
+                                $("#All a").addClass('indexerUnderline');
+                                for (var c = 0; c < self.data2().length; c++) {
+                                    if (c == 0) {
+                                        self.indexer2Letters.push(self.data2()[c]['name'].substring(0, 1));
+                                    } else {
+                                        var letter = self.data2()[c]['name'].substring(0, 1);
+                                        if (self.data2()[c - 1]['name'].substring(0, 1) != letter) {
+                                            self.indexer2Letters.push(letter);
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                        /*end refresh other team member div*/
                         setTimeout(function () {
                             $("#sucess").hide();
                             self.sucessMsg("");
@@ -446,7 +527,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.submitFeedback = function () {
             self.desc(self.desc().trim());
             if (self.desc() == '' || self.desc() == null) {
-                self.textError("Please Provide your feedback");
+                self.textError("Please provide comments for your feedback.");
                 return false;
             } else {
                 $.ajax({
@@ -457,7 +538,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     success: function () {
                         $("#modalDialog8").ojDialog("close");
                         $("#sucessFeedback").show();
-                        self.sucessMsgFeedback("Feedback is sent!");
+                        self.sucessMsgFeedback("Feedback sent successfully!");
                         setTimeout(function () {
                             $("#sucessFeedback").hide();
                             self.sucessMsgFeedback("");
@@ -481,15 +562,30 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.image1("../../images/active(+1).png")
             self.image2("../../images/disable(-1).png");
             self.teamImage($(this).attr("teamImage"));
+            if($(this).attr("teamImage") == '/images/default.png')
+            {
+                self.intials_rate(nameFunction($(this).attr("teamName")));
+            }else
+            {
+                self.intials_rate('');
+            }
             self.myId($(this).attr("myTeamId"));
             self.teamName($(this).attr("teamName"));
             self.teamDesig($(this).attr("teamDesig"));
+            self.intials($(this).attr("intials"));
 
         });
 
         //feedback...
         $("body").on('click', '.feedbackBuddy', function () {
             self.teamImage($(this).attr("teamImage"));
+            if($(this).attr("teamImage") == '/images/default.png')
+            {
+                self.intials_rate(nameFunction($(this).attr("teamName")));
+            }else
+            {
+                self.intials_rate('');
+            }
             self.myId($(this).attr("myTeamId"));
             self.teamName($(this).attr("teamName"));
             self.teamDesig($(this).attr("teamDesig"));
@@ -501,10 +597,18 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.desc('');
             self.textError('');
             self.teamImage($(this).attr("teamImage"));
+            if($(this).attr("teamImage") == '/images/default.png')
+            {
+                self.intials_rate(nameFunction($(this).attr("teamName")));
+            }else
+            {
+                self.intials_rate('');
+            }
+
             self.myId($(this).attr("myTeamId"));
             self.teamName($(this).attr("teamName"));
             self.teamDesig($(this).attr("teamDesig"));
-
+            self.intials($(this).attr("intials"));
         });
         self.p = ko.observable(1);
 
@@ -528,7 +632,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         this.leadSubmit = function () {
             self.desc(self.desc().trim());
             if (self.desc() == '' || self.desc() == null) {
-                self.textError("Please Provide a reason for your rating");
+                self.textError("Please provide a reason for your rating.");
                 return false;
             } else {
                 $.ajax({
@@ -540,6 +644,74 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         $("#modalDialog2").ojDialog("close");
                         self.sucessMsg("Member rated successfully!");
                         $("#sucess").show();
+                        /*refersh users list by lead after give +1 rating*/
+                        var user = oj.Model.extend({
+                            url: getUserByEmail + person['email']
+                        });
+                        var getId = new user();
+                        getId.fetch({
+                            headers: {secret: secret},
+                            success: function (res) {
+                                // self.userId(res['attributes']['data']['id']);
+                                // self.lead_id(res['attributes']['data']['id']);
+                                // self.role_name(res['attributes']['data']['role_name']);
+
+                            self.lazyMyMembers([]);
+                            self.myTeam([]);
+                            self.pageNumMyMembers();
+                            self.indexer1Letters([]);
+                            self.lazyMyInitBlock(9);
+                            $.ajax({
+                                headers: {secret: secret},
+                                method: 'POST',
+                                url: getUserByLead + self.lead_id(),
+                                data: {user_id: res['attributes']['data']['id']},
+                                success: function (task) {
+                                    self.myTeamTab(1);
+                                    var data = JSON.parse(task)['data'];
+                                    data = data.sort(function (a, b) {
+                                        return (a['user_name'] > b['user_name']) - (a['user_name'] < b['user_name']);
+                                    });
+                                    for (var counter1 = 0; counter1 < data.length; counter1++) {
+                                        self.lazyMyMembers.push(new leadTeam(data[counter1]));
+                                        //self.myTeam.push(new leadTeam(data[counter1]));
+                                    }
+                                    if (data.length != 0) {
+                                        self.rowcountMyMember(data.length);
+
+                                        if (data.length < self.lazyMyInitBlock())
+                                        {
+                                            var loadData = data.length;
+                                            $("#myTeamLazy").hide();
+                                        } else {
+                                            var loadData = self.lazyMyInitBlock();
+                                        }
+
+                                        for (var c = 0; c < loadData; c++) {
+                                            self.myTeam.push(self.lazyMyMembers()[c]);
+                                            self.pageNumMyMembers(self.pageNumMyMembers() + 1);
+                                        }
+                                    }else{
+                                        $("#myTeamLazy").hide();
+                                    }
+                                    self.data1(self.lazyMyMembers());
+                                    self.indexer1Letters.push("All");
+                                    $("#All1 a").addClass('indexerUnderline');
+                                    for (var c = 0; c < self.data1().length; c++) {
+                                        if (c == 0) {
+                                            self.indexer1Letters.push(self.data1()[c]['myName'].substring(0, 1));
+                                        } else {
+                                            var letter = self.data1()[c]['myName'].substring(0, 1);
+                                            if (self.data1()[c - 1]['myName'].substring(0, 1) != letter) {
+                                                self.indexer1Letters.push(letter);
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    });
+                    /*end refresh*/
                         setTimeout(function () {
                             $("#sucess").hide();
                             self.sucessMsg("");

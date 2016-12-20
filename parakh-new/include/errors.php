@@ -87,6 +87,12 @@ switch ($error_code) {
         'error' => 'Invalid value for phone'
         );
         break;
+    case 3014:
+        return array(
+        'code' => '3013',
+        'error' => 'Authentication Failed!'
+        );
+        break;
     case "blue":
         echo "Your favorite color is blue!";
         break;
