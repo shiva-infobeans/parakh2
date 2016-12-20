@@ -1664,6 +1664,15 @@ div.oj-tabs-panel.oj-tabs-selected{
 .rating-section{
     min-height: 300px;
 }
+#ojDialogWrapper-modalDialog-userFeedback.oj-dialog{
+    min-width: 310px !important;
+}
+#modalDialog-userFeedback .oj-dialog-body{
+    height: 360px !important;
+}
+#ojDialogWrapper-modalDialog-userFeedback .oj-dialog-content{
+        height: 390px !important;
+}
 }
 
 .transboxRequest2{
@@ -2106,10 +2115,7 @@ ul.ff1{
     /*top: 150px;*/
     z-index:100;
 }
-ul.ff1 li{
-    list-style:none;
-    margin-bottom:10px;
-}
+
 
 
 ul.ff1 li a{

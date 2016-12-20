@@ -87,10 +87,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     url: sendFeedback,
                     data: {desc: self.message(),from: self.email,from_name: self.userName()},
                     success: function () {
-                        console.log('sent');
-                        console.log(self.email);
-                        console.log(self.message());
-                         console.log( self.userName());
                         $("#modalDialog-userFeedback").ojDialog("close");
                         $("#sucess").show();
                         self.sucessMsg("Feedback sent successfully!");
