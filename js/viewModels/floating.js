@@ -107,65 +107,68 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.searchError = ko.observable();
         self.role_name = ko.observable();
         self.currentChangeid = ko.observable(0);
-        
-        self.rateValueChangeHandler = function(context, valueParam){
-            if(!isNaN(valueParam.value[0]))
+
+        self.rateValueChangeHandler = function (context, valueParam) {
+            if (!isNaN(valueParam.value[0]))
             {
                 self.currentChangeid(valueParam.value[0]);
             }
-            if(valueParam.option == 'rawValue')
+            if (valueParam.option == 'rawValue')
             {
-                try{
+                try {
                     spaceCount = (valueParam.value.split(" ").length - 1);
-                    name = valueParam.value.replace(/ /g,"");
-                    if(spaceCount>2){
+                    name = valueParam.value.replace(/ /g, "");
+                    if (spaceCount > 2) {
                         name = name.substring(0, name.length - 2);
                     }
                     name = name.replace(/([A-Z])/g, ' $1').trim();
-                    id = "#"+name.replace(/ /g,"_").toLowerCase();
+                    id = "#" + name.replace(/ /g, "_").toLowerCase();
                     $('#oj-combobox-input-combobox2').val(name);
-                    if(typeof $(id).val()!='undefined' && $(id).val()==1)
+                    if (typeof $(id).val() != 'undefined' && $(id).val() == 1)
                     {
                         $('.text-area-plus-one').hide();
                         $('.text-area-both').show();
-                    }else
+                    } else
                     {
                         $('.text-area-plus-one').show();
                         $('.text-area-both').hide();
                     }
-                }catch(e)
+                } catch (e)
                 {
                     console.log(e);
                 }
             }
         }
 
-        self.rateValueChangeHandler = function(context, valueParam){
-            if(!isNaN(valueParam.value[0]))
+        self.rateValueChangeHandler = function (context, valueParam) {
+            if (!isNaN(valueParam.value[0]))
             {
                 self.currentChangeid(valueParam.value[0]);
             }
-            if(valueParam.option == 'rawValue')
+            if (valueParam.option == 'rawValue')
             {
-                try{
-                    spaceCount = (valueParam.value.split(" ").length - 1);
-                    name = valueParam.value.replace(/ /g,"");
-                    if(spaceCount>2){
+                try {
+                    var spaceCount = (valueParam.value.split(" ").length - 1);
+                    var name = valueParam.value.replace(/ /g, "");
+                    if (spaceCount > 2) {
                         name = name.substring(0, name.length - 2);
                     }
-                    name = name.replace(/([A-Z])/g, ' $1').trim();
-                    id = "#"+name.replace(/ /g,"_").toLowerCase();
-                    $('#oj-combobox-input-combobox2').val(name);
-                    if(typeof $(id).val()!='undefined' && $(id).val()==1)
-                    {
-                        $('.text-area-plus-one').hide();
-                        $('.text-area-both').show();
-                    }else
-                    {
-                        $('.text-area-plus-one').show();
-                        $('.text-area-both').hide();
+                    if (name != '') {
+                        name = name.replace(/([A-Z])/g, ' $1').trim();
+                        var id = "#" + name.replace(/ /g, "_").toLowerCase();
+
+                        $('#oj-combobox-input-combobox2').val(name);
+                        if (typeof $(id).val() != 'undefined' && $(id).val() == 1)
+                        {
+                            $('.text-area-plus-one').hide();
+                            $('.text-area-both').show();
+                        } else
+                        {
+                            $('.text-area-plus-one').show();
+                            $('.text-area-both').hide();
+                        }
                     }
-                }catch(e)
+                } catch (e)
                 {
                     console.log(e);
                 }
@@ -176,92 +179,92 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             // });
         }
 
-        self.feedbackValueChangeHandler = function(context, valueParam){
-            if(!isNaN(valueParam.value[0]))
+        self.feedbackValueChangeHandler = function (context, valueParam) {
+            if (!isNaN(valueParam.value[0]))
             {
                 self.currentChangeid(valueParam.value[0]);
             }
-            if(valueParam.option == 'rawValue')
+            if (valueParam.option == 'rawValue')
             {
-                try{
+                try {
                     spaceCount = (valueParam.value.split(" ").length - 1);
-                    name = valueParam.value.replace(/ /g,"");
-                    if(spaceCount>2){
+                    name = valueParam.value.replace(/ /g, "");
+                    if (spaceCount > 2) {
                         name = name.substring(0, name.length - 2);
                     }
                     name = name.replace(/([A-Z])/g, ' $1').trim();
-                    id = "#"+name.replace(/ /g,"_").toLowerCase();
+                    id = "#" + name.replace(/ /g, "_").toLowerCase();
                     $('#oj-combobox-input-combobox9').val(name);
-                }catch(e)
+                } catch (e)
                 {
                     console.log(e);
                 }
             }
         }
 
-        self.requestValueChangeHandler = function(context, valueParam){
-            if(!isNaN(valueParam.value[0]))
+        self.requestValueChangeHandler = function (context, valueParam) {
+            if (!isNaN(valueParam.value[0]))
             {
                 self.currentChangeid(valueParam.value[0]);
             }
-            if(valueParam.option == 'rawValue')
+            if (valueParam.option == 'rawValue')
             {
-                try{
+                try {
                     spaceCount = (valueParam.value.split(" ").length - 1);
-                    name = valueParam.value.replace(/ /g,"");
-                    if(spaceCount>6){
+                    name = valueParam.value.replace(/ /g, "");
+                    if (spaceCount > 6) {
                         name = name.substring(0, name.length - 2);
                     }
                     name = name.replace(/([A-Z])/g, ' $1').trim();
-                    id = "#"+name.replace(/ /g,"_").toLowerCase();
+                    id = "#" + name.replace(/ /g, "_").toLowerCase();
                     $('#oj-combobox-input-combobox3').val(name);
-                }catch(e)
+                } catch (e)
                 {
                     console.log(e);
                 }
             }
         }
 
-        self.feedbackValueChangeHandler = function(context, valueParam){
-            if(!isNaN(valueParam.value[0]))
+        self.feedbackValueChangeHandler = function (context, valueParam) {
+            if (!isNaN(valueParam.value[0]))
             {
                 self.currentChangeid(valueParam.value[0]);
             }
-            if(valueParam.option == 'rawValue')
+            if (valueParam.option == 'rawValue')
             {
-                try{
+                try {
                     spaceCount = (valueParam.value.split(" ").length - 1);
-                    name = valueParam.value.replace(/ /g,"");
-                    if(spaceCount>2){
+                    name = valueParam.value.replace(/ /g, "");
+                    if (spaceCount > 2) {
                         name = name.substring(0, name.length - 2);
                     }
                     name = name.replace(/([A-Z])/g, ' $1').trim();
-                    id = "#"+name.replace(/ /g,"_").toLowerCase();
+                    id = "#" + name.replace(/ /g, "_").toLowerCase();
                     $('#oj-combobox-input-combobox9').val(name);
-                }catch(e)
+                } catch (e)
                 {
                     console.log(e);
                 }
             }
         }
 
-        self.requestValueChangeHandler = function(context, valueParam){
-            if(!isNaN(valueParam.value[0]))
+        self.requestValueChangeHandler = function (context, valueParam) {
+            if (!isNaN(valueParam.value[0]))
             {
                 self.currentChangeid(valueParam.value[0]);
             }
-            if(valueParam.option == 'rawValue')
+            if (valueParam.option == 'rawValue')
             {
-                try{
+                try {
                     spaceCount = (valueParam.value.split(" ").length - 1);
-                    name = valueParam.value.replace(/ /g,"");
-                    if(spaceCount>6){
+                    name = valueParam.value.replace(/ /g, "");
+                    if (spaceCount > 6) {
                         name = name.substring(0, name.length - 2);
                     }
                     name = name.replace(/([A-Z])/g, ' $1').trim();
-                    id = "#"+name.replace(/ /g,"_").toLowerCase();
+                    id = "#" + name.replace(/ /g, "_").toLowerCase();
                     $('#oj-combobox-input-combobox3').val(name);
-                }catch(e)
+                } catch (e)
                 {
                     console.log(e);
                 }
@@ -319,12 +322,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             item.value = data[counter1]['id'];
                             item.label = data[counter1]['google_name'];
                             item.searchPic = data[counter1]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data[counter1]['google_picture_link'];
-                            item.optionId = data[counter1]['google_name'].replace(/ /g,"_").toLowerCase();
+                            item.optionId = data[counter1]['google_name'].replace(/ /g, "_").toLowerCase();
                             item.isManager = data[counter1]['is_manager_current_user'];
-                            if(data[counter1]['google_picture_link'] == '/images/default.png')
+                            if (data[counter1]['google_picture_link'] == '/images/default.png')
                             {
                                 item.intials_rate = nameFunction(data[counter1]['google_name']);
-                            }else
+                            } else
                             {
                                 item.intials_rate = '';
                             }
@@ -332,7 +335,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         }
                     }
                 });
-        
+
                 $.ajax({
                     headers: {secret: secret},
                     method: 'POST',
@@ -347,10 +350,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             item.value = data[counter1]['user_id'];
                             item.label = data[counter1]['google_name'];
                             item.searchPic = data[counter1]['picture'] == "" ? 'images/warning-icon-24.png' : data[counter1]['picture'];
-                            if(data[counter1]['picture'] == '/images/default.png')
+                            if (data[counter1]['picture'] == '/images/default.png')
                             {
                                 item.intials_feedback = nameFunction(data[counter1]['google_name']);
-                            }else
+                            } else
                             {
                                 item.intials_feedback = '';
                             }
@@ -358,27 +361,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         }
                     }
                 });
-                // var getSearchUser = oj.Model.extend(
-                //         {
-                //             url: getAllTeamMembers + self.userIdFloat(),
-                //         });
-
-                // var floatMember = new getSearchUser();
-                // floatMember.fetch({
-                //     headers: {secret: secret},
-                //     success: function () {
-                //         var data = floatMember.attributes['data'];
-                //         for (var counter1 = 0; counter1 < data.length; counter1++) {
-                //             self.searchUser.push(new autoSearch(data[counter1]));
-                //             var item = new Object();
-                //             item.value = data[counter1]['id'];
-                //             item.label = data[counter1]['google_name'];
-                //             item.searchPic = data[counter1]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data[counter1]['google_picture_link'];
-                //             self.browsers.push(item);
-                //             self.browsers1.push(item);
-                //         }
-                //     }
-                // });
             }
         });
         //auto search for respective team lead or manager
@@ -398,7 +380,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 var teamLeadSearch = new getautoSearchLead();
                 teamLeadSearch.fetch({
                     headers: {secret: secret},
-                    success: function () { 
+                    success: function () {
                         var data = teamLeadSearch.attributes['data'];
                         if (data.length == 2) {
 
@@ -408,10 +390,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             item1.label = data[0]['manager_name'];
                             item1.autoSearchLeadPic = data[0]['google_picture_link'];
                             item1.autoSearchLeadRole = data[0]['role_name'];
-                            if(data[0]['google_picture_link'] == '/images/default.png')
+                            if (data[0]['google_picture_link'] == '/images/default.png')
                             {
                                 item1.intials_request = nameFunction(data[0]['manager_name']);
-                            }else
+                            } else
                             {
                                 item1.intials_request = '';
                             }
@@ -421,29 +403,30 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             item2.label = data[1]['manager_name'];
                             item2.autoSearchLeadPic = data[1]['google_picture_link'];
                             item2.autoSearchLeadRole = data[1]['role_name'];
+                            if (data[1]['google_picture_link'] == '/images/default.png')
+                            {
+                                item2.intials_request = nameFunction(data[1]['manager_name']);
+                            } else
+                            {
+                                item2.intials_request = '';
+                            }
                             if (item1.value == item2.value) {
                                 self.browsers2.push(item1);
                             } else {
                                 self.browsers2.push(item1);
                                 self.browsers2.push(item2);
                             }
-                            if(data[1]['google_picture_link'] == '/images/default.png')
-                            {
-                                item2.intials_request = nameFunction(data[1]['manager_name']);
-                            }else
-                            {
-                                item2.intials_request = '';
-                            }
+
                         } else {
                             var item1 = new Object();
                             item1.value = data[0]['manager_id'];
                             item1.label = data[0]['manager_name'];
                             item1.autoSearchLeadPic = data[0]['google_picture_link'];
                             item1.autoSearchLeadRole = data[0]['role_name'];
-                            if(data[0]['google_picture_link'] == '/images/default.png')
+                            if (data[0]['google_picture_link'] == '/images/default.png')
                             {
                                 item1.intials_request = nameFunction(item1.label);
-                            }else
+                            } else
                             {
                                 item1.intials_request = '';
                             }
@@ -518,7 +501,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 headers: {secret: secret},
                 method: 'POST',
                 url: addRating,
-                data: {from_id: self.userIdFloat(), to_id: self.currentChangeid(), rating: self.p(), desc: self.desc(),'from_floating':1},
+                data: {from_id: self.userIdFloat(), to_id: self.currentChangeid(), rating: self.p(), desc: self.desc(), 'from_floating': 1},
                 success: function (result) {
                     $("#modalDialog3").ojDialog("close");
                     self.value('');

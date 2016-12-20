@@ -2508,6 +2508,67 @@ a#menu-share:hover > i{
 .mb-cst{
     margin-bottom: 46px !important;
 }
+
 #modalVideo{
     width: 100%;
 }
+
+/* tour image location */
+@media screen and (max-width: 767px){
+    .tourImg{
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 11;
+    }
+}
+@media screen and (min-width: 768px){
+    .tourImg{
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 11;
+    }
+}
+.tourClose,a.tourClose:active,a.tourClose:focus{
+    position: fixed;
+    top: 12px;
+    right: 21px;
+    z-index: 12;
+    color: #fff;
+    cursor: pointer;
+}
+@media  screen and (min-width: 1024px){
+    .backToLoginAchivement {
+        margin-right: 0px !important;
+    }
+}
+@media  screen and (min-width: 320px) and (max-width: 767px) {
+    .backToLoginAchivement {
+        margin-top: 45px !important;
+        padding-bottom: 15px !important;
+    }
+}
+.backToLoginAchivement {
+    border-bottom: 5px solid #fff;
+    font-weight: bolder;
+    float: right;
+    margin-top: 99px;
+    padding-bottom: 15px;
+    color: #fff;
+    font-size: 20px;
+    margin-right: 10px;
+}
+.backToLoginAchivement a,.backToLoginAchivement a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+>>>>>>> devrc2
