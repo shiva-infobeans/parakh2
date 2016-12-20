@@ -1117,18 +1117,44 @@ $app->get('/getLastMonthLoginUsers[/]', function ($request, $response, $args) {
     $response->withJson($response_data);
     return $response;
 });
+
 /* *
  * URL: http://localhost/parakh-new/v1/index.php/getPositionOfUserInRanking/
  * Parameters: none
  * 
  * Method: GET
  * */    
+
 $app->get('/getPositionOfUserInRanking[/]', function ($request, $response, $args) {
+
     $response_data = array();
     
     //Creating a dbmodule object
     $db = new dbmodule();
+
     $result = $db->get_position_of_user_in_ranking();
+
+    if($result != 0){
+        $response_data = makeResponse('false',$result);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3001));
+    }    
+    $response->withJson($response_data);
+    return $response;
+});
+
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getParakhVideo/
+ * Parameters: none
+ * 
+ * Method: GET
+ * */    
+$app->get('/getParakhVideo[/]', function ($request, $response, $args) {
+    $response_data = array();
+    
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    $result = $db->get_parakh_video();
     if($result != 0){
         $response_data = makeResponse('false',$result);
     }else{
