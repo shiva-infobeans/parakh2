@@ -42,7 +42,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
     function topRanksContentViewModel(person) {
         var self = this;
         
-  self.selectedMenuItem = ko.observable("(None selected yet)");
+  self.selectedMenuItem = ko.observable();
 
     self.menuItemSelect = function( event, ui ) {
         console.log(event['currentTarget']);
