@@ -7,7 +7,7 @@
 /**
  * topRanks module
  */
-define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'ojs/ojmodel'
+define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'ojs/ojmodel', 'ojs/ojbutton', 'ojs/ojmenu'
 ], function (oj, ko) {
     /**
      * The view model for the main content view template
@@ -41,6 +41,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
 
     function topRanksContentViewModel(person) {
         var self = this;
+        
+  self.selectedMenuItem = ko.observable("(None selected yet)");
+
+    self.menuItemSelect = function( event, ui ) {
+        console.log(event['currentTarget']);
+       
+    };
 
         self.members = ko.observableArray([]);
         self.userId = ko.observable();
@@ -117,8 +124,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
         });
         
         
-        self.chartOptionChange =  function(event, ui) {
-            
+        self.chartOptionChange =  function(event, ui) {  
           if (ui['option'] == 'selection') {
               var userId = ui['optionMetadata']['selectionData'][0]['data']['user_id'];
               window.location = "memberProfile.html?id=" + userId;
