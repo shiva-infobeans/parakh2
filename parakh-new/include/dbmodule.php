@@ -773,11 +773,25 @@ class dbmodule {
                 }
                 $image = $this->getCacheImage($employeeList[$y]['google_email'],$default_img);
                 $employeeList[$y]['google_picture_link'] = $image;
-                
+                $employeeList[$y]['is_manager_current_user'] = $this->getManagerID($employeeList[$y]['id']);
             }
-
             return $employeeList;
         } else {
+            return 0;
+        }
+    }
+
+    /*get manager id by user id*/
+    function getManagerID($user_id)
+    {
+        $query = "select manager_id from user_hierarchy where user_id=:user_id AND manager_id in (select id from users where google_email=:manager_email)";
+        $fetch_manager = $this->con->prepare($query);
+        $fetch_manager->execute(array(':user_id' => $user_id,':manager_email' => $_COOKIE['email']));
+        if($fetch_manager->fetchColumn())
+        {
+            return 1;
+        }else
+        {
             return 0;
         }
     }

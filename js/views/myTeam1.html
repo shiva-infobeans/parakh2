@@ -160,19 +160,21 @@ and open the template in the editor.
         <div style="display:none" id="modalDialog1" title="Rate Buddy" class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item "
              data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide'}">
 
-            <div class="oj-dialog-body">
-                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex oj-flex-item oj-padding"  style="margin-top: -10px;">
-                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+        <div class="oj-dialog-body">
+            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex oj-flex-item oj-padding"  style="margin-top: -10px;">
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin">
+                    <div class="profile-img-div-rate">
                         <img class="profile2 border-color-white" data-bind="attr: {src: image}"/>
-
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                            <h4><strong><span data-bind="text: myname"  ></span></strong></h4>
-                            <h5><span data-bind="text: myDesignation"></span></h5>
-                        </div>
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin area text-area-custom">
-                            <div class="oj-xl-9 oj-lg-9 oj-md-8 oj-sm-8 oj-flex-item  oj-flex areaContent   ">
-                                <textarea id="text-area" class="textArea2" aria-label="ojTextArea component no visible label"
-                                          data-bind=" ojComponent: {component: 'ojTextArea', 
+                        <span class="profile-img-div-rate-initials" data-bind="text:intials_icc"></span>
+                    </div>
+                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
+                        <h4><strong><span data-bind="text: myname"  ></span></strong></h4>
+                        <h5><span data-bind="text: myDesignation"></span></h5>
+                    </div>
+                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin area text-area-custom">
+                        <div class="oj-xl-9 oj-lg-9 oj-md-8 oj-sm-8 oj-flex-item  oj-flex areaContent   ">
+                            <textarea id="text-area" class="textArea2" aria-label="ojTextArea component no visible label"
+                                      data-bind=" ojComponent: {component: 'ojTextArea', 
                                      value: desc, 
                                      placeholder: 'Type your reason here..'}"></textarea>   
 
@@ -198,15 +200,17 @@ and open the template in the editor.
 
 <!--Modal for rating +1 or -1  to other team member from rate buddy page only accessed by team lead--> 
 <div class="oj-row oj-flex">
-    <div id="dialogWrapper2" >
-        <div style="display:none" id="modalDialog2" title="Rate Buddy" class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item "
-             data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide'}">
+<div id="dialogWrapper2" >
+    <div style="display:none" id="modalDialog2" title="Rate Buddy" class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item "
+         data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide'}">
 
-            <div class="oj-dialog-body">
-                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex oj-flex-item oj-padding">
-                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
+        <div class="oj-dialog-body">
+            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex oj-flex-item oj-padding">
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
+                    <div class="profile-img-div-rate">
                         <img class="profile2 border-color-white" data-bind="attr: {src:teamImage}"/>
-
+                        <span class="profile-img-div-rate-initials" data-bind="text:intials_rate"></span>
+                    </div>
                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
                             <h4>  <strong><span data-bind="text:teamName"  ></span></strong></h4>
                             <h5><span data-bind="text: teamDesig"></span></h5>
@@ -245,7 +249,10 @@ and open the template in the editor.
              data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide'}">
             <div class="oj-dialog-body oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item">
                 <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                    <img class="profile border-color-white" data-bind="attr: {src: image}"/>
+                    <div class="profile-img-div-rate">
+                        <img class="profile border-color-white" data-bind="attr: {src: image}"/>
+                        <span class="profile-img-div-rate-initials" data-bind="text:intials_feedback"></span>
+                    </div>
 
                     <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
                         <h4><strong><span data-bind="text: myname"  ></span></strong></h4>
