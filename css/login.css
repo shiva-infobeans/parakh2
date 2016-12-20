@@ -57,6 +57,16 @@ img#my-signin2{
     top: 100px;
     width: 350px;
 }
+.top-image {
+    position: fixed;
+    top: 90px;
+    left: 10px;
+}
+.bottom-image {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+}
 @media (min-device-width:320px) and (max-device-width: 767px){
     .login-btn {
         position: fixed !important;
@@ -117,7 +127,9 @@ img#my-signin2{
         bottom: 85px;
         right: 100px;
     }
+
 }
+
 .errorMsg{
     position: fixed;
     top: 0;
@@ -163,3 +175,4 @@ img#my-signin2{
     width: 100%;
     background-color: rgba(0,0,0,0.7);
 }
+>>>>>>> devrc2
