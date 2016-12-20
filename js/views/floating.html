@@ -57,6 +57,7 @@
                     </ul>
                     <input id="combobox9" 
                            data-bind="ojComponent: {component: 'ojCombobox',
+                           optionChange: feedbackValueChangeHandler,
                             placeholder:'Search team member',
                               list: 'browsers1',
                               value: value1,     
@@ -172,6 +173,7 @@
                     </ul>
                     <input id="combobox3"
                            data-bind="ojComponent: {component: 'ojCombobox',
+                           optionChange: requestValueChangeHandler,
                             placeholder:'Search',
                                  list: 'browsers2',
                               value: value2,
