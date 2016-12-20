@@ -421,12 +421,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             item2.label = data[1]['manager_name'];
                             item2.autoSearchLeadPic = data[1]['google_picture_link'];
                             item2.autoSearchLeadRole = data[1]['role_name'];
-                            if (item1.value == item2.value) {
-                                self.browsers2.push(item1);
-                            } else {
-                                self.browsers2.push(item1);
-                                self.browsers2.push(item2);
-                            }
                             if(data[1]['google_picture_link'] == '/images/default.png')
                             {
                                 item2.intials_request = nameFunction(data[1]['manager_name']);
@@ -434,6 +428,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             {
                                 item2.intials_request = '';
                             }
+                            if (item1.value == item2.value) {
+                                self.browsers2.push(item1);
+                            } else {
+                                self.browsers2.push(item1);
+                                self.browsers2.push(item2);
+                            }
+                            
                         } else {
                             var item1 = new Object();
                             item1.value = data[0]['manager_id'];
