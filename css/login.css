@@ -115,8 +115,9 @@ img#my-signin2{
     padding: 5px;
 }
 .achivementLink a{
-    color:#df4a32;
+    color:#df4a32 !important;
     font-size: 30px;
+    text-decoration: underline;
 }
 @media screen and (min-width:320px) and (max-width: 500px){
     .linkPos1{
