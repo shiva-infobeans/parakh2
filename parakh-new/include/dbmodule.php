@@ -393,7 +393,7 @@ class dbmodule {
      */
     function send_notification($email_data) {
         require_once 'notifications.php';
-        //send_mail($email_data);
+        send_mail($email_data);
     }
 
 //end of fun
@@ -808,10 +808,25 @@ class dbmodule {
                 }
                 $image = $this->getCacheImage($employeeList[$y]['google_email'], $default_img);
                 $employeeList[$y]['google_picture_link'] = $image;
+                $employeeList[$y]['is_manager_current_user'] = $this->getManagerID($employeeList[$y]['id']);
             }
-
             return $employeeList;
         } else {
+            return 0;
+        }
+    }
+
+    /*get manager id by user id*/
+    function getManagerID($user_id)
+    {
+        $query = "select manager_id from user_hierarchy where user_id=:user_id AND manager_id in (select id from users where google_email=:manager_email)";
+        $fetch_manager = $this->con->prepare($query);
+        $fetch_manager->execute(array(':user_id' => $user_id,':manager_email' => $_COOKIE['email']));
+        if($fetch_manager->fetchColumn())
+        {
+            return 1;
+        }else
+        {
             return 0;
         }
     }
@@ -1880,6 +1895,46 @@ class dbmodule {
         return $data;
     }
 
+
+    /*get parakh video for login page*/
+    function get_parakh_video(){
+        $video = '<video class="video" id="parakh_video" controls="" loop="" width="572" height="320"><source type="video/ogg" src="Parakh_Teaser.mp4"><source type="video/mp4" src="Parakh_Teaser.mp4"><object  type="application/x-shockwave-flash" data="Parakh_Teaser.mp4" wmode="transparent"><param name="movie" value="Parakh_Teaser.mp4"><param name="wmode" value="transparent"><param name="autostart" value="false"></object></video>';
+
+        $data['video'] = $video;
+        return $data;
+        
+    }
+
+    
+    /*send feedback function*/
+ /*send feedback function*/
+   function send_feedback($data){
+       if(isset($data['desc'])){
+           $email_data = [];
+           $temp_data = $this->getEmailTemplateByCode('PRKE01');
+           $email_data['to']['email'] = FEEDBACK_EMAIL;
+           $email_data['to']['name'] = "Feedack Parakh";
+           $email_data['from'] = $data['from'];
+           $email_data['from_name'] = $data['from_name'];
+           $email_data['subject'] = "Feedback";
+           // $email_data['subject'] = $temp_data['subject'];
+           $vars = array();
+           // $vars = array(
+           //     "{username}" => $email_data['to']['name'],
+           //     "{rating}" => $rating,
+           //     "{parakh}" => $this->getParakhLink(),
+           // );
+           //$temp_data['content'] = $_POST['message'];
+           $message = strtr($data['desc'], $vars);
+           $email_data['message'] = $data['desc'];
+           $this->send_notification($email_data);
+           return 1;
+       }else
+       {
+           return 0;
+       }
+   }
+
     /* find last month login users only and send mail to them */
 
     function get_last_month_login_users() {
@@ -1953,33 +2008,43 @@ class dbmodule {
         return $rankers;
     }
 
-    /* get login rankers of the current month */
+    /* get logged in users rank of the current month */
 
-    function get_top_rankers_current_month() {
-        $query = "SELECT r.created_date as date,r.user_id,u.google_name,u.google_email,u.primary_project,u.projects,u.google_picture_link as image,
-                    sum(case when r.rating = 1 then 1  end) as pluscount,
-                    sum(case when r.rating = 0 then 1  end) as minuscount
-                    from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 AND MONTH(r.created_date) = MONTH(CURDATE())
+    function get_rank_of_logged_in_user_in_current_month($login_user_id) {
+
+        $query = "SELECT MAX(r.created_date) as date, r.user_id,u.google_name,u.google_picture_link as image,
+                       sum(case when r.rating = 1 then 1  end) as pluscount,
+                       sum(case when r.rating = 0 then 1  end) as minuscount
+                       from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 AND MONTH(r.created_date) = MONTH(CURDATE())
                     AND YEAR(r.created_date) = YEAR(CURDATE())
-                    group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC";
-        $rankers_data = $this->con->prepare($query);
-        $rankers_data->execute();
-        $rankers = $rankers_data->fetchAll((PDO::FETCH_ASSOC));
-        return $rankers;
+                       group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC";
+        $rank_data = $this->con->prepare($query);
+        $rank_data->execute();
+        $row = $rank_data->fetchAll((PDO::FETCH_ASSOC));
+        $login_user_rank_position = array_search($login_user_id, array_column($row, 'user_id'));
+        $result = array();
+        $result['my_rank'] = (is_bool($login_user_rank_position) == false) ? $login_user_rank_position + 1 : '-';
+        $result['total_user_count'] = $this->get_all_members_cnt()['totalusercnt'];
+        return $result;
     }
 
-    /* get login rankers of the past 90 days */
+    /* get logged in users rank of the past 90 days */
 
-    function get_top_rankers_of_90_days() {
-        $query = "SELECT r.created_date as date,r.user_id,u.google_name,u.google_email,u.primary_project,u.projects,u.google_picture_link as image,
-                    sum(case when r.rating = 1 then 1  end) as pluscount,
-                    sum(case when r.rating = 0 then 1  end) as minuscount
-                    from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 AND r.created_date > DATE_SUB(NOW(), INTERVAL 90 DAY)
-                    group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC";
-        $rankers_data = $this->con->prepare($query);
-        $rankers_data->execute();
-        $rankers = $rankers_data->fetchAll((PDO::FETCH_ASSOC));
-        return $rankers;
+    function get_rank_of_logged_in_user_in_past_90_days($login_user_id) {
+        $query = "SELECT MAX(r.created_date) as date, r.user_id,u.google_name,u.google_picture_link as image,
+                       sum(case when r.rating = 1 then 1  end) as pluscount,
+                       sum(case when r.rating = 0 then 1  end) as minuscount
+                       from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 AND r.created_date >= DATE_SUB(NOW(), INTERVAL 90 DAY)
+                    AND YEAR(r.created_date) = YEAR(CURDATE())
+                       group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC";
+        $rank_data = $this->con->prepare($query);
+        $rank_data->execute();
+        $row = $rank_data->fetchAll((PDO::FETCH_ASSOC));
+        $login_user_rank_position = array_search($login_user_id, array_column($row, 'user_id'));
+        $result = array();
+        $result['my_rank'] = (is_bool($login_user_rank_position) == false) ? $login_user_rank_position + 1 : '-';
+        $result['total_user_count'] = $this->get_all_members_cnt()['totalusercnt'];
+        return $result;
     }
 
 //end of fun

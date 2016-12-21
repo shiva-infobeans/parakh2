@@ -58,6 +58,8 @@ var getMonthRank = baseUrl+"/getTopRankersOfCurrentMonth/";
 var getMonthTopRanks = baseUrl+"/getTopTenRankersOfCurrentMonth/";
 var getQuarterRank = baseUrl+"/getTopRankersOfPast90Days/";
 var getQuarterTopRanks = baseUrl+/getTopTenRankersOfPast90Days/;
+var getParakhVideo = baseUrl+"/getParakhVideo/";
+var sendFeedback = baseUrl+"/sendFeedback/";
 
 //updates for google client id and parakh logo (favicon) 
 var clientId = "791490125018-lcfs9ha89efjtp09v5u8q38ls05hhinl.apps.googleusercontent.com";

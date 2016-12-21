@@ -799,6 +799,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                 }
             });
         }, 500);
+
+
     }
 
     return homeContentViewModel;

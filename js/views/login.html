@@ -1,0 +1,17 @@
+<div id="dialogWrapper">
+  <div style="display:none" id="modalVideo" title="Welcome to Parakh" 
+       data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide',rootAttributes: { style: 'width: 600px; height: 400px;'}}">
+     <div class="oj-dialog-body video-align-center">
+       	<img src="images/2016-12-11.gif">
+     </div>
+  </div>
+  <div class="video-div top-image" id="top-image">
+    <a href="javascript:void(0)"><img data-bind="attr:{src:video_image},click:openVideo" class="video-img"></a>
+  </div>
+
+  <div class="video-div bottom-image" id="bottom-image">
+    <a href="javascript:void(0)"><img data-bind="attr:{src:video_image},click:openVideo" class="video-img"></a>
+  </div>
+  <!-- <button id="buttonOpener" data-bind="ojComponent: {component: 'ojButton', label: 'Video'},click:openVideo"></button> -->
+
+</div>
