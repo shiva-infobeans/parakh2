@@ -5,13 +5,24 @@
        	<video class="video" id="parakh_video" controls="" loop="" ><source type="video/ogg" src="Parakh_Teaser.mp4"><source type="video/mp4" src="Parakh_Teaser.mp4"><object  type="application/x-shockwave-flash" data="Parakh_Teaser.mp4" wmode="transparent"><param name="movie" value="Parakh_Teaser.mp4"><param name="wmode" value="transparent"><param name="autostart" value="false"></object></video>
      </div>
   </div>
-  <div class="video-div top-image" id="top-image">
-    <a href="javascript:void(0)"><img data-bind="attr:{src:video_image},click:openVideo" class="video-img"></a>
-  </div>
+  <script type="text/html" id="lg_xl_template">
+    <div class="video-div top-image" id="top-image">
+      <a href="javascript:void(0)"><img data-bind="attr:{src:video_image},click:openVideo" class="video-img"></a>
+    </div>
 
-  <div class="video-div bottom-image" id="bottom-image">
-    <a href="javascript:void(0)"><img data-bind="attr:{src:video_image},click:openVideo" class="video-img"></a>
-  </div>
+    <div class="video-div bottom-image" id="bottom-image">
+      <a href="javascript:void(0)"><img data-bind="attr:{src:video_image},click:openVideo" class="video-img"></a>
+    </div>
+  </script>
+
+  <!--horizontal tabs orientation-->
+  <script type="text/html" id="sm_md_template">
+      <div class="video-div bottom-image">
+        <a href="javascript:void(0)"><img data-bind="attr:{src:video_image},click:openVideo" class=""></a>
+      </div>
+  </script>
+
+  <div data-bind="template: {name: large() ? 'lg_xl_template' : 'sm_md_template'}"></div>
   <!-- <button id="buttonOpener" data-bind="ojComponent: {component: 'ojButton', label: 'Video'},click:openVideo"></button> -->
 
 </div>
