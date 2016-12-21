@@ -85,7 +85,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
             }
         });
 
-
+//overall Top Ranks
         self.data12 = ko.observableArray([]);
         self.bubbleSeriesValue = ko.observableArray();
         self.bubbleSeries = ko.observableArray([
@@ -117,6 +117,87 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
                         x: self.data12()[i].x, y: self.data12()[i].y, z: self.data12()[i].z, label: self.data12()[i].label, labelPosition: 'auto',
                         shortDesc: "&lt;b&gt;" + self.data12()[i].Member + "&lt;/b&gt;" + "&lt;br/&gt;Total +1 ratings: " + self.data12()[i].y + "&lt;br/&gt;",
                         user_id:self.data12()[i].userId
+                    });
+                }
+                self.bubbleSeriesValue(self.bubbleSeries());
+            }
+        });
+        
+//        month top ranks
+         self.data21 = ko.observableArray([]);
+        self.bubbleSeriesValue = ko.observableArray();
+        self.bubbleSeries = ko.observableArray([
+            {name: "Series 1", displayInLegend: 'off', items: []},
+            {name: "Series 2", displayInLegend: 'off', items: []},
+            {name: "Series 3", displayInLegend: 'off', items: []},
+            {name: "Series 4", displayInLegend: 'off', items: []},
+            {name: "Series 5", displayInLegend: 'off', items: []},
+            {name: "Series 6", displayInLegend: 'off', items: []},
+            {name: "Series 7", displayInLegend: 'off', items: []},
+            {name: "Series 8", displayInLegend: 'off', items: []},
+            {name: "Series 9", displayInLegend: 'off', items: []},
+            {name: "Series 10", displayInLegend: 'off', items: []}
+        ]);
+        
+        
+        var monthTopRanks = oj.Model.extend({
+            url: getMonthTopRanks
+                    //parse: parseTask
+        });
+        var monthTop = new monthTopRanks();
+        monthTop.fetch({
+            headers: {secret: secret},
+            success: function (res1) {
+                var data2 = res1['attributes']['data'];
+                for (var counter = 0; counter < data2.length; counter++) {
+                    self.data21.push(Rankers1((counter+1), data2[counter]['pluscount'], (90 - (counter * 5)), data2[counter]['google_name'],data2[counter]['user_id']));
+                }
+                for (var i = 0; i < self.data22().length; i++) {
+                    self.bubbleSeries()[i].items.push({
+                        x: self.data21()[i].x, y: self.data21()[i].y, z: self.data21()[i].z, label: self.data21()[i].label, labelPosition: 'auto',
+                        shortDesc: "&lt;b&gt;" + self.data21()[i].Member + "&lt;/b&gt;" + "&lt;br/&gt;Total +1 ratings: " + self.data21()[i].y + "&lt;br/&gt;",
+                        user_id:self.data21()[i].userId
+                    });
+                }
+                self.bubbleSeriesValue(self.bubbleSeries());
+            }
+        });
+        
+//        past 90 days top ranks
+
+         self.data31 = ko.observableArray([]);
+        self.bubbleSeriesValue = ko.observableArray();
+        self.bubbleSeries = ko.observableArray([
+            {name: "Series 1", displayInLegend: 'off', items: []},
+            {name: "Series 2", displayInLegend: 'off', items: []},
+            {name: "Series 3", displayInLegend: 'off', items: []},
+            {name: "Series 4", displayInLegend: 'off', items: []},
+            {name: "Series 5", displayInLegend: 'off', items: []},
+            {name: "Series 6", displayInLegend: 'off', items: []},
+            {name: "Series 7", displayInLegend: 'off', items: []},
+            {name: "Series 8", displayInLegend: 'off', items: []},
+            {name: "Series 9", displayInLegend: 'off', items: []},
+            {name: "Series 10", displayInLegend: 'off', items: []}
+        ]);
+        
+        
+        var quarterTopRanks = oj.Model.extend({
+            url: getQuarterTopRanks
+                    //parse: parseTask
+        });
+        var quarterTop = new quarterTopRanks();
+        quarterTop.fetch({
+            headers: {secret: secret},
+            success: function (res1) {
+                var data2 = res1['attributes']['data'];
+                for (var counter = 0; counter < data3.length; counter++) {
+                    self.data31.push(Rankers1((counter+1), data3[counter]['pluscount'], (90 - (counter * 5)), data3[counter]['google_name'],data3[counter]['user_id']));
+                }
+                for (var i = 0; i < self.data22().length; i++) {
+                    self.bubbleSeries()[i].items.push({
+                        x: self.data31()[i].x, y: self.data31()[i].y, z: self.data31()[i].z, label: self.data31()[i].label, labelPosition: 'auto',
+                        shortDesc: "&lt;b&gt;" + self.data31()[i].Member + "&lt;/b&gt;" + "&lt;br/&gt;Total +1 ratings: " + self.data31()[i].y + "&lt;br/&gt;",
+                        user_id:self.data31()[i].userId
                     });
                 }
                 self.bubbleSeriesValue(self.bubbleSeries());

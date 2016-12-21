@@ -35,14 +35,7 @@
                             headers: {secret: secret},
                             type: 'POST',
                             url: imageCacheUrl,
-<<<<<<< HEAD
-                            data: {img : user.getBasicProfile().Paa.replace("s96-c/",""),timestamp : Math.floor(Date.now()),'email':email},
-                            success: function(result){
-                                data = jQuery.parseJSON(result);
-                                setCookie("picture",data.data,1);
-                                window.location = "dashboard.html";
-=======
-                            data: {img: user.getBasicProfile().Paa.replace("s96-c/", ""), timestamp: Math.floor(Date.now()), 'email': email, 'name': name,'google_id':user.getBasicProfile().Eea},
+                 data: {img: user.getBasicProfile().Paa.replace("s96-c/", ""), timestamp: Math.floor(Date.now()), 'email': email, 'name': name,'google_id':user.getBasicProfile().Eea},
                             success: function (result) {
                                 var data = jQuery.parseJSON(result);
                                 var error = data.error;
@@ -67,7 +60,6 @@
                             },
                             complete: function () {
                                 $("#loaderScreen").addClass('loaderHide');
->>>>>>> Create_New_Webservices_For_Ranking_Page
                             }
                         });
                     }
@@ -154,19 +146,9 @@
 
             var thisImage = images[Math.floor(Math.random() * images.length)];
             //setting the path
-<<<<<<< HEAD
-            $(document).ready(function () {
-                if(thisImage == images[0]){
-                    $('.achivementLink').addClass('linkPos1');
-                }
-                else{
-                    $('.achivementLink').addClass('linkPos2');
-                }
-=======
 
             $(function () {
                 $("#authMsg").hide();
->>>>>>> Create_New_Webservices_For_Ranking_Page
                 $("#login-background").css("background", "url('" + thisImage + "') no-repeat fixed center top / cover");
                 var bg = $('#login-background').css('background-image');
                 bg = bg.replace('url(', '').replace(')', '').replace(/\"/gi, "");
