@@ -5,33 +5,27 @@ and open the template in the editor.
 -->
 
 <div class="max-width">
-    <div class="oj-flex oj-row">
-        <div class="oj-lg-12 oj-md-12 oj-sm-12  oj-flex-item oj-col profile-text oj-flex oj-padding-top oj-padding-bottom oj-margin-top margin-10LR">
+    <div class="oj-flex oj-row ranking-bottom-margin">
+        <div class="oj-xl-5 oj-lg-5 oj-md-5 oj-sm-5 oj-flex-item profile-text oj-padding-top oj-padding-bottom oj-margin-top margin-10LR">
             <span class="color-white">Top Ten Rank Holders</span>
         </div>
+    
+     <div class="oj-xl-4 oj-lg-4 oj-md-4 oj-sm-4 oj-flex-item  profile-text oj-padding-top oj-padding-bottom oj-margin-top margin-10LR">
+
+<!-- <select class="selector hide" data-bind="ojComponent: {component: 'ojSelect'}"  id="selectnow" >
+     <option value="month">Month</option>
+                                    <option value="quarter">Quarter</option>
+                                    <option value="uptill now">Uptill now</option>
+                              </select>-->
+         
+         <select id="selectnow"
+          data-bind="ojComponent: {component: 'ojSelect', options: browsers,
+                                   value: selectVal,
+                                   optionChange: toptenposition,
+                                   rootAttributes: {style:'max-width:20em'}}">
+  </select>
+     </div>
     </div>
-    
-    <div id='menubutton-container'>
-  <button id="menuButton"
-          data-bind="ojComponent: {component: 'ojButton', label: 'Actions', 
-                                   menu: '#myMenu'}">
-  </button>
-  <!-- To handle menu item selection, use a select listener as shown, not a click listener. -->
-  <ul id="myMenu" style="display:none"
-      data-bind="ojComponent: {component: 'ojMenu', select: menuItemSelect}">
-      <li id="month" data-bind="value:">
-      <a href="#"><span class="oj-menu-item-icon oj-fwk-icon oj-fwk-icon-arrow-n"></span>Month</a>
-    </li>
-    <li id="quarter">
-      <a href="#"><span class="oj-menu-item-icon demo-icon-font demo-bookmark-icon-16"></span>Quarter</a>
-    </li>
-    
-    <li id="uptill">
-      <a href="#"><span class="oj-menu-item-icon demo-icon-font demo-palette-icon-24"></span>Up Till Now</a>
-    </li>
-  </ul>
-</div>
-    
     <div class="oj-row oj-flex oj-margin-bottom">
     <div class="oj-xl-8 oj-lg-8 oj-md-12 oj-sm-12 pos-relative oj-padding-top oj-padding-bottom oj-margin-bottom oj-margin-top oj-flex-item margin-10LR">
         <div class="transbox box-shadow"></div>

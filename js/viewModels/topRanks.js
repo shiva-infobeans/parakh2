@@ -7,7 +7,7 @@
 /**
  * topRanks module
  */
-define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'ojs/ojmodel', 'ojs/ojbutton', 'ojs/ojmenu'
+define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'ojs/ojmodel', 'ojs/ojbutton', 'ojs/ojmenu', 'ojs/ojselectcombobox'
 ], function (oj, ko) {
     /**
      * The view model for the main content view template
@@ -58,6 +58,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
         self.loginUserId = ko.observable();
         self.name = ko.observable();
         self.noRank = ko.observable();
+        self.uptillNowTopTen = ko.observable();
+        self.monthTopTen = ko.observable();
+        self.quarterTopTen = ko.observable();
         var user = oj.Model.extend({
             url: getUserByEmail + person['email']
         });
@@ -90,7 +93,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
         });
 
         //        rank of logged in user in current month
-          var user1 = oj.Model.extend({
+        var user1 = oj.Model.extend({
             url: getUserByEmail + person['email']
         });
         var getMyMonthRank = new user1();
@@ -119,7 +122,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
         });
 
         //        rank of logged in user in past 90 days
-         var user2 = oj.Model.extend({
+        var user2 = oj.Model.extend({
             url: getUserByEmail + person['email']
         });
         var getMyQuarterRank = new user2();
@@ -136,7 +139,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
                     headers: {secret: secret},
                     success: function () {
                         self.myRank2(memberRank2['attributes']['data']['my_rank']);
-                         console.log(memberRank2['attributes']['data']['my_rank']);
+                        console.log(memberRank2['attributes']['data']['my_rank']);
                         if (self.myRank2() == "-") {
                             self.noRank("You have not yet received +1 rating.");
                         } else {
@@ -147,48 +150,23 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
             }
         });
 
-//overall Top Ranks
-        self.data12 = ko.observableArray([]);
-        self.bubbleSeriesValue = ko.observableArray();
-        self.bubbleSeries = ko.observableArray([
-            {name: "Series 1", displayInLegend: 'off', items: []},
-            {name: "Series 2", displayInLegend: 'off', items: []},
-            {name: "Series 3", displayInLegend: 'off', items: []},
-            {name: "Series 4", displayInLegend: 'off', items: []},
-            {name: "Series 5", displayInLegend: 'off', items: []},
-            {name: "Series 6", displayInLegend: 'off', items: []},
-            {name: "Series 7", displayInLegend: 'off', items: []},
-            {name: "Series 8", displayInLegend: 'off', items: []},
-            {name: "Series 9", displayInLegend: 'off', items: []},
-            {name: "Series 10", displayInLegend: 'off', items: []}
+        this.browsers = ko.observableArray([
+            {value: 'month', label: 'Month'},
+            {value: 'quarter', label: 'Quarter'},
+            {value: 'uptillnow', label: 'Uptill Now'}
         ]);
-        var rate = oj.Model.extend({
-            url: getRankingList
-                    //parse: parseTask
-        });
-        var rateTask = new rate();
-        rateTask.fetch({
-            headers: {secret: secret},
-            success: function (res) {
-                var data1 = res['attributes']['data'];
-                for (var counter = 0; counter < data1.length; counter++) {
-                    self.data12.push(Rankers1((counter + 1), data1[counter]['pluscount'], (90 - (counter * 5)), data1[counter]['google_name'], data1[counter]['user_id']));
-                }
-                for (var i = 0; i < self.data12().length; i++) {
-                    self.bubbleSeries()[i].items.push({
-                        x: self.data12()[i].x, y: self.data12()[i].y, z: self.data12()[i].z, label: self.data12()[i].label, labelPosition: 'auto',
-                        shortDesc: "&lt;b&gt;" + self.data12()[i].Member + "&lt;/b&gt;" + "&lt;br/&gt;Total +1 ratings: " + self.data12()[i].y + "&lt;br/&gt;",
-                        user_id: self.data12()[i].userId
-                    });
-                }
-                self.bubbleSeriesValue(self.bubbleSeries());
-
-            }
-        });
-
-//        month top ranks
+        this.selectVal = ko.observableArray([]);
         self.data21 = ko.observableArray([]);
         self.bubbleSeriesValue = ko.observableArray();
+        self.data31 = ko.observableArray([]);
+        self.bubbleSeriesValue = ko.observableArray();
+        self.data12 = ko.observableArray([]);
+
+       self.toptenposition = function(context,valueParam){
+           if(valueParam.value[0] == 'month')
+           {
+           //        month top ranks
+        
         self.bubbleSeries = ko.observableArray([
             {name: "Series 1", displayInLegend: 'off', items: []},
             {name: "Series 2", displayInLegend: 'off', items: []},
@@ -211,8 +189,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
         monthTop.fetch({
             headers: {secret: secret},
             success: function (res1) {
+                 alert('a1');
                 var data2 = res1['attributes']['data'];
+                console.log( res1['attributes']['data']);
                 for (var counter = 0; counter < data2.length; counter++) {
+                   
                     self.data21.push(Rankers1((counter + 1), data2[counter]['pluscount'], (90 - (counter * 5)), data2[counter]['google_name'], data2[counter]['user_id']));
                 }
                 for (var i = 0; i < self.data21().length; i++) {
@@ -223,15 +204,112 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
                     });
                 }
                 self.bubbleSeriesValue(self.bubbleSeries());
-
             }
         });
 
-//        past 90 days top ranks
+               console.log('month');
+           }
+           
+           if(valueParam.value[0] == 'quarter')
+           {
+           //        past 90 days top ranks
 
-        self.data31 = ko.observableArray([]);
-        self.bubbleSeriesValue = ko.observableArray();
+        
         self.bubbleSeries = ko.observableArray([
+            {name: "Series 1", displayInLegend: 'off', items: []},
+            {name: "Series 2", displayInLegend: 'off', items: []},
+            {name: "Series 3", displayInLegend: 'off', items: []},
+            {name: "Series 4", displayInLegend: 'off', items: []},
+            {name: "Series 5", displayInLegend: 'off', items: []},
+            {name: "Series 6", displayInLegend: 'off', items: []},
+            {name: "Series 7", displayInLegend: 'off', items: []},
+            {name: "Series 8", displayInLegend: 'off', items: []},
+            {name: "Series 9", displayInLegend: 'off', items: []},
+            {name: "Series 10", displayInLegend: 'off', items: []}
+        ]);
+        var quarterTopRanks = oj.Model.extend({
+            url: getQuarterTopRanks
+                    //parse: parseTask
+        });
+        var quarterTop = new quarterTopRanks();
+        quarterTop.fetch({
+            headers: {secret: secret},
+            success: function (res2) {
+                 alert('a2');
+                var data3 = res2['attributes']['data'];
+                  console.log( res2['attributes']['data']);
+                for (var counter = 0; counter < data3.length; counter++) {
+                    self.data31.push(Rankers1((counter + 1), data3[counter]['pluscount'], (90 - (counter * 5)), data3[counter]['google_name'], data3[counter]['user_id']));
+                }
+                for (var i = 0; i < self.data31().length; i++) {
+                    self.bubbleSeries()[i].items.push({
+                        x: self.data31()[i].x, y: self.data31()[i].y, z: self.data31()[i].z, label: self.data31()[i].label, labelPosition: 'auto',
+                        shortDesc: "&lt;b&gt;" + self.data31()[i].Member + "&lt;/b&gt;" + "&lt;br/&gt;Total +1 ratings: " + self.data31()[i].y + "&lt;br/&gt;",
+                        user_id: self.data31()[i].userId
+                    });
+                }
+                self.bubbleSeriesValue(self.bubbleSeries());
+            }
+        });
+
+               console.log('quarter');
+           }
+           
+           if(valueParam.value[0] == 'uptillnow')
+           {
+           //overall Top Ranks
+       
+        self.bubbleSeriesValue = ko.observableArray();
+                   self.bubbleSeries = ko.observableArray([
+            {name: "Series 1", displayInLegend: 'off', items: []},
+            {name: "Series 2", displayInLegend: 'off', items: []},
+            {name: "Series 3", displayInLegend: 'off', items: []},
+            {name: "Series 4", displayInLegend: 'off', items: []},
+            {name: "Series 5", displayInLegend: 'off', items: []},
+            {name: "Series 6", displayInLegend: 'off', items: []},
+            {name: "Series 7", displayInLegend: 'off', items: []},
+            {name: "Series 8", displayInLegend: 'off', items: []},
+            {name: "Series 9", displayInLegend: 'off', items: []},
+            {name: "Series 10", displayInLegend: 'off', items: []}
+        ]);
+        var rate = oj.Model.extend({
+            url: getRankingList
+                    //parse: parseTask
+        });
+        var rateTask = new rate();
+        rateTask.fetch({
+            headers: {secret: secret},
+            success: function (res3) {
+                 alert('a3');
+                var data1 = res3['attributes']['data'];
+                  console.log( res3['attributes']['data']);
+                for (var counter = 0; counter < data1.length; counter++) {
+                   
+                    self.data12.push(Rankers1((counter + 1), data1[counter]['pluscount'], (90 - (counter * 5)), data1[counter]['google_name'], data1[counter]['user_id']));
+                }
+                for (var i = 0; i < self.data12().length; i++) {
+                    alert('a345');
+                    self.bubbleSeries()[i].items.push({
+                        x: self.data12()[i].x, y: self.data12()[i].y, z: self.data12()[i].z, label: self.data12()[i].label, labelPosition: 'auto',
+                        shortDesc: "&lt;b&gt;" + self.data12()[i].Member + "&lt;/b&gt;" + "&lt;br/&gt;Total +1 ratings: " + self.data12()[i].y + "&lt;br/&gt;",
+                        user_id: self.data12()[i].userId
+                    });
+                }
+                self.bubbleSeriesValue(self.bubbleSeries());
+              
+
+            }
+        });
+               console.log('uptillnow');
+           }
+           
+
+        
+       }
+
+
+
+self.bubbleSeries = ko.observableArray([
             {name: "Series 1", displayInLegend: 'off', items: []},
             {name: "Series 2", displayInLegend: 'off', items: []},
             {name: "Series 3", displayInLegend: 'off', items: []},
@@ -245,29 +323,32 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
         ]);
 
 
-        var quarterTopRanks = oj.Model.extend({
-            url: getQuarterTopRanks
+        var monthTopRanks = oj.Model.extend({
+            url: getMonthTopRanks
                     //parse: parseTask
         });
-        var quarterTop = new quarterTopRanks();
-        quarterTop.fetch({
+        var monthTop = new monthTopRanks();
+        monthTop.fetch({
             headers: {secret: secret},
             success: function (res1) {
-                var data3 = res1['attributes']['data'];
-                for (var counter = 0; counter < data3.length; counter++) {
-                    self.data31.push(Rankers1((counter + 1), data3[counter]['pluscount'], (90 - (counter * 5)), data3[counter]['google_name'], data3[counter]['user_id']));
+                var data2 = res1['attributes']['data'];
+                  console.log( res1['attributes']['data']);
+                  alert('a');
+                for (var counter = 0; counter < data2.length; counter++) {
+                    self.data21.push(Rankers1((counter + 1), data2[counter]['pluscount'], (90 - (counter * 5)), data2[counter]['google_name'], data2[counter]['user_id']));
                 }
-                for (var i = 0; i < self.data31().length; i++) {
+                for (var i = 0; i < self.data21().length; i++) {
                     self.bubbleSeries()[i].items.push({
-                        x: self.data31()[i].x, y: self.data31()[i].y, z: self.data31()[i].z, label: self.data31()[i].label, labelPosition: 'auto',
-                        shortDesc: "&lt;b&gt;" + self.data31()[i].Member + "&lt;/b&gt;" + "&lt;br/&gt;Total +1 ratings: " + self.data31()[i].y + "&lt;br/&gt;",
-                        user_id: self.data31()[i].userId
+                        x: self.data21()[i].x, y: self.data21()[i].y, z: self.data21()[i].z, label: self.data21()[i].label, labelPosition: 'auto',
+                        shortDesc: "&lt;b&gt;" + self.data21()[i].Member + "&lt;/b&gt;" + "&lt;br/&gt;Total +1 ratings: " + self.data21()[i].y + "&lt;br/&gt;",
+                        user_id: self.data21()[i].userId
                     });
                 }
                 self.bubbleSeriesValue(self.bubbleSeries());
-
             }
         });
+
+
 
 
         self.chartOptionChange = function (event, ui) {
