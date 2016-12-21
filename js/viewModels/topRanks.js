@@ -120,12 +120,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
                     });
                 }
                 self.bubbleSeriesValue(self.bubbleSeries());
+               
             }
         });
         
 //        month top ranks
          self.data21 = ko.observableArray([]);
-        self.bubbleSeriesValue = ko.observableArray();
+        self.bubbleSeriesValue1 = ko.observableArray();
         self.bubbleSeries = ko.observableArray([
             {name: "Series 1", displayInLegend: 'off', items: []},
             {name: "Series 2", displayInLegend: 'off', items: []},
@@ -152,21 +153,22 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
                 for (var counter = 0; counter < data2.length; counter++) {
                     self.data21.push(Rankers1((counter+1), data2[counter]['pluscount'], (90 - (counter * 5)), data2[counter]['google_name'],data2[counter]['user_id']));
                 }
-                for (var i = 0; i < self.data22().length; i++) {
+                for (var i = 0; i < self.data21().length; i++) {
                     self.bubbleSeries()[i].items.push({
                         x: self.data21()[i].x, y: self.data21()[i].y, z: self.data21()[i].z, label: self.data21()[i].label, labelPosition: 'auto',
                         shortDesc: "&lt;b&gt;" + self.data21()[i].Member + "&lt;/b&gt;" + "&lt;br/&gt;Total +1 ratings: " + self.data21()[i].y + "&lt;br/&gt;",
                         user_id:self.data21()[i].userId
                     });
                 }
-                self.bubbleSeriesValue(self.bubbleSeries());
+                self.bubbleSeriesValue1(self.bubbleSeries());
+               
             }
         });
         
 //        past 90 days top ranks
 
          self.data31 = ko.observableArray([]);
-        self.bubbleSeriesValue = ko.observableArray();
+        self.bubbleSeriesValue2 = ko.observableArray();
         self.bubbleSeries = ko.observableArray([
             {name: "Series 1", displayInLegend: 'off', items: []},
             {name: "Series 2", displayInLegend: 'off', items: []},
@@ -189,18 +191,19 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
         quarterTop.fetch({
             headers: {secret: secret},
             success: function (res1) {
-                var data2 = res1['attributes']['data'];
+                var data3 = res1['attributes']['data'];
                 for (var counter = 0; counter < data3.length; counter++) {
                     self.data31.push(Rankers1((counter+1), data3[counter]['pluscount'], (90 - (counter * 5)), data3[counter]['google_name'],data3[counter]['user_id']));
                 }
-                for (var i = 0; i < self.data22().length; i++) {
+                for (var i = 0; i < self.data31().length; i++) {
                     self.bubbleSeries()[i].items.push({
                         x: self.data31()[i].x, y: self.data31()[i].y, z: self.data31()[i].z, label: self.data31()[i].label, labelPosition: 'auto',
                         shortDesc: "&lt;b&gt;" + self.data31()[i].Member + "&lt;/b&gt;" + "&lt;br/&gt;Total +1 ratings: " + self.data31()[i].y + "&lt;br/&gt;",
                         user_id:self.data31()[i].userId
                     });
                 }
-                self.bubbleSeriesValue(self.bubbleSeries());
+                self.bubbleSeriesValue2(self.bubbleSeries());
+                
             }
         });
         
