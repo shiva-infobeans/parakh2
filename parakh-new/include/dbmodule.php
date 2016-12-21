@@ -514,13 +514,6 @@ class dbmodule {
                 $message = strtr($temp_data['content'], $vars);
                 $email_data['message'] = $message;
                 $this->send_notification($email_data);
-
-                /*send email to manager*/
-                $email_data_l['to']['email'] = $this->manager_email;
-                $email_data_l['to']['name'] = $this->manager_name;
-                $email_data_l['subject'] = $temp_data['subject'];
-                $email_data_l['message'] = $message;
-                $this->send_notification($email_data_l);
             }
         }
         return true;
