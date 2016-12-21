@@ -96,7 +96,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 self.searchError("");
                 self.showHelpSearch(reqSearch);
                 self.showHelpComment(reqComment);
-
             });
             self.handleOKClose = $("#okButton").click(function () {
                 $("#modalDialogRequest").ojDialog("close");
@@ -118,10 +117,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         
         
         self.rateValueChangeHandler = function (context, valueParam) {
-            if (self.value() != "") {
+            if(self.value() != ""){
                 self.showHelpSearch("");
-            }else{
-                self.showHelpSearch(buddySearch);
             }
             if (!isNaN(valueParam.value[0]))
             {
@@ -161,12 +158,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             // });
         }
 
-
+        self.descEvent = function(){
+            console.log("a");
+        }
         self.requestValueChangeHandler = function (context, valueParam) {
-            if (self.value2() != "") {
-                self.showHelpSearch("");
-                self.showHelpComment("");
-            }
+            
             if (!isNaN(valueParam.value[0]))
             {
                 self.currentChangeid(valueParam.value[0]);
@@ -190,10 +186,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         }
 
         self.feedbackValueChangeHandler = function (context, valueParam) {
-            if (self.value1() != "") {
-                self.showHelpSearch("");
-                self.showHelpComment("");
-            }
             if (!isNaN(valueParam.value[0]))
             {
                 self.currentChangeid(valueParam.value[0]);
@@ -515,7 +507,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 {
                                     'messages': ['notewindow']
                                 }
-                    }});
+                    }
+                });
 
     }
     return floatingContentViewModel;
