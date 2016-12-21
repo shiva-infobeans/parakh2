@@ -631,17 +631,17 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
             }
         });
         var ManagerSlider = 0;
+        var ab = 0;
         setInterval(function () {
-
 
             if ($("#filmStrip").find("#ui-id-9").attr("style") == "visibility: hidden;") {
                 $("#filmStrip").ojFilmStrip("option", "currentItem", 0);
             } else {
                 $("#filmStrip").find("#ui-id-9").click();
             }
-
             /// slider my team
-            if ($('#filmStrip8').ojFilmStrip("option", "currentItem") == 0) {
+            if ($('#filmStrip8').ojFilmStrip("option", "currentItem") == 0
+                    || $('#filmStrip8').ojFilmStrip("option", "currentItem") == 'show8') {
                 try {
                     $('#filmStrip8').ojFilmStrip("option", "currentItem", 1);
                 } catch (e)
@@ -650,14 +650,15 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                 }
 
             } else if ($('#filmStrip8').ojFilmStrip("option", "currentItem") == 1
-                    || $('#filmStrip8').ojFilmStrip("option", "currentItem") == 'show1') {
+                    || $('#filmStrip8').ojFilmStrip("option", "currentItem") == 'show8') {
                 try {
                     $('#filmStrip8').ojFilmStrip("option", "currentItem", 2);
                 } catch (e)
                 {
                     //console.log(e);
                 }
-            } else if ($('#filmStrip8').ojFilmStrip("option", "currentItem") == 2) {
+            } else if ($('#filmStrip8').ojFilmStrip("option", "currentItem") == 2
+                    || $('#filmStrip8').ojFilmStrip("option", "currentItem") == 'show8') {
                 try {
                     $('#filmStrip8').ojFilmStrip("option", "currentItem", 0);
                 } catch (e)
@@ -668,29 +669,29 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
 
             /// my slider
             if ($('#filmStrip9').ojFilmStrip("option", "currentItem") == 0
-                    || $('#filmStrip9').ojFilmStrip("option", "currentItem") == 'show10') {
+                    || $('#filmStrip9').ojFilmStrip("option", "currentItem") == 'show90') {
+
                 try {
                     $('#filmStrip9').ojFilmStrip("option", "currentItem", 1);
                 } catch (e)
                 {
-                    //console.log(e);
+                    console.log(e);
                 }
             } else if ($('#filmStrip9').ojFilmStrip("option", "currentItem") == 1
-                    || $('#filmStrip9').ojFilmStrip("option", "currentItem") == 'show11') {
+                    || $('#filmStrip9').ojFilmStrip("option", "currentItem") == 'show91') {
                 try {
                     $('#filmStrip9').ojFilmStrip("option", "currentItem", 2);
                 } catch (e)
                 {
-                    //console.log(e);
+                    console.log(e);
                 }
             } else if ($('#filmStrip9').ojFilmStrip("option", "currentItem") == 2
-                    || $('#filmStrip9').ojFilmStrip("option", "currentItem") == 'show12') {
-
+                    || $('#filmStrip9').ojFilmStrip("option", "currentItem") == 'show92') {
                 try {
                     $('#filmStrip9').ojFilmStrip("option", "currentItem", 0);
                 } catch (e)
                 {
-                    //console.log(e);
+                    console.log(e);
                 }
             }
             /// manager slider
@@ -709,7 +710,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                     ManagerSlider = 0;
                 }
             }
-
         }, 6000);
         self.redirectPlus = function () {
             window.location = "profile.html";
@@ -774,7 +774,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                 }
             });
         }, 500);
-       
+
 
 
 
