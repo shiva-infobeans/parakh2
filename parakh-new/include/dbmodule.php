@@ -393,7 +393,7 @@ class dbmodule {
      */
     function send_notification($email_data) {
         require_once 'notifications.php';
-        //send_mail($email_data);
+        send_mail($email_data);
     }
 
 //end of fun
