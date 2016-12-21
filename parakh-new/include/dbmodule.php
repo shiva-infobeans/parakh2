@@ -2035,7 +2035,6 @@ class dbmodule {
                        sum(case when r.rating = 1 then 1  end) as pluscount,
                        sum(case when r.rating = 0 then 1  end) as minuscount
                        from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 AND r.created_date >= DATE_SUB(NOW(), INTERVAL 90 DAY)
-                    AND YEAR(r.created_date) = YEAR(CURDATE())
                        group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC";
         $rank_data = $this->con->prepare($query);
         $rank_data->execute();
