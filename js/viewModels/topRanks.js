@@ -288,7 +288,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
                     self.data12.push(Rankers1((counter + 1), data1[counter]['pluscount'], (90 - (counter * 5)), data1[counter]['google_name'], data1[counter]['user_id']));
                 }
                 for (var i = 0; i < self.data12().length; i++) {
-                    alert('a345');
+                    
                     self.bubbleSeries()[i].items.push({
                         x: self.data12()[i].x, y: self.data12()[i].y, z: self.data12()[i].z, label: self.data12()[i].label, labelPosition: 'auto',
                         shortDesc: "&lt;b&gt;" + self.data12()[i].Member + "&lt;/b&gt;" + "&lt;br/&gt;Total +1 ratings: " + self.data12()[i].y + "&lt;br/&gt;",
@@ -309,7 +309,47 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
 
 
 
-self.bubbleSeries = ko.observableArray([
+//self.bubbleSeries = ko.observableArray([
+//            {name: "Series 1", displayInLegend: 'off', items: []},
+//            {name: "Series 2", displayInLegend: 'off', items: []},
+//            {name: "Series 3", displayInLegend: 'off', items: []},
+//            {name: "Series 4", displayInLegend: 'off', items: []},
+//            {name: "Series 5", displayInLegend: 'off', items: []},
+//            {name: "Series 6", displayInLegend: 'off', items: []},
+//            {name: "Series 7", displayInLegend: 'off', items: []},
+//            {name: "Series 8", displayInLegend: 'off', items: []},
+//            {name: "Series 9", displayInLegend: 'off', items: []},
+//            {name: "Series 10", displayInLegend: 'off', items: []}
+//        ]);
+//
+//
+//        var monthTopRanks = oj.Model.extend({
+//            url: getMonthTopRanks
+//                    //parse: parseTask
+//        });
+//        var monthTop = new monthTopRanks();
+//        monthTop.fetch({
+//            headers: {secret: secret},
+//            success: function (res1) {
+//                var data2 = res1['attributes']['data'];
+//                  console.log( res1['attributes']['data']);
+//                  alert('a');
+//                for (var counter = 0; counter < data2.length; counter++) {
+//                    self.data21.push(Rankers1((counter + 1), data2[counter]['pluscount'], (90 - (counter * 5)), data2[counter]['google_name'], data2[counter]['user_id']));
+//                }
+//                for (var i = 0; i < self.data21().length; i++) {
+//                    self.bubbleSeries()[i].items.push({
+//                        x: self.data21()[i].x, y: self.data21()[i].y, z: self.data21()[i].z, label: self.data21()[i].label, labelPosition: 'auto',
+//                        shortDesc: "&lt;b&gt;" + self.data21()[i].Member + "&lt;/b&gt;" + "&lt;br/&gt;Total +1 ratings: " + self.data21()[i].y + "&lt;br/&gt;",
+//                        user_id: self.data21()[i].userId
+//                    });
+//                }
+//                self.bubbleSeriesValue(self.bubbleSeries());
+//            }
+//        });
+
+ self.bubbleSeriesValue = ko.observableArray();
+                   self.bubbleSeries = ko.observableArray([
             {name: "Series 1", displayInLegend: 'off', items: []},
             {name: "Series 2", displayInLegend: 'off', items: []},
             {name: "Series 3", displayInLegend: 'off', items: []},
@@ -321,34 +361,34 @@ self.bubbleSeries = ko.observableArray([
             {name: "Series 9", displayInLegend: 'off', items: []},
             {name: "Series 10", displayInLegend: 'off', items: []}
         ]);
-
-
-        var monthTopRanks = oj.Model.extend({
-            url: getMonthTopRanks
+        var rate = oj.Model.extend({
+            url: getRankingList
                     //parse: parseTask
         });
-        var monthTop = new monthTopRanks();
-        monthTop.fetch({
+        var rateTask = new rate();
+        rateTask.fetch({
             headers: {secret: secret},
-            success: function (res1) {
-                var data2 = res1['attributes']['data'];
-                  console.log( res1['attributes']['data']);
-                  alert('a');
-                for (var counter = 0; counter < data2.length; counter++) {
-                    self.data21.push(Rankers1((counter + 1), data2[counter]['pluscount'], (90 - (counter * 5)), data2[counter]['google_name'], data2[counter]['user_id']));
+            success: function (res3) {
+                 alert('a3');
+                var data1 = res3['attributes']['data'];
+                  console.log( res3['attributes']['data']);
+                for (var counter = 0; counter < data1.length; counter++) {
+                   
+                    self.data12.push(Rankers1((counter + 1), data1[counter]['pluscount'], (90 - (counter * 5)), data1[counter]['google_name'], data1[counter]['user_id']));
                 }
-                for (var i = 0; i < self.data21().length; i++) {
+                for (var i = 0; i < self.data12().length; i++) {
+                 
                     self.bubbleSeries()[i].items.push({
-                        x: self.data21()[i].x, y: self.data21()[i].y, z: self.data21()[i].z, label: self.data21()[i].label, labelPosition: 'auto',
-                        shortDesc: "&lt;b&gt;" + self.data21()[i].Member + "&lt;/b&gt;" + "&lt;br/&gt;Total +1 ratings: " + self.data21()[i].y + "&lt;br/&gt;",
-                        user_id: self.data21()[i].userId
+                        x: self.data12()[i].x, y: self.data12()[i].y, z: self.data12()[i].z, label: self.data12()[i].label, labelPosition: 'auto',
+                        shortDesc: "&lt;b&gt;" + self.data12()[i].Member + "&lt;/b&gt;" + "&lt;br/&gt;Total +1 ratings: " + self.data12()[i].y + "&lt;br/&gt;",
+                        user_id: self.data12()[i].userId
                     });
                 }
                 self.bubbleSeriesValue(self.bubbleSeries());
+              
+
             }
         });
-
-
 
 
         self.chartOptionChange = function (event, ui) {
