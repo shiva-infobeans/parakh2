@@ -310,6 +310,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 } else {
                                     var InitCount = self.lazyTempStorageleadPending().length;
                                     $('#leadPendingLoading').hide();
+                                    $('#hideMoreResponsive1').hide();
                                 }
                                 for (var count = 0; count < InitCount; count++) {
                                     self.requestPendingLead.push(self.lazyTempStorageleadPending()[count]);
@@ -319,6 +320,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 self.noLeadPendingRequest("");
                             }else{
                                 $('#leadPendingLoading').hide();
+                                $('#hideMoreResponsive1').hide();
                             }
                         }
                     });
@@ -340,6 +342,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 self.noLeadDeclinedRequest("No declined request.");
                                 $("#request3").show();
                                 $('#leadRejectLoading').hide();
+                                $("#hideMoreResponsive2").hide();
                             } else {
                                 self.lazyMemleadRejMax(self.lazyTempStorageleadRej().length);
                                 self.noLeadDeclinedRequest("");
@@ -348,6 +351,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 } else {
                                     var InitCount = self.lazyTempStorageleadRej().length;
                                     $('#leadRejectLoading').hide();
+                                    $("#hideMoreResponsive2").hide();
                                 }
                                 for (var count = 0; count < InitCount; count++) {
                                     self.requestDeclinedLead.push(self.lazyTempStorageleadRej()[count]);
@@ -450,10 +454,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             self.manager_pic(result['attributes']['data'][1]['google_picture_link']);
                             self.manager_id(result['attributes']['data'][1]['manager_id']);
                             self.manager_role(result['attributes']['data'][1]['role_name']);
-                            if (result['attributes']['data'][1]['google_picture_link'] == '/images/default.png')
-                            {
-                                self.intials_manager(nameFunction(result['attributes']['data'][1]['manager_name']));
-                            }
+
+                           if (result['attributes']['data'][1]['google_picture_link'] == '/images/default.png')
+                           {
+                               self.intials_manager(nameFunction(result['attributes']['data'][1]['manager_name']));
+                           }else
+                           {
+                               self.intials_manager("");
+                           }
                         }
                         //console.log(result['attributes']['data'][1]['role_name']);
                          if(self.lead_id() == self.manager_id() ){
@@ -678,6 +686,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 self.textError1("Please provide a reason for your rating.");
                 return false;
             }
+            self.desc1(self.desc1().trim());
             $.ajax({
                 headers: {secret: secret},
                 method: 'POST',
@@ -786,7 +795,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.loadMorePendingLead = function (data, event) {
             if (self.lazyMemleadPendingCurrent() < self.lazyMemleadPendingMax()) {
                 var count = self.lazyMemleadPendingCurrent();
-                if (self.lazyMemleadPendingCurrent() + self.lazyMemleadPendingBlock() > self.lazyMemleadPendingMax()) {
+                if (self.lazyMemleadPendingCurrent() + self.lazyMemleadPendingBlock() >= self.lazyMemleadPendingMax()) {
                     var loadRecordCount = self.lazyMemleadPendingMax() - self.lazyMemleadPendingCurrent();
                     $(event.target).hide();
                 } else {
@@ -808,7 +817,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
             if (self.lazyMemleadRejCurrent() < self.lazyMemleadRejMax()) {
                 var count = self.lazyMemleadRejCurrent();
-                if (self.lazyMemleadRejCurrent() + self.lazyMemleadRejBlock() > self.lazyMemleadRejMax()) {
+                if (self.lazyMemleadRejCurrent() + self.lazyMemleadRejBlock() >= self.lazyMemleadRejMax()) {
                     var loadRecordCount = self.lazyMemleadRejMax() - self.lazyMemleadRejCurrent();
                     $(event.target).hide();
                 } else {
@@ -882,6 +891,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         if (self.lazyMemleadRejCurrent() + self.lazyMemleadRejBlock() >= self.lazyMemleadRejMax()) {
                             var loadRecordCount = self.lazyMemleadRejMax() - self.lazyMemleadRejCurrent();
                             $('#leadRejectLoading').hide();
+                            $("#hideMoreResponsive2").hide();
                         } else {
                             var loadRecordCount = self.lazyMemleadRejBlock();
                         }
@@ -901,6 +911,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         if (self.lazyMemleadPendingCurrent() + self.lazyMemleadPendingBlock() >= self.lazyMemleadPendingMax()) {
                             var loadRecordCount = self.lazyMemleadPendingMax() - self.lazyMemleadPendingCurrent();
                             $('#leadPendingLoading').hide();
+                            $('#hideMoreResponsive1').hide();
                         } else {
                             var loadRecordCount = self.lazyMemleadPendingBlock();
                         }

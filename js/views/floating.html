@@ -47,13 +47,17 @@
                     <ul id="browsers1" style="display: none">
                         <!-- ko foreach: browsers1 -->
                         <li data-bind="attr: {'oj-data-value': value}">
-                            <span class="imgSearch">  <img data-bind="attr: {'src': searchPic}" class="searchImage" /> </span>
-                            <span data-bind="text: label" class="autoName"></span>
+                            <div class="search-text-profile-image">
+                                <span class="imgSearch">  <img data-bind="attr: {'src': searchPic}" class="searchImage" /> </span>
+                                <span data-bind="text: label" class="autoName"></span>
+                                <span class="search-text-profile-image-initials" data-bind="text:intials_feedback"></span>
+                            </div>
                         </li>
                         <!-- /ko -->   
                     </ul>
                     <input id="combobox9" 
                            data-bind="ojComponent: {component: 'ojCombobox',
+                           optionChange: feedbackValueChangeHandler,
                             placeholder:'Search team member',
                               list: 'browsers1',
                               value: value1,     
@@ -96,32 +100,37 @@
                         <ul id="browsers" style="display: none">
                             <!-- ko foreach: browsers -->
                             <li data-bind="attr: {'oj-data-value': value}">
-                                <span class="imgSearch">  <img data-bind="attr: {'src': searchPic}" class="searchImage" /> </span>
-                                <span data-bind="text: label" class="autoName"></span>
+                                <div class="search-text-profile-image">
+                                    <span class="imgSearch">  <img data-bind="attr: {'src': searchPic}" class="searchImage" /> </span>
+                                    <span data-bind="text: label" class="autoName"></span>
+                                    <span class="search-text-profile-image-initials" data-bind="text:intials_rate"></span>
+                                </div>
+                                <input type="hidden" data-bind="value: isManager,attr: {id: optionId}" ></span>
                             </li>
                             <!-- /ko -->   
                         </ul>
                         <input id="combobox2"
                                data-bind="ojComponent: {component: 'ojCombobox',
-                            placeholder:'Search team member',
-                              list: 'browsers',
-                              value: value,
-                              rootAttributes: {style:'max-width:20em'}}" />
+                               optionChange: rateValueChangeHandler,
+                               placeholder:'Search team member',
+                               list: 'browsers',
+                               value: value,
+                               rootAttributes: {style:'max-width:20em'}}" />
                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" data-bind="text: searchError"></div>
                     </form>
 
                 </div>
 
-            <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center areaFloat text-area-custom">
-                <div class="oj-xl-9 oj-lg-9 oj-md-8 oj-sm-8 oj-flex-item  oj-flex areaContent">
-                    <textarea id="text-area-rate" class="textArea3" aria-label="ojTextArea component no visible label"
-                              data-bind="ojComponent: {component: 'ojTextArea', 
-                                     value: desc, 
-                                     placeholder: 'Type your reason here..'}"></textarea>
+                <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center areaFloat text-area-custom text-area-plus-one">
+                    <div class="oj-xl-9 oj-lg-9 oj-md-8 oj-sm-8 oj-flex-item  oj-flex areaContent">
+                        <textarea id="text-area" class="textArea3" aria-label="ojTextArea component no visible label"
+                                  data-bind="ojComponent: {component: 'ojTextArea', 
+                                         value: desc, 
+                                         placeholder: 'Type your reason here..'}"></textarea>
                     </div>
                     <div class="oj-xl-3 oj-lg-3 oj-md-4 oj-sm-4 oj-flex-item imgArea1 ">
                         <div class="pos-relative">
-                            <img class="modalImage"  src="../../images/active(+1).png" alt="+1 image"/>
+                            <img class="modalImage" data-bind="attr: {src:imagerank1}" alt=""/>
                         </div>
                     </div>
                     <div>
@@ -129,6 +138,26 @@
                     </div>
                 </div>
 
+                <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center areaFloat text-area-custom text-area-both hide">
+                    <div class="oj-xl-9 oj-lg-9 oj-md-8 oj-sm-8 oj-flex-item  oj-flex areaContent">
+                        <textarea id="text-area07" class="textArea3" aria-label="ojTextArea component no visible label"
+                                  data-bind="ojComponent: {component: 'ojTextArea', 
+                                         value: desc, 
+                                         placeholder: 'Type your reason here..'}"></textarea>
+                    </div>
+                    <div class="oj-xl-3 oj-lg-3 oj-md-4 oj-sm-4 oj-flex-item imgArea1 text-area-both-margin-top">
+                        <div class="pos-relative" data-bind="click: plusOne">
+                            <img class="modalImage" data-bind="attr: {src:imagerank2}" alt=""/>
+                        </div>
+                        
+                        <div class="pos-relative" data-bind="click: minusOne">
+                            <img class="modalImage" data-bind="attr: {src:imagerank3}"/>
+                        </div>
+                    </div>
+                    <div>
+
+                    </div>
+                </div>
                 <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center hide errorTextModal" id="rateFloatTextError">Please provide a reason for rating.</div>
                 <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center submit-btn-modal">
 
@@ -155,13 +184,17 @@
                     <ul id="browsers2" style="display: none">
                         <!-- ko foreach: browsers2 -->
                         <li data-bind="attr: {'oj-data-value': value}">
-                            <span class="imgSearch">  <img data-bind="attr: {'src': autoSearchLeadPic}" class="searchImage" /> </span>
-                            <span data-bind="text: label"  class="autoName"></span> &ndash; <span data-bind="text: autoSearchLeadRole" class="searchLead"></span>
+                            <div class="search-text-profile-image">
+                                <span class="imgSearch">  <img data-bind="attr: {'src': autoSearchLeadPic}" class="searchImage" /> </span>
+                                <span data-bind="text: label"  class="autoName"></span> &ndash; <span data-bind="text: autoSearchLeadRole" class="searchLead"></span>
+                                <span class="search-text-profile-image-initials" data-bind="text:intials_request"></span>
+                            </div>
                         </li> 
                         <!-- /ko -->   
                     </ul>
                     <input id="combobox3"
                            data-bind="ojComponent: {component: 'ojCombobox',
+                           optionChange: requestValueChangeHandler,
                             placeholder:'Search',
                                  list: 'browsers2',
                               value: value2,

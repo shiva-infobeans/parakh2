@@ -808,10 +808,25 @@ class dbmodule {
                 }
                 $image = $this->getCacheImage($employeeList[$y]['google_email'], $default_img);
                 $employeeList[$y]['google_picture_link'] = $image;
+                $employeeList[$y]['is_manager_current_user'] = $this->getManagerID($employeeList[$y]['id']);
             }
-
             return $employeeList;
         } else {
+            return 0;
+        }
+    }
+
+    /*get manager id by user id*/
+    function getManagerID($user_id)
+    {
+        $query = "select manager_id from user_hierarchy where user_id=:user_id AND manager_id in (select id from users where google_email=:manager_email)";
+        $fetch_manager = $this->con->prepare($query);
+        $fetch_manager->execute(array(':user_id' => $user_id,':manager_email' => $_COOKIE['email']));
+        if($fetch_manager->fetchColumn())
+        {
+            return 1;
+        }else
+        {
             return 0;
         }
     }
@@ -1016,7 +1031,7 @@ class dbmodule {
                     $manager_name = $manager_name->fetch((PDO::FETCH_ASSOC));
 
                     $leadList[$key]['manager_name'] = $manager_name['google_name'];
-                    //$leadList[$key]['google_picture_link'] = $manager_name['google_picture_link'];
+                    $leadList[$key]['google_picture_link'] = $this->getCacheImage($manager_name['google_email'],$default_img);
 
                     $role_query = "SELECT name FROM role_type "
                             . "WHERE id = :role_type_id";
@@ -1879,6 +1894,46 @@ class dbmodule {
         }
         return $data;
     }
+
+
+    /*get parakh video for login page*/
+    function get_parakh_video(){
+        $video = '<video class="video" id="parakh_video" controls="" loop="" width="572" height="320"><source type="video/ogg" src="Parakh_Teaser.mp4"><source type="video/mp4" src="Parakh_Teaser.mp4"><object  type="application/x-shockwave-flash" data="Parakh_Teaser.mp4" wmode="transparent"><param name="movie" value="Parakh_Teaser.mp4"><param name="wmode" value="transparent"><param name="autostart" value="false"></object></video>';
+
+        $data['video'] = $video;
+        return $data;
+        
+    }
+
+    
+    /*send feedback function*/
+ /*send feedback function*/
+   function send_feedback($data){
+       if(isset($data['desc'])){
+           $email_data = [];
+           $temp_data = $this->getEmailTemplateByCode('PRKE01');
+           $email_data['to']['email'] = FEEDBACK_EMAIL;
+           $email_data['to']['name'] = "Feedack Parakh";
+           $email_data['from'] = $data['from'];
+           $email_data['from_name'] = $data['from_name'];
+           $email_data['subject'] = "Feedback";
+           // $email_data['subject'] = $temp_data['subject'];
+           $vars = array();
+           // $vars = array(
+           //     "{username}" => $email_data['to']['name'],
+           //     "{rating}" => $rating,
+           //     "{parakh}" => $this->getParakhLink(),
+           // );
+           //$temp_data['content'] = $_POST['message'];
+           $message = strtr($data['desc'], $vars);
+           $email_data['message'] = $data['desc'];
+           $this->send_notification($email_data);
+           return 1;
+       }else
+       {
+           return 0;
+       }
+   }
 
     /* find last month login users only and send mail to them */
 

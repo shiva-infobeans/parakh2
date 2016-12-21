@@ -428,31 +428,39 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                             headers: {secret: secret},
                             success: function (result) {
                                 for (var c = 0; c < result['attributes']['data'].length; c++) {
-                                    var obj = new Object();
-                                    obj.name = result['attributes']['data'][c]['google_name'];
-                                    obj.nameS = result['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
-                                    obj.image = result['attributes']['data'][c]['google_picture_link'];
-                                    obj.projects = result['attributes']['data'][c]['primary_project'];
-                                    if (result['attributes']['data'][c]['google_picture_link'] == '/images/default.png')
-                                    {
-                                        obj.intials = nameFunction(result['attributes']['data'][c]['google_name']);
-                                    } else
-                                    {
-                                        obj.intials = "";
+                                    try {
+                                        var obj = new Object();
+                                        obj.name = result['attributes']['data'][c]['google_name'];
+                                        obj.nameS = result['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
+                                        obj.image = result['attributes']['data'][c]['google_picture_link'];
+                                        obj.projects = result['attributes']['data'][c]['primary_project'];
+                                        if (result['attributes']['data'][c]['google_picture_link'] == '/images/default.png')
+                                        {
+                                            obj.intials = nameFunction(result['attributes']['data'][c]['google_name']);
+                                        } else
+                                        {
+                                            obj.intials = "";
+                                        }
+                                        obj.personLink = "memberProfile.html?id=" + result['attributes']['data'][c]['user_id'];
+                                        self.addteamMembers(obj);
+                                    } catch (e) {
+
                                     }
-                                    obj.personLink = "memberProfile.html?id=" + result['attributes']['data'][c]['user_id'];
-                                    self.addteamMembers(obj);
                                 }
-                                for (i = result['attributes']['data'].length; i < 4; i++)
+                                for (var i = result['attributes']['data'].length; i < 4; i++)
                                 {
-                                    var obj = new Object();
-                                    obj.name = 'No Record';
-                                    obj.nameS = '';
-                                    obj.image = "/images/warning-icon-24.png";
-                                    obj.projects = "";
-                                    obj.personLink = "";
-                                    obj.intials = ""
-                                    self.addteamMembers(obj);
+                                    try {
+                                        var obj = new Object();
+                                        obj.name = 'No Record';
+                                        obj.nameS = '';
+                                        obj.image = "/images/warning-icon-24.png";
+                                        obj.projects = "";
+                                        obj.personLink = "";
+                                        obj.intials = ""
+                                        self.addteamMembers(obj);
+                                    } catch (e) {
+
+                                    }
                                 }
                                 var monthUrl = oj.Model.extend({
                                     url: getTopFourRankForCurrentMonth
@@ -462,31 +470,40 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                     headers: {secret: secret},
                                     success: function (res2) {
                                         for (var c = 0; c < res2['attributes']['data'].length; c++) {
-                                            var obj = new Object();
-                                            obj.name = res2['attributes']['data'][c]['google_name'];
-                                            obj.nameS = res2['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
-                                            obj.image = res2['attributes']['data'][c]['image'];
-                                            obj.projects = res2['attributes']['data'][c]['primary_project'];
-                                            if (res2['attributes']['data'][c]['image'] == '/images/default.png')
-                                            {
-                                                obj.intials = nameFunction(res2['attributes']['data'][c]['google_name']);
-                                            } else
-                                            {
-                                                obj.intials = "";
+                                            try {
+                                                var obj = new Object();
+                                                obj.name = res2['attributes']['data'][c]['google_name'];
+                                                obj.nameS = res2['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
+                                                obj.image = res2['attributes']['data'][c]['image'];
+                                                obj.projects = res2['attributes']['data'][c]['primary_project'];
+                                                if (res2['attributes']['data'][c]['image'] == '/images/default.png')
+                                                {
+                                                    obj.intials = nameFunction(res2['attributes']['data'][c]['google_name']);
+                                                } else
+                                                {
+                                                    obj.intials = "";
+                                                }
+                                                obj.personLink = "memberProfile.html?id=" + res2['attributes']['data'][c]['user_id'];
+                                                self.addteamMembers(obj);
+                                            } catch (e) {
+
                                             }
-                                            obj.personLink = "memberProfile.html?id=" + res2['attributes']['data'][c]['user_id'];
-                                            self.addteamMembers(obj);
                                         }
                                         for (i = res2['attributes']['data'].length; i < 4; i++)
                                         {
-                                            var obj = new Object();
-                                            obj.name = 'No Record';
-                                            obj.nameS = '';
-                                            obj.image = "/images/warning-icon-24.png";
-                                            obj.projects = "";
-                                            obj.personLink = "";
-                                            obj.intials = "";
-                                            self.addteamMembers(obj);
+                                            try {
+                                                var obj = new Object();
+                                                obj.name = 'No Record';
+                                                obj.nameS = '';
+                                                obj.image = "/images/warning-icon-24.png";
+                                                obj.projects = "";
+                                                obj.personLink = "";
+                                                obj.intials = "";
+                                                self.addteamMembers(obj);
+                                            } catch (e) {
+
+                                            }
+
                                         }
                                         var yearUrl = oj.Model.extend({
                                             url: getFourTillNowRankingList
@@ -497,32 +514,40 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                                             success: function (res3) {
                                                 if (res3['attributes']['data'].length > 0) {
                                                     for (var c = 0; c < 4; c++) {
-                                                        var obj = new Object();
-                                                        obj.personLink = "memberProfile.html?id=" + res3['attributes']['data'][c]['user_id'];
-                                                        obj.name = res3['attributes']['data'][c]['google_name'];
-                                                        obj.nameS = res3['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
-                                                        obj.image = res3['attributes']['data'][c]['image'];
-                                                        obj.projects = res3['attributes']['data'][c]['primary_project'];
-                                                        if (res3['attributes']['data'][c]['image'] == '/images/default.png')
-                                                        {
-                                                            obj.intials = nameFunction(res3['attributes']['data'][c]['google_name']);
-                                                        } else
-                                                        {
-                                                            obj.intials = "";
+                                                        try {
+                                                            var obj = new Object();
+                                                            obj.personLink = "memberProfile.html?id=" + res3['attributes']['data'][c]['user_id'];
+                                                            obj.name = res3['attributes']['data'][c]['google_name'];
+                                                            obj.nameS = res3['attributes']['data'][c]['google_name'].substring(0, obj.name.indexOf(" "));
+                                                            obj.image = res3['attributes']['data'][c]['image'];
+                                                            obj.projects = res3['attributes']['data'][c]['primary_project'];
+                                                            if (res3['attributes']['data'][c]['image'] == '/images/default.png')
+                                                            {
+                                                                obj.intials = nameFunction(res3['attributes']['data'][c]['google_name']);
+                                                            } else
+                                                            {
+                                                                obj.intials = "";
+                                                            }
+                                                            self.addteamMembers(obj);
+                                                        } catch (e) {
+
                                                         }
-                                                        self.addteamMembers(obj);
                                                     }
                                                 }
                                                 for (i = res3['attributes']['data'].length; i < 4; i++)
                                                 {
-                                                    var obj = new Object();
-                                                    obj.name = 'No Record';
-                                                    obj.nameS = '';
-                                                    obj.image = "/images/warning-icon-24.png";
-                                                    obj.projects = "";
-                                                    obj.personLink = "";
-                                                    obj.intials = "";
-                                                    self.addteamMembers(obj);
+                                                    try {
+                                                        var obj = new Object();
+                                                        obj.name = 'No Record';
+                                                        obj.nameS = '';
+                                                        obj.image = "/images/warning-icon-24.png";
+                                                        obj.projects = "";
+                                                        obj.personLink = "";
+                                                        obj.intials = "";
+                                                        self.addteamMembers(obj);
+                                                    } catch (e) {
+
+                                                    }
                                                 }
                                             }
                                         });
@@ -774,8 +799,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                 }
             });
         }, 500);
-       
-
 
 
     }

@@ -175,14 +175,14 @@ $app->post('/addRating', function ($request, $response) {
     $post_data['to_id']   = filter_var($data['to_id'], FILTER_SANITIZE_NUMBER_INT);     
     $post_data['rating'] = filter_var($data['rating'], FILTER_SANITIZE_NUMBER_INT);
     $post_data['desc'] = filter_var($data['desc'], FILTER_SANITIZE_STRING);
-    
+    $post_data['from_floating'] = filter_var($data['from_floating'], FILTER_SANITIZE_NUMBER_INT);
     if($post_data['from_id'] > 0 && $post_data['to_id'] > 0 && ($post_data['rating'] == 0 || $post_data['rating'] == 1)){
         //Creating a dbmodule object
         $db = new dbmodule();
         // Check Is valid user
         if($db->isValidUser( $post_data['from_id'] )){
             // Check user is belong to your team
-            if($db->isInMyTeam($post_data['from_id'], $post_data['to_id'])){
+            if(($db->isInMyTeam($post_data['from_id'], $post_data['to_id'])) || (isset($post_data['from_floating']) && $post_data['from_floating']==1)){
                 $result = $db->addRating($post_data);
                 if($result != ""){
                     $response_data = makeResponse('false',$result);
@@ -323,7 +323,7 @@ $app->post('/rateOtherMember', function ($request, $response) {
     $post_data['rating'] = filter_var($data['rating'], FILTER_SANITIZE_NUMBER_INT);
     $post_data['desc'] = filter_var($data['desc'], FILTER_SANITIZE_STRING);
     
-    if($post_data['user_id'] > 0 && $post_data['for_id'] > 0 && $post_data['rating'] == 1 ){
+    if($post_data['user_id'] > 0 && $post_data['for_id'] > 0 && isset($post_data['rating']) ){
         //Creating a dbmodule object
         $db = new dbmodule();
         if($db->isValidUser( $post_data['user_id'] )){
@@ -1073,6 +1073,30 @@ $app->get('/getFourTillNowRankingList[/]', function ($request, $response, $args)
     return $response;
 });
 
+
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/sendFeedback/
+ * Parameters: none
+ * 
+ * Method: Post
+ * */    
+$app->post('/sendFeedback[/]', function ($request, $response, $args) {
+    $response_data = array();
+    $data = $request->getParsedBody();
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    $result = $db->send_feedback($data);
+    if($result != 0){
+        $response_data = makeResponse('false',$result);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3001));
+    }    
+    $response->withJson($response_data);
+    return $response;
+});
+
+
+
 /* *
  * URL: http://localhost/parakh-new/v1/index.php/getLastMonthLoginUsers/
  * Parameters: none
@@ -1093,18 +1117,44 @@ $app->get('/getLastMonthLoginUsers[/]', function ($request, $response, $args) {
     $response->withJson($response_data);
     return $response;
 });
+
 /* *
  * URL: http://localhost/parakh-new/v1/index.php/getPositionOfUserInRanking/
  * Parameters: none
  * 
  * Method: GET
  * */    
+
 $app->get('/getPositionOfUserInRanking[/]', function ($request, $response, $args) {
+
     $response_data = array();
     
     //Creating a dbmodule object
     $db = new dbmodule();
+
     $result = $db->get_position_of_user_in_ranking();
+
+    if($result != 0){
+        $response_data = makeResponse('false',$result);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3001));
+    }    
+    $response->withJson($response_data);
+    return $response;
+});
+
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getParakhVideo/
+ * Parameters: none
+ * 
+ * Method: GET
+ * */    
+$app->get('/getParakhVideo[/]', function ($request, $response, $args) {
+    $response_data = array();
+    
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    $result = $db->get_parakh_video();
     if($result != 0){
         $response_data = makeResponse('false',$result);
     }else{
