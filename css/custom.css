@@ -1424,6 +1424,9 @@ div.oj-tabs-panel.oj-tabs-selected{
         min-height: 810px;
 
     }
+    .rank-top-filter{
+        margin-left: 0px !important;
+}
     .area{
         margin-left: 17px !important;
     }
@@ -2396,6 +2399,7 @@ a#menu-share:hover > i{
     font-size: 50px;
     text-align: center;
 }
+
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
    #ojDialogWrapper-minMaxDialog.oj-dialog{
 	height: 200px;
@@ -2405,8 +2409,11 @@ a#menu-share:hover > i{
 }
 }
 .margin-10LR {
-  margin-left: 10px;
+  margin-left: 10px !important;
   margin-right: 10px;
+}
+.rank-top-filter{
+        margin-left: -15px !important;
 }
 .top-margin-custom{
     margin-top: 8px;
