@@ -16,17 +16,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
     	self.video_image("../../images/video.jpg");
     	self.openVideo = function(){
     		$("#modalVideo").ojDialog("open"); 
-		
-	        $.ajax({
-                headers: {secret: secret},
-                type: 'GET',
-                url: getParakhVideo,
-                data: {},
-                success: function(result){
-                    var data = JSON.parse(result)['data'];
-                    $('.oj-dialog-body').html(data.video);
-                }
-            });
+		    var video = '<video class="video" id="parakh_video" controls="" loop="" ><source type="video/ogg" src="Parakh_Teaser.mp4"><source type="video/mp4" src="Parakh_Teaser.mp4"><object  type="application/x-shockwave-flash" data="Parakh_Teaser.mp4" wmode="transparent"><param name="movie" value="Parakh_Teaser.mp4"><param name="wmode" value="transparent"><param name="autostart" value="false"></object></video>';
+            $('.oj-dialog-body').html(video);
+            
     	}
 
     	$(function(){

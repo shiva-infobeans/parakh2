@@ -54,7 +54,6 @@ var getCacheImage =  baseUrl+"/getCacheImage";
 var logoutUrl =  baseUrl+"/logout";
 var getFourTillNowRankingList = baseUrl+"/getFourTillNowRankingList";
 var getATeamMember = baseUrl+"/getATeamMember/";
-var getParakhVideo = baseUrl+"/getParakhVideo/";
 var sendFeedback = baseUrl+"/sendFeedback/";
 
 //updates for google client id and parakh logo (favicon) 
