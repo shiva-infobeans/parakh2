@@ -633,7 +633,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
         var ManagerSlider = 0;
         var ab = 0;
         setInterval(function () {
-            console.log($("#filmStrip").find("#ui-id-10").attr("style") == "visibility: hidden;");
             if ($("#filmStrip").find("#ui-id-10").attr("style") == "visibility: hidden;") {
                 $("#filmStrip").ojFilmStrip("option", "currentItem", 0);
             } else {
