@@ -1209,12 +1209,12 @@ $app->get('/getTopTenRankersOfPast90Days[/]', function ($request, $response, $ar
  * 
  * Method: GET
  * */    
-$app->get('/getRankOfLoggedInUserInCurrentMonth[/]', function ($request, $response, $args) {
+$app->get('/getRankOfLoggedInUserInCurrentMonth[/{user_id}]', function ($request, $response, $args) {
     $response_data = array();
-    $data = $request->getParsedBody();
+    
     //Creating a dbmodule object
     $db = new dbmodule();
-    $result = $db->get_rank_of_logged_in_user_in_current_month($data['user_id']);
+    $result = $db->get_rank_of_logged_in_user_in_current_month($args['user_id']);
     if($result != 0){
         $response_data = makeResponse('false',$result);
     }else{
@@ -1225,16 +1225,16 @@ $app->get('/getRankOfLoggedInUserInCurrentMonth[/]', function ($request, $respon
 });
 /* *
  * URL: http://localhost/parakh-new/v1/index.php/getRankOfLoggedInUserInPast90Days/
- * Parameters: none
+ * Parameters: login_user_id
  * 
  * Method: GET
  * */    
-$app->get('/getRankOfLoggedInUserInPast90Days[/]', function ($request, $response, $args) {
+$app->get('/getRankOfLoggedInUserInPast90Days[/{user_id}]', function ($request, $response, $args) {
     $response_data = array();
-    $data = $request->getParsedBody();
+    
     //Creating a dbmodule object
     $db = new dbmodule();
-    $result = $db->get_rank_of_logged_in_user_in_past_90_days($data['user_id']);
+    $result = $db->get_rank_of_logged_in_user_in_past_90_days($args['user_id']);
     if($result != 0){
         $response_data = makeResponse('false',$result);
     }else{
