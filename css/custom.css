@@ -1875,6 +1875,10 @@ span.zmdi-plus-request {
 }
 .feedback-align{
     display: table;
+    width: auto;
+}
+.feedback-align1 {
+    display: table;
 }
 .feedback-circle{
        height: 48px;
@@ -1939,6 +1943,7 @@ span.zmdi-plus-request {
 }
 .feedback-margin{
     margin-top: 12px;
+    display: table;
 }
 .buttonReply:hover, .buttonReply:focus {
     text-decoration: none;
