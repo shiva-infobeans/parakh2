@@ -1754,6 +1754,7 @@
 #filmStrip .oj-filmstrip-arrow.oj-default .oj-filmstrip-arrow-icon{
     color: #fff;
     font-size: 40px;
+    cursor: pointer;
 }
 #filmStrip .oj-filmstrip-arrow.oj-hover {
     background-color: transparent !important;
