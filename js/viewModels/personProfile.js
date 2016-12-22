@@ -360,7 +360,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                             {
                                 self.successful("Profile updated successfully!");
                                 $('.sucessMsg').show();
-                                self.allRevert();
+                                self.revertAfterEdit();
                             }
                             setTimeout(function () {
                                 $('.sucessMsg').hide();
@@ -744,6 +744,29 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         self.myNumber("+91-" + self.temporaryNumber());
                     }
                 }
+                
+                self.revertAfterEdit = function(){
+                    self.moberror("");
+                    $('#designation-text').removeClass('hide');
+                    $('#designation-div').addClass('hide');
+                    $('#location-text').removeClass('hide');
+                    $('#location-div').addClass('hide');
+                    $('#skills-text').removeClass('hide');
+                    $('#skills').addClass('hide');
+                    $('#associate-text').removeClass('hide');
+                    $('#associate-div').addClass('hide');
+                    $('#primary-project-text').removeClass('hide');
+                    $('#primary-project-div').addClass('hide');
+                    $('#projects-text').removeClass('hide');
+                    $('#projects-div').addClass('hide');
+                    $('#interest-text').removeClass('hide');
+                    $('#interest-div').addClass('hide');
+                    $('#number-text').removeClass('hide');
+                    $('#editNumberBox').addClass('hide');
+                    $('#edit-all').removeClass('hide');
+                    $('#submit-all').addClass('hide');
+                    $('#cancel-all').addClass('hide');
+                }
 
                 self.allRevert = function () {
                     self.moberror("");
@@ -771,8 +794,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     self.interests(interestsDefaultVar);
                     self.primary_project(primaryProjectDefaultVar);
                     self.temporaryNumber(self.myNumber().substring(self.myNumber().indexOf("-") + 1, self.myNumber().length));
-                    self.myNumber("+91-" + editVariable);
-                    self.temporaryNumber("");
                     self.myNumber(numberDefaultVar);
                     $('#edit-all').removeClass('hide');
                     $('#submit-all').addClass('hide');

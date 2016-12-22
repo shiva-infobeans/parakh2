@@ -39,7 +39,7 @@
                     <div class="noComments" id="noPositiveComment" data-bind="text: NoCommentsP"></div>
                     <div class=" oj-row oj-flex rating-comment" data-bind="foreach: commentDataPositive">
                         <div class="oj-flex oj-flex-item oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 transHide">
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex pos-relative  rating-comment-div feedback-align">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex pos-relative  rating-comment-div feedback-align1">
                                 <div class="commentDate">
                                     <span data-bind="text: commentDate"></span>
                                 </div>
@@ -65,7 +65,7 @@
                     <div class="noComments" id="noNegativeComment" data-bind="text: NoCommentsN"></div>
                     <div class="oj-row oj-flex rating-comment" data-bind="foreach: commentDataNegative">
                         <div class="oj-flex oj-flex-item oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 transHide">
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex pos-relative rating-comment-div feedback-align">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex pos-relative rating-comment-div feedback-align1">
                                 <div class="commentDate">
                                     <span data-bind="text: commentDate"></span>
                                 </div>
@@ -85,7 +85,7 @@
                 </div>
             </div>
 
-            <div id="tabs-3" class="color-white oj-margin-horizontal pos-relative ">
+             <div id="tabs-3" class="color-white oj-margin-horizontal pos-relative ">
                 <div class="feedbackSection">
                     <div class="transbox"></div>
                     <div id="noFeedback" class="noComments"> No feedback available.</div>
@@ -97,7 +97,7 @@
                             <div data-bind="foreach: feedbackContent1">
                                 <div class="oj-flex oj-flex-item oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12">
 
-                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div feedback-margin feedback-align">
+                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div feedback-margin ">
                                         <div class="feedback-date">
                                             <span data-bind="text: feedbackDate"></span>
                                         </div>
@@ -137,7 +137,7 @@
                                     </div>
                                     <!--                            repeat replies end
                                                                 reply button here-->
-                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div feedback-align">
+                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div feedback-align1 bottom-padding">
                                         <div class="feedback-date">
 
                                         </div>
@@ -153,7 +153,7 @@
                                                         <i class="zmdi zmdi-close zmdi-hc-2x" data-bind="attr: {id: replyClose},click: $parent.closeReply"></i>
                                                     </span>
                                                 </div>
-                                                <div class="errorVisibilityHide margin-error-reply-feedback">Please enter your response.</div>
+                                                <div class="errorVisibilityHide">Please enter your response.</div>
                                             </div>
                                         </div>
                                     </div>
@@ -287,7 +287,7 @@
                     <div class="noComments" id="noPositiveComment" data-bind="text: NoCommentsP"></div>
                     <div class=" oj-row oj-flex rating-comment" data-bind="foreach: commentDataPositive">
                         <div class="oj-flex oj-flex-item oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 transHide">
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex pos-relative  rating-comment-div feedback-align">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex pos-relative  rating-comment-div feedback-align1">
                                 <div class="profile-rating-circle circle-green pos-relative">
                                     <span class="hoverName" data-bind="text:commenter"></span>
                                     <span data-bind="text:shortName"></span>
@@ -314,7 +314,7 @@
                     <div class="noComments" id="noNegativeComment" data-bind="text: NoCommentsN"></div>
                     <div class="oj-row oj-flex rating-comment" data-bind="foreach: commentDataNegative">
                         <div class="oj-flex oj-flex-item oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 transHide">
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex pos-relative rating-comment-div feedback-align">
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex pos-relative rating-comment-div feedback-align1">
                                 <div class="profile-rating-circle circle-red pos-relative ">
                                     <span class="hoverNameN" data-bind="text:commenter"></span>
                                     <span data-bind="text:shortName"></span>
@@ -346,7 +346,7 @@
                     <div data-bind="foreach: feedbackContent1">
                         <div class="oj-flex oj-flex-item oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12">
 
-                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div feedback-align bottom-padding"> 
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div  bottom-padding"> 
                                 <div class="feedback-circle circle-purple pos-relative">
                                     <div class="viewFeedbackName" data-bind="text: name"></div>
                                     <span data-bind="text: shortName"></span>
@@ -382,7 +382,7 @@
                                     </div>
                                     <!--repeat replies end-->
                                     <!--reply button here-->
-                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div feedback-align">
+                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div feedback-align1">
                                         <div class="feedback-comment pos-relative margin-top-feedback">
                                             <a class="buttonReply" data-bind="click: $parent.openReply,attr: {id: replyBtnId}">Reply</a>
                                             <div data-bind="attr:{id: uniqueId}" class="replyInput hide">
