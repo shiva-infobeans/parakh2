@@ -114,10 +114,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.role_name = ko.observable();
         self.currentChangeid = ko.observable(0);
 
-        
-        
+
         self.rateValueChangeHandler = function (context, valueParam) {
-            if(self.value() != ""){
+            if (self.value() != "" && self.value() != 'undefined' && $(context.target).attr('id') == 'combobox2') {
                 self.showHelpSearch("");
             }
             if (!isNaN(valueParam.value[0]))
@@ -158,11 +157,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             // });
         }
 
-        self.descEvent = function(){
+        self.descEvent = function () {
             console.log("a");
         }
         self.requestValueChangeHandler = function (context, valueParam) {
-            
+
             if (!isNaN(valueParam.value[0]))
             {
                 self.currentChangeid(valueParam.value[0]);
@@ -186,6 +185,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         }
 
         self.feedbackValueChangeHandler = function (context, valueParam) {
+            
             if (!isNaN(valueParam.value[0]))
             {
                 self.currentChangeid(valueParam.value[0]);
@@ -207,7 +207,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 }
             }
         }
-        
+
 
         self.p = ko.observable(1);
 
@@ -508,7 +508,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                     'messages': ['notewindow']
                                 }
                     }
-                });
+        });
 
     }
     return floatingContentViewModel;
