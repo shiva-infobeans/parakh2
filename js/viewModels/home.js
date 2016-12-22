@@ -702,6 +702,16 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                     $('#homeTab2').append(' <img src="../../images/team-inactive.png" alt="" />');
                 }
             });
+            $("#filmStrip7").on({
+                'ojoptionchange': function (event, data) {
+                    if(isNaN(data['value'])){
+                        var changeNumber = data['value'].split("7");
+                        ManagerSlider = parseInt(changeNumber[1]);
+                    $('#filmStrip7').ojFilmStrip("option", "currentItem",parseInt(changeNumber[1]));
+                    }
+                }
+            });
+
         }, 500);
         var interval1;
         var interval2;
