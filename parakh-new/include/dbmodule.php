@@ -1911,19 +1911,18 @@ class dbmodule {
    function send_feedback($data){
        if(isset($data['desc'])){
            $email_data = [];
-           $temp_data = $this->getEmailTemplateByCode('PRKE01');
+           $temp_data = $this->getEmailTemplateByCode('PRKE18');
            $email_data['to']['email'] = FEEDBACK_EMAIL;
            $email_data['to']['name'] = "Feedack Parakh";
            $email_data['from'] = $data['from'];
            $email_data['from_name'] = $data['from_name'];
            $email_data['subject'] = "Feedback";
            // $email_data['subject'] = $temp_data['subject'];
-           $vars = array();
-           // $vars = array(
-           //     "{username}" => $email_data['to']['name'],
-           //     "{rating}" => $rating,
-           //     "{parakh}" => $this->getParakhLink(),
-           // );
+//           $vars = array();
+            $vars = array(
+                 "{Username}" => $email_data['to']['name'],
+                "{Feedback}" => $data['desc'],
+            );
            //$temp_data['content'] = $_POST['message'];
            $message = strtr($data['desc'], $vars);
            $email_data['message'] = $data['desc'];
