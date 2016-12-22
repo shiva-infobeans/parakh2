@@ -736,11 +736,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
         // recent +1 slider tab 2
         var timer1 = function () {
             interval1 = setInterval(function () {
-                if ($("#filmStrip").find("#ui-id-10").attr("style") == "visibility: hidden;") {
+
+                if ($('#filmStrip').find(".oj-filmstrip-arrow.oj-default.oj-enabled.oj-end").attr("style") == "visibility: hidden;") {
                     $("#filmStrip").ojFilmStrip("option", "currentItem", 0);
                 } else {
 
-                    $("#filmStrip").find("#ui-id-10").click();
+                    $('#filmStrip').find(".oj-filmstrip-arrow.oj-default.oj-enabled.oj-end").click();
                 }
             }, 6000);
         };
