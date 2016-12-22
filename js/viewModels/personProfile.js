@@ -763,6 +763,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     $('#interest-div').addClass('hide');
                     $('#number-text').removeClass('hide');
                     $('#editNumberBox').addClass('hide');
+                    $('#edit-all').removeClass('hide');
+                    $('#submit-all').addClass('hide');
+                    $('#cancel-all').addClass('hide');
                 }
 
                 self.allRevert = function () {
@@ -791,8 +794,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     self.interests(interestsDefaultVar);
                     self.primary_project(primaryProjectDefaultVar);
                     self.temporaryNumber(self.myNumber().substring(self.myNumber().indexOf("-") + 1, self.myNumber().length));
-                    self.myNumber("+91-" + editVariable);
-                    self.temporaryNumber("");
                     self.myNumber(numberDefaultVar);
                     $('#edit-all').removeClass('hide');
                     $('#submit-all').addClass('hide');
