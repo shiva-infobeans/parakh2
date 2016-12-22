@@ -633,83 +633,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
         var ManagerSlider = 0;
         var ab = 0;
         setInterval(function () {
-            if ($("#filmStrip").find("#ui-id-10").attr("style") == "visibility: hidden;") {
-                $("#filmStrip").ojFilmStrip("option", "currentItem", 0);
-            } else {
-                
-                $("#filmStrip").find("#ui-id-10").click();
-            }
-            /// slider my team
-            if ($('#filmStrip8').ojFilmStrip("option", "currentItem") == 0
-                    || $('#filmStrip8').ojFilmStrip("option", "currentItem") == 'show8') {
-                try {
-                    $('#filmStrip8').ojFilmStrip("option", "currentItem", 1);
-                } catch (e)
-                {
-                    //console.log(e);
-                }
 
-            } else if ($('#filmStrip8').ojFilmStrip("option", "currentItem") == 1
-                    || $('#filmStrip8').ojFilmStrip("option", "currentItem") == 'show8') {
-                try {
-                    $('#filmStrip8').ojFilmStrip("option", "currentItem", 2);
-                } catch (e)
-                {
-                    //console.log(e);
-                }
-            } else if ($('#filmStrip8').ojFilmStrip("option", "currentItem") == 2
-                    || $('#filmStrip8').ojFilmStrip("option", "currentItem") == 'show8') {
-                try {
-                    $('#filmStrip8').ojFilmStrip("option", "currentItem", 0);
-                } catch (e)
-                {
-                    //console.log(e);
-                }
-            }
+
 
             /// my slider
-            if ($('#filmStrip9').ojFilmStrip("option", "currentItem") == 0
-                    || $('#filmStrip9').ojFilmStrip("option", "currentItem") == 'show90') {
-
-                try {
-                    $('#filmStrip9').ojFilmStrip("option", "currentItem", 1);
-                } catch (e)
-                {
-                    console.log(e);
-                }
-            } else if ($('#filmStrip9').ojFilmStrip("option", "currentItem") == 1
-                    || $('#filmStrip9').ojFilmStrip("option", "currentItem") == 'show91') {
-                try {
-                    $('#filmStrip9').ojFilmStrip("option", "currentItem", 2);
-                } catch (e)
-                {
-                    console.log(e);
-                }
-            } else if ($('#filmStrip9').ojFilmStrip("option", "currentItem") == 2
-                    || $('#filmStrip9').ojFilmStrip("option", "currentItem") == 'show92') {
-                try {
-                    $('#filmStrip9').ojFilmStrip("option", "currentItem", 0);
-                } catch (e)
-                {
-                    console.log(e);
-                }
-            }
-            /// manager slider
 
 
-            if ($('#filmStrip7').ojFilmStrip("option", "currentItem") == (ManagerSlider)
-                    || $('#filmStrip7').ojFilmStrip("option", "currentItem") == ("show7" + ManagerSlider)) {
-                try {
-                    if (ManagerSlider == (self.projects().length - 1))
-                        ManagerSlider = 0;
-                    else
-                        ManagerSlider++;
-                    $('#filmStrip7').ojFilmStrip("option", "currentItem", ManagerSlider);
-                } catch (e)
-                {
-                    ManagerSlider = 0;
-                }
-            }
         }, 6000);
         self.redirectPlus = function () {
             window.location = "profile.html";
@@ -774,10 +703,119 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                 }
             });
         }, 500);
+        var interval1;
+        var interval2;
+        var interval3;
+        var interval4;
+        self.tab1 = function () {
+            clearInterval(interval1);
+            clearInterval(interval2);
+            clearInterval(interval3);
+            clearInterval(interval4);
+            timer4();
+        }
+        self.tab2 = function () {
+            clearInterval(interval1);
+            clearInterval(interval2);
+            clearInterval(interval3);
+            timer1();
+            timer2();
+            timer3();
+            clearInterval(interval4);
+        }
+        // recent +1 slider tab 2
+        var timer1 = function () {
+            interval1 = setInterval(function () {
+                if ($("#filmStrip").find("#ui-id-10").attr("style") == "visibility: hidden;") {
+                    $("#filmStrip").ojFilmStrip("option", "currentItem", 0);
+                } else {
 
+                    $("#filmStrip").find("#ui-id-10").click();
+                }
+            }, 6000);
+        };
+        /// manager slider
+        var timer2 = function () {
+            interval2 = setInterval(function () {
+                if ($('#filmStrip7').ojFilmStrip("option", "currentItem") == (ManagerSlider)
+                        || $('#filmStrip7').ojFilmStrip("option", "currentItem") == ("show7" + ManagerSlider)) {
+                    try {
+                        if (ManagerSlider == (self.projects().length - 1))
+                            ManagerSlider = 0;
+                        else
+                            ManagerSlider++;
+                        $('#filmStrip7').ojFilmStrip("option", "currentItem", ManagerSlider);
+                    } catch (e)
+                    {
+                        ManagerSlider = 0;
+                    }
+                }
+            }, 6000);
+        };
+        //slider my team
+        var timer3 = function () {
+            interval3 = setInterval(function () {
+                /// slider my team
+                if ($('#filmStrip8').ojFilmStrip("option", "currentItem") == 0
+                        || $('#filmStrip8').ojFilmStrip("option", "currentItem") == 'show80') {
+                    try {
+                        $('#filmStrip8').ojFilmStrip("option", "currentItem", 1);
+                    } catch (e)
+                    {
+                        //console.log(e);
+                    }
+                } else if ($('#filmStrip8').ojFilmStrip("option", "currentItem") == 1
+                        || $('#filmStrip8').ojFilmStrip("option", "currentItem") == 'show81') {
+                    try {
+                        $('#filmStrip8').ojFilmStrip("option", "currentItem", 2);
+                    } catch (e)
+                    {
+                        //console.log(e);
+                    }
+                } else if ($('#filmStrip8').ojFilmStrip("option", "currentItem") == 2
+                        || $('#filmStrip8').ojFilmStrip("option", "currentItem") == 'show82') {
+                    try {
+                        $('#filmStrip8').ojFilmStrip("option", "currentItem", 0);
+                    } catch (e)
+                    {
+                        //console.log(e);
+                    }
+                }
+            }, 6000);
+        };
+        //my slider
+        var timer4 = function () {
+            interval4 = setInterval(function () {
+                if ($('#filmStrip9').ojFilmStrip("option", "currentItem") == 0
+                        || $('#filmStrip9').ojFilmStrip("option", "currentItem") == 'show90') {
 
+                    try {
+                        $('#filmStrip9').ojFilmStrip("option", "currentItem", 1);
+                    } catch (e)
+                    {
+                        console.log(e);
+                    }
+                } else if ($('#filmStrip9').ojFilmStrip("option", "currentItem") == 1
+                        || $('#filmStrip9').ojFilmStrip("option", "currentItem") == 'show91') {
+                    try {
+                        $('#filmStrip9').ojFilmStrip("option", "currentItem", 2);
+                    } catch (e)
+                    {
+                        console.log(e);
+                    }
+                } else if ($('#filmStrip9').ojFilmStrip("option", "currentItem") == 2
+                        || $('#filmStrip9').ojFilmStrip("option", "currentItem") == 'show92') {
+                    try {
+                        $('#filmStrip9').ojFilmStrip("option", "currentItem", 0);
+                    } catch (e)
+                    {
+                        console.log(e);
+                    }
+                }
+            }, 6000);
+        };
 
-
+timer4();
     }
 
     return homeContentViewModel;
