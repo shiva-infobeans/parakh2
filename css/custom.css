@@ -1460,6 +1460,9 @@ div.oj-tabs-panel.oj-tabs-selected{
         left: 28px  !important;
         font-size: 24px  !important;
     }
+    .side-bar-img{
+    width: 30px !important;
+}
 
     #ojDialogWrapper-modalDialog8.oj-dialog,
     #ojDialogWrapper-modalDialog2.oj-dialog,
@@ -1748,6 +1751,9 @@ div.oj-tabs-panel.oj-tabs-selected{
     .tab-margin{
         margin-left:10px;
     }
+    .side-bar-img{
+    width: 35px !important;
+}
     .left {
         float: left;
         border-right: 5px solid transparent;
@@ -2111,7 +2117,7 @@ ul.ff li a{
     line-height: 63px;
     cursor: pointer;
     z-index: 10;
-    bottom: 65%;
+    bottom: 67%;
     right: auto;
 }
 ul.ff1{
@@ -2120,6 +2126,7 @@ ul.ff1{
     padding-bottom:20px;
     /*top: 150px;*/
     z-index:100;
+    list-style: outside none none;
 }
 
 
