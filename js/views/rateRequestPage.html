@@ -69,8 +69,9 @@ and open the template in the editor.
 
 
                                             <textarea id="text-area20" class="textArea-requests textArea-white" aria-label="ojTextArea component no visible label"
-                                                      data-bind="ojComponent: {component: 'ojTextArea', 
+                                                      data-bind="click: $parent.data, ojComponent: {component: 'ojTextArea', 
                                      value: lComment, 
+                                     title: helpText,
                                      placeholder: 'Type your reason here..'}"></textarea>
                                         </div>
                                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex ms-fix">

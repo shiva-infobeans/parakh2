@@ -7,7 +7,7 @@
 /**
  * rateRequestPage module
  */
-define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojmodel', 'ojs/ojinputtext', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 'ojs/ojdialog'
+define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojmodel', 'ojs/ojinputtext', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 'ojs/ojdialog','accordin/helpTextMsg'
 ], function (oj, ko, $) {
     /**
      * The view model for the main content view template
@@ -27,7 +27,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
     }
     function request(data, userid) {
         var req = Object();
-
+        req.helpText = ko.observable(approveDisapprove);
+        req.help = false;
         if (typeof data['comment_text'] == 'undefined') {
             req.lComment = data['description'];
             req.oldComment = data['description'];
@@ -123,7 +124,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.noLeadDeclinedRequest = ko.observable();
         self.selectTab = ko.observable(0);
 
-
         ////////////////////// tab detect send request 
         self.reqTabValue = ko.observable(2);
         self.reqTab = function () {
@@ -134,7 +134,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.reqTabValue(2);
         }
 
-        if (typeof id != 'undefined' && id!='') {
+        if (typeof id != 'undefined' && id != '') {
             self.selectTab(parseInt(id));
         }
         ////////////////////// lazy loading for Lead declined requests of the user
@@ -233,7 +233,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 self.requestPendingMember.push(self.lazyTempStoragePendM()[count]);
                                 self.lazyMemPendCurrent(self.lazyMemPendCurrent() + 1);
                             }
-                        }else{
+                        } else {
                             $("#PendingRequestLoading").hide();
                         }
                     }
@@ -271,8 +271,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 self.requestRejectedMember.push(self.lazyTempStorageRejM()[count]);
                                 self.lazyMemRejCurrent(self.lazyMemRejCurrent() + 1);
                             }
-                        }
-                        else{
+                        } else {
                             $("#RejectedRequestLoading").hide();
                         }
                     }
@@ -318,7 +317,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 }
                                 $("#request2").hide();
                                 self.noLeadPendingRequest("");
-                            }else{
+                            } else {
                                 $('#leadPendingLoading').hide();
                                 $('#hideMoreResponsive1').hide();
                             }
@@ -371,7 +370,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     $('#rateTab1').append(' <img src="../../images/send-req-active.png" alt="" id="Inactive1" />')
                 } else {
                     $('#rateTab2').show();
-                  
+
                     $("#requestHover").addClass("hoverTabRequest2");
 
                     $('#rateTab3').append(' <img src="../../images/request-approval-active.png" alt="" />')
@@ -432,12 +431,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     headers: {secret: secret},
                     success: function (result) {
                         var data = result['attributes']['data'];
-                   
-                        
-                          if (result['attributes']['data'].length == 1){
-                                $('#hideLead').hide();
-                          }
-                          
+
+
+                        if (result['attributes']['data'].length == 1) {
+                            $('#hideLead').hide();
+                        }
+
                         self.lead_name(result['attributes']['data'][0]['manager_name']);
                         self.lead_pic(result['attributes']['data'][0]['google_picture_link']);
                         if (result['attributes']['data'][0]['google_picture_link'] == '/images/default.png')
@@ -447,27 +446,27 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         self.lead_id(result['attributes']['data'][0]['manager_id']);
                         self.lead_role(result['attributes']['data'][0]['role_name']);
                         // console.log(result['attributes']['data'][0]['role_name']);
-                       
-                        
+
+
                         if (result['attributes']['data'].length == 2) {
                             self.manager_name(result['attributes']['data'][1]['manager_name']);
                             self.manager_pic(result['attributes']['data'][1]['google_picture_link']);
                             self.manager_id(result['attributes']['data'][1]['manager_id']);
                             self.manager_role(result['attributes']['data'][1]['role_name']);
 
-                           if (result['attributes']['data'][1]['google_picture_link'] == '/images/default.png')
-                           {
-                               self.intials_manager(nameFunction(result['attributes']['data'][1]['manager_name']));
-                           }else
-                           {
-                               self.intials_manager("");
-                           }
+                            if (result['attributes']['data'][1]['google_picture_link'] == '/images/default.png')
+                            {
+                                self.intials_manager(nameFunction(result['attributes']['data'][1]['manager_name']));
+                            } else
+                            {
+                                self.intials_manager("");
+                            }
                         }
                         //console.log(result['attributes']['data'][1]['role_name']);
-                         if(self.lead_id() == self.manager_id() ){
-                              $('#hideLead').hide();
+                        if (self.lead_id() == self.manager_id()) {
+                            $('#hideLead').hide();
                         }
-                       
+
                     }
                 });
             }
@@ -661,7 +660,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                     self.requestPendingMember.push(self.lazyTempStoragePendM()[count]);
                                     self.lazyMemPendCurrent(self.lazyMemPendCurrent() + 1);
                                 }
-                            }else{
+                            } else {
                                 $("#PendingRequestLoading").hide();
                             }
                         }
@@ -680,9 +679,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 }
             });
         }
-        self.requestLead = function () { 
-             self.desc1(self.desc1().trim());
-              if ((self.desc1() == '' || self.desc1() == null) && self.desc1() != 'undefined') {
+        self.requestLead = function () {
+            self.desc1(self.desc1().trim());
+            if ((self.desc1() == '' || self.desc1() == null) && self.desc1() != 'undefined') {
                 self.textError1("Please provide a reason for your rating.");
                 return false;
             }
@@ -737,7 +736,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                     self.requestPendingMember.push(self.lazyTempStoragePendM()[count]);
                                     self.lazyMemPendCurrent(self.lazyMemPendCurrent() + 1);
                                 }
-                            }else{
+                            } else {
                                 $("#PendingRequestLoading").hide();
                             }
                         }
@@ -755,7 +754,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     $("#requestLoader1").addClass('loaderHide');
                 }
             });
-            
+
         }
 //        setTimeout(function(){
 //            $(".openDiv").each(function () {     
@@ -930,9 +929,26 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             }
         });
 
-
-        ///////////////lazy loading function for declined request for user end
-
+        ///////////////help text here
+        self.showHelpComment = ko.observable("");
+        
+        self.data = function (content, data) {
+            if(!content['help']){
+                content['help'] = true;
+            }
+            else{
+                content['helpText']("");
+            }
+        }
+        oj.Components.setDefaultOptions({
+            'editableValue':
+                    {
+                        'displayOptions':
+                                {
+                                    'messages': ['notewindow']
+                                }
+                    }
+        });
     }
 
     return rateRequestPageContentViewModel;
