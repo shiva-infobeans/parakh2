@@ -514,6 +514,18 @@ class dbmodule {
                 $message = strtr($temp_data['content'], $vars);
                 $email_data['message'] = $message;
                 $this->send_notification($email_data);
+
+                /*send email to manager*/
+                $vars_manager = array(
+                    "{Username}" => $this->manager_name,
+                    "{Link}" => $this->getTargetLink(RANKING_URL, 'Parakh'),
+                );
+                $email_data_l['to']['email'] = $this->manager_email;
+                $email_data_l['to']['name'] = $this->manager_name;
+                $email_data_l['subject'] = $temp_data['subject'];
+                $message = strtr($temp_data['content'], $vars_manager);
+                $email_data_l['message'] = $message;
+                $this->send_notification($email_data_l);
             }
         }
         return true;
