@@ -1424,9 +1424,9 @@ div.oj-tabs-panel.oj-tabs-selected{
         min-height: 810px;
 
     }
-    .rank-top-filter{
-        margin-left: 0px !important;
-}
+    .responsive-dropdown-margin{
+        margin-left: 15px !important;
+    }
     .area{
         margin-left: 17px !important;
     }
