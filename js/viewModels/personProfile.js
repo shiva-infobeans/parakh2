@@ -763,6 +763,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     $('#interest-div').addClass('hide');
                     $('#number-text').removeClass('hide');
                     $('#editNumberBox').addClass('hide');
+                    $('#edit-all').removeClass('hide');
+                    $('#submit-all').addClass('hide');
+                    $('#cancel-all').addClass('hide');
                 }
 
                 self.allRevert = function () {
