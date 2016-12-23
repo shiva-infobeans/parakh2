@@ -751,7 +751,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                 if ($('#filmStrip7').ojFilmStrip("option", "currentItem") == (ManagerSlider)
                         || $('#filmStrip7').ojFilmStrip("option", "currentItem") == ("show7" + ManagerSlider)) {
                     try {
-                        if (ManagerSlider == (self.projects().length - 1))
+                        if (ManagerSlider == (self.projects().length-1))
                             ManagerSlider = 0;
                         else
                             ManagerSlider++;
@@ -804,7 +804,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                         $('#filmStrip9').ojFilmStrip("option", "currentItem", 1);
                     } catch (e)
                     {
-                        console.log(e);
+                       // console.log(e);
                     }
                 } else if ($('#filmStrip9').ojFilmStrip("option", "currentItem") == 1
                         || $('#filmStrip9').ojFilmStrip("option", "currentItem") == 'show91') {
@@ -812,7 +812,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                         $('#filmStrip9').ojFilmStrip("option", "currentItem", 2);
                     } catch (e)
                     {
-                        console.log(e);
+                       // console.log(e);
                     }
                 } else if ($('#filmStrip9').ojFilmStrip("option", "currentItem") == 2
                         || $('#filmStrip9').ojFilmStrip("option", "currentItem") == 'show92') {
@@ -820,13 +820,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                         $('#filmStrip9').ojFilmStrip("option", "currentItem", 0);
                     } catch (e)
                     {
-                        console.log(e);
+                      //  console.log(e);
                     }
                 }
             }, 6000);
         };
 
-timer4();
+        timer4();
     }
 
     return homeContentViewModel;
