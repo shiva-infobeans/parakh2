@@ -1224,7 +1224,6 @@ $app->get('/getRankOfLoggedInUserInPast90Days[/{user_id}]', function ($request, 
     $response->withJson($response_data);
     return $response;
 });
->>>>>>> devrc2
 /**
  * Step 4: Run the Slim application
  *
