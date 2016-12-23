@@ -4,6 +4,7 @@
         <title> Parakh-Login </title>
         <meta id="meta" name="google-signin-client_id" content="">
         <link rel="icon" id="favicon" type="image/jpg" href="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
         <link href="css/login.css" rel="stylesheet" type="text/css"/>
         <style>
@@ -158,6 +159,9 @@
                     $("#authMsg").addClass('imageWiseMsg1');
 
                 }
+                $("#closeMsg").click(function(){
+                    $("#authMsg").hide();
+                });
 
             });
 
@@ -173,7 +177,7 @@
         </div>
         <div class="errorMsg" id="authMsg">
             <div class="accessDeniedBackground">
-                <div class="authFailed"><span>Your account is currently inactive. Please contact the site administrator to activate your account.</span></div>
+                <div class="authFailed"><span>Your account has not been activated. Please contact the Administrator.<img id="closeMsg" src="images/close-btn.png" /></span></div>
             </div>
 
         </div>
