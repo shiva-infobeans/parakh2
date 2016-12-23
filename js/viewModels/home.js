@@ -702,6 +702,16 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                     $('#homeTab2').append(' <img src="../../images/team-inactive.png" alt="" />');
                 }
             });
+            $("#filmStrip7").on({
+                'ojoptionchange': function (event, data) {
+                    if(isNaN(data['value'])){
+                        var changeNumber = data['value'].split("7");
+                        ManagerSlider = parseInt(changeNumber[1]);
+                    $('#filmStrip7').ojFilmStrip("option", "currentItem",parseInt(changeNumber[1]));
+                    }
+                }
+            });
+
         }, 500);
         var interval1;
         var interval2;
@@ -726,11 +736,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
         // recent +1 slider tab 2
         var timer1 = function () {
             interval1 = setInterval(function () {
-                if ($("#filmStrip").find("#ui-id-10").attr("style") == "visibility: hidden;") {
+
+                if ($('#filmStrip').find(".oj-filmstrip-arrow.oj-default.oj-enabled.oj-end").attr("style") == "visibility: hidden;") {
                     $("#filmStrip").ojFilmStrip("option", "currentItem", 0);
                 } else {
 
-                    $("#filmStrip").find("#ui-id-10").click();
+                    $('#filmStrip').find(".oj-filmstrip-arrow.oj-default.oj-enabled.oj-end").click();
                 }
             }, 6000);
         };
