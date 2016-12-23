@@ -343,11 +343,11 @@ class dbmodule {
 //end of fun
 
     function getParakhLink($text) {
-        return '<a href="' . $this->site_url . '" >' . $text . '</a>';
+        return '<a href="' . $this->site_url . '" style="color:#fee123">' . $text . '</a>';
     }
 
     function getTargetLink($url, $text) {
-        return '<a href="' . $this->site_url . '?target_url=' . $url . '" >' . $text . '</a>';
+        return '<a href="' . $this->site_url . '?target_url=' . $url . '" style="color:#fee123">' . $text . '</a>';
     }
 
     function getEmailById($id) {
