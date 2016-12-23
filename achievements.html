@@ -9,25 +9,31 @@
         <link href="css/custom.css" rel="stylesheet" type="text/css"/>
         <link href="css/common.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
-        
+
     </head>
     <body class="background">
         <header>
-            <div data-bind="ojModule:{name: 'achivementHeader'}"></div>
+            <div data-bind="ifnot: check">
+                <div data-bind="ojModule:{name: 'achivementHeader'}"></div>
+            </div>
+            <div data-bind="if: check">
+                <div data-bind="ojModule:{name: 'header',params: myInfo}"></div>
+            </div>
+            
         </header>
-        
+
         <section>
-          <div  data-bind="ojModule:{name:'achievementsPage'}"></div>
+            <div  data-bind="ojModule:{name:'achievementsPage'}"></div>
         </section>
-    
+
         <footer>
             <div class="footer" data-bind="ojModule:{name:'footer'}"></div>
         </footer>
         <div class="g-signin2" style="display: none" data-onsuccess="onSignIn"></div>
         <script src="js/libs/customLib/mainPageJs.js" type="text/javascript"></script>
         <script src="js/libs/require/require.js" data-main="js/main"></script>
-        <!--<script src="js/libs/customLib/custom.js" type="text/javascript"></script>-->
-    
+        <script src="js/libs/customLib/custom.js" type="text/javascript"></script>
+
     </body>
 </html>
 

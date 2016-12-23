@@ -95,9 +95,14 @@ img#my-signin2{
     .login-btn {
         position: absolute;
         right: 30px;
-        top: 70px;
+        top: 24px;
         width: 350px;
     }   
+    .authFailed span{
+        padding-left: 50px !important; 
+        padding-right: 50px !important; 
+        font-size: 12px !important;
+    }
 }
 @media (min-device-width:992px) and (max-device-width: 1199px){
     .login-btn {
@@ -107,6 +112,30 @@ img#my-signin2{
         width: 350px;
     }   
 }
+
+.achivementLink{
+    position: fixed;
+    top: 20px;
+    right:101px;
+    padding: 5px;
+}
+.achivementLink a{
+    color:#df4a32 !important;
+    font-size: 30px;
+    text-decoration: underline;
+}
+@media screen and (min-width:320px) and (max-width: 500px){
+    .linkPos1{
+        top: 80px !important;
+    }
+    .linkPos2{
+        top: auto;
+        bottom: 85px;
+        right: 100px;
+    }
+        top: 20px;
+        width: 350px;
+    }   
 
 .achivementLink{
     position: fixed;

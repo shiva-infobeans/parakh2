@@ -1424,6 +1424,7 @@ div.oj-tabs-panel.oj-tabs-selected{
         min-height: 810px;
 
     }
+
     #ojDialogWrapper-modalVideo.oj-dialog{
         min-width: 310px !important;
         top: 100px !important;
@@ -1434,6 +1435,10 @@ div.oj-tabs-panel.oj-tabs-selected{
            margin-bottom: -15px !important;
            height: 220px !important;
 }
+
+    .responsive-dropdown-margin{
+        margin-left: 15px !important;
+
     }
     .area{
         margin-left: 17px !important;
@@ -1468,6 +1473,9 @@ div.oj-tabs-panel.oj-tabs-selected{
         left: 28px  !important;
         font-size: 24px  !important;
     }
+    .side-bar-img{
+    width: 30px !important;
+}
 
     #ojDialogWrapper-modalDialog8.oj-dialog,
     #ojDialogWrapper-modalDialog2.oj-dialog,
@@ -1511,7 +1519,10 @@ div.oj-tabs-panel.oj-tabs-selected{
     }
     #ojDialogWrapper-modalDialog1  .oj-dialog-content,
     #modalDialog2 .oj-dialog-body,
+    #modalDialog8 .oj-dialog-body,
+    #ojDialogWrapper-modalDialog8 .oj-dialog-content,
     #ojDialogWrapper-modalDialog1 .oj-dialog-body,
+    #ojDialogWrapper-modalDialog2  .oj-dialog-content,
     #ojDialogWrapper-modalDialog3  .oj-dialog-content,
     #ojDialogWrapper-modalDialog9  .oj-dialog-content,
     #ojDialogWrapper-modalDialogRequest  .oj-dialog-content  {
@@ -1544,77 +1555,77 @@ div.oj-tabs-panel.oj-tabs-selected{
     .oj-filmstrip-container.oj-filmstrip-item-container:nth-child(2n){
         border-right: none;
     }
- .profile-pic{
-    height: 70px !important;
-    width: 70px !important;
+    .profile-pic{
+        height: 70px !important;
+        width: 70px !important;
         margin-top: 22px;
-}
-.edit-section {
-    position: absolute;
-    right: 0px;
-    top: -191px !important;
-}
-.edit-height {
-    font-size: 20px !important;
-}
-.feedback-comment {
-    margin-left: 69px !important;
-    padding: 5px !important;
-    width: 70% !important;
-}
-.feedback-date {
-    width: 80px !important;
-    font-size: 12px !important;
-}
-.commentDate-mobile{
-   float: right !important;
-    color: #dcdcdc !important;
-    margin-top: -54px !important;
-    font-style: italic !important;
-    font-size: 18px;
-}
-.circle-purple{
-    margin-left: 12px !important;
-}
-.hoverName{
-   left: 30px !important;
-    top: -20px !important;
-    padding: 8px 111px 7px 8px;
-    background-color: #fff;
-    color: #000;
-    font-size: 13px;
-    position: absolute;
-    border: 2px solid #689F39;
-    display: none;
-    white-space: nowrap;
-}
-.hoverNameN{
-   left: 30px !important;
-    top: -20px !important;
-    padding: 8px 111px 7px 8px;
-    background-color: #fff;
-    color: #000;
-    font-size: 13px;
-    position: absolute;
-    border: 2px solid #e00000;
-    display: none; 
-    white-space: nowrap;
-}
-.viewFeedbackName {
-    position: absolute;
-    background-color: #fff;
-    color: #000;
-    font-size: 13px !important;
-    border: 2px solid #8DAC6C;
-     left: 30px !important;
-    top: -20px !important;
-    padding: 0px 113px 0px 9px !important;
-    display: none;
-     white-space: nowrap;
-}
-.textArea-skills {
-    width:auto !important;
-    font-size: 16px !important;
+    }
+    .edit-section {
+        position: absolute;
+        right: 0px;
+        top: -191px !important;
+    }
+    .edit-height {
+        font-size: 20px !important;
+    }
+    .feedback-comment {
+        margin-left: 69px !important;
+        padding: 5px !important;
+        width: 70% !important;
+    }
+    .feedback-date {
+        width: 80px !important;
+        font-size: 12px !important;
+    }
+    .commentDate-mobile{
+        float: right !important;
+        color: #dcdcdc !important;
+        margin-top: -54px !important;
+        font-style: italic !important;
+        font-size: 18px;
+    }
+    .circle-purple{
+        margin-left: 12px !important;
+    }
+    .hoverName{
+        left: 30px !important;
+        top: -20px !important;
+        padding: 8px 111px 7px 8px;
+        background-color: #fff;
+        color: #000;
+        font-size: 13px;
+        position: absolute;
+        border: 2px solid #689F39;
+        display: none;
+        white-space: nowrap;
+    }
+    .hoverNameN{
+        left: 30px !important;
+        top: -20px !important;
+        padding: 8px 111px 7px 8px;
+        background-color: #fff;
+        color: #000;
+        font-size: 13px;
+        position: absolute;
+        border: 2px solid #e00000;
+        display: none; 
+        white-space: nowrap;
+    }
+    .viewFeedbackName {
+        position: absolute;
+        background-color: #fff;
+        color: #000;
+        font-size: 13px !important;
+        border: 2px solid #8DAC6C;
+        left: 30px !important;
+        top: -20px !important;
+        padding: 8px 111px 7px 8px !important;
+        display: none;
+        white-space: nowrap;
+    }
+    .textArea-skills {
+        width:auto !important;
+        font-size: 16px !important;
 
 }
 #ojChoiceId_selectInterests .oj-select-choices, #ojChoiceId_selectProjects .oj-select-choices{
@@ -1753,6 +1764,9 @@ div.oj-tabs-panel.oj-tabs-selected{
     .tab-margin{
         margin-left:10px;
     }
+    .side-bar-img{
+    width: 35px !important;
+}
     .left {
         float: left;
         border-right: 5px solid transparent;
@@ -1897,7 +1911,7 @@ span.zmdi-plus-request {
     display: table;
 }
 .feedback-circle{
-       height: 48px;
+    height: 48px;
     width: 48px;
     border: 2px solid;
     border-radius: 50%;
@@ -2116,7 +2130,7 @@ ul.ff li a{
     line-height: 63px;
     cursor: pointer;
     z-index: 10;
-    bottom: 65%;
+    bottom: 67%;
     right: auto;
 }
 ul.ff1{
@@ -2125,6 +2139,7 @@ ul.ff1{
     padding-bottom:20px;
     /*top: 150px;*/
     z-index:100;
+    list-style: outside none none;
 }
 
 
@@ -2235,6 +2250,10 @@ a#menu-share:hover > i{
 .no-pointer{
     cursor: default;
 }
+.ms-fix{
+    border: 1px solid transparent;
+}
+
 .margin-top-feedback{margin-top: -15px;}
 
 .moreDots:hover{
@@ -2400,17 +2419,21 @@ a#menu-share:hover > i{
     font-size: 50px;
     text-align: center;
 }
+
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
    #ojDialogWrapper-minMaxDialog.oj-dialog{
-    height: 200px;
-    }
-    .ms-fix{
-    border: 1px solid transparent;
+	height: 200px;
+	}
+	.ms-fix{
+	border: 1px solid transparent;
 }
 }
 .margin-10LR {
-  margin-left: 10px;
+  margin-left: 10px !important;
   margin-right: 10px;
+}
+.rank-top-filter{
+        margin-left: -15px !important;
 }
 .top-margin-custom{
     margin-top: 8px;
@@ -2460,6 +2483,33 @@ a#menu-share:hover > i{
 .loading-fix{
     clear: both;
     display: block;
+}
+.mobileLazy{
+    cursor: pointer;
+    text-decoration: underline;
+    color: #fff;
+}
+.backToLoginAchivement {
+    border-bottom: 5px solid #fff;
+    font-weight: bolder;
+    float: right;
+    margin-top: 99px;
+    padding-bottom: 15px;
+    color: #fff;
+    font-size: 20px;
+    margin-right: 10px;
+}
+.backToLoginAchivement a,.backToLoginAchivement a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+@media screen  and (max-width: 364px) and (min-width: 320px) {
+    .mobile320fix{
+        margin-bottom: 25px;
+    }
+}
+.font-responsive{
+    font-size: 25px !important;
 }
 @media(min-width:320px) and (max-width:767px){
 
