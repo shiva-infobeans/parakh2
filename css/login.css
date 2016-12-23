@@ -73,8 +73,8 @@ img#my-signin2{
     }
     .authFailed{
         margin: 100px auto !important;
-        background-color: #f00;
-        font-size: 32px !important;
+        background-color: #DF4A32;
+        font-size: 25px !important;
         padding: 5px 0px;
     }  
     .authFailed span{
@@ -93,6 +93,9 @@ img#my-signin2{
         padding-right: 50px !important; 
         font-size: 12px !important;
     }
+    .authFailed{
+        margin: 115px auto !important;
+    }
 }
 @media (min-device-width:992px) and (max-device-width: 1199px){
     .login-btn {
@@ -105,6 +108,9 @@ img#my-signin2{
         font-size: 14px !important;
         padding-left: 50px !important; 
         padding-right: 50px !important; 
+    }
+    .authFailed{
+        margin: 115px auto !important;
     }
 }
 .errorMsg{
@@ -119,15 +125,15 @@ img#my-signin2{
 }
 .authFailed{
     width: 100%;
-    margin: 0px auto;
+    margin: 70px auto;
     text-align: center;
 }
 .authFailed span{
-    background-color: #f00;
-    padding: 5px 100px;
+    background-color: #DF4A32;
+    padding: 10px 15px 10px 40px;
     text-align: center;
     color: #fff !important;
-    border-radius: 0px 0px 5px 5px;
+    border-radius: 5px;
 }
 .loaderImgDivLogin{
     position: fixed;
@@ -151,4 +157,11 @@ img#my-signin2{
     height: 100%;
     width: 100%;
     background-color: rgba(0,0,0,0.7);
+}
+.authFailed span img {
+    width: 15px;
+    height: 15px;
+    margin-left: 20px;
+    background-color: #fff;
+    border-radius: 50%;
 }
