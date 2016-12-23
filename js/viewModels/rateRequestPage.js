@@ -517,6 +517,25 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     } else {
                         self.sucessMsg("Rating request approved successfully!");
                     }
+//                    update the value of the pending request accept or reject tab
+                    if (self.lazyMemleadPendingCurrent() < self.lazyMemleadPendingMax()) {
+                        var count = self.lazyMemleadPendingCurrent();
+                        if (self.lazyMemleadPendingCurrent() + 1 >= self.lazyMemleadPendingMax()) {
+                            $('#leadPendingLoading').hide();
+                        } else {
+                            var loadRecordCount = 1;
+                            for (var c = count; c < count + loadRecordCount; c++) { //count is current count from start and loadRecordCount is for total  page size;
+                                try {
+                                    self.requestPendingLead.push(self.lazyTempStorageleadPending()[c]);
+                                    self.lazyMemleadPendingCurrent(self.lazyMemleadPendingCurrent() + 1);
+                                } catch (e) {
+
+                                }
+                            }
+                        }
+                    } else {
+                        $('#leadPendingLoading').hide();
+                    }
 
                     // get all requests that has been declined by lead or manager.
                     self.lazyTempStorageleadRej([]);
@@ -552,6 +571,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                     }
                                     $("#request3").hide();
                                 }
+                                
                             }
                         });
                     }
