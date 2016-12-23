@@ -675,7 +675,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.requestLead = function () { 
              self.desc1(self.desc1().trim());
               if ((self.desc1() == '' || self.desc1() == null) && self.desc1() != 'undefined') {
-                self.textError1("Please provide a reason for your rating.");
+                self.textError1("Please provide a reason for your rating request.");
                 return false;
             }
             $.ajax({
