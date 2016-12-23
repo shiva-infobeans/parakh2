@@ -142,14 +142,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.lazyMemleadRejMax = ko.observable(0); // for lazy loading lead rejected max count
         self.lazyMemleadRejCurrent = ko.observable(0);// for lazy loading lead rejected Current count
         self.lazyMemleadRejBlock = ko.observable(6);// for lazy loading lead rejected block size Loading
-        self.lazyMemleadRejInitBlock = ko.observable(5);// for lazy loading lead rejected Initial count
+        self.lazyMemleadRejInitBlock = ko.observable(3);// for lazy loading lead rejected Initial count
 
         ////////////////////// lazy loading for Lead declined requests of the user
         self.lazyTempStorageleadPending = ko.observableArray([]);
         self.lazyMemleadPendingMax = ko.observable(0); // for lazy loading lead rejected max count
         self.lazyMemleadPendingCurrent = ko.observable(0);// for lazy loading lead rejected Current count
         self.lazyMemleadPendingBlock = ko.observable(6);// for lazy loading lead rejected block size Loading
-        self.lazyMemleadPendingInitBlock = ko.observable(5);// for lazy loading lead rejected Initial count
+        self.lazyMemleadPendingInitBlock = ko.observable(3);// for lazy loading lead rejected Initial count
 
 
 
@@ -173,7 +173,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.lazyMemRejMax = ko.observable(0); // for lazy loading members rejected max count
         self.lazyMemRejCurrent = ko.observable(0);// for lazy loading members rejected Current count
         self.lazyMemRejBlock = ko.observable(6);// for lazy loading members rejected block size Loading
-        self.lazyMemRejInitBlock = ko.observable(5);// for lazy loading members rejected Initial count
+        self.lazyMemRejInitBlock = ko.observable(3);// for lazy loading members rejected Initial count
 
 
         ////////////////////// lazy loading for declined requests of the user end
@@ -182,7 +182,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.lazyMemPendMax = ko.observable(0); // for lazy loading members rejected max count
         self.lazyMemPendCurrent = ko.observable(0);// for lazy loading members rejected Current count
         self.lazyMemPendBlock = ko.observable(6);// for lazy loading members rejected block size Loading
-        self.lazyMemPendInitBlock = ko.observable(5);// for lazy loading members rejected Initial count
+        self.lazyMemPendInitBlock = ko.observable(3);// for lazy loading members rejected Initial count
 
 
         ////////////////////// lazy loading for declined requests of the user end
