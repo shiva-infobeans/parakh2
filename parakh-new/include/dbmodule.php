@@ -605,8 +605,8 @@ class dbmodule {
         $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
         $MonthFirstDate = date('Y-m-01');
         $query = "SELECT r.user_id,u.google_name,u.google_email,u.google_picture_link,u.projects,u.primary_project,u.designation"
-                . " FROM rating as r "
-                . " JOIN users AS u ON (u.id = r.user_id) WHERE r.rating <> 0 group by u.google_name ORDER BY r.created_date DESC LIMIT 4";
+            . " FROM rating as r "
+            . " JOIN users AS u ON (u.id = r.user_id) WHERE r.rating <> 0 group by u.google_name ORDER BY r.created_date DESC LIMIT 4";
         $rank_data = $this->con->prepare($query);
         $rank_data->execute();
         $row = $rank_data->fetchAll((PDO::FETCH_ASSOC));
