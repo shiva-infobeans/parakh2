@@ -47,7 +47,6 @@ var getTopRankersProjectWise = baseUrl+"/getTopRankersProjectWise/";
 var getAllProjects = baseUrl+"/getAllProjects/";
 var getAllInterests = baseUrl+"/getAllInterests/";
 var getAllDesignations = baseUrl+"/getAllDesignations/";
-var getOtherTeamMembers = baseUrl+"/getOtherTeamMembers/";
 var getAllRejectedRequestsByLoginId = baseUrl+"/getAllRejectedRequestsByLoginId/";
 var imageCacheUrl =  baseUrl+"/createImageCache";
 var getCacheImage =  baseUrl+"/getCacheImage";

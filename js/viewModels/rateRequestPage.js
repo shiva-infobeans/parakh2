@@ -134,7 +134,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.reqTabValue(2);
         }
 
-        if (typeof id != 'undefined' && id!='') {
+        if (typeof id != 'undefined' && id != '') {
             self.selectTab(parseInt(id));
         }
         ////////////////////// lazy loading for Lead declined requests of the user
@@ -233,7 +233,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 self.requestPendingMember.push(self.lazyTempStoragePendM()[count]);
                                 self.lazyMemPendCurrent(self.lazyMemPendCurrent() + 1);
                             }
-                        }else{
+                        } else {
                             $("#PendingRequestLoading").hide();
                         }
                     }
@@ -271,8 +271,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 self.requestRejectedMember.push(self.lazyTempStorageRejM()[count]);
                                 self.lazyMemRejCurrent(self.lazyMemRejCurrent() + 1);
                             }
-                        }
-                        else{
+                        } else {
                             $("#RejectedRequestLoading").hide();
                         }
                     }
@@ -317,7 +316,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 }
                                 $("#request2").hide();
                                 self.noLeadPendingRequest("");
-                            }else{
+                            } else {
                                 $('#leadPendingLoading').hide();
                             }
                         }
@@ -367,7 +366,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     $('#rateTab1').append(' <img src="../../images/send-req-active.png" alt="" id="Inactive1" />')
                 } else {
                     $('#rateTab2').show();
-                  
+
                     $("#requestHover").addClass("hoverTabRequest2");
 
                     $('#rateTab3').append(' <img src="../../images/request-approval-active.png" alt="" />')
@@ -428,12 +427,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     headers: {secret: secret},
                     success: function (result) {
                         var data = result['attributes']['data'];
-                   
-                        
-                          if (result['attributes']['data'].length == 1){
-                                $('#hideLead').hide();
-                          }
-                          
+
+
+                        if (result['attributes']['data'].length == 1) {
+                            $('#hideLead').hide();
+                        }
+
                         self.lead_name(result['attributes']['data'][0]['manager_name']);
                         self.lead_pic(result['attributes']['data'][0]['google_picture_link']);
                         if (result['attributes']['data'][0]['google_picture_link'] == '/images/default.png')
@@ -443,8 +442,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         self.lead_id(result['attributes']['data'][0]['manager_id']);
                         self.lead_role(result['attributes']['data'][0]['role_name']);
                         // console.log(result['attributes']['data'][0]['role_name']);
-                       
-                        
+
+
                         if (result['attributes']['data'].length == 2) {
                             self.manager_name(result['attributes']['data'][1]['manager_name']);
                             self.manager_pic(result['attributes']['data'][1]['google_picture_link']);
@@ -456,10 +455,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             }
                         }
                         //console.log(result['attributes']['data'][1]['role_name']);
-                         if(self.lead_id() == self.manager_id() ){
-                              $('#hideLead').hide();
+                        if (self.lead_id() == self.manager_id()) {
+                            $('#hideLead').hide();
                         }
-                       
+
                     }
                 });
             }
@@ -517,6 +516,28 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     } else {
                         self.sucessMsg("Rating request approved successfully!");
                     }
+//                    update the value of the pending request accept or reject tab
+                    if (self.lazyMemleadPendingCurrent() < self.lazyMemleadPendingMax()) {
+                        var count = self.lazyMemleadPendingCurrent();
+                        if (self.lazyMemleadPendingCurrent() + 1 > self.lazyMemleadPendingMax()) {
+                            $('#leadPendingLoading').hide();
+                        } else {
+                            var loadRecordCount = 1;
+                            for (var c = count; c < count + loadRecordCount; c++) { //count is current count from start and loadRecordCount is for total  page size;
+                                try {
+                                    self.requestPendingLead.push(self.lazyTempStorageleadPending()[c]);
+                                    self.lazyMemleadPendingCurrent(self.lazyMemleadPendingCurrent() + 1);
+                                } catch (e) {
+
+                                }
+                            }
+                            if (self.lazyMemleadPendingCurrent() == self.lazyMemleadPendingMax()) {
+                                $('#leadPendingLoading').hide();
+                            }
+                        }
+                    } else {
+                        $('#leadPendingLoading').hide();
+                    }
 
                     // get all requests that has been declined by lead or manager.
                     self.lazyTempStorageleadRej([]);
@@ -552,6 +573,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                     }
                                     $("#request3").hide();
                                 }
+
                             }
                         });
                     }
@@ -653,7 +675,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                     self.requestPendingMember.push(self.lazyTempStoragePendM()[count]);
                                     self.lazyMemPendCurrent(self.lazyMemPendCurrent() + 1);
                                 }
-                            }else{
+                            } else {
                                 $("#PendingRequestLoading").hide();
                             }
                         }
@@ -728,7 +750,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                     self.requestPendingMember.push(self.lazyTempStoragePendM()[count]);
                                     self.lazyMemPendCurrent(self.lazyMemPendCurrent() + 1);
                                 }
-                            }else{
+                            } else {
                                 $("#PendingRequestLoading").hide();
                             }
                         }
@@ -746,7 +768,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     $("#requestLoader1").addClass('loaderHide');
                 }
             });
-            
+
         }
 //        setTimeout(function(){
 //            $(".openDiv").each(function () {     
