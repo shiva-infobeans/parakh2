@@ -2493,3 +2493,15 @@ ul.help-ul2{
 	opacity: 1;
 }
 .video-img{border:10px solid #000;}
+
+#oj-select-choice-selectnow.oj-select-choice{
+  border-color: #689F39;
+    background-color: rgba(255,255,255,0.3);
+    border-width: 2px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    width: 200px;
+    font-size: 18px;
+}
+ 

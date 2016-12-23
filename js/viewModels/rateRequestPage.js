@@ -454,14 +454,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             self.manager_pic(result['attributes']['data'][1]['google_picture_link']);
                             self.manager_id(result['attributes']['data'][1]['manager_id']);
                             self.manager_role(result['attributes']['data'][1]['role_name']);
-
-                           if (result['attributes']['data'][1]['google_picture_link'] == '/images/default.png')
+                            if (result['attributes']['data'][1]['google_picture_link'] == '/images/default.png')
                            {
                                self.intials_manager(nameFunction(result['attributes']['data'][1]['manager_name']));
                            }else
                            {
                                self.intials_manager("");
                            }
+
                         }
                         //console.log(result['attributes']['data'][1]['role_name']);
                          if(self.lead_id() == self.manager_id() ){

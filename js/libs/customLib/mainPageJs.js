@@ -54,6 +54,10 @@ var getCacheImage =  baseUrl+"/getCacheImage";
 var logoutUrl =  baseUrl+"/logout";
 var getFourTillNowRankingList = baseUrl+"/getFourTillNowRankingList";
 var getATeamMember = baseUrl+"/getATeamMember/";
+var getMonthRank = baseUrl+"/getRankOfLoggedInUserInCurrentMonth/";
+var getMonthTopRanks = baseUrl+"/getTopTenRankersOfCurrentMonth/";
+var getQuarterRank = baseUrl+"/getRankOfLoggedInUserInPast90Days/";
+var getQuarterTopRanks = baseUrl+/getTopTenRankersOfPast90Days/;
 var getParakhVideo = baseUrl+"/getParakhVideo/";
 var sendFeedback = baseUrl+"/sendFeedback/";
 
