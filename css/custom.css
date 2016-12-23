@@ -1198,7 +1198,7 @@ div.oj-tabs-panel.oj-tabs-selected{
         padding-top: 18px;
 }
 
-    #ojDialogWrapper-modalDialog9.oj-dialog, #ojDialogWrapper-modalDialog3.oj-dialog, #ojDialogWrapper-modalDialogRequest.oj-dialog {
+    #ojDialogWrapper-modalDialog9.oj-dialog, #ojDialogWrapper-modalDialog3.oj-dialog, #ojDialogWrapper-modalDialogRequest.oj-dialog{
       border-radius: 5px;
       max-width: 100%;
       min-width: 300px !important;
@@ -1424,8 +1424,21 @@ div.oj-tabs-panel.oj-tabs-selected{
         min-height: 810px;
 
     }
+
+    #ojDialogWrapper-modalVideo.oj-dialog{
+        min-width: 310px !important;
+        top: 100px !important;
+    }
+    .video{
+           width: 284px !important;
+            margin-top: -30px !important;
+           margin-bottom: -15px !important;
+           height: 220px !important;
+}
+
     .responsive-dropdown-margin{
         margin-left: 15px !important;
+
     }
     .area{
         margin-left: 17px !important;
@@ -2545,6 +2558,11 @@ a#menu-share:hover > i{
 .mb-cst{
     margin-bottom: 46px !important;
 }
+
+#modalVideo{
+    width: 100%;
+}
+
 /* tour image location */
 @media screen and (max-width: 767px){
     .tourImg{
