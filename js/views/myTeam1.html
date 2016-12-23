@@ -175,7 +175,9 @@ and open the template in the editor.
                         <div class="oj-xl-9 oj-lg-9 oj-md-8 oj-sm-8 oj-flex-item  oj-flex areaContent   ">
                             <textarea id="text-area" class="textArea2" aria-label="ojTextArea component no visible label"
                                       data-bind=" ojComponent: {component: 'ojTextArea', 
-                                     value: desc, 
+                                     value: desc,
+                                     title: showHelpComment,
+                                     optionChange: textAreaChange,
                                      placeholder: 'Type your reason here..'}"></textarea>   
 
                             </div>
@@ -220,6 +222,8 @@ and open the template in the editor.
                                 <textarea id="textArea4" class="textArea2" aria-label="ojTextArea component no visible label"
                                           data-bind=" ojComponent: {component: 'ojTextArea', 
                                      value: desc, 
+                                     title: showHelpComment,
+                                     optionChange: textAreaChange,
                                      placeholder: 'Type your reason here..'}"></textarea>   
                             </div>
                             <div class="oj-xl-3 oj-lg-3 oj-md-4 oj-sm-4 oj-flex-item imgArea">
@@ -263,6 +267,8 @@ and open the template in the editor.
                         <textarea id="text-area8" class="textArea-feedback" aria-label="ojTextArea component no visible label"
                                   data-bind=" ojComponent: {component: 'ojTextArea', 
                                      value: desc, 
+                                     title: showHelpComment,
+                                     optionChange: textAreaChange,
                                      placeholder: 'Type your feedback here..'}"></textarea>   
                     </div>                      
 

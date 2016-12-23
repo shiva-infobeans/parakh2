@@ -7,7 +7,7 @@
 /**
  * rateRequestPage module
  */
-define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojmodel', 'ojs/ojinputtext', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 'ojs/ojdialog','accordin/helpTextMsg'
+define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojmodel', 'ojs/ojinputtext', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 'ojs/ojdialog', 'accordin/helpTextMsg'
 ], function (oj, ko, $) {
     /**
      * The view model for the main content view template
@@ -930,14 +930,28 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         });
 
         ///////////////help text here
-        self.showHelpComment = ko.observable("");
-        
+        self.showHelpComment = ko.observable(sendReqRatePage);
+
         self.data = function (content, data) {
-            if(!content['help']){
+            if (!content['help']) {
                 content['help'] = true;
-            }
-            else{
+            } else {
                 content['helpText']("");
+            }
+        }
+        self.textAreaChange = function (context, value) {
+            if (value['option'] == 'rawValue') {
+                if (value['value'] != '') {
+                    self.showHelpComment("");
+                }
+            }
+        }
+        self.setHelp = function () {
+            if (self.desc() == "") {
+                self.showHelpComment(sendReqRatePage);
+            }
+            if (self.desc1() == "") {
+                self.showHelpComment(sendReqRatePage);
             }
         }
         oj.Components.setDefaultOptions({

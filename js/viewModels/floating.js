@@ -48,7 +48,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         var self = this;
         self.showHelpSearch = ko.observable();
         self.showHelpComment = ko.observable();
-
         setTimeout(function () {
             //rate other team member modal from floating button 
             self.handleOpen = $(".rateFloat").click(function () {

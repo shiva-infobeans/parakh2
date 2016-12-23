@@ -231,8 +231,10 @@ and open the template in the editor.
                                                         </div>
                                                         <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-top center oj-padding font-descrip">
                                                             <textarea id="text-area" class="textArea-request"  aria-label="ojTextArea component no visible label"
-                                                                      data-bind="ojComponent: {component: 'ojTextArea', 
-                                                            value: desc1, 
+                                                                      data-bind="event: {click: setHelp},ojComponent: {component: 'ojTextArea', 
+                                                            value: desc1,
+                                                            title: showHelpComment,
+                                                            optionChange: textAreaChange,
                                                          placeholder: 'Type your request here..'}"></textarea>
                                                             <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" data-bind="text:textError1"></div>
                                                         </div>
@@ -261,8 +263,10 @@ and open the template in the editor.
                                                         </div>
                                                         <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-top oj-padding font-descrip center">
                                                             <textarea id="text-area-manager" class="textArea-request"  aria-label="ojTextArea component no visible label"
-                                                                      data-bind="ojComponent: {component: 'ojTextArea', 
-                                                            value: desc , 
+                                                                      data-bind="event: {click: setHelp},ojComponent: {component: 'ojTextArea', 
+                                                            value: desc ,
+                                                            title: showHelpComment,
+                                                            optionChange: textAreaChange,
                                                          placeholder: 'Type your request here..'}"></textarea>
                                                             <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" data-bind="text:textError"></div>
                                                         </div>
