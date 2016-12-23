@@ -295,7 +295,7 @@ class dbmodule {
             $email_data['to']['name'] = $user_data['google_name'];
             $email_data['subject'] = $temp_data['subject'];
 
-            $rating = ($data['rating'] == 0) ? '-1' : 1;
+            $rating = ($data['rating'] == 0) ? '-1' : '+1';
             $vars = array(
                 "{Username}" => $email_data['to']['name'],
                 "{Member}" => $from_data['google_name'],
@@ -314,8 +314,9 @@ class dbmodule {
             //$email_data_l['to']['email'] = 'abhijeet.dange@infobeans.com';
             $email_data_l['to']['name'] = $this->manager_name;
             $email_data_l['subject'] = $temp_data_l['subject'];
-            $rating = ($data['rating'] == 0) ? '-1' : 1;
+            
             $vars = array(
+                "{Username}" => $this->manager_name,
                 "{member}" => $email_data['to']['name'],
                 "{rating}" => $rating,
                 "{lead}" => $user_data_l['google_name'],
@@ -342,11 +343,11 @@ class dbmodule {
 //end of fun
 
     function getParakhLink($text) {
-        return '<a href="' . $this->site_url . '" >' . $text . '</a>';
+        return '<a href="' . $this->site_url . '" style="color:#fee123">' . $text . '</a>';
     }
 
     function getTargetLink($url, $text) {
-        return '<a href="' . $this->site_url . '?target_url=' . $url . '" >' . $text . '</a>';
+        return '<a href="' . $this->site_url . '?target_url=' . $url . '" style="color:#fee123">' . $text . '</a>';
     }
 
     function getEmailById($id) {
@@ -755,6 +756,7 @@ class dbmodule {
             $email_data_l['to']['name'] = $this->manager_name;
             $email_data_l['subject'] = $temp_data_l['subject'];
             $vars = array(
+                "{Username}" => $this->manager_name,
                 "{Member}" => $email_data['to']['name'],
                 "{Manager}" => $from_data['google_name'],
                 "{Feedback}" => $data['feedback_description']
@@ -989,11 +991,10 @@ class dbmodule {
 
             // // send notification to manager
             if ($this->manager_email != $user_data['google_email']) {
-                $feedback_from = $this->getEmailById($feedback_to);
                 $vars_manager = array(
                     "{Username}" => $this->manager_name,
                     "{Member}" => $user_data['google_name'],
-                    "{Manager}" => $feedback_from['google_name'],
+                    "{Manager}" => $from_data['google_name'],
                     "{Feedback}" => $data['feedback_desc']
                 );
                 $email_data_l = [];
@@ -1269,6 +1270,7 @@ class dbmodule {
         /* send email to user when decline */
         $email_data = [];
         $user_data = $this->getEmailById($data['to_id']);
+        $from_data = $this->getEmailById($data['u_id']);
         $temp_data = $this->getEmailTemplateByCode('PRKE04');
         $email_data['to']['email'] = $user_data['google_email'];
         $email_data['to']['name'] = $user_data['google_name'];
@@ -1276,7 +1278,7 @@ class dbmodule {
 
         $vars = array(
             "{Username}" => $user_data['google_name'],
-            "{Manager}" => $this->get_role_name($data['u_id']),
+            "{Manager}" => $from_data['google_name'],
             "{Link}" => $this->getTargetLink(MY_BUDDIES_URL, 'Parakh'),
         );
 
@@ -1379,6 +1381,7 @@ class dbmodule {
 
             $email_data = [];
             $user_data = $this->getEmailById($data['to_id']);
+            $from_data = $this->getEmailById($data['u_id']);
             $temp_data = $this->getEmailTemplateByCode('PRKE03');
             $email_data['to']['email'] = $user_data['google_email'];
             $email_data['to']['name'] = $user_data['google_name'];
@@ -1386,7 +1389,7 @@ class dbmodule {
 
             $vars = array(
                 "{Username}" => $user_data['google_name'],
-                "{Manager}" => $this->get_role_name($data['u_id']),
+                "{Manager}" => $from_data['google_name'],
                 "{Link}" => $this->getTargetLink(PROFILE_URL, 'My Profile')
             );
 
@@ -1925,19 +1928,15 @@ class dbmodule {
            $email_data = [];
            $temp_data = $this->getEmailTemplateByCode('PRKE18');
            $email_data['to']['email'] = FEEDBACK_EMAIL;
-           $email_data['to']['name'] = "Feedack Parakh";
+           $email_data['to']['name'] = "Parakh - Feedback";
            $email_data['from'] = $data['from'];
            $email_data['from_name'] = $data['from_name'];
-           $email_data['subject'] = "Feedback";
-           // $email_data['subject'] = $temp_data['subject'];
-//           $vars = array();
-            $vars = array(
-                 "{Username}" => $email_data['to']['name'],
-                "{Feedback}" => $data['desc'],
-            );
-           //$temp_data['content'] = $_POST['message'];
-           $message = strtr($data['desc'], $vars);
-           $email_data['message'] = $data['desc'];
+           $email_data['subject'] = $temp_data['subject'];
+           $vars = array(
+               "{Username}" => $data['from_name'],
+               "{Feedback}" => $data['desc'] 
+           );
+           $email_data['message'] = strtr($temp_data['content'], $vars);
            $this->send_notification($email_data);
            return 1;
        }else
