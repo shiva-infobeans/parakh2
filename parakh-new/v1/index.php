@@ -1143,18 +1143,19 @@ $app->get('/getPositionOfUserInRanking[/]', function ($request, $response, $args
     return $response;
 });
 
+
 /* *
- * URL: http://localhost/parakh-new/v1/index.php/getParakhVideo/
+ * URL: http://localhost/parakh-new/v1/index.php/getTopTenRankersOfCurrentMonth/
  * Parameters: none
  * 
  * Method: GET
  * */    
-$app->get('/getParakhVideo[/]', function ($request, $response, $args) {
+$app->get('/getTopTenRankersOfCurrentMonth[/]', function ($request, $response, $args) {
     $response_data = array();
     
     //Creating a dbmodule object
     $db = new dbmodule();
-    $result = $db->get_parakh_video();
+    $result = $db->get_top_ten_rankers_of_current_month();
     if($result != 0){
         $response_data = makeResponse('false',$result);
     }else{
@@ -1163,7 +1164,66 @@ $app->get('/getParakhVideo[/]', function ($request, $response, $args) {
     $response->withJson($response_data);
     return $response;
 });
-
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getTopTenRankersOfPast90Days/
+ * Parameters: none
+ * 
+ * Method: GET
+ * */    
+$app->get('/getTopTenRankersOfPast90Days[/]', function ($request, $response, $args) {
+    $response_data = array();
+    
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    $result = $db->get_top_ten_rankers_of_past_90_days();
+    if($result != 0){
+        $response_data = makeResponse('false',$result);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3001));
+    }    
+    $response->withJson($response_data);
+    return $response;
+});
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getRankOfLoggedInUserInCurrentMonth/
+ * Parameters: none
+ * 
+ * Method: GET
+ * */    
+$app->get('/getRankOfLoggedInUserInCurrentMonth[/{user_id}]', function ($request, $response, $args) {
+    $response_data = array();
+    
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    $result = $db->get_rank_of_logged_in_user_in_current_month($args['user_id']);
+    if($result != 0){
+        $response_data = makeResponse('false',$result);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3001));
+    }    
+    $response->withJson($response_data);
+    return $response;
+});
+/* *
+ * URL: http://localhost/parakh-new/v1/index.php/getRankOfLoggedInUserInPast90Days/
+ * Parameters: login_user_id
+ * 
+ * Method: GET
+ * */    
+$app->get('/getRankOfLoggedInUserInPast90Days[/{user_id}]', function ($request, $response, $args) {
+    $response_data = array();
+    
+    //Creating a dbmodule object
+    $db = new dbmodule();
+    $result = $db->get_rank_of_logged_in_user_in_past_90_days($args['user_id']);
+    if($result != 0){
+        $response_data = makeResponse('false',$result);
+    }else{
+        $response_data = makeResponse('true',get_site_error(3001));
+    }    
+    $response->withJson($response_data);
+    return $response;
+});
 /**
  * Step 4: Run the Slim application
  *

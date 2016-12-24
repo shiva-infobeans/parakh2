@@ -5,15 +5,24 @@ and open the template in the editor.
 -->
 
 <div class="max-width">
-    <div class="oj-flex oj-row">
-        <div class="oj-lg-12 oj-md-12 oj-sm-12  oj-flex-item oj-col profile-text oj-flex oj-padding-top oj-padding-bottom oj-margin-top margin-10LR">
+    <div class="oj-flex oj-row ">
+        <div class="oj-xl-5 oj-lg-5 oj-md-7 oj-sm-12 oj-flex-item profile-text oj-padding-top oj-padding-bottom oj-margin-top margin-10LR">
             <span class="color-white">Top Ten Rank Holders</span>
+        </div>
+
+        <div class="oj-xl-6 oj-lg-6 oj-md-4 oj-sm-12 oj-flex-bar-end oj-flex-item  profile-text oj-padding-top oj-padding-bottom oj-margin-top responsive-dropdown-margin ">
+            <select id="selectnow"
+                    data-bind="ojComponent: {component: 'ojSelect', options: browsers,
+                                   value: selectVal,
+                                   optionChange: toptenposition,
+                                   rootAttributes: {style:'max-width:200px'}}">
+            </select>
         </div>
     </div>
     <div class="oj-row oj-flex oj-margin-bottom">
-    <div class="oj-xl-8 oj-lg-8 oj-md-12 oj-sm-12 pos-relative oj-padding-top oj-padding-bottom oj-margin-bottom oj-margin-top oj-flex-item margin-10LR">
-        <div class="transbox box-shadow"></div>
-        <div id="bubbleChart" data-bind="ojComponent: {
+        <div class="oj-xl-8 oj-lg-8 oj-md-12 oj-sm-12 pos-relative oj-padding-top oj-padding-bottom oj-margin-bottom oj-margin-top oj-flex-item margin-10LR">
+            <div class="transbox box-shadow"></div>
+            <div id="bubbleChart" data-bind="ojComponent: {
             component: 'ojChart', 
             type: 'bubble',
             series: bubbleSeriesValue, 
@@ -22,26 +31,26 @@ and open the template in the editor.
             animationOnDataChange: 'auto',
             xAxis: xAxis1, yAxis: yAxis1,
             optionChange: chartOptionChange,
-            selectionMode: 'single'
+            selectionMode: 'multiple'
         }"
-             style="max-width:100%; width:100%;height: 600px;">
+                 style="max-width:100%; width:100%;height: 600px;">
+            </div>
         </div>
-    </div>
         <div class="oj-xl-3 oj-lg-3 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal rankBlock">
             <div class="pos-relative countBlock box-shadow ranking-block1-height">
-                 <div class="transbox"></div>
-                 <h3 class="headingRank">
-                Total Members
+                <div class="transbox"></div>
+                <h3 class="headingRank">
+                    Total Members
                 </h3>
                 <div class="rankText" data-bind="text: totalMembers"></div>
             </div>
             <div class="pos-relative box-shadow ranking-block2-height-height mobile320fix" data-bind="attr: {title: noRank}">
                 <div class="transbox"></div>
-             <h3 class="headingRank">
-                  My Rank
-                 </h3>            
+                <h3 class="headingRank">
+                    My Rank
+                </h3>            
                 <div class="rankText" data-bind="text: myRank"></div>
             </div>
         </div>
-</div>
+    </div>
 </div>

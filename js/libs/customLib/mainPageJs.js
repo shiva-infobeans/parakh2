@@ -54,7 +54,12 @@ var getCacheImage =  baseUrl+"/getCacheImage";
 var logoutUrl =  baseUrl+"/logout";
 var getFourTillNowRankingList = baseUrl+"/getFourTillNowRankingList";
 var getATeamMember = baseUrl+"/getATeamMember/";
-var getParakhVideo = baseUrl+"/getParakhVideo/";
+var getMonthRank = baseUrl+"/getRankOfLoggedInUserInCurrentMonth/";
+var getMonthTopRanks = baseUrl+"/getTopTenRankersOfCurrentMonth/";
+var getQuarterRank = baseUrl+"/getRankOfLoggedInUserInPast90Days/";
+var getQuarterTopRanks = baseUrl+/getTopTenRankersOfPast90Days/;
+
+
 var sendFeedback = baseUrl+"/sendFeedback/";
 
 //updates for google client id and parakh logo (favicon) 

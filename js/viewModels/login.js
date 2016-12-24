@@ -13,21 +13,19 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
     function loginContentViewModel(){
     	var self = this;
     	self.video_image = ko.observable("");
-    	self.video_image("../../images/video.jpg");
+    	
     	self.openVideo = function(){
     		$("#modalVideo").ojDialog("open"); 
-		
-	        $.ajax({
-                headers: {secret: secret},
-                type: 'GET',
-                url: getParakhVideo,
-                data: {},
-                success: function(result){
-                    var data = JSON.parse(result)['data'];
-                    $('.oj-dialog-body').html(data.video);
-                }
-            });
     	}
+        self.large = oj.ResponsiveKnockoutUtils.createMediaQueryObservable('(min-width: 767px)');
+
+        if(self.large())
+        {
+            self.video_image("../../images/video.jpg");
+        }else
+        {
+            self.video_image("../../images/video-icon.png");
+        }
 
     	$(function(){
             var bg = $('#login-background').css('background-image');

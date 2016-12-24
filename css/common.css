@@ -486,6 +486,21 @@
     border-radius: 5px;
 	top: 150px !important;
 }
+#ojDialogWrapper-modalVideo.oj-dialog  {
+    overflow: hidden;
+    max-width: 100%;
+    min-width: 470px;
+    box-sizing: border-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    top: 150px !important;
+    }
+    .video{
+        width: 440px;
+        height: 250px;
+    }
 #ojDialogWrapper-modalDialog1.oj-dialog  {
     overflow: hidden;
     max-width: 100%;
@@ -2493,3 +2508,15 @@ ul.help-ul2{
 	opacity: 1;
 }
 .video-img{border:10px solid #000;}
+
+#oj-select-choice-selectnow.oj-select-choice{
+  border-color: #689F39;
+    background-color: rgba(255,255,255,0.3);
+    border-width: 2px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    width: 200px;
+    font-size: 18px;
+}
+ 
