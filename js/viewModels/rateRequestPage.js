@@ -517,26 +517,45 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         self.sucessMsg("Rating request approved successfully!");
                     }
 //                    update the value of the pending request accept or reject tab
-                    if (self.lazyMemleadPendingCurrent() < self.lazyMemleadPendingMax()) {
-                        var count = self.lazyMemleadPendingCurrent();
-                        if (self.lazyMemleadPendingCurrent() + 1 > self.lazyMemleadPendingMax()) {
-                            $('#leadPendingLoading').hide();
-                        } else {
-                            var loadRecordCount = 1;
-                            for (var c = count; c < count + loadRecordCount; c++) { //count is current count from start and loadRecordCount is for total  page size;
-                                try {
-                                    self.requestPendingLead.push(self.lazyTempStorageleadPending()[c]);
-                                    self.lazyMemleadPendingCurrent(self.lazyMemleadPendingCurrent() + 1);
-                                } catch (e) {
-
+    self.lazyTempStorageleadPending([]);
+    self.requestPendingLead([]);
+    self.lazyMemleadPendingCurrent(0);
+                    if (self.role() != "Team Member") {
+                        var requestUrl1 = oj.Model.extend({
+                            url: getTeamMembersRequest + self.userId() // get all pending requests for the lead to approve or reject.
+                        });
+                        var requestFetch1 = new requestUrl1();
+                        requestFetch1.fetch({
+                            headers: {secret: secret},
+                            success: function (res) {
+                                var data1 = res['attributes']['data'];
+                                for (var i = 0; i < data1.length; i++) {
+                                    if (data1[i]['status'] == 0) {
+                                        self.lazyTempStorageleadPending.push(new request(data1[i], self.userId()));
+                                        //self.requestPendingLead.push(new request(data1[i], self.userId()));
+                                        $("#request2").show();
+                                    }
+                                }
+                                if (self.lazyTempStorageleadPending().length != 0) {
+                                    self.lazyMemleadPendingMax(self.lazyTempStorageleadPending().length);
+                                    //self.noLeadPendingRequest("");
+                                    if (self.lazyMemleadPendingInitBlock() < self.lazyTempStorageleadPending().length) {
+                                        var InitCount = self.lazyMemleadPendingInitBlock();
+                                    } else {
+                                        var InitCount = self.lazyTempStorageleadPending().length;
+                                        $('#leadPendingLoading').hide();
+                                    }
+                                    for (var count = 0; count < InitCount; count++) {
+                                        self.requestPendingLead.push(self.lazyTempStorageleadPending()[count]);
+                                        self.lazyMemleadPendingCurrent(self.lazyMemleadPendingCurrent() + 1);
+                                    }
+                                    $("#request2").hide();
+                                    //self.noLeadPendingRequest("");
+                                } else {
+                                    $('#leadPendingLoading').hide();
                                 }
                             }
-                            if (self.lazyMemleadPendingCurrent() == self.lazyMemleadPendingMax()) {
-                                $('#leadPendingLoading').hide();
-                            }
-                        }
-                    } else {
-                        $('#leadPendingLoading').hide();
+                        });
                     }
 
                     // get all requests that has been declined by lead or manager.
@@ -694,9 +713,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 }
             });
         }
-        self.requestLead = function () { 
-             self.desc1(self.desc1().trim());
-              if ((self.desc1() == '' || self.desc1() == null) && self.desc1() != 'undefined') {
+        self.requestLead = function () {
+            self.desc1(self.desc1().trim());
+            if ((self.desc1() == '' || self.desc1() == null) && self.desc1() != 'undefined') {
                 self.textError1("Please provide a reason for your rating request.");
                 return false;
             }
