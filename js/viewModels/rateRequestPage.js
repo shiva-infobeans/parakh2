@@ -29,6 +29,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         var req = Object();
         req.helpText = ko.observable(approveDisapprove);
         req.help = false;
+        req.requestTextAreaId = "requestTextAreaId"+data['request_id'];
         if (typeof data['comment_text'] == 'undefined') {
             req.lComment = data['description'];
             req.oldComment = data['description'];
@@ -506,7 +507,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             {
                 var obj = $("#decline" + requestId);
             }
-            var descHTML = obj.parent().prev().children().children('#text-area20');
+            var descHTML = $("#requestTextAreaId"+requestId);
             var descriptionChange = (descHTML.val().trim() != "") ?
                     descHTML.val().trim() : oldComment;
             var removeHtml = obj;
