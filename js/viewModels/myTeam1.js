@@ -307,7 +307,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             //rateBuddy...
             self.handleOpen = $(".star").click(function () {
                 self.showHelpComment(rateBuddyPage);
-                console.log('hereS');
                 $("#modalDialog1").ojDialog("open");
                 self.desc('');
                 self.textError('');
@@ -565,7 +564,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         }
 //        +1/-1 from team lead/manager 
         $("body").on('click', '.rateMyTeam', function () {
-            console.log('here');
             self.showHelpComment(rateBuddyPage);
             self.desc('');
             self.textError('');
