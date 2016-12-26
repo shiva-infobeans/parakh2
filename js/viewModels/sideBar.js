@@ -88,10 +88,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     data: {desc: self.message(),from: self.email,from_name: self.userName()},
                     success: function () {
                         $("#modalDialog-userFeedback").ojDialog("close");
-                        $("#sucess").show();
+                        $("#sucessFeedback").show();
                         self.sucessMsg("Feedback sent successfully!");
                         setTimeout(function () {
-                            $("#sucess").hide();
+                            $("#sucessFeedback").hide();
                             self.sucessMsg("");
                         }, 10000);
                     },

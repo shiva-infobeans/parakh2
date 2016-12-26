@@ -459,6 +459,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     background-repeat: repeat-y;
     margin-top: -33px;
     padding-bottom: 57px;
+    word-break: break-all;
 }
 .rating-section{
     padding-top: 20px;
