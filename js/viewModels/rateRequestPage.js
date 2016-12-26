@@ -123,7 +123,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.noLeadPendingRequest = ko.observable("Hooray, you have addressed all the pending requests!");
         self.noLeadDeclinedRequest = ko.observable();
         self.selectTab = ko.observable(0);
-
+        
+        ///////////////help text here
+        self.showHelpComment = ko.observable(sendReqRatePage);
         ////////////////////// tab detect send request 
         self.reqTabValue = ko.observable(2);
         self.reqTab = function () {
@@ -929,15 +931,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             }
         });
 
-        ///////////////help text here
-        self.showHelpComment = ko.observable(sendReqRatePage);
-
+        
         self.data = function (content, data) {
-            if (!content['help']) {
-                content['help'] = true;
-            } else {
-                content['helpText']("");
-            }
+//            if (!content['help']) {
+//                content['help'] = true;
+//            } else {
+//                content['helpText']("");
+//            }
         }
         self.textAreaChange = function (context, value) {
             if (value['option'] == 'rawValue') {
