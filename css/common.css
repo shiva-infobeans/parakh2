@@ -2243,7 +2243,9 @@
 	opacity: 1;
 }
 /*video icon css*/
-.video-div{margin:10px;}
+.video-div{
+    margin:10px;
+}
 /*sidebar css*/ 
 .sideFeedback,
 .sideHelp,
@@ -2507,7 +2509,9 @@ ul.help-ul2{
 .main.style1.inactive > .content {
 	opacity: 1;
 }
-.video-img{border:10px solid #000;}
+.video-img{
+    border:5px solid #000;
+}
 
 #oj-select-choice-selectnow.oj-select-choice{
   border-color: #689F39;
