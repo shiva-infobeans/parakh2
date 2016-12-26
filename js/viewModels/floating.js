@@ -116,14 +116,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.textAreaChange = function (context, value) {
             if (value['option'] == 'rawValue') {
                 if ( value['value'] != '') {
-                    self.showHelpComment("");
+//                    self.showHelpComment("");
                 }
             }
         }
         self.rateValueChangeHandler = function (context, valueParam) {
-            if (typeof valueParam['value'] == "object" && self.value() != '' && self.value() != 'undefined') {
-                self.showHelpSearch("");
-            }
+//            if (typeof valueParam['value'] == "object" && self.value() != '' && self.value() != 'undefined') {
+//                self.showHelpSearch("");
+//            }
             if (!isNaN(valueParam.value[0]))
             {
                 self.currentChangeid(valueParam.value[0]);
@@ -166,9 +166,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             console.log("a");
         }
         self.requestValueChangeHandler = function (context, valueParam) {
-            if (typeof valueParam['value'] == "object" && self.value2() != '' && self.value2() != 'undefined') {
-                self.showHelpSearch("");
-            }
+//            if (typeof valueParam['value'] == "object" && self.value2() != '' && self.value2() != 'undefined') {
+//                self.showHelpSearch("");
+//            }
             if (!isNaN(valueParam.value[0]))
             {
                 self.currentChangeid(valueParam.value[0]);
@@ -192,12 +192,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         }
 
         self.feedbackValueChangeHandler = function (context, valueParam) {
-            if (typeof valueParam['value'] == "object" && self.value1() != '' && self.value1() != 'undefined') {
-                self.showHelpSearch("");
-            }
-            if (valueParam['previousValue'] == 'null' && valueParam['value'].length == 0) {
-                self.showHelpSearch("");
-            }
+//            if (typeof valueParam['value'] == "object" && self.value1() != '' && self.value1() != 'undefined') {
+//                self.showHelpSearch("");
+//            }
+//            if (valueParam['previousValue'] == 'null' && valueParam['value'].length == 0) {
+//                self.showHelpSearch("");
+//            }
             if (!isNaN(valueParam.value[0]))
             {
                 self.currentChangeid(valueParam.value[0]);
