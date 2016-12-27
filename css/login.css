@@ -95,13 +95,16 @@ img#my-signin2{
     .login-btn {
         position: absolute;
         right: 30px;
-        top: 24px;
+        top: 50px;
         width: 350px;
     }   
     .authFailed span{
         padding-left: 50px !important; 
         padding-right: 50px !important; 
         font-size: 12px !important;
+    }
+    .achivementLink{
+        right:32px !important;
     }
 }
 @media (min-device-width:992px) and (max-device-width: 1199px){
@@ -133,9 +136,9 @@ img#my-signin2{
         bottom: 85px;
         right: 100px;
     }
-        top: 20px;
-        width: 350px;
-    }   
+    top: 20px;
+    width: 350px;
+}   
 
 .achivementLink{
     position: fixed;
@@ -145,7 +148,7 @@ img#my-signin2{
 }
 .achivementLink a{
     color:#df4a32;
-    font-size: 30px;
+    font-size: 25px;
 }
 @media screen and (min-width:320px) and (max-width: 500px){
     .linkPos1{
