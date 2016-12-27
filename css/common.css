@@ -2517,4 +2517,6 @@ ul.help-ul2{
     width: 200px;
     font-size: 18px;
 }
- 
+#oj-select-choice-selectnow a:hover.oj-clickable-icon-nocontext{
+    color:#fff;
+} 
