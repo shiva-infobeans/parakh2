@@ -63,6 +63,31 @@ class dbmodule {
 //end of fun
 
     /*     *
+     * get user login first time check
+     * */
+
+    function userFirstTime($userId) {
+        $query = "SELECT u.firstLogin FROM users as u WHERE id = :userId";
+        $profile_data = $this->con->prepare($query);
+        $profile_data->execute(array(':userId' => $userId));
+        $row = $profile_data->fetch((PDO::FETCH_ASSOC));
+        if (isset($row) && !empty($row)) {
+//            var_dump($row["firstLogin"] == "1");
+//            die();
+            if ($row["firstLogin"] == "0") {
+                $query = "UPDATE users set firstLogin=1 where id=" . $userId;
+                $user_list = $this->con->prepare($query);
+                $user_list->execute();
+            }
+            return $row;
+        } else {
+            return null;
+        }
+    }
+
+//end of fun
+
+    /*     *
      * get all the users by lead id
      * */
 
@@ -314,7 +339,7 @@ class dbmodule {
             //$email_data_l['to']['email'] = 'abhijeet.dange@infobeans.com';
             $email_data_l['to']['name'] = $this->manager_name;
             $email_data_l['subject'] = $temp_data_l['subject'];
-            
+
             $vars = array(
                 "{Username}" => $this->manager_name,
                 "{member}" => $email_data['to']['name'],
@@ -516,7 +541,7 @@ class dbmodule {
                 $email_data['message'] = $message;
                 $this->send_notification($email_data);
 
-                /*send email to manager*/
+                /* send email to manager */
                 $vars_manager = array(
                     "{Username}" => $this->manager_name,
                     "{Link}" => $this->getTargetLink(RANKING_URL, 'Parakh'),
@@ -830,17 +855,15 @@ class dbmodule {
         }
     }
 
-    /*get manager id by user id*/
-    function getManagerID($user_id)
-    {
+    /* get manager id by user id */
+
+    function getManagerID($user_id) {
         $query = "select manager_id from user_hierarchy where user_id=:user_id AND manager_id in (select id from users where google_email=:manager_email)";
         $fetch_manager = $this->con->prepare($query);
-        $fetch_manager->execute(array(':user_id' => $user_id,':manager_email' => $_COOKIE['email']));
-        if($fetch_manager->fetchColumn())
-        {
+        $fetch_manager->execute(array(':user_id' => $user_id, ':manager_email' => $_COOKIE['email']));
+        if ($fetch_manager->fetchColumn()) {
             return 1;
-        }else
-        {
+        } else {
             return 0;
         }
     }
@@ -1044,7 +1067,7 @@ class dbmodule {
                     $manager_name = $manager_name->fetch((PDO::FETCH_ASSOC));
 
                     $leadList[$key]['manager_name'] = $manager_name['google_name'];
-                    $leadList[$key]['google_picture_link'] = $this->getCacheImage($manager_name['google_email'],$default_img);
+                    $leadList[$key]['google_picture_link'] = $this->getCacheImage($manager_name['google_email'], $default_img);
 
                     $role_query = "SELECT name FROM role_type "
                             . "WHERE id = :role_type_id";
@@ -1146,7 +1169,7 @@ class dbmodule {
                 $email_data_l = [];
                 $email_data_l['to']['email'] = $this->manager_email;
                 $email_data_l['to']['name'] = $this->manager_name;
-                $email_data_l['subject'] = (!empty($temp_data['subject']))?$temp_data['subject']:"";
+                $email_data_l['subject'] = (!empty($temp_data['subject'])) ? $temp_data['subject'] : "";
                 $message = strtr($temp_data['content'], $vars_manager);
                 $email_data_l['message'] = $message;
                 $this->send_notification($email_data_l);
@@ -1767,12 +1790,12 @@ class dbmodule {
         $user_list->execute(array(':email' => $user_email));
         $row = $user_list->fetch();
 
-        /*check users is already in DB with status 0 or not*/
+        /* check users is already in DB with status 0 or not */
         $query_user_exists = "SELECT users.id from users where google_email= :email";
         $user_exists_list = $this->con->prepare($query_user_exists);
         $user_exists_list->execute(array(':email' => $user_email));
         $row_user_exists = $user_exists_list->fetch();
-        /*end check users is exists or not*/
+        /* end check users is exists or not */
         // print_r($row);die;
         $img_updated = false;
         $code = '';
@@ -1834,8 +1857,8 @@ class dbmodule {
                 return '/images/default.png';
             }
         } else {
-            if(empty($row_user_exists)){
-                $query = "INSERT INTO `users`(`emp_code`,`role_id`,`google_name`,`google_id`,`google_email`, `google_picture_link`, `status`, `created_date`) VALUES (0,9,'".$_POST['name']."','".$_POST['google_id']."','".$user_email."','".$_POST['img']."',0,'".date('Y-m-d h:m:s')."');";
+            if (empty($row_user_exists)) {
+                $query = "INSERT INTO `users`(`emp_code`,`role_id`,`google_name`,`google_id`,`google_email`, `google_picture_link`, `status`, `created_date`) VALUES (0,9,'" . $_POST['name'] . "','" . $_POST['google_id'] . "','" . $user_email . "','" . $_POST['img'] . "',0,'" . date('Y-m-d h:m:s') . "');";
                 $user_list = $this->con->prepare($query);
                 $user_list->execute();
             }
@@ -1910,40 +1933,38 @@ class dbmodule {
         return $data;
     }
 
+    /* get parakh video for login page */
 
-    /*get parakh video for login page*/
-    function get_parakh_video(){
+    function get_parakh_video() {
         $video = '<video class="video" id="parakh_video" controls="" loop="" ><source type="video/ogg" src="Parakh_Teaser.mp4"><source type="video/mp4" src="Parakh_Teaser.mp4"><object  type="application/x-shockwave-flash" data="Parakh_Teaser.mp4" wmode="transparent"><param name="movie" value="Parakh_Teaser.mp4"><param name="wmode" value="transparent"><param name="autostart" value="false"></object></video>';
 
         $data['video'] = $video;
         return $data;
-        
     }
 
-    
-    /*send feedback function*/
- /*send feedback function*/
-   function send_feedback($data){
-       if(isset($data['desc'])){
-           $email_data = [];
-           $temp_data = $this->getEmailTemplateByCode('PRKE18');
-           $email_data['to']['email'] = FEEDBACK_EMAIL;
-           $email_data['to']['name'] = "Parakh - Feedback";
-           $email_data['from'] = $data['from'];
-           $email_data['from_name'] = $data['from_name'];
-           $email_data['subject'] = $temp_data['subject'];
-           $vars = array(
-               "{Username}" => $data['from_name'],
-               "{Feedback}" => $data['desc'] 
-           );
-           $email_data['message'] = strtr($temp_data['content'], $vars);
-           $this->send_notification($email_data);
-           return 1;
-       }else
-       {
-           return 0;
-       }
-   }
+    /* send feedback function */
+    /* send feedback function */
+
+    function send_feedback($data) {
+        if (isset($data['desc'])) {
+            $email_data = [];
+            $temp_data = $this->getEmailTemplateByCode('PRKE18');
+            $email_data['to']['email'] = FEEDBACK_EMAIL;
+            $email_data['to']['name'] = "Parakh - Feedback";
+            $email_data['from'] = $data['from'];
+            $email_data['from_name'] = $data['from_name'];
+            $email_data['subject'] = $temp_data['subject'];
+            $vars = array(
+                "{Username}" => $data['from_name'],
+                "{Feedback}" => $data['desc']
+            );
+            $email_data['message'] = strtr($temp_data['content'], $vars);
+            $this->send_notification($email_data);
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 
     /* find last month login users only and send mail to them */
 
