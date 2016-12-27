@@ -484,7 +484,6 @@
     -webkit-flex-direction: column;
     flex-direction: column;
     border-radius: 5px;
-	top: 150px !important;
 }
 #ojDialogWrapper-modalVideo.oj-dialog  {
     overflow: hidden;
