@@ -941,7 +941,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.textAreaChange = function (context, value) {
             if (value['option'] == 'rawValue') {
                 if (value['value'] != '') {
-                    self.showHelpComment("");
+                    //self.showHelpComment("");
                 }
             }
         }
