@@ -7,7 +7,7 @@
 /**
  * rateRequestPage module
  */
-define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojmodel', 'ojs/ojinputtext', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 'ojs/ojdialog'
+define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojmodel', 'ojs/ojinputtext', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 'ojs/ojdialog', 'accordin/helpTextMsg'
 ], function (oj, ko, $) {
     /**
      * The view model for the main content view template
@@ -27,7 +27,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
     }
     function request(data, userid) {
         var req = Object();
-
+        req.helpText = ko.observable(approveDisapprove);
+        req.help = false;
+        req.requestTextAreaId = "requestTextAreaId"+data['request_id'];
         if (typeof data['comment_text'] == 'undefined') {
             req.lComment = data['description'];
             req.oldComment = data['description'];
@@ -122,8 +124,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.noLeadPendingRequest = ko.observable("Hooray, you have addressed all the pending requests!");
         self.noLeadDeclinedRequest = ko.observable();
         self.selectTab = ko.observable(0);
-
-
+        
+        ///////////////help text here
+        self.showHelpComment = ko.observable(sendReqRatePage);
         ////////////////////// tab detect send request 
         self.reqTabValue = ko.observable(2);
         self.reqTab = function () {
@@ -134,7 +137,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.reqTabValue(2);
         }
 
-        if (typeof id != 'undefined' && id!='') {
+        if (typeof id != 'undefined' && id != '') {
             self.selectTab(parseInt(id));
         }
         ////////////////////// lazy loading for Lead declined requests of the user
@@ -233,7 +236,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 self.requestPendingMember.push(self.lazyTempStoragePendM()[count]);
                                 self.lazyMemPendCurrent(self.lazyMemPendCurrent() + 1);
                             }
-                        }else{
+                        } else {
                             $("#PendingRequestLoading").hide();
                         }
                     }
@@ -271,8 +274,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 self.requestRejectedMember.push(self.lazyTempStorageRejM()[count]);
                                 self.lazyMemRejCurrent(self.lazyMemRejCurrent() + 1);
                             }
-                        }
-                        else{
+                        } else {
                             $("#RejectedRequestLoading").hide();
                         }
                     }
@@ -318,7 +320,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 }
                                 $("#request2").hide();
                                 self.noLeadPendingRequest("");
-                            }else{
+                            } else {
                                 $('#leadPendingLoading').hide();
                                 $('#hideMoreResponsive1').hide();
                             }
@@ -371,7 +373,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     $('#rateTab1').append(' <img src="../../images/send-req-active.png" alt="" id="Inactive1" />')
                 } else {
                     $('#rateTab2').show();
-                  
+
                     $("#requestHover").addClass("hoverTabRequest2");
 
                     $('#rateTab3').append(' <img src="../../images/request-approval-active.png" alt="" />')
@@ -432,12 +434,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     headers: {secret: secret},
                     success: function (result) {
                         var data = result['attributes']['data'];
-                   
-                        
-                          if (result['attributes']['data'].length == 1){
-                                $('#hideLead').hide();
-                          }
-                          
+
+
+                        if (result['attributes']['data'].length == 1) {
+                            $('#hideLead').hide();
+                        }
+
                         self.lead_name(result['attributes']['data'][0]['manager_name']);
                         self.lead_pic(result['attributes']['data'][0]['google_picture_link']);
                         if (result['attributes']['data'][0]['google_picture_link'] == '/images/default.png')
@@ -447,8 +449,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         self.lead_id(result['attributes']['data'][0]['manager_id']);
                         self.lead_role(result['attributes']['data'][0]['role_name']);
                         // console.log(result['attributes']['data'][0]['role_name']);
-                       
-                        
+
+
                         if (result['attributes']['data'].length == 2) {
                             self.manager_name(result['attributes']['data'][1]['manager_name']);
                             self.manager_pic(result['attributes']['data'][1]['google_picture_link']);
@@ -464,10 +466,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
                         }
                         //console.log(result['attributes']['data'][1]['role_name']);
-                         if(self.lead_id() == self.manager_id() ){
-                              $('#hideLead').hide();
+                        if (self.lead_id() == self.manager_id()) {
+                            $('#hideLead').hide();
                         }
-                       
+
                     }
                 });
             }
@@ -505,7 +507,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             {
                 var obj = $("#decline" + requestId);
             }
-            var descHTML = obj.parent().prev().children().children('#text-area20');
+            var descHTML = $("#requestTextAreaId"+requestId);
             var descriptionChange = (descHTML.val().trim() != "") ?
                     descHTML.val().trim() : oldComment;
             var removeHtml = obj;
@@ -625,9 +627,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     self.sucessMsg("Request sent successfully!");
                     /*again refresh after submit requests pending*/
                     self.requestPendingMember([]);
-                    self.requestRejectedMember([]);
                     self.lazyTempStoragePendM([]);
-                    self.lazyTempStorageRejM([]);
                     self.lazyMemPendCurrent(0);
                     var requestUrl = oj.Model.extend({
                         url: getUserPendingRequest + self.userId() + "/0" // get all the pending requests send by user to lead/manager
@@ -661,7 +661,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                     self.requestPendingMember.push(self.lazyTempStoragePendM()[count]);
                                     self.lazyMemPendCurrent(self.lazyMemPendCurrent() + 1);
                                 }
-                            }else{
+                            } else {
                                 $("#PendingRequestLoading").hide();
                             }
                         }
@@ -680,9 +680,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 }
             });
         }
-        self.requestLead = function () { 
-             self.desc1(self.desc1().trim());
-              if ((self.desc1() == '' || self.desc1() == null) && self.desc1() != 'undefined') {
+        self.requestLead = function () {
+            self.desc1(self.desc1().trim());
+            if ((self.desc1() == '' || self.desc1() == null) && self.desc1() != 'undefined') {
                 self.textError1("Please provide a reason for your rating.");
                 return false;
             }
@@ -737,7 +737,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                     self.requestPendingMember.push(self.lazyTempStoragePendM()[count]);
                                     self.lazyMemPendCurrent(self.lazyMemPendCurrent() + 1);
                                 }
-                            }else{
+                            } else {
                                 $("#PendingRequestLoading").hide();
                             }
                         }
@@ -755,7 +755,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     $("#requestLoader1").addClass('loaderHide');
                 }
             });
-            
+
         }
 //        setTimeout(function(){
 //            $(".openDiv").each(function () {     
@@ -930,9 +930,38 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             }
         });
 
-
-        ///////////////lazy loading function for declined request for user end
-
+        
+        self.data = function (content, data) {
+//            if (!content['help']) {
+//                content['help'] = true;
+//            } else {
+//                content['helpText']("");
+//            }
+        }
+        self.textAreaChange = function (context, value) {
+            if (value['option'] == 'rawValue') {
+                if (value['value'] != '') {
+                    //self.showHelpComment("");
+                }
+            }
+        }
+        self.setHelp = function () {
+            if (self.desc() == "") {
+                self.showHelpComment(sendReqRatePage);
+            }
+            if (self.desc1() == "") {
+                self.showHelpComment(sendReqRatePage);
+            }
+        }
+        oj.Components.setDefaultOptions({
+            'editableValue':
+                    {
+                        'displayOptions':
+                                {
+                                    'messages': ['notewindow']
+                                }
+                    }
+        });
     }
 
     return rateRequestPageContentViewModel;

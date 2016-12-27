@@ -14,14 +14,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
      */
     function sideBarContentViewModel(person) {
         var self = this;
-        this.email = person['email'];       
+        this.email = person['email'];
         self.message = ko.observable();
         self.textError = ko.observable();
         self.sucessMsg = ko.observable();
         self.userName = ko.observable();
-        
+
         self.desktopImg = ko.observable();
-      
+
         self.mobileImg = ko.observable();
 
         var lgQuery = oj.ResponsiveUtils.getFrameworkQuery(oj.ResponsiveUtils.FRAMEWORK_QUERY_KEY.MD_UP);
@@ -36,6 +36,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             getId.fetch({
                 headers: {secret: secret},
                 success: function (res) {
+
                     var role = res['attributes']['data']['role_name'];
                     if (role == "Team Member") {
                         if ($(window).width() == 768) {
@@ -63,35 +64,74 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             $("#guideTour").addClass('hide');
         }
 
-       
- var user = oj.Model.extend({
+
+        var user = oj.Model.extend({
             url: getUserByEmail + person['email']
         });
         var getId = new user();
         getId.fetch({
             headers: {secret: secret},
             success: function (res) {
-                self.userName(res['attributes']['data']['google_name']);               
+                var user = oj.Model.extend({
+                    url: checkUserForFirstTime + res['attributes']['data']['id']
+                });
+                var getId = new user();
+                getId.fetch({
+                    headers: {secret: secret},
+                    success: function (res1) {
+                        if (res1['attributes']['data']['firstLogin'] == 0) {
+                            var getUser = oj.Model.extend({
+                                url: getUserByEmail + person['email']
+                            });
+                            var getId = new getUser();
+                            getId.fetch({
+                                headers: {secret: secret},
+                                success: function (res2) {
+
+                                    var role = res2['attributes']['data']['role_name'];
+                                    if (role == "Team Member") {
+                                        if ($(window).width() == 768) {
+                                            self.desktopImg('images/help-ipad(member).jpg');
+                                        } else {
+                                            self.desktopImg('images/userGuide(member).jpg');
+                                            self.mobileImg('images/userGuide-member-mobile.jpg');
+                                        }
+                                    } else {
+                                        if ($(window).width() == 768) {
+                                            self.desktopImg('images/help-ipad(manager).jpg');
+                                        } else {
+                                            self.mobileImg('images/userGuide-manager-mobile.jpg');
+                                            self.desktopImg('images/help(manager-desktop).jpg');
+                                        }
+                                    }
+
+                                }
+                            });
+                            $("#guideTour").removeClass('hide');
+                        }
+                    }
+                });
+                self.userName(res['attributes']['data']['google_name']);
             }
         });
 
         self.userFeedback = function () {
             self.message(self.message().trim());
             if (self.message() === '' || self.message() === null) {
-                self.textError("Please provide comments for your feedback.");
+                self.textError("Please enter your feedback.");
                 return false;
             } else {
                 $.ajax({
                     headers: {secret: secret},
                     method: 'POST',
                     url: sendFeedback,
-                    data: {desc: self.message(),from: self.email,from_name: self.userName()},
+                    data: {desc: self.message(), from: self.email, from_name: self.userName()},
                     success: function () {
                         $("#modalDialog-userFeedback").ojDialog("close");
-                        $("#sucess").show();
+                        $("#sucessFeedback").show();
                         self.sucessMsg("Feedback sent successfully!");
                         setTimeout(function () {
-                            $("#sucess").hide();
+                            $("#sucessFeedback").hide();
                             self.sucessMsg("");
                         }, 10000);
                     },

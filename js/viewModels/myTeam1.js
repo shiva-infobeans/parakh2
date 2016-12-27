@@ -7,7 +7,7 @@
 /**
  * myTeam module
  */
-define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojmodel', , 'ojs/ojtabs', 'ojs/ojconveyorbelt'
+define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojmodel', , 'ojs/ojtabs', 'ojs/ojconveyorbelt', 'accordin/helpTextMsg'
 ], function (oj, ko, $) {
     /**
      * The view model for the main content view template
@@ -17,10 +17,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         member.name = data['google_name'];
         member.userId = data['id'];
         member.pic = data['google_picture_link'] == "" ? '/images/default.png' : data['google_picture_link'];
-        if(member.pic == '/images/default.png')
+        if (member.pic == '/images/default.png')
         {
             member.intials = nameFunction(data['google_name']);
-        }else
+        } else
         {
             member.intials = '';
         }
@@ -34,10 +34,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
     function leadTeam(data) {
         var myTeam = this;
         myTeam.myName = data['google_name'];
-        if(data['picture'] == '/images/default.png')
+        if (data['picture'] == '/images/default.png')
         {
             myTeam.intials = nameFunction(data['google_name']);
-        }else
+        } else
         {
             myTeam.intials = '';
         }
@@ -85,6 +85,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.sucessMsg = ko.observable();
         self.selectTab = ko.observable(0);
         self.sucessMsgFeedback = ko.observable();
+        self.showHelpComment = ko.observable(feedbackBuddyPage);
 
         self.myTeamTab = ko.observable(2);
         ///////////// tab switching ///////////
@@ -181,7 +182,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                     self.myTeam.push(self.lazyMyMembers()[c]);
                                     self.pageNumMyMembers(self.pageNumMyMembers() + 1);
                                 }
-                            }else{
+                            } else {
                                 $("#myTeamLazy").hide();
                             }
                             self.data1(self.lazyMyMembers());
@@ -230,7 +231,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 self.members.push(self.lazyAllMembers()[c]);
                                 self.pageNumAllMembers(self.pageNumAllMembers() + 1);
                             }
-                        }else{
+                        } else {
                             $("#otherTeamLazy").hide();
                         }
                         self.data2(self.lazyAllMembers());
@@ -279,6 +280,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             // feedback...
             self.handleOpen = $(".feedbackBuddy").click(function () {
                 $("#modalDialog8").ojDialog("open");
+                self.showHelpComment(feedbackBuddyPage);
                 self.desc('');
                 self.textError('');
             });
@@ -292,6 +294,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.handleOpen = $(".feedbackBuddyLead").click(function () {
                 $("#modalDialog8").ojDialog("open");
                 self.desc('');
+                self.showHelpComment(feedbackBuddyPage);
                 self.textError('');
             });
 
@@ -303,6 +306,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
             //rateBuddy...
             self.handleOpen = $(".star").click(function () {
+                self.showHelpComment(rateBuddyPage);
                 $("#modalDialog1").ojDialog("open");
                 self.desc('');
                 self.textError('');
@@ -347,6 +351,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 self.handleOpen = $(".feedbackBuddyLead").click(function () {
                     $("#modalDialog8").ojDialog("open");
                     self.desc('');
+                    self.showHelpComment(feedbackBuddyPage);
                     self.textError('');
                 });
 
@@ -367,6 +372,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 self.p(1);
                 self.image1("../../images/active(+1).png")
                 self.image2("../../images/disable(-1).png");
+                self.showHelpComment(rateBuddyPage);
             });
 
             self.handleOKClose = $("#okButton").click(function () {
@@ -391,10 +397,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.for_id($(this).attr("id"));
             self.image($(this).attr("image"));
             self.myname($(this).attr("myname"));
-            if($(this).attr("image") == '/images/default.png')
+            self.showHelpComment(rateBuddyPage);
+            if ($(this).attr("image") == '/images/default.png')
             {
                 self.intials_icc(nameFunction($(this).attr("myname")));
-            }else
+            } else
             {
                 self.intials_icc("");
             }
@@ -410,10 +417,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.for_id($(this).attr("myTeamId"));
             self.image($(this).attr("teamImage"));
             self.myname($(this).attr("teamName"));
-            if($(this).attr("teamImage") == '/images/default.png')
+            self.showHelpComment(feedbackBuddyPage);
+            if ($(this).attr("teamImage") == '/images/default.png')
             {
                 self.intials_feedback(nameFunction($(this).attr("teamName")));
-            }else
+            } else
             {
                 self.intials_feedback('');
             }
@@ -425,10 +433,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.for_id($(this).attr("id"));
             self.image($(this).attr("image"));
             self.myname($(this).attr("myname"));
-            if($(this).attr("image") == '/images/default.png')
+            self.showHelpComment(feedbackBuddyPage);
+            if ($(this).attr("image") == '/images/default.png')
             {
                 self.intials_feedback(nameFunction($(this).attr("myname")));
-            }else
+            } else
             {
                 self.intials_feedback('');
             }
@@ -487,7 +496,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                         self.members.push(self.lazyAllMembers()[c]);
                                         self.pageNumAllMembers(self.pageNumAllMembers() + 1);
                                     }
-                                }else{
+                                } else {
                                     $("#otherTeamLazy").hide();
                                 }
                                 self.data2(self.lazyAllMembers());
@@ -555,17 +564,17 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         }
 //        +1/-1 from team lead/manager 
         $("body").on('click', '.rateMyTeam', function () {
-            $("#modalDialog2").ojDialog("open");
+            self.showHelpComment(rateBuddyPage);
             self.desc('');
             self.textError('');
             self.p(1);
             self.image1("../../images/active(+1).png")
             self.image2("../../images/disable(-1).png");
             self.teamImage($(this).attr("teamImage"));
-            if($(this).attr("teamImage") == '/images/default.png')
+            if ($(this).attr("teamImage") == '/images/default.png')
             {
                 self.intials_rate(nameFunction($(this).attr("teamName")));
-            }else
+            } else
             {
                 self.intials_rate('');
             }
@@ -573,16 +582,18 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.teamName($(this).attr("teamName"));
             self.teamDesig($(this).attr("teamDesig"));
             self.intials($(this).attr("intials"));
+            $("#modalDialog2").ojDialog("open");
 
         });
 
         //feedback...
         $("body").on('click', '.feedbackBuddy', function () {
             self.teamImage($(this).attr("teamImage"));
-            if($(this).attr("teamImage") == '/images/default.png')
+            self.showHelpComment(feedbackBuddyPage);
+            if ($(this).attr("teamImage") == '/images/default.png')
             {
                 self.intials_rate(nameFunction($(this).attr("teamName")));
-            }else
+            } else
             {
                 self.intials_rate('');
             }
@@ -596,11 +607,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             $("#modalDialog8").ojDialog("open");
             self.desc('');
             self.textError('');
+            self.showHelpComment(feedbackBuddyPage);
             self.teamImage($(this).attr("teamImage"));
-            if($(this).attr("teamImage") == '/images/default.png')
+            if ($(this).attr("teamImage") == '/images/default.png')
             {
                 self.intials_rate(nameFunction($(this).attr("teamName")));
-            }else
+            } else
             {
                 self.intials_rate('');
             }
@@ -656,62 +668,62 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 // self.lead_id(res['attributes']['data']['id']);
                                 // self.role_name(res['attributes']['data']['role_name']);
 
-                            self.lazyMyMembers([]);
-                            self.myTeam([]);
-                            self.pageNumMyMembers();
-                            self.indexer1Letters([]);
-                            self.lazyMyInitBlock(9);
-                            $.ajax({
-                                headers: {secret: secret},
-                                method: 'POST',
-                                url: getUserByLead + self.lead_id(),
-                                data: {user_id: res['attributes']['data']['id']},
-                                success: function (task) {
-                                    self.myTeamTab(1);
-                                    var data = JSON.parse(task)['data'];
-                                    data = data.sort(function (a, b) {
-                                        return (a['user_name'] > b['user_name']) - (a['user_name'] < b['user_name']);
-                                    });
-                                    for (var counter1 = 0; counter1 < data.length; counter1++) {
-                                        self.lazyMyMembers.push(new leadTeam(data[counter1]));
-                                        //self.myTeam.push(new leadTeam(data[counter1]));
-                                    }
-                                    if (data.length != 0) {
-                                        self.rowcountMyMember(data.length);
+                                self.lazyMyMembers([]);
+                                self.myTeam([]);
+                                self.pageNumMyMembers();
+                                self.indexer1Letters([]);
+                                self.lazyMyInitBlock(9);
+                                $.ajax({
+                                    headers: {secret: secret},
+                                    method: 'POST',
+                                    url: getUserByLead + self.lead_id(),
+                                    data: {user_id: res['attributes']['data']['id']},
+                                    success: function (task) {
+                                        self.myTeamTab(1);
+                                        var data = JSON.parse(task)['data'];
+                                        data = data.sort(function (a, b) {
+                                            return (a['user_name'] > b['user_name']) - (a['user_name'] < b['user_name']);
+                                        });
+                                        for (var counter1 = 0; counter1 < data.length; counter1++) {
+                                            self.lazyMyMembers.push(new leadTeam(data[counter1]));
+                                            //self.myTeam.push(new leadTeam(data[counter1]));
+                                        }
+                                        if (data.length != 0) {
+                                            self.rowcountMyMember(data.length);
 
-                                        if (data.length < self.lazyMyInitBlock())
-                                        {
-                                            var loadData = data.length;
+                                            if (data.length < self.lazyMyInitBlock())
+                                            {
+                                                var loadData = data.length;
+                                                $("#myTeamLazy").hide();
+                                            } else {
+                                                var loadData = self.lazyMyInitBlock();
+                                            }
+
+                                            for (var c = 0; c < loadData; c++) {
+                                                self.myTeam.push(self.lazyMyMembers()[c]);
+                                                self.pageNumMyMembers(self.pageNumMyMembers() + 1);
+                                            }
+                                        } else {
                                             $("#myTeamLazy").hide();
-                                        } else {
-                                            var loadData = self.lazyMyInitBlock();
                                         }
-
-                                        for (var c = 0; c < loadData; c++) {
-                                            self.myTeam.push(self.lazyMyMembers()[c]);
-                                            self.pageNumMyMembers(self.pageNumMyMembers() + 1);
-                                        }
-                                    }else{
-                                        $("#myTeamLazy").hide();
-                                    }
-                                    self.data1(self.lazyMyMembers());
-                                    self.indexer1Letters.push("All");
-                                    $("#All1 a").addClass('indexerUnderline');
-                                    for (var c = 0; c < self.data1().length; c++) {
-                                        if (c == 0) {
-                                            self.indexer1Letters.push(self.data1()[c]['myName'].substring(0, 1));
-                                        } else {
-                                            var letter = self.data1()[c]['myName'].substring(0, 1);
-                                            if (self.data1()[c - 1]['myName'].substring(0, 1) != letter) {
-                                                self.indexer1Letters.push(letter);
+                                        self.data1(self.lazyMyMembers());
+                                        self.indexer1Letters.push("All");
+                                        $("#All1 a").addClass('indexerUnderline');
+                                        for (var c = 0; c < self.data1().length; c++) {
+                                            if (c == 0) {
+                                                self.indexer1Letters.push(self.data1()[c]['myName'].substring(0, 1));
+                                            } else {
+                                                var letter = self.data1()[c]['myName'].substring(0, 1);
+                                                if (self.data1()[c - 1]['myName'].substring(0, 1) != letter) {
+                                                    self.indexer1Letters.push(letter);
+                                                }
                                             }
                                         }
                                     }
-                                }
-                            });
-                        }
-                    });
-                    /*end refresh*/
+                                });
+                            }
+                        });
+                        /*end refresh*/
                         setTimeout(function () {
                             $("#sucess").hide();
                             self.sucessMsg("");
@@ -817,15 +829,18 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             $("#modalDialog1").ojDialog("open");
             self.desc('');
             self.textError('');
+            self.showHelpComment(rateBuddyPage);
         });
 
         self.handleOpen = $(".starTeam").click(function () {
+            self.showHelpComment(rateBuddyPage);
             $("#modalDialog2").ojDialog("open");
             self.desc('');
             self.textError('');
             self.p(1);
             self.image1("../../images/active(+1).png")
             self.image2("../../images/disable(-1).png");
+
         });
 
         // feedback...
@@ -833,13 +848,17 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             $("#modalDialog8").ojDialog("open");
             self.desc('');
             self.textError('');
+            self.showHelpComment(feedbackBuddyPage);
+
         });
 
         // feedbackLead...
         self.handleOpen = $(".feedbackBuddyLead").click(function () {
             $("#modalDialog8").ojDialog("open");
             self.desc('');
+            self.showHelpComment(feedbackBuddyPage);
             self.textError('');
+
         });
 
         $(window).scroll(function () {
@@ -861,7 +880,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
                             }
                         }
-                    }else{
+                    } else {
                         $("#otherTeamLazy").hide();
                     }
                 }
@@ -882,12 +901,29 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
                             }
                         }
-                    }else{
+                    } else {
                         $("#myTeamLazy").hide();
                     }
                 }
             }
         });
+        //help comment 
+        oj.Components.setDefaultOptions({
+            'editableValue':
+                    {
+                        'displayOptions':
+                                {
+                                    'messages': ['notewindow']
+                                }
+                    }
+        });
+        self.textAreaChange = function (context, value) {
+            if (value['option'] == 'rawValue') {
+                if (value['value'] != '') {
+//                    self.showHelpComment("");
+                }
+            }
+        }
     }
     return myTeamContentViewModel;
 });

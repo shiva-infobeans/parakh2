@@ -47,7 +47,6 @@ var getTopRankersProjectWise = baseUrl+"/getTopRankersProjectWise/";
 var getAllProjects = baseUrl+"/getAllProjects/";
 var getAllInterests = baseUrl+"/getAllInterests/";
 var getAllDesignations = baseUrl+"/getAllDesignations/";
-var getOtherTeamMembers = baseUrl+"/getOtherTeamMembers/";
 var getAllRejectedRequestsByLoginId = baseUrl+"/getAllRejectedRequestsByLoginId/";
 var imageCacheUrl =  baseUrl+"/createImageCache";
 var getCacheImage =  baseUrl+"/getCacheImage";
@@ -58,6 +57,7 @@ var getMonthRank = baseUrl+"/getRankOfLoggedInUserInCurrentMonth/";
 var getMonthTopRanks = baseUrl+"/getTopTenRankersOfCurrentMonth/";
 var getQuarterRank = baseUrl+"/getRankOfLoggedInUserInPast90Days/";
 var getQuarterTopRanks = baseUrl+/getTopTenRankersOfPast90Days/;
+var checkUserForFirstTime = baseUrl+/checkUserForFirstTime/;
 
 
 var sendFeedback = baseUrl+"/sendFeedback/";

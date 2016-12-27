@@ -95,3 +95,4 @@ INSERT INTO `email_templates` (`id`, `code`, `subject`, `content`) VALUES
 
 ALTER TABLE `users` ADD `img_cache` LONGTEXT NOT NULL ;
 
+ALTER TABLE  `users` ADD COLUMN `firstLogin` INT NOT NULL DEFAULT 0 AFTER `img_cache`;
