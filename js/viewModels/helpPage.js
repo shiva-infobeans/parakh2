@@ -44,7 +44,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.userFeedback = function () {
             self.message(self.message().trim());
             if (self.message() === '' || self.message() === null) {
-                self.textError("Please provide comments for your feedback.");
+                self.textError("Please enter your feedback.");
                 return false;
             } else {
                 $.ajax({

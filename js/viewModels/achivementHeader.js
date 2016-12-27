@@ -8,6 +8,9 @@ define(['ojs/ojcore', 'knockout'
      */
     function achivementHeaderContentViewModel() {
         var self = this;
+        self.backToLogin = function(){
+            window.location = "http://"+window.location.host;
+        }
     }
     
     return achivementHeaderContentViewModel;
