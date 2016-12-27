@@ -489,17 +489,16 @@
 #ojDialogWrapper-modalVideo.oj-dialog  {
     overflow: hidden;
     max-width: 100%;
-    min-width: 470px;
+    min-width: 700px;
     box-sizing: border-box;
     display: -webkit-flex;
     display: flex;
     -webkit-flex-direction: column;
     flex-direction: column;
-    top: 150px !important;
     }
     .video{
-        width: 440px;
-        height: 250px;
+    width: 630px;
+    height: 354px;
     }
 #ojDialogWrapper-modalDialog1.oj-dialog  {
     overflow: hidden;
@@ -511,10 +510,9 @@
     -webkit-flex-direction: column;
     flex-direction: column;
     border-radius: 5px;
-	  top: 150px !important;
+    top: 150px !important;
 
 }
-
 
 #ojDialogWrapper-modalDialog2.oj-dialog{
     overflow: hidden;
