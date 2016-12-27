@@ -1477,6 +1477,12 @@ div.oj-tabs-panel.oj-tabs-selected{
     .side-bar-img{
     width: 30px !important;
 }
+.side-bar{
+        position: absolute !important;
+        top: 16% !important;
+        left: -39px !important;
+            
+}
 
     #ojDialogWrapper-modalDialog8.oj-dialog,
     #ojDialogWrapper-modalDialog2.oj-dialog,
@@ -1766,7 +1772,10 @@ div.oj-tabs-panel.oj-tabs-selected{
         margin-left:10px;
     }
     .side-bar-img{
-    width: 35px !important;
+    width: 30px !important;
+}
+.side-bar{
+    bottom: 65% !important;
 }
     .left {
         float: left;
@@ -1846,6 +1855,15 @@ div.oj-tabs-panel.oj-tabs-selected{
     #ojDialogWrapper-modalDialog1.oj-dialog{
         width: 32% !important;
     }
+    
+}
+@media  screen and (min-width: 1026px) and (max-width: 1366px) {
+  .side-bar-img {
+    width: 30px !important;
+}
+.side-bar{
+        bottom: 63% !important;
+}  
 }
 
 @media screen  and (max-width: 360px) {
