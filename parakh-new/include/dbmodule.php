@@ -472,19 +472,21 @@ class dbmodule {
             // send notification to manager
             //{member} has received a {rating} rating by {lead} for "{comment}".
             $email_data_l = [];
-            $user_data_l = $this->getEmailById($data['for_id']);
+            $user_data_l = $this->getEmailById($login_user_id);
             $temp_data_l = $this->getEmailTemplateByCode('PRKE21');
             $email_data_l['to']['email'] = $this->manager_email;
             //$email_data_l['to']['email'] = 'abhijeet.dange@infobeans.com';
             $email_data_l['to']['name'] = $this->manager_name;
             $email_data_l['subject'] = $temp_data_l['subject'];
-            $rating = ($data['rating'] == 0) ? '-1' : 1;
+            $rating = "+1";
             $vars = array(
                 "{member}" => $email_data['to']['name'],
                 "{rating}" => $rating,
-                "{lead}" => $user_data_l['google_name'],
+                 "{lead}" => $user_data_l['google_name'],
                 "{comment}" => $data['desc'],
+                 "{Username}" => $this->manager_name,
             );
+           
             $message = strtr($temp_data_l['content'], $vars);
             $email_data_l['message'] = $message;
             $this->send_notification($email_data_l);
