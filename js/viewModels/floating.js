@@ -7,7 +7,7 @@
 /**
  * floating module
  */
-define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojselectcombobox', 'ojs/ojmodel'
+define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojselectcombobox', 'ojs/ojmodel', 'accordin/helpTextMsg'
 ], function (oj, ko, $) {
     /**
      * The view model for the main content view template
@@ -46,7 +46,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
     }
     function floatingContentViewModel(person) {
         var self = this;
-
+        self.showHelpSearch = ko.observable();
+        self.showHelpComment = ko.observable();
         setTimeout(function () {
             //rate other team member modal from floating button 
             self.handleOpen = $(".rateFloat").click(function () {
@@ -61,6 +62,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 self.imagerank3("../../images/disable(-1).png");
                 $('.text-area-plus-one').show();
                 $('.text-area-both').hide();
+                self.showHelpSearch(buddySearch);
+                self.showHelpComment(buddyComment);
                 self.p(1);
             });
 
@@ -75,7 +78,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 self.value1([]);
                 $("#feedbackFloatSearchError").addClass('hide');
                 $("#feedbackFloatTextError").addClass('hide');
-
+                self.showHelpSearch(feedbackSearch);
+                self.showHelpComment(feedbackComment);
             });
 
             self.handleOKClose = $("#okButton").click(function () {
@@ -89,7 +93,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 self.textError('');
                 self.value2([]);
                 self.searchError("");
-
+                self.showHelpSearch(reqSearch);
+                self.showHelpComment(reqComment);
             });
             self.handleOKClose = $("#okButton").click(function () {
                 $("#modalDialogRequest").ojDialog("close");
@@ -108,39 +113,17 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.role_name = ko.observable();
         self.currentChangeid = ko.observable(0);
 
-        self.rateValueChangeHandler = function (context, valueParam) {
-            if (!isNaN(valueParam.value[0]))
-            {
-                self.currentChangeid(valueParam.value[0]);
-            }
-            if (valueParam.option == 'rawValue')
-            {
-                try {
-                    spaceCount = (valueParam.value.split(" ").length - 1);
-                    name = valueParam.value.replace(/ /g, "");
-                    if (spaceCount > 2) {
-                        name = name.substring(0, name.length - 2);
-                    }
-                    name = name.replace(/([A-Z])/g, ' $1').trim();
-                    id = "#" + name.replace(/ /g, "_").toLowerCase();
-                    $('#oj-combobox-input-combobox2').val(name);
-                    if (typeof $(id).val() != 'undefined' && $(id).val() == 1)
-                    {
-                        $('.text-area-plus-one').hide();
-                        $('.text-area-both').show();
-                    } else
-                    {
-                        $('.text-area-plus-one').show();
-                        $('.text-area-both').hide();
-                    }
-                } catch (e)
-                {
-                    console.log(e);
+        self.textAreaChange = function (context, value) {
+            if (value['option'] == 'rawValue') {
+                if ( value['value'] != '') {
+//                    self.showHelpComment("");
                 }
             }
         }
-
         self.rateValueChangeHandler = function (context, valueParam) {
+//            if (typeof valueParam['value'] == "object" && self.value() != '' && self.value() != 'undefined') {
+//                self.showHelpSearch("");
+//            }
             if (!isNaN(valueParam.value[0]))
             {
                 self.currentChangeid(valueParam.value[0]);
@@ -179,30 +162,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             // });
         }
 
-        self.feedbackValueChangeHandler = function (context, valueParam) {
-            if (!isNaN(valueParam.value[0]))
-            {
-                self.currentChangeid(valueParam.value[0]);
-            }
-            if (valueParam.option == 'rawValue')
-            {
-                try {
-                    spaceCount = (valueParam.value.split(" ").length - 1);
-                    name = valueParam.value.replace(/ /g, "");
-                    if (spaceCount > 2) {
-                        name = name.substring(0, name.length - 2);
-                    }
-                    name = name.replace(/([A-Z])/g, ' $1').trim();
-                    id = "#" + name.replace(/ /g, "_").toLowerCase();
-                    $('#oj-combobox-input-combobox9').val(name);
-                } catch (e)
-                {
-                    console.log(e);
-                }
-            }
+        self.descEvent = function () {
+            console.log("a");
         }
-
         self.requestValueChangeHandler = function (context, valueParam) {
+//            if (typeof valueParam['value'] == "object" && self.value2() != '' && self.value2() != 'undefined') {
+//                self.showHelpSearch("");
+//            }
             if (!isNaN(valueParam.value[0]))
             {
                 self.currentChangeid(valueParam.value[0]);
@@ -210,8 +176,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             if (valueParam.option == 'rawValue')
             {
                 try {
-                    spaceCount = (valueParam.value.split(" ").length - 1);
-                    name = valueParam.value.replace(/ /g, "");
+                    var spaceCount = (valueParam.value.split(" ").length - 1);
+                    var name = valueParam.value.replace(/ /g, "");
                     if (spaceCount > 6) {
                         name = name.substring(0, name.length - 2);
                     }
@@ -226,6 +192,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         }
 
         self.feedbackValueChangeHandler = function (context, valueParam) {
+//            if (typeof valueParam['value'] == "object" && self.value1() != '' && self.value1() != 'undefined') {
+//                self.showHelpSearch("");
+//            }
+//            if (valueParam['previousValue'] == 'null' && valueParam['value'].length == 0) {
+//                self.showHelpSearch("");
+//            }
             if (!isNaN(valueParam.value[0]))
             {
                 self.currentChangeid(valueParam.value[0]);
@@ -233,8 +205,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             if (valueParam.option == 'rawValue')
             {
                 try {
-                    spaceCount = (valueParam.value.split(" ").length - 1);
-                    name = valueParam.value.replace(/ /g, "");
+                    var spaceCount = (valueParam.value.split(" ").length - 1);
+                    var name = valueParam.value.replace(/ /g, "");
                     if (spaceCount > 2) {
                         name = name.substring(0, name.length - 2);
                     }
@@ -248,28 +220,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             }
         }
 
-        self.requestValueChangeHandler = function (context, valueParam) {
-            if (!isNaN(valueParam.value[0]))
-            {
-                self.currentChangeid(valueParam.value[0]);
-            }
-            if (valueParam.option == 'rawValue')
-            {
-                try {
-                    spaceCount = (valueParam.value.split(" ").length - 1);
-                    name = valueParam.value.replace(/ /g, "");
-                    if (spaceCount > 6) {
-                        name = name.substring(0, name.length - 2);
-                    }
-                    name = name.replace(/([A-Z])/g, ' $1').trim();
-                    id = "#" + name.replace(/ /g, "_").toLowerCase();
-                    $('#oj-combobox-input-combobox3').val(name);
-                } catch (e)
-                {
-                    console.log(e);
-                }
-            }
-        }
 
         self.p = ko.observable(1);
 
@@ -562,6 +512,15 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             });
 
         }
+        oj.Components.setDefaultOptions({
+            'editableValue':
+                    {
+                        'displayOptions':
+                                {
+                                    'messages': ['notewindow']
+                                }
+                    }
+        });
 
     }
     return floatingContentViewModel;
