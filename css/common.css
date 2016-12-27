@@ -509,8 +509,7 @@
     -webkit-flex-direction: column;
     flex-direction: column;
     border-radius: 5px;
-    top: 150px !important;
-
+	  /*top: 150px !important;*/
 }
 
 #ojDialogWrapper-modalDialog2.oj-dialog{
@@ -523,15 +522,15 @@
     -webkit-flex-direction: column;
     flex-direction: column;
     border-radius: 5px;
-    top: 150px !important;
+    /*top: 150px !important;*/
 }
   
 @media screen and (max-height:780px){
     #ojDialogWrapper-modalDialog2.oj-dialog{
-        top: 80px !important;
+        /*top: 80px !important;*/
     }
     #ojDialogWrapper-modalDialog8.oj-dialog{
-         top: 80px !important;
+         /*top: 80px !important;*/
     }
 }
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
@@ -557,14 +556,14 @@
     -webkit-flex-direction: column;
     flex-direction: column;
     border-radius: 5px;
-  	top: 150px !important;
+  	/*top: 150px !important;*/
 }
 @media screen and (max-height:780px){
     #ojDialogWrapper-modalDialog2.oj-dialog{
-        top: 80px !important;
+        /*top: 80px !important;*/
     }
     #ojDialogWrapper-modalDialog8.oj-dialog{
-         top: 80px !important;
+         /*top: 80px !important;*/
     }
 	#ojDialogWrapper-modalDialog1.oj-dialog{
 		top: 80px !important;
@@ -581,7 +580,7 @@
     max-width: 100%;
     min-width: 500px;
     border-radius: 5px;
-    top: 150px !important;
+    /*top: 150px !important;*/
 }
 @media screen and (max-width:767px){
 	#ojDialogWrapper-modalDialog9.oj-dialog,
