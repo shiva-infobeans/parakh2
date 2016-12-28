@@ -1424,6 +1424,9 @@ div.oj-tabs-panel.oj-tabs-selected{
         min-height: 810px;
 
     }
+    .commentDate-mobile{
+        font-size: 14px !important;
+    }
     .myNameBuddies{
          margin-top: -8px !important;
     }
@@ -1541,73 +1544,71 @@ div.oj-tabs-panel.oj-tabs-selected{
         height: 70px !important;
         width: 70px !important;
         margin-top: 22px;
-    }
-    .edit-section {
-        position: absolute;
-        right: 0px;
-        top: -191px !important;
-    }
-    .edit-height {
-        font-size: 20px !important;
-    }
-    .feedback-comment {
-        margin-left: 69px !important;
-        padding: 5px !important;
-        width: 70% !important;
-    }
-    .feedback-date {
-        width: 80px !important;
-        font-size: 12px !important;
-    }
-    .commentDate-mobile{
-        float: right !important;
-        color: #dcdcdc !important;
-        margin-top: -54px !important;
-        font-style: italic !important;
-        font-size: 18px;
-    }
-    .circle-purple{
-        margin-left: 12px !important;
-    }
-    .hoverName{
-        left: 30px !important;
-        top: -20px !important;
-        padding: 8px 111px 7px 8px;
-        background-color: #fff;
-        color: #000;
-        font-size: 13px;
-        position: absolute;
-        border: 2px solid #689F39;
-        display: none;
-        white-space: nowrap;
-    }
-    .hoverNameN{
-        left: 30px !important;
-        top: -20px !important;
-        padding: 8px 111px 7px 8px;
-        background-color: #fff;
-        color: #000;
-        font-size: 13px;
-        position: absolute;
-        border: 2px solid #e00000;
-        display: none; 
-        white-space: nowrap;
-    }
-    .viewFeedbackName {
-        position: absolute;
-        background-color: #fff;
-        color: #000;
-        font-size: 13px !important;
-        border: 2px solid #8DAC6C;
-        left: 30px !important;
-        top: -20px !important;
-        padding: 0px 113px 0px 9px !important;
-        display: none;
-        white-space: nowrap;
-    }
-    .textArea-skills {
-        width:auto !important;
-        font-size: 16px !important;
+}
+.edit-section {
+    position: absolute;
+    right: 0px;
+    top: -191px !important;
+}
+
+.feedback-comment {
+    margin-left: 69px !important;
+    padding: 5px !important;
+    width: 70% !important;
+}
+.feedback-date {
+    width: 80px !important;
+    font-size: 12px !important;
+}
+.commentDate-mobile{
+   float: right !important;
+    color: #dcdcdc !important;
+    margin-top: -54px !important;
+    font-style: italic !important;
+    font-size: 18px;
+}
+.circle-purple{
+    margin-left: 12px !important;
+}
+.hoverName{
+   left: 30px !important;
+    top: -20px !important;
+    padding: 8px 111px 7px 8px;
+    background-color: #fff;
+    color: #000;
+    font-size: 13px;
+    position: absolute;
+    border: 2px solid #689F39;
+    display: none;
+    white-space: nowrap;
+}
+.hoverNameN{
+   left: 30px !important;
+    top: -20px !important;
+    padding: 8px 111px 7px 8px;
+    background-color: #fff;
+    color: #000;
+    font-size: 13px;
+    position: absolute;
+    border: 2px solid #e00000;
+    display: none; 
+    white-space: nowrap;
+}
+.viewFeedbackName {
+    position: absolute;
+    background-color: #fff;
+    color: #000;
+    font-size: 13px !important;
+    border: 2px solid #8DAC6C;
+     left: 30px !important;
+    top: -20px !important;
+    padding: 0px 113px 0px 9px !important;
+    display: none;
+     white-space: nowrap;
+}
+.textArea-skills {
+    width:auto !important;
+    font-size: 16px !important;
 
     }
     #ojChoiceId_selectInterests .oj-select-choices, #ojChoiceId_selectProjects .oj-select-choices{
@@ -1618,14 +1619,12 @@ div.oj-tabs-panel.oj-tabs-selected{
     }
     .View-Other-about {
         font-size: 18px !important;
-    }
-    .profile-margin-bottom{
-        margin-bottom: 15px;
-    }
-    .about-edit{
-        margin: 8px 1px;
-    }
-    .replyInput div span input{
+}
+.profile-margin-bottom{
+    margin-bottom: 15px;
+}
+
+.replyInput div span input{
         height: 24px !important;
         margin-top: -5px !important;
     }
@@ -1664,56 +1663,76 @@ div.oj-tabs-panel.oj-tabs-selected{
 
     .errorVisibilityShow{
         margin: 5px 0px -5px 10px !important;
-    }
-    .rating-section{
-        min-height: 300px;
-    }
+}
+.rating-section{
+    min-height: 300px;
+}
+.bottom-edit-margin{
+    margin-bottom: 15px !important;
+}
+ 
 }
 
 .transboxRequest2{
     border-left: 0px ;
 }
 @media  screen and (min-width: 320px) and (max-width: 530px) {
-    .custom-zmdi-icons-div {
-        height: 35px !important;
-        width: 35px !important;
+    .about-edit-check{
+ left: 21px !important;
+    position: absolute;
+    top: 2px !important;   
+}
+.about-edit-cross{
+  left: 23px !important;
+    position: absolute;
+    top: 49px !important;
+}
+.about-edit {
+    left: 21px !important;
+    position: absolute;
+    top: 16px !important;
+}
+.edit-height {
+    font-size: 20px !important;
+}
+
+   .custom-zmdi-icons-div {
+       height: 35px !important;
+       width: 35px !important;
     }
     .edit-height {
-        font-size: 17px !important;
-    }
-    .about-edit {
-        margin-left: -10px !important;
-        margin-top: -3px !important;
-    }
-    .cancel-button{
-        margin-top: 40px !important;
-        margin-right: -46px !important;
-    }
-    .edit-section {
-        top: -173px !important;
-        right: -8px !important;
-    }
-    .update-button{
-        margin-top: -7px !important;
-    }    
-    .mobile-trans{
-        width: 100% !important;   
-    }
-    .mailToColor {
-        word-break: break-all !important;
-        font-size: 15px !important;
-        line-height: 36px !important;
-    }
-    .noComments{
-        padding: 117px !important;
-        text-align: center !important;
-        font-size: 14px !important;
-        min-height: 266px !important;
-        margin:0px !important;
-    }
-    .replyInput div span input{
-        font-size: 10px !important;
-    }
+    font-size: 17px !important;
+}
+
+.cancel-button{
+    margin-top: 40px !important;
+    margin-right: -46px !important;
+}
+.edit-section {
+     top: -173px !important;
+     right: -8px !important;
+}
+.update-button{
+    margin-top: -7px !important;
+}    
+.mobile-trans{
+ width: 100% !important;   
+}
+.mailToColor {
+    word-break: break-all !important;
+    font-size: 15px !important;
+    line-height: 36px !important;
+}
+.noComments{
+    padding: 117px !important;
+    text-align: center !important;
+    font-size: 14px !important;
+    min-height: 266px !important;
+    margin:0px !important;
+}
+.replyInput div span input{
+    font-size: 10px !important;
+}
 }
 @media  screen and (min-width: 768px) and (max-width: 1024px) {
 
