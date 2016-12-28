@@ -119,7 +119,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.role = ko.observable();
         self.noPendingRequest = ko.observable("All your requests have been addressed!");
         self.noRejectRequest = ko.observable("No declined request.");
-        self.noLeadPendingRequest = ko.observable("Hooray, you have addressed all the pending requests!");
+        self.noLeadPendingRequest = ko.observable();
         self.noLeadDeclinedRequest = ko.observable();
         self.selectTab = ko.observable(0);
 
@@ -150,6 +150,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.lazyMemleadPendingCurrent = ko.observable(0);// for lazy loading lead rejected Current count
         self.lazyMemleadPendingBlock = ko.observable(6);// for lazy loading lead rejected block size Loading
         self.lazyMemleadPendingInitBlock = ko.observable(3);// for lazy loading lead rejected Initial count
+        self.lazyMemleadPendingTemp = ko.observable(0);// for lazy loading count for removed request.
 
 
 
@@ -277,7 +278,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     }
                 });
                 // for lead or manager
-
                 if (self.role() != "Team Member") {
                     var requestUrl1 = oj.Model.extend({
                         url: getTeamMembersRequest + self.userId() // get all pending requests for the lead to approve or reject.
@@ -297,13 +297,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 if (data1[i]['status'] == 0) {
                                     self.lazyTempStorageleadPending.push(new request(data1[i], self.userId()));
                                     //self.requestPendingLead.push(new request(data1[i], self.userId()));
-                                    $("#request2").show();
                                 }
                             }
                             if (self.lazyTempStorageleadPending().length != 0) {
-
                                 self.lazyMemleadPendingMax(self.lazyTempStorageleadPending().length);
-                                self.noLeadPendingRequest("");
                                 if (self.lazyMemleadPendingInitBlock() < self.lazyTempStorageleadPending().length) {
                                     var InitCount = self.lazyMemleadPendingInitBlock();
                                 } else {
@@ -314,10 +311,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                     self.requestPendingLead.push(self.lazyTempStorageleadPending()[count]);
                                     self.lazyMemleadPendingCurrent(self.lazyMemleadPendingCurrent() + 1);
                                 }
-                                $("#request2").hide();
-                                self.noLeadPendingRequest("");
                             } else {
                                 $('#leadPendingLoading').hide();
+                                $("#request2").removeClass('loaderHide');
+                                self.noLeadPendingRequest("Hooray, you have addressed all the pending requests!");
                             }
                         }
                     });
@@ -500,6 +497,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             var descriptionChange = (descHTML.val().trim() != "") ?
                     descHTML.val().trim() : oldComment;
             var removeHtml = obj;
+
+
+
             var datas = {u_id: userId, rq_id: requestId, st: type, desc: descriptionChange, to_id: to_id};
             //console.log(datas);
             $.ajax({
@@ -509,20 +509,16 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 data: datas,
                 success: function () {
                     removeHtml.parent().parent().parent().remove();
-                    $("#sucessRate").show();
-                    if (type == 0) {
-
-                        self.sucessMsg("Rating request declined successfully!");
-                    } else {
-                        self.sucessMsg("Rating request approved successfully!");
-                    }
-//                    update the value of the pending request accept or reject tab
-                    if (self.lazyMemleadPendingCurrent() < self.lazyMemleadPendingMax()) {
-                        var count = self.lazyMemleadPendingCurrent();
-                        if (self.lazyMemleadPendingCurrent() + 1 > self.lazyMemleadPendingMax()) {
-                            $('#leadPendingLoading').hide();
-                        } else {
-                            var loadRecordCount = 1;
+                    self.lazyMemleadPendingTemp(self.lazyMemleadPendingTemp() + 1);
+                    if (self.lazyMemleadPendingMax() > self.lazyMemleadPendingTemp()) {
+                        if (self.lazyMemleadPendingCurrent() < self.lazyMemleadPendingMax()) {
+                            var count = self.lazyMemleadPendingCurrent();
+                            if (self.lazyMemleadPendingCurrent() + 1 >= self.lazyMemleadPendingMax()) {
+                                var loadRecordCount = self.lazyMemleadPendingMax() - self.lazyMemleadPendingCurrent();
+                                $('#leadPendingLoading').hide();
+                            } else {
+                                var loadRecordCount = 1;
+                            }
                             for (var c = count; c < count + loadRecordCount; c++) { //count is current count from start and loadRecordCount is for total  page size;
                                 try {
                                     self.requestPendingLead.push(self.lazyTempStorageleadPending()[c]);
@@ -531,13 +527,17 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
                                 }
                             }
-                            if (self.lazyMemleadPendingCurrent() == self.lazyMemleadPendingMax()) {
-                                $('#leadPendingLoading').hide();
-                            }
+                        } else {
+                            $('#leadPendingLoading').hide();
                         }
+
                     } else {
                         $('#leadPendingLoading').hide();
+                        $("#request2").removeClass('loaderHide');
+                        self.noLeadPendingRequest("Hooray, you have addressed all the pending requests!");
                     }
+
+
 
                     // get all requests that has been declined by lead or manager.
                     self.lazyTempStorageleadRej([]);
@@ -551,6 +551,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             data: {lead_id: self.userId()},
                             success: function (result) {
                                 var data2 = JSON.parse(result)['data'];
+                                
                                 for (var i = 0; i < data2.length; i++) {
                                     self.lazyTempStorageleadRej.push(new request(data2[i]));
                                 }
@@ -639,9 +640,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     self.sucessMsg("Request sent successfully!");
                     /*again refresh after submit requests pending*/
                     self.requestPendingMember([]);
-                    self.requestRejectedMember([]);
                     self.lazyTempStoragePendM([]);
-                    self.lazyTempStorageRejM([]);
                     self.lazyMemPendCurrent(0);
                     var requestUrl = oj.Model.extend({
                         url: getUserPendingRequest + self.userId() + "/0" // get all the pending requests send by user to lead/manager
@@ -694,9 +693,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 }
             });
         }
-        self.requestLead = function () { 
-             self.desc1(self.desc1().trim());
-              if ((self.desc1() == '' || self.desc1() == null) && self.desc1() != 'undefined') {
+        self.requestLead = function () {
+            self.desc1(self.desc1().trim());
+            if ((self.desc1() == '' || self.desc1() == null) && self.desc1() != 'undefined') {
                 self.textError1("Please provide a reason for your rating request.");
                 return false;
             }
@@ -714,9 +713,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
                     /*again refresh after submit requests pending*/
                     self.requestPendingMember([]);
-                    self.requestRejectedMember([]);
                     self.lazyTempStoragePendM([]);
-                    self.lazyTempStorageRejM([]);
                     self.lazyMemPendCurrent(0);
                     var requestUrl = oj.Model.extend({
                         url: getUserPendingRequest + self.userId() + "/0" // get all the pending requests send by user to lead/manager
