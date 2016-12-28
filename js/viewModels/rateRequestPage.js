@@ -712,9 +712,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
                     /*again refresh after submit requests pending*/
                     self.requestPendingMember([]);
-                    self.requestRejectedMember([]);
                     self.lazyTempStoragePendM([]);
-                    self.lazyTempStorageRejM([]);
                     self.lazyMemPendCurrent(0);
                     var requestUrl = oj.Model.extend({
                         url: getUserPendingRequest + self.userId() + "/0" // get all the pending requests send by user to lead/manager
