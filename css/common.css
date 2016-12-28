@@ -1516,6 +1516,7 @@
     text-align: center;
     top: 125px;
     width: 300px;
+    z-index: 15;
 }
 #sucess{
     display:none;
@@ -2029,7 +2030,7 @@
     margin-bottom: 80px;
 }
 .declineHeight{
-    height: 98%;
+    min-height:100%;
     margin-top: 50px;
 }
 .oj-select-selected-choice{color: #fff;}
