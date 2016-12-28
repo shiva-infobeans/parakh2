@@ -129,7 +129,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     }
                 }catch(e)
                 {
-                    console.log(e);
+//                    console.log(e);
                 }
             }
 

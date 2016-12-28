@@ -6,7 +6,6 @@
     max-width: 1170px;
 }
 
-
 .nav li{
     float: right;
     font-size: 19px;
@@ -37,9 +36,10 @@
 .header-padding{
     padding:0px;
 }
-
-.oj-web-applayout-content {
-    padding:0px;
+.content-web{
+    -webkit-flex: 1 0 auto;
+    flex: 1 0 auto;
+    padding: 20px;
 }
 .logo{
     height:90px;
