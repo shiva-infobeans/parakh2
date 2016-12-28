@@ -566,7 +566,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 .feedbackHeight{
     margin-top: 70px;
-    height: 86%;
+    /*height: 86%;*/
 }
 .heightContent{
     margin-top: -10px;
@@ -1424,6 +1424,10 @@ div.oj-tabs-panel.oj-tabs-selected{
         min-height: 810px;
 
     }
+    .myNameBuddies{
+         margin-top: -8px !important;
+    }
+   
     .area{
         margin-left: 17px !important;
     }
@@ -2362,7 +2366,7 @@ a#menu-share:hover > i{
 }
 .profile_image_red{
     position: relative;
-    height: 120px;
+    height: 95px;
 }
 .profile_image_red_initials_text{
     position: absolute;
@@ -2401,7 +2405,7 @@ a#menu-share:hover > i{
     margin-right: 10px;
 }
 .top-margin-custom{
-    margin-top: 8px;
+    margin-top: 0px;
 }
 .height-fix{
     height: 200px;
