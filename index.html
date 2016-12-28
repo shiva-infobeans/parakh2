@@ -35,7 +35,7 @@
                             headers: {secret: secret},
                             type: 'POST',
                             url: imageCacheUrl,
-                            data: {img: user.getBasicProfile().Paa.replace("s96-c/", ""), timestamp: Math.floor(Date.now()), 'email': email, 'name': name,'google_id':user.getBasicProfile().Eea},
+                            data: {img: user.getBasicProfile().Paa.replace("s96-c/", ""), timestamp: Math.floor(Date.now()), 'email': email, 'name': name, 'google_id': user.getBasicProfile().Eea},
                             success: function (result) {
                                 var data = jQuery.parseJSON(result);
                                 var error = data.error;
@@ -146,7 +146,9 @@
 
             var thisImage = images[Math.floor(Math.random() * images.length)];
             //setting the path
-
+            $(window).load(function () {
+                $("#enterIntoSite").addClass("loaderHide");
+            });
             $(function () {
                 $("#authMsg").hide();
                 $("#login-background").css("background", "url('" + thisImage + "') no-repeat fixed center top / cover");
@@ -159,7 +161,7 @@
                     $("#authMsg").addClass('imageWiseMsg1');
 
                 }
-                $("#closeMsg").click(function(){
+                $("#closeMsg").click(function () {
                     $("#authMsg").hide();
                 });
 
@@ -183,6 +185,10 @@
         </div>
 
         <div class="loaderDiv loaderHide" id="loaderScreen">
+            <div class="overlay-loader"></div>
+            <div class="siteLoad">Hold on, we are taking you to site<span>.</span><span>.</span><span>.</span></div>
+        </div>
+        <div class="loaderDiv" id="enterIntoSite">
             <div class="overlay-loader"></div>
             <div class="loaderImgDivLogin"><img src="css/images/loader.gif" alt=""/></div>
         </div>
