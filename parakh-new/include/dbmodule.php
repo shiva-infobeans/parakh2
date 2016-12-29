@@ -715,6 +715,7 @@ class dbmodule {
      * */
 
     function addFeedback($data) {
+        $this->getManager($data['feedback_to']);
         $dateTime = new \DateTime(null, new DateTimeZone('Asia/Kolkata'));
         $created_date = $modified_date = $dateTime->format("Y-m-d H:i:s");
 
