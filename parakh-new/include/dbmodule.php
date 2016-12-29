@@ -1147,18 +1147,18 @@ class dbmodule {
 
             // // send notification to manager
             if ($this->manager_email != $user_data['google_email']) {
-                $vars_manager = array(
-                    "{Username}" => $this->manager_name,
-                    "{Member}" => $from_data['google_name'],
-                    "{Link}" => $this->getTargetLink(PROFILE_URL, 'My Profile'),
-                );
-                $email_data_l = [];
-                $email_data_l['to']['email'] = $this->manager_email;
-                $email_data_l['to']['name'] = $this->manager_name;
-                $email_data_l['subject'] = (!empty($temp_data['subject'])) ? $temp_data['subject'] : "";
-                $message = strtr($temp_data['content'], $vars_manager);
-                $email_data_l['message'] = $message;
-                $this->send_notification($email_data_l);
+//                $vars_manager = array(
+//                    "{Username}" => $this->manager_name,
+//                    "{Member}" => $from_data['google_name'],
+//                    "{Link}" => $this->getTargetLink(PROFILE_URL, 'My Profile'),
+//                );
+//                $email_data_l = [];
+//                $email_data_l['to']['email'] = $this->manager_email;
+//                $email_data_l['to']['name'] = $this->manager_name;
+//                $email_data_l['subject'] = (!empty($temp_data['subject'])) ? $temp_data['subject'] : "";
+//                $message = strtr($temp_data['content'], $vars_manager);
+//                $email_data_l['message'] = $message;
+//                $this->send_notification($email_data_l);
             }
 
             /* update msg read count */
