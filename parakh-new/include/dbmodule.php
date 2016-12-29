@@ -406,6 +406,7 @@ class dbmodule {
      * @return type
      */
     function rateOtherMember($data) {
+        $emailSendTo = $data['user_id'];
         
         $this->getManager($data['for_id']);
         $dateTime = new \DateTime(null, new DateTimeZone('Asia/Kolkata'));
@@ -457,21 +458,22 @@ class dbmodule {
         if ($rating_last_insert) {
             $email_data = [];
             $user_data = $this->getEmailById($data['for_id']);
+            $email_data['from']['name'] = $this->getEmailById($emailSendTo)['google_name'];
             $temp_data = $this->getEmailTemplateByCode('PRKE01');
             $email_data['to']['email'] = $user_data['google_email'];
             $email_data['to']['name'] = $user_data['google_name'];
             $email_data['subject'] = $temp_data['subject'];
-
+            
             $rating = 1;
             $vars = array(
                 "{Username}" => $email_data['to']['name'],
-                "{Member}" => $from_data['google_name'],
+                "{Member}" => $email_data['from']['name'],
                 "{Link}" => $this->getTargetLink(MY_BUDDIES_URL, "Go for it!"),
             );
             $message = strtr($temp_data['content'], $vars);
             $email_data['message'] = $message;
             $this->send_notification($email_data);
-
+            
             // send notification to manager
             //{member} has received a {rating} rating by {lead} for "{comment}".
             $email_data_l = [];
