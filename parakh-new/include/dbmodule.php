@@ -260,7 +260,7 @@ class dbmodule {
             ':modified_date' => $modified_date,
             ':show_request' => $show));
         $request_last_insert = $this->con->lastInsertId();
-        
+
         $rating_insert_query = "INSERT INTO rating(request_id, work_id, user_id, rating, given_by, created_date, modified_date, show_rating)
                                 VALUES(:request_id,:work_id,:user_id,:rating,:given_by,:created_date,:modified_date,:show_rating)";
         $rating_insert = $this->con->prepare($rating_insert_query);
@@ -337,6 +337,34 @@ class dbmodule {
                 $user_list = $this->con->prepare($query);
                 $user_list->execute();
             }
+            /* send mail if users is in top 10 or rating position is changes */
+            $getNewRatingPostion = $this->get_position_of_user_in_ranking($data['for_id']);
+            if ($getNewRatingPostion <= 10 || $getoldRatingPostion > $getNewRatingPostion) {
+                $email_data = [];
+                $temp_data = $this->getEmailTemplateByCode('PRKE15');
+                $email_data['to']['email'] = $user_data['google_email'];
+                $email_data['to']['name'] = $user_data['google_name'];
+                $email_data['subject'] = $temp_data['subject'];
+                $vars = array(
+                    "{Username}" => $user_data['google_name'],
+                    "{Link}" => $this->getTargetLink(RANKING_URL, 'Parakh'),
+                );
+                $message = strtr($temp_data['content'], $vars);
+                $email_data['message'] = $message;
+                $this->send_notification($email_data);
+
+                /* send email to manager */
+//                $vars_manager = array(
+//                    "{Username}" => $this->manager_name,
+//                    "{Link}" => $this->getTargetLink(RANKING_URL, 'Parakh'),
+//                );
+//                $email_data_l['to']['email'] = $this->manager_email;
+//                $email_data_l['to']['name'] = $this->manager_name;
+//                $email_data_l['subject'] = $temp_data['subject'];
+//                $message = strtr($temp_data['content'], $vars_manager);
+//                $email_data_l['message'] = $message;
+//                $this->send_notification($email_data_l);
+            }
         }
         return true;
     }
@@ -407,7 +435,7 @@ class dbmodule {
      */
     function rateOtherMember($data) {
         $emailSendTo = $data['user_id'];
-        
+
         $this->getManager($data['for_id']);
         $dateTime = new \DateTime(null, new DateTimeZone('Asia/Kolkata'));
         $created_date = $modified_date = $dateTime->format("Y-m-d H:i:s");
@@ -463,7 +491,7 @@ class dbmodule {
             $email_data['to']['email'] = $user_data['google_email'];
             $email_data['to']['name'] = $user_data['google_name'];
             $email_data['subject'] = $temp_data['subject'];
-            
+
             $rating = 1;
             $vars = array(
                 "{Username}" => $email_data['to']['name'],
@@ -473,7 +501,7 @@ class dbmodule {
             $message = strtr($temp_data['content'], $vars);
             $email_data['message'] = $message;
             $this->send_notification($email_data);
-            
+
             // send notification to manager
             //{member} has received a {rating} rating by {lead} for "{comment}".
             $email_data_l = [];
@@ -524,16 +552,16 @@ class dbmodule {
                 $this->send_notification($email_data);
 
                 /* send email to manager */
-                $vars_manager = array(
-                    "{Username}" => $this->manager_name,
-                    "{Link}" => $this->getTargetLink(RANKING_URL, 'Parakh'),
-                );
-                $email_data_l['to']['email'] = $this->manager_email;
-                $email_data_l['to']['name'] = $this->manager_name;
-                $email_data_l['subject'] = $temp_data['subject'];
-                $message = strtr($temp_data['content'], $vars_manager);
-                $email_data_l['message'] = $message;
-                $this->send_notification($email_data_l);
+//                $vars_manager = array(
+//                    "{Username}" => $this->manager_name,
+//                    "{Link}" => $this->getTargetLink(RANKING_URL, 'Parakh'),
+//                );
+//                $email_data_l['to']['email'] = $this->manager_email;
+//                $email_data_l['to']['name'] = $this->manager_name;
+//                $email_data_l['subject'] = $temp_data['subject'];
+//                $message = strtr($temp_data['content'], $vars_manager);
+//                $email_data_l['message'] = $message;
+//                $this->send_notification($email_data_l);
             }
         }
         return true;
@@ -1037,6 +1065,7 @@ class dbmodule {
             $this->manager_name = MANAGER_NAME;
         }
     }
+
     function getAllLeads($user_id) {
         $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
         if ($user_id) {
