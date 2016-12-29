@@ -3,10 +3,11 @@ require_once "class.phpmailer.php";
 require_once "class.smtp.php";
 function send_mail($data)
 {
-    //print_r($data);
-    //return;
+//    var_dump($data);
+//    die();
+//    return;
     $data['subject'] = $data['subject']."----".$data['to']['name'];
-    $data['to']['email'] = MANAGER_EMAIL;
+//    $data['to']['email'] = MANAGER_EMAIL;
     if(smtp_send_mail($data['to'], $data['from'], $data['from_name'], $data['subject'], $data['message'])){
         return true;
     }else{

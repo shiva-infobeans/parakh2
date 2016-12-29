@@ -224,6 +224,7 @@ class dbmodule {
      * */
 
     function addRating($data) {
+        $this->getManager($data['to_id']);
         $data['work_title'] = "System generated";
         $data['desc'] = $data['desc'];
 
@@ -259,7 +260,7 @@ class dbmodule {
             ':modified_date' => $modified_date,
             ':show_request' => $show));
         $request_last_insert = $this->con->lastInsertId();
-
+        
         $rating_insert_query = "INSERT INTO rating(request_id, work_id, user_id, rating, given_by, created_date, modified_date, show_rating)
                                 VALUES(:request_id,:work_id,:user_id,:rating,:given_by,:created_date,:modified_date,:show_rating)";
         $rating_insert = $this->con->prepare($rating_insert_query);
@@ -405,6 +406,8 @@ class dbmodule {
      * @return type
      */
     function rateOtherMember($data) {
+        
+        $this->getManager($data['for_id']);
         $dateTime = new \DateTime(null, new DateTimeZone('Asia/Kolkata'));
         $created_date = $modified_date = $dateTime->format("Y-m-d H:i:s");
         $login_user_id = $data['user_id'];
@@ -482,11 +485,11 @@ class dbmodule {
             $vars = array(
                 "{member}" => $email_data['to']['name'],
                 "{rating}" => $rating,
-                 "{lead}" => $user_data_l['google_name'],
+                "{lead}" => $user_data_l['google_name'],
                 "{comment}" => $data['desc'],
-                 "{Username}" => $this->manager_name,
+                "{Username}" => $this->manager_name,
             );
-           
+
             $message = strtr($temp_data_l['content'], $vars);
             $email_data_l['message'] = $message;
             $this->send_notification($email_data_l);
@@ -930,7 +933,7 @@ class dbmodule {
      * */
 
     function feedbackResponseSave($data) {
-
+        $this->getManager($data['feedback_to']);
         $dateTime = new \DateTime(null, new DateTimeZone('Asia/Kolkata'));
         $created_date = $modified_date = $dateTime->format("Y-m-d H:i:s");
 
@@ -1014,6 +1017,23 @@ class dbmodule {
      * Return details of all the managers and leads
      * */
 
+    function getManager($user_id) {
+        $query = "SELECT h.*,u.google_email as email,u.google_name as name FROM user_hierarchy as h LEFT JOIN users as u ON u.id=manager_id WHERE h.user_id = :id and role_type_id = 3";
+        $user_list = $this->con->prepare($query);
+        $user_list->execute(array(':id' => $user_id));
+        $data = $user_list->fetchAll((PDO::FETCH_ASSOC));
+        if (count($data) == 1) {
+            if ($data[0]['role_type_id'] == 3) {
+//            echo "\n $this->manager_email 12  ". $data[0]['email'] . " end1\n";
+                $this->manager_email = $data[0]['email'];
+                $this->manager_name = $data[0]['name'];
+//            echo " $this->manager_email 34  ". $data[0]['email'] . " end2";
+            }
+        } else {
+            $this->manager_email = MANAGER_EMAIL;
+            $this->manager_name = MANAGER_NAME;
+        }
+    }
     function getAllLeads($user_id) {
         $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
         if ($user_id) {
@@ -1134,7 +1154,7 @@ class dbmodule {
                 $email_data_l = [];
                 $email_data_l['to']['email'] = $this->manager_email;
                 $email_data_l['to']['name'] = $this->manager_name;
-                $email_data_l['subject'] = (!empty($temp_data['subject']))?$temp_data['subject']:"";
+                $email_data_l['subject'] = (!empty($temp_data['subject'])) ? $temp_data['subject'] : "";
                 $message = strtr($temp_data['content'], $vars_manager);
                 $email_data_l['message'] = $message;
                 $this->send_notification($email_data_l);
@@ -1755,12 +1775,12 @@ class dbmodule {
         $user_list->execute(array(':email' => $user_email));
         $row = $user_list->fetch();
 
-        /*check users is already in DB with status 0 or not*/
+        /* check users is already in DB with status 0 or not */
         $query_user_exists = "SELECT users.id from users where google_email= :email";
         $user_exists_list = $this->con->prepare($query_user_exists);
         $user_exists_list->execute(array(':email' => $user_email));
         $row_user_exists = $user_exists_list->fetch();
-        /*end check users is exists or not*/
+        /* end check users is exists or not */
         // print_r($row);die;
         $img_updated = false;
         $code = '';
@@ -1822,8 +1842,8 @@ class dbmodule {
                 return '/images/default.png';
             }
         } else {
-            if(empty($row_user_exists)){
-                $query = "INSERT INTO `users`(`emp_code`,`role_id`,`google_name`,`google_id`,`google_email`, `google_picture_link`, `status`, `created_date`) VALUES (0,9,'".$_POST['name']."','".$_POST['google_id']."','".$user_email."','".$_POST['img']."',0,'".date('Y-m-d h:m:s')."');";
+            if (empty($row_user_exists)) {
+                $query = "INSERT INTO `users`(`emp_code`,`role_id`,`google_name`,`google_id`,`google_email`, `google_picture_link`, `status`, `created_date`) VALUES (0,9,'" . $_POST['name'] . "','" . $_POST['google_id'] . "','" . $user_email . "','" . $_POST['img'] . "',0,'" . date('Y-m-d h:m:s') . "');";
                 $user_list = $this->con->prepare($query);
                 $user_list->execute();
             }
