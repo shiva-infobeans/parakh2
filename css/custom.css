@@ -565,8 +565,8 @@ div.oj-tabs-panel.oj-tabs-selected{
     display: none;
 }
 .feedbackHeight{
-    margin-top: 70px;
-    /*height: 86%;*/
+    /*margin-top: 70px;*/
+   
 }
 .heightContent{
     margin-top: -10px;
@@ -1302,8 +1302,8 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 .edit-height{cursor: pointer;}
 .requestHeight{
-    margin-top: 50px;
-    height: 83%;  
+/*    margin-top: 50px;
+    height: 83%;  */
 }
 .sliderScreen1{
     color: #fff !important;
@@ -1940,6 +1940,7 @@ span.zmdi-plus-request {
 .feedback-comment-text{
     padding: 5px;
     margin: 5px 3px;
+    word-break: break-all;
 }
 .circle-purple{
     background-color: #2780b5;
@@ -2257,10 +2258,14 @@ a#menu-share:hover > i{
     text-decoration: underline;
 }
 .minheightFix{
-    min-height: 100%;
-    max-height: 999em;
+    min-height: 192px;
 }
-
+.margin-cards{
+    margin-bottom: -48px;
+}
+.margin-cards-2{
+    margin-bottom: -74px;
+}
 .myBuddies-profilepic-overlay {
     background: #2780b5 none repeat scroll 0 0;
     border: 2px solid #fff;
@@ -2384,12 +2389,18 @@ a#menu-share:hover > i{
     color: #ffffff;
 }
 .profile_image_red{
+   position: relative;
+    height: 95px;
+    top: -73px;
+}
+.profile_image_red-2{
     position: relative;
     height: 95px;
+    top: -47px;
 }
 .profile_image_red_initials_text{
     position: absolute;
-    left: 0;
+    left: -4px;
     right: 0;
     top: 0;
     bottom: 0;
@@ -2410,6 +2421,7 @@ a#menu-share:hover > i{
     margin: 26px 16px;
     font-size: 50px;
     text-align: center;
+    font-weight: normal;
 }
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
     #ojDialogWrapper-minMaxDialog.oj-dialog{
