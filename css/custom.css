@@ -1406,6 +1406,11 @@ div.oj-tabs-panel.oj-tabs-selected{
   overflow: hidden;
 }   
 }*/
+@media  screen and (min-width: 320px) and (max-width: 360px) {
+    .bottom-block2{
+        margin-bottom: 30px !important;
+    }
+}
 @media  screen and (min-width: 320px) and (max-width: 767px) {
     .person-profile-intials {
         height: 80px !important;
