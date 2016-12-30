@@ -156,7 +156,7 @@ class dbmodule {
                 $rank_array[$value['id']]['pluscount'] = $value['pluscount'];
                 $rank_array[$value['id']]['minuscount'] = $value['minuscount'];
             }
-
+            $this->memes();
             for ($y = 0; $y < count($employeeList); $y++) {
                 if (isset($rank_array[$employeeList[$y]['id']]['pluscount']) && !empty($rank_array[$employeeList[$y]['id']]['pluscount'])) {
                     $employeeList[$y]['pluscount'] = "+" . $rank_array[$employeeList[$y]['id']]['pluscount'];
@@ -172,6 +172,7 @@ class dbmodule {
                 $image = $this->getCacheImage($employeeList[$y]['google_email'], $default_img);
                 $employeeList[$y]['google_picture_link'] = $image;
             }
+            $this->memes();
             return $employeeList;
         } else {
             return 0;
@@ -839,11 +840,12 @@ class dbmodule {
             $user_rank = $this->con->prepare($query_rank);
             $user_rank->execute();
             $userRank = $user_rank->fetchAll((PDO::FETCH_ASSOC));
-
+            $this->memes();
             foreach ($userRank as $key => $value) {
                 $rank_array[$value['id']]['pluscount'] = $value['pluscount'];
                 $rank_array[$value['id']]['minuscount'] = $value['minuscount'];
             }
+            $this->memes();
 
             for ($y = 0; $y < count($employeeList); $y++) {
                 if (isset($rank_array[$employeeList[$y]['id']]['pluscount']) && !empty($rank_array[$employeeList[$y]['id']]['pluscount'])) {
@@ -1995,6 +1997,13 @@ class dbmodule {
     }
 
 //end of fun
+    function memes() {
+        ob_flush();
+        ob_end_flush();
+        gc_collect_cycles();
+        ob_start();
+        gc_enable();
+    }
 }
 
 //end of class

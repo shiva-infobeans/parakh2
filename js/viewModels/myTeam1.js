@@ -203,6 +203,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     method: 'POST',
                     url: getOtherTeamMembers + self.userId(),
                     data: {user_id: self.userId()},
+                    timeout: 4000,
                     success: function (task) {
                         var data = JSON.parse(task)['data'];
                         data = data.sort(function (a, b) {
