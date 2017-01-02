@@ -347,7 +347,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
             {name: "Series 10", displayInLegend: 'off', items: []}
         ]);
 
-        data2 = '';
+        var data2 = '';
         var monthTopRanks = oj.Model.extend({
             url: getMonthTopRanks
                     //parse: parseTask
@@ -398,6 +398,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
         self.yTickLabelPosition1 = ko.observableArray(['outside']);
         self.xAxis1 = ko.pureComputed(function () {
             return {
+                min: 0,
+                max:12,
+                minStep:1,
+                minorStep: 1,
                 title: self.xTitle1(),
                 titleStyle: self.xStyle1(),
                 axisLine: {
@@ -415,6 +419,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
         });
         self.yAxis1 = ko.pureComputed(function () {
             return {
+                min: 0,
+                minStep:1,
                 title: self.yTitle1(),
                 titleStyle: self.yStyle1(),
                 axisLine: {
