@@ -634,7 +634,7 @@ class dbmodule {
                           sum(case when r.rating = 1 then 1  end) as pluscount,
                           sum(case when r.rating = 0 then 1  end) as minuscount
                           from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 
-                          group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC LIMIT 10";
+                          group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date DESC LIMIT 10";
         $ranking_data = $this->con->prepare($query);
         $ranking_data->execute();
         $rating = '';
