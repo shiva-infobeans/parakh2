@@ -224,9 +224,10 @@ class dbmodule {
      * */
 
     function addRating($data) {
+        $this->getManager($data['to_id']);
         $data['work_title'] = "System generated";
         $data['desc'] = $data['desc'];
-
+        $getOldRatingPostion = $this->get_position_of_user_in_ranking($data['to_id']);
         $dateTime = new \DateTime(null, new DateTimeZone('Asia/Kolkata'));
         $created_date = $modified_date = $dateTime->format("Y-m-d H:i:s");
         $login_user_id = $data['from_id'];
@@ -295,7 +296,7 @@ class dbmodule {
             $email_data['to']['name'] = $user_data['google_name'];
             $email_data['subject'] = $temp_data['subject'];
 
-            $rating = ($data['rating'] == 0) ? '-1' : 1;
+            $rating = ($data['rating'] == 0) ? '-1' : '+1';
             $vars = array(
                 "{Username}" => $email_data['to']['name'],
                 "{Member}" => $from_data['google_name'],
@@ -314,8 +315,9 @@ class dbmodule {
             //$email_data_l['to']['email'] = 'abhijeet.dange@infobeans.com';
             $email_data_l['to']['name'] = $this->manager_name;
             $email_data_l['subject'] = $temp_data_l['subject'];
-            $rating = ($data['rating'] == 0) ? '-1' : 1;
+
             $vars = array(
+                "{Username}" => $this->manager_name,
                 "{member}" => $email_data['to']['name'],
                 "{rating}" => $rating,
                 "{lead}" => $user_data_l['google_name'],
@@ -335,6 +337,34 @@ class dbmodule {
                 $user_list = $this->con->prepare($query);
                 $user_list->execute();
             }
+            /* send mail if users is in top 10 or rating position is changes */
+            $getNewRatingPostion = $this->get_position_of_user_in_ranking($data['for_id']);
+            if ($getNewRatingPostion <= 10 || $getoldRatingPostion > $getNewRatingPostion) {
+                $email_data = [];
+                $temp_data = $this->getEmailTemplateByCode('PRKE15');
+                $email_data['to']['email'] = $user_data['google_email'];
+                $email_data['to']['name'] = $user_data['google_name'];
+                $email_data['subject'] = $temp_data['subject'];
+                $vars = array(
+                    "{Username}" => $user_data['google_name'],
+                    "{Link}" => $this->getTargetLink(RANKING_URL, 'Parakh'),
+                );
+                $message = strtr($temp_data['content'], $vars);
+                $email_data['message'] = $message;
+                $this->send_notification($email_data);
+
+                /* send email to manager */
+//                $vars_manager = array(
+//                    "{Username}" => $this->manager_name,
+//                    "{Link}" => $this->getTargetLink(RANKING_URL, 'Parakh'),
+//                );
+//                $email_data_l['to']['email'] = $this->manager_email;
+//                $email_data_l['to']['name'] = $this->manager_name;
+//                $email_data_l['subject'] = $temp_data['subject'];
+//                $message = strtr($temp_data['content'], $vars_manager);
+//                $email_data_l['message'] = $message;
+//                $this->send_notification($email_data_l);
+            }
         }
         return true;
     }
@@ -342,11 +372,11 @@ class dbmodule {
 //end of fun
 
     function getParakhLink($text) {
-        return '<a href="' . $this->site_url . '" >' . $text . '</a>';
+        return '<a href="' . $this->site_url . '" style="color:#fee123">' . $text . '</a>';
     }
 
     function getTargetLink($url, $text) {
-        return '<a href="' . $this->site_url . '?target_url=' . $url . '" >' . $text . '</a>';
+        return '<a href="' . $this->site_url . '?target_url=' . $url . '" style="color:#fee123">' . $text . '</a>';
     }
 
     function getEmailById($id) {
@@ -404,6 +434,9 @@ class dbmodule {
      * @return type
      */
     function rateOtherMember($data) {
+        $emailSendTo = $data['user_id'];
+
+        $this->getManager($data['for_id']);
         $dateTime = new \DateTime(null, new DateTimeZone('Asia/Kolkata'));
         $created_date = $modified_date = $dateTime->format("Y-m-d H:i:s");
         $login_user_id = $data['user_id'];
@@ -453,6 +486,7 @@ class dbmodule {
         if ($rating_last_insert) {
             $email_data = [];
             $user_data = $this->getEmailById($data['for_id']);
+            $email_data['from']['name'] = $this->getEmailById($emailSendTo)['google_name'];
             $temp_data = $this->getEmailTemplateByCode('PRKE01');
             $email_data['to']['email'] = $user_data['google_email'];
             $email_data['to']['name'] = $user_data['google_name'];
@@ -461,7 +495,7 @@ class dbmodule {
             $rating = 1;
             $vars = array(
                 "{Username}" => $email_data['to']['name'],
-                "{Member}" => $from_data['google_name'],
+                "{Member}" => $email_data['from']['name'],
                 "{Link}" => $this->getTargetLink(MY_BUDDIES_URL, "Go for it!"),
             );
             $message = strtr($temp_data['content'], $vars);
@@ -471,19 +505,21 @@ class dbmodule {
             // send notification to manager
             //{member} has received a {rating} rating by {lead} for "{comment}".
             $email_data_l = [];
-            $user_data_l = $this->getEmailById($data['for_id']);
+            $user_data_l = $this->getEmailById($login_user_id);
             $temp_data_l = $this->getEmailTemplateByCode('PRKE21');
             $email_data_l['to']['email'] = $this->manager_email;
             //$email_data_l['to']['email'] = 'abhijeet.dange@infobeans.com';
             $email_data_l['to']['name'] = $this->manager_name;
             $email_data_l['subject'] = $temp_data_l['subject'];
-            $rating = ($data['rating'] == 0) ? '-1' : 1;
+            $rating = "+1";
             $vars = array(
                 "{member}" => $email_data['to']['name'],
                 "{rating}" => $rating,
                 "{lead}" => $user_data_l['google_name'],
                 "{comment}" => $data['desc'],
+                "{Username}" => $this->manager_name,
             );
+
             $message = strtr($temp_data_l['content'], $vars);
             $email_data_l['message'] = $message;
             $this->send_notification($email_data_l);
@@ -514,6 +550,18 @@ class dbmodule {
                 $message = strtr($temp_data['content'], $vars);
                 $email_data['message'] = $message;
                 $this->send_notification($email_data);
+
+                /* send email to manager */
+//                $vars_manager = array(
+//                    "{Username}" => $this->manager_name,
+//                    "{Link}" => $this->getTargetLink(RANKING_URL, 'Parakh'),
+//                );
+//                $email_data_l['to']['email'] = $this->manager_email;
+//                $email_data_l['to']['name'] = $this->manager_name;
+//                $email_data_l['subject'] = $temp_data['subject'];
+//                $message = strtr($temp_data['content'], $vars_manager);
+//                $email_data_l['message'] = $message;
+//                $this->send_notification($email_data_l);
             }
         }
         return true;
@@ -697,6 +745,7 @@ class dbmodule {
      * */
 
     function addFeedback($data) {
+        $this->getManager($data['feedback_to']);
         $dateTime = new \DateTime(null, new DateTimeZone('Asia/Kolkata'));
         $created_date = $modified_date = $dateTime->format("Y-m-d H:i:s");
 
@@ -743,6 +792,7 @@ class dbmodule {
             $email_data_l['to']['name'] = $this->manager_name;
             $email_data_l['subject'] = $temp_data_l['subject'];
             $vars = array(
+                "{Username}" => $this->manager_name,
                 "{Member}" => $email_data['to']['name'],
                 "{Manager}" => $from_data['google_name'],
                 "{Feedback}" => $data['feedback_description']
@@ -914,7 +964,7 @@ class dbmodule {
      * */
 
     function feedbackResponseSave($data) {
-
+        $this->getManager($data['feedback_to']);
         $dateTime = new \DateTime(null, new DateTimeZone('Asia/Kolkata'));
         $created_date = $modified_date = $dateTime->format("Y-m-d H:i:s");
 
@@ -966,7 +1016,7 @@ class dbmodule {
                 $vars_manager = array(
                     "{Username}" => $this->manager_name,
                     "{Member}" => $user_data['google_name'],
-                    "{Manager}" => $feedback_from['google_name'],
+                    "{Manager}" => $from_data['google_name'],
                     "{Feedback}" => $data['feedback_desc']
                 );
                 $email_data_l = [];
@@ -997,6 +1047,24 @@ class dbmodule {
     /*     *
      * Return details of all the managers and leads
      * */
+
+    function getManager($user_id) {
+        $query = "SELECT h.*,u.google_email as email,u.google_name as name FROM user_hierarchy as h LEFT JOIN users as u ON u.id=manager_id WHERE h.user_id = :id and role_type_id = 3";
+        $user_list = $this->con->prepare($query);
+        $user_list->execute(array(':id' => $user_id));
+        $data = $user_list->fetchAll((PDO::FETCH_ASSOC));
+        if (count($data) == 1) {
+            if ($data[0]['role_type_id'] == 3) {
+//            echo "\n $this->manager_email 12  ". $data[0]['email'] . " end1\n";
+                $this->manager_email = $data[0]['email'];
+                $this->manager_name = $data[0]['name'];
+//            echo " $this->manager_email 34  ". $data[0]['email'] . " end2";
+            }
+        } else {
+            $this->manager_email = MANAGER_EMAIL;
+            $this->manager_name = MANAGER_NAME;
+        }
+    }
 
     function getAllLeads($user_id) {
         $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
@@ -1110,18 +1178,18 @@ class dbmodule {
 
             // // send notification to manager
             if ($this->manager_email != $user_data['google_email']) {
-                $vars_manager = array(
-                    "{Username}" => $this->manager_name,
-                    "{Member}" => $from_data['google_name'],
-                    "{Link}" => $this->getTargetLink(PROFILE_URL, 'My Profile'),
-                );
-                $email_data_l = [];
-                $email_data_l['to']['email'] = $this->manager_email;
-                $email_data_l['to']['name'] = $this->manager_name;
-                $email_data_l['subject'] = (!empty($temp_data['subject']))?$temp_data['subject']:"";
-                $message = strtr($temp_data['content'], $vars_manager);
-                $email_data_l['message'] = $message;
-                $this->send_notification($email_data_l);
+//                $vars_manager = array(
+//                    "{Username}" => $this->manager_name,
+//                    "{Member}" => $from_data['google_name'],
+//                    "{Link}" => $this->getTargetLink(PROFILE_URL, 'My Profile'),
+//                );
+//                $email_data_l = [];
+//                $email_data_l['to']['email'] = $this->manager_email;
+//                $email_data_l['to']['name'] = $this->manager_name;
+//                $email_data_l['subject'] = (!empty($temp_data['subject'])) ? $temp_data['subject'] : "";
+//                $message = strtr($temp_data['content'], $vars_manager);
+//                $email_data_l['message'] = $message;
+//                $this->send_notification($email_data_l);
             }
 
             /* update msg read count */
@@ -1242,6 +1310,7 @@ class dbmodule {
         /* send email to user when decline */
         $email_data = [];
         $user_data = $this->getEmailById($data['to_id']);
+        $from_data = $this->getEmailById($data['u_id']);
         $temp_data = $this->getEmailTemplateByCode('PRKE04');
         $email_data['to']['email'] = $user_data['google_email'];
         $email_data['to']['name'] = $user_data['google_name'];
@@ -1249,7 +1318,7 @@ class dbmodule {
 
         $vars = array(
             "{Username}" => $user_data['google_name'],
-            "{Manager}" => $this->get_role_name($data['u_id']),
+            "{Manager}" => $from_data['google_name'],
             "{Link}" => $this->getTargetLink(MY_BUDDIES_URL, 'Parakh'),
         );
 
@@ -1352,6 +1421,7 @@ class dbmodule {
 
             $email_data = [];
             $user_data = $this->getEmailById($data['to_id']);
+            $from_data = $this->getEmailById($data['u_id']);
             $temp_data = $this->getEmailTemplateByCode('PRKE03');
             $email_data['to']['email'] = $user_data['google_email'];
             $email_data['to']['name'] = $user_data['google_name'];
@@ -1359,7 +1429,7 @@ class dbmodule {
 
             $vars = array(
                 "{Username}" => $user_data['google_name'],
-                "{Manager}" => $this->get_role_name($data['u_id']),
+                "{Manager}" => $from_data['google_name'],
                 "{Link}" => $this->getTargetLink(PROFILE_URL, 'My Profile')
             );
 
@@ -1737,12 +1807,12 @@ class dbmodule {
         $user_list->execute(array(':email' => $user_email));
         $row = $user_list->fetch();
 
-        /*check users is already in DB with status 0 or not*/
+        /* check users is already in DB with status 0 or not */
         $query_user_exists = "SELECT users.id from users where google_email= :email";
         $user_exists_list = $this->con->prepare($query_user_exists);
         $user_exists_list->execute(array(':email' => $user_email));
         $row_user_exists = $user_exists_list->fetch();
-        /*end check users is exists or not*/
+        /* end check users is exists or not */
         // print_r($row);die;
         $img_updated = false;
         $code = '';
@@ -1804,8 +1874,8 @@ class dbmodule {
                 return '/images/default.png';
             }
         } else {
-            if(empty($row_user_exists)){
-                $query = "INSERT INTO `users`(`emp_code`,`role_id`,`google_name`,`google_id`,`google_email`, `google_picture_link`, `status`, `created_date`) VALUES (0,9,'".$_POST['name']."','".$_POST['google_id']."','".$user_email."','".$_POST['img']."',0,'".date('Y-m-d h:m:s')."');";
+            if (empty($row_user_exists)) {
+                $query = "INSERT INTO `users`(`emp_code`,`role_id`,`google_name`,`google_id`,`google_email`, `google_picture_link`, `status`, `created_date`) VALUES (0,9,'" . $_POST['name'] . "','" . $_POST['google_id'] . "','" . $user_email . "','" . $_POST['img'] . "',0,'" . date('Y-m-d h:m:s') . "');";
                 $user_list = $this->con->prepare($query);
                 $user_list->execute();
             }
