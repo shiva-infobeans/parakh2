@@ -1199,7 +1199,7 @@ $app->get('/getRankOfLoggedInUserInPast90Days[/{user_id}]', function ($request, 
 
     //Creating a dbmodule object
     $db = new dbmodule();
-    $result = $db->userFirstTime($args['user_id']);
+    $result = $db->get_rank_of_logged_in_user_in_past_90_days($args['user_id']);
     if ($result != 0) {
         $response_data = makeResponse('false', $result);
     } else {
