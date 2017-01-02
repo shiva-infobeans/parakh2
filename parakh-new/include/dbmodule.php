@@ -227,7 +227,7 @@ class dbmodule {
         $this->getManager($data['to_id']);
         $data['work_title'] = "System generated";
         $data['desc'] = $data['desc'];
-
+        $getOldRatingPostion = $this->get_position_of_user_in_ranking($data['to_id']);
         $dateTime = new \DateTime(null, new DateTimeZone('Asia/Kolkata'));
         $created_date = $modified_date = $dateTime->format("Y-m-d H:i:s");
         $login_user_id = $data['from_id'];
