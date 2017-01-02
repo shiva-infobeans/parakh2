@@ -486,7 +486,7 @@ class dbmodule {
         if ($rating_last_insert) {
             $email_data = [];
             $user_data = $this->getEmailById($data['for_id']);
-            $email_data['from']['name'] = $this->getEmailById($emailSendTo)['google_name'];
+            // $email_data['from']['name'] = $this->getEmailById($emailSendTo)['google_name'];
             $temp_data = $this->getEmailTemplateByCode('PRKE01');
             $email_data['to']['email'] = $user_data['google_email'];
             $email_data['to']['name'] = $user_data['google_name'];
