@@ -1971,8 +1971,13 @@ class dbmodule {
     /* find last month login users only and send mail to them */
 
     function get_last_month_login_users() {
-        $query = "SELECT u.google_email,u.google_name from user_log as ul join users as u on u.id = ul.user_id
-                  WHERE ul.login_datetime < DATE_SUB(NOW(), INTERVAL 1 MONTH)";
+        if(SEND_MAIL_FIRST_TIME)
+        {
+            $query = "SELECT u.google_email,u.google_name from users";
+        }else
+        {
+            $query = "SELECT u.google_email,u.google_name from user_log as ul join users as u on u.id = ul.user_id WHERE ul.login_datetime < DATE_SUB(NOW(), INTERVAL 1 MONTH)";
+        }ECHO $query;die;
         $users_data = $this->con->prepare($query);
         $users_data->execute();
         $last_login_users = $users_data->fetchAll((PDO::FETCH_ASSOC));

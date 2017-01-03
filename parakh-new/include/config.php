@@ -12,3 +12,4 @@ define('MY_BUDDIES_URL','rateBuddy.html');
 define('RATE_ME_URL','rateMe.html');
 define('PROFILE_URL','profile.html');
 define('RANKING_URL','rankings.html');
+define('SEND_MAIL_FIRST_TIME',false);
