@@ -459,6 +459,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     background-repeat: repeat-y;
     margin-top: -33px;
     padding-bottom: 57px;
+    word-break: break-all;
 }
 .rating-section{
     padding-top: 20px;
@@ -1550,17 +1551,62 @@ div.oj-tabs-panel.oj-tabs-selected{
         width: 70px !important;
         margin-top: 22px;
 }
-.edit-section {
-    position: absolute;
-    right: 0px;
-    top: -191px !important;
-}
 
+    .mobile-trans{
+        width: 90% !important;   
+    }
+    .mailToColor {
+        word-break: break-all !important;
+    }
+    /*.oj-fwk-icon-caret-w:before{
+            color: #fff !important;
+        margin-top: 1px !important;
+        font-size: 20px !important;
+    }*/
+    #vtabs .oj-conveyorbelt-overflow-indicator.oj-default .oj-conveyorbelt-overflow-icon{
+        color: #fff;
+        margin-top: 4px;
+        font-size: 18px;
+    }
+
+   
+    .bottom-padding{
+        padding-bottom: 15px !important;
+    }
+
+/*    .errorVisibilityShow{
+        margin: 5px 0px -5px 10px !important;
+}*/
+.rating-section{
+    min-height: 300px;
+}
+.bottom-edit-margin{
+    margin-bottom: 15px !important;
+}
 .feedback-comment {
     margin-left: 69px !important;
     padding: 5px !important;
     width: 70% !important;
 }
+ 
+}
+@media  screen and (min-width: 320px) and (max-width: 1024px) {
+    .edit-section {
+    position: absolute;
+    right: 0px;
+    top: -191px !important;
+}
+.errorVisibilityShow{
+    width: 103% !important;
+}
+
+ .noComments{
+        padding: 117px !important;
+        text-align: center !important;
+        font-size: 19px !important;
+        min-height: 266px !important;
+        margin:0px !important;
+    }
 .feedback-date {
     width: 80px !important;
     font-size: 12px !important;
@@ -1628,59 +1674,23 @@ div.oj-tabs-panel.oj-tabs-selected{
 .profile-margin-bottom{
     margin-bottom: 15px;
 }
-
 .replyInput div span input{
         height: 24px !important;
         margin-top: -5px !important;
     }
     .replyInput div span i{
         margin-left: 4px !important;
-        padding: 1px!important;
-
     }
-    .mobile-trans{
-        width: 90% !important;   
+    .View-Other-about-members{
+        font-size: 18px !important;
+         word-break: break-all;
     }
-    .mailToColor {
-        word-break: break-all !important;
-    }
-    /*.oj-fwk-icon-caret-w:before{
-            color: #fff !important;
-        margin-top: 1px !important;
-        font-size: 20px !important;
-    }*/
-    #vtabs .oj-conveyorbelt-overflow-indicator.oj-default .oj-conveyorbelt-overflow-icon{
-        color: #fff;
-        margin-top: 4px;
-        font-size: 18px;
-    }
-
-    .noComments{
-        padding: 117px !important;
-        text-align: center !important;
-        font-size: 19px !important;
-        min-height: 266px !important;
-        margin:0px !important;
-    }
-    .bottom-padding{
-        padding-bottom: 15px !important;
-    }
-
-    .errorVisibilityShow{
-        margin: 5px 0px -5px 10px !important;
 }
-.rating-section{
-    min-height: 300px;
-}
-.bottom-edit-margin{
-    margin-bottom: 15px !important;
-}
- 
-}
-
 .transboxRequest2{
     border-left: 0px ;
 }
+
+  
 @media  screen and (min-width: 320px) and (max-width: 530px) {
     .about-edit-check{
  left: 21px !important;
@@ -1761,6 +1771,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     .tab-margin{
         margin-left:10px;
     }
+   
     .left {
         float: left;
         border-right: 5px solid transparent;
@@ -1801,7 +1812,7 @@ div.oj-tabs-panel.oj-tabs-selected{
         margin-left: 10px !important;
     }
     #input-date.oj-inputdatetime-input{
-        margin-left: -19px !important;
+        margin-left: 10px !important;
     }
     #oj-select-choice-selectDesignation.oj-select-choice, #oj-select-choice-selectLocation.oj-select-choice{
         margin-left: 8px;
@@ -1814,7 +1825,7 @@ div.oj-tabs-panel.oj-tabs-selected{
         padding: 64px 33px 59px 4px !important;
     }
     .replyInput div span i {
-        margin-left: 4px !important;
+          margin-left: 30px !important;
     }
     .text-about {
         display: block;
