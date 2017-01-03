@@ -1985,7 +1985,7 @@ class dbmodule {
                 $email_data['subject'] = $temp_data['subject'];
                 $vars = array(
                     "{Username}" => $value['google_name'],
-                    "{Link}" => $this->getTargetLink(SITE_URL, 'Parakh'),
+                    "{Link}" => $this->getParakhLink('Parakh'),
                 );
                 $message = strtr($temp_data['content'], $vars);
                 $email_data['message'] = $message;
