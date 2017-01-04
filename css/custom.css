@@ -1430,9 +1430,6 @@ div.oj-tabs-panel.oj-tabs-selected{
         min-height: 810px;
 
     }
-    .commentDate-mobile{
-        font-size: 14px !important;
-    }
     .myNameBuddies{
          margin-top: -8px !important;
     }
@@ -1616,7 +1613,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     color: #dcdcdc !important;
     margin-top: -54px !important;
     font-style: italic !important;
-    font-size: 18px;
+    font-size: 14px;
 }
 .circle-purple{
     margin-left: 12px !important;
@@ -1674,9 +1671,13 @@ div.oj-tabs-panel.oj-tabs-selected{
 .profile-margin-bottom{
     margin-bottom: 15px;
 }
+.profile-margin-bottom-2{
+    margin-bottom: 15px;
+    min-height: 266px !important;
+}
 .replyInput div span input{
         height: 24px !important;
-        margin-top: -5px !important;
+        margin-top: -4px !important;
     }
     .replyInput div span i{
         margin-left: 4px !important;
@@ -1709,6 +1710,12 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 .edit-height {
     font-size: 20px !important;
+}
+.myname-profile{
+    font-weight: 600  !important;
+    font-size: 16px  !important;
+    margin-top: 22px  !important;
+    margin-left: -7px  !important;
 }
 
    .custom-zmdi-icons-div {
