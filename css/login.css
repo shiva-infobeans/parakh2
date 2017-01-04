@@ -51,6 +51,10 @@ img#my-signin2{
 .login-logo{
     width:100%;
 }
+.logo-margin{
+    margin-top: 10px;
+    margin-left: 30px;
+}
 .login-btn {
     position: absolute;
     right: 101px;
@@ -67,6 +71,10 @@ img#my-signin2{
         left: 0;
         margin:auto;
     }
+    .logo-margin{
+     margin-top: 3px;
+     margin-left: 2px;
+}
     .imageWiseMsg1{
         bottom:375px !important;
         top: auto !important;
