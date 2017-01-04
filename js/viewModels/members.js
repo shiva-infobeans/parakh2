@@ -204,7 +204,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojcollectiontabledatasource', '
         var lgQuery = oj.ResponsiveUtils.getFrameworkQuery(
                 oj.ResponsiveUtils.FRAMEWORK_QUERY_KEY.LG_UP);
 
-        self.large = oj.ResponsiveKnockoutUtils.createMediaQueryObservable('(min-width: 767px)');
+        self.large = oj.ResponsiveKnockoutUtils.createMediaQueryObservable('(min-width: 1024px)');
 
 //service for id of the user.
         var userIdSearch = oj.Model.extend({

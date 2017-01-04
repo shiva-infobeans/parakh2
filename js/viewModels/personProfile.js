@@ -208,7 +208,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 self.blockFeedback = ko.observable(7);
                 //..................
 
-                self.large = oj.ResponsiveKnockoutUtils.createMediaQueryObservable('(min-width: 767px)');
+                self.large = oj.ResponsiveKnockoutUtils.createMediaQueryObservable('(min-width: 1024px)');
 
                 self.itemOnly = function (context)
                 {
