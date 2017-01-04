@@ -178,20 +178,20 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojcollectiontabledatasource', '
         self.allPos = ko.observableArray();
         self.currentPos = ko.observable();
         self.countPos = ko.observable();
-        self.initBlockPos = ko.observable(10);
-        self.blockPos = ko.observable(10);
+        self.initBlockPos = ko.observable(7);
+        self.blockPos = ko.observable(7);
         ///////////////////// lazy loading Negative comment .............
         self.allNeg = ko.observableArray();
         self.currentNeg = ko.observable();
         self.countNeg = ko.observable();
-        self.initBlockNeg = ko.observable(10);
-        self.blockNeg = ko.observable(10);
+        self.initBlockNeg = ko.observable(7);
+        self.blockNeg = ko.observable(7);
         ///////////////////// lazy loading Feedback .............
         self.allFeedback = ko.observableArray();
         self.currentFeedback = ko.observable();
         self.countFeedback = ko.observable();
         self.initBlockFeedback = ko.observable(6);
-        self.blockFeedback = ko.observable(10);
+        self.blockFeedback = ko.observable(7);
         //..................
 
 

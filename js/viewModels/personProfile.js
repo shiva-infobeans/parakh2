@@ -192,20 +192,20 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 self.allPos = ko.observableArray();
                 self.currentPos = ko.observable();
                 self.countPos = ko.observable();
-                self.initBlockPos = ko.observable(10);
-                self.blockPos = ko.observable(10);
+                self.initBlockPos = ko.observable(7);
+                self.blockPos = ko.observable(7);
                 ///////////////////// lazy loading Negative comment .............
                 self.allNeg = ko.observableArray();
                 self.currentNeg = ko.observable();
                 self.countNeg = ko.observable();
-                self.initBlockNeg = ko.observable(10);
-                self.blockNeg = ko.observable(10);
+                self.initBlockNeg = ko.observable(7);
+                self.blockNeg = ko.observable(7);
                 ///////////////////// lazy loading Feedback .............
                 self.allFeedback = ko.observableArray();
                 self.currentFeedback = ko.observable();
                 self.countFeedback = ko.observable();
                 self.initBlockFeedback = ko.observable(6);
-                self.blockFeedback = ko.observable(10);
+                self.blockFeedback = ko.observable(7);
                 //..................
 
                 self.large = oj.ResponsiveKnockoutUtils.createMediaQueryObservable('(min-width: 767px)');
@@ -744,6 +744,29 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         self.myNumber("+91-" + self.temporaryNumber());
                     }
                 }
+                
+                self.revertAfterEdit = function(){
+                    self.moberror("");
+                    $('#designation-text').removeClass('hide');
+                    $('#designation-div').addClass('hide');
+                    $('#location-text').removeClass('hide');
+                    $('#location-div').addClass('hide');
+                    $('#skills-text').removeClass('hide');
+                    $('#skills').addClass('hide');
+                    $('#associate-text').removeClass('hide');
+                    $('#associate-div').addClass('hide');
+                    $('#primary-project-text').removeClass('hide');
+                    $('#primary-project-div').addClass('hide');
+                    $('#projects-text').removeClass('hide');
+                    $('#projects-div').addClass('hide');
+                    $('#interest-text').removeClass('hide');
+                    $('#interest-div').addClass('hide');
+                    $('#number-text').removeClass('hide');
+                    $('#editNumberBox').addClass('hide');
+                    $('#edit-all').removeClass('hide');
+                    $('#submit-all').addClass('hide');
+                    $('#cancel-all').addClass('hide');
+                }
 
                 self.revertAfterEdit = function(){
                     self.moberror("");
@@ -794,8 +817,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     self.interests(interestsDefaultVar);
                     self.primary_project(primaryProjectDefaultVar);
                     self.temporaryNumber(self.myNumber().substring(self.myNumber().indexOf("-") + 1, self.myNumber().length));
-                    self.myNumber("+91-" + editVariable);
-                    self.temporaryNumber("");
                     self.myNumber(numberDefaultVar);
                     $('#edit-all').removeClass('hide');
                     $('#submit-all').addClass('hide');

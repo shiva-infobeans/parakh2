@@ -38,7 +38,7 @@ and open the template in the editor.
                                 </div> 
                             </div>
                             <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-padding oj-margin-top oj-margin-bottom requestAlignment no-margin">
-                                <div class ="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding NorequestMsgAlignment oj-flex-bar-center-absolute" id="request2">
+                                <div class ="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin oj-padding NorequestMsgAlignment oj-flex-bar-center-absolute loaderHide" id="request2">
                                     <span class="errorText1" data-bind="text: noLeadPendingRequest"></span>
                                 </div>
 
@@ -47,8 +47,8 @@ and open the template in the editor.
                                     <div class="transbox1  requestHeight"></div>
                                     <div class="transbox  requestHeight"></div>
                                     <div class="oj-flex oj-row ">
-                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                                            <div class="profile_image_red">
+                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center margin-cards">
+                                            <div class="profile_image_red-2">
                                                 <img data-bind="attr: {src:pic}" alt="" class="profile-feedback-pic border-color-yellow "/>
                                                 <span class="profile_image_red_initials_text" data-bind="text:intials"></span>
                                             </div>
@@ -143,17 +143,17 @@ and open the template in the editor.
                                         <span class="errorText1" data-bind="text: noLeadDeclinedRequest"></span>
                                     </div>
                                     <!-- ko foreach: requestDeclinedLead-->
-                                    <div class="oj-xl-8 oj-lg-8 oj-md-10 oj-sm-10 pos-relative oj-flex-bar-center-absolute  space-block top-margin-custom">
-                                        <div class="transbox2  declineHeight height-fix margin-less"></div>
-                                        <div class="transbox  declineHeight height-fix margin-less"></div>
+                                    <div class="oj-xl-8 oj-lg-8 oj-md-10 oj-sm-10 pos-relative oj-flex-bar-center-absolute  space-block1 top-margin-custom">
+                                        <div class="transbox2  declineHeight  margin-less"></div>
+                                        <div class="transbox  declineHeight  margin-less"></div>
                                         <div class="oj-flex oj-row">
-                                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                                                <div class="profile_image_red">
+                                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center margin-cards">
+                                                <div class="profile_image_red-2">
                                                     <img data-bind="attr: {src:pic}" alt="" class="profile-feedback-pic border-color-red"/>
                                                     <span class="profile_image_red_initials_text" data-bind="text:intials"></span>
                                                 </div>
                                             </div>
-                                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center font-name color-white">
+                                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center font-name color-white ">
 
                                                 <span data-bind="text: name"></span>
                                             </div>
@@ -250,9 +250,9 @@ and open the template in the editor.
                                                     <div class="transbox"></div>
                                                     <div class="oj-flex oj-row">
                                                         <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center ">
-                                                            <div class="manager_profile_pic">
+                                                            <div class="profile_image_lead">
                                                                 <img class="profile remove-hover-green" data-bind="attr:{src: manager_pic}">
-                                                                <span class="" data-bind="text:intials_manager"></span>
+                                                                <span class="profile_image_lead_initials_text" data-bind="text:intials_manager"></span>
                                                             </div>
                                                         </div>
                                                         <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item font-name center"  data-bind="text: manager_name ">
@@ -307,7 +307,7 @@ and open the template in the editor.
                                                                     <div class="transbox1  feedbackHeight minheightFix"></div>
                                                                     <div class="transbox feedbackHeight minheightFix"></div>
                                                                     <div class="oj-flex oj-row">
-                                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top oj-padding-top">
+                                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top oj-padding-top margin-cards-2">
                                                                             <div class="profile_image_red">
                                                                                 <img data-bind="attr: {src:pic}" alt="" class="profile-feedback-pic border-color-yellow"/>
                                                                                 <span class="profile_image_red_initials_text" data-bind="text:intials_yellow"></span>
@@ -345,7 +345,7 @@ and open the template in the editor.
                                                             </div>
                                                             <div id="tabs-13" class="pos-relative">
 
-                                                                <div class ="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-8 pos-relative oj-margin oj-padding  oj-flex-bar-center-absolute NorequestMsgAlignment " id="request1">
+                                                                <div class ="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-8 pos-relative oj-margin oj-padding  oj-flex-bar-center-absolute NorequestMsgAlignment  " id="request1">
                                                                     <span class="errorText1" data-bind="text: noRejectRequest"></span>
                                                                 </div>
 
@@ -355,13 +355,13 @@ and open the template in the editor.
                                                                     <div class="transbox2  feedbackHeight minheightFix"></div>
                                                                     <div class="transbox  feedbackHeight minheightFix"></div>
                                                                     <div class="oj-flex oj-row">
-                                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top oj-padding-top">
+                                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center oj-margin-top oj-padding-top margin-cards-2">
                                                                             <div class="profile_image_red">
                                                                                 <img data-bind="attr: {src:pic}" alt="" class="profile-feedback-pic border-color-red"/>
                                                                                 <span class="profile_image_red_initials_text" data-bind="text:intials_red"></span>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center font-name color-white font-name">
+                                                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center font-name color-white ">
 
                                                                             <span data-bind="text: name"></span>
                                                                         </div>

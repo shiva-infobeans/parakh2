@@ -249,9 +249,10 @@ class dbmodule {
      * */
 
     function addRating($data) {
+        $this->getManager($data['to_id']);
         $data['work_title'] = "System generated";
         $data['desc'] = $data['desc'];
-
+        $getOldRatingPostion = $this->get_position_of_user_in_ranking($data['to_id']);
         $dateTime = new \DateTime(null, new DateTimeZone('Asia/Kolkata'));
         $created_date = $modified_date = $dateTime->format("Y-m-d H:i:s");
         $login_user_id = $data['from_id'];
@@ -361,6 +362,34 @@ class dbmodule {
                 $user_list = $this->con->prepare($query);
                 $user_list->execute();
             }
+            /* send mail if users is in top 10 or rating position is changes */
+            $getNewRatingPostion = $this->get_position_of_user_in_ranking($data['for_id']);
+            if ($getNewRatingPostion <= 10 || $getoldRatingPostion > $getNewRatingPostion) {
+                $email_data = [];
+                $temp_data = $this->getEmailTemplateByCode('PRKE15');
+                $email_data['to']['email'] = $user_data['google_email'];
+                $email_data['to']['name'] = $user_data['google_name'];
+                $email_data['subject'] = $temp_data['subject'];
+                $vars = array(
+                    "{Username}" => $user_data['google_name'],
+                    "{Link}" => $this->getTargetLink(RANKING_URL, 'Parakh'),
+                );
+                $message = strtr($temp_data['content'], $vars);
+                $email_data['message'] = $message;
+                $this->send_notification($email_data);
+
+                /* send email to manager */
+//                $vars_manager = array(
+//                    "{Username}" => $this->manager_name,
+//                    "{Link}" => $this->getTargetLink(RANKING_URL, 'Parakh'),
+//                );
+//                $email_data_l['to']['email'] = $this->manager_email;
+//                $email_data_l['to']['name'] = $this->manager_name;
+//                $email_data_l['subject'] = $temp_data['subject'];
+//                $message = strtr($temp_data['content'], $vars_manager);
+//                $email_data_l['message'] = $message;
+//                $this->send_notification($email_data_l);
+            }
         }
         return true;
     }
@@ -430,6 +459,9 @@ class dbmodule {
      * @return type
      */
     function rateOtherMember($data) {
+        $emailSendTo = $data['user_id'];
+
+        $this->getManager($data['for_id']);
         $dateTime = new \DateTime(null, new DateTimeZone('Asia/Kolkata'));
         $created_date = $modified_date = $dateTime->format("Y-m-d H:i:s");
         $login_user_id = $data['user_id'];
@@ -479,6 +511,7 @@ class dbmodule {
         if ($rating_last_insert) {
             $email_data = [];
             $user_data = $this->getEmailById($data['for_id']);
+            // $email_data['from']['name'] = $this->getEmailById($emailSendTo)['google_name'];
             $temp_data = $this->getEmailTemplateByCode('PRKE01');
             $email_data['to']['email'] = $user_data['google_email'];
             $email_data['to']['name'] = $user_data['google_name'];
@@ -487,7 +520,7 @@ class dbmodule {
             $rating = 1;
             $vars = array(
                 "{Username}" => $email_data['to']['name'],
-                "{Member}" => $from_data['google_name'],
+                "{Member}" => $email_data['from']['name'],
                 "{Link}" => $this->getTargetLink(MY_BUDDIES_URL, "Go for it!"),
             );
             $message = strtr($temp_data['content'], $vars);
@@ -626,7 +659,7 @@ class dbmodule {
                           sum(case when r.rating = 1 then 1  end) as pluscount,
                           sum(case when r.rating = 0 then 1  end) as minuscount
                           from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 
-                          group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC LIMIT 10";
+                          group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date DESC LIMIT 10";
         $ranking_data = $this->con->prepare($query);
         $ranking_data->execute();
         $rating = '';
@@ -737,6 +770,7 @@ class dbmodule {
      * */
 
     function addFeedback($data) {
+        $this->getManager($data['feedback_to']);
         $dateTime = new \DateTime(null, new DateTimeZone('Asia/Kolkata'));
         $created_date = $modified_date = $dateTime->format("Y-m-d H:i:s");
 
@@ -968,7 +1002,7 @@ class dbmodule {
      * */
 
     function feedbackResponseSave($data) {
-
+        $this->getManager($data['feedback_to']);
         $dateTime = new \DateTime(null, new DateTimeZone('Asia/Kolkata'));
         $created_date = $modified_date = $dateTime->format("Y-m-d H:i:s");
 
@@ -1050,6 +1084,24 @@ class dbmodule {
     /*     *
      * Return details of all the managers and leads
      * */
+
+    function getManager($user_id) {
+        $query = "SELECT h.*,u.google_email as email,u.google_name as name FROM user_hierarchy as h LEFT JOIN users as u ON u.id=manager_id WHERE h.user_id = :id and role_type_id = 3";
+        $user_list = $this->con->prepare($query);
+        $user_list->execute(array(':id' => $user_id));
+        $data = $user_list->fetchAll((PDO::FETCH_ASSOC));
+        if (count($data) == 1) {
+            if ($data[0]['role_type_id'] == 3) {
+//            echo "\n $this->manager_email 12  ". $data[0]['email'] . " end1\n";
+                $this->manager_email = $data[0]['email'];
+                $this->manager_name = $data[0]['name'];
+//            echo " $this->manager_email 34  ". $data[0]['email'] . " end2";
+            }
+        } else {
+            $this->manager_email = MANAGER_EMAIL;
+            $this->manager_name = MANAGER_NAME;
+        }
+    }
 
     function getAllLeads($user_id) {
         $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));

@@ -3,47 +3,7 @@ body{
     padding:0px;
     font-family: 'Montserrat', sans-serif !important;
 }
-/*.login{
-    width:100%;
-    height:100%;
-    position:absolute;
-    top:0;
-    left:0;
-    z-index: -1;
-}
-.login-btn{
-    float:right;
-    position:absolute;
-    right:100px;
-    top:100px;
-    max-width: 350px;
-}
 
-#login-background{
-    background-size:100%;
-}
-#login-Background{
-    position:absolute;
-    top:0px;
-    left:0px;
-    width:100%;
-    height:100%;
-    z-index:-1;
-}*/
-/*@media (min-width:767px) {
-    .login-btn{
-    float:none !important;
-    position:absolute;
-}
-.login-btn {
-bottom: 34px !important;
-left: calc(100% - 76%);
-width: 50%;
-margin: 0 auto;
-position: absolute;
-top: auto;
-  }    
-}*/
 img#my-signin2{
     cursor: pointer;
 }
@@ -85,8 +45,8 @@ img#my-signin2{
     }
     .authFailed{
         margin: 100px auto !important;
-        background-color: #f00;
-        font-size: 32px !important;
+        background-color: #DF4A32;
+        font-size: 25px !important;
         padding: 5px 0px;
     }  
     .authFailed span{
@@ -98,7 +58,7 @@ img#my-signin2{
         position: absolute;
         right: 30px;
         top: 50px;
-        width: 350px;
+        width: 260px;
     }   
     .authFailed span{
         padding-left: 50px !important; 
@@ -108,6 +68,9 @@ img#my-signin2{
     .achivementLink{
         right:32px !important;
     }
+    .authFailed{
+        margin: 115px auto !important;
+    }
 }
 @media (min-device-width:992px) and (max-device-width: 1199px){
     .login-btn {
@@ -116,6 +79,14 @@ img#my-signin2{
         top: 70px;
         width: 350px;
     }   
+    .authFailed span{
+        font-size: 14px !important;
+        padding-left: 50px !important; 
+        padding-right: 50px !important; 
+    }
+    .authFailed{
+        margin: 115px auto !important;
+    }
 }
 
 .achivementLink{
@@ -136,34 +107,10 @@ img#my-signin2{
     .linkPos2{
         top: auto;
         bottom: 85px;
-        right: 100px;
-    }
-    top: 20px;
-    width: 350px;
-}   
-
-.achivementLink{
-    position: fixed;
-    top: 20px;
-    right:101px;
-    padding: 5px;
-}
-.achivementLink a{
-    color:#df4a32;
-    font-size: 25px;
-}
-@media screen and (min-width:320px) and (max-width: 500px){
-    .linkPos1{
-        top: 80px !important;
-    }
-    .linkPos2{
-        top: auto;
-        bottom: 85px;
-        right: 100px;
+        right: 50px;
     }
 
 }
-
 .errorMsg{
     position: fixed;
     top: 0;
@@ -176,15 +123,15 @@ img#my-signin2{
 }
 .authFailed{
     width: 100%;
-    margin: 0px auto;
+    margin: 70px auto;
     text-align: center;
 }
 .authFailed span{
-    background-color: #f00;
-    padding: 5px 100px;
+    background-color: #DF4A32;
+    padding: 10px 15px 10px 40px;
     text-align: center;
     color: #fff !important;
-    border-radius: 0px 0px 5px 5px;
+    border-radius: 5px;
 }
 .loaderImgDivLogin{
     position: fixed;
@@ -208,4 +155,77 @@ img#my-signin2{
     height: 100%;
     width: 100%;
     background-color: rgba(0,0,0,0.7);
+}
+.authFailed span img {
+    width: 15px;
+    height: 15px;
+    margin-left: 20px;
+    background-color: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.siteLoad{
+    position: fixed;
+    top:0px;
+    left: 0px;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    height: 168px;
+    width: 100%;
+    z-index: 101;
+    color: #fff;
+    text-align: center;
+    font-size: 30px;
+}
+@keyframes blink {
+   
+    0% {
+      opacity: .2;
+    }
+    
+    20% {
+      opacity: 1;
+    }
+    100% {
+      opacity: .2;
+    }
+}
+
+.siteLoad span {
+   
+    animation-name: blink;
+    
+    animation-duration: 1.4s;
+    
+    animation-iteration-count: infinite;
+    
+    animation-fill-mode: both;
+}
+
+.siteLoad span:nth-child(2) {
+    
+    animation-delay: .2s;
+}
+
+.siteLoad span:nth-child(3) {
+    
+    animation-delay: .4s;
+}
+.overlay-loader-login{
+    background: none;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+@media screen and (min-width:768px) and (max-width:991px){
+    .linkPos1,.linkPos2{
+        top:5px;
+        right: 101px;
+    }
 }

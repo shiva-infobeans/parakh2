@@ -6,17 +6,12 @@
         <meta id="meta" name="google-signin-client_id" content="">
         <link rel="icon" id="favicon" type="image/jpg" href="" />
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
-        <link href="css/login.css" rel="stylesheet" type="text/css"/>
-        
+        <link href="css/login.css" rel="stylesheet" type="text/css"/>       
         <link href="css/libs/oj/v2.1.0/alta/oj-alta-min.css" rel="stylesheet" type="text/css"/>
         <link href="css/custom.css" rel="stylesheet" type="text/css"/>
         <link href="css/common.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
-
-        <style>
-
-        </style>
-        <script>
+	<script>
 
             function signinOnclick() {
                 var auth2;
@@ -36,12 +31,13 @@
                         var name = user.getBasicProfile().ig;
                         setCookie("email", email, 1);
                         setCookie("name", name, 1);
-                        //setCookie("picture",pic,1);                    
+                        setCookie("picture",pic,1); 
+                        window.location ="dashboard.html";
                         $.ajax({
                             headers: {secret: secret},
                             type: 'POST',
                             url: imageCacheUrl,
-                            data: {img: user.getBasicProfile().Paa.replace("s96-c/", ""), timestamp: Math.floor(Date.now()), 'email': email, 'name': name,'google_id':user.getBasicProfile().Eea},
+                             data: {img: user.getBasicProfile().Paa.replace("s96-c/", ""), timestamp: Math.floor(Date.now()), 'email': email, 'name': name,'google_id':user.getBasicProfile().Eea},
                             success: function (result) {
                                 var data = jQuery.parseJSON(result);
                                 var error = data.error;
@@ -152,7 +148,9 @@
 
             var thisImage = images[Math.floor(Math.random() * images.length)];
             //setting the path
-
+            $(window).load(function () {
+                $("#enterIntoSite").addClass("loaderHide");
+            });
             $(function () {
                 $("#authMsg").hide();
                 if(thisImage == images[0]){
@@ -171,14 +169,17 @@
                     $("#authMsg").addClass('imageWiseMsg1');
 
                 }
+                $("#closeMsg").click(function () {
+                    $("#authMsg").hide();
+                });
+
 
             });
-
-        </script>
+             </script>
 
     </head>
     <body id="login-background">
-        <div class="">
+     <div class="">
             <img class="login-btn" src="images/sign-in-with-google.png" id="my-signin2"/>
         </div>
         <div  class="achivementLink"><a href="achievements.html">Achievements</a></div>
@@ -192,16 +193,20 @@
 
         <div class="errorMsg" id="authMsg">
             <div class="accessDeniedBackground">
-                <div class="authFailed"><span>Your account is currently inactive. Please contact the site administrator to activate your account.</span></div>
+                <div class="authFailed"><span>Your account has not been activated. Please contact the Administrator.<img id="closeMsg" src="images/close-btn.png" /></span></div>
             </div>
 
         </div>
 
         <div class="loaderDiv loaderHide" id="loaderScreen">
             <div class="overlay-loader"></div>
-            <div class="loaderImgDivLogin"><img src="css/images/loader.gif" alt=""/></div>
+            <div class="siteLoad">Hold on, we are taking you to site<span>.</span><span>.</span><span>.</span></div>
         </div>
-        <script src="js/libs/customLib/mainPageJs.js" type="text/javascript"></script>
+        <div class="loaderDiv" id="enterIntoSite">
+            <div class="overlay-loader-login"></div>
+        </div>
+
+            <script src="js/libs/customLib/mainPageJs.js" type="text/javascript"></script>
         <script src="js/libs/require/require.js" data-main="js/main"></script>
         <script src="https://apis.google.com/js/platform.js?onload=callBackFunction" async defer></script>
     </body>

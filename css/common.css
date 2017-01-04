@@ -1799,6 +1799,7 @@
     padding: 17px;
     font-size: 23px;
     border-bottom: 1px solid #689F39;
+    word-break: break-all;
 }
 .text-about{
     display: block;
@@ -1844,6 +1845,7 @@
     margin-left: auto;
     margin-right: auto;
     width: 100% !important;
+    height :100%;
     position: absolute;
     top:0px;
     left:0px;
@@ -1858,6 +1860,7 @@
     top:0px;
     left:0px;
     z-index: -1;
+    height:100%;
 }
 .transbox3{
     border:2px solid green;
@@ -1899,6 +1902,7 @@
 #filmStrip .oj-filmstrip-arrow.oj-default .oj-filmstrip-arrow-icon{
     color: #fff;
     font-size: 40px;
+    cursor: pointer;
 }
 #filmStrip .oj-filmstrip-arrow.oj-hover {
     background-color: transparent !important;
@@ -2046,14 +2050,15 @@
     font-size:18px;
 }
 .space-block{
-    margin-bottom: 85px;
+    margin-bottom: 135px;
+    margin-top: 98px;
 }
 .space-block1{
-    margin-bottom: 80px;
+   margin-bottom: 90px;
+    margin-top: 59px;
 }
 .declineHeight{
-    height: 98%;
-    margin-top: 50px;
+   min-height: 192px;
 }
 .oj-select-selected-choice{color: #fff;}
 .edit-section{
@@ -2093,10 +2098,10 @@
 #cancel-all{padding: 121x;}
 
 .font-design{
-    font-size: 18px;
+    font-size: 16px;
 }
 .font-date{
-    font-size: 15px;
+    font-size: 14px;
 }
 .font-descrip{
     font-size: 15px;
