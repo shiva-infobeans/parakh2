@@ -57,7 +57,8 @@ var getATeamMember = baseUrl+"/getATeamMember/";
 //updates for google client id and parakh logo (favicon) 
 var clientId = "791490125018-lcfs9ha89efjtp09v5u8q38ls05hhinl.apps.googleusercontent.com";
 document.getElementById('meta').content = clientId;
-document.getElementById('favicon').href = "images/favicon.ico";
+document.getElementById('favicon').href = "images/new_favicon.png";
+
 
 // Parakh title in title bar of the browser
 if(document.getElementById('parakhtitle') != null)

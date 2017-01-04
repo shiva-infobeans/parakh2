@@ -18,9 +18,11 @@
 }
 .navigationlist{
     float:right;
-    margin-top: 1px;
+    margin-top: 8px;
 }
-
+.logo{
+    margin-top: -7px;
+}
 .border-fix{
     border-bottom: none;
 }
@@ -40,10 +42,6 @@
 
 .oj-web-applayout-content {
     padding:0px;
-}
-.logo{
-    height:90px;
-
 }
 .menus{display: none;
        color: #fff;
