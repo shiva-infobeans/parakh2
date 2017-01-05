@@ -339,7 +339,7 @@ class dbmodule {
             }
             /* send mail if users is in top 10 or rating position is changes */
             $getNewRatingPostion = $this->get_position_of_user_in_ranking($data['for_id']);
-            if ($getNewRatingPostion <= 10 || $getoldRatingPostion > $getNewRatingPostion) {
+            if ($getNewRatingPostion!=0 && ($getNewRatingPostion <= 10 || $getOldRatingPostion > $getNewRatingPostion)) {
                 $email_data = [];
                 $temp_data = $this->getEmailTemplateByCode('PRKE15');
                 $email_data['to']['email'] = $user_data['google_email'];
@@ -537,7 +537,7 @@ class dbmodule {
 
             /* send mail if users is in top 10 or rating position is changes */
             $getNewRatingPostion = $this->get_position_of_user_in_ranking($data['for_id']);
-            if ($getNewRatingPostion <= 10 || $getoldRatingPostion > $getNewRatingPostion) {
+            if ($getNewRatingPostion!=0 && ($getNewRatingPostion <= 10 || $getOldRatingPostion > $getNewRatingPostion)) {
                 $email_data = [];
                 $temp_data = $this->getEmailTemplateByCode('PRKE15');
                 $email_data['to']['email'] = $user_data['google_email'];
@@ -1983,7 +1983,7 @@ class dbmodule {
                   sum(case when r.rating = 1 then 1  end) as pluscount,
                   sum(case when r.rating = 0 then 1  end) as minuscount
                   from rating as r join users as u ON (u.id =r.user_id) JOIN (SELECT @rownum := 0) rate WHERE u.status <> 0
-                  group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC LIMIT 10) x where x.user_id = :user_id";
+                  group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date DESC LIMIT 10) x where x.user_id = :user_id";
         $users_data = $this->con->prepare($query);
         $users_data->execute(array(':user_id' => $user_id));
         $last_login_users = $users_data->fetch();

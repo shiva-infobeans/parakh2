@@ -73,7 +73,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojcollectiontabledatasource', '
         }
     }
     function dateFormatter(commentDate1) {
-        commentDate1 = new Date(commentDate1);
+        commentDate1 = commentDate1.split(" ");
+        commentDate1 = new Date(commentDate1[0]);
         var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June",
             "July", "Aug", "Sep", "Oct", "Nov", "Dec"
         ];
