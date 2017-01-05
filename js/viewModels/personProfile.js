@@ -24,7 +24,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
             var dateplusArray = [];
             var dateminusArray = [];
             function dataComment(comment1, commenter1, commentDate1, datafor) {
-                commentDate1 = new Date(commentDate1);
+                commentDate1 = commentDate1.split(" ");
+                commentDate1 = new Date(commentDate1[0]);
                 //commentDate1 = commentDate1.toDateString();
                 var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June",
                     "July", "Aug", "Sep", "Oct", "Nov", "Dec"

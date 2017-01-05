@@ -13,7 +13,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
      * The view model for the main content view template
      */
     function dateformat(commentDate1) {
-        commentDate1 = new Date(commentDate1);
+        commentDate1 = commentDate1.split(" ");
+        commentDate1 = new Date(commentDate1[0]);
         var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June",
             "July", "Aug", "Sep", "Oct", "Nov", "Dec"
         ];
