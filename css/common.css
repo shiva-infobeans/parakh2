@@ -523,11 +523,18 @@
         overflow: hidden;
     }
     #ojDialogWrapper-modalDialog1.oj-dialog{
-        height: 500px;
+        height: 550px;
         -ms-overflow-style: none;
         overflow: hidden;	
     }
 
+}
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    #ojDialogWrapper-modalDialog9.oj-dialog,
+    #ojDialogWrapper-modalDialog3.oj-dialog,
+    #ojDialogWrapper-modalDialogRequest.oj-dialog{
+        height:500px;
+    }
 }
 #ojDialogWrapper-modalDialog8.oj-dialog{
     overflow: hidden;
@@ -1851,7 +1858,7 @@
     height: 88%;
 }
 .text-height{
-    line-height: 32px;
+    line-height: 40px;
     word-break: break-all;
 }
 .edit-height{

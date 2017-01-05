@@ -355,6 +355,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     });
                 }
 
+setTimeout (function(){
+    
 
                 if (self.role_name() === 'Team Member') {
                     $('#rateTab2').hide();
@@ -416,6 +418,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
 
                 }
+                }, 500);
                 var lead = oj.Model.extend({
                     url: getAllLeads + self.userId(),
                 });
