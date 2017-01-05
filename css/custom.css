@@ -1165,6 +1165,11 @@ div.oj-tabs-panel.oj-tabs-selected{
         padding: 6px;
     }
 }
+@media (min-width:320px) and (max-width:370px){
+    .recent-bottom-margin{
+        margin-bottom: 30px !important;
+    }
+}
 @media (min-width:320px) and (max-width:500px){
     .imgSlider {
         cursor: auto;
