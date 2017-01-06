@@ -31,6 +31,10 @@
     margin-right: 17px;
     margin-top:38px;
     color:#333;
+    padding-bottom: 5px;
+}
+.logo{
+    margin-top: 7px;
 }
 /*.nav1 li{float: none; border-bottom:1px solid #fff;}*/
 .header-padding{
@@ -40,6 +44,7 @@
 .oj-web-applayout-content {
     padding:0px;
 }
+
 .menus{display: none;
        color: #fff;
        font-size: 30px;
