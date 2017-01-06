@@ -1565,9 +1565,7 @@ div.oj-tabs-panel.oj-tabs-selected{
         margin-top: 1px !important;
         font-size: 20px !important;
     }*/
-    .feedback-width{
-        width:100%;
-    }
+    
     #vtabs .oj-conveyorbelt-overflow-indicator.oj-default .oj-conveyorbelt-overflow-icon{
         color: #fff;
         margin-top: 4px;
