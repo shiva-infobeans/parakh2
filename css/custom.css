@@ -2574,3 +2574,7 @@ a#menu-share:hover > i{
     border-bottom: 2px solid #fff;
     text-decoration: none;
 }
+/*feedback in profile and members profile word break fix.*/
+.feedbackTextBreakFalse{
+    word-break: keep-all !important;
+}
