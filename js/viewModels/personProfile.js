@@ -24,7 +24,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
             var dateplusArray = [];
             var dateminusArray = [];
             function dataComment(comment1, commenter1, commentDate1, datafor) {
-                commentDate1 = new Date(commentDate1);
+                commentDate1 = commentDate1.split(" ");
+                commentDate1 = new Date(commentDate1[0]);
                 //commentDate1 = commentDate1.toDateString();
                 var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June",
                     "July", "Aug", "Sep", "Oct", "Nov", "Dec"
@@ -54,14 +55,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 return com;
             }
             function dateDiffCalender(Date1) {
-                user_date = Date.parse(Date1);
-                today_date = new Date();
+                var user_date = Date.parse(Date1);
+                var today_date = new Date();
                 if (Date1 != '' && Date1!=null) {
-                    diff_date = today_date - user_date;
+                    var diff_date = today_date - user_date;
 
-                    num_years = diff_date / 31536000000;
-                    num_months = (diff_date % 31536000000) / 2628000000;
-                    num_days = ((diff_date % 31536000000) % 2628000000) / 86400000;
+                    var num_years = diff_date / 31536000000;
+                    var num_months = (diff_date % 31536000000) / 2628000000;
+                   var  num_days = ((diff_date % 31536000000) % 2628000000) / 86400000;
                     if (Math.floor(num_years) > 1)
                     {
                         num_years = Math.floor(num_years) + " Years";
@@ -397,8 +398,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         }
                         self.location(task.attributes['data']['location']);
                         if (typeof task.attributes['data']['interests']!='undefined' && task.attributes['data']['interests'].length != 0) {
-                            interest = task.attributes['data']['interests'].split(",");
-                            for (k = 0; k < interest.length; k++) {
+                            var interest = task.attributes['data']['interests'].split(",");
+                            for (var k = 0; k < interest.length; k++) {
                                 self.interests(interest);
                             }
                         } else {
@@ -406,7 +407,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         }
                         // task.attributes['data']['projects'] = task.attributes['data']['projects'].replace(",",", ");
                         if (typeof task.attributes['data']['projects']!='undefined' && task.attributes['data']['projects'].length != 0) {
-                            project = task.attributes['data']['projects'].split(",");
+                            var project = task.attributes['data']['projects'].split(",");
                             self.projects(project);
                         } else {
                             self.projects([]);

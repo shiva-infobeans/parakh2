@@ -1165,6 +1165,11 @@ div.oj-tabs-panel.oj-tabs-selected{
         padding: 6px;
     }
 }
+@media (min-width:320px) and (max-width:370px){
+    .recent-bottom-margin{
+        margin-bottom: 30px !important;
+    }
+}
 @media (min-width:320px) and (max-width:500px){
     .imgSlider {
         cursor: auto;
@@ -2563,4 +2568,9 @@ a#menu-share:hover > i{
     max-width:100%; 
     width:100%;
     height: 600px;
+}
+.loadmore, .loadmore:hover, .loadmore:focus{
+    color:#fff;
+    border-bottom: 2px solid #fff;
+    text-decoration: none;
 }
