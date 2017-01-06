@@ -1934,14 +1934,10 @@ class dbmodule {
             if ($default_img == $content[0]) {
                 return '/images/default.png';
             } else {
-                /* if(base64_encode(file_get_contents($row['google_picture_link'])) == $default_img)
-                  {
-                  return '/images/default.png';
-                  }else
-                  { */
                 return $row['google_picture_link'];
-                //}
             }
+        } else if($row['google_picture_link']=='') {
+            return '/images/default.png';
         } else {
             return $this->createImageCache($user_email, 0, $default_img);
         }

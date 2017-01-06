@@ -91,7 +91,7 @@
             <div id="tabs-3" class="color-white oj-margin-horizontal pos-relative ">
                 <div class="feedbackSection">
                     <div class="transbox"></div>
-                    <div id="noFeedback" class="noComments"> No feedback available.</div>
+                    <div id="noFeedback" class="noComments rating-section"> No feedback available.</div>
                     <div class="oj-row oj-flex">
 
                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex">
@@ -345,7 +345,7 @@
             <div id="tabs-1" class="color-white oj-margin-horizontal pos-relative">
                 <div class="transbox"></div>
 
-                <div class="profile-page-overflow pos-relative rating-section oj-margin-top profile-margin-bottom">
+                <div class="profile-page-overflow pos-relative rating-section oj-margin-top profile-margin-bottom-2">
 
                     <div class="noComments" id="noPositiveComment" data-bind="text: NoCommentsP"></div>
                     <div class=" oj-row oj-flex rating-comment" data-bind="foreach: commentDataPositive">
@@ -373,7 +373,7 @@
 
             <div id="tabs-2" class="color-white oj-margin-horizontal pos-relative">
                 <div class="transbox"></div>
-                <div class="profile-page-overflow pos-relative rating-section oj-margin-top profile-margin-bottom">
+                <div class="profile-page-overflow pos-relative rating-section oj-margin-top profile-margin-bottom-2">
                     <div class="noComments" id="noNegativeComment" data-bind="text: NoCommentsN"></div>
                     <div class="oj-row oj-flex rating-comment" data-bind="foreach: commentDataNegative">
                         <div class="oj-flex oj-flex-item oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 transHide">
@@ -396,29 +396,30 @@
                     </div>
                 </div>
             </div>
-            <div id="tabs-3" class="color-white oj-margin-horizontal pos-relative ">
-                <div class="feedbackSection oj-margin-top profile-margin-bottom oj-padding">
-                    <div class="transbox"></div>
-                    <div id="noFeedback" class="noComments"> No feedback available.</div>
-                    <div class="oj-row oj-flex">
+           <div id="tabs-3" class="color-white oj-margin-horizontal pos-relative ">
+        <div class="feedbackSection oj-margin-top profile-margin-bottom-2">
+            <div class="transbox"></div>
+            <div id="noFeedback" class="noComments rating-section"> No feedback available.</div>
+            <div class="oj-row oj-flex">
 
-                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex">
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-padding">
 
-                            <!--repeat block-->
-                            <div data-bind="foreach: feedbackContent1">
-                                <div class="oj-flex oj-flex-item oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12">
+                    <!--repeat block-->
+                    <div data-bind="foreach: feedbackContent1">
+                        <div class="oj-flex oj-flex-item oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12">
 
-                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div "> 
-                                        <div class="feedback-circle circle-purple pos-relative">
-                                            <div class="viewFeedbackName" data-bind="text: name"></div>
-                                            <span data-bind="text: shortName"></span>
-                                        </div>
-                                        <div class="feedback-comment pos-relative">
-                                            <div class="feedback-Transbox"></div>
-                                            <p class="feedback-comment-text"><span data-bind="text: feedbackDescription"></span></p>
-                                            <span  class="feedback-date" data-bind="text: feedbackDate"></span>
-                                        </div>
-                                    </div>
+                            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div  bottom-padding"> 
+                                <div class="feedback-circle circle-purple pos-relative">
+                                    <div class="viewFeedbackName" data-bind="text: name"></div>
+                                    <span data-bind="text: shortName"></span>
+                                </div>
+                                <div class="feedback-comment pos-relative">
+                                    <div class="feedback-Transbox"></div>
+                                    <p class="feedback-comment-text"><span data-bind="text: feedbackDescription"></span></p>
+                                     <span  class="feedback-date" data-bind="text: feedbackDate"></span>
+                                </div>
+                            </div>
+
 
 
                                     <!--repeat replies start-->
@@ -443,7 +444,7 @@
                                     </div>
                                     <!--repeat replies end-->
                                     <!--reply button here-->
-                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div feedback-align">
+                                    <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div feedback-align1">
                                         <div class="feedback-comment pos-relative margin-top-feedback">
                                             <a class="buttonReply" data-bind="click: $parent.openReply,attr: {id: replyBtnId}">Reply</a>
                                             <div data-bind="attr:{id: uniqueId}" class="replyInput hide">
@@ -485,7 +486,7 @@
                     <span class="edit-height oj-margin"   ><i class="zmdi zmdi-minus about-edit" ></i></span>
                 </div>
                 <div class="transbox"></div>
-                <div class="profile-page-overflow oj-margin-top profile-margin-bottom">
+                <div class="profile-page-overflow oj-margin-top profile-margin-bottom-2">
                     <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
                         <div class="oj-xl-2 oj-lg-2 oj-md-2 oj-sm-2 oj-flex-item">
                             <span class="icon-div"><i class="zmdi zmdi-email about-icons"></i></span>
@@ -539,12 +540,12 @@
                         </div>
                     </div>
                     <div class="View-Other-about oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex ">
-                        <div class="oj-xl-2 oj-lg-2 oj-md-2 oj-sm-2 oj-flex-item">
+                        <div class="oj-xl-2 oj-lg-2 oj-md-2 oj-sm-2 oj-flex-item ">
                             <span class="icon-div"><i class="zmdi zmdi-time-interval about-icons"></i>  </span>
                             <span class="text-about heightCol5"></span>
 
                         </div>
-                        <div class="oj-xl-10 oj-lg-10 oj-md-10 oj-sm-10 oj-flex-item"> 
+                        <div class="oj-xl-9 oj-lg-9 oj-md-9 oj-sm-9 oj-flex-item"> 
                             <span  class="text-height"  data-bind="text: associate_with_infobeans,attr:{defaultDate:associate_with_infobeans}" id="associate-text"></span>
                             <div class="hide" id="associate-div">
                                 <input type="text" id="input-date" name="associate_with_infobeans" title="Enter a date on or before today." data-bind="ojComponent:{component:'ojInputDate', max: oj.IntlConverterUtils.dateToLocalIso(new Date()),value: date,

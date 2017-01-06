@@ -1430,9 +1430,6 @@ div.oj-tabs-panel.oj-tabs-selected{
         min-height: 810px;
 
     }
-    .commentDate-mobile{
-        font-size: 14px !important;
-    }
     .myNameBuddies{
         margin-top: -8px !important;
     }
@@ -1578,74 +1575,138 @@ div.oj-tabs-panel.oj-tabs-selected{
         height: 70px !important;
         width: 70px !important;
         margin-top: 22px;
+}
+.mobile-trans{
+    width: 90% !important;   
     }
+.mailToColor {
+    word-break: break-all !important;
+}
+
     .edit-section {
         position: absolute;
         right: 0px;
         top: -191px !important;
     }
+
+
+
     .edit-height{
         font-size: 20px !important;
     }
 
-    .feedback-comment {
-        margin-left: 69px !important;
-        padding: 5px !important;
-        width: 70% !important;
-    }
-    .feedback-date {
-        width: 80px !important;
-        font-size: 12px !important;
-    }
-    .commentDate-mobile{
-        float: right !important;
-        color: #dcdcdc !important;
-        margin-top: -54px !important;
-        font-style: italic !important;
+/*.oj-fwk-icon-caret-w:before{
+            color: #fff !important;
+        margin-top: 1px !important;
+        font-size: 20px !important;
+}*/
+
+    #vtabs .oj-conveyorbelt-overflow-indicator.oj-default .oj-conveyorbelt-overflow-icon{
+        color: #fff;
+        margin-top: 4px;
         font-size: 18px;
     }
-    .circle-purple{
-        margin-left: 12px !important;
+
+   .edit-height{
+        font-size: 20px !important;
     }
-    .hoverName{
-        left: 30px !important;
-        top: -20px !important;
-        padding: 8px 111px 7px 8px;
-        background-color: #fff;
-        color: #000;
-        font-size: 13px;
-        position: absolute;
-        border: 2px solid #689F39;
-        display: none;
-        white-space: nowrap;
+
+    .bottom-padding{
+        padding-bottom: 15px !important;
     }
-    .hoverNameN{
-        left: 30px !important;
-        top: -20px !important;
-        padding: 8px 111px 7px 8px;
-        background-color: #fff;
-        color: #000;
-        font-size: 13px;
-        position: absolute;
-        border: 2px solid #e00000;
-        display: none; 
-        white-space: nowrap;
-    }
-    .viewFeedbackName {
-        position: absolute;
-        background-color: #fff;
-        color: #000;
-        font-size: 13px !important;
-        border: 2px solid #8DAC6C;
-        left: 30px !important;
-        top: -20px !important;
-        padding: 0px 113px 0px 9px !important;
-        display: none;
-        white-space: nowrap;
-    }
-    .textArea-skills {
-        width:auto !important;
-        font-size: 16px !important;
+
+/*    .errorVisibilityShow{
+        margin: 5px 0px -5px 10px !important;
+}*/
+.rating-section{
+    min-height: 300px;
+}
+
+
+.bottom-edit-margin{
+    margin-bottom: 15px !important;
+}
+.feedback-comment {
+    margin-left: 69px !important;
+    padding: 5px !important;
+    width: 70% !important;
+}
+ 
+}
+
+@media  screen and (min-width: 320px) and (max-width: 1024px) {
+    .edit-section {
+    position: absolute;
+    right: 0px;
+    top: -191px !important;
+}
+.errorVisibilityShow{
+    width: 103% !important;
+}
+
+.noComments{
+        padding: 117px !important;
+        text-align: center !important;
+        font-size: 19px !important;
+        min-height: 266px !important;
+        margin:0px !important;
+}
+
+
+
+.feedback-date {
+    width: 80px !important;
+    font-size: 12px !important;
+}
+.commentDate-mobile{
+   float: right !important;
+    color: #dcdcdc !important;
+    margin-top: -54px !important;
+    font-style: italic !important;
+    font-size: 14px;
+}
+.circle-purple{
+    margin-left: 12px !important;
+}
+.hoverName{
+   left: 30px !important;
+    top: -20px !important;
+    padding: 8px 111px 7px 8px;
+    background-color: #fff;
+    color: #000;
+    font-size: 13px;
+    position: absolute;
+    border: 2px solid #689F39;
+    display: none;
+    white-space: nowrap;
+}
+.hoverNameN{
+   left: 30px !important;
+    top: -20px !important;
+    padding: 8px 111px 7px 8px;
+    background-color: #fff;
+    color: #000;
+    font-size: 13px;
+    position: absolute;
+    border: 2px solid #e00000;
+    display: none; 
+    white-space: nowrap;
+}
+.viewFeedbackName {
+    position: absolute;
+    background-color: #fff;
+    color: #000;
+    font-size: 13px !important;
+    border: 2px solid #8DAC6C;
+     left: 30px !important;
+    top: -20px !important;
+    padding: 0px 113px 0px 9px !important;
+    display: none;
+     white-space: nowrap;
+}
+.textArea-skills {
+    width:auto !important;
+    font-size: 16px !important;
 
     }
     #ojChoiceId_selectInterests .oj-select-choices, #ojChoiceId_selectProjects .oj-select-choices{
@@ -1656,46 +1717,24 @@ div.oj-tabs-panel.oj-tabs-selected{
     }
     .View-Other-about {
         font-size: 18px !important;
-    }
-    .profile-margin-bottom{
-        margin-bottom: 15px;
-    }
-
-    .replyInput div span input{
+}
+.profile-margin-bottom{
+    margin-bottom: 15px;
+}
+.profile-margin-bottom-2{
+    margin-bottom: 15px;
+    min-height: 266px !important;
+}
+.replyInput div span input{
         height: 24px !important;
-        margin-top: -5px !important;
+        margin-top: -4px !important;
     }
     .replyInput div span i{
         margin-left: 4px !important;
-        padding: 1px!important;
-
     }
-    .mobile-trans{
-        width: 90% !important;   
-    }
-    .mailToColor {
-        word-break: break-all !important;
-    }
-    /*.oj-fwk-icon-caret-w:before{
-            color: #fff !important;
-        margin-top: 1px !important;
-        font-size: 20px !important;
-    }*/
-    #vtabs .oj-conveyorbelt-overflow-indicator.oj-default .oj-conveyorbelt-overflow-icon{
-        color: #fff;
-        margin-top: 4px;
-        font-size: 18px;
-    }
-
-    .noComments{
-        padding: 117px !important;
-        text-align: center !important;
-        font-size: 19px !important;
-        min-height: 266px !important;
-        margin:0px !important;
-    }
-    .bottom-padding{
-        padding-bottom: 15px !important;
+    .View-Other-about-members{
+        font-size: 18px !important;
+         word-break: break-all;
     }
 
     .errorVisibilityShow{
@@ -1722,25 +1761,33 @@ div.oj-tabs-panel.oj-tabs-selected{
 .transboxRequest2{
     border-left: 0px ;
 }
+
+  
 @media  screen and (min-width: 320px) and (max-width: 530px) {
     .about-edit-check{
-        left: 21px !important;
-        position: absolute;
-        top: 2px !important;   
-    }
-    .about-edit-cross{
-        left: 23px !important;
-        position: absolute;
-        top: 49px !important;
-    }
-    .about-edit {
-        left: 21px !important;
-        position: absolute;
-        top: 16px !important;
-    }
-    .edit-height {
-        font-size: 20px !important;
-    }
+ left: 21px !important;
+    position: absolute;
+    top: 2px !important;   
+}
+.about-edit-cross{
+  left: 23px !important;
+    position: absolute;
+    top: 49px !important;
+}
+.about-edit {
+    left: 21px !important;
+    position: absolute;
+    top: 16px !important;
+}
+.edit-height {
+    font-size: 20px !important;
+}
+.myname-profile{
+    font-weight: 600  !important;
+    font-size: 16px  !important;
+    margin-top: 22px  !important;
+    margin-left: -7px  !important;
+}
 
     .custom-zmdi-icons-div {
         height: 35px !important;
@@ -1848,7 +1895,7 @@ div.oj-tabs-panel.oj-tabs-selected{
         margin-left: 10px !important;
     }
     #input-date.oj-inputdatetime-input{
-        margin-left: -19px !important;
+        margin-left: 10px !important;
     }
     #oj-select-choice-selectDesignation.oj-select-choice, #oj-select-choice-selectLocation.oj-select-choice{
         margin-left: 8px;
@@ -1861,7 +1908,7 @@ div.oj-tabs-panel.oj-tabs-selected{
         padding: 64px 33px 59px 4px !important;
     }
     .replyInput div span i {
-        margin-left: 4px !important;
+          margin-left: 30px !important;
     }
     .text-about {
         display: block;
@@ -2634,4 +2681,9 @@ a#menu-share:hover > i{
     max-width:100%; 
     width:100%;
     height: 600px;
+}
+.loadmore, .loadmore:hover, .loadmore:focus{
+    color:#fff;
+    border-bottom: 2px solid #fff;
+    text-decoration: none;
 }
