@@ -1770,6 +1770,22 @@
  #text-area-manager:-ms-input-placeholder {
      color: #dcdcdc !important;
   }
+  
+#text-area-plus::-webkit-input-placeholder
+ {
+     color: #777 !important;
+ }
+ #text-area-plus::-moz-placeholder
+ {
+     color: #777 !important;
+ }
+ #text-area-plus:-moz-placeholder {
+     color: #777 !important;
+ }
+ #text-area-plus:-ms-input-placeholder {
+     color: #777 !important;
+  }
+  
 
 
 .View-Other-about{
