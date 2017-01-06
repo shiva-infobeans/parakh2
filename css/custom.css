@@ -373,6 +373,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     left:0;
     right:0;
     bottom:0;
+    word-break: break-all;
     /*overflow-y: auto;*/
 }
 .profile-page-overflow .View-Other-about:last-child{
