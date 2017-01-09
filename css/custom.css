@@ -373,6 +373,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     left:0;
     right:0;
     bottom:0;
+    word-break: break-all;
     /*overflow-y: auto;*/
 }
 .profile-page-overflow .View-Other-about:last-child{
@@ -1565,6 +1566,7 @@ div.oj-tabs-panel.oj-tabs-selected{
         margin-top: 1px !important;
         font-size: 20px !important;
     }*/
+    
     #vtabs .oj-conveyorbelt-overflow-indicator.oj-default .oj-conveyorbelt-overflow-icon{
         color: #fff;
         margin-top: 4px;
@@ -1848,6 +1850,27 @@ div.oj-tabs-panel.oj-tabs-selected{
     .info-text{
         margin-left: 28px !important;
     }
+}
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+      .profile-img-div{
+            width: 82px;
+            margin-left: -12px;
+            height: 115px;
+      }
+      .profile{
+            height: 90px;
+            width: 90px;
+            margin-top: 12px;
+      }
+      .intials-name{
+          font-size: 40px !important;
+          top: 9px !important;
+      }
+
 }
 @media  screen and (min-width: 1200px) and (max-width: 1366px) {
     #ojDialogWrapper-modalDialog9.oj-dialog,
@@ -2573,4 +2596,8 @@ a#menu-share:hover > i{
     color:#fff;
     border-bottom: 2px solid #fff;
     text-decoration: none;
+}
+/*feedback in profile and members profile word break fix.*/
+.feedbackTextBreakFalse{
+    word-break: keep-all !important;
 }

@@ -94,7 +94,7 @@
                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex">
 
                             <!--repeat block-->
-                            <div data-bind="foreach: feedbackContent1">
+                            <div data-bind="foreach: feedbackContent1" style="width: 100%;">
                                 <div class="oj-flex oj-flex-item oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12">
 
                                     <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 pos-relative oj-margin-top oj-padding-top rating-comment-red-div feedback-margin ">
@@ -107,7 +107,7 @@
                                         </div>
                                         <div class="feedback-comment pos-relative">
                                             <div class="feedback-Transbox"></div>
-                                            <p class="feedback-comment-text"><span data-bind="text: feedbackDescription"></span></p>
+                                            <p class="feedback-comment-text feedbackTextBreakFalse"><span data-bind="text: feedbackDescription"></span></p>
                                         </div>
                                     </div>
 
@@ -125,7 +125,7 @@
                                             </div>
                                             <div class="feedback-comment pos-relative">
                                                 <div class="feedback-Transbox"></div>
-                                                <div class="feedback-comment-text">
+                                                <div class="feedback-comment-text feedbackTextBreakFalse">
                                                     <div><span data-bind="text: reply_desc"></span></div>
                                                     <p>
                                                         <span class="right replyDate" data-bind="text: reply_date"></span>
@@ -353,7 +353,7 @@
                                 </div>
                                 <div class="feedback-comment pos-relative">
                                     <div class="feedback-Transbox"></div>
-                                    <p class="feedback-comment-text"><span data-bind="text: feedbackDescription"></span></p>
+                                    <p class="feedback-comment-text feedbackTextBreakFalse"><span data-bind="text: feedbackDescription"></span></p>
                                      <span  class="feedback-date" data-bind="text: feedbackDate"></span>
                                 </div>
                             </div>
@@ -370,7 +370,7 @@
                                             </div>
                                             <div class="feedback-comment pos-relative">
                                                 <div class="feedback-Transbox"></div>
-                                                <div class="feedback-comment-text">
+                                                <div class="feedback-comment-text feedbackTextBreakFalse">
                                                     <div><span data-bind="text: reply_desc"></span></div>
                                                     <p>
                                                         <span class="right replyDate" data-bind="text: reply_date"></span>
