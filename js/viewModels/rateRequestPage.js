@@ -336,7 +336,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 self.lazyTempStorageleadRej.push(new request(data2[i]));
                             }
                             if (self.lazyTempStorageleadRej().length === 0) {
-                                $('#mobileBtnLazy1 a').hide();
+                                $('#mobileBtnLazy1').hide();
                                 self.noLeadDeclinedRequest("No declined request.");
                                 $("#request3").show();
                                 $('#leadRejectLoading').hide();
@@ -347,7 +347,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                     var InitCount = self.lazyMemleadRejInitBlock();
                                 } else {
                                     var InitCount = self.lazyTempStorageleadRej().length;
-                                    $('#mobileBtnLazy1 a').hide();
+                                    $('#mobileBtnLazy1').hide();
                                     $('#leadRejectLoading').hide();
                                 }
                                 for (var count = 0; count < InitCount; count++) {
@@ -355,6 +355,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                     self.lazyMemleadRejCurrent(self.lazyMemleadRejCurrent() + 1);
                                 }
                                 $("#request3").hide();
+                                 $('#mobileBtnLazy1').hide();
                             }
                         }
                     });
@@ -570,7 +571,7 @@ setTimeout (function(){
                                     self.noLeadDeclinedRequest("No Declined Request.");
                                     $("#request3").show();
                                     $('#leadRejectLoading').hide();
-                                    $('#mobileBtnLazy1 a').hide();
+                                    $('#mobileBtnLazy1').hide();
                                 } else {
                                     self.lazyMemleadRejMax(self.lazyTempStorageleadRej().length);
                                     self.noLeadDeclinedRequest("");
@@ -579,13 +580,14 @@ setTimeout (function(){
                                     } else {
                                         var InitCount = self.lazyTempStorageleadRej().length;
                                         $('#leadRejectLoading').hide();
-                                        $('#mobileBtnLazy1 a').hide();
+                                        $('#mobileBtnLazy1').hide();
                                     }
                                     for (var count = 0; count < InitCount; count++) {
                                         self.requestDeclinedLead.push(self.lazyTempStorageleadRej()[count]);
                                         self.lazyMemleadRejCurrent(self.lazyMemleadRejCurrent() + 1);
                                     }
                                     $("#request3").hide();
+                                     $('#mobileBtnLazy1').hide();
                                 }
 
                             }
@@ -915,7 +917,7 @@ setTimeout (function(){
                             if (self.lazyMemleadRejCurrent() + self.lazyMemleadRejBlock() >= self.lazyMemleadRejMax()) {
                                 var loadRecordCount = self.lazyMemleadRejMax() - self.lazyMemleadRejCurrent();
                                 $('#leadRejectLoading').hide();
-                                $('#mobileBtnLazy1 a').hide();
+                                $('#mobileBtnLazy1').hide();
                             } else {
                                 var loadRecordCount = self.lazyMemleadRejBlock();
                             }
@@ -929,7 +931,7 @@ setTimeout (function(){
                             }
                         } else {
                             $('#leadRejectLoading').hide();
-                            $('#mobileBtnLazy1 a').hide();
+                            $('#mobileBtnLazy1').hide();
                         }
                         if (self.lazyMemleadPendingCurrent() < self.lazyMemleadPendingMax()) {
                             var count = self.lazyMemleadPendingCurrent();
