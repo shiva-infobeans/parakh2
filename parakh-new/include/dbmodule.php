@@ -61,6 +61,7 @@ class dbmodule {
     }
 
 //end of fun
+    
 
     /*     *
      * get all the users by lead id
@@ -298,7 +299,7 @@ class dbmodule {
 
             $rating = ($data['rating'] == 0) ? '-1' : '+1';
             $vars = array(
-                "{Username}" => $email_data['to']['name'],
+                "{Username}" => firstNameSendEmail($email_data['to']['name']),
                 "{Member}" => $from_data['google_name'],
                 "{Link}" => $link,
             );
@@ -317,7 +318,7 @@ class dbmodule {
             $email_data_l['subject'] = $temp_data_l['subject'];
 
             $vars = array(
-                "{Username}" => $this->manager_name,
+                "{Username}" => firstNameSendEmail($this->manager_name),
                 "{member}" => $email_data['to']['name'],
                 "{rating}" => $rating,
                 "{lead}" => $user_data_l['google_name'],
@@ -346,7 +347,7 @@ class dbmodule {
                 $email_data['to']['name'] = $user_data['google_name'];
                 $email_data['subject'] = $temp_data['subject'];
                 $vars = array(
-                    "{Username}" => $user_data['google_name'],
+                    "{Username}" => firstNameSendEmail($user_data['google_name']),
                     "{Link}" => $this->getTargetLink(RANKING_URL, 'Parakh'),
                 );
                 $message = strtr($temp_data['content'], $vars);
@@ -494,7 +495,7 @@ class dbmodule {
 
             $rating = 1;
             $vars = array(
-                "{Username}" => $email_data['to']['name'],
+                "{Username}" => firstNameSendEmail($email_data['to']['name']),
                 "{Member}" => $email_data['from']['name'],
                 "{Link}" => $this->getTargetLink(MY_BUDDIES_URL, "Go for it!"),
             );
@@ -517,7 +518,7 @@ class dbmodule {
                 "{rating}" => $rating,
                 "{lead}" => $user_data_l['google_name'],
                 "{comment}" => $data['desc'],
-                "{Username}" => $this->manager_name,
+                "{Username}" =>firstNameSendEmail($this->manager_name),
             );
 
             $message = strtr($temp_data_l['content'], $vars);
@@ -544,7 +545,7 @@ class dbmodule {
                 $email_data['to']['name'] = $user_data['google_name'];
                 $email_data['subject'] = $temp_data['subject'];
                 $vars = array(
-                    "{Username}" => $user_data['google_name'],
+                    "{Username}" => firstNameSendEmail($user_data['google_name']),
                     "{Link}" => $this->getTargetLink(RANKING_URL, 'Parakh'),
                 );
                 $message = strtr($temp_data['content'], $vars);
@@ -776,7 +777,7 @@ class dbmodule {
 
 
             $vars = array(
-                "{Username}" => $email_data['to']['name'],
+                "{Username}" => firstNameSendEmail($email_data['to']['name']),
                 "{Manager}" => $from_data['google_name'],
                 "{Link}" => $this->getTargetLink(PROFILE_URL . "&id=2", "Parakh")
             );
@@ -792,7 +793,7 @@ class dbmodule {
             $email_data_l['to']['name'] = $this->manager_name;
             $email_data_l['subject'] = $temp_data_l['subject'];
             $vars = array(
-                "{Username}" => $this->manager_name,
+                "{Username}" => firstNameSendEmail($this->manager_name),
                 "{Member}" => $email_data['to']['name'],
                 "{Manager}" => $from_data['google_name'],
                 "{Feedback}" => $data['feedback_description']
@@ -1000,7 +1001,7 @@ class dbmodule {
             $email_data['subject'] = $temp_data['subject'];
 
             $vars = array(
-                "{Username}" => $user_data['google_name'],
+                "{Username}" => firstNameSendEmail($user_data['google_name']),
                 "{Member}" => $from_data['google_name'],
                 "{Link}" => $this->getTargetLink(PROFILE_URL . "&id=2", 'Parakh'),
                 "{Comment}" => $data['feedback_desc']
@@ -1014,7 +1015,7 @@ class dbmodule {
             if ($this->manager_email != $user_data['google_email']) {
                 $feedback_from = $this->getEmailById($feedback_to);
                 $vars_manager = array(
-                    "{Username}" => $this->manager_name,
+                    "{Username}" => firstNameSendEmail($this->manager_name),
                     "{Member}" => $user_data['google_name'],
                     "{Manager}" => $from_data['google_name'],
                     "{Feedback}" => $data['feedback_desc']
@@ -1167,7 +1168,7 @@ class dbmodule {
             $email_data['subject'] = $temp_data['subject'];
 
             $vars = array(
-                "{Username}" => $user_data['google_name'],
+                "{Username}" => firstNameSendEmail($user_data['google_name']),
                 "{Member}" => $from_data['google_name'],
                 "{Link}" => $this->getTargetLink(PROFILE_URL, 'My Profile'),
             );
@@ -1317,7 +1318,7 @@ class dbmodule {
         $email_data['subject'] = $temp_data['subject'];
 
         $vars = array(
-            "{Username}" => $user_data['google_name'],
+            "{Username}" => firstNameSendEmail($user_data['google_name']),
             "{Manager}" => $from_data['google_name'],
             "{Link}" => $this->getTargetLink(MY_BUDDIES_URL, 'Parakh'),
         );
@@ -1428,7 +1429,7 @@ class dbmodule {
             $email_data['subject'] = $temp_data['subject'];
 
             $vars = array(
-                "{Username}" => $user_data['google_name'],
+                "{Username}" => firstNameSendEmail($user_data['google_name']),
                 "{Manager}" => $from_data['google_name'],
                 "{Link}" => $this->getTargetLink(PROFILE_URL, 'My Profile')
             );
@@ -1962,7 +1963,7 @@ class dbmodule {
                 $email_data['to']['name'] = $value['google_name'];
                 $email_data['subject'] = $temp_data['subject'];
                 $vars = array(
-                    "{Username}" => $value['google_name'],
+                    "{Username}" => firstNameSendEmail($value['google_name']),
                     "{Link}" => $this->getTargetLink(SITE_URL, 'Parakh'),
                 );
                 $message = strtr($temp_data['content'], $vars);
@@ -1991,6 +1992,10 @@ class dbmodule {
     }
 
 //end of fun
+    function firstNameSendEmail($firstname){
+        $arr = explode(' ',trim($firstname));
+        return $arr[0];
+    }
 }
 
 //end of class
