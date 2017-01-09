@@ -194,6 +194,11 @@ body{
     height: 120px;
     width: 120px;
 }
+.profile-home{
+    border-radius: 50%;
+    height: 120px;
+    width: 120px;
+}
 .profile2{
     height: 90px;
     width: 90px;
@@ -1424,6 +1429,9 @@ div.oj-tabs-panel.oj-tabs-selected{
         width: 80px !important;
         position: relative;
         float: left;
+    }
+    .oj-filmstrip-container.oj-filmstrip-item-container{
+        border-right : none !important;
     }
     .person-profile-intials-text {
         margin: 36px 20px !important;
