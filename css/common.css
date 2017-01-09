@@ -2234,3 +2234,9 @@ a:hover.oj-clickable-icon-nocontext,.oj-hover.oj-clickable-icon-nocontext{ color
 	opacity: 1;
 }
 
+.height-fixModal, .height-fixModal textarea{
+    height: 100% !important;
+} 
+.areaFloat div.height-fixModal div.oj-textarea.oj-form-control.oj-component{
+    margin-top: 4px;
+}
