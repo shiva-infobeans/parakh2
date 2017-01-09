@@ -2261,3 +2261,9 @@ a:hover.oj-clickable-icon-nocontext,.oj-hover.oj-clickable-icon-nocontext{ color
 .areaFloat div.height-fixModal div.oj-textarea.oj-form-control.oj-component{
     margin-top: 4px;
 }
+.achievement-font-Fix{
+    font-size: 23px;
+}
+.achievementHeightFix{
+    margin-bottom: 12px;
+}
