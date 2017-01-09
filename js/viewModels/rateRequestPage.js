@@ -307,7 +307,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 } else {
                                     var InitCount = self.lazyTempStorageleadPending().length;
                                     $('#leadPendingLoading').hide();
-                                    $('#mobileBtnLazy2 a').hide();
+                                    $('#mobileBtnLazy1').hide();
                                 }
                                 for (var count = 0; count < InitCount; count++) {
                                     self.requestPendingLead.push(self.lazyTempStorageleadPending()[count]);
@@ -315,7 +315,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 }
                             } else {
                                 $('#leadPendingLoading').hide();
-                                $('#mobileBtnLazy2 a').hide();
+                                $('#mobileBtnLazy1').hide();
                                 $("#request2").removeClass('loaderHide');
                                 self.noLeadPendingRequest("Hooray, you have addressed all the pending requests!");
                             }
@@ -336,7 +336,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                 self.lazyTempStorageleadRej.push(new request(data2[i]));
                             }
                             if (self.lazyTempStorageleadRej().length === 0) {
-                                $('#mobileBtnLazy1').hide();
+                                $('#mobileBtnLazy2').hide();
                                 self.noLeadDeclinedRequest("No declined request.");
                                 $("#request3").show();
                                 $('#leadRejectLoading').hide();
@@ -347,7 +347,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                     var InitCount = self.lazyMemleadRejInitBlock();
                                 } else {
                                     var InitCount = self.lazyTempStorageleadRej().length;
-                                    $('#mobileBtnLazy1').hide();
+                                    $('#mobileBtnLazy2').hide();
                                     $('#leadRejectLoading').hide();
                                 }
                                 for (var count = 0; count < InitCount; count++) {
@@ -355,7 +355,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                     self.lazyMemleadRejCurrent(self.lazyMemleadRejCurrent() + 1);
                                 }
                                 $("#request3").hide();
-                                 $('#mobileBtnLazy1').hide();
+                                 $('#mobileBtnLazy2').hide();
                             }
                         }
                     });
@@ -525,7 +525,7 @@ setTimeout (function(){
                             if (self.lazyMemleadPendingCurrent() + 1 >= self.lazyMemleadPendingMax()) {
                                 var loadRecordCount = self.lazyMemleadPendingMax() - self.lazyMemleadPendingCurrent();
                                 $('#leadPendingLoading').hide();
-                                $('#mobileBtnLazy2 a').hide();
+                                $('#mobileBtnLazy1').hide();
                             } else {
                                 var loadRecordCount = 1;
                             }
@@ -539,13 +539,13 @@ setTimeout (function(){
                             }
                         } else {
                             $('#leadPendingLoading').hide();
-                            $('#mobileBtnLazy2 a').hide();
+                            $('#mobileBtnLazy1').hide();
                         }
 
                     } else {
                         $('#leadPendingLoading').hide();
                         $("#request2").removeClass('loaderHide');
-                        $('#mobileBtnLazy2 a').hide();
+                        $('#mobileBtnLazy2').hide();
                         self.noLeadPendingRequest("Hooray, you have addressed all the pending requests!");
                     }
 
@@ -571,7 +571,7 @@ setTimeout (function(){
                                     self.noLeadDeclinedRequest("No Declined Request.");
                                     $("#request3").show();
                                     $('#leadRejectLoading').hide();
-                                    $('#mobileBtnLazy1').hide();
+                                    $('#mobileBtnLazy2').hide();
                                 } else {
                                     self.lazyMemleadRejMax(self.lazyTempStorageleadRej().length);
                                     self.noLeadDeclinedRequest("");
@@ -580,14 +580,14 @@ setTimeout (function(){
                                     } else {
                                         var InitCount = self.lazyTempStorageleadRej().length;
                                         $('#leadRejectLoading').hide();
-                                        $('#mobileBtnLazy1').hide();
+                                        $('#mobileBtnLazy2').hide();
                                     }
                                     for (var count = 0; count < InitCount; count++) {
                                         self.requestDeclinedLead.push(self.lazyTempStorageleadRej()[count]);
                                         self.lazyMemleadRejCurrent(self.lazyMemleadRejCurrent() + 1);
                                     }
                                     $("#request3").hide();
-                                     $('#mobileBtnLazy1').hide();
+                                     $('#mobileBtnLazy2').hide();
                                 }
 
                             }
@@ -917,7 +917,7 @@ setTimeout (function(){
                             if (self.lazyMemleadRejCurrent() + self.lazyMemleadRejBlock() >= self.lazyMemleadRejMax()) {
                                 var loadRecordCount = self.lazyMemleadRejMax() - self.lazyMemleadRejCurrent();
                                 $('#leadRejectLoading').hide();
-                                $('#mobileBtnLazy1').hide();
+                                $('#mobileBtnLazy2').hide();
                             } else {
                                 var loadRecordCount = self.lazyMemleadRejBlock();
                             }
@@ -931,14 +931,14 @@ setTimeout (function(){
                             }
                         } else {
                             $('#leadRejectLoading').hide();
-                            $('#mobileBtnLazy1').hide();
+                            $('#mobileBtnLazy2').hide();
                         }
                         if (self.lazyMemleadPendingCurrent() < self.lazyMemleadPendingMax()) {
                             var count = self.lazyMemleadPendingCurrent();
                             if (self.lazyMemleadPendingCurrent() + self.lazyMemleadPendingBlock() >= self.lazyMemleadPendingMax()) {
                                 var loadRecordCount = self.lazyMemleadPendingMax() - self.lazyMemleadPendingCurrent();
                                 $('#leadPendingLoading').hide();
-                                $('#mobileBtnLazy2 a').hide();
+                                $('#mobileBtnLazy1').hide();
                                 
                             } else {
                                 var loadRecordCount = self.lazyMemleadPendingBlock();
@@ -953,7 +953,7 @@ setTimeout (function(){
                             }
                         } else {
                             $('#leadPendingLoading').hide();
-                            $('#mobileBtnLazy2 a').hide();
+                            $('#mobileBtnLazy1').hide();
                         }
                     }
                 }
