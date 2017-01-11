@@ -7,16 +7,16 @@
 /**
  * rateRequestPage module
  */
-define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojmodel', 'ojs/ojinputtext', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 'ojs/ojdialog'
-], function (oj, ko, $) {
+ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojmodel', 'ojs/ojinputtext', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 'ojs/ojdialog'
+    ], function (oj, ko, $) {
     /**
      * The view model for the main content view template
      */
-    function dateformat(commentDate1) {
+     function dateformat(commentDate1) {
         commentDate1 = commentDate1.split(" ");
         commentDate1 = new Date(commentDate1[0]);
         var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June",
-            "July", "Aug", "Sep", "Oct", "Nov", "Dec"
+        "July", "Aug", "Sep", "Oct", "Nov", "Dec"
         ];
         var dateReturn = commentDate1.getDate() + ' ' + monthNames[commentDate1.getMonth()] + ' ' + commentDate1.getFullYear();
         return dateReturn;
@@ -190,70 +190,70 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         ////////////////////// lazy loading for declined requests of the user end
 
 //        self.pic = "http://www.freeiconspng.com/uploads/blank-face-person-icon-7.png";
-        var user = oj.Model.extend({
-            url: getUserByEmail + person['email']
-        });
+var user = oj.Model.extend({
+    url: getUserByEmail + person['email']
+});
 
-        var getId = new user();
-        getId.fetch({
-            headers: {secret: secret},
-            success: function (res) {
-                self.userId(res['attributes']['data']['id']);
-                self.role_name(res['attributes']['data']['role_name']);
-                self.role(res['attributes']['data']['role_name']);
+var getId = new user();
+getId.fetch({
+    headers: {secret: secret},
+    success: function (res) {
+        self.userId(res['attributes']['data']['id']);
+        self.role_name(res['attributes']['data']['role_name']);
+        self.role(res['attributes']['data']['role_name']);
 
-                var requestUrl = oj.Model.extend({
+        var requestUrl = oj.Model.extend({
                     url: getUserPendingRequest + self.userId() + "/0" // get all the pending requests send by user to lead/manager
                 });
-                var requestFetch = new requestUrl();
-                requestFetch.fetch({
-                    headers: {secret: secret},
-                    success: function (res) {
-                        var data1 = res['attributes']['data'];
-                        for (var i = 0; i < data1.length; i++) {
-                            if (data1[i]['status'] == 0) {
-                                if (data1[i]['google_picture_link'] == '/images/default.png')
-                                {
-                                    data1[i]['intials_yellow'] = nameFunction(data1[i]['google_name']);
-                                }
+        var requestFetch = new requestUrl();
+        requestFetch.fetch({
+            headers: {secret: secret},
+            success: function (res) {
+                var data1 = res['attributes']['data'];
+                for (var i = 0; i < data1.length; i++) {
+                    if (data1[i]['status'] == 0) {
+                        if (data1[i]['google_picture_link'] == '/images/default.png')
+                        {
+                            data1[i]['intials_yellow'] = nameFunction(data1[i]['google_name']);
+                        }
 //                                self.requestPendingMember.push(new request(data1[i], self.userId()));
-                                self.lazyTempStoragePendM.push(new request(data1[i], self.userId()));
-                                $("#request").show();
-                            }
-                        }
-                        if (self.lazyTempStoragePendM().length != 0) {
-                            self.lazyMemPendMax(self.lazyTempStoragePendM().length);
-                            $("#request").hide();
-                            self.noPendingRequest("");
-                            if (self.lazyMemPendInitBlock() < self.lazyTempStoragePendM().length) {
-                                var InitCount = self.lazyMemPendInitBlock();
-                            } else {
-                                var InitCount = self.lazyTempStoragePendM().length;
-                                $("#PendingRequestLoading").hide();
-                            }
-                            for (var count = 0; count < InitCount; count++) {
-                                self.requestPendingMember.push(self.lazyTempStoragePendM()[count]);
-                                self.lazyMemPendCurrent(self.lazyMemPendCurrent() + 1);
-                            }
-                        } else {
-                            $("#PendingRequestLoading").hide();
-                        }
-                    }
-                });
-                var requestUrl = oj.Model.extend({
+self.lazyTempStoragePendM.push(new request(data1[i], self.userId()));
+$("#request").show();
+}
+}
+if (self.lazyTempStoragePendM().length != 0) {
+    self.lazyMemPendMax(self.lazyTempStoragePendM().length);
+    $("#request").hide();
+    self.noPendingRequest("");
+    if (self.lazyMemPendInitBlock() < self.lazyTempStoragePendM().length) {
+        var InitCount = self.lazyMemPendInitBlock();
+    } else {
+        var InitCount = self.lazyTempStoragePendM().length;
+        $("#PendingRequestLoading").hide();
+    }
+    for (var count = 0; count < InitCount; count++) {
+        self.requestPendingMember.push(self.lazyTempStoragePendM()[count]);
+        self.lazyMemPendCurrent(self.lazyMemPendCurrent() + 1);
+    }
+} else {
+    $("#PendingRequestLoading").hide();
+}
+}
+});
+        var requestUrl = oj.Model.extend({
                     url: getUserPendingRequest + self.userId() + "/1" // get all the declined requests send by user to lead/manager
                 });
-                var requestFetch = new requestUrl();
-                requestFetch.fetch({
-                    headers: {secret: secret},
-                    success: function (res) {
-                        var data1 = res['attributes']['data'];
-                        for (var i = 0; i < data1.length; i++) {
-                            if (data1[i]['status'] == 1) {
-                                if (data1[i]['google_picture_link'] == '/images/default.png')
-                                {
-                                    data1[i]['intials_red'] = nameFunction(data1[i]['google_name']);
-                                }
+        var requestFetch = new requestUrl();
+        requestFetch.fetch({
+            headers: {secret: secret},
+            success: function (res) {
+                var data1 = res['attributes']['data'];
+                for (var i = 0; i < data1.length; i++) {
+                    if (data1[i]['status'] == 1) {
+                        if (data1[i]['google_picture_link'] == '/images/default.png')
+                        {
+                            data1[i]['intials_red'] = nameFunction(data1[i]['google_name']);
+                        }
                                 //self.requestRejectedMember.push(new request(data1[i], self.userId()));
                                 self.lazyTempStorageRejM.push(new request(data1[i], self.userId()));
                                 $("#request1").show();
@@ -355,27 +355,27 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                     self.lazyMemleadRejCurrent(self.lazyMemleadRejCurrent() + 1);
                                 }
                                 $("#request3").hide();
-                                 $('#mobileBtnLazy2').hide();
+                                $('#mobileBtnLazy2').hide();
                             }
                         }
                     });
                 }
 
-setTimeout (function(){
-    
+                setTimeout (function(){
+                    
 
-                if (self.role_name() === 'Team Member') {
-                    $('#rateTab2').hide();
-                    self.selectTab(1);
-                    $("#requestHover").addClass("buddyTabRequest");
-                    $('#rateTab1').append(' <img src="../../images/send-req-active.png" alt="" id="Inactive1" />')
-                } else {
-                    $('#rateTab2').show();
+                    if (self.role_name() === 'Team Member') {
+                        $('#rateTab2').hide();
+                        self.selectTab(1);
+                        $("#requestHover").addClass("buddyTabRequest");
+                        $('#rateTab1').append(' <img src="../../images/send-req-active.png" alt="" id="Inactive1" />')
+                    } else {
+                        $('#rateTab2').show();
 
-                    $("#requestHover").addClass("hoverTabRequest2");
+                        $("#requestHover").addClass("hoverTabRequest2");
 
-                    $('#rateTab3').append(' <img src="../../images/request-approval-active.png" alt="" />')
-                    $('#rateTab1').append(' <img src="../../images/send-req.png" alt="" id="Inactive1" />')
+                        $('#rateTab3').append(' <img src="../../images/request-approval-active.png" alt="" />')
+                        $('#rateTab1').append(' <img src="../../images/send-req.png" alt="" id="Inactive1" />')
                     //$('#rateTab1').append(' <img src="../../images/+1-icon.png" alt="" id="Inactive1" />')
 
                     $("#rateTab2").click(function () {
@@ -424,7 +424,7 @@ setTimeout (function(){
 
 
                 }
-                }, 500);
+            }, 500);
                 var lead = oj.Model.extend({
                     url: getAllLeads + self.userId(),
                 });
@@ -470,46 +470,46 @@ setTimeout (function(){
             }
         });
 
-        self.approveRequest = function (type, d, requestId, userId, to_id, Oldcomment) {
-            $('#yesButton').attr('oldDesc', Oldcomment);
-            $("#minMaxDialog").ojDialog("open");
-            $('#yesButton').attr("type", type);
-            $('#yesButton').attr("d", d);
-            $('#yesButton').attr("requestId", requestId);
-            $('#yesButton').attr("userId", userId);
-            $('#yesButton').attr("to_id", to_id);
-            if (type)
-            {
-                $('#rateme-status').html('approve');
-            } else
-            {
-                $('#rateme-status').html('decline');
-            }
-        }
+self.approveRequest = function (type, d, requestId, userId, to_id, Oldcomment) {
+    $('#yesButton').attr('oldDesc', Oldcomment);
+    $("#minMaxDialog").ojDialog("open");
+    $('#yesButton').attr("type", type);
+    $('#yesButton').attr("d", d);
+    $('#yesButton').attr("requestId", requestId);
+    $('#yesButton').attr("userId", userId);
+    $('#yesButton').attr("to_id", to_id);
+    if (type)
+    {
+        $('#rateme-status').html('approve');
+    } else
+    {
+        $('#rateme-status').html('decline');
+    }
+}
 
-        self.yesProcess = function () {
-            var type = $('#yesButton').attr("type");
-            var d = $('#yesButton').attr("d");
-            var requestId = $('#yesButton').attr("requestId");
-            var userId = $('#yesButton').attr("userId");
-            var to_id = $('#yesButton').attr("to_id");
-            var oldComment = $('#yesButton').attr("oldDesc").trim();
-            $("#minMaxDialog").ojDialog("close");
-            if (type == 1)
-            {
-                var obj = $("#accept" + requestId);
-            } else
-            {
-                var obj = $("#decline" + requestId);
-            }
-            var descHTML = obj.parent().prev().children().children('#text-area20');
-            var descriptionChange = (descHTML.val().trim() != "") ?
-                    descHTML.val().trim() : oldComment;
-            var removeHtml = obj;
+self.yesProcess = function () {
+    var type = $('#yesButton').attr("type");
+    var d = $('#yesButton').attr("d");
+    var requestId = $('#yesButton').attr("requestId");
+    var userId = $('#yesButton').attr("userId");
+    var to_id = $('#yesButton').attr("to_id");
+    var oldComment = $('#yesButton').attr("oldDesc").trim();
+    $("#minMaxDialog").ojDialog("close");
+    if (type == 1)
+    {
+        var obj = $("#accept" + requestId);
+    } else
+    {
+        var obj = $("#decline" + requestId);
+    }
+    var descHTML = obj.parent().prev().children().children('#text-area20');
+    var descriptionChange = (descHTML.val().trim() != "") ?
+    descHTML.val().trim() : oldComment;
+    var removeHtml = obj;
 
 
 
-            var datas = {u_id: userId, rq_id: requestId, st: type, desc: descriptionChange, to_id: to_id};
+    var datas = {u_id: userId, rq_id: requestId, st: type, desc: descriptionChange, to_id: to_id};
             //console.log(datas);
             $.ajax({
                 headers: {secret: secret},
@@ -545,7 +545,7 @@ setTimeout (function(){
                     } else {
                         $('#leadPendingLoading').hide();
                         $("#request2").removeClass('loaderHide');
-                        $('#mobileBtnLazy2').hide();
+                        $('#mobileBtnLazy1').hide();
                         self.noLeadPendingRequest("Hooray, you have addressed all the pending requests!");
                     }
 
@@ -587,7 +587,7 @@ setTimeout (function(){
                                         self.lazyMemleadRejCurrent(self.lazyMemleadRejCurrent() + 1);
                                     }
                                     $("#request3").hide();
-                                     $('#mobileBtnLazy2').hide();
+                                    
                                 }
 
                             }
@@ -606,35 +606,35 @@ setTimeout (function(){
                     $("#requestLoader2").addClass('loaderHide');
                 }
             });
-        }
+}
 
-        self.noProcess = function (type, d, requestId, userId, to_id) {
-            $("#minMaxDialog").ojDialog("close");
-        }
-        self.requestMore = function (e, data) {
+self.noProcess = function (type, d, requestId, userId, to_id) {
+    $("#minMaxDialog").ojDialog("close");
+}
+self.requestMore = function (e, data) {
 
-            var obj = $("#pending" + e.request_id);
-            if (obj.children("span").children("span:nth-child(2)").html() == "More") {
-                obj.parent().prev().prev().addClass("hide");
-                obj.children("span").children("span:nth-child(2)").html("Less");
-                obj.children("span").children("span").children("i").removeClass("zmdi-caret-down");
-                obj.children("span").children("span").children("i").addClass("zmdi-caret-up");
-                var lmsg = obj.children("span").children("span:nth-child(3)").text();
-                obj.parent().prev().prev().children('span').text(lmsg);
-                obj.parent().prev('.open-more').slideToggle();
-            } else {
-                if (obj.children("span").children("span:nth-child(2)").html() == "Less") {
-                    obj.parent().prev('.open-more').slideToggle();
-                    obj.children("span").children("span:nth-child(2)").html("More");
-                    obj.children("span").children("span").children("i").removeClass("zmdi-caret-up");
-                    obj.children("span").children("span").children("i").addClass("zmdi-caret-down");
-                    var smsg = obj.children("span").children("span:nth-child(3)").text().substring(0, 100) + "...";
-                    obj.parent().prev().prev().children('span').text(smsg);
-                    obj.parent().prev().prev().removeClass("hide");
-                }
-            }
-
+    var obj = $("#pending" + e.request_id);
+    if (obj.children("span").children("span:nth-child(2)").html() == "More") {
+        obj.parent().prev().prev().addClass("hide");
+        obj.children("span").children("span:nth-child(2)").html("Less");
+        obj.children("span").children("span").children("i").removeClass("zmdi-caret-down");
+        obj.children("span").children("span").children("i").addClass("zmdi-caret-up");
+        var lmsg = obj.children("span").children("span:nth-child(3)").text();
+        obj.parent().prev().prev().children('span').text(lmsg);
+        obj.parent().prev('.open-more').slideToggle();
+    } else {
+        if (obj.children("span").children("span:nth-child(2)").html() == "Less") {
+            obj.parent().prev('.open-more').slideToggle();
+            obj.children("span").children("span:nth-child(2)").html("More");
+            obj.children("span").children("span").children("i").removeClass("zmdi-caret-up");
+            obj.children("span").children("span").children("i").addClass("zmdi-caret-down");
+            var smsg = obj.children("span").children("span:nth-child(3)").text().substring(0, 100) + "...";
+            obj.parent().prev().prev().children('span').text(smsg);
+            obj.parent().prev().prev().removeClass("hide");
         }
+    }
+
+}
 
         //send request for +1 ratings ajax call
         self.requestManager = function () {
@@ -791,25 +791,25 @@ setTimeout (function(){
 //        });
 //        },500);
 
-        self.openMore = function (data, event) {
-            var moreTextId = $("#" + data['openMoreLink']);
-            var lessTextId = $("#" + data['lessMoreLink']);
-            moreTextId.next('span').slideToggle();
-            moreTextId.next().fadeIn();
-            moreTextId.next().next().fadeOut();
-            lessTextId.parent().removeClass('hide');
-        };
-        self.openLess = function (data, event) {
-            var moreTextId = $("#" + data['openMoreLink']);
-            var lessTextId = $("#" + data['lessMoreLink']);
-            moreTextId.next('span').slideToggle();
-            moreTextId.next().fadeOut();
-            moreTextId.next().next().fadeIn();
-            lessTextId.parent().addClass('hide');
-        }
+self.openMore = function (data, event) {
+    var moreTextId = $("#" + data['openMoreLink']);
+    var lessTextId = $("#" + data['lessMoreLink']);
+    moreTextId.next('span').slideToggle();
+    moreTextId.next().fadeIn();
+    moreTextId.next().next().fadeOut();
+    lessTextId.parent().removeClass('hide');
+};
+self.openLess = function (data, event) {
+    var moreTextId = $("#" + data['openMoreLink']);
+    var lessTextId = $("#" + data['lessMoreLink']);
+    moreTextId.next('span').slideToggle();
+    moreTextId.next().fadeOut();
+    moreTextId.next().next().fadeIn();
+    lessTextId.parent().addClass('hide');
+}
         ///////////////lazy loading function for declined request for user start
         var lgQuery = oj.ResponsiveUtils.getFrameworkQuery(
-                oj.ResponsiveUtils.FRAMEWORK_QUERY_KEY.SM_ONLY);
+            oj.ResponsiveUtils.FRAMEWORK_QUERY_KEY.SM_ONLY);
 
         self.large = oj.ResponsiveKnockoutUtils.createMediaQueryObservable(lgQuery);
 

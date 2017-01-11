@@ -52,6 +52,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
         self.vieMyProfile = ko.observable();
         self.roleName = ko.observable();
         self.managerSliderData = ko.observableArray();
+        self.managerSliderShowHide = ko.observable(false);
 // Slider 0 replace.............start(my slider)
         self.mySlider = ko.observableArray([]);
         self.pagingModel9 = null;
@@ -255,6 +256,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                 //lead /member service for +1 count and -1 count
                 if (self.roleName() == "Manager") {
                     $("#mangerSlider1").hide();
+                    self.managerSliderShowHide(true);
                     var leadSlide = oj.Model.extend({
                         url: getTopRankersProjectWise + self.id()
                     });
