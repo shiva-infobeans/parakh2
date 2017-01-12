@@ -315,10 +315,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojcollectiontabledatasource', '
                             responseDesc.val("");
                         },
                         beforeSend: function () {
-                            $("#respondLoader").removeClass('loaderHide');
+                            $("#respondLoader1").removeClass('loaderHide');
                         },
                         complete: function () {
-                            $("#respondLoader").addClass('loaderHide');
+                            $("#respondLoader1").addClass('loaderHide');
                         }
                     });
 
