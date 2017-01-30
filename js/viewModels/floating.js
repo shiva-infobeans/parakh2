@@ -294,6 +294,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     headers: {secret: secret},
                     success: function () {
                         var data = teamLeadSearch.attributes['data'];
+console.log(data);
                         if (data.length == 2) {
 
                             var item1 = new Object();
@@ -331,8 +332,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             }
                         } else {
                             var item1 = new Object();
+                          
                             item1.value = data[0]['manager_id'];
                             item1.label = data[0]['manager_name'];
+
                             item1.autoSearchLeadPic = data[0]['google_picture_link'];
                             item1.autoSearchLeadRole = data[0]['role_name'];
                             if(data[0]['google_picture_link'] == '/images/default.png')

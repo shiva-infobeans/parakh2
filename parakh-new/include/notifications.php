@@ -6,7 +6,7 @@ function send_mail($data)
 //    var_dump($data);
 //    die();
 //    return;
-    $data['subject'] = $data['subject']."----".$data['to']['name'];
+    $data['subject'] = $data['subject'];//."----".$data['to']['name'];
 //    $data['to']['email'] = MANAGER_EMAIL;
     if(smtp_send_mail($data['to'], $data['from'], $data['from_name'], $data['subject'], $data['message'])){
         return true;

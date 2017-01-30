@@ -17,6 +17,7 @@ else if(DEBUG_MODE=='ON')
    ini_set("display_errors",1);
    error_reporting(E_ALL);
 }
+
 require '../vendor/autoload.php';
 
 /**
@@ -42,6 +43,11 @@ $app = new Slim\App($config);
 require_once '../include/dbmodule.php';
 require_once '../include/functions.php';
 require_once '../include/errors.php';
+require_once '../include/constants.php';
+if($_GET['dev']=='yes') {
+echo SALT;
+die();
+}
 
 
 $app->add(function ($request, $response, $next) {

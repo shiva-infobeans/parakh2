@@ -30,7 +30,7 @@
                         var name = user.getBasicProfile().ig;
                         setCookie("email", email, 1);
                         setCookie("name", name, 1);
-                        //setCookie("picture",pic,1);                    
+                        //setCookie("picture",pic,1);
                         $.ajax({
                             headers: {secret: secret},
                             type: 'POST',
@@ -39,8 +39,10 @@
                             success: function (result) {
                                 var data = jQuery.parseJSON(result);
                                 var error = data.error;
+       	       	     
                                 if (error == "false") {
                                     setCookie("picture", data.data, 1);
+console.log(data.data);
                                     if (findGetParameter('id') != null && findGetParameter('target_url') != null) {
                                         window.location = findGetParameter('target_url') + "?id=" + findGetParameter('id');
                                     } else if (findGetParameter('target_url') != null)
@@ -48,7 +50,7 @@
                                         window.location = findGetParameter('target_url');
                                     } else
                                     {
-                                        window.location = window.location.href + "dashboard.html";
+                                        window.location = "dashboard.html";
                                     }
                                 } else {
                                     $("#authMsg").show();

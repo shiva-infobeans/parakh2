@@ -12,6 +12,7 @@ function makeResponse($error_status,$data){
 function validateSecretKey($key)
 {
     require_once 'constants.php';
+
     if($key === SALT){
         return true;
     }else{
