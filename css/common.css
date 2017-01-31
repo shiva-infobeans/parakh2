@@ -1913,7 +1913,8 @@
 .View-Other-about-members{
     padding: 17px;
     font-size: 23px;
-    border-bottom: 1px solid #689F39;   
+    border-bottom: 1px solid #689F39; 
+    line-height: 38px;
 }
 .padding-feedback{
     padding: 1px;
