@@ -1814,6 +1814,7 @@
 .about-icons{
     font-size: 38px !important;
     color: #F9E81F;
+    line-height: 34px !important;
 }
 .icon-div{
     float: left;
@@ -1824,7 +1825,7 @@
     line-height: 42px;
 }
 .heightCol2{
-    line-height: 48px;
+    line-height: 44px;
 }
 .heightCol5{
     line-height: 22px;

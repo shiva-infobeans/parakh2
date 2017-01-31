@@ -1618,6 +1618,8 @@ div.oj-tabs-panel.oj-tabs-selected{
 .feedback-date {
     width: 80px !important;
     font-size: 12px !important;
+    color: #dcdcdc;
+    
 }
 .commentDate-mobile{
    float: right !important;
@@ -1950,6 +1952,7 @@ span.zmdi-plus-request {
     text-align: center;
     font-style: italic;
     font-size: 15px;
+    color: #dcdcdc;
 }
 .feedback-align{
     display: table;
