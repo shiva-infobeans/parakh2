@@ -5,9 +5,9 @@
  */
 //links for webservice;
 
-if(location.hostname=='parakh.infobeans.com')
+if(location.hostname=='dev.parakh.com')
 {
-	var baseUrl = "http://parakh.infobeans.com/parakh-new/v1/index.php";
+	var baseUrl = "http://dev.parakh.com/parakh-new/v1/index.php";
 	var secret = 'parakh-revamp-local-key-2016';
 }else if(location.hostname== 'dev.parakhnewdesign.com')
 {

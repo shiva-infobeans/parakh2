@@ -373,11 +373,12 @@ div.oj-tabs-panel.oj-tabs-selected{
     left:0;
     right:0;
     bottom:0;
-    word-break: break-all;
+    word-break: break-word;
     /*overflow-y: auto;*/
 }
 .profile-page-overflow .View-Other-about:last-child{
     border-bottom: 0px;
+    word-break: break-word;
 }
 .myname-profile{
     font-weight: 600;
@@ -460,7 +461,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     background-repeat: repeat-y;
     margin-top: -33px;
     padding-bottom: 57px;
-    word-break: break-all;
+    word-break: break-word;
 }
 .rating-section{
     padding-top: 20px;
@@ -1224,6 +1225,9 @@ div.oj-tabs-panel.oj-tabs-selected{
     .oj-filmstrip-container.oj-filmstrip-item-container:nth-child(2n){
         border-right: none;
     }
+    .oj-filmstrip-container.oj-filmstrip-item-container{
+        border-right : none !important;
+     }
 }
 #tabs-container1 .oj-flex{
     -ms-flex: 1;
@@ -1614,6 +1618,8 @@ div.oj-tabs-panel.oj-tabs-selected{
 .feedback-date {
     width: 80px !important;
     font-size: 12px !important;
+    color: #dcdcdc;
+    
 }
 .commentDate-mobile{
    float: right !important;
@@ -1946,6 +1952,7 @@ span.zmdi-plus-request {
     text-align: center;
     font-style: italic;
     font-size: 15px;
+    color: #dcdcdc;
 }
 .feedback-align{
     display: table;
@@ -1991,7 +1998,7 @@ span.zmdi-plus-request {
 .feedback-comment-text{
     padding: 5px;
     margin: 5px 3px;
-    word-break: break-all;
+    word-break: break-word;
 }
 .circle-purple{
     background-color: #2780b5;
@@ -2599,5 +2606,5 @@ a#menu-share:hover > i{
 }
 /*feedback in profile and members profile word break fix.*/
 .feedbackTextBreakFalse{
-    word-break: keep-all !important;
+    word-break: break-word !important;
 }

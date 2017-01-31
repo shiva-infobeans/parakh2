@@ -1814,6 +1814,7 @@
 .about-icons{
     font-size: 38px !important;
     color: #F9E81F;
+    line-height: 34px !important;
 }
 .icon-div{
     float: left;
@@ -1824,7 +1825,7 @@
     line-height: 42px;
 }
 .heightCol2{
-    line-height: 48px;
+    line-height: 44px;
 }
 .heightCol5{
     line-height: 22px;
@@ -1880,7 +1881,7 @@
 }
 .text-height{
     line-height: 40px;
-    word-break: break-all;
+    word-break: break-word;
 }
 .edit-height{
     font-size: 30px;
@@ -1912,7 +1913,8 @@
 .View-Other-about-members{
     padding: 17px;
     font-size: 23px;
-    border-bottom: 1px solid #689F39;   
+    border-bottom: 1px solid #689F39; 
+    line-height: 38px;
 }
 .padding-feedback{
     padding: 1px;
@@ -2103,7 +2105,7 @@ a:hover.oj-clickable-icon-nocontext,.oj-hover.oj-clickable-icon-nocontext{ color
 }
 .font-descrip{
     font-size: 15px;
-    word-break: break-all;
+    word-break: break-word;
 }
 .my-performance-slide .border-right-recent:last-child{border-right: none;}
 
