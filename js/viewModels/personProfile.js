@@ -24,7 +24,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
             var dateplusArray = [];
             var dateminusArray = [];
             function dataComment(comment1, commenter1, commentDate1, datafor) {
-                commentDate1 = new Date(commentDate1);
+                commentDate1 = commentDate1.split(" ");
+                commentDate1 = new Date(commentDate1[0]);
                 //commentDate1 = commentDate1.toDateString();
                 var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June",
                     "July", "Aug", "Sep", "Oct", "Nov", "Dec"
@@ -54,14 +55,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 return com;
             }
             function dateDiffCalender(Date1) {
-                user_date = Date.parse(Date1);
-                today_date = new Date();
+                var user_date = Date.parse(Date1);
+                var today_date = new Date();
                 if (Date1 != '' && Date1!=null) {
-                    diff_date = today_date - user_date;
+                    var diff_date = today_date - user_date;
 
-                    num_years = diff_date / 31536000000;
-                    num_months = (diff_date % 31536000000) / 2628000000;
-                    num_days = ((diff_date % 31536000000) % 2628000000) / 86400000;
+                    var num_years = diff_date / 31536000000;
+                    var num_months = (diff_date % 31536000000) / 2628000000;
+                   var  num_days = ((diff_date % 31536000000) % 2628000000) / 86400000;
                     if (Math.floor(num_years) > 1)
                     {
                         num_years = Math.floor(num_years) + " Years";
@@ -192,23 +193,23 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                 self.allPos = ko.observableArray();
                 self.currentPos = ko.observable();
                 self.countPos = ko.observable();
-                self.initBlockPos = ko.observable(10);
-                self.blockPos = ko.observable(10);
+                self.initBlockPos = ko.observable(7);
+                self.blockPos = ko.observable(7);
                 ///////////////////// lazy loading Negative comment .............
                 self.allNeg = ko.observableArray();
                 self.currentNeg = ko.observable();
                 self.countNeg = ko.observable();
-                self.initBlockNeg = ko.observable(10);
-                self.blockNeg = ko.observable(10);
+                self.initBlockNeg = ko.observable(7);
+                self.blockNeg = ko.observable(7);
                 ///////////////////// lazy loading Feedback .............
                 self.allFeedback = ko.observableArray();
                 self.currentFeedback = ko.observable();
                 self.countFeedback = ko.observable();
                 self.initBlockFeedback = ko.observable(6);
-                self.blockFeedback = ko.observable(10);
+                self.blockFeedback = ko.observable(7);
                 //..................
 
-                self.large = oj.ResponsiveKnockoutUtils.createMediaQueryObservable('(min-width: 767px)');
+                self.large = oj.ResponsiveKnockoutUtils.createMediaQueryObservable('(min-width: 1024px)');
 
                 self.itemOnly = function (context)
                 {
@@ -360,7 +361,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                             {
                                 self.successful("Profile updated successfully!");
                                 $('.sucessMsg').show();
-                                self.allRevert();
+                                self.revertAfterEdit();
                             }
                             setTimeout(function () {
                                 $('.sucessMsg').hide();
@@ -397,8 +398,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         }
                         self.location(task.attributes['data']['location']);
                         if (typeof task.attributes['data']['interests']!='undefined' && task.attributes['data']['interests'].length != 0) {
-                            interest = task.attributes['data']['interests'].split(",");
-                            for (k = 0; k < interest.length; k++) {
+                            var interest = task.attributes['data']['interests'].split(",");
+                            for (var k = 0; k < interest.length; k++) {
                                 self.interests(interest);
                             }
                         } else {
@@ -406,7 +407,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         }
                         // task.attributes['data']['projects'] = task.attributes['data']['projects'].replace(",",", ");
                         if (typeof task.attributes['data']['projects']!='undefined' && task.attributes['data']['projects'].length != 0) {
-                            project = task.attributes['data']['projects'].split(",");
+                            var project = task.attributes['data']['projects'].split(",");
                             self.projects(project);
                         } else {
                             self.projects([]);
@@ -744,6 +745,29 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                         self.myNumber("+91-" + self.temporaryNumber());
                     }
                 }
+                
+                self.revertAfterEdit = function(){
+                    self.moberror("");
+                    $('#designation-text').removeClass('hide');
+                    $('#designation-div').addClass('hide');
+                    $('#location-text').removeClass('hide');
+                    $('#location-div').addClass('hide');
+                    $('#skills-text').removeClass('hide');
+                    $('#skills').addClass('hide');
+                    $('#associate-text').removeClass('hide');
+                    $('#associate-div').addClass('hide');
+                    $('#primary-project-text').removeClass('hide');
+                    $('#primary-project-div').addClass('hide');
+                    $('#projects-text').removeClass('hide');
+                    $('#projects-div').addClass('hide');
+                    $('#interest-text').removeClass('hide');
+                    $('#interest-div').addClass('hide');
+                    $('#number-text').removeClass('hide');
+                    $('#editNumberBox').addClass('hide');
+                    $('#edit-all').removeClass('hide');
+                    $('#submit-all').addClass('hide');
+                    $('#cancel-all').addClass('hide');
+                }
 
                 self.allRevert = function () {
                     self.moberror("");
@@ -771,8 +795,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 
                     self.interests(interestsDefaultVar);
                     self.primary_project(primaryProjectDefaultVar);
                     self.temporaryNumber(self.myNumber().substring(self.myNumber().indexOf("-") + 1, self.myNumber().length));
-                    self.myNumber("+91-" + editVariable);
-                    self.temporaryNumber("");
                     self.myNumber(numberDefaultVar);
                     $('#edit-all').removeClass('hide');
                     $('#submit-all').addClass('hide');

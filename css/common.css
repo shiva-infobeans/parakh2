@@ -17,10 +17,9 @@
 
 }
 .navigationlist{
-    float:right;
-    margin-top: 1px;
+       float: right;
+    margin-top: 2px;
 }
-
 .border-fix{
     border-bottom: none;
 }
@@ -32,6 +31,10 @@
     margin-right: 17px;
     margin-top:38px;
     color:#333;
+    padding-bottom: 5px;
+}
+.logo{
+    margin-top: 7px;
 }
 /*.nav1 li{float: none; border-bottom:1px solid #fff;}*/
 .header-padding{
@@ -41,10 +44,7 @@
 .oj-web-applayout-content {
     padding:0px;
 }
-.logo{
-    height:90px;
 
-}
 .menus{display: none;
        color: #fff;
        font-size: 30px;
@@ -105,19 +105,18 @@
 	  left: 0;
 	  
 	}
-    .logo{
-        height:60px;
-    }
+   
     .menus{
         display: block;
         font-size: 22px;
 
     }
     .nav1 li{float: none;}
+    
     .logo {
         height: 56px;
-        margin-top: -8px;
-        /*padding-left: 10px;*/
+        margin-top: -12px;
+        margin-left: 7px;
     }
     ul.mobile-menu {
 
@@ -529,11 +528,18 @@
         overflow: hidden;
     }
     #ojDialogWrapper-modalDialog1.oj-dialog{
-        height: 500px;
+        height: 550px;
         -ms-overflow-style: none;
         overflow: hidden;	
     }
 
+}
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    #ojDialogWrapper-modalDialog9.oj-dialog,
+    #ojDialogWrapper-modalDialog3.oj-dialog,
+    #ojDialogWrapper-modalDialogRequest.oj-dialog{
+        height:500px;
+    }
 }
 #ojDialogWrapper-modalDialog8.oj-dialog{
     overflow: hidden;
@@ -1516,6 +1522,7 @@
     text-align: center;
     top: 125px;
     width: 300px;
+    z-index: 15;
 }
 #sucess{
     display:none;
@@ -1768,12 +1775,29 @@
  #text-area-manager:-ms-input-placeholder {
      color: #dcdcdc !important;
   }
+  
+#text-area-plus::-webkit-input-placeholder
+ {
+     color: #777 !important;
+ }
+ #text-area-plus::-moz-placeholder
+ {
+     color: #777 !important;
+ }
+ #text-area-plus:-moz-placeholder {
+     color: #777 !important;
+ }
+ #text-area-plus:-ms-input-placeholder {
+     color: #777 !important;
+  }
+  
 
 
 .View-Other-about{
     padding: 17px;
     font-size: 23px;
     border-bottom: 1px solid #689F39;
+    word-break: break-all;
 }
 .text-about{
     display: block;
@@ -1819,6 +1843,7 @@
     margin-left: auto;
     margin-right: auto;
     width: 100% !important;
+    height :100%;
     position: absolute;
     top:0px;
     left:0px;
@@ -1833,6 +1858,7 @@
     top:0px;
     left:0px;
     z-index: -1;
+    height:100%;
 }
 .transbox3{
     border:2px solid green;
@@ -1853,7 +1879,7 @@
     height: 88%;
 }
 .text-height{
-    line-height: 32px;
+    line-height: 40px;
     word-break: break-all;
 }
 .edit-height{
@@ -1874,6 +1900,7 @@
 #filmStrip .oj-filmstrip-arrow.oj-default .oj-filmstrip-arrow-icon{
     color: #fff;
     font-size: 40px;
+    cursor: pointer;
 }
 #filmStrip .oj-filmstrip-arrow.oj-hover {
     background-color: transparent !important;
@@ -2021,14 +2048,15 @@
     font-size:18px;
 }
 .space-block{
-    margin-bottom: 85px;
+    margin-bottom: 135px;
+    margin-top: 98px;
 }
 .space-block1{
-    margin-bottom: 80px;
+   margin-bottom: 90px;
+    margin-top: 59px;
 }
 .declineHeight{
-    height: 98%;
-    margin-top: 50px;
+   min-height: 192px;
 }
 .oj-select-selected-choice{color: #fff;}
 .edit-section{
@@ -2068,10 +2096,10 @@ a:hover.oj-clickable-icon-nocontext,.oj-hover.oj-clickable-icon-nocontext{ color
 #cancel-all{padding: 121x;}
 
 .font-design{
-    font-size: 18px;
+    font-size: 16px;
 }
 .font-date{
-    font-size: 15px;
+    font-size: 14px;
 }
 .font-descrip{
     font-size: 15px;
@@ -2227,3 +2255,15 @@ a:hover.oj-clickable-icon-nocontext,.oj-hover.oj-clickable-icon-nocontext{ color
 	opacity: 1;
 }
 
+.height-fixModal, .height-fixModal textarea{
+    height: 100% !important;
+} 
+.areaFloat div.height-fixModal div.oj-textarea.oj-form-control.oj-component{
+    margin-top: 4px;
+}
+.achievement-font-Fix{
+    font-size: 23px;
+}
+.achievementHeightFix{
+    margin-bottom: 12px;
+}

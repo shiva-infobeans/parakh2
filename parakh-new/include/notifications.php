@@ -3,19 +3,23 @@ require_once "class.phpmailer.php";
 require_once "class.smtp.php";
 function send_mail($data)
 {
-    //print_r($data);
-    //return;
-    $data['subject'] = $data['subject']."----".$data['to']['name'];
-    $data['to']['email'] = MANAGER_EMAIL;
-    if(smtp_send_mail($data['to'], $data['subject'], $data['message'])){
+//    var_dump($data);
+//    die();
+//    return;
+    $data['subject'] = $data['subject'];//."----".$data['to']['name'];
+//    $data['to']['email'] = MANAGER_EMAIL;
+    if(smtp_send_mail($data['to'], $data['from'], $data['from_name'], $data['subject'], $data['message'])){
         return true;
     }else{
         return false;
     }
 }//end of fun
 
-function smtp_send_mail($to,$subject,$message)
+function smtp_send_mail($to,$from,$from_name,$subject,$message)
 {
+    $from = (isset($from)) ? $from : FROM_EMAIL;
+    $from_name = (isset($from_name)) ? $from_name : FROM_NAME;
+            
     if(empty($to["email"]))    
         return false;
     $mail = new PHPMailer;
@@ -28,10 +32,10 @@ function smtp_send_mail($to,$subject,$message)
     $mail->Password = 'Info0909';                           // SMTP password
     $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
     $mail->Port = 465;                                    // TCP port to connect to
-    $mail->From = FROM_EMAIL;
-    $mail->FromName = FROM_NAME;
+    $mail->From = $from;
+    $mail->FromName = $from_name;
     $mail->addAddress($to["email"],$to["name"]);     // Add a recipient
-    $mail->addReplyTo(FROM_EMAIL, FROM_NAME);
+    $mail->addReplyTo($from, $from_name);
     $mail->isHTML(true);                                  // Set email format to HTML
     $mail->Subject = $subject;
     $mail->Body    = $message;

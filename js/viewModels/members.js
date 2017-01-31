@@ -73,7 +73,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojcollectiontabledatasource', '
         }
     }
     function dateFormatter(commentDate1) {
-        commentDate1 = new Date(commentDate1);
+        commentDate1 = commentDate1.split(" ");
+        commentDate1 = new Date(commentDate1[0]);
         var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June",
             "July", "Aug", "Sep", "Oct", "Nov", "Dec"
         ];
@@ -178,20 +179,20 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojcollectiontabledatasource', '
         self.allPos = ko.observableArray();
         self.currentPos = ko.observable();
         self.countPos = ko.observable();
-        self.initBlockPos = ko.observable(10);
-        self.blockPos = ko.observable(10);
+        self.initBlockPos = ko.observable(7);
+        self.blockPos = ko.observable(7);
         ///////////////////// lazy loading Negative comment .............
         self.allNeg = ko.observableArray();
         self.currentNeg = ko.observable();
         self.countNeg = ko.observable();
-        self.initBlockNeg = ko.observable(10);
-        self.blockNeg = ko.observable(10);
+        self.initBlockNeg = ko.observable(7);
+        self.blockNeg = ko.observable(7);
         ///////////////////// lazy loading Feedback .............
         self.allFeedback = ko.observableArray();
         self.currentFeedback = ko.observable();
         self.countFeedback = ko.observable();
         self.initBlockFeedback = ko.observable(6);
-        self.blockFeedback = ko.observable(10);
+        self.blockFeedback = ko.observable(7);
         //..................
 
 
@@ -204,7 +205,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojcollectiontabledatasource', '
         var lgQuery = oj.ResponsiveUtils.getFrameworkQuery(
                 oj.ResponsiveUtils.FRAMEWORK_QUERY_KEY.LG_UP);
 
-        self.large = oj.ResponsiveKnockoutUtils.createMediaQueryObservable('(min-width: 767px)');
+        self.large = oj.ResponsiveKnockoutUtils.createMediaQueryObservable('(min-width: 1024px)');
 
 //service for id of the user.
         var userIdSearch = oj.Model.extend({
@@ -314,10 +315,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojcollectiontabledatasource', '
                             responseDesc.val("");
                         },
                         beforeSend: function () {
-                            $("#respondLoader").removeClass('loaderHide');
+                            $("#respondLoader1").removeClass('loaderHide');
                         },
                         complete: function () {
-                            $("#respondLoader").addClass('loaderHide');
+                            $("#respondLoader1").addClass('loaderHide');
                         }
                     });
 
