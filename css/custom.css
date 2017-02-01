@@ -1425,6 +1425,9 @@ div.oj-tabs-panel.oj-tabs-selected{
         position: relative;
         float: left;
     }
+    #ojDialogWrapper-modalDialog-userFeedback.oj-dialog {
+    min-width: 310px !important;
+}
     .person-profile-intials-text {
         margin: 36px 20px !important;
         font-size: 30px !important;
@@ -1591,6 +1594,18 @@ div.oj-tabs-panel.oj-tabs-selected{
     margin-left: 69px !important;
     padding: 5px !important;
     width: 70% !important;
+}
+.responsive-dropdown-margin {
+    margin-left: 15px !important;
+}
+ .side-bar-img{
+    width: 30px !important;
+}
+.side-bar{
+        position: absolute !important;
+        top: 16% !important;
+        left: -39px !important;
+            
 }
  
 }
@@ -1785,7 +1800,12 @@ div.oj-tabs-panel.oj-tabs-selected{
     .tab-margin{
         margin-left:10px;
     }
-   
+    .side-bar-img{
+    width: 30px !important;
+}
+.side-bar{
+    bottom: 65% !important;
+}
     .left {
         float: left;
         border-right: 5px solid transparent;
@@ -1851,6 +1871,7 @@ div.oj-tabs-panel.oj-tabs-selected{
         margin-left: 28px !important;
     }
 }
+
 @media only screen 
   and (min-device-width: 768px) 
   and (max-device-width: 1024px) 
@@ -1886,6 +1907,15 @@ div.oj-tabs-panel.oj-tabs-selected{
         width: 32% !important;
     }
 }
+@media  screen and (min-width: 1026px) and (max-width: 1366px) {
+  .side-bar-img {
+    width: 30px !important;
+}
+.side-bar{
+        bottom: 63% !important;
+}  
+}
+
 
 @media screen  and (max-width: 360px) {
     .notification::before {
@@ -2168,41 +2198,30 @@ ul.ff li a{
 }
 /*side bar*/
 .side-bar{
-    position: fixed;
+       position: fixed;
     color: #fff;
     left: -39px;
-    /*    top: 300px;*/
+    /* top: 300px; */
     text-align: center;
     line-height: 63px;
     cursor: pointer;
     z-index: 10;
-    bottom: 65%;
+    bottom: 67%;
     right: auto;
 }
 ul.ff1{
-    position:absolute;
-    /*left:-35px;*/
-    padding-bottom:20px;
-    /*top: 150px;*/
-    z-index:100;
+    position: absolute;
+    /* left: -35px; */
+    padding-bottom: 20px;
+    /* top: 150px; */
+    z-index: 100;
+    list-style: outside none none;
 }
 ul.ff1 li{
     list-style:none;
     margin-bottom:10px;
 }
 
-
-ul.ff1 li a{
-    background-color: #78A95A;
-    color: #FFF;
-    border-radius: 3px;
-    text-align: center;
-    width: 40px;
-    height: 130px;
-    display: block;
-    padding: 12px;
-    font-size: 18px;
-}
 ul.ff1 li a:hover , ul.ff1 li a:focus{
     text-decoration: none;
 }
@@ -2600,4 +2619,63 @@ a#menu-share:hover > i{
 /*feedback in profile and members profile word break fix.*/
 .feedbackTextBreakFalse{
     word-break: keep-all !important;
+}
+/*tour css*/
+/* tour image location */
+@media screen and (max-width: 767px){
+    .tourImg{
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 11;
+    }
+}
+@media screen and (min-width: 768px){
+    .tourImg{
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 11;
+    }
+}
+.tourClose,a.tourClose:active,a.tourClose:focus{
+    position: fixed;
+    top: 12px;
+    right: 21px;
+    z-index: 12;
+    color: #fff;
+    cursor: pointer;
+}
+@media  screen and (min-width: 1024px){
+    .backToLoginAchivement {
+        margin-right: 0px !important;
+    }
+}
+@media  screen and (min-width: 320px) and (max-width: 767px) {
+    .backToLoginAchivement {
+        margin-top: 45px !important;
+        padding-bottom: 15px !important;
+    }
+}
+.backToLoginAchivement {
+    border-bottom: 5px solid #fff;
+    font-weight: bolder;
+    float: right;
+    margin-top: 99px;
+    padding-bottom: 15px;
+    color: #fff;
+    font-size: 20px;
+    margin-right: 10px;
+}
+.backToLoginAchivement a,.backToLoginAchivement a:hover {
+    color: #fff;
+    text-decoration: none;
 }
