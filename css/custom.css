@@ -373,7 +373,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     left:0;
     right:0;
     bottom:0;
-    word-break: break-all;
+    word-break: break-word;
     /*overflow-y: auto;*/
 }
 .profile-page-overflow .View-Other-about:last-child{
@@ -1007,7 +1007,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     width: 100%;
     display: table;
     z-index: 20090;
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0,0,0,0);
 
 }
 .loaderImgDiv{
@@ -1442,7 +1442,22 @@ div.oj-tabs-panel.oj-tabs-selected{
     .myNameBuddies{
          margin-top: -8px !important;
     }
-   
+
+  #ojDialogWrapper-modalVideo.oj-dialog{
+        min-width: 310px !important;
+        top: 100px !important;
+    }
+    .video{
+           width: 284px !important;
+            margin-top: -30px !important;
+           margin-bottom: -15px !important;
+           height: 220px !important;
+}
+
+    .responsive-dropdown-margin{
+        margin-left: 15px !important;
+
+    }
     .area{
         margin-left: 17px !important;
     }
@@ -1476,6 +1491,15 @@ div.oj-tabs-panel.oj-tabs-selected{
         left: 28px  !important;
         font-size: 24px  !important;
     }
+    .side-bar-img{
+    width: 30px !important;
+}
+.side-bar{
+        position: absolute !important;
+        top: 16% !important;
+        left: -39px !important;
+            
+}
 
     #ojDialogWrapper-modalDialog8.oj-dialog,
     #ojDialogWrapper-modalDialog2.oj-dialog,
@@ -2317,6 +2341,10 @@ a#menu-share:hover > i{
 .no-pointer{
     cursor: default;
 }
+.ms-fix{
+    border: 1px solid transparent;
+}
+
 .margin-top-feedback{margin-top: -15px;}
 
 .moreDots:hover{
@@ -2554,6 +2582,33 @@ a#menu-share:hover > i{
     clear: both;
     display: block;
 }
+.mobileLazy{
+    cursor: pointer;
+    text-decoration: underline;
+    color: #fff;
+}
+.backToLoginAchivement {
+    border-bottom: 5px solid #fff;
+    font-weight: bolder;
+    float: right;
+    margin-top: 99px;
+    padding-bottom: 15px;
+    color: #fff;
+    font-size: 20px;
+    margin-right: 10px;
+}
+.backToLoginAchivement a,.backToLoginAchivement a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+@media screen  and (max-width: 364px) and (min-width: 320px) {
+    .mobile320fix{
+        margin-bottom: 25px;
+    }
+}
+.font-responsive{
+    font-size: 25px !important;
+}
 @media(min-width:320px) and (max-width:767px){
 
     @media screen and (-webkit-min-device-pixel-ratio:0) {
@@ -2666,10 +2721,10 @@ a#menu-share:hover > i{
     }
 }
 .backToLoginAchivement {
-    border-bottom: 5px solid #fff;
+       border-bottom: 5px solid #fff;
     font-weight: bolder;
     float: right;
-    margin-top: 99px;
+    margin-top: 126px;
     padding-bottom: 15px;
     color: #fff;
     font-size: 20px;

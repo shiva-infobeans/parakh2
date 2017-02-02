@@ -43,9 +43,16 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         $(document).ready(function () {
             resize();
             $(window).resize(resize);
+             $('#topArrow').hide();
         });
 
-
+         $(window).scroll(function () {
+            if ($(window).scrollTop() < 100) {
+                $('#topArrow').fadeOut();
+            } else {
+                $('#topArrow').fadeIn();
+            }
+        });
 
 
 

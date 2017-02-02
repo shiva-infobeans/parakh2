@@ -7,6 +7,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
         <link href="css/login.css" rel="stylesheet" type="text/css"/>
+        
+        <link href="css/libs/oj/v2.1.0/alta/oj-alta-min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/custom.css" rel="stylesheet" type="text/css"/>
+        <link href="css/common.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+
         <style>
 
         </style>
@@ -42,7 +48,7 @@
        	       	     
                                 if (error == "false") {
                                     setCookie("picture", data.data, 1);
-console.log(data.data);
+
                                     if (findGetParameter('id') != null && findGetParameter('target_url') != null) {
                                         window.location = findGetParameter('target_url') + "?id=" + findGetParameter('id');
                                     } else if (findGetParameter('target_url') != null)
@@ -50,7 +56,7 @@ console.log(data.data);
                                         window.location = findGetParameter('target_url');
                                     } else
                                     {
-                                        window.location = "dashboard.html";
+                                        window.location ="dashboard.html";
                                     }
                                 } else {
                                     $("#authMsg").show();
@@ -88,7 +94,7 @@ console.log(data.data);
                     window.location = findGetParameter('target_url');
                 } else
                 {
-                    window.location = window.location.href + "dashboard.html";
+                    window.location = "dashboard.html";
                 }
             }
             function findGetParameter(parameterName) {
@@ -153,6 +159,12 @@ console.log(data.data);
             });
             $(function () {
                 $("#authMsg").hide();
+                if(thisImage == images[0]){
+                    $('.achivementLink').addClass('linkPos1');
+                }
+                else{
+                    $('.achivementLink').addClass('linkPos2');
+                }
                 $("#login-background").css("background", "url('" + thisImage + "') no-repeat fixed center top / cover");
                 var bg = $('#login-background').css('background-image');
                 bg = bg.replace('url(', '').replace(')', '').replace(/\"/gi, "");
@@ -176,9 +188,15 @@ console.log(data.data);
         <div class="">
             <img class="login-btn" src="images/sign-in-with-google.png" id="my-signin2"/>
         </div>
+        <div  class="achivementLink"><a href="achievements.html">Achievements</a></div>
         <div  class="login-logo">
             <img class="logo-margin" src="images/gray-parakh-logo.png" alt=""/>
         </div>
+
+        <section>
+            <div data-bind="ojModule:{name: 'login'}"></div>
+        </section>
+
         <div class="errorMsg" id="authMsg">
             <div class="accessDeniedBackground">
                 <div class="authFailed"><span>Your account has not been activated. Please contact the Administrator.<img id="closeMsg" src="images/close-btn.png" /></span></div>
@@ -194,6 +212,7 @@ console.log(data.data);
             <div class="overlay-loader-login"></div>
         </div>
         <script src="js/libs/customLib/mainPageJs.js" type="text/javascript"></script>
+        <script src="js/libs/require/require.js" data-main="js/main"></script>
         <script src="https://apis.google.com/js/platform.js?onload=callBackFunction" async defer></script>
     </body>
 </html>

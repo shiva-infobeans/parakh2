@@ -485,6 +485,20 @@
     border-radius: 5px;
 	/*top: 150px !important;*/
 }
+#ojDialogWrapper-modalVideo.oj-dialog  {
+    overflow: hidden;
+    max-width: 100%;
+    min-width: 700px;
+    box-sizing: border-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    }
+    .video{
+    width: 630px;
+    height: 354px;
+    }
 #ojDialogWrapper-modalDialog1.oj-dialog  {
     overflow: hidden;
     max-width: 100%;
@@ -1450,6 +1464,14 @@
 }
 .textArea-feedbackFloat{
     height: 180px;
+    border: solid 1px #305a04;
+    width: 100%;
+    border-radius: 5px;
+    resize: none;
+    outline: none;
+}
+.textArea-feedbackSideBar{
+    height: 140px;
     border: solid 1px #305a04;
     width: 100%;
     border-radius: 5px;

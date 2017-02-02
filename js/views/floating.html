@@ -60,15 +60,17 @@
                            optionChange: feedbackValueChangeHandler,
                             placeholder:'Search team member',
                               list: 'browsers1',
-                              value: value1,     
+                              value: value1,   
+                              title: showHelpSearch,
                               rootAttributes: {style:'max-width:20em'}}"/>
                     <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" id="feedbackFloatSearchError">This field cannot be empty.</div>
                 </div>
-
-                <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center areaContent1 ">
+                <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center areaContent1">
                     <textarea id="text-area9" class="textArea-feedbackFloat" aria-label="ojTextArea component no visible label"
                               data-bind="ojComponent: {component: 'ojTextArea', 
                                      value: desc, 
+                                     optionChange: textAreaChange,
+                                     title: showHelpComment,
                                      placeholder: 'Type your feedback here...'}"></textarea>
                 </div>
 
@@ -105,16 +107,18 @@
                                     <span data-bind="text: label" class="autoName"></span>
                                     <span class="search-text-profile-image-initials" data-bind="text:intials_rate"></span>
                                 </div>
+                                <input type="hidden" data-bind="value: isManager,attr: {id: optionId}" >
                             </li>
                             <!-- /ko -->   
                         </ul>
                         <input id="combobox2"
                                data-bind="ojComponent: {component: 'ojCombobox',
                                optionChange: rateValueChangeHandler,
-                            placeholder:'Search team member',
-                              list: 'browsers',
-                              value: value,
-                              rootAttributes: {style:'max-width:20em'}}" />
+                               placeholder:'Search team member',
+                               list: 'browsers',
+                               value: value,
+                               title: showHelpSearch,
+                               rootAttributes: {style:'max-width:20em'}}" />
                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal errorText" data-bind="text: searchError"></div>
                     </form>
 
@@ -125,18 +129,37 @@
                     <textarea id="text-area-rate" class="textArea3" aria-label="ojTextArea component no visible label"
                               data-bind="ojComponent: {component: 'ojTextArea', 
                                      value: desc, 
+										title: showHelpComment,
+                                         optionChange: textAreaChange,
                                      placeholder: 'Type your reason here..'}"></textarea>
                     </div>
                     <div class="oj-xl-3 oj-lg-3 oj-md-4 oj-sm-4 oj-flex-item imgArea1 ">
                         <div class="pos-relative">
-                            <img class="modalImage"  src="../../images/active(+1).png" alt="+1 image"/>
+                            <img class="modalImage" data-bind="attr: {src:imagerank1}" alt=""/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center areaFloat text-area-custom text-area-both hide">
+                    <div class="oj-xl-9 oj-lg-9 oj-md-8 oj-sm-8 oj-flex-item  oj-flex areaContent">
+                        <textarea id="text-area07" class="textArea3" aria-label="ojTextArea component no visible label"
+                                  data-bind="ojComponent: {component: 'ojTextArea', 
+                                         value: desc, 
+                                         placeholder: 'Type your reason here..'}"></textarea>
+                    </div>
+                    <div class="oj-xl-3 oj-lg-3 oj-md-4 oj-sm-4 oj-flex-item imgArea1 text-area-both-margin-top">
+                        <div class="pos-relative" data-bind="click: plusOne">
+                            <img class="modalImage" data-bind="attr: {src:imagerank2}" alt=""/>
+                        </div>
+
+                        <div class="pos-relative" data-bind="click: minusOne">
+                            <img class="modalImage" data-bind="attr: {src:imagerank3}"/>
                         </div>
                     </div>
                     <div>
 
                     </div>
                 </div>
-
                 <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center hide errorTextModal" id="rateFloatTextError">Please provide a reason for rating.</div>
                 <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center submit-btn-modal">
 
@@ -166,7 +189,7 @@
                             <div class="search-text-profile-image">
                                 <span class="imgSearch">  <img data-bind="attr: {'src': autoSearchLeadPic}" class="searchImage" /> </span>
                                 <span data-bind="text: label"  class="autoName"></span> &ndash; <span data-bind="text: autoSearchLeadRole" class="searchLead"></span>
-                                <!-- <span class="search-text-profile-image-initials" data-bind="text:intials_request"></span> -->
+                                <span class="search-text-profile-image-initials" data-bind="text:intials_request"></span>
                             </div>
                         </li> 
                         <!-- /ko -->   
@@ -177,6 +200,7 @@
                             placeholder:'Search',
                                  list: 'browsers2',
                               value: value2,
+                              title: showHelpSearch,
                               rootAttributes: {style:'max-width:20em'}}"/>
                     <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal center errorText" data-bind="text: searchError"></div>
                 </div>
@@ -185,6 +209,8 @@
                     <textarea id="text-area10" class="textArea-feedbackFloat" aria-label="ojTextArea component no visible label"
                               data-bind="ojComponent: {component: 'ojTextArea', 
                                      value: desc, 
+                                     optionChange: textAreaChange,
+                                     title: showHelpComment,
                                      placeholder: 'Type your reason here..'}"></textarea>
                 </div>
                 <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal center errorText" data-bind="text:textError"></div>

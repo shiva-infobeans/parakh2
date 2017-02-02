@@ -7,7 +7,7 @@
 /**
  * floating module
  */
-define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojselectcombobox', 'ojs/ojmodel'
+define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojselectcombobox', 'ojs/ojmodel', 'accordin/helpTextMsg'
 ], function (oj, ko, $) {
     /**
      * The view model for the main content view template
@@ -46,7 +46,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
     }
     function floatingContentViewModel(person) {
         var self = this;
-
+        self.showHelpSearch = ko.observable();
+        self.showHelpComment = ko.observable();
         setTimeout(function () {
             //rate other team member modal from floating button 
             self.handleOpen = $(".rateFloat").click(function () {
@@ -56,6 +57,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 self.value([]);
                 self.searchError("");
                 $("#rateFloatTextError").addClass('hide');
+                self.imagerank1("../../images/active(+1).png");
+                self.imagerank2("../../images/active(+1).png");
+                self.imagerank3("../../images/disable(-1).png");
+                $('.text-area-plus-one').show();
+                $('.text-area-both').hide();
+                self.showHelpSearch(buddySearch);
+                self.showHelpComment(buddyComment);
+                self.p(1);
             });
 
             self.handleOKClose = $("#okButton").click(function () {
@@ -69,7 +78,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 self.value1([]);
                 $("#feedbackFloatSearchError").addClass('hide');
                 $("#feedbackFloatTextError").addClass('hide');
-
+                self.showHelpSearch(feedbackSearch);
+                self.showHelpComment(feedbackComment);
             });
 
             self.handleOKClose = $("#okButton").click(function () {
@@ -83,7 +93,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 self.textError('');
                 self.value2([]);
                 self.searchError("");
-
+                self.showHelpSearch(reqSearch);
+                self.showHelpComment(reqComment);
             });
             self.handleOKClose = $("#okButton").click(function () {
                 $("#modalDialogRequest").ojDialog("close");
@@ -102,32 +113,45 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.role_name = ko.observable();
         self.currentChangeid = ko.observable(0);
 
-        self.rateValueChangeHandler = function(context, valueParam){
-            if(!isNaN(valueParam.value[0]))
+        self.textAreaChange = function (context, value) {
+            if (value['option'] == 'rawValue') {
+                if ( value['value'] != '') {
+//                    self.showHelpComment("");
+                }
+            }
+        }
+        self.rateValueChangeHandler = function (context, valueParam) {
+//            if (typeof valueParam['value'] == "object" && self.value() != '' && self.value() != 'undefined') {
+//                self.showHelpSearch("");
+//            }
+            if (!isNaN(valueParam.value[0]))
             {
                 self.currentChangeid(valueParam.value[0]);
             }
-            if(valueParam.option == 'rawValue')
+            if (valueParam.option == 'rawValue')
             {
-                try{
-                    spaceCount = (valueParam.value.split(" ").length - 1);
-                    name = valueParam.value.replace(/ /g,"");
-                    if(spaceCount>2){
+                try {
+                    var spaceCount = (valueParam.value.split(" ").length - 1);
+                    var name = valueParam.value.replace(/ /g, "");
+                    if (spaceCount > 2) {
                         name = name.substring(0, name.length - 2);
                     }
-                    name = name.replace(/([A-Z])/g, ' $1').trim();
-                    id = "#"+name.replace(/ /g,"_").toLowerCase();
-                    $('#oj-combobox-input-combobox2').val(name);
-                    if(typeof $(id).val()!='undefined' && $(id).val()==1)
-                    {
-                        $('.text-area-plus-one').hide();
-                        $('.text-area-both').show();
-                    }else
-                    {
-                        $('.text-area-plus-one').show();
-                        $('.text-area-both').hide();
+                    if (name != '') {
+                        name = name.replace(/([A-Z])/g, ' $1').trim();
+                        var id = "#" + name.replace(/ /g, "_").toLowerCase();
+
+                        $('#oj-combobox-input-combobox2').val(name);
+                        if (typeof $(id).val() != 'undefined' && $(id).val() == 1)
+                        {
+                            $('.text-area-plus-one').hide();
+                            $('.text-area-both').show();
+                        } else
+                        {
+                            $('.text-area-plus-one').show();
+                            $('.text-area-both').hide();
+                        }
                     }
-                }catch(e)
+                } catch (e)
                 {
                     console.log(e);
                 }
@@ -138,51 +162,81 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             // });
         }
 
-        self.feedbackValueChangeHandler = function(context, valueParam){
-            if(!isNaN(valueParam.value[0]))
+        self.requestValueChangeHandler = function (context, valueParam) {
+//            if (typeof valueParam['value'] == "object" && self.value2() != '' && self.value2() != 'undefined') {
+//                self.showHelpSearch("");
+//            }
+            if (!isNaN(valueParam.value[0]))
             {
                 self.currentChangeid(valueParam.value[0]);
             }
-            if(valueParam.option == 'rawValue')
+            if (valueParam.option == 'rawValue')
             {
-                try{
-                    spaceCount = (valueParam.value.split(" ").length - 1);
-                    name = valueParam.value.replace(/ /g,"");
-                    if(spaceCount>2){
+                try {
+                    var spaceCount = (valueParam.value.split(" ").length - 1);
+                    var name = valueParam.value.replace(/ /g, "");
+                    if (spaceCount > 6) {
                         name = name.substring(0, name.length - 2);
                     }
                     name = name.replace(/([A-Z])/g, ' $1').trim();
-                    id = "#"+name.replace(/ /g,"_").toLowerCase();
-                    $('#oj-combobox-input-combobox9').val(name);
-                }catch(e)
+                    id = "#" + name.replace(/ /g, "_").toLowerCase();
+                    $('#oj-combobox-input-combobox3').val(name);
+                } catch (e)
                 {
                     console.log(e);
                 }
             }
         }
 
-        self.requestValueChangeHandler = function(context, valueParam){
-            if(!isNaN(valueParam.value[0]))
+        self.feedbackValueChangeHandler = function (context, valueParam) {
+//            if (typeof valueParam['value'] == "object" && self.value1() != '' && self.value1() != 'undefined') {
+//                self.showHelpSearch("");
+//            }
+//            if (valueParam['previousValue'] == 'null' && valueParam['value'].length == 0) {
+//                self.showHelpSearch("");
+//            }
+            if (!isNaN(valueParam.value[0]))
             {
                 self.currentChangeid(valueParam.value[0]);
             }
-            if(valueParam.option == 'rawValue')
+            if (valueParam.option == 'rawValue')
             {
-                try{
-                    spaceCount = (valueParam.value.split(" ").length - 1);
-                    name = valueParam.value.replace(/ /g,"");
-                    if(spaceCount>6){
+                try {
+                    var spaceCount = (valueParam.value.split(" ").length - 1);
+                    var name = valueParam.value.replace(/ /g, "");
+                    if (spaceCount > 2) {
                         name = name.substring(0, name.length - 2);
                     }
                     name = name.replace(/([A-Z])/g, ' $1').trim();
-                    id = "#"+name.replace(/ /g,"_").toLowerCase();
-                    $('#oj-combobox-input-combobox3').val(name);
-                }catch(e)
+                    id = "#" + name.replace(/ /g, "_").toLowerCase();
+                    $('#oj-combobox-input-combobox9').val(name);
+                } catch (e)
                 {
                     console.log(e);
                 }
             }
         }
+
+
+        self.p = ko.observable(1);
+
+        // +1 rating on green button 
+        self.imagerank1 = ko.observable(src = "../../images/active(+1).png");
+        self.imagerank2 = ko.observable(src = "../../images/active(+1).png");
+        self.imagerank3 = ko.observable(src = "../../images/disable(-1).png");
+        this.plusOne = function () {
+            self.p(1);
+            self.imagerank2("../../images/active(+1).png")
+            self.imagerank3("../../images/disable(-1).png");
+        };
+        //-1 ratig on red button image
+
+        this.minusOne = function () {
+            self.p(0);
+            self.imagerank2("../../images/disable(+1).png");
+            self.imagerank3("../../images/active(-1).png");
+
+        };
 
         var userFloat = oj.Model.extend({
             url: getUserByEmail + person['email']
@@ -215,10 +269,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             item.value = data[counter1]['id'];
                             item.label = data[counter1]['google_name'];
                             item.searchPic = data[counter1]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data[counter1]['google_picture_link'];
-                            if(data[counter1]['google_picture_link'] == '/images/default.png')
+                            item.optionId = data[counter1]['google_name'].replace(/ /g, "_").toLowerCase();
+                            item.isManager = data[counter1]['is_manager_current_user'];
+                            if (data[counter1]['google_picture_link'] == '/images/default.png')
                             {
                                 item.intials_rate = nameFunction(data[counter1]['google_name']);
-                            }else
+                            } else
                             {
                                 item.intials_rate = '';
                             }
@@ -241,10 +297,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             item.value = data[counter1]['user_id'];
                             item.label = data[counter1]['google_name'];
                             item.searchPic = data[counter1]['picture'] == "" ? 'images/warning-icon-24.png' : data[counter1]['picture'];
-                            if(data[counter1]['picture'] == '/images/default.png')
+                            if (data[counter1]['picture'] == '/images/default.png')
                             {
                                 item.intials_feedback = nameFunction(data[counter1]['google_name']);
-                            }else
+                            } else
                             {
                                 item.intials_feedback = '';
                             }
@@ -252,27 +308,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                         }
                     }
                 });
-                // var getSearchUser = oj.Model.extend(
-                //         {
-                //             url: getAllTeamMembers + self.userIdFloat(),
-                //         });
-
-                // var floatMember = new getSearchUser();
-                // floatMember.fetch({
-                //     headers: {secret: secret},
-                //     success: function () {
-                //         var data = floatMember.attributes['data'];
-                //         for (var counter1 = 0; counter1 < data.length; counter1++) {
-                //             self.searchUser.push(new autoSearch(data[counter1]));
-                //             var item = new Object();
-                //             item.value = data[counter1]['id'];
-                //             item.label = data[counter1]['google_name'];
-                //             item.searchPic = data[counter1]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data[counter1]['google_picture_link'];
-                //             self.browsers.push(item);
-                //             self.browsers1.push(item);
-                //         }
-                //     }
-                // });
             }
         });
         //auto search for respective team lead or manager
@@ -294,7 +329,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     headers: {secret: secret},
                     success: function () {
                         var data = teamLeadSearch.attributes['data'];
-console.log(data);
                         if (data.length == 2) {
 
                             var item1 = new Object();
@@ -303,10 +337,10 @@ console.log(data);
                             item1.label = data[0]['manager_name'];
                             item1.autoSearchLeadPic = data[0]['google_picture_link'];
                             item1.autoSearchLeadRole = data[0]['role_name'];
-                            if(data[0]['google_picture_link'] == '/images/default.png')
+                            if (data[0]['google_picture_link'] == '/images/default.png')
                             {
                                 item1.intials_request = nameFunction(data[0]['manager_name']);
-                            }else
+                            } else
                             {
                                 item1.intials_request = '';
                             }
@@ -316,32 +350,30 @@ console.log(data);
                             item2.label = data[1]['manager_name'];
                             item2.autoSearchLeadPic = data[1]['google_picture_link'];
                             item2.autoSearchLeadRole = data[1]['role_name'];
-
+                            if (data[1]['google_picture_link'] == '/images/default.png')
+                            {
+                                item2.intials_request = nameFunction(data[1]['manager_name']);
+                            } else
+                            {
+                                item2.intials_request = '';
+                            }
                             if (item1.value == item2.value) {
                                 self.browsers2.push(item1);
                             } else {
                                 self.browsers2.push(item1);
                                 self.browsers2.push(item2);
                             }
-                            if(data[1]['google_picture_link'] == '/images/default.png')
-                            {
-                                item2.intials_request = nameFunction(data[1]['manager_name']);
-                            }else
-                            {
-                                item2.intials_request = '';
-                            }
+
                         } else {
                             var item1 = new Object();
-                          
                             item1.value = data[0]['manager_id'];
                             item1.label = data[0]['manager_name'];
-
                             item1.autoSearchLeadPic = data[0]['google_picture_link'];
                             item1.autoSearchLeadRole = data[0]['role_name'];
-                            if(data[0]['google_picture_link'] == '/images/default.png')
+                            if (data[0]['google_picture_link'] == '/images/default.png')
                             {
                                 item1.intials_request = nameFunction(item1.label);
-                            }else
+                            } else
                             {
                                 item1.intials_request = '';
                             }
@@ -415,9 +447,9 @@ console.log(data);
             $.ajax({
                 headers: {secret: secret},
                 method: 'POST',
-                url: rateOtherMember,
-                data: {user_id: self.userIdFloat(), for_id: self.currentChangeid(), rating: 1, desc: self.desc()},
-                success: function () {
+                url: addRating,
+                data: {from_id: self.userIdFloat(), to_id: self.currentChangeid(), rating: self.p(), desc: self.desc(), 'from_floating': 1},
+                success: function (result) {
                     $("#modalDialog3").ojDialog("close");
                     self.value('');
                     $("#sucess").show();
@@ -448,7 +480,7 @@ console.log(data);
             }
             if (self.desc() == '' || self.desc() == null) {
                 self.searchError("");
-                self.textError("Please provide a reason for your rating request.");
+                self.textError("Please provide a reason for your rating.");
                 return false;
             }
             $.ajax({
@@ -477,6 +509,15 @@ console.log(data);
             });
 
         }
+        oj.Components.setDefaultOptions({
+            'editableValue':
+                    {
+                        'displayOptions':
+                                {
+                                    'messages': ['notewindow']
+                                }
+                    }
+        });
 
     }
     return floatingContentViewModel;

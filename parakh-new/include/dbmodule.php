@@ -94,7 +94,7 @@ class dbmodule {
 
     function getUserByLead($lead_id) {
 		$this->StartProfile("createimage",__LINE__);
-        $default_img = DEFAULT_IMG_BASE64;
+        $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
 		$this->EndProfile("createimage",__LINE__);
         if (!filter_var($lead_id, FILTER_VALIDATE_INT) === false) {
             $employeeList = array();
@@ -155,7 +155,7 @@ class dbmodule {
 
     function getOtherTeamMembers($lead_id) {
 		$this->StartProfile("createimage",__LINE__);
-        $default_img = DEFAULT_IMG_BASE64;
+        $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
 		$this->EndProfile("createimage",__LINE__);
         if (!filter_var($lead_id, FILTER_VALIDATE_INT) === false) {
             $employeeList = array();
@@ -692,7 +692,7 @@ class dbmodule {
      * */
     function get_recent_ratings() {
 		$this->StartProfile("createimage",__LINE__);
-        $default_img = DEFAULT_IMG_BASE64;
+          $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
 		$this->EndProfile("createimage",__LINE__);
         $MonthFirstDate = date('Y-m-01');
         $query = "SELECT r.user_id,u.google_name,u.google_email,u.google_picture_link,u.projects,u.primary_project,u.designation"
@@ -868,7 +868,7 @@ class dbmodule {
 
     function get_all_team_members($user_id) {
 		$this->StartProfile("createimage",__LINE__);
-        $default_img = DEFAULT_IMG_BASE64;
+          $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
 		$this->EndProfile("createimage",__LINE__);
         if ($user_id) {
             $query = "SELECT id, google_name, google_email, mobile_number, designation, google_picture_link,location,skills,interests,associate_with_infobeans,projects,primary_project FROM users WHERE id <>:id AND id <> 1 AND status <> 0 ORDER BY google_name";
@@ -918,7 +918,7 @@ class dbmodule {
 
     function get_a_team_member($user_id) {
 		$this->StartProfile("createimage",__LINE__);
-        $default_img = DEFAULT_IMG_BASE64;
+         $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
 		$this->EndProfile("createimage",__LINE__);
         if ($user_id) {
             $query = "SELECT id, google_name, google_email, mobile_number, designation, google_picture_link,location,skills,interests,associate_with_infobeans,projects,primary_project FROM users WHERE id = :id";
@@ -1118,7 +1118,7 @@ class dbmodule {
 
     function getAllLeads($user_id) {
 		$this->StartProfile("createimage",__LINE__);
-        $default_img = DEFAULT_IMG_BASE64;
+          $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
 		$this->EndProfile("createimage",__LINE__);
         if ($user_id) {
             $leadList = [];
@@ -1264,7 +1264,7 @@ class dbmodule {
     // Get all the requests available for any user
     function getTeamMembersRequest($user_id = null) {
 		$this->StartProfile("createimage",__LINE__);
-        $default_img = DEFAULT_IMG_BASE64;
+         $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
 		$this->EndProfile("createimage",__LINE__);
         if (isset($user_id)) {
             $query = "SELECT user.google_name,user.google_picture_link,user.google_email,user.designation,request.id as request_id, "
@@ -1295,7 +1295,7 @@ class dbmodule {
 
     function getUserPendingRequest($user_id, $status = 0) {
 		$this->StartProfile("createimage",__LINE__);
-        $default_img = DEFAULT_IMG_BASE64;
+          $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
 		$this->EndProfile("createimage",__LINE__);
         if (isset($user_id)) {
             $cnd = '';
@@ -1720,7 +1720,7 @@ class dbmodule {
 
     function get_top_four_ranker_for_current_month() {
 		$this->StartProfile("createimage",__LINE__);
-        $default_img = DEFAULT_IMG_BASE64;
+        $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
 		$this->EndProfile("createimage",__LINE__);
         $query_rank = "SELECT r.created_date as date,r.user_id,u.google_name,u.google_email,u.primary_project,u.projects,u.google_picture_link as image,
                     sum(case when r.rating = 1 then 1  end) as pluscount,
@@ -1741,7 +1741,7 @@ class dbmodule {
 
     function get_top_rankers_project_wise($manager_id) {
 		$this->StartProfile("createimage",__LINE__);
-        $default_img = DEFAULT_IMG_BASE64;
+         $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
 		$this->EndProfile("createimage",__LINE__);
         $query_rank = "SELECT MAX(r.created_date) as date,r.user_id,u.google_name,u.google_email,u.google_picture_link as image,u.projects,u.primary_project,
                    sum(case when r.rating = 1 then 1  end) as pluscount,
@@ -1844,7 +1844,7 @@ class dbmodule {
 
     function get_all_rejected_request_by_login_id($lead_id) {
 		$this->StartProfile("createimage",__LINE__);
-        $default_img = DEFAULT_IMG_BASE64;
+         $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
 		$this->EndProfile("createimage",__LINE__);
         $query = "SELECT request.id as request_id, user.google_name,user.id as lead_id,user.google_picture_link, user.google_email, user.designation,role.name as role_name,request.to_id,request.from_id,description,c.comment_text as comment_text,work.created_date,request_for,rating, request.status FROM `request` 
                     left join work on work.id = request.work_id 
@@ -1996,7 +1996,7 @@ class dbmodule {
 
     function get_four_till_now_ranking_list() {
 		$this->StartProfile("createimage",__LINE__);
-        $default_img = DEFAULT_IMG_BASE64;
+       $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
 		$this->EndProfile("createimage",__LINE__);
         $result = array();
         $query = "SELECT MAX(r.created_date) as date,r.user_id,u.google_name,u.google_email,u.projects,u.primary_project,u.google_picture_link as image,

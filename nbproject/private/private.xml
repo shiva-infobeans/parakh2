@@ -3,14 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/parakh2/css/common.css</file>
-            <file>file:/C:/xampp/htdocs/parakh2/js/viewModels/floating.js</file>
-            <file>file:/C:/xampp/htdocs/parakh2/js/libs/customLib/mainPageJs.js</file>
-            <file>file:/C:/xampp/htdocs/parakh2/js/views/home.html</file>
-            <file>file:/C:/xampp/htdocs/parakh2/css/login.css</file>
-            <file>file:/C:/xampp/htdocs/parakh2/js/views/floating.html</file>
-            <file>file:/C:/xampp/htdocs/parakh2/css/custom.css</file>
-            <file>file:/C:/xampp/htdocs/parakh2/index.html</file>
+            <file>file:/var/www/html/devparakh/dev/dev/js/libs/customLib/mainPageJs.js</file>
+            <file>file:/var/www/html/devparakh/dev/dev/js/views/floating.html</file>
+            <file>file:/var/www/html/devparakh/dev/dev/js/viewModels/floating.js</file>
         </group>
     </open-files>
 </project-private>

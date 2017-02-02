@@ -13,7 +13,13 @@
     </head>
     <body class="background">
         <header>
-            <div data-bind="ojModule:{name: 'header',params:  myInfo}"></div>
+            <div data-bind="ifnot: check">
+                <div data-bind="ojModule:{name: 'achivementHeader'}"></div>
+            </div>
+            <div data-bind="if: check">
+                <div data-bind="ojModule:{name: 'header',params: myInfo}"></div>
+            </div>
+            
         </header>
         
         <section>
