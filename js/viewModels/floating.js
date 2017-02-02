@@ -139,10 +139,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                     if (name != '') {
                         name = name.replace(/([A-Z])/g, ' $1').trim();
                         var id = "#" + name.replace(/ /g, "_").toLowerCase();
-
                         $('#oj-combobox-input-combobox2').val(name);
+                         
                         if (typeof $(id).val() != 'undefined' && $(id).val() == 1)
-                        {
+                        {  
                             $('.text-area-plus-one').hide();
                             $('.text-area-both').show();
                         } else
@@ -162,6 +162,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             // });
         }
 
+        self.descEvent = function () {
+            console.log("a");
+        }
         self.requestValueChangeHandler = function (context, valueParam) {
 //            if (typeof valueParam['value'] == "object" && self.value2() != '' && self.value2() != 'undefined') {
 //                self.showHelpSearch("");
@@ -271,6 +274,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                             item.searchPic = data[counter1]['google_picture_link'] == "" ? 'images/warning-icon-24.png' : data[counter1]['google_picture_link'];
                             item.optionId = data[counter1]['google_name'].replace(/ /g, "_").toLowerCase();
                             item.isManager = data[counter1]['is_manager_current_user'];
+                         
                             if (data[counter1]['google_picture_link'] == '/images/default.png')
                             {
                                 item.intials_rate = nameFunction(data[counter1]['google_name']);

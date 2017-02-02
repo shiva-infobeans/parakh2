@@ -25,6 +25,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 }
             }
         });
+         $('#link').click(function () {
+                $("html, body").animate({scrollTop: 0}, 600);
+                return false;
+            });
     }
 
     function achievementsPageContentViewModel(person) {

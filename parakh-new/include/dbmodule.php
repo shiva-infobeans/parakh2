@@ -867,9 +867,7 @@ class dbmodule {
      * */
 
     function get_all_team_members($user_id) {
-		$this->StartProfile("createimage",__LINE__);
-          $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
-		$this->EndProfile("createimage",__LINE__);
+        $default_img = base64_encode(file_get_contents(DEFAULT_IMAGE));
         if ($user_id) {
             $query = "SELECT id, google_name, google_email, mobile_number, designation, google_picture_link,location,skills,interests,associate_with_infobeans,projects,primary_project FROM users WHERE id <>:id AND id <> 1 AND status <> 0 ORDER BY google_name";
 
@@ -904,14 +902,23 @@ class dbmodule {
                 }
                 $image = $this->getCacheImage($employeeList[$y]['google_email'], $default_img);
                 $employeeList[$y]['google_picture_link'] = $image;
+                $employeeList[$y]['is_manager_current_user'] = $this->getManagerID($employeeList[$y]['id']);
             }
-
             return $employeeList;
         } else {
             return 0;
         }
     }
-
+function getManagerID($user_id) {
+        $query = "select manager_id from user_hierarchy where user_id=:user_id AND manager_id in (select id from users where google_email=:manager_email)";
+        $fetch_manager = $this->con->prepare($query);
+        $fetch_manager->execute(array(':user_id' => $user_id, ':manager_email' => $_COOKIE['email']));
+        if ($fetch_manager->fetchColumn()) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
     /*     *
      * get get_a_team_members except given id (self id)
      * */
@@ -1731,10 +1738,20 @@ class dbmodule {
         $user_rank = $this->con->prepare($query_rank);
         $user_rank->execute();
         $userRank = $user_rank->fetchAll((PDO::FETCH_ASSOC));
-        for ($y = 0; $y < count($userRank); $y++) {
-            $userRank[$y]['image'] = $this->getCacheImage($userRank[$y]['google_email'], $default_img);
+        $array = array();
+        foreach ($userRank as $key => $value) {
+
+            foreach ($userRank[$key] as $key1 => $value1) {
+                if($key1 == "pluscount" && $value1 > 0){
+                    array_push($array, $userRank[$key]);
+                }
+            }
         }
-        return $userRank;
+            
+        for ($y = 0; $y < count($array); $y++) {
+            $array[$y]['image'] = $this->getCacheImage($array[$y]['google_email'], $default_img);
+        }
+        return $array;
     }
 
     /* get top ranker of project wise */

@@ -1,13 +1,8 @@
-         
 <div class="oj-lg-12 oj-md-12 oj-sm-12  oj-flex-item oj-col profile-text oj-flex oj-margin">
     <span id="sucess" class="sucessMsg" data-bind="text: sucessMsg"></span>
 </div>
-
-
-
 <div class="oj-web-applayout-max-width oj-web-applayout-content  ">
     <div class="oj-flex oj-row">
-
         <div class="floating-btn">
             <a href="javascript:void(0);" class="float" id="menu-share">
                 <i class="zmdi zmdi-plus floatingIcons"></i>
@@ -30,12 +25,8 @@
                 </li>
             </ul>
         </div>
-
-
     </div>
 </div>
-
-
 <!--feedaback modal in floating button-->
 <div class="oj-row oj-flex">
     <div id="dialogWrapper9">
@@ -73,11 +64,8 @@
                                      title: showHelpComment,
                                      placeholder: 'Type your feedback here...'}"></textarea>
                 </div>
-
-
-                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center errorText" id="feedbackFloatTextError">Please provide comments for your feedback.</div>
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center errorText" id="feedbackFloatTextError">Please provide a reason for your feedback.</div>
                 <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center submit-btn-modal">
-
                     <button class="modal-submitFloatFeddback" data-bind="click: feedbackModal" > Submit </button>
                 </div>
 
@@ -124,19 +112,22 @@
 
                 </div>
 
-            <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center areaFloat text-area-custom">
-                <div class="oj-xl-9 oj-lg-9 oj-md-8 oj-sm-8 oj-flex-item  oj-flex areaContent height-fixModal">
-                    <textarea id="text-area-rate" class="textArea3" aria-label="ojTextArea component no visible label"
-                              data-bind="ojComponent: {component: 'ojTextArea', 
-                                     value: desc, 
-										title: showHelpComment,
+                <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center areaFloat text-area-custom text-area-plus-one">
+                    <div class="oj-xl-9 oj-lg-9 oj-md-8 oj-sm-8 oj-flex-item  oj-flex areaContent">
+                        <textarea id="text-area" class="textArea3" aria-label="ojTextArea component no visible label"
+                                  data-bind="ojComponent: {component: 'ojTextArea', 
+                                         value: desc, 
+                                         title: showHelpComment,
                                          optionChange: textAreaChange,
-                                     placeholder: 'Type your reason here..'}"></textarea>
+                                         placeholder: 'Type your reason here..'}"></textarea>
                     </div>
                     <div class="oj-xl-3 oj-lg-3 oj-md-4 oj-sm-4 oj-flex-item imgArea1 ">
                         <div class="pos-relative">
                             <img class="modalImage" data-bind="attr: {src:imagerank1}" alt=""/>
                         </div>
+                    </div>
+                    <div>
+
                     </div>
                 </div>
 
