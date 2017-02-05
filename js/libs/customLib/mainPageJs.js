@@ -5,9 +5,9 @@
  */
 //links for webservice;
 
-if(location.hostname=='parakh.infobeans.com')
+if(location.hostname=='dev.parakh.com')
 {
-	var baseUrl = "http://parakh.infobeans.com/parakh-new/v1/index.php";
+	var baseUrl = "http://dev.parakh.com/parakh-new/v1/index.php";
 	var secret = 'parakh-revamp-local-key-2016';
 }else if(location.hostname== 'dev.parakhnewdesign.com')
 {
@@ -21,6 +21,14 @@ if(location.hostname=='parakh.infobeans.com')
 {
 	var baseUrl = "http://public.parakh.com:1808/parakh-new/v1/index.php";
 	var secret = 'parakh-revamp-local-key-2016';
+}else if(location.hostname=='parakh.infobeans.com')
+{
+	var baseUrl = "http://parakh.infobeans.com/parakh-new/v1/index.php";
+	var secret = 'parakh-revamp-local-key-2016';
+}else if(location.hostname=='parakhdev.com')
+{
+	var baseUrl = "http://parakhdev.com/parakh-new/v1/index.php";
+	var secret = 'parakh-revamp-local-key-2016';
 }
 var getUserByEmail = baseUrl+"/getUserByEmail/";
 var getUserByLead = baseUrl+"/getUserByLead/";
@@ -30,7 +38,7 @@ var getRatingByUser  = baseUrl+"/getRatingByUser/";
 var updateProfile = baseUrl+"/updateProfile";
 var getRankingList = baseUrl+"/getRankingList/";
 var getMyRank = baseUrl+"/getMyRank/";
-var rateOtherMember = baseUrl+"/rateOtherMembe";
+var rateOtherMember = baseUrl+"/rateOtherMember";
 var addRating = baseUrl+"/addRating";
 var getAllTeamMembers = baseUrl+"/getAllTeamMembers/";
 var addFeedback = baseUrl +"/addFeedback";
