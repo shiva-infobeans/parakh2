@@ -12,15 +12,15 @@ define(['ojs/ojcore', 'knockout'
     /**
      * The view model for the main content view template
      */
-    
-    
+
+
     function footerContentViewModel() {
         var self = this;
-        
-      setTimeout(function(){
-             $("#yearFooter").text( (new Date).getFullYear() );
-      },500);
-             
+
+        var d = new Date();
+        var n = d.getFullYear();
+
+        this.year = n;
     }
     return footerContentViewModel;
 });
