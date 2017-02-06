@@ -121,7 +121,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
                 ]);
                  self.data21 = ko.observableArray([]);
                 var monthTopRanks = oj.Model.extend({
-                    url: getMonthTopRanks
+                    url: getMonthTopRanks 
                             //parse: parseTask
                 });
                 var monthTop = new monthTopRanks();

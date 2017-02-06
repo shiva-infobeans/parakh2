@@ -1801,7 +1801,7 @@ class dbmodule {
         $totalUserRank = array();
         /* Query to fetch plus and minus week wise */
 //        $query_rank_week_wise = "SELECT sum(case when r.rating = 1 then 1  end) as pluscount,sum(case when r.rating = 0 then 1  end) as minuscount FROM rating as r WHERE created_date > DATE_SUB(NOW(), INTERVAL 1 WEEK) AND user_id in (select user_id from user_hierarchy where manager_id =:lead_id) OR user_id =  :lead_id";
-        $query_rank_week_wise = " select sum(case when rating = 1 then 1  end) as pluscount,
+        $query_rank_week_wise = " SELECT sum(case when rating = 1 then 1  end) as pluscount,
         sum(case when rating = 0 then 1  end) as minuscount 
         from rating where user_id in (select user_id from user_hierarchy where manager_id = :lead_id or user_id = :lead_id group by user_id) and 7 > DATEDIFF(NOW(), created_date);";
         $user_rank_week = $this->con->prepare($query_rank_week_wise);
@@ -1814,7 +1814,7 @@ class dbmodule {
 
         /* Query to fetch plus and minus month wise */
         //$query_rank_month_wise = "SELECT sum(case when r.rating = 1 then 1  end) as pluscount,   sum(case when r.rating = 0 then 1  end) as minuscount FROM rating as r WHERE created_date > DATE_SUB(NOW(), INTERVAL 1 MONTH) AND user_id in (select user_id from user_hierarchy where manager_id =:lead_id) OR user_id =  :lead_id";
-        $query_rank_month_wise = "select sum(case when rating = 1 then 1  end) as pluscount,
+        $query_rank_month_wise = "SELECT sum(case when rating = 1 then 1  end) as pluscount,
         sum(case when rating = 0 then 1  end) as minuscount 
         from rating where user_id in (select user_id from user_hierarchy where manager_id = :lead_id or user_id = :lead_id group by user_id) and MONTH(now()) =  MONTH(created_date) and YEAR(now()) =  YEAR(created_date);";
         $user_rank_month = $this->con->prepare($query_rank_month_wise);
