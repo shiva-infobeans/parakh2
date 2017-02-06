@@ -328,7 +328,7 @@ class dbmodule {
                 "{rating}" => $rating,
                 "{lead}" => $user_data_l['google_name'],
                 "{comment}" => $data['desc'],
- 		        "{year}" =>date("Y"),
+                 "{year}" => date("Y"),
             );
             $message = strtr($temp_data_l['content'], $vars);
             $email_data_l['message'] = $message;
@@ -418,6 +418,7 @@ class dbmodule {
         $vars = array(
             "{username}" => $email_data['to']['name'],
             "{Parakh}" => $this->getParakhLink(),
+             "{year}" => date("Y"),
         );
 
         $message = strtr($temp_data['content'], $vars);
@@ -534,7 +535,7 @@ class dbmodule {
                 "{lead}" => $user_data_l['google_name'],
                 "{comment}" => $data['desc'],
                 "{Username}" =>$this->firstNameSendEmail($this->manager_name),
-		"{year}" =>date("Y"),
+                "{year}" => date("Y"),
             );
 
             $message = strtr($temp_data_l['content'], $vars);
@@ -563,7 +564,7 @@ class dbmodule {
                 $vars = array(
                     "{Username}" => $this->firstNameSendEmail($user_data['google_name']),
                     "{Link}" => $this->getTargetLink(RANKING_URL, 'Parakh'),
-		    "{year}" =>date("Y"),
+                    "{year}" => date("Y"),
                 );
                 $message = strtr($temp_data['content'], $vars);
                 $email_data['message'] = $message;
@@ -798,7 +799,7 @@ class dbmodule {
                 "{Username}" => $this->firstNameSendEmail($email_data['to']['name']),
                 "{Manager}" => $from_data['google_name'],
                 "{Link}" => $this->getTargetLink(PROFILE_URL . "&id=2", "Parakh"),
-		"{year}" =>date("Y"),
+                "{year}" => date("Y"),
             );
 
             $message = strtr($temp_data['content'], $vars);
@@ -816,7 +817,7 @@ class dbmodule {
                 "{Member}" => $email_data['to']['name'],
                 "{Manager}" => $from_data['google_name'],
                 "{Feedback}" => $data['feedback_description'],
-		"{year}" =>date("Y"),
+                "{year}" => date("Y"),
             );
             $message = strtr($temp_data_l['content'], $vars);
             $email_data_l['message'] = $message;
