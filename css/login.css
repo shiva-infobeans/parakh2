@@ -98,7 +98,9 @@ img#my-signin2{
         top: 80px !important;
     }
     .linkPos2{
-        margin-top: 350px !important;
+           bottom: 80px !important;
+    top: auto !important;
+    right: 100px !important;
     }
 }
 .errorMsg{
@@ -139,12 +141,12 @@ img#my-signin2{
     display: none !important;
 }
 .overlay-loader{
-    position: fixed;
-    top:0px;
-    left: 0px;
-    height: 100%;
-    width: 100%;
-    background-color: rgba(0,0,0,0.7);
+    position: fixed !important;
+    top:0px !important;
+    left: 0px !important;
+    height: 100% !important;
+    width: 100% !important;
+    background-color: rgba(0,0,0,0.7) !important;
 }
 .authFailed span img {
     width: 15px;

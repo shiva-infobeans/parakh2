@@ -121,7 +121,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
                 ]);
                  self.data21 = ko.observableArray([]);
                 var monthTopRanks = oj.Model.extend({
-                    url: getMonthTopRanks 
+                    url: getMonthTopRanks
                             //parse: parseTask
                 });
                 var monthTop = new monthTopRanks();
@@ -130,9 +130,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
                     success: function (res1) {
                         var data2 = res1['attributes']['data'];
                         for (var counter = 0; counter < data2.length; counter++) {
-
+                            if(data2[counter]['pluscount']!= null) {
                             self.data21.push(Rankers1((counter + 1), data2[counter]['pluscount'], (90 - (counter * 5)), data2[counter]['google_name'], data2[counter]['user_id']));
                         }
+                    }
                         for (var i = 0; i < self.data21().length; i++) {                          
                             self.bubbleSeries()[i].items.push({
                                 x: self.data21()[i].x, y: self.data21()[i].y, z: self.data21()[i].z, label: self.data21()[i].label, labelPosition: 'auto',
@@ -200,8 +201,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
                     success: function (res2) {
                         var data3 = res2['attributes']['data'];
                         for (var counter = 0; counter < data3.length; counter++) {
+                             if(data3[counter]['pluscount']!= null) {
                             self.data31.push(Rankers1((counter + 1), data3[counter]['pluscount'], (90 - (counter * 5)), data3[counter]['google_name'], data3[counter]['user_id']));
                         }
+                    }
                         for (var i = 0; i < self.data31().length; i++) {
                             self.bubbleSeries()[i].items.push({
                                 x: self.data31()[i].x, y: self.data31()[i].y, z: self.data31()[i].z, label: self.data31()[i].label, labelPosition: 'auto',
@@ -357,9 +360,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
             headers: {secret: secret},
             success: function (res1) {
                 var data2 = res1['attributes']['data'];
+                console.log(res1['attributes']['data']);
 
                 for (var counter = 0; counter < data2.length; counter++) {
-                    self.data21.push(Rankers1((counter + 1), data2[counter]['pluscount'], (90 - (counter * 5)), data2[counter]['google_name'], data2[counter]['user_id']));
+                    if(data2[counter]['pluscount']!= null) {
+                         self.data21.push(Rankers1((counter + 1), data2[counter]['pluscount'], (90 - (counter * 5)), data2[counter]['google_name'], data2[counter]['user_id']));
+                    }
                 }
                 for (var i = 0; i < self.data21().length; i++) {
                     self.bubbleSeries()[i].items.push({
