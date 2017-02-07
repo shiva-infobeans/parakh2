@@ -22,6 +22,15 @@ if(location.hostname=='dev.parakh.com')
 	var baseUrl = "http://public.parakh.com:1808/parakh-new/v1/index.php";
 	var secret = 'parakh-revamp-local-key-2016';
 }
+else if(location.hostname=='parakh.infobeans.com')
+{
+	var baseUrl = "http://parakh.infobeans.com/parakh-new/v1/index.php";
+	var secret = 'parakh-revamp-local-key-2016';
+}else if(location.hostname=='parakhdev.com')
+{
+	var baseUrl = "http://parakhdev.com/parakh-new/v1/index.php";
+	var secret = 'parakh-revamp-local-key-2016';
+}
 var getUserByEmail = baseUrl+"/getUserByEmail/";
 var getUserByLead = baseUrl+"/getUserByLead/";
 var getOtherTeamMembers = baseUrl+"/getOtherTeamMembers/";
