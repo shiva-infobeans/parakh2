@@ -676,7 +676,7 @@ class dbmodule {
                           sum(case when r.rating = 1 then 1  end) as pluscount,
                           sum(case when r.rating = 0 then 1  end) as minuscount
                           from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 
-                          group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date DESC LIMIT 10";
+                          group by r.user_id HAVING pluscount >0 ORDER BY pluscount DESC, minuscount ASC,date DESC LIMIT 10";
         $ranking_data = $this->con->prepare($query);
         $ranking_data->execute();
         $rating = '';
@@ -717,7 +717,7 @@ class dbmodule {
                        sum(case when r.rating = 1 then 1  end) as pluscount,
                        sum(case when r.rating = 0 then 1  end) as minuscount
                        from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0
-                       group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC";
+                       group by r.user_id HAVING pluscount >0 ORDER BY pluscount DESC, minuscount ASC, date DESC";
         $rank_data = $this->con->prepare($query);
         $rank_data->execute();
         $row = $rank_data->fetchAll((PDO::FETCH_ASSOC));
@@ -2125,7 +2125,7 @@ class dbmodule {
                     sum(case when r.rating = 0 then 1  end) as minuscount
                     from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 AND MONTH(r.created_date) = MONTH(CURDATE())
                     AND YEAR(r.created_date) = YEAR(CURDATE())
-                    group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC LIMIT 10";
+                    group by r.user_id HAVING pluscount >0 ORDER BY pluscount DESC, minuscount ASC,date DESC LIMIT 10";
         $rankers_data = $this->con->prepare($query);
         $rankers_data->execute();
         $rankers = $rankers_data->fetchAll((PDO::FETCH_ASSOC));
@@ -2139,8 +2139,9 @@ class dbmodule {
                     sum(case when r.rating = 1 then 1  end) as pluscount,
                     sum(case when r.rating = 0 then 1  end) as minuscount
                     from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 AND r.created_date > DATE_SUB(NOW(), INTERVAL 90 DAY)
-                    group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC LIMIT 10";
+                    group by r.user_id HAVING pluscount >0 ORDER BY pluscount DESC, minuscount ASC,date DESC LIMIT 10";
         $rankers_data = $this->con->prepare($query);
+		
         $rankers_data->execute();
         $rankers = $rankers_data->fetchAll((PDO::FETCH_ASSOC));
         return $rankers;
@@ -2155,7 +2156,7 @@ class dbmodule {
                        sum(case when r.rating = 0 then 1  end) as minuscount
                        from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 AND MONTH(r.created_date) = MONTH(CURDATE())
                     AND YEAR(r.created_date) = YEAR(CURDATE())
-                       group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC";
+                       group by r.user_id HAVING pluscount >0 ORDER BY pluscount DESC, minuscount ASC, date DESC";
         $rank_data = $this->con->prepare($query);
         $rank_data->execute();
         $row = $rank_data->fetchAll((PDO::FETCH_ASSOC));
@@ -2173,8 +2174,9 @@ class dbmodule {
                        sum(case when r.rating = 1 then 1  end) as pluscount,
                        sum(case when r.rating = 0 then 1  end) as minuscount
                        from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 AND r.created_date >= DATE_SUB(NOW(), INTERVAL 90 DAY)
-                       group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC";
+                       group by r.user_id HAVING pluscount >0 ORDER BY pluscount DESC, minuscount ASC , date DESC";
         $rank_data = $this->con->prepare($query);
+		//echo $rank_data->queryString;
         $rank_data->execute();
         $row = $rank_data->fetchAll((PDO::FETCH_ASSOC));
         $login_user_rank_position = array_search($login_user_id, array_column($row, 'user_id'));
