@@ -569,7 +569,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 .feedbackHeight{
     /*margin-top: 70px;*/
-   
+
 }
 .heightContent{
     margin-top: -10px;
@@ -1227,7 +1227,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     }
     .oj-filmstrip-container.oj-filmstrip-item-container{
         border-right : none !important;
-      }
+    }
 }
 #tabs-container1 .oj-flex{
     -ms-flex: 1;
@@ -1313,8 +1313,8 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 .edit-height{cursor: pointer;}
 .requestHeight{
-/*    margin-top: 50px;
-    height: 83%;  */
+    /*    margin-top: 50px;
+        height: 83%;  */
 }
 .sliderScreen1{
     color: #fff !important;
@@ -1430,13 +1430,19 @@ div.oj-tabs-panel.oj-tabs-selected{
         float: left;
     }
     #ojDialogWrapper-modalDialog-userFeedback.oj-dialog {
-    min-width: 310px !important;
-}
+        min-width: 310px !important;
+    }
     .person-profile-intials-text {
         margin: 36px 20px !important;
         font-size: 30px !important;
         text-align: center; 
     }
+    #ojDialogWrapper-modalDialog-userFeedback .oj-dialog-content  {
+    height: 370px !important;
+}
+    #modalDialog-userFeedback .oj-dialog-body{
+    height: 360px !important;
+}
     .transboxRequest{
         position: relative;
         margin-left: 0px;
@@ -1444,19 +1450,19 @@ div.oj-tabs-panel.oj-tabs-selected{
 
     }
     .myNameBuddies{
-         margin-top: -8px !important;
+        margin-top: -8px !important;
     }
 
-  #ojDialogWrapper-modalVideo.oj-dialog{
+    #ojDialogWrapper-modalVideo.oj-dialog{
         min-width: 310px !important;
         top: 100px !important;
     }
     .video{
-           width: 284px !important;
-            margin-top: -30px !important;
-           margin-bottom: -15px !important;
-           height: 220px !important;
-}
+        width: 284px !important;
+        margin-top: -30px !important;
+        margin-bottom: -15px !important;
+        height: 220px !important;
+    }
 
     .responsive-dropdown-margin{
         margin-left: 15px !important;
@@ -1496,8 +1502,8 @@ div.oj-tabs-panel.oj-tabs-selected{
         font-size: 24px  !important;
     }
     .side-bar-img{
-    width: 30px !important;
-}
+        width: 30px !important;
+    }
 
     #ojDialogWrapper-modalDialog8.oj-dialog,
     #ojDialogWrapper-modalDialog2.oj-dialog,
@@ -1578,7 +1584,7 @@ div.oj-tabs-panel.oj-tabs-selected{
         height: 70px !important;
         width: 70px !important;
         margin-top: 22px;
-}
+    }
 
     .mobile-trans{
         width: 90% !important;   
@@ -1591,116 +1597,116 @@ div.oj-tabs-panel.oj-tabs-selected{
         margin-top: 1px !important;
         font-size: 20px !important;
     }*/
-    
+
     #vtabs .oj-conveyorbelt-overflow-indicator.oj-default .oj-conveyorbelt-overflow-icon{
         color: #fff;
         margin-top: 4px;
         font-size: 18px;
     }
 
-   
+
     .bottom-padding{
         padding-bottom: 15px !important;
     }
 
-/*    .errorVisibilityShow{
-        margin: 5px 0px -5px 10px !important;
-}*/
-.rating-section{
-    min-height: 300px;
-}
-.bottom-edit-margin{
-    margin-bottom: 15px !important;
-}
-.feedback-comment {
-    margin-left: 69px !important;
-    padding: 5px !important;
-    width: 70% !important;
-}
-.responsive-dropdown-margin {
-    margin-left: 15px !important;
-}
- .side-bar-img{
-    width: 30px !important;
-}
-.side-bar{
-        top: 40% !important;
+    /*    .errorVisibilityShow{
+            margin: 5px 0px -5px 10px !important;
+    }*/
+    .rating-section{
+        min-height: 300px;
+    }
+    .bottom-edit-margin{
+        margin-bottom: 15px !important;
+    }
+    .feedback-comment {
+        margin-left: 69px !important;
+        padding: 5px !important;
+        width: 70% !important;
+    }
+    .responsive-dropdown-margin {
+        margin-left: 15px !important;
+    }
+    .side-bar-img{
+        width: 30px !important;
+    }
+    .side-bar{
+        /*top: 40% !important;*/
         left: -39px !important;
-            
-}
- 
+
+    }
+
 }
 @media  screen and (min-width: 320px) and (max-width: 1024px) {
     .edit-section {
-    position: absolute;
-    right: 0px;
-    top: -191px !important;
-}
-.errorVisibilityShow{
-    width: 103% !important;
-}
+        position: absolute;
+        right: 0px;
+        top: -191px !important;
+    }
+    .errorVisibilityShow{
+        width: 103% !important;
+    }
 
- .noComments{
+    .noComments{
         padding: 117px !important;
         text-align: center !important;
         font-size: 19px !important;
         min-height: 266px !important;
         margin:0px !important;
     }
-.feedback-date {
-    width: 80px !important;
-    font-size: 12px !important;
-     color: #dcdcdc;
-}
-.commentDate-mobile{
-   float: right !important;
-    color: #dcdcdc !important;
-    margin-top: -54px !important;
-    font-style: italic !important;
-    font-size: 14px;
-}
-.circle-purple{
-    margin-left: 12px !important;
-}
-.hoverName{
-   left: 30px !important;
-    top: -20px !important;
-    padding: 8px 111px 7px 8px;
-    background-color: #fff;
-    color: #000;
-    font-size: 13px;
-    position: absolute;
-    border: 2px solid #689F39;
-    display: none;
-    white-space: nowrap;
-}
-.hoverNameN{
-   left: 30px !important;
-    top: -20px !important;
-    padding: 8px 111px 7px 8px;
-    background-color: #fff;
-    color: #000;
-    font-size: 13px;
-    position: absolute;
-    border: 2px solid #e00000;
-    display: none; 
-    white-space: nowrap;
-}
-.viewFeedbackName {
-    position: absolute;
-    background-color: #fff;
-    color: #000;
-    font-size: 13px !important;
-    border: 2px solid #8DAC6C;
-     left: 30px !important;
-    top: -20px !important;
-    padding: 0px 113px 0px 9px !important;
-    display: none;
-     white-space: nowrap;
-}
-.textArea-skills {
-    width:auto !important;
-    font-size: 16px !important;
+    .feedback-date {
+        width: 80px !important;
+        font-size: 12px !important;
+        color: #dcdcdc;
+    }
+    .commentDate-mobile{
+        float: right !important;
+        color: #dcdcdc !important;
+        margin-top: -54px !important;
+        font-style: italic !important;
+        font-size: 14px;
+    }
+    .circle-purple{
+        margin-left: 12px !important;
+    }
+    .hoverName{
+        left: 30px !important;
+        top: -20px !important;
+        padding: 8px 111px 7px 8px;
+        background-color: #fff;
+        color: #000;
+        font-size: 13px;
+        position: absolute;
+        border: 2px solid #689F39;
+        display: none;
+        white-space: nowrap;
+    }
+    .hoverNameN{
+        left: 30px !important;
+        top: -20px !important;
+        padding: 8px 111px 7px 8px;
+        background-color: #fff;
+        color: #000;
+        font-size: 13px;
+        position: absolute;
+        border: 2px solid #e00000;
+        display: none; 
+        white-space: nowrap;
+    }
+    .viewFeedbackName {
+        position: absolute;
+        background-color: #fff;
+        color: #000;
+        font-size: 13px !important;
+        border: 2px solid #8DAC6C;
+        left: 30px !important;
+        top: -20px !important;
+        padding: 0px 113px 0px 9px !important;
+        display: none;
+        white-space: nowrap;
+    }
+    .textArea-skills {
+        width:auto !important;
+        font-size: 16px !important;
 
     }
     #ojChoiceId_selectInterests .oj-select-choices, #ojChoiceId_selectProjects .oj-select-choices{
@@ -1711,15 +1717,15 @@ div.oj-tabs-panel.oj-tabs-selected{
     }
     .View-Other-about {
         font-size: 18px !important;
-}
-.profile-margin-bottom{
-    margin-bottom: 15px;
-}
-.profile-margin-bottom-2{
-    margin-bottom: 15px;
-    min-height: 266px !important;
-}
-.replyInput div span input{
+    }
+    .profile-margin-bottom{
+        margin-bottom: 15px;
+    }
+    .profile-margin-bottom-2{
+        margin-bottom: 15px;
+        min-height: 266px !important;
+    }
+    .replyInput div span input{
         height: 24px !important;
         margin-top: -4px !important;
     }
@@ -1728,77 +1734,77 @@ div.oj-tabs-panel.oj-tabs-selected{
     }
     .View-Other-about-members{
         font-size: 18px !important;
-         word-break: break-all;
+        word-break: break-all;
     }
 }
 .transboxRequest2{
     border-left: 0px ;
 }
 
-  
+
 @media  screen and (min-width: 320px) and (max-width: 530px) {
     .about-edit-check{
- left: 21px !important;
-    position: absolute;
-    top: 2px !important;   
-}
-.about-edit-cross{
-  left: 23px !important;
-    position: absolute;
-    top: 49px !important;
-}
-.about-edit {
-    left: 21px !important;
-    position: absolute;
-    top: 16px !important;
-}
-.edit-height {
-    font-size: 20px !important;
-}
-.myname-profile{
-    font-weight: 600  !important;
-    font-size: 16px  !important;
-    margin-top: 22px  !important;
-    margin-left: -7px  !important;
-}
-
-   .custom-zmdi-icons-div {
-       height: 35px !important;
-       width: 35px !important;
+        left: 21px !important;
+        position: absolute;
+        top: 2px !important;   
+    }
+    .about-edit-cross{
+        left: 23px !important;
+        position: absolute;
+        top: 49px !important;
+    }
+    .about-edit {
+        left: 21px !important;
+        position: absolute;
+        top: 16px !important;
     }
     .edit-height {
-    font-size: 17px !important;
-}
+        font-size: 20px !important;
+    }
+    .myname-profile{
+        font-weight: 600  !important;
+        font-size: 16px  !important;
+        margin-top: 22px  !important;
+        margin-left: -7px  !important;
+    }
 
-.cancel-button{
-    margin-top: 40px !important;
-    margin-right: -46px !important;
-}
-.edit-section {
-     top: -173px !important;
-     right: -8px !important;
-}
-.update-button{
-    margin-top: -7px !important;
-}    
-.mobile-trans{
- width: 100% !important;   
-}
-.mailToColor {
-    word-break: break-all !important;
-    font-size: 15px !important;
-    line-height: 36px !important;
-}
-.noComments{
-    padding: 117px !important;
-    text-align: center !important;
-    font-size: 14px !important;
-    min-height: 266px !important;
-    margin:0px !important;
-}
-.replyInput div span input{
-    font-size: 10px !important;
-}
+    .custom-zmdi-icons-div {
+        height: 35px !important;
+        width: 35px !important;
+    }
+    .edit-height {
+        font-size: 17px !important;
+    }
+
+    .cancel-button{
+        margin-top: 40px !important;
+        margin-right: -46px !important;
+    }
+    .edit-section {
+        top: -173px !important;
+        right: -8px !important;
+    }
+    .update-button{
+        margin-top: -7px !important;
+    }    
+    .mobile-trans{
+        width: 100% !important;   
+    }
+    .mailToColor {
+        word-break: break-all !important;
+        font-size: 15px !important;
+        line-height: 36px !important;
+    }
+    .noComments{
+        padding: 117px !important;
+        text-align: center !important;
+        font-size: 14px !important;
+        min-height: 266px !important;
+        margin:0px !important;
+    }
+    .replyInput div span input{
+        font-size: 10px !important;
+    }
 }
 @media  screen and (min-width: 768px) and (max-width: 1024px) {
 
@@ -1822,12 +1828,13 @@ div.oj-tabs-panel.oj-tabs-selected{
     .tab-margin{
         margin-left:10px;
     }
+    .tab-margin2{
+        margin-left:8px !important;
+    }
+
     .side-bar-img{
-    width: 30px !important;
-}
-.side-bar{
-    bottom: 55% !important;
-}
+        width: 30px !important;
+    }
     .left {
         float: left;
         border-right: 5px solid transparent;
@@ -1881,7 +1888,7 @@ div.oj-tabs-panel.oj-tabs-selected{
         padding: 64px 33px 59px 4px !important;
     }
     .replyInput div span i {
-          margin-left: 30px !important;
+        margin-left: 30px !important;
     }
     .text-about {
         display: block;
@@ -1895,24 +1902,24 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 
 @media only screen 
-  and (min-device-width: 768px) 
-  and (max-device-width: 1024px) 
-  and (orientation: landscape) 
-  and (-webkit-min-device-pixel-ratio: 1) {
-      .profile-img-div{
-            width: 82px;
-            margin-left: -12px;
-            height: 115px;
-      }
-      .profile{
-            height: 90px;
-            width: 90px;
-            margin-top: 12px;
-      }
-      .intials-name{
-          font-size: 40px !important;
-          top: 9px !important;
-      }
+and (min-device-width: 768px) 
+and (max-device-width: 1024px) 
+and (orientation: landscape) 
+and (-webkit-min-device-pixel-ratio: 1) {
+    .profile-img-div{
+        width: 82px;
+        margin-left: -12px;
+        height: 115px;
+    }
+    .profile{
+        height: 90px;
+        width: 90px;
+        margin-top: 12px;
+    }
+    .intials-name{
+        font-size: 40px !important;
+        top: 9px !important;
+    }
 
 }
 @media  screen and (min-width: 1200px) and (max-width: 1366px) {
@@ -1930,12 +1937,12 @@ div.oj-tabs-panel.oj-tabs-selected{
     }
 }
 @media  screen and (min-width: 1026px) and (max-width: 1366px) {
-  .side-bar-img {
-    width: 30px !important;
-}
-.side-bar{
+    .side-bar-img {
+        width: 30px !important;
+    }
+    .side-bar{
         bottom: 55% !important;
-}  
+    }  
 }
 
 
@@ -2221,7 +2228,7 @@ ul.ff li a{
 }
 /*side bar*/
 .side-bar{
-       position: fixed;
+    position: fixed;
     color: #fff;
     left: -39px;
     /* top: 300px; */
@@ -2486,7 +2493,7 @@ a#menu-share:hover > i{
     color: #ffffff;
 }
 .profile_image_red{
-   position: relative;
+    position: relative;
     height: 95px;
     top: -73px;
 }
@@ -2541,9 +2548,8 @@ a#menu-share:hover > i{
 .text-area-both img {
     width: 60%;
 }
-
 .text-area-both-margin-top{
-    margin-top: 26px !important
+    margin-top: 26px !important;
 }
 .search-text-profile-image {
     height: 40px;
@@ -2713,6 +2719,14 @@ a#menu-share:hover > i{
         margin-right: 0px !important;
     }
 }
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : landscape) {
+    .backToLoginAchivement {
+        margin-right: 10px !important;
+    }
+}
 @media  screen and (min-width: 320px) and (max-width: 767px) {
     .backToLoginAchivement {
         margin-top: 45px !important;
@@ -2720,7 +2734,7 @@ a#menu-share:hover > i{
     }
 }
 .backToLoginAchivement {
-       border-bottom: 5px solid #fff;
+    border-bottom: 5px solid #fff;
     font-weight: bolder;
     float: right;
     margin-top: 126px;
@@ -2732,4 +2746,12 @@ a#menu-share:hover > i{
 .backToLoginAchivement a,.backToLoginAchivement a:hover {
     color: #fff;
     text-decoration: none;
+}
+@media  screen and (min-width: 768px) and (max-width: 1024px) {
+    .text-area-both-margin-top {
+        margin-top: 16px !important;
+    }
+    #ojDialogWrapper-modalVideo.oj-dialog{
+        min-width: 1015px;
+    }
 }

@@ -13,5 +13,3 @@ define('RANKING_URL','rankings.html');
 define('SEND_ACTUAL_EMAILS','OFF');
 
 
-
-

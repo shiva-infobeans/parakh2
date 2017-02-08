@@ -254,10 +254,9 @@ class dbmodule {
      * */
 
     function addRating($data) {
-        $this->getManager($data['to_id']);
         $data['work_title'] = "System generated";
         $data['desc'] = $data['desc'];
-        $getOldRatingPostion = $this->get_position_of_user_in_ranking($data['to_id']);
+
         $dateTime = new \DateTime(null, new DateTimeZone('Asia/Kolkata'));
         $created_date = $modified_date = $dateTime->format("Y-m-d H:i:s");
         $login_user_id = $data['from_id'];
@@ -328,10 +327,9 @@ class dbmodule {
 
             $rating = ($data['rating'] == 0) ? '-1' : '+1';
             $vars = array(
-                "{Username}" => $this->firstNameSendEmail($email_data['to']['name']),
+                "{Username}" => $email_data['to']['name'],
                 "{Member}" => $from_data['google_name'],
                 "{Link}" => $link,
-                "{year}" => date("Y"),
             );
             $message = strtr($temp_data['content'], $vars);
             $email_data['message'] = $message;
@@ -348,12 +346,11 @@ class dbmodule {
             $email_data_l['subject'] = $temp_data_l['subject'];
 
             $vars = array(
-                "{Username}" => $this->firstNameSendEmail($this->manager_name),
+                "{Username}" => $this->manager_name,
                 "{member}" => $email_data['to']['name'],
                 "{rating}" => $rating,
                 "{lead}" => $user_data_l['google_name'],
                 "{comment}" => $data['desc'],
-                "{year}" => date("Y"),
             );
             $message = strtr($temp_data_l['content'], $vars);
             $email_data_l['message'] = $message;
@@ -368,35 +365,6 @@ class dbmodule {
                 $query = "UPDATE users set msg_read=" . ($row[0]['msg_read'] + 1) . " where id=" . $data['to_id'];
                 $user_list = $this->con->prepare($query);
                 $user_list->execute();
-            }
-            /* send mail if users is in top 10 or rating position is changes */
-            $getNewRatingPostion = $this->get_position_of_user_in_ranking($data['for_id']);
-            if ($getNewRatingPostion != 0 && ($getNewRatingPostion <= 10 || $getOldRatingPostion > $getNewRatingPostion)) {
-                $email_data = [];
-                $temp_data = $this->getEmailTemplateByCode('PRKE15');
-                $email_data['to']['email'] = $user_data['google_email'];
-                $email_data['to']['name'] = $user_data['google_name'];
-                $email_data['subject'] = $temp_data['subject'];
-                $vars = array(
-                    "{Username}" => $this->firstNameSendEmail($user_data['google_name']),
-                    "{Link}" => $this->getTargetLink(RANKING_URL, 'Parakh'),
-                    "{year}" => date("Y"),
-                );
-                $message = strtr($temp_data['content'], $vars);
-                $email_data['message'] = $message;
-                $this->send_notification($email_data);
-
-                /* send email to manager */
-//                $vars_manager = array(
-//                    "{Username}" => $this->manager_name,
-//                    "{Link}" => $this->getTargetLink(RANKING_URL, 'Parakh'),
-//                );
-//                $email_data_l['to']['email'] = $this->manager_email;
-//                $email_data_l['to']['name'] = $this->manager_name;
-//                $email_data_l['subject'] = $temp_data['subject'];
-//                $message = strtr($temp_data['content'], $vars_manager);
-//                $email_data_l['message'] = $message;
-//                $this->send_notification($email_data_l);
             }
         }
         return true;
