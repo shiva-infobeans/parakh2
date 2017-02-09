@@ -1938,7 +1938,9 @@ and (-webkit-min-device-pixel-ratio: 1) {
     #ojDialogWrapper-modalVideo.oj-dialog{
             min-width: 1200px !important;
     }
-    
+    .video{
+        height: 470px !important;
+    }
 }
 @media  screen and (min-width: 1026px) and (max-width: 1366px) {
     .side-bar-img {
