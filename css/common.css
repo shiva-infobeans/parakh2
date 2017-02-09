@@ -573,6 +573,40 @@
         -ms-overflow-style: none;
         overflow: hidden;	
     }
+    ul.help-ul{
+    height: 201px;
+    width: 330px;
+    padding: 0px !important;
+}
+ul.help-ul2{
+    height: 266px;
+    width: 330px;
+    padding: 0px !important;
+}
+.role-tab-1 {
+    margin-right: 11px;
+}
+.role-tab-2{
+    margin-left: 24px;
+}
+.role-tab-3{
+    margin-right: 12px;
+}
+.role-tab-01{
+    margin-right: 16px;
+}
+.role-tab-04{
+    margin-right: 13px;
+}
+.role-tab-03{
+    margin-left: -4px;
+}
+.tab-padding{
+    width: 552px;
+    text-align: center;
+    font-size: 30px;
+    color: #606060;
+}
 
 }
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
@@ -581,6 +615,7 @@
     #ojDialogWrapper-modalDialogRequest.oj-dialog{
         height:500px;
     }
+    
 }
 #ojDialogWrapper-modalDialog8.oj-dialog{
     overflow: hidden;
@@ -962,7 +997,7 @@
     float: right;
     margin-top: 55px;
     cursor: pointer;
-    border-left: 1px solid #dcdcdc;
+    border-left: 3px solid #dcdcdc;
 }
 
 /*.oj-dialog-body {
@@ -2393,12 +2428,12 @@ a:hover.oj-clickable-icon-nocontext,.oj-hover.oj-clickable-icon-nocontext{ color
     border-style: none;
 }
 ul.help-ul{
-    height: 240px;
+    height: 201px;
     width: 330px;
     padding: 0px !important;
 }
 ul.help-ul2{
-    height: 320px;
+    height: 266px;
     width: 330px;
     padding: 0px !important;
 }
@@ -2421,7 +2456,7 @@ ul.help-ul2{
     position: relative;
 }
 .tab-help-side-padding{
-    padding: 7px 0px 6px 0px;
+    /*padding: 8px 0px 6px 0px;*/
     color: #363636;
 }
 .help-side-icons{

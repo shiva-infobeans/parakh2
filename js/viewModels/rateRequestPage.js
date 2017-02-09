@@ -7,7 +7,7 @@
 /**
  * rateRequestPage module
  */
-define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojmodel', 'ojs/ojinputtext', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 'ojs/ojdialog'
+define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojmodel', 'ojs/ojinputtext', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 'ojs/ojdialog', 'accordin/helpTextMsg'
 ], function (oj, ko, $) {
     /**
      * The view model for the main content view template
@@ -28,7 +28,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
     }
     function request(data, userid) {
         var req = Object();
-
+        req.helpText = ko.observable(approveDisapprove);
+        req.help = false;
+        req.requestTextAreaId = "requestTextAreaId"+data['request_id'];
         if (typeof data['comment_text'] == 'undefined') {
             req.lComment = data['description'];
             req.oldComment = data['description'];
@@ -123,8 +125,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.noLeadPendingRequest = ko.observable();
         self.noLeadDeclinedRequest = ko.observable();
         self.selectTab = ko.observable(0);
-
-
+        
+        ///////////////help text here
+        self.showHelpComment = ko.observable(sendReqRatePage);
         ////////////////////// tab detect send request 
         self.reqTabValue = ko.observable(2);
         self.reqTab = function () {
@@ -456,9 +459,13 @@ setTimeout (function(){
                             self.manager_id(result['attributes']['data'][1]['manager_id']);
                             self.manager_role(result['attributes']['data'][1]['role_name']);
                             if (result['attributes']['data'][1]['google_picture_link'] == '/images/default.png')
-                            {
-                                self.intials_manager(nameFunction(result['attributes']['data'][1]['manager_name']));
-                            }
+                           {
+                               self.intials_manager(nameFunction(result['attributes']['data'][1]['manager_name']));
+                           }else
+                           {
+                               self.intials_manager("");
+                           }
+
                         }
                         //console.log(result['attributes']['data'][1]['role_name']);
                         if (self.lead_id() == self.manager_id()) {
@@ -502,7 +509,7 @@ setTimeout (function(){
             {
                 var obj = $("#decline" + requestId);
             }
-            var descHTML = obj.parent().prev().children().children('#text-area20');
+            var descHTML = $("#requestTextAreaId"+requestId);
             var descriptionChange = (descHTML.val().trim() != "") ?
                     descHTML.val().trim() : oldComment;
             var removeHtml = obj;
@@ -714,6 +721,7 @@ setTimeout (function(){
                 self.textError1("Please provide a reason for your rating request.");
                 return false;
             }
+            self.desc1(self.desc1().trim());
             $.ajax({
                 headers: {secret: secret},
                 method: 'POST',
@@ -960,9 +968,38 @@ setTimeout (function(){
             }
         });
 
-
-        ///////////////lazy loading function for declined request for user end
-
+        
+        self.data = function (content, data) {
+//            if (!content['help']) {
+//                content['help'] = true;
+//            } else {
+//                content['helpText']("");
+//            }
+        }
+        self.textAreaChange = function (context, value) {
+            if (value['option'] == 'rawValue') {
+                if (value['value'] != '') {
+                    //self.showHelpComment("");
+                }
+            }
+        }
+        self.setHelp = function () {
+            if (self.desc() == "") {
+                self.showHelpComment(sendReqRatePage);
+            }
+            if (self.desc1() == "") {
+                self.showHelpComment(sendReqRatePage);
+            }
+        }
+        oj.Components.setDefaultOptions({
+            'editableValue':
+                    {
+                        'displayOptions':
+                                {
+                                    'messages': ['notewindow']
+                                }
+                    }
+        });
     }
 
     return rateRequestPageContentViewModel;
