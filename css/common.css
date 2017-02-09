@@ -574,40 +574,25 @@
         overflow: hidden;	
     }
     ul.help-ul{
-    height: 201px;
+    height: 200px !important;
     width: 330px;
     padding: 0px !important;
 }
 ul.help-ul2{
-    height: 266px;
+    height: 266px !important;
     width: 330px;
     padding: 0px !important;
 }
-.role-tab-1 {
-    margin-right: 11px;
+#help-top-tab li .oj-tabs-title{
+        min-width: 552px !important;
 }
-.role-tab-2{
-    margin-left: 24px;
+#selcted-tab li .oj-tabs-title{
+    min-width: 15rem;
 }
-.role-tab-3{
-    margin-right: 12px;
+#selcted-tab1 li .oj-tabs-title{
+    min-width: 16rem;
+    color: #363636;
 }
-.role-tab-01{
-    margin-right: 16px;
-}
-.role-tab-04{
-    margin-right: 13px;
-}
-.role-tab-03{
-    margin-left: -4px;
-}
-.tab-padding{
-    width: 552px;
-    text-align: center;
-    font-size: 30px;
-    color: #606060;
-}
-
 }
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
     #ojDialogWrapper-modalDialog9.oj-dialog,

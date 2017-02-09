@@ -1935,6 +1935,10 @@ and (-webkit-min-device-pixel-ratio: 1) {
     #ojDialogWrapper-modalDialog1.oj-dialog{
         width: 32% !important;
     }
+    #ojDialogWrapper-modalVideo.oj-dialog{
+            min-width: 1200px !important;
+    }
+    
 }
 @media  screen and (min-width: 1026px) and (max-width: 1366px) {
     .side-bar-img {
@@ -2752,6 +2756,9 @@ and (orientation : landscape) {
         margin-top: 16px !important;
     }
     #ojDialogWrapper-modalVideo.oj-dialog{
-        min-width: 1015px;
+        min-width: 750px !important;
     }
+    .video {
+    height: 375px !important;
+}
 }
