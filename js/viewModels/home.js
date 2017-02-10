@@ -204,6 +204,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
         self.sliderText2 = ko.observable();
         self.sliderText3 = ko.observable();
         self.teamMembers = ko.observableArray();
+        self.viewslider = ko.observable(false);
         self.addteamMembers = function (obj) {
             self.teamMembers.push(obj);
             $('#filmStrip').ojFilmStrip("refresh");
@@ -254,7 +255,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                 self.roleName(task.attributes['data']['role_name']);
                 //lead /member service for +1 count and -1 count
                 if (self.roleName() == "Manager") {
-                    $("#mangerSlider1").hide();
+                    self.viewslider(true);
                     var leadSlide = oj.Model.extend({
                         url: getTopRankersProjectWise + self.id()
                     });
@@ -298,7 +299,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
                         }
                     });
                 } else {
-                    $("#mangerSlider").hide();
+//                    $("#mangerSlider").hide();
+self.viewslider(false);
                     if (self.roleName() == "Lead") {
                         var leadSlide = oj.Model.extend({
                             url: getTopRankersCalendarWise + self.id()

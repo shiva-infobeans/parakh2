@@ -112,7 +112,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.searchError = ko.observable();
         self.role_name = ko.observable();
         self.currentChangeid = ko.observable(0);
-
+        self.shouldShowMessage = ko.observable(true);
+   
+         // Message initially visible
+   
         self.textAreaChange = function (context, value) {
             if (value['option'] == 'rawValue') {
                 if ( value['value'] != '') {
@@ -252,10 +255,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 self.role_name(result['attributes']['data']['role_name']);
 
                 if (self.role_name() === 'Team Member') {
-                    $('#hideFeedbackFloat').hide();
+                    self.shouldShowMessage(false);
 
                 } else {
-                    $('#hideFeedbackFloat').show();
+                      self.shouldShowMessage(true);
                 }
 
                 $.ajax({

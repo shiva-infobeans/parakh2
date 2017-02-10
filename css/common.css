@@ -586,12 +586,37 @@ ul.help-ul2{
 #help-top-tab li .oj-tabs-title{
         min-width: 552px !important;
 }
-#selcted-tab li .oj-tabs-title{
-    min-width: 15rem;
+#selcted-tab #bb1 .oj-tabs-title{
+    min-width: 18rem !important;
 }
-#selcted-tab1 li .oj-tabs-title{
-    min-width: 16rem;
-    color: #363636;
+#selcted-tab #bb2 .oj-tabs-title{
+    min-width: 15rem !important;
+}
+#selcted-tab #bb3 .oj-tabs-title{
+    min-width: 13rem !important;
+}
+#selcted-tab1 #aa1 .oj-tabs-title{
+    min-width: 14rem !important;
+}
+#selcted-tab1 #aa2 .oj-tabs-title{
+    min-width: 16rem !important;
+}
+#selcted-tab1 #aa3 .oj-tabs-title{
+    min-width: 16rem !important;
+}
+#selcted-tab1 #aa4 .oj-tabs-title{
+    min-width: 12rem !important;
+}
+.award{
+    line-height: 33px !important;
+    margin-top: 7px !important;
+}
+.help-side-text{
+    line-height: 28px !important;
+}
+#selcted-tab .oj-tabs-tab.oj-selected .oj-tabs-tab-content::after,
+#selcted-tab1 .oj-tabs-tab.oj-selected .oj-tabs-tab-content::after{
+    top: 17px !important;
 }
 }
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
