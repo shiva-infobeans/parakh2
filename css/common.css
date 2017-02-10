@@ -982,7 +982,8 @@ ul.help-ul2{
     float: right;
     margin-top: 55px;
     cursor: pointer;
-    border-left: 3px solid #dcdcdc;
+    border-left: 1px solid #dcdcdc;
+    margin-right: -2px;
 }
 
 /*.oj-dialog-body {

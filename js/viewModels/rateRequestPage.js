@@ -436,10 +436,10 @@ setTimeout (function(){
                     headers: {secret: secret},
                     success: function (result) {
                         var data = result['attributes']['data'];
-
+                        console.log(result['attributes']['data']);
 
                         if (result['attributes']['data'].length == 1) {
-                            $('#hideLead').hide();
+                            $('#hidemanager').hide();
                         }
 
                         self.lead_name(result['attributes']['data'][0]['manager_name']);
