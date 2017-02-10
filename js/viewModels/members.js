@@ -162,6 +162,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojcollectiontabledatasource', '
         self.myLead = ko.observable();
         self.myManager = ko.observable();
         self.intials = ko.observable("");
+         self.arrayHide = ko.observableArray([1,2]);
 
 
         ///////////////////// lazy loading .............
@@ -219,6 +220,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojcollectiontabledatasource', '
                 self.myselfId(userRecord.attributes['data']['id']);
                 self.myselfName(userRecord.attributes['data']['google_name']);
                 self.myname;
+               
                 if (self.id() == self.myselfId()) {
                     window.location = "profile.html";
                 }
@@ -234,6 +236,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojcollectiontabledatasource', '
                         self.myLead(getmyLead['attributes']['data'][0]['manager_id']);
                         self.myManager(getmyLead['attributes']['data'][1]['manager_id']);
                         if (self.myselfId() === self.myLead() || self.myselfId() === self.myManager()) {
+                             self.arrayHide([]);
                             $('#negetiveTab').show();
                             $('#feedbackTab').show();
                             $('#negetiveTab1').show();
