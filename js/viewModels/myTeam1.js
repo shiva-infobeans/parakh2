@@ -86,6 +86,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.selectTab = ko.observable(0);
         self.sucessMsgFeedback = ko.observable();
         self.showHelpComment = ko.observable(feedbackBuddyPage);
+        self.tabshow = ko.observable(true);
 
         self.myTeamTab = ko.observable(2);
         ///////////// tab switching ///////////
@@ -144,13 +145,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 self.lead_id(res['attributes']['data']['id']);
                 self.role_name(res['attributes']['data']['role_name']);
 
-                if (self.role_name() === 'Team Member') {
-
-                    $('#tabs ul li:first-child').hide();
+                if (self.role_name() === 'Team Member') {  
+                  self.tabshow(false);
 
                 } else {
-
-                    $('#tabs ul li:first-child').addClass('abc').show();
+                      self.tabshow(true);
                     //lead id user
                     $.ajax({
                         headers: {secret: secret},
