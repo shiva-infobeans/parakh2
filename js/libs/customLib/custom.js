@@ -10,13 +10,15 @@
             var email = getCookie("email");
             var name = getCookie("name");
             var profilePic = getCookie("picture");
-            var myInfo;
+            var myInfo = null;
+            var check = false;
             if (document.cookie.indexOf("email") >= 0 && document.cookie.indexOf("name") >= 0 && document.cookie.indexOf("pic") >= 0) {
                 myInfo = new person(email, name, profilePic);
+                  check = true;
             } else {
                 console.log("error");
                 setTimeout(function () {
-                    window.location = "http://" + window.location.hostname;
+//                    window.location = "http://" + window.location.hostname;
                 }, 500);
             }
 

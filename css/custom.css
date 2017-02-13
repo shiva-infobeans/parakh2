@@ -373,11 +373,12 @@ div.oj-tabs-panel.oj-tabs-selected{
     left:0;
     right:0;
     bottom:0;
-    word-break: break-all;
+    word-break: break-word;
     /*overflow-y: auto;*/
 }
 .profile-page-overflow .View-Other-about:last-child{
     border-bottom: 0px;
+    word-break: break-word;
 }
 .myname-profile{
     font-weight: 600;
@@ -460,7 +461,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     background-repeat: repeat-y;
     margin-top: -33px;
     padding-bottom: 57px;
-    word-break: break-all;
+    word-break: break-word;
 }
 .rating-section{
     padding-top: 20px;
@@ -568,7 +569,7 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 .feedbackHeight{
     /*margin-top: 70px;*/
-   
+
 }
 .heightContent{
     margin-top: -10px;
@@ -1007,7 +1008,7 @@ div.oj-tabs-panel.oj-tabs-selected{
     width: 100%;
     display: table;
     z-index: 20090;
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0,0,0,0);
 
 }
 .loaderImgDiv{
@@ -1224,6 +1225,9 @@ div.oj-tabs-panel.oj-tabs-selected{
     .oj-filmstrip-container.oj-filmstrip-item-container:nth-child(2n){
         border-right: none;
     }
+    .oj-filmstrip-container.oj-filmstrip-item-container{
+        border-right : none !important;
+    }
 }
 #tabs-container1 .oj-flex{
     -ms-flex: 1;
@@ -1309,8 +1313,8 @@ div.oj-tabs-panel.oj-tabs-selected{
 }
 .edit-height{cursor: pointer;}
 .requestHeight{
-/*    margin-top: 50px;
-    height: 83%;  */
+    /*    margin-top: 50px;
+        height: 83%;  */
 }
 .sliderScreen1{
     color: #fff !important;
@@ -1425,11 +1429,20 @@ div.oj-tabs-panel.oj-tabs-selected{
         position: relative;
         float: left;
     }
+    #ojDialogWrapper-modalDialog-userFeedback.oj-dialog {
+        min-width: 310px !important;
+    }
     .person-profile-intials-text {
         margin: 36px 20px !important;
         font-size: 30px !important;
         text-align: center; 
     }
+    #ojDialogWrapper-modalDialog-userFeedback .oj-dialog-content  {
+    height: 370px !important;
+}
+    #modalDialog-userFeedback .oj-dialog-body{
+    height: 360px !important;
+}
     .transboxRequest{
         position: relative;
         margin-left: 0px;
@@ -1437,9 +1450,24 @@ div.oj-tabs-panel.oj-tabs-selected{
 
     }
     .myNameBuddies{
-         margin-top: -8px !important;
+        margin-top: -8px !important;
     }
-   
+
+    #ojDialogWrapper-modalVideo.oj-dialog{
+        min-width: 310px !important;
+        top: 100px !important;
+    }
+    .video{
+        width: 284px !important;
+        margin-top: -30px !important;
+        margin-bottom: -15px !important;
+        height: 220px !important;
+    }
+
+    .responsive-dropdown-margin{
+        margin-left: 15px !important;
+
+    }
     .area{
         margin-left: 17px !important;
     }
@@ -1472,6 +1500,9 @@ div.oj-tabs-panel.oj-tabs-selected{
         bottom: 28px  !important;
         left: 28px  !important;
         font-size: 24px  !important;
+    }
+    .side-bar-img{
+        width: 30px !important;
     }
 
     #ojDialogWrapper-modalDialog8.oj-dialog,
@@ -1553,7 +1584,7 @@ div.oj-tabs-panel.oj-tabs-selected{
         height: 70px !important;
         width: 70px !important;
         margin-top: 22px;
-}
+    }
 
     .mobile-trans{
         width: 90% !important;   
@@ -1566,104 +1597,116 @@ div.oj-tabs-panel.oj-tabs-selected{
         margin-top: 1px !important;
         font-size: 20px !important;
     }*/
-    
+
     #vtabs .oj-conveyorbelt-overflow-indicator.oj-default .oj-conveyorbelt-overflow-icon{
         color: #fff;
         margin-top: 4px;
         font-size: 18px;
     }
 
-   
+
     .bottom-padding{
         padding-bottom: 15px !important;
     }
 
-/*    .errorVisibilityShow{
-        margin: 5px 0px -5px 10px !important;
-}*/
-.rating-section{
-    min-height: 300px;
-}
-.bottom-edit-margin{
-    margin-bottom: 15px !important;
-}
-.feedback-comment {
-    margin-left: 69px !important;
-    padding: 5px !important;
-    width: 70% !important;
-}
- 
+    /*    .errorVisibilityShow{
+            margin: 5px 0px -5px 10px !important;
+    }*/
+    .rating-section{
+        min-height: 300px;
+    }
+    .bottom-edit-margin{
+        margin-bottom: 15px !important;
+    }
+    .feedback-comment {
+        margin-left: 69px !important;
+        padding: 5px !important;
+        width: 70% !important;
+    }
+    .responsive-dropdown-margin {
+        margin-left: 15px !important;
+    }
+    .side-bar-img{
+        width: 30px !important;
+    }
+    .side-bar{
+        /*top: 40% !important;*/
+        left: -39px !important;
+
+    }
+
 }
 @media  screen and (min-width: 320px) and (max-width: 1024px) {
     .edit-section {
-    position: absolute;
-    right: 0px;
-    top: -191px !important;
-}
-.errorVisibilityShow{
-    width: 103% !important;
-}
+        position: absolute;
+        right: 0px;
+        top: -191px !important;
+    }
+    .errorVisibilityShow{
+        width: 103% !important;
+    }
 
- .noComments{
+    .noComments{
         padding: 117px !important;
         text-align: center !important;
         font-size: 19px !important;
         min-height: 266px !important;
         margin:0px !important;
     }
-.feedback-date {
-    width: 80px !important;
-    font-size: 12px !important;
-}
-.commentDate-mobile{
-   float: right !important;
-    color: #dcdcdc !important;
-    margin-top: -54px !important;
-    font-style: italic !important;
-    font-size: 14px;
-}
-.circle-purple{
-    margin-left: 12px !important;
-}
-.hoverName{
-   left: 30px !important;
-    top: -20px !important;
-    padding: 8px 111px 7px 8px;
-    background-color: #fff;
-    color: #000;
-    font-size: 13px;
-    position: absolute;
-    border: 2px solid #689F39;
-    display: none;
-    white-space: nowrap;
-}
-.hoverNameN{
-   left: 30px !important;
-    top: -20px !important;
-    padding: 8px 111px 7px 8px;
-    background-color: #fff;
-    color: #000;
-    font-size: 13px;
-    position: absolute;
-    border: 2px solid #e00000;
-    display: none; 
-    white-space: nowrap;
-}
-.viewFeedbackName {
-    position: absolute;
-    background-color: #fff;
-    color: #000;
-    font-size: 13px !important;
-    border: 2px solid #8DAC6C;
-     left: 30px !important;
-    top: -20px !important;
-    padding: 0px 113px 0px 9px !important;
-    display: none;
-     white-space: nowrap;
-}
-.textArea-skills {
-    width:auto !important;
-    font-size: 16px !important;
+    .feedback-date {
+        width: 80px !important;
+        font-size: 12px !important;
+        color: #dcdcdc;
+    }
+    .commentDate-mobile{
+        float: right !important;
+        color: #dcdcdc !important;
+        margin-top: -54px !important;
+        font-style: italic !important;
+        font-size: 14px;
+    }
+    .circle-purple{
+        margin-left: 12px !important;
+    }
+    .hoverName{
+        left: 30px !important;
+        top: -20px !important;
+        padding: 8px 111px 7px 8px;
+        background-color: #fff;
+        color: #000;
+        font-size: 13px;
+        position: absolute;
+        border: 2px solid #689F39;
+        display: none;
+        white-space: nowrap;
+    }
+    .hoverNameN{
+        left: 30px !important;
+        top: -20px !important;
+        padding: 8px 111px 7px 8px;
+        background-color: #fff;
+        color: #000;
+        font-size: 13px;
+        position: absolute;
+        border: 2px solid #e00000;
+        display: none; 
+        white-space: nowrap;
+    }
+    .viewFeedbackName {
+        position: absolute;
+        background-color: #fff;
+        color: #000;
+        font-size: 13px !important;
+        border: 2px solid #8DAC6C;
+        left: 30px !important;
+        top: -20px !important;
+        padding: 0px 113px 0px 9px !important;
+        display: none;
+        white-space: nowrap;
+    }
+    .textArea-skills {
+        width:auto !important;
+        font-size: 16px !important;
 
     }
     #ojChoiceId_selectInterests .oj-select-choices, #ojChoiceId_selectProjects .oj-select-choices{
@@ -1674,15 +1717,15 @@ div.oj-tabs-panel.oj-tabs-selected{
     }
     .View-Other-about {
         font-size: 18px !important;
-}
-.profile-margin-bottom{
-    margin-bottom: 15px;
-}
-.profile-margin-bottom-2{
-    margin-bottom: 15px;
-    min-height: 266px !important;
-}
-.replyInput div span input{
+    }
+    .profile-margin-bottom{
+        margin-bottom: 15px;
+    }
+    .profile-margin-bottom-2{
+        margin-bottom: 15px;
+        min-height: 266px !important;
+    }
+    .replyInput div span input{
         height: 24px !important;
         margin-top: -4px !important;
     }
@@ -1691,77 +1734,77 @@ div.oj-tabs-panel.oj-tabs-selected{
     }
     .View-Other-about-members{
         font-size: 18px !important;
-         word-break: break-all;
+        word-break: break-all;
     }
 }
 .transboxRequest2{
     border-left: 0px ;
 }
 
-  
+
 @media  screen and (min-width: 320px) and (max-width: 530px) {
     .about-edit-check{
- left: 21px !important;
-    position: absolute;
-    top: 2px !important;   
-}
-.about-edit-cross{
-  left: 23px !important;
-    position: absolute;
-    top: 49px !important;
-}
-.about-edit {
-    left: 21px !important;
-    position: absolute;
-    top: 16px !important;
-}
-.edit-height {
-    font-size: 20px !important;
-}
-.myname-profile{
-    font-weight: 600  !important;
-    font-size: 16px  !important;
-    margin-top: 22px  !important;
-    margin-left: -7px  !important;
-}
-
-   .custom-zmdi-icons-div {
-       height: 35px !important;
-       width: 35px !important;
+        left: 21px !important;
+        position: absolute;
+        top: 2px !important;   
+    }
+    .about-edit-cross{
+        left: 23px !important;
+        position: absolute;
+        top: 49px !important;
+    }
+    .about-edit {
+        left: 21px !important;
+        position: absolute;
+        top: 16px !important;
     }
     .edit-height {
-    font-size: 17px !important;
-}
+        font-size: 20px !important;
+    }
+    .myname-profile{
+        font-weight: 600  !important;
+        font-size: 16px  !important;
+        margin-top: 22px  !important;
+        margin-left: -7px  !important;
+    }
 
-.cancel-button{
-    margin-top: 40px !important;
-    margin-right: -46px !important;
-}
-.edit-section {
-     top: -173px !important;
-     right: -8px !important;
-}
-.update-button{
-    margin-top: -7px !important;
-}    
-.mobile-trans{
- width: 100% !important;   
-}
-.mailToColor {
-    word-break: break-all !important;
-    font-size: 15px !important;
-    line-height: 36px !important;
-}
-.noComments{
-    padding: 117px !important;
-    text-align: center !important;
-    font-size: 14px !important;
-    min-height: 266px !important;
-    margin:0px !important;
-}
-.replyInput div span input{
-    font-size: 10px !important;
-}
+    .custom-zmdi-icons-div {
+        height: 35px !important;
+        width: 35px !important;
+    }
+    .edit-height {
+        font-size: 17px !important;
+    }
+
+    .cancel-button{
+        margin-top: 40px !important;
+        margin-right: -46px !important;
+    }
+    .edit-section {
+        top: -173px !important;
+        right: -8px !important;
+    }
+    .update-button{
+        margin-top: -7px !important;
+    }    
+    .mobile-trans{
+        width: 100% !important;   
+    }
+    .mailToColor {
+        word-break: break-all !important;
+        font-size: 15px !important;
+        line-height: 36px !important;
+    }
+    .noComments{
+        padding: 117px !important;
+        text-align: center !important;
+        font-size: 14px !important;
+        min-height: 266px !important;
+        margin:0px !important;
+    }
+    .replyInput div span input{
+        font-size: 10px !important;
+    }
 }
 @media  screen and (min-width: 768px) and (max-width: 1024px) {
 
@@ -1785,7 +1828,13 @@ div.oj-tabs-panel.oj-tabs-selected{
     .tab-margin{
         margin-left:10px;
     }
-   
+    .tab-margin2{
+        margin-left:8px !important;
+    }
+
+    .side-bar-img{
+        width: 30px !important;
+    }
     .left {
         float: left;
         border-right: 5px solid transparent;
@@ -1839,7 +1888,7 @@ div.oj-tabs-panel.oj-tabs-selected{
         padding: 64px 33px 59px 4px !important;
     }
     .replyInput div span i {
-          margin-left: 30px !important;
+        margin-left: 30px !important;
     }
     .text-about {
         display: block;
@@ -1851,25 +1900,26 @@ div.oj-tabs-panel.oj-tabs-selected{
         margin-left: 28px !important;
     }
 }
+
 @media only screen 
-  and (min-device-width: 768px) 
-  and (max-device-width: 1024px) 
-  and (orientation: landscape) 
-  and (-webkit-min-device-pixel-ratio: 1) {
-      .profile-img-div{
-            width: 82px;
-            margin-left: -12px;
-            height: 115px;
-      }
-      .profile{
-            height: 90px;
-            width: 90px;
-            margin-top: 12px;
-      }
-      .intials-name{
-          font-size: 40px !important;
-          top: 9px !important;
-      }
+and (min-device-width: 768px) 
+and (max-device-width: 1024px) 
+and (orientation: landscape) 
+and (-webkit-min-device-pixel-ratio: 1) {
+    .profile-img-div{
+        width: 82px;
+        margin-left: -12px;
+        height: 115px;
+    }
+    .profile{
+        height: 90px;
+        width: 90px;
+        margin-top: 12px;
+    }
+    .intials-name{
+        font-size: 40px !important;
+        top: 9px !important;
+    }
 
 }
 @media  screen and (min-width: 1200px) and (max-width: 1366px) {
@@ -1885,7 +1935,22 @@ div.oj-tabs-panel.oj-tabs-selected{
     #ojDialogWrapper-modalDialog1.oj-dialog{
         width: 32% !important;
     }
+    #ojDialogWrapper-modalVideo.oj-dialog{
+            min-width: 1200px !important;
+    }
+    .video{
+        height: 470px !important;
+    }
 }
+@media  screen and (min-width: 1026px) and (max-width: 1366px) {
+    .side-bar-img {
+        width: 30px !important;
+    }
+    .side-bar{
+        bottom: 55% !important;
+    }  
+}
+
 
 @media screen  and (max-width: 360px) {
     .notification::before {
@@ -1946,6 +2011,7 @@ span.zmdi-plus-request {
     text-align: center;
     font-style: italic;
     font-size: 15px;
+    color: #dcdcdc;
 }
 .feedback-align{
     display: table;
@@ -1991,7 +2057,7 @@ span.zmdi-plus-request {
 .feedback-comment-text{
     padding: 5px;
     margin: 5px 3px;
-    word-break: break-all;
+    word-break: break-word;
 }
 .circle-purple{
     background-color: #2780b5;
@@ -2171,38 +2237,27 @@ ul.ff li a{
     position: fixed;
     color: #fff;
     left: -39px;
-    /*    top: 300px;*/
+    /* top: 300px; */
     text-align: center;
     line-height: 63px;
     cursor: pointer;
     z-index: 10;
-    bottom: 65%;
+    bottom: 67%;
     right: auto;
 }
 ul.ff1{
-    position:absolute;
-    /*left:-35px;*/
-    padding-bottom:20px;
-    /*top: 150px;*/
-    z-index:100;
+    position: absolute;
+    /* left: -35px; */
+    padding-bottom: 20px;
+    /* top: 150px; */
+    z-index: 100;
+    list-style: outside none none;
 }
 ul.ff1 li{
     list-style:none;
     margin-bottom:10px;
 }
 
-
-ul.ff1 li a{
-    background-color: #78A95A;
-    color: #FFF;
-    border-radius: 3px;
-    text-align: center;
-    width: 40px;
-    height: 130px;
-    display: block;
-    padding: 12px;
-    font-size: 18px;
-}
 ul.ff1 li a:hover , ul.ff1 li a:focus{
     text-decoration: none;
 }
@@ -2298,6 +2353,10 @@ a#menu-share:hover > i{
 .no-pointer{
     cursor: default;
 }
+.ms-fix{
+    border: 1px solid transparent;
+}
+
 .margin-top-feedback{margin-top: -15px;}
 
 .moreDots:hover{
@@ -2440,7 +2499,7 @@ a#menu-share:hover > i{
     color: #ffffff;
 }
 .profile_image_red{
-   position: relative;
+    position: relative;
     height: 95px;
     top: -73px;
 }
@@ -2495,9 +2554,8 @@ a#menu-share:hover > i{
 .text-area-both img {
     width: 60%;
 }
-
 .text-area-both-margin-top{
-    margin-top: 8px !important;
+    margin-top: 26px !important;
 }
 .search-text-profile-image {
     height: 40px;
@@ -2534,6 +2592,33 @@ a#menu-share:hover > i{
 .loading-fix{
     clear: both;
     display: block;
+}
+.mobileLazy{
+    cursor: pointer;
+    text-decoration: underline;
+    color: #fff;
+}
+.backToLoginAchivement {
+    border-bottom: 5px solid #fff;
+    font-weight: bolder;
+    float: right;
+    margin-top: 99px;
+    padding-bottom: 15px;
+    color: #fff;
+    font-size: 20px;
+    margin-right: 10px;
+}
+.backToLoginAchivement a,.backToLoginAchivement a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+@media screen  and (max-width: 364px) and (min-width: 320px) {
+    .mobile320fix{
+        margin-bottom: 25px;
+    }
+}
+.font-responsive{
+    font-size: 25px !important;
 }
 @media(min-width:320px) and (max-width:767px){
 
@@ -2599,5 +2684,83 @@ a#menu-share:hover > i{
 }
 /*feedback in profile and members profile word break fix.*/
 .feedbackTextBreakFalse{
-    word-break: keep-all !important;
+    word-break: break-word !important;
+}
+/*tour css*/
+/* tour image location */
+@media screen and (max-width: 767px){
+    .tourImg{
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 11;
+    }
+}
+@media screen and (min-width: 768px){
+    .tourImg{
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 11;
+    }
+}
+.tourClose,a.tourClose:active,a.tourClose:focus{
+    position: fixed;
+    top: 12px;
+    right: 21px;
+    z-index: 12;
+    color: #fff;
+    cursor: pointer;
+}
+@media  screen and (min-width: 1024px){
+    .backToLoginAchivement {
+        margin-right: 0px !important;
+    }
+}
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : landscape) {
+    .backToLoginAchivement {
+        margin-right: 10px !important;
+    }
+}
+@media  screen and (min-width: 320px) and (max-width: 767px) {
+    .backToLoginAchivement {
+        margin-top: 45px !important;
+        padding-bottom: 15px !important;
+    }
+}
+.backToLoginAchivement {
+    border-bottom: 5px solid #fff;
+    font-weight: bolder;
+    float: right;
+    margin-top: 126px;
+    padding-bottom: 15px;
+    color: #fff;
+    font-size: 20px;
+    margin-right: 10px;
+}
+.backToLoginAchivement a,.backToLoginAchivement a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+@media  screen and (min-width: 768px) and (max-width: 1024px) {
+    .text-area-both-margin-top {
+        margin-top: 16px !important;
+    }
+    #ojDialogWrapper-modalVideo.oj-dialog{
+        min-width: 750px !important;
+    }
+    .video {
+    height: 375px !important;
+}
 }

@@ -1,57 +1,68 @@
 <div class="oj-web-applayout-max-width oj-web-applayout-content  ">
+  
+            <span id="sucessFeedback" class="sucessMsg oj-flex-bar-center" data-bind="text: sucessMsg"></span>
+      
     <div class="oj-flex oj-row">
-
         <div class="side-bar">
             <ul class="ff1">
                 <li >
-                    <a href="javascript:void(0);"  class="buttons sideBar-feedback">
-                        <div class="rotate">
-                            <span>Feedback</span>  
-                            <!--<span>  <i class="zmdi zmdi-comment-text-alt"></i></span>-->
-                        </div>   
-                    </a>
+                     <a href="javascript:void(0);"  class=" sideBar-feedback">
+                         <div>
+                             <img class="side-bar-img" src="../../images/home-feedback-btn.png" alt=""/>
+                          </div>   
+                      </a>
                 </li>
                 <li>
-                    <a href="help.html"  class="buttons sideBar-help">
-                        <div class="rotate">  Help 
-                            <!--<i class="zmdi zmdi-star"></i>-->
-                        </div>
-                    </a>
+                     <a href="help.html"  class=" sideBar-help">
+                         <div>  
+                             <img class="side-bar-img" src="../../images/home-help-btn.png" alt=""/>
+                          </div>
+                      </a>
                 </li>
-                 <li>
-                    <a href="javascript:void(0);"  class="buttons sideBar-tour">
-                       <div class="rotate">   Tour 
-                           <!--<i class="zmdi zmdi-star"></i>-->
-                       </div>
-                    </a>
+                <li>
+                    <a href="javascript:void(0);"  class=" sideBar-tour" data-bind="click: openTour">
+                         <div>
+                             <img class="side-bar-img" src="../../images/home-tour-btn.png" alt=""/>
+                         </div>
+                      </a>
                 </li>
             </ul>
         </div>
-
-
     </div>
 </div>
 
 <!--feedaback modal in Side bar-->
 <div class="oj-row oj-flex">
-   <div id="dialogWrapperSideBar">
-  <div style="display:none" id="modalDialog-userFeedback" title="Feedback" 
-       data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide'}">
-     <div class="oj-dialog-body">
-         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center feedbck-text ">
-             Hello,we'd love to hear your feedback about our Parakh...
-         </div>
-        <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center areaContent1 ">
-                    <textarea id="text-area9" class="textArea-feedbackFloat" aria-label="ojTextArea component no visible label"
-                              
-                          ></textarea>
+    <div id="dialogWrapperSideBar">
+        <div style="display:none" id="modalDialog-userFeedback" title="Feedback" 
+             data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide'}">
+            <div class="oj-dialog-body">
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center feedbck-text ">
+                    Hello, we'd love to hear your feedback about our Parakh...
                 </div>
-
-                <!--<div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center errorText" id="feedbackFloatTextError">Please provide a reason for your feedback.</div>-->
+                <div class=" oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center areaContent1 ">
+                    <textarea id="text-area9" class="textArea-feedbackSideBar" aria-label="ojTextArea component no visible label"
+                              data-bind=" ojComponent: {component: 'ojTextArea', 
+                                     value: message, 
+                                     placeholder: 'Type your feedback here..'}"></textarea>   
+                </div>
+                <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-margin-horizontal center errorText" data-bind="text:textError"></div>
                 <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item center">
-                    <button class="modal-submitUserFeedback" > Send Feedback </button>
+                    <button class="modal-submitUserFeedback"  data-bind="click: userFeedback" > Send Feedback </button>
                 </div>
-     </div>
-  </div>
-</div>        
+            </div>
+        </div>
+    </div>        
+</div>
+
+<!--loader-->
+<div class="loaderDiv loaderHide" id="userToParakh">
+    <div class="overlay-loader"></div>
+    <div class="loaderImgDiv"><img src="css/images/loader.gif" alt=""/></div>
+</div>
+<div class="hide" id="guideTour">
+    <img alt="guide tour" id="puzzle" class="tourImg"
+       data-bind="attr: { src: large() ? desktopImg :
+                                         mobileImg}" >
+    <a class="tourClose"  data-bind="click: closeTour"><i class="zmdi zmdi-close zmdi-hc-3x"></i></a>
 </div>

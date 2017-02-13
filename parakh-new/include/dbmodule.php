@@ -61,16 +61,41 @@ class dbmodule {
     }
 
 //end of fun
-    
+
+    /*     *
+     * get user login first time check
+     * */
+
+    function userFirstTime($userId) {
+        $query = "SELECT u.firstLogin FROM users as u WHERE id = :userId";
+        $profile_data = $this->con->prepare($query);
+        $profile_data->execute(array(':userId' => $userId));
+        $row = $profile_data->fetch((PDO::FETCH_ASSOC));
+        if (isset($row) && !empty($row)) {
+//            var_dump($row["firstLogin"] == "1");
+//            die();
+            if ($row["firstLogin"] == "0") {
+                $query = "UPDATE users set firstLogin=1 where id=" . $userId;
+                $user_list = $this->con->prepare($query);
+                $user_list->execute();
+            }
+            return $row;
+        } else {
+            return null;
+        }
+    }
+
+//end of fun
+
 
     /*     *
      * get all the users by lead id
      * */
 
     function getUserByLead($lead_id) {
-		$this->StartProfile("createimage",__LINE__);
+        $this->StartProfile("createimage", __LINE__);
         $default_img = DEFAULT_IMG_BASE64;
-		$this->EndProfile("createimage",__LINE__);
+        $this->EndProfile("createimage", __LINE__);
         if (!filter_var($lead_id, FILTER_VALIDATE_INT) === false) {
             $employeeList = array();
             $query = 'SELECT uh.user_id,u.google_name,u.google_email,u.mobile_number,u.designation,u.google_picture_link as picture,u.google_email
@@ -129,9 +154,9 @@ class dbmodule {
      * */
 
     function getOtherTeamMembers($lead_id) {
-		$this->StartProfile("createimage",__LINE__);
+        $this->StartProfile("createimage", __LINE__);
         $default_img = DEFAULT_IMG_BASE64;
-		$this->EndProfile("createimage",__LINE__);
+        $this->EndProfile("createimage", __LINE__);
         if (!filter_var($lead_id, FILTER_VALIDATE_INT) === false) {
             $employeeList = array();
             $team_members = $this->getUserByLead($lead_id);
@@ -306,7 +331,7 @@ class dbmodule {
                 "{Username}" => $this->firstNameSendEmail($email_data['to']['name']),
                 "{Member}" => $from_data['google_name'],
                 "{Link}" => $link,
-		"{year}" => date("Y"),
+                "{year}" => date("Y"),
             );
             $message = strtr($temp_data['content'], $vars);
             $email_data['message'] = $message;
@@ -328,7 +353,7 @@ class dbmodule {
                 "{rating}" => $rating,
                 "{lead}" => $user_data_l['google_name'],
                 "{comment}" => $data['desc'],
- 		        "{year}" =>date("Y"),
+                "{year}" => date("Y"),
             );
             $message = strtr($temp_data_l['content'], $vars);
             $email_data_l['message'] = $message;
@@ -346,7 +371,7 @@ class dbmodule {
             }
             /* send mail if users is in top 10 or rating position is changes */
             $getNewRatingPostion = $this->get_position_of_user_in_ranking($data['for_id']);
-            if ($getNewRatingPostion!=0 && ($getNewRatingPostion <= 10 || $getOldRatingPostion > $getNewRatingPostion)) {
+            if ($getNewRatingPostion != 0 && ($getNewRatingPostion <= 10 || $getOldRatingPostion > $getNewRatingPostion)) {
                 $email_data = [];
                 $temp_data = $this->getEmailTemplateByCode('PRKE15');
                 $email_data['to']['email'] = $user_data['google_email'];
@@ -355,7 +380,7 @@ class dbmodule {
                 $vars = array(
                     "{Username}" => $this->firstNameSendEmail($user_data['google_name']),
                     "{Link}" => $this->getTargetLink(RANKING_URL, 'Parakh'),
-		    "{year}" =>date("Y"),
+                    "{year}" => date("Y"),
                 );
                 $message = strtr($temp_data['content'], $vars);
                 $email_data['message'] = $message;
@@ -496,9 +521,9 @@ class dbmodule {
         if ($rating_last_insert) {
             $email_data = [];
             $user_data = $this->getEmailById($data['for_id']);
-            
+
             $user_data1 = $this->getEmailById($login_user_id);
-            
+
             // $email_data['from']['name'] = $this->getEmailById($emailSendTo)['google_name'];
             $temp_data = $this->getEmailTemplateByCode('PRKE01');
             $email_data['to']['email'] = $user_data['google_email'];
@@ -506,13 +531,12 @@ class dbmodule {
             $email_data['from']['name'] = $user_data1['google_name'];
             $email_data['subject'] = $temp_data['subject'];
             $rating = 1;
-            
+
             $vars = array(
                 "{Username}" => $this->firstNameSendEmail($email_data['to']['name']),
                 "{Member}" => $email_data['from']['name'],
                 "{Link}" => $this->getTargetLink(MY_BUDDIES_URL, "Go for it!"),
-		        "{year}" =>date("Y"),
-		
+                "{year}" => date("Y"),
             );
             $message = strtr($temp_data['content'], $vars);
             $email_data['message'] = $message;
@@ -533,8 +557,8 @@ class dbmodule {
                 "{rating}" => $rating,
                 "{lead}" => $user_data_l['google_name'],
                 "{comment}" => $data['desc'],
-                "{Username}" =>$this->firstNameSendEmail($this->manager_name),
-		"{year}" =>date("Y"),
+                "{Username}" => $this->firstNameSendEmail($this->manager_name),
+                "{year}" => date("Y"),
             );
 
             $message = strtr($temp_data_l['content'], $vars);
@@ -554,7 +578,7 @@ class dbmodule {
 
             /* send mail if users is in top 10 or rating position is changes */
             $getNewRatingPostion = $this->get_position_of_user_in_ranking($data['for_id']);
-            if ($getNewRatingPostion!=0 && ($getNewRatingPostion <= 10 || $getOldRatingPostion > $getNewRatingPostion)) {
+            if ($getNewRatingPostion != 0 && ($getNewRatingPostion <= 10 || $getOldRatingPostion > $getNewRatingPostion)) {
                 $email_data = [];
                 $temp_data = $this->getEmailTemplateByCode('PRKE15');
                 $email_data['to']['email'] = $user_data['google_email'];
@@ -563,7 +587,7 @@ class dbmodule {
                 $vars = array(
                     "{Username}" => $this->firstNameSendEmail($user_data['google_name']),
                     "{Link}" => $this->getTargetLink(RANKING_URL, 'Parakh'),
-		    "{year}" =>date("Y"),
+                    "{year}" => date("Y"),
                 );
                 $message = strtr($temp_data['content'], $vars);
                 $email_data['message'] = $message;
@@ -652,7 +676,7 @@ class dbmodule {
                           sum(case when r.rating = 1 then 1  end) as pluscount,
                           sum(case when r.rating = 0 then 1  end) as minuscount
                           from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 
-                          group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date DESC LIMIT 10";
+                          group by r.user_id HAVING pluscount >0 ORDER BY pluscount DESC, minuscount ASC,date DESC LIMIT 10";
         $ranking_data = $this->con->prepare($query);
         $ranking_data->execute();
         $rating = '';
@@ -663,14 +687,13 @@ class dbmodule {
         return $data;
     }
 
-    /*     *
+    /**
      * get 3 recent Ratings list
      * */
-
     function get_recent_ratings() {
-		$this->StartProfile("createimage",__LINE__);
+        $this->StartProfile("createimage", __LINE__);
         $default_img = DEFAULT_IMG_BASE64;
-		$this->EndProfile("createimage",__LINE__);
+        $this->EndProfile("createimage", __LINE__);
         $MonthFirstDate = date('Y-m-01');
         $query = "SELECT r.user_id,u.google_name,u.google_email,u.google_picture_link,u.projects,u.primary_project,u.designation"
                 . " FROM rating as r "
@@ -694,7 +717,7 @@ class dbmodule {
                        sum(case when r.rating = 1 then 1  end) as pluscount,
                        sum(case when r.rating = 0 then 1  end) as minuscount
                        from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0
-                       group by r.user_id ORDER BY pluscount DESC, minuscount ASC,date ASC";
+                       group by r.user_id HAVING pluscount >0 ORDER BY pluscount DESC, minuscount ASC, date DESC";
         $rank_data = $this->con->prepare($query);
         $rank_data->execute();
         $row = $rank_data->fetchAll((PDO::FETCH_ASSOC));
@@ -798,7 +821,7 @@ class dbmodule {
                 "{Username}" => $this->firstNameSendEmail($email_data['to']['name']),
                 "{Manager}" => $from_data['google_name'],
                 "{Link}" => $this->getTargetLink(PROFILE_URL . "&id=2", "Parakh"),
-		"{year}" =>date("Y"),
+                "{year}" => date("Y"),
             );
 
             $message = strtr($temp_data['content'], $vars);
@@ -816,7 +839,7 @@ class dbmodule {
                 "{Member}" => $email_data['to']['name'],
                 "{Manager}" => $from_data['google_name'],
                 "{Feedback}" => $data['feedback_description'],
-		"{year}" =>date("Y"),
+                "{year}" => date("Y"),
             );
             $message = strtr($temp_data_l['content'], $vars);
             $email_data_l['message'] = $message;
@@ -844,9 +867,7 @@ class dbmodule {
      * */
 
     function get_all_team_members($user_id) {
-		$this->StartProfile("createimage",__LINE__);
         $default_img = DEFAULT_IMG_BASE64;
-		$this->EndProfile("createimage",__LINE__);
         if ($user_id) {
             $query = "SELECT id, google_name, google_email, mobile_number, designation, google_picture_link,location,skills,interests,associate_with_infobeans,projects,primary_project FROM users WHERE id <>:id AND id <> 1 AND status <> 0 ORDER BY google_name";
 
@@ -881,9 +902,20 @@ class dbmodule {
                 }
                 $image = $this->getCacheImage($employeeList[$y]['google_email'], $default_img);
                 $employeeList[$y]['google_picture_link'] = $image;
+                $employeeList[$y]['is_manager_current_user'] = $this->getManagerID($employeeList[$y]['id']);
             }
-
             return $employeeList;
+        } else {
+            return 0;
+        }
+    }
+
+    function getManagerID($user_id) {
+        $query = "select manager_id from user_hierarchy where user_id=:user_id AND manager_id in (select id from users where google_email=:manager_email)";
+        $fetch_manager = $this->con->prepare($query);
+        $fetch_manager->execute(array(':user_id' => $user_id, ':manager_email' => $_COOKIE['email']));
+        if ($fetch_manager->fetchColumn()) {
+            return 1;
         } else {
             return 0;
         }
@@ -894,9 +926,9 @@ class dbmodule {
      * */
 
     function get_a_team_member($user_id) {
-		$this->StartProfile("createimage",__LINE__);
+        $this->StartProfile("createimage", __LINE__);
         $default_img = DEFAULT_IMG_BASE64;
-		$this->EndProfile("createimage",__LINE__);
+        $this->EndProfile("createimage", __LINE__);
         if ($user_id) {
             $query = "SELECT id, google_name, google_email, mobile_number, designation, google_picture_link,location,skills,interests,associate_with_infobeans,projects,primary_project FROM users WHERE id = :id";
 
@@ -1029,7 +1061,7 @@ class dbmodule {
                 "{Member}" => $from_data['google_name'],
                 "{Link}" => $this->getTargetLink(PROFILE_URL . "&id=2", 'Parakh'),
                 "{Comment}" => $data['feedback_desc'],
-		"{year}" =>date("Y"),
+                "{year}" => date("Y"),
             );
 
             $message = strtr($temp_data['content'], $vars);
@@ -1044,7 +1076,7 @@ class dbmodule {
                     "{Member}" => $user_data['google_name'],
                     "{Manager}" => $from_data['google_name'],
                     "{Feedback}" => $data['feedback_desc'],
-	            "{year}" =>date("Y"),
+                    "{year}" => date("Y"),
                 );
                 $email_data_l = [];
                 $temp_data_l = $this->getEmailTemplateByCode('PRKE17');
@@ -1094,9 +1126,9 @@ class dbmodule {
     }
 
     function getAllLeads($user_id) {
-		$this->StartProfile("createimage",__LINE__);
+        $this->StartProfile("createimage", __LINE__);
         $default_img = DEFAULT_IMG_BASE64;
-		$this->EndProfile("createimage",__LINE__);
+        $this->EndProfile("createimage", __LINE__);
         if ($user_id) {
             $leadList = [];
             $query = "SELECT * FROM user_hierarchy WHERE user_id = :id ";
@@ -1199,7 +1231,7 @@ class dbmodule {
                 "{Username}" => $this->firstNameSendEmail($user_data['google_name']),
                 "{Member}" => $from_data['google_name'],
                 "{Link}" => $this->getTargetLink(PROFILE_URL, 'My Profile'),
-		"{year}" =>date("Y"),
+                "{year}" => date("Y"),
             );
 
             $message = strtr($temp_data['content'], $vars);
@@ -1240,9 +1272,9 @@ class dbmodule {
 //end of fun
     // Get all the requests available for any user
     function getTeamMembersRequest($user_id = null) {
-		$this->StartProfile("createimage",__LINE__);
+        $this->StartProfile("createimage", __LINE__);
         $default_img = DEFAULT_IMG_BASE64;
-		$this->EndProfile("createimage",__LINE__);
+        $this->EndProfile("createimage", __LINE__);
         if (isset($user_id)) {
             $query = "SELECT user.google_name,user.google_picture_link,user.google_email,user.designation,request.id as request_id, "
                     . "request.to_id,request.from_id,request.status, request.for_id, description, "
@@ -1271,9 +1303,9 @@ class dbmodule {
 //end of fun()
 
     function getUserPendingRequest($user_id, $status = 0) {
-		$this->StartProfile("createimage",__LINE__);
+        $this->StartProfile("createimage", __LINE__);
         $default_img = DEFAULT_IMG_BASE64;
-		$this->EndProfile("createimage",__LINE__);
+        $this->EndProfile("createimage", __LINE__);
         if (isset($user_id)) {
             $cnd = '';
             if ($status != '')
@@ -1354,7 +1386,7 @@ class dbmodule {
             "{Username}" => $this->firstNameSendEmail($user_data['google_name']),
             "{Manager}" => $from_data['google_name'],
             "{Link}" => $this->getTargetLink(MY_BUDDIES_URL, 'Parakh'),
-	    "{year}" =>date("Y"),
+            "{year}" => date("Y"),
         );
 
         $message = strtr($temp_data['content'], $vars);
@@ -1466,7 +1498,7 @@ class dbmodule {
                 "{Username}" => $this->firstNameSendEmail($user_data['google_name']),
                 "{Manager}" => $from_data['google_name'],
                 "{Link}" => $this->getTargetLink(PROFILE_URL, 'My Profile'),
-		"{year}" =>date("Y"),
+                "{year}" => date("Y"),
             );
 
             $message = strtr($temp_data['content'], $vars);
@@ -1696,9 +1728,9 @@ class dbmodule {
     /* get top four ranker of current month */
 
     function get_top_four_ranker_for_current_month() {
-		$this->StartProfile("createimage",__LINE__);
+        $this->StartProfile("createimage", __LINE__);
         $default_img = DEFAULT_IMG_BASE64;
-		$this->EndProfile("createimage",__LINE__);
+        $this->EndProfile("createimage", __LINE__);
         $query_rank = "SELECT r.created_date as date,r.user_id,u.google_name,u.google_email,u.primary_project,u.projects,u.google_picture_link as image,
                     sum(case when r.rating = 1 then 1  end) as pluscount,
                     sum(case when r.rating = 0 then 1  end) as minuscount
@@ -1708,18 +1740,28 @@ class dbmodule {
         $user_rank = $this->con->prepare($query_rank);
         $user_rank->execute();
         $userRank = $user_rank->fetchAll((PDO::FETCH_ASSOC));
-        for ($y = 0; $y < count($userRank); $y++) {
-            $userRank[$y]['image'] = $this->getCacheImage($userRank[$y]['google_email'], $default_img);
+        $array = array();
+        foreach ($userRank as $key => $value) {
+
+            foreach ($userRank[$key] as $key1 => $value1) {
+                if ($key1 == "pluscount" && $value1 > 0) {
+                    array_push($array, $userRank[$key]);
+                }
+            }
         }
-        return $userRank;
+
+        for ($y = 0; $y < count($array); $y++) {
+            $array[$y]['image'] = $this->getCacheImage($array[$y]['google_email'], $default_img);
+        }
+        return $array;
     }
 
     /* get top ranker of project wise */
 
     function get_top_rankers_project_wise($manager_id) {
-		$this->StartProfile("createimage",__LINE__);
+        $this->StartProfile("createimage", __LINE__);
         $default_img = DEFAULT_IMG_BASE64;
-		$this->EndProfile("createimage",__LINE__);
+        $this->EndProfile("createimage", __LINE__);
         $query_rank = "SELECT MAX(r.created_date) as date,r.user_id,u.google_name,u.google_email,u.google_picture_link as image,u.projects,u.primary_project,
                    sum(case when r.rating = 1 then 1  end) as pluscount,
                    sum(case when r.rating = 0 then 1  end) as minuscount
@@ -1758,7 +1800,10 @@ class dbmodule {
 
         $totalUserRank = array();
         /* Query to fetch plus and minus week wise */
-        $query_rank_week_wise = "SELECT sum(case when r.rating = 1 then 1  end) as pluscount,sum(case when r.rating = 0 then 1  end) as minuscount FROM rating as r WHERE created_date > DATE_SUB(NOW(), INTERVAL 1 WEEK) AND user_id in (select user_id from user_hierarchy where manager_id =:lead_id) OR user_id =  :lead_id";
+//        $query_rank_week_wise = "SELECT sum(case when r.rating = 1 then 1  end) as pluscount,sum(case when r.rating = 0 then 1  end) as minuscount FROM rating as r WHERE created_date > DATE_SUB(NOW(), INTERVAL 1 WEEK) AND user_id in (select user_id from user_hierarchy where manager_id =:lead_id) OR user_id =  :lead_id";
+        $query_rank_week_wise = " SELECT sum(case when rating = 1 then 1  end) as pluscount,
+        sum(case when rating = 0 then 1  end) as minuscount 
+        from rating where user_id in (select h.user_id from user_hierarchy as h JOIN users as u on h.user_id = u.id and u.status = 1  where h.manager_id = :lead_id or h.user_id = :lead_id group by h.user_id) and 7 > DATEDIFF(NOW(), created_date);";
         $user_rank_week = $this->con->prepare($query_rank_week_wise);
         $user_rank_week->execute(array(':lead_id' => $lead_id));
         $userRankWeek = $user_rank_week->fetchAll((PDO::FETCH_ASSOC));
@@ -1766,8 +1811,12 @@ class dbmodule {
             $totalUserRank['week']['plus'] = ($userRankWeek[$k]['pluscount'] != '') ? $userRankWeek[$k]['pluscount'] : 0;
             $totalUserRank['week']['minus'] = ($userRankWeek[$k]['minuscount'] != '') ? $userRankWeek[$k]['minuscount'] : 0;
         }
+
         /* Query to fetch plus and minus month wise */
-        $query_rank_month_wise = "SELECT sum(case when r.rating = 1 then 1  end) as pluscount,   sum(case when r.rating = 0 then 1  end) as minuscount FROM rating as r WHERE created_date > DATE_SUB(NOW(), INTERVAL 1 MONTH) AND user_id in (select user_id from user_hierarchy where manager_id =:lead_id) OR user_id =  :lead_id";
+        //$query_rank_month_wise = "SELECT sum(case when r.rating = 1 then 1  end) as pluscount,   sum(case when r.rating = 0 then 1  end) as minuscount FROM rating as r WHERE created_date > DATE_SUB(NOW(), INTERVAL 1 MONTH) AND user_id in (select user_id from user_hierarchy where manager_id =:lead_id) OR user_id =  :lead_id";
+        $query_rank_month_wise = "SELECT sum(case when rating = 1 then 1  end) as pluscount,
+        sum(case when rating = 0 then 1  end) as minuscount 
+        from rating where user_id in (select h.user_id from user_hierarchy as h JOIN users as u on h.user_id = u.id and u.status = 1  where h.manager_id = :lead_id or h.user_id = :lead_id group by h.user_id) and MONTH(now()) =  MONTH(created_date) and YEAR(now()) =  YEAR(created_date);";
         $user_rank_month = $this->con->prepare($query_rank_month_wise);
         $user_rank_month->execute(array(':lead_id' => $lead_id));
         $userRankMonth = $user_rank_month->fetchAll((PDO::FETCH_ASSOC));
@@ -1776,7 +1825,9 @@ class dbmodule {
             $totalUserRank['month']['minus'] = ($userRankMonth[$k]['minuscount'] != '') ? $userRankMonth[$k]['minuscount'] : 0;
         }
         /* Query to fetch plus and minus till today */
-        $query_rank_till_now_wise = "SELECT sum(case when r.rating = 1 then 1  end) as pluscount,sum(case when r.rating = 0 then 1  end) as minuscount FROM rating as r WHERE user_id in (select user_id from user_hierarchy where manager_id =:lead_id) OR user_id =  :lead_id";
+        $query_rank_till_now_wise = "SELECT sum(case when rating = 1 then 1  end) as pluscount,
+        sum(case when rating = 0 then 1  end) as minuscount 
+        from rating where user_id in (select h.user_id from user_hierarchy as h JOIN users as u on h.user_id = u.id and u.status = 1  where h.manager_id = :lead_id or h.user_id = :lead_id group by h.user_id );";
         $user_rank_till_now = $this->con->prepare($query_rank_till_now_wise);
         $user_rank_till_now->execute(array(':lead_id' => $lead_id));
         $userRankTillNow = $user_rank_till_now->fetchAll((PDO::FETCH_ASSOC));
@@ -1820,9 +1871,9 @@ class dbmodule {
     /* function to fetch all rejected requests reject by login user */
 
     function get_all_rejected_request_by_login_id($lead_id) {
-		$this->StartProfile("createimage",__LINE__);
+        $this->StartProfile("createimage", __LINE__);
         $default_img = DEFAULT_IMG_BASE64;
-		$this->EndProfile("createimage",__LINE__);
+        $this->EndProfile("createimage", __LINE__);
         $query = "SELECT request.id as request_id, user.google_name,user.id as lead_id,user.google_picture_link, user.google_email, user.designation,role.name as role_name,request.to_id,request.from_id,description,c.comment_text as comment_text,work.created_date,request_for,rating, request.status FROM `request` 
                     left join work on work.id = request.work_id 
                     left join rating on rating.work_id = request.work_id 
@@ -1849,7 +1900,7 @@ class dbmodule {
         $user_list->execute(array(':email' => $user_email));
 
         $row = $user_list->fetch();
-        
+
         /* check users is already in DB with status 0 or not */
         $query_user_exists = "SELECT users.id from users where google_email= :email";
         $user_exists_list = $this->con->prepare($query_user_exists);
@@ -1862,9 +1913,9 @@ class dbmodule {
         /* update google picture for user after login */
 
         if (isset($_POST['img']) && !empty($_POST['img']) && isset($row) && !empty($row)) {
-			$this->StartProfile("createimage",__LINE__);
+            $this->StartProfile("createimage", __LINE__);
             $code = base64_encode(file_get_contents($_POST['img']));
-			$this->EndProfile("createimage",__LINE__);
+            $this->EndProfile("createimage", __LINE__);
             //$code='';
             if (!empty($code)) {
                 $query = "update users set google_picture_link = '" . $_POST['img'] . "',img_cache='" . $code . "|||" . $_POST['timestamp'] . "' where google_email='" . $user_email . "'";
@@ -1901,9 +1952,9 @@ class dbmodule {
             if (!empty($google_img) && $google_img == $default_img) {
                 return '/images/default.png';
             } else if (isset($row['google_picture_link']) && !empty($row['google_picture_link'])) {
-				$this->StartProfile("createimage",__LINE__);
+                $this->StartProfile("createimage", __LINE__);
                 $google_pic = base64_encode(file_get_contents($row['google_picture_link']));
-				$this->EndProfile("createimage",__LINE__);
+                $this->EndProfile("createimage", __LINE__);
                 //$google_pic='';
                 if (!empty($google_pic)) {
                     $query = "update users set img_cache='" . $google_pic . "|||" . strtotime(date('Y-m-d h:m:s')) . "' where google_email='" . $row['google_email'] . "'";
@@ -1946,7 +1997,7 @@ class dbmodule {
             } else {
                 return $row['google_picture_link'];
             }
-        } else if($row['google_picture_link']=='') {
+        } else if ($row['google_picture_link'] == '') {
             return '/images/default.png';
         } else {
             return $this->createImageCache($user_email, 0, $default_img);
@@ -1972,9 +2023,9 @@ class dbmodule {
      * */
 
     function get_four_till_now_ranking_list() {
-		$this->StartProfile("createimage",__LINE__);
+        $this->StartProfile("createimage", __LINE__);
         $default_img = DEFAULT_IMG_BASE64;
-		$this->EndProfile("createimage",__LINE__);
+        $this->EndProfile("createimage", __LINE__);
         $result = array();
         $query = "SELECT MAX(r.created_date) as date,r.user_id,u.google_name,u.google_email,u.projects,u.primary_project,u.google_picture_link as image,
                           sum(case when r.rating = 1 then 1  end) as pluscount,
@@ -2013,7 +2064,7 @@ class dbmodule {
                 $vars = array(
                     "{Username}" => $this->firstNameSendEmail($value['google_name']),
                     "{Link}" => $this->getTargetLink(SITE_URL, 'Parakh'),
-		    "{year}" =>date("Y"),
+                    "{year}" => date("Y"),
                 );
                 $message = strtr($temp_data['content'], $vars);
                 $email_data['message'] = $message;
@@ -2040,31 +2091,133 @@ class dbmodule {
         }
     }
 
-//end of fun
-    function firstNameSendEmail($firstname){
-        $arr = explode(' ',trim($firstname));
+    //end of fun
+    function firstNameSendEmail($firstname) {
+        $arr = explode(' ', trim($firstname));
         return $arr[0];
     }
-	function StartProfile($msg, $line)
-	{
-		$fp = fopen('/var/www/html/parakhDev/parakh2/parakh-new/include/profile.csv', 'a+');
-		$data=array("Message: ".$msg,
-		"URL: ".$_SERVER['REQUEST_URI'],
-				"Line: ".$line,
-				"Start Time: ".date("r"));
-		fputcsv($fp, $data);
-		fclose($fp);
-	}
-	function EndProfile($msg, $line)
-	{
-		$fp = fopen('/var/www/html/parakhDev/parakh2/parakh-new/include/profile.csv', 'a+');
-		$data=array("Message: ".$msg,
-		"URL: ".$_SERVER['REQUEST_URI'],
-				"Line: ".$line,
-				"End Time: ".date("r"));
-		fputcsv($fp, $data);
-		fclose($fp);
-	}
+
+    function StartProfile($msg, $line) {
+        $fp = fopen('/var/www/html/parakhDev/parakh2/parakh-new/include/profile.csv', 'a+');
+        $data = array("Message: " . $msg,
+            "URL: " . $_SERVER['REQUEST_URI'],
+            "Line: " . $line,
+            "Start Time: " . date("r"));
+        fputcsv($fp, $data);
+        fclose($fp);
+    }
+
+    function EndProfile($msg, $line) {
+        $fp = fopen('/var/www/html/parakhDev/parakh2/parakh-new/include/profile.csv', 'a+');
+        $data = array("Message: " . $msg,
+            "URL: " . $_SERVER['REQUEST_URI'],
+            "Line: " . $line,
+            "End Time: " . date("r"));
+        fputcsv($fp, $data);
+        fclose($fp);
+    }
+
+    /* get top 10 rankers of the current month */
+
+    function get_top_ten_rankers_of_current_month() {
+        $query = "SELECT r.created_date as date,r.user_id,u.google_name,u.google_email,u.primary_project,u.projects,u.google_picture_link as image,
+                    sum(case when r.rating = 1 then 1  end) as pluscount,
+                    sum(case when r.rating = 0 then 1  end) as minuscount
+                    from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 AND MONTH(r.created_date) = MONTH(CURDATE())
+                    AND YEAR(r.created_date) = YEAR(CURDATE())
+                    group by r.user_id HAVING pluscount >0 ORDER BY pluscount DESC, minuscount ASC,date DESC LIMIT 10";
+        $rankers_data = $this->con->prepare($query);
+        $rankers_data->execute();
+        $rankers = $rankers_data->fetchAll((PDO::FETCH_ASSOC));
+        return $rankers;
+    }
+
+    /* get top 10 rankers of the past 90 days */
+
+    function get_top_ten_rankers_of_past_90_days() {
+        $query = "SELECT r.created_date as date,r.user_id,u.google_name,u.google_email,u.primary_project,u.projects,u.google_picture_link as image,
+                    sum(case when r.rating = 1 then 1  end) as pluscount,
+                    sum(case when r.rating = 0 then 1  end) as minuscount
+                    from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 AND r.created_date > DATE_SUB(NOW(), INTERVAL 90 DAY)
+                    group by r.user_id HAVING pluscount >0 ORDER BY pluscount DESC, minuscount ASC,date DESC LIMIT 10";
+        $rankers_data = $this->con->prepare($query);
+		
+        $rankers_data->execute();
+        $rankers = $rankers_data->fetchAll((PDO::FETCH_ASSOC));
+        return $rankers;
+    }
+
+    /* get logged in users rank of the current month */
+
+    function get_rank_of_logged_in_user_in_current_month($login_user_id) {
+
+        $query = "SELECT MAX(r.created_date) as date, r.user_id,u.google_name,u.google_picture_link as image,
+                       sum(case when r.rating = 1 then 1  end) as pluscount,
+                       sum(case when r.rating = 0 then 1  end) as minuscount
+                       from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 AND MONTH(r.created_date) = MONTH(CURDATE())
+                    AND YEAR(r.created_date) = YEAR(CURDATE())
+                       group by r.user_id HAVING pluscount >0 ORDER BY pluscount DESC, minuscount ASC, date DESC";
+        $rank_data = $this->con->prepare($query);
+        $rank_data->execute();
+        $row = $rank_data->fetchAll((PDO::FETCH_ASSOC));
+        $login_user_rank_position = array_search($login_user_id, array_column($row, 'user_id'));
+        $result = array();
+        $result['my_rank'] = (is_bool($login_user_rank_position) == false) ? $login_user_rank_position + 1 : '-';
+        $result['total_user_count'] = $this->get_all_members_cnt()['totalusercnt'];
+        return $result;
+    }
+
+    /* get logged in users rank of the past 90 days */
+
+    function get_rank_of_logged_in_user_in_past_90_days($login_user_id) {
+        $query = "SELECT MAX(r.created_date) as date, r.user_id,u.google_name,u.google_picture_link as image,
+                       sum(case when r.rating = 1 then 1  end) as pluscount,
+                       sum(case when r.rating = 0 then 1  end) as minuscount
+                       from rating as r join users as u ON (u.id =r.user_id) WHERE u.status <> 0 AND r.created_date >= DATE_SUB(NOW(), INTERVAL 90 DAY)
+                       group by r.user_id HAVING pluscount >0 ORDER BY pluscount DESC, minuscount ASC , date DESC";
+        $rank_data = $this->con->prepare($query);
+		//echo $rank_data->queryString;
+        $rank_data->execute();
+        $row = $rank_data->fetchAll((PDO::FETCH_ASSOC));
+        $login_user_rank_position = array_search($login_user_id, array_column($row, 'user_id'));
+        $result = array();
+        $result['my_rank'] = (is_bool($login_user_rank_position) == false) ? $login_user_rank_position + 1 : '-';
+        $result['total_user_count'] = $this->get_all_members_cnt()['totalusercnt'];
+        return $result;
+    }
+
+    function get_parakh_video() {
+        $video = '<video class="video" id="parakh_video" controls="" loop="" ><source type="video/ogg" src="Parakh_Teaser.mp4"><source type="video/mp4" src="Parakh_Teaser.mp4"><object  type="application/x-shockwave-flash" data="Parakh_Teaser.mp4" wmode="transparent"><param name="movie" value="Parakh_Teaser.mp4"><param name="wmode" value="transparent"><param name="autostart" value="false"></object></video>';
+
+        $data['video'] = $video;
+        return $data;
+    }
+
+    /* send feedback function */
+    /* send feedback function */
+
+    function send_feedback($data) {
+        if (isset($data['desc'])) {
+            $email_data = [];
+            $temp_data = $this->getEmailTemplateByCode('PRKE18');
+            $email_data['to']['email'] = FEEDBACK_EMAIL;
+            $email_data['to']['name'] = "Parakh - Feedback";
+            $email_data['from'] = $data['from'];
+            $email_data['from_name'] = $data['from_name'];
+            $email_data['subject'] = $temp_data['subject'];
+            $vars = array(
+                "{Username}" => $data['from_name'],
+                "{Feedback}" => $data['desc']
+            );
+            $email_data['message'] = strtr($temp_data['content'], $vars);
+            $this->send_notification($email_data);
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+//end of fun
 }
 
 //end of class

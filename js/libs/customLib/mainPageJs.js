@@ -5,9 +5,9 @@
  */
 //links for webservice;
 
-if(location.hostname=='parakh.infobeans.com')
+if(location.hostname=='dev.parakh.com')
 {
-	var baseUrl = "http://parakh.infobeans.com/parakh-new/v1/index.php";
+	var baseUrl = "http://dev.parakh.com/parakh-new/v1/index.php";
 	var secret = 'parakh-revamp-local-key-2016';
 }else if(location.hostname== 'dev.parakhnewdesign.com')
 {
@@ -22,6 +22,15 @@ if(location.hostname=='parakh.infobeans.com')
 	var baseUrl = "http://public.parakh.com:1808/parakh-new/v1/index.php";
 	var secret = 'parakh-revamp-local-key-2016';
 }
+else if(location.hostname=='parakh.infobeans.com')
+{
+	var baseUrl = "http://parakh.infobeans.com/parakh-new/v1/index.php";
+	var secret = 'parakh-revamp-local-key-2016';
+}else if(location.hostname=='parakhdev.com')
+{
+	var baseUrl = "http://parakhdev.com/parakh-new/v1/index.php";
+	var secret = 'parakh-revamp-local-key-2016';
+}
 var getUserByEmail = baseUrl+"/getUserByEmail/";
 var getUserByLead = baseUrl+"/getUserByLead/";
 var getOtherTeamMembers = baseUrl+"/getOtherTeamMembers/";
@@ -30,7 +39,7 @@ var getRatingByUser  = baseUrl+"/getRatingByUser/";
 var updateProfile = baseUrl+"/updateProfile";
 var getRankingList = baseUrl+"/getRankingList/";
 var getMyRank = baseUrl+"/getMyRank/";
-var rateOtherMember = baseUrl+"/rateOtherMembe";
+var rateOtherMember = baseUrl+"/rateOtherMember";
 var addRating = baseUrl+"/addRating";
 var getAllTeamMembers = baseUrl+"/getAllTeamMembers/";
 var addFeedback = baseUrl +"/addFeedback";
@@ -57,6 +66,12 @@ var getCacheImage =  baseUrl+"/getCacheImage";
 var logoutUrl =  baseUrl+"/logout";
 var getFourTillNowRankingList = baseUrl+"/getFourTillNowRankingList";
 var getATeamMember = baseUrl+"/getATeamMember/";
+var getMonthRank = baseUrl+"/getRankOfLoggedInUserInCurrentMonth/";
+var getMonthTopRanks = baseUrl+"/getTopTenRankersOfCurrentMonth/";
+var getQuarterRank = baseUrl+"/getRankOfLoggedInUserInPast90Days/";
+var getQuarterTopRanks = baseUrl+/getTopTenRankersOfPast90Days/;
+var checkUserForFirstTime = baseUrl+/checkUserForFirstTime/;
+var sendFeedback = baseUrl+"/sendFeedback/";
 
 //updates for google client id and parakh logo (favicon) 
 var clientId = "791490125018-lcfs9ha89efjtp09v5u8q38ls05hhinl.apps.googleusercontent.com";

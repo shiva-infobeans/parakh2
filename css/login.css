@@ -3,47 +3,7 @@ body{
     padding:0px;
     font-family: 'Montserrat', sans-serif !important;
 }
-/*.login{
-    width:100%;
-    height:100%;
-    position:absolute;
-    top:0;
-    left:0;
-    z-index: -1;
-}
-.login-btn{
-    float:right;
-    position:absolute;
-    right:100px;
-    top:100px;
-    max-width: 350px;
-}
 
-#login-background{
-    background-size:100%;
-}
-#login-Background{
-    position:absolute;
-    top:0px;
-    left:0px;
-    width:100%;
-    height:100%;
-    z-index:-1;
-}*/
-/*@media (min-width:767px) {
-    .login-btn{
-    float:none !important;
-    position:absolute;
-}
-.login-btn {
-bottom: 34px !important;
-left: calc(100% - 76%);
-width: 50%;
-margin: 0 auto;
-position: absolute;
-top: auto;
-  }    
-}*/
 img#my-signin2{
     cursor: pointer;
 }
@@ -61,20 +21,32 @@ img#my-signin2{
     top: 100px;
     width: 350px;
 }
+.top-image {
+    position: fixed;
+    top: 90px;
+    left: 10px;
+    margin-top: 77px;
+    margin-left: 50px;
+}
+.bottom-image {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+}
 @media (min-device-width:320px) and (max-device-width: 767px){
     .login-btn {
         position: fixed !important;
         right: 0px;
         bottom: 20px !important;
-        top:auto;
+        top: auto;
         width: 70%;
-        left: 0;
-        margin:auto;
+        left: 80px;
+        margin: auto;
     }
     .logo-margin{
-     margin-top: 3px;
-     margin-left: 2px;
-}
+        margin-top: 3px;
+        margin-left: 2px;
+    }
     .imageWiseMsg1{
         bottom:375px !important;
         top: auto !important;
@@ -93,9 +65,9 @@ img#my-signin2{
     .login-btn {
         position: absolute;
         right: 30px;
-        top: 24px;
+        top: 50px;
         width: 350px;
-    }   
+    }
     .authFailed span{
         padding-left: 50px !important; 
         padding-right: 50px !important; 
@@ -109,7 +81,7 @@ img#my-signin2{
     .login-btn {
         position: absolute;
         right: 50px;
-        top: 20px;
+        top: 70px;
         width: 350px;
     }
     .authFailed span{
@@ -119,6 +91,16 @@ img#my-signin2{
     }
     .authFailed{
         margin: 115px auto !important;
+    }
+}
+@media screen and (min-width:320px) and (max-width: 500px){
+    .linkPos1{
+        top: 80px !important;
+    }
+    .linkPos2{
+           bottom: 80px !important;
+    top: auto !important;
+    right: 100px !important;
     }
 }
 .errorMsg{
@@ -159,12 +141,12 @@ img#my-signin2{
     display: none !important;
 }
 .overlay-loader{
-    position: fixed;
-    top:0px;
-    left: 0px;
-    height: 100%;
-    width: 100%;
-    background-color: rgba(0,0,0,0.7);
+    position: fixed !important;
+    top:0px !important;
+    left: 0px !important;
+    height: 100% !important;
+    width: 100% !important;
+    background-color: rgba(0,0,0,0.7) !important;
 }
 .authFailed span img {
     width: 15px;
@@ -188,41 +170,41 @@ img#my-signin2{
     font-size: 30px;
 }
 @keyframes blink {
-   
+
     0% {
-      opacity: .2;
+        opacity: .2;
     }
-    
+
     20% {
-      opacity: 1;
+        opacity: 1;
     }
     100% {
-      opacity: .2;
+        opacity: .2;
     }
 }
 
 .siteLoad span {
-   
+
     animation-name: blink;
-    
+
     animation-duration: 1.4s;
-    
+
     animation-iteration-count: infinite;
-    
+
     animation-fill-mode: both;
 }
 
 .siteLoad span:nth-child(2) {
-    
+
     animation-delay: .2s;
 }
 
 .siteLoad span:nth-child(3) {
-    
+
     animation-delay: .4s;
 }
 .overlay-loader-login{
-    background: none;
+    background: none !important;
     position: fixed;
     top: 0px;
     left: 0px;
@@ -230,4 +212,42 @@ img#my-signin2{
     bottom: 0px;
     width: 100%;
     height: 100%;
+}
+.achivementLink {
+    position: fixed;
+    top: 20px;
+    right: 101px;
+    padding: 5px;
+}
+.achivementLink {
+    position: fixed;
+    top: 20px;
+    right: 101px;
+    padding: 5px;
+}
+.achivementLink a {
+    color: #df4a32 !important;
+    font-size: 25px;
+    text-decoration: underline;
+}
+.video-img {
+    border: 5px solid #000;
+}
+.top-image {
+    position: fixed;
+    top: 90px;
+    left: 10px;
+    margin-top: 77px;
+    margin-left: 50px;
+}
+.video-div {
+    margin: 10px;
+}
+.bottom-image {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+}
+.video-img {
+    border: 5px solid #000;
 }

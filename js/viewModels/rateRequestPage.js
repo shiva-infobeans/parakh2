@@ -7,7 +7,7 @@
 /**
  * rateRequestPage module
  */
-define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojmodel', 'ojs/ojinputtext', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 'ojs/ojdialog'
+define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojmodel', 'ojs/ojinputtext', 'ojs/ojtabs', 'ojs/ojconveyorbelt', 'ojs/ojdialog', 'accordin/helpTextMsg'
 ], function (oj, ko, $) {
     /**
      * The view model for the main content view template
@@ -28,7 +28,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
     }
     function request(data, userid) {
         var req = Object();
-
+        req.helpText = ko.observable(approveDisapprove);
+        req.help = false;
+        req.requestTextAreaId = "requestTextAreaId" + data['request_id'];
         if (typeof data['comment_text'] == 'undefined') {
             req.lComment = data['description'];
             req.oldComment = data['description'];
@@ -124,7 +126,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.noLeadDeclinedRequest = ko.observable();
         self.selectTab = ko.observable(0);
 
-
+        ///////////////help text here
+        self.showHelpComment = ko.observable(sendReqRatePage);
         ////////////////////// tab detect send request 
         self.reqTabValue = ko.observable(2);
         self.reqTab = function () {
@@ -355,75 +358,75 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                                     self.lazyMemleadRejCurrent(self.lazyMemleadRejCurrent() + 1);
                                 }
                                 $("#request3").hide();
-                                 $('#mobileBtnLazy2').hide();
+                                $('#mobileBtnLazy2').hide();
                             }
                         }
                     });
                 }
 
-setTimeout (function(){
-    
-
-                if (self.role_name() === 'Team Member') {
-                    $('#rateTab2').hide();
-                    self.selectTab(1);
-                    $("#requestHover").addClass("buddyTabRequest");
-                    $('#rateTab1').append(' <img src="../../images/send-req-active.png" alt="" id="Inactive1" />')
-                } else {
-                    $('#rateTab2').show();
-
-                    $("#requestHover").addClass("hoverTabRequest2");
-
-                    $('#rateTab3').append(' <img src="../../images/request-approval-active.png" alt="" />')
-                    $('#rateTab1').append(' <img src="../../images/send-req.png" alt="" id="Inactive1" />')
-                    //$('#rateTab1').append(' <img src="../../images/+1-icon.png" alt="" id="Inactive1" />')
-
-                    $("#rateTab2").click(function () {
-
-                        if ($('#rateTab3 > img').attr("src") == "../../images/request-approval.png")
-                        {
-                            $('#rateTab1 > img').remove();
-                            $('#rateTab3 > img').remove();
-                            $('#rateTab3').append(' <img src="../../images/request-approval-active.png" alt="" />')
-                            $('#rateTab1').append(' <img src="../../images/send-req.png" alt="" id="Inactive1" />')
-                            //$('#rateTab1').append(' <img src="../../images/+1-icon.png" alt="" id="Inactive1" />')
-                        }
-                    });
-                    $("#rateTab3").click(function () {
-
-                        if ($('#rateTab3 > img').attr("src") == "../../images/request-approval.png")
-                        {
-                            $('#rateTab1 > img').remove();
-                            $('#rateTab3 > img').remove();
-                            $('#rateTab3').append(' <img src="../../images/request-approval-active.png" alt="" />')
-                            $('#rateTab1').append(' <img src="../../images/send-req.png" alt="" id="Inactive1" />')
-                            //$('#rateTab1').append(' <img src="../../images/+1-icon.png" alt="" id="Inactive1" />')
-
-                        }
-                    });
-
-                    $("#rateTab5").click(function () {
-                        if ($('#rateTab1 > img').attr("src") == "../../images/send-req.png")
-                        {
-                            $('#rateTab1 > img').remove();
-                            $('#rateTab3 > img').remove();
-                            $('#rateTab3').append(' <img src="../../images/request-approval.png" alt="" />');
-                            $('#rateTab1').append(' <img src="../../images/send-req-active.png" alt="" id="Inactive1" />')
-                        }
-                    });
-
-                    $("#rateTab1").click(function () {
-                        if ($('#rateTab1 > img').attr("src") == "../../images/send-req.png")
-                        {
-                            $('#rateTab1 > img').remove();
-                            $('#rateTab3 > img').remove();
-                            $('#rateTab3').append(' <img src="../../images/request-approval.png" alt="" />');
-                            $('#rateTab1').append(' <img src="../../images/send-req-active.png" alt="" id="Inactive1" />')
-                        }
-                    });
+                setTimeout(function () {
 
 
-                }
+                    if (self.role_name() === 'Team Member') {
+                        $('#rateTab2').hide();
+                        self.selectTab(1);
+                        $("#requestHover").addClass("buddyTabRequest");
+                        $('#rateTab1').append(' <img src="../../images/send-req-active.png" alt="" id="Inactive1" />')
+                    } else {
+                        $('#rateTab2').show();
+
+                        $("#requestHover").addClass("hoverTabRequest2");
+
+                        $('#rateTab3').append(' <img src="../../images/request-approval-active.png" alt="" />')
+                        $('#rateTab1').append(' <img src="../../images/send-req.png" alt="" id="Inactive1" />')
+                        //$('#rateTab1').append(' <img src="../../images/+1-icon.png" alt="" id="Inactive1" />')
+
+                        $("#rateTab2").click(function () {
+
+                            if ($('#rateTab3 > img').attr("src") == "../../images/request-approval.png")
+                            {
+                                $('#rateTab1 > img').remove();
+                                $('#rateTab3 > img').remove();
+                                $('#rateTab3').append(' <img src="../../images/request-approval-active.png" alt="" />')
+                                $('#rateTab1').append(' <img src="../../images/send-req.png" alt="" id="Inactive1" />')
+                                //$('#rateTab1').append(' <img src="../../images/+1-icon.png" alt="" id="Inactive1" />')
+                            }
+                        });
+                        $("#rateTab3").click(function () {
+
+                            if ($('#rateTab3 > img').attr("src") == "../../images/request-approval.png")
+                            {
+                                $('#rateTab1 > img').remove();
+                                $('#rateTab3 > img').remove();
+                                $('#rateTab3').append(' <img src="../../images/request-approval-active.png" alt="" />')
+                                $('#rateTab1').append(' <img src="../../images/send-req.png" alt="" id="Inactive1" />')
+                                //$('#rateTab1').append(' <img src="../../images/+1-icon.png" alt="" id="Inactive1" />')
+
+                            }
+                        });
+
+                        $("#rateTab5").click(function () {
+                            if ($('#rateTab1 > img').attr("src") == "../../images/send-req.png")
+                            {
+                                $('#rateTab1 > img').remove();
+                                $('#rateTab3 > img').remove();
+                                $('#rateTab3').append(' <img src="../../images/request-approval.png" alt="" />');
+                                $('#rateTab1').append(' <img src="../../images/send-req-active.png" alt="" id="Inactive1" />')
+                            }
+                        });
+
+                        $("#rateTab1").click(function () {
+                            if ($('#rateTab1 > img').attr("src") == "../../images/send-req.png")
+                            {
+                                $('#rateTab1 > img').remove();
+                                $('#rateTab3 > img').remove();
+                                $('#rateTab3').append(' <img src="../../images/request-approval.png" alt="" />');
+                                $('#rateTab1').append(' <img src="../../images/send-req-active.png" alt="" id="Inactive1" />')
+                            }
+                        });
+
+
+                    }
                 }, 500);
                 var lead = oj.Model.extend({
                     url: getAllLeads + self.userId(),
@@ -434,9 +437,8 @@ setTimeout (function(){
                     success: function (result) {
                         var data = result['attributes']['data'];
 
-
                         if (result['attributes']['data'].length == 1) {
-                            $('#hideLead').hide();
+                            $('#hidemanager').hide();
                         }
 
                         self.lead_name(result['attributes']['data'][0]['manager_name']);
@@ -447,8 +449,6 @@ setTimeout (function(){
                         }
                         self.lead_id(result['attributes']['data'][0]['manager_id']);
                         self.lead_role(result['attributes']['data'][0]['role_name']);
-                        // console.log(result['attributes']['data'][0]['role_name']);
-
 
                         if (result['attributes']['data'].length == 2) {
                             self.manager_name(result['attributes']['data'][1]['manager_name']);
@@ -458,9 +458,12 @@ setTimeout (function(){
                             if (result['attributes']['data'][1]['google_picture_link'] == '/images/default.png')
                             {
                                 self.intials_manager(nameFunction(result['attributes']['data'][1]['manager_name']));
+                            } else
+                            {
+                                self.intials_manager("");
                             }
+
                         }
-                        //console.log(result['attributes']['data'][1]['role_name']);
                         if (self.lead_id() == self.manager_id()) {
                             $('#hideLead').hide();
                         }
@@ -502,7 +505,7 @@ setTimeout (function(){
             {
                 var obj = $("#decline" + requestId);
             }
-            var descHTML = obj.parent().prev().children().children('#text-area20');
+            var descHTML = $("#requestTextAreaId" + requestId);
             var descriptionChange = (descHTML.val().trim() != "") ?
                     descHTML.val().trim() : oldComment;
             var removeHtml = obj;
@@ -587,7 +590,7 @@ setTimeout (function(){
                                         self.lazyMemleadRejCurrent(self.lazyMemleadRejCurrent() + 1);
                                     }
                                     $("#request3").hide();
-                                     $('#mobileBtnLazy2').hide();
+                                    $('#mobileBtnLazy2').hide();
                                 }
 
                             }
@@ -714,6 +717,7 @@ setTimeout (function(){
                 self.textError1("Please provide a reason for your rating request.");
                 return false;
             }
+            self.desc1(self.desc1().trim());
             $.ajax({
                 headers: {secret: secret},
                 method: 'POST',
@@ -939,7 +943,7 @@ setTimeout (function(){
                                 var loadRecordCount = self.lazyMemleadPendingMax() - self.lazyMemleadPendingCurrent();
                                 $('#leadPendingLoading').hide();
                                 $('#mobileBtnLazy1').hide();
-                                
+
                             } else {
                                 var loadRecordCount = self.lazyMemleadPendingBlock();
                             }
@@ -961,8 +965,37 @@ setTimeout (function(){
         });
 
 
-        ///////////////lazy loading function for declined request for user end
-
+        self.data = function (content, data) {
+//            if (!content['help']) {
+//                content['help'] = true;
+//            } else {
+//                content['helpText']("");
+//            }
+        }
+        self.textAreaChange = function (context, value) {
+            if (value['option'] == 'rawValue') {
+                if (value['value'] != '') {
+                    //self.showHelpComment("");
+                }
+            }
+        }
+        self.setHelp = function () {
+            if (self.desc() == "") {
+                self.showHelpComment(sendReqRatePage);
+            }
+            if (self.desc1() == "") {
+                self.showHelpComment(sendReqRatePage);
+            }
+        }
+        oj.Components.setDefaultOptions({
+            'editableValue':
+                    {
+                        'displayOptions':
+                                {
+                                    'messages': ['notewindow']
+                                }
+                    }
+        });
     }
 
     return rateRequestPageContentViewModel;

@@ -7,7 +7,7 @@
 /**
  * myTeam module
  */
-define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojmodel', , 'ojs/ojtabs', 'ojs/ojconveyorbelt'
+define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojmodel', , 'ojs/ojtabs', 'ojs/ojconveyorbelt', 'accordin/helpTextMsg'
 ], function (oj, ko, $) {
     /**
      * The view model for the main content view template
@@ -56,6 +56,9 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
     function myTeamContentViewModel(person) {
         var self = this;
         self.image = ko.observable();
+        self.intials_feedback = ko.observable("");
+        self.intials_rate = ko.observable("");
+        self.intials_icc = ko.observable("");
         self.myname = ko.observable();
         self.myDesignation = ko.observable();
         self.role_name = ko.observable();
@@ -82,6 +85,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         self.sucessMsg = ko.observable();
         self.selectTab = ko.observable(0);
         self.sucessMsgFeedback = ko.observable();
+        self.showHelpComment = ko.observable(feedbackBuddyPage);
+        self.tabshow = ko.observable(true);
 
         self.myTeamTab = ko.observable(2);
         ///////////// tab switching ///////////
@@ -140,13 +145,11 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 self.lead_id(res['attributes']['data']['id']);
                 self.role_name(res['attributes']['data']['role_name']);
 
-                if (self.role_name() === 'Team Member') {
-
-                    $('#tabs ul li:first-child').hide();
+                if (self.role_name() === 'Team Member') {  
+                  self.tabshow(false);
 
                 } else {
-
-                    $('#tabs ul li:first-child').addClass('abc').show();
+                      self.tabshow(true);
                     //lead id user
                     $.ajax({
                         headers: {secret: secret},
@@ -276,6 +279,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             // feedback...
             self.handleOpen = $(".feedbackBuddy").click(function () {
                 $("#modalDialog8").ojDialog("open");
+                self.showHelpComment(feedbackBuddyPage);
                 self.desc('');
                 self.textError('');
             });
@@ -289,6 +293,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.handleOpen = $(".feedbackBuddyLead").click(function () {
                 $("#modalDialog8").ojDialog("open");
                 self.desc('');
+                self.showHelpComment(feedbackBuddyPage);
                 self.textError('');
             });
 
@@ -300,6 +305,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
 
             //rateBuddy...
             self.handleOpen = $(".star").click(function () {
+                self.showHelpComment(rateBuddyPage);
                 $("#modalDialog1").ojDialog("open");
                 self.desc('');
                 self.textError('');
@@ -344,6 +350,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 self.handleOpen = $(".feedbackBuddyLead").click(function () {
                     $("#modalDialog8").ojDialog("open");
                     self.desc('');
+                    self.showHelpComment(feedbackBuddyPage);
                     self.textError('');
                 });
 
@@ -364,6 +371,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 self.p(1);
                 self.image1("../../images/active(+1).png")
                 self.image2("../../images/disable(-1).png");
+                self.showHelpComment(rateBuddyPage);
             });
 
             self.handleOKClose = $("#okButton").click(function () {
@@ -388,6 +396,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.for_id($(this).attr("id"));
             self.image($(this).attr("image"));
             self.myname($(this).attr("myname"));
+            self.showHelpComment(rateBuddyPage);
+            if ($(this).attr("image") == '/images/default.png')
+            {
+                self.intials_icc(nameFunction($(this).attr("myname")));
+            } else
+            {
+                self.intials_icc("");
+            }
             self.myDesignation($(this).attr("myDesignation"));
             self.intials($(this).attr("intials"))
             $('.textArea2').val('');
@@ -400,6 +416,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.for_id($(this).attr("myTeamId"));
             self.image($(this).attr("teamImage"));
             self.myname($(this).attr("teamName"));
+            self.showHelpComment(feedbackBuddyPage);
+            if ($(this).attr("teamImage") == '/images/default.png')
+            {
+                self.intials_feedback(nameFunction($(this).attr("teamName")));
+            } else
+            {
+                self.intials_feedback('');
+            }
             self.myDesignation($(this).attr("teamDesig"));
             $('.textArea-feedback').val('');
         });
@@ -408,6 +432,14 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             self.for_id($(this).attr("id"));
             self.image($(this).attr("image"));
             self.myname($(this).attr("myname"));
+            self.showHelpComment(feedbackBuddyPage);
+            if ($(this).attr("image") == '/images/default.png')
+            {
+                self.intials_feedback(nameFunction($(this).attr("myname")));
+            } else
+            {
+                self.intials_feedback('');
+            }
             self.myDesignation($(this).attr("myDesignation"));
         });
         //submit for rate buddy
@@ -531,23 +563,39 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         }
 //        +1/-1 from team lead/manager 
         $("body").on('click', '.rateMyTeam', function () {
-            $("#modalDialog2").ojDialog("open");
+            self.showHelpComment(rateBuddyPage);
             self.desc('');
             self.textError('');
             self.p(1);
             self.image1("../../images/active(+1).png")
             self.image2("../../images/disable(-1).png");
             self.teamImage($(this).attr("teamImage"));
+            if ($(this).attr("teamImage") == '/images/default.png')
+            {
+                self.intials_rate(nameFunction($(this).attr("teamName")));
+            } else
+            {
+                self.intials_rate('');
+            }
             self.myId($(this).attr("myTeamId"));
             self.teamName($(this).attr("teamName"));
             self.teamDesig($(this).attr("teamDesig"));
             self.intials($(this).attr("intials"));
+            $("#modalDialog2").ojDialog("open");
 
         });
 
         //feedback...
         $("body").on('click', '.feedbackBuddy', function () {
             self.teamImage($(this).attr("teamImage"));
+            self.showHelpComment(feedbackBuddyPage);
+            if ($(this).attr("teamImage") == '/images/default.png')
+            {
+                self.intials_rate(nameFunction($(this).attr("teamName")));
+            } else
+            {
+                self.intials_rate('');
+            }
             self.myId($(this).attr("myTeamId"));
             self.teamName($(this).attr("teamName"));
             self.teamDesig($(this).attr("teamDesig"));
@@ -558,7 +606,16 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             $("#modalDialog8").ojDialog("open");
             self.desc('');
             self.textError('');
+            self.showHelpComment(feedbackBuddyPage);
             self.teamImage($(this).attr("teamImage"));
+            if ($(this).attr("teamImage") == '/images/default.png')
+            {
+                self.intials_rate(nameFunction($(this).attr("teamName")));
+            } else
+            {
+                self.intials_rate('');
+            }
+
             self.myId($(this).attr("myTeamId"));
             self.teamName($(this).attr("teamName"));
             self.teamDesig($(this).attr("teamDesig"));
@@ -771,15 +828,18 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             $("#modalDialog1").ojDialog("open");
             self.desc('');
             self.textError('');
+            self.showHelpComment(rateBuddyPage);
         });
 
         self.handleOpen = $(".starTeam").click(function () {
+            self.showHelpComment(rateBuddyPage);
             $("#modalDialog2").ojDialog("open");
             self.desc('');
             self.textError('');
             self.p(1);
             self.image1("../../images/active(+1).png")
             self.image2("../../images/disable(-1).png");
+
         });
 
         // feedback...
@@ -787,13 +847,17 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
             $("#modalDialog8").ojDialog("open");
             self.desc('');
             self.textError('');
+            self.showHelpComment(feedbackBuddyPage);
+
         });
 
         // feedbackLead...
         self.handleOpen = $(".feedbackBuddyLead").click(function () {
             $("#modalDialog8").ojDialog("open");
             self.desc('');
+            self.showHelpComment(feedbackBuddyPage);
             self.textError('');
+
         });
 
         $(window).scroll(function () {
@@ -842,6 +906,23 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 }
             }
         });
+        //help comment 
+        oj.Components.setDefaultOptions({
+            'editableValue':
+                    {
+                        'displayOptions':
+                                {
+                                    'messages': ['notewindow']
+                                }
+                    }
+        });
+        self.textAreaChange = function (context, value) {
+            if (value['option'] == 'rawValue') {
+                if (value['value'] != '') {
+//                    self.showHelpComment("");
+                }
+            }
+        }
     }
     return myTeamContentViewModel;
 });

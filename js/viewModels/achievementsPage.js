@@ -25,6 +25,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
                 }
             }
         });
+         $('#link').click(function () {
+                $("html, body").animate({scrollTop: 0}, 600);
+                return false;
+            });
     }
 
     function achievementsPageContentViewModel(person) {
@@ -43,9 +47,16 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton', 'o
         $(document).ready(function () {
             resize();
             $(window).resize(resize);
+             $('#topArrow').hide();
         });
 
-
+         $(window).scroll(function () {
+            if ($(window).scrollTop() < 100) {
+                $('#topArrow').fadeOut();
+            } else {
+                $('#topArrow').fadeIn();
+            }
+        });
 
 
 
