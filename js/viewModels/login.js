@@ -30,11 +30,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojknockout', 'oj
     	$(function(){
             var bg = $('#login-background').css('background-image');
             bg = bg.replace('url(','').replace(')','').replace(/\"/gi, "");
-            if(bg==document.location.href+'images/parakh.jpg')
+            
+            if(bg.split('/')[(bg.split('/').length -1)] == "parakh.jpg")
             {
                 $('#top-image').show();
                 $('#bottom-image').hide();
-            }else if(bg==document.location.href+'images/parakh2.jpg')
+            }else if(bg.split('/')[(bg.split('/').length -1)] == "parakh2.jpg")
             {
                 $('#top-image').hide();
                 $('#bottom-image').show();
