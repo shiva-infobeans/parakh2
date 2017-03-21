@@ -82,6 +82,8 @@ function headerContentViewModel(person) {
     self.notif = ko.observableArray();
     self.userId = ko.observable();
     self.notifCount = ko.observable();
+    self.notifMsg = ko.observable("No Notification");
+    self.activeNotif = ko.observable(true);
     self.signout = function () {
         setCookie("email", "", 0);
         setCookie("name", "", 0);
@@ -129,7 +131,9 @@ function headerContentViewModel(person) {
                     headers: {secret: secret},
                     success: function (res) {
                         var data = res['attributes']['data'];
-                        
+                        if(data.length == 0){
+                            self.activeNotif(false);
+                        }
                         for (var c = 0; c < data.length; c++) {
                             var notificationData = new Object();
                             if (data[c]['rating'] == '+1') {
