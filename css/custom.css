@@ -2764,3 +2764,10 @@ and (orientation : landscape) {
     height: 375px !important;
 }
 }
+.noNotificationDiv{
+    display: table;
+}
+.noNotificationDiv div {
+    width: 100%;
+    color: #363636;
+}
