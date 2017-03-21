@@ -65,7 +65,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojchart', 'oj
 
 
         this.browsers = ko.observableArray([
-            {value: 'uptillnow', label: 'Uptill Now'},
+            {value: 'uptillnow', label: 'Up Till Now'},
             {value: 'quarter', label: 'Quarter'},
             {value: 'month', label: 'Month'}
         ]);
