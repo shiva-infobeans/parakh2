@@ -23,6 +23,14 @@
                                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item notification-padding">
                                             <h4 class="center color-black colorDarkGreen">Notifications</h4>
                                         </div>
+                                        <!-- ko ifnot: activeNotif -->
+                                        <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex oj-padding notification-overflow notification-background noNotificationDiv">
+                                            <div data-bind="text: notifMsg" class="center">
+                                                
+                                            </div>
+                                        </div>
+                                        <!-- /ko -->
+                                        <!-- ko if: activeNotif -->
                                         <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-flex-item oj-flex notification-overflow oj-padding notification-background">
                                             <!--repeat block for notification -->
                                             <!-- ko foreach: notif -->
@@ -38,6 +46,7 @@
                                             </div>
                                             <!-- /ko -->
                                         </div>
+                                        <!-- /ko -->
                                     </div>
                                 </div>
                                 <a href="javascript:void(0)" title="Notification" id="notificationOpen"><i class="zmdi zmdi-notifications  zmdi-hc-lg"></i></a></li>
